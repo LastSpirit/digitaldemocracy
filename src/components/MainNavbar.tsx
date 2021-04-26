@@ -5,17 +5,16 @@ import {
   Box,
   Button,
   Divider,
-  Hidden,
   Link,
   Toolbar,
 } from '@material-ui/core';
-import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
 import Logo from './Logo';
 import Search from '../icons/Search';
 import InputTextField from './widgets/inputs/InputTextField';
 import Brand from '../icons/Brand';
 import { useWindowSize } from '../hooks/useWindowSize';
 import useAuth from '../hooks/useAuth';
+import Person from '../icons/Person';
 
 interface MainNavbarProps {
   onSidebarMobileOpen?: () => void;
@@ -46,10 +45,10 @@ const MainNavbar: FC<MainNavbarProps> = () => {
     {
       title: isAuthenticated ? 'Предложить новость/политика' : 'Вход',
       to: isAuthenticated ? '/' : '/login',
-      color: 'error.main',
+      color: '',
     },
     {
-      title: isAuthenticated ? <PersonOutlineOutlinedIcon /> : 'Регистрация',
+      title: isAuthenticated ? <Person /> : 'Регистрация',
       to: isAuthenticated ? '/profile' : '/register',
       color: '',
     }
@@ -63,74 +62,7 @@ const MainNavbar: FC<MainNavbarProps> = () => {
       }}
     >
       <Toolbar sx={{ minHeight: 64, justifyContent: isMobile ? 'center' : 'space-between', alignItems: 'center', display: 'flex' }}>
-        <Hidden smDown>
-          <Box sx={{
-            display: 'flex',
-            alignItems: 'center',
-            height: 40
-          }}
-          >
-            <RouterLink to="/">
-              <Logo
-                sx={{
-                  height: 40,
-                  width: 40
-                }}
-              />
-            </RouterLink>
-            <Box sx={{
-              marginLeft: 17,
-            }}
-            >
-              <InputTextField
-                icon={<Search />}
-              />
-            </Box>
-          </Box>
-          <Box>
-            {links.map(({ title, mr, to }, index) => (
-              <Link
-                key={index.toString()}
-                to={to}
-                color="textSecondary"
-                component={RouterLink}
-                underline="none"
-                variant="body1"
-                sx={{
-                  marginRight: mr
-                }}
-              >
-                {title}
-              </Link>
-            ))}
-          </Box>
-          <Box
-            sx={{
-              backgroundColor: 'background.paper',
-              p: 3
-            }}
-          >
-            {buttons.map(({ to, color, title }, index) => (
-              <Button
-                key={index.toString()}
-                sx={{
-                  backgroundColor: color,
-                  p: 1,
-                  paddingRight: 2,
-                  paddingLeft: 2,
-                  borderRadius: 100,
-                  mr: index === 0 ? 3 : 0,
-                }}
-                size="small"
-                variant="contained"
-                onClick={() => navigate(to)}
-              >
-                {title}
-              </Button>
-            ))}
-          </Box>
-        </Hidden>
-        <Hidden smUp>
+        {isMobile ? (
           <Box sx={{
             display: 'flex',
             alignItems: 'center',
@@ -140,7 +72,75 @@ const MainNavbar: FC<MainNavbarProps> = () => {
           >
             <Brand />
           </Box>
-        </Hidden>
+        ) : (
+          <>
+            <Box sx={{
+              display: 'flex',
+              alignItems: 'center',
+              height: 40
+            }}
+            >
+              <RouterLink to="/">
+                <Logo
+                  sx={{
+                    height: 40,
+                    width: 40
+                  }}
+                />
+              </RouterLink>
+              <Box sx={{
+                marginLeft: 17,
+              }}
+              >
+                <InputTextField
+                  icon={<Search />}
+                />
+              </Box>
+            </Box>
+            <Box>
+              {links.map(({ title, mr, to }, index) => (
+                <Link
+                  key={index.toString()}
+                  to={to}
+                  color="textSecondary"
+                  component={RouterLink}
+                  underline="none"
+                  variant="body1"
+                  sx={{
+                    marginRight: mr
+                  }}
+                >
+                  {title}
+                </Link>
+              ))}
+            </Box>
+            <Box
+              sx={{
+                backgroundColor: 'background.paper',
+                p: 3
+              }}
+            >
+              {buttons.map(({ to, color, title }, index) => (
+                <Button
+                  key={index.toString()}
+                  sx={{
+                    backgroundColor: color,
+                    p: 1,
+                    paddingRight: 2,
+                    paddingLeft: 2,
+                    borderRadius: 100,
+                    mr: index === 0 ? 3 : 0,
+                  }}
+                  size="small"
+                  variant="outlined"
+                  onClick={() => navigate(to)}
+                >
+                  {title}
+                </Button>
+              ))}
+            </Box>
+          </>
+        )}
       </Toolbar>
       <Divider />
     </AppBar>

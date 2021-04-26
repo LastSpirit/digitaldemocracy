@@ -6,7 +6,6 @@ import { ThemeProvider } from '@material-ui/core';
 import './i18n';
 import GlobalStyles from './components/GlobalStyles';
 import RTL from './components/RTL';
-import SettingsDrawer from './components/SettingsDrawer';
 import SplashScreen from './components/SplashScreen';
 import { gtmConfig } from './config';
 import useAuth from './hooks/useAuth';
@@ -41,7 +40,6 @@ const App: FC = () => {
           maxSnack={3}
         >
           <GlobalStyles />
-          <SettingsDrawer />
           {auth.isInitialized ? content : <SplashScreen />}
         </SnackbarProvider>
       </RTL>
