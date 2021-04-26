@@ -22,7 +22,7 @@ const App: FC = () => {
     roundedCorners: settings.roundedCorners,
     theme: settings.theme
   });
-  
+
   return (
     <ThemeProvider theme={theme}>
       <div>APP</div>
