@@ -1,83 +1,30 @@
 import type { FC } from 'react';
-import { Box, Grid, TextField } from '@material-ui/core';
+import { Box, TextField, BoxProps } from '@material-ui/core';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const InputTextField: FC = () => (
-  <Box
-    sx={{
-      backgroundColor: 'background.paper',
-      p: 2
-    }}
-  >
-    <Grid container>
-      <Grid
-        item
-        md={6}
-        xs={12}
-      >
-        <Grid
-          container
-          spacing={4}
-        >
-          <Grid
-            item
-            sm={6}
-            xs={12}
-          >
-            <TextField
-              fullWidth
-              label="Name"
-              variant="outlined"
-            />
-          </Grid>
-          <Grid
-            item
-            sm={6}
-            xs={12}
-          >
-            <TextField
-              fullWidth
-              label="Email Address"
-              required
-              type="email"
-              variant="outlined"
-            />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-          >
-            <TextField
-              fullWidth
-              label="Phone number"
-              variant="outlined"
-            />
-          </Grid>
-          <Grid
-            item
-            sm={6}
-            xs={12}
-          >
-            <TextField
-              fullWidth
-              label="State/Region"
-              variant="outlined"
-            />
-          </Grid>
-          <Grid
-            item
-            sm={6}
-            xs={12}
-          >
-            <TextField
-              fullWidth
-              label="City"
-              variant="outlined"
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+interface InputTextFieldProps extends BoxProps {
+  icon?: React.ReactNode
+  label?: string
+}
+
+const InputTextField: FC<InputTextFieldProps> = ({ icon, label }, props) => (
+  <Box {...props}>
+    <TextField
+      InputProps={{
+        startAdornment: (
+          icon
+        ),
+      }}
+      label={label}
+      variant="outlined"
+    />
   </Box>
 );
+
+InputTextField.propTypes = {
+  icon: PropTypes.node,
+  label: PropTypes.string
+};
 
 export default InputTextField;
