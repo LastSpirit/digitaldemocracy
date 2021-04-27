@@ -6,7 +6,7 @@ import {
   Button,
   Divider,
   Link,
-  Toolbar,
+  Toolbar, Typography,
 } from '@material-ui/core';
 import Logo from './Logo';
 import Search from '../icons/Search';
@@ -91,14 +91,31 @@ const MainNavbar: FC = () => {
               height: 40
             }}
             >
-              <RouterLink to="/">
-                <Logo
-                  sx={{
-                    height: 40,
-                    width: 40
-                  }}
-                />
-              </RouterLink>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  height: 40
+                }}
+              >
+                <RouterLink to="/">
+                  <Logo
+                    sx={{
+                      height: 40,
+                      width: 40
+                    }}
+                  />
+                </RouterLink>
+                <Typography
+                  sx={{ ml: 1.5 }}
+                  color="textSecondary"
+                  variant="caption"
+                >
+                  Digital
+                  <br />
+                  Democracy
+                </Typography>
+              </Box>
               <Box sx={{
                 marginLeft: 17,
               }}

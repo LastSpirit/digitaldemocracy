@@ -1,23 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Modal, Box } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import Register from '../../../pages/authentication/Register';
 import Login from '../../../pages/authentication/Login';
 import { ModalParams } from '../../../types/routing';
 import { useSearchParams } from '../../../hooks/useSearchParams';
+import { AuthContext } from '../../../contexts/AuthContext';
 
 const AuthModal:React.FC = () => {
   const {
     [ModalParams.Auth]: { value: authValue, setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
+  const { setRegisterStep } = useContext(AuthContext);
 
   const onCloseModal = () => {
     setAuthValue(undefined);
+    setRegisterStep(1);
   };
 
   return (
     <Modal
       open={!!authValue}
+      disableAutoFocus
       onClose={onCloseModal}
       sx={{
         display: 'flex',

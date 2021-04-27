@@ -26,5 +26,8 @@ export const gtmConfig = {
 };
 
 export const dadataConfig = {
-  apiKey: '5191ef57ed2088eedda24045d53e3d60b0dda932'
+  apiKey: '8abdff555266464aa4fad6bb68b6a14237289c14',
+  secretKey: '0ddc8f74f0cd206c8e29923f1c6d8b7c55838664',
+  checkAddressUrl: 'https://cleaner.dadata.ru/api/v1/clean/address',
+  getAddresses: 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address'
 };

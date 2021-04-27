@@ -13,6 +13,7 @@ import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 import StyledEngineProvider from '@material-ui/core/StyledEngineProvider';
 import App from './App';
 import { AuthProvider } from './contexts/JWTContext';
+import { AuthContextProvider } from './contexts/AuthContext';
 import { SettingsProvider } from './contexts/SettingsContext';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
@@ -25,11 +26,13 @@ ReactDOM.render(
         <StyledEngineProvider injectFirst>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <SettingsProvider>
-              <BrowserRouter>
-                <AuthProvider>
-                  <App />
-                </AuthProvider>
-              </BrowserRouter>
+              <AuthContextProvider>
+                <BrowserRouter>
+                  <AuthProvider>
+                    <App />
+                  </AuthProvider>
+                </BrowserRouter>
+              </AuthContextProvider>
             </SettingsProvider>
           </LocalizationProvider>
         </StyledEngineProvider>
