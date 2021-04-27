@@ -1,145 +1,95 @@
 import { useEffect } from 'react';
 import type { FC } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import {
   Box,
   Card,
   CardContent,
-  Container,
   Divider,
-  Link,
   Typography
 } from '@material-ui/core';
-import AuthBanner from '../../components/authentication/AuthBanner';
 import {
   RegisterAmplify,
-  RegisterAuth0,
-  RegisterFirebase,
-  RegisterJWT
 } from '../../components/authentication/register';
-import Logo from '../../components/Logo';
-import useAuth from '../../hooks/useAuth';
 import gtm from '../../lib/gtm';
 
-const platformIcons = {
-  Amplify: '/static/icons/amplify.svg',
-  Auth0: '/static/icons/auth0.svg',
-  Firebase: '/static/icons/firebase.svg',
-  JWT: '/static/icons/jwt.svg'
-};
-
 const Register: FC = () => {
-  const { platform } = useAuth() as any;
-
   useEffect(() => {
     gtm.push({ event: 'page_view' });
   }, []);
-
   return (
     <>
-      <Helmet>
-        <title>Register | Material Kit Pro</title>
-      </Helmet>
-      <Box
-        sx={{
-          backgroundColor: 'background.default',
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: '100vh'
-        }}
+      <Card sx={{
+        width: 555,
+      }}
       >
-        <AuthBanner />
-        <Container
-          maxWidth="sm"
-          sx={{ py: '80px' }}
+        <CardContent
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            paddingTop: '70px',
+            paddingRight: '45px',
+            paddingLeft: '45px'
+          }}
         >
           <Box
             sx={{
-              mb: 8,
+              alignItems: 'center',
               display: 'flex',
-              justifyContent: 'center'
+              justifyContent: 'space-between',
+              marginBottom: '18px',
             }}
           >
-            <RouterLink to="/">
-              <Logo
-                sx={{
-                  height: 40,
-                  width: 40
-                }}
-              />
-            </RouterLink>
-          </Box>
-          <Card>
-            <CardContent
+            <Typography
+              color="textPrimary"
+              gutterBottom
+              variant="h3"
+              mb="0"
+              fontWeight="300"
+            >
+              Регистрация
+            </Typography>
+            <Box
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                p: 4
+                height: 32,
+                '& > img': {
+                  maxHeight: '100%',
+                  width: 'auto'
+                }
               }}
             >
-              <Box
-                sx={{
-                  alignItems: 'center',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  mb: 3
-                }}
+              <Typography
+                color="textPrimary"
+                gutterBottom
+                fontWeight="300"
+                variant="h4"
               >
-                <div>
-                  <Typography
-                    color="textPrimary"
-                    gutterBottom
-                    variant="h4"
-                  >
-                    Register
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    variant="body2"
-                  >
-                    Register on the internal platform
-                  </Typography>
-                </div>
-                <Box
-                  sx={{
-                    height: 32,
-                    '& > img': {
-                      maxHeight: '100%',
-                      width: 'auto'
-                    }
-                  }}
-                >
-                  <img
-                    alt="Auth platform"
-                    src={platformIcons[platform]}
-                  />
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  flexGrow: 1,
-                  mt: 3
-                }}
-              >
-                {platform === 'Amplify' && <RegisterAmplify />}
-                {platform === 'Auth0' && <RegisterAuth0 />}
-                {platform === 'Firebase' && <RegisterFirebase />}
-                {platform === 'JWT' && <RegisterJWT />}
-              </Box>
-              <Divider sx={{ my: 3 }} />
-              <Link
-                color="textSecondary"
-                component={RouterLink}
-                to="/authentication/login"
-                variant="body2"
-              >
-                Having an account
-              </Link>
-            </CardContent>
-          </Card>
-        </Container>
-      </Box>
+                1/4
+              </Typography>
+            </Box>
+          </Box>
+          <Typography
+            color="#747373"
+            gutterBottom
+          >
+            Где вы имеете право голоса?
+          </Typography>
+          <Box
+            sx={{
+              flexGrow: 1,
+              mt: 3
+            }}
+          >
+            <RegisterAmplify />
+          </Box>
+          <Divider sx={{ my: 3 }} />
+          <Typography
+            color="textSecondary"
+            variant="body2"
+          >
+            Прежде всего, синтетическое тестирование в значительной степени обусловливает важность прогресса профессионального сообщества!
+          </Typography>
+        </CardContent>
+      </Card>
     </>
   );
 };

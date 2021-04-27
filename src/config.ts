@@ -24,3 +24,7 @@ export const firebaseConfig = {
 export const gtmConfig = {
   containerId: process.env.REACT_APP_GTM_CONTAINER_ID
 };
+
+export const dadataConfig = {
+  apiKey: '5191ef57ed2088eedda24045d53e3d60b0dda932'
+};

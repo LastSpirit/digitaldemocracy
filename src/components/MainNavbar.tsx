@@ -15,10 +15,8 @@ import Brand from '../icons/Brand';
 import { useWindowSize } from '../hooks/useWindowSize';
 import useAuth from '../hooks/useAuth';
 import Person from '../icons/Person';
-
-interface MainNavbarProps {
-  onSidebarMobileOpen?: () => void;
-}
+import { ModalParams } from '../types/routing';
+import { useSearchParams } from '../hooks/useSearchParams';
 
 const links = [
   {
@@ -37,22 +35,35 @@ const links = [
     mr: 0,
   }];
 
-const MainNavbar: FC<MainNavbarProps> = () => {
+const MainNavbar: FC = () => {
   const navigate = useNavigate();
   const { isMobile } = useWindowSize();
   const { isAuthenticated } = useAuth();
+  const {
+    [ModalParams.Auth]: { setValue: setAuthValue },
+  } = useSearchParams(ModalParams.Auth);
+
   const buttons = [
     {
       title: isAuthenticated ? 'Предложить новость/политика' : 'Вход',
-      to: isAuthenticated ? '/' : '/login',
+      to: isAuthenticated ? '/' : 'login',
       color: '',
     },
     {
       title: isAuthenticated ? <Person /> : 'Регистрация',
-      to: isAuthenticated ? '/profile' : '/register',
+      to: isAuthenticated ? '/profile' : 'register',
       color: '',
     }
   ];
+
+  const handleClick = (to: string) => {
+    if (isAuthenticated) {
+      navigate(to);
+    } else {
+      setAuthValue(to);
+    }
+  };
+
   return (
     <AppBar
       elevation={0}
@@ -133,7 +144,7 @@ const MainNavbar: FC<MainNavbarProps> = () => {
                   }}
                   size="small"
                   variant="outlined"
-                  onClick={() => navigate(to)}
+                  onClick={() => handleClick(to)}
                 >
                   {title}
                 </Button>

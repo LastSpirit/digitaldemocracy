@@ -5,46 +5,39 @@ import { Formik } from 'formik';
 import {
   Box,
   Button,
-  Checkbox,
-  FormHelperText,
-  Link,
   TextField,
-  Typography
+  Autocomplete, Typography,
 } from '@material-ui/core';
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
+import { useFetchAddresses } from './useFetchAddresses';
+import { ModalParams } from '../../../types/routing';
+import { useSearchParams } from '../../../hooks/useSearchParams';
 
 const RegisterAmplify: FC = (props) => {
   const isMountedRef = useIsMountedRef();
   const navigate = useNavigate();
   const { register } = useAuth() as any;
+  const { fetchAddresses, addresses: options } = useFetchAddresses();
+
+  const {
+    [ModalParams.Auth]: { setValue: setAuthValue },
+  } = useSearchParams(ModalParams.Auth);
 
   return (
     <>
       <Formik
         initialValues={{
-          email: '',
-          password: '',
-          policy: true,
+          address: '',
           submit: null
         }}
         validationSchema={
           Yup
             .object()
             .shape({
-              email: Yup
+              address: Yup
                 .string()
-                .email('Must be a valid email')
-                .max(255)
-                .required('Email is required'),
-              password: Yup
-                .string()
-                .min(7)
-                .max(255)
-                .required('Password is required'),
-              policy: Yup
-                .boolean()
-                .oneOf([true], 'This field must be checked')
+                .required('Это обязательное поле'),
             })
         }
         onSubmit={async (values, {
@@ -53,11 +46,11 @@ const RegisterAmplify: FC = (props) => {
           setSubmitting
         }): Promise<void> => {
           try {
-            await register(values.email, values.password);
+            await register(values.address);
 
             navigate('/authentication/verify-code', {
               state: {
-                username: values.email
+                username: values.address
               }
             });
           } catch (err) {
@@ -84,73 +77,28 @@ const RegisterAmplify: FC = (props) => {
             onSubmit={handleSubmit}
             {...props}
           >
-            <TextField
-              error={Boolean(touched.email && errors.email)}
+            <Autocomplete
               fullWidth
-              helperText={touched.email && errors.email}
-              label="Email Address"
-              margin="normal"
-              name="email"
+              options={options || []}
+              noOptionsText={<>Нет доступных вариантов</>}
+              // getOptionLabel={(option) => option}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  helperText={touched.address && errors.address}
+                  label="Начните вводить город или улицу"
+                  margin="normal"
+                  name="address"
+                  variant="outlined"
+                  onChange={(value) => {
+                    fetchAddresses(value.target.value);
+                    handleChange(value);
+                  }}
+                />
+              )}
               onBlur={handleBlur}
-              onChange={handleChange}
-              type="email"
-              value={values.email}
-              variant="outlined"
+              value={values.address}
             />
-            <TextField
-              error={Boolean(touched.password && errors.password)}
-              fullWidth
-              helperText={touched.password && errors.password}
-              label="Password"
-              margin="normal"
-              name="password"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              type="password"
-              value={values.password}
-              variant="outlined"
-            />
-            <Box
-              sx={{
-                alignItems: 'center',
-                display: 'flex',
-                ml: -1,
-                mt: 2
-              }}
-            >
-              <Checkbox
-                checked={values.policy}
-                color="primary"
-                name="policy"
-                onChange={handleChange}
-              />
-              <Typography
-                color="textSecondary"
-                variant="body2"
-              >
-                I have read the
-                {' '}
-                <Link
-                  color="primary"
-                  component="a"
-                  href="#"
-                >
-                  Terms and Conditions
-                </Link>
-              </Typography>
-            </Box>
-            {Boolean(touched.policy && errors.policy) && (
-              <FormHelperText error>
-                {errors.policy}
-              </FormHelperText>
-            )}
-            {errors.submit && (
-              <Box sx={{ mt: 3 }}>
-                <FormHelperText error>
-                  {errors.submit}
-                </FormHelperText>
-              </Box>
-            )}
             <Box sx={{ mt: 2 }}>
               <Button
                 color="primary"
@@ -160,7 +108,20 @@ const RegisterAmplify: FC = (props) => {
                 type="submit"
                 variant="contained"
               >
-                Register
+                Продолжить
+              </Button>
+            </Box>
+            <Box sx={{ mt: 4, justifyContent: 'space-between', alignItems: 'center', display: 'flex' }}>
+              <Typography>
+                Уже есть аккаунт?
+              </Typography>
+              <Button
+                color="primary"
+                size="medium"
+                variant="outlined"
+                onClick={() => setAuthValue('login')}
+              >
+                Войти
               </Button>
             </Box>
           </form>

@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { experimentalStyled } from '@material-ui/core/styles';
 import Footer from './Footer';
 import MainNavbar from './MainNavbar';
+import AuthModal from './widgets/modals/AuthModal';
 
 interface MainLayoutProps {
   children?: ReactNode;
@@ -20,9 +21,8 @@ const MainLayoutRoot = experimentalStyled('div')(
 
 const MainLayout: FC<MainLayoutProps> = () => (
   <MainLayoutRoot>
-    <MainNavbar
-      onSidebarMobileOpen={(): void => {}}
-    />
+    <MainNavbar />
+    <AuthModal />
     <Outlet />
     <Footer />
   </MainLayoutRoot>
