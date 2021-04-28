@@ -21,14 +21,14 @@ remove some of the existing ones.
 ## How it works
 
 ```jsx
-import { SettingsProvider } from './contexts/SettingsContext';
-import App from './App';
+import { SettingsProvider } from "./contexts/SettingsContext";
+import App from "./App";
 
 ReactDOM.render(
   <SettingsProvider>
     <App />
   </SettingsProvider>,
-  document.getElementById('root')
+  document.getElementById("root"),
 );
 ```
 
@@ -40,32 +40,20 @@ made available inside the App.
 There are a two methods, using the hook or the context consumer.
 
 ```jsx
-import useSettings from './hooks/useSettings';
+import useSettings from "./hooks/useSettings";
 
 const App = () => {
   const { settings } = useSettings();
 
-  return (
-    <div>
-      Current theme: {settings.theme}
-    </div>
-  );
+  return <div>Current theme: {settings.theme}</div>;
 };
 ```
 
 ```jsx
-import { SettingsConsumer } from './contexts/SettingsContext';
+import { SettingsConsumer } from "./contexts/SettingsContext";
 
 const App = () => {
-  return (
-    <SettingsConsumer>
-      {({ settings }) => (
-        <div>
-          Current theme: {settings.theme}
-        </div>
-      )}
-    </SettingsConsumer>
-  );
+  return <SettingsConsumer>{({ settings }) => <div>Current theme: {settings.theme}</div>}</SettingsConsumer>;
 };
 ```
 
@@ -74,7 +62,7 @@ const App = () => {
 It can be implemented in any component within seconds.
 
 ```jsx
-import useSettings from './hooks/useSettings';
+import useSettings from "./hooks/useSettings";
 
 const App = () => {
   const { settings, saveSettings } = useSettings();
@@ -82,15 +70,13 @@ const App = () => {
   const handleSave = () => {
     saveSettings({
       ...settings,
-      theme: 'DARK'
+      theme: "DARK",
     });
   };
 
   return (
     <div>
-      <Button onClick={handleSave}>
-        Save
-      </Button>
+      <Button onClick={handleSave}>Save</Button>
     </div>
   );
 };

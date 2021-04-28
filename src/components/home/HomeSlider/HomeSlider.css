@@ -1,0 +1,63 @@
+.textBeforeCarousel {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  margin: 147px 40px 68px 40px;
+}
+.buttonStyle {
+  background-color: white;
+  border: 1px solid #363557;
+  padding: 26px 70px;
+  font-size: 30px;
+  border-radius: 150px;
+}
+.slick-prv,
+.slick-next {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+}
+.slick-prv:hover,
+.slick-next:hover,
+.slick-prv:focus,
+.slick-next:focus {
+  color: white;
+  outline: none;
+  background: white;
+}
+.slick-next {
+  right: -55px;
+  background: red;
+}
+.slick-prev {
+  left: -55px;
+}
+
+.slick-slide,
+.slick-active {
+  margin-right: 20px;
+  width: 210px !important;
+}
+
+.persentage {
+  font-size: 45.28px;
+}
+.carouselImage {
+  border-radius: 50%;
+  z-index: 27;
+  position: absolute;
+}
+.carouselImage2 {
+  position: absolute;
+  top: 0;
+  border-radius: 10px;
+}
+.slick-prev,
+.slick-next {
+  font-size: 15px !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  content: "" !important;
+}

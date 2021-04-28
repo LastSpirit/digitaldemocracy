@@ -1,19 +1,12 @@
-import { useEffect } from 'react';
-import type { FC } from 'react';
-import { Helmet } from 'react-helmet-async';
-import {
-  HomeClients,
-  HomeHero,
-  HomeOverview,
-  HomeRoles,
-  HomeFeatures,
-  HomeTestimonials
-} from '../components/home';
-import gtm from '../lib/gtm';
+import { useEffect } from "react";
+import type { FC } from "react";
+import { Helmet } from "react-helmet-async";
+import { HomeClients, HomeHero, HomeSlider, HomeRoles, HomeFeatures } from "../components/home";
+import gtm from "../lib/gtm";
 
 const Home: FC = () => {
   useEffect(() => {
-    gtm.push({ event: 'page_view' });
+    gtm.push({ event: "page_view" });
   }, []);
 
   return (
@@ -23,9 +16,8 @@ const Home: FC = () => {
       </Helmet>
       <div>
         <HomeHero />
-        <HomeOverview />
+        <HomeSlider />
         <HomeRoles />
-        <HomeTestimonials />
         <HomeFeatures />
         <HomeClients />
       </div>

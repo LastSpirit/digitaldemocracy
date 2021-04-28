@@ -1,6 +1,7 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 import {
-  Box, Button,
+  Box,
+  Button,
   Container,
   Divider,
   Grid,
@@ -9,50 +10,50 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Typography
-} from '@material-ui/core';
-import { useNavigate } from 'react-router-dom';
-import { alpha } from '@material-ui/core/styles';
-import Logo from './Logo';
-import { useWindowSize } from '../hooks/useWindowSize';
-import Register from '../icons/Register';
-import News from '../icons/News';
-import Search from '../icons/Search';
-import Person from '../icons/Person';
-import Rating from '../icons/Rating';
-import useAuth from '../hooks/useAuth';
+  Typography,
+} from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
+import { alpha } from "@material-ui/core/styles";
+import Logo from "./Logo";
+import { useWindowSize } from "../hooks/useWindowSize";
+import Register from "../icons/Register";
+import News from "../icons/News";
+import Search from "../icons/Search";
+import Person from "../icons/Person";
+import Rating from "../icons/Rating";
+import useAuth from "../hooks/useAuth";
 
 const sections = [
   {
-    title: 'Контакты',
+    title: "Контакты",
     links: [
       {
-        title: 'info@digitaldemocracy.ru',
-        href: '/browse'
-      }
-    ]
+        title: "info@digitaldemocracy.ru",
+        href: "/browse",
+      },
+    ],
   },
   {
-    title: 'Карта сайта',
+    title: "Карта сайта",
     links: [
       {
-        title: 'Новости',
-        href: '/news'
+        title: "Новости",
+        href: "/news",
       },
       {
-        title: 'Рейтинг',
-        href: '/rating'
+        title: "Рейтинг",
+        href: "/rating",
       },
       {
-        title: 'Помощь площадке',
-        href: '/help_site'
+        title: "Помощь площадке",
+        href: "/help_site",
       },
       {
-        title: 'Пользовательское соглашение',
-        href: '#'
-      }
-    ]
-  }
+        title: "Пользовательское соглашение",
+        href: "#",
+      },
+    ],
+  },
 ];
 
 const Footer: FC = (props) => {
@@ -61,99 +62,96 @@ const Footer: FC = (props) => {
   const navigate = useNavigate();
   const icons = [
     {
-      title: 'Поиск',
+      title: "Поиск",
       icon: <Search />,
-      to: ''
+      to: "",
     },
     {
-      title: 'Рейтинг',
+      title: "Рейтинг",
       icon: <Rating />,
-      to: ''
+      to: "",
     },
     {
-      title: 'Новости',
+      title: "Новости",
       icon: <News />,
-      to: ''
+      to: "",
     },
     {
-      title: isAuthenticated ? 'Профиль' : 'Регистрация',
+      title: isAuthenticated ? "Профиль" : "Регистрация",
       icon: isAuthenticated ? <Person /> : <Register />,
-      to: ''
-    }
+      to: "",
+    },
   ];
   return (
     <Box
       sx={{
-        backgroundColor: 'background.default',
+        backgroundColor: "background.default",
         pb: {
           md: 6,
-          xs: 0
+          xs: 0,
         },
         pt: {
           md: 6,
-          xs: 0
-        }
+          xs: 0,
+        },
       }}
       {...props}
     >
       {isMobile ? (
-        <Box sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          p: 1.5
-        }}
-        >
-          <Box sx={{
-            width: '400px',
-            justifyContent: 'space-between',
-            display: 'flex',
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            p: 1.5,
           }}
+        >
+          <Box
+            sx={{
+              width: "400px",
+              justifyContent: "space-between",
+              display: "flex",
+            }}
           >
             {icons.map(({ icon, title, to }, index) => (
               <Box
                 key={index.toString()}
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  cursor: 'pointer'
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  cursor: "pointer",
                 }}
                 onClick={() => navigate(to)}
               >
                 {icon}
-                <span style={{ marginTop: '10px' }}>{title}</span>
+                <span style={{ marginTop: "10px" }}>{title}</span>
               </Box>
             ))}
           </Box>
         </Box>
       ) : (
         <Container maxWidth="lg">
-          <Grid
-            container
-            spacing={3}
-          >
+          <Grid container spacing={3}>
             <Grid
               item
               md={3}
               sm={4}
               sx={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                order: 1
+                display: "flex",
+                alignItems: "flex-start",
+                order: 1,
               }}
               xs={12}
             >
-              <Box sx={{
-                display: 'flex',
-                alignItems: 'center',
-              }}
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
               >
                 <Logo />
-                <Box sx={{ mt: 1, ml: 1.5, }}>
-                  <Typography
-                    color="textSecondary"
-                    variant="caption"
-                  >
+                <Box sx={{ mt: 1, ml: 1.5 }}>
+                  <Typography color="textSecondary" variant="caption">
                     Digital
                     <br />
                     Democracy
@@ -168,14 +166,11 @@ const Footer: FC = (props) => {
                 md={3}
                 sm={4}
                 sx={{
-                  order: index + 1
+                  order: index + 1,
                 }}
                 xs={12}
               >
-                <Typography
-                  color="#222222"
-                  variant="overline"
-                >
+                <Typography color="#222222" variant="overline">
                   {section.title}
                 </Typography>
                 <List disablePadding>
@@ -185,28 +180,23 @@ const Footer: FC = (props) => {
                       key={link.title}
                       sx={{
                         pb: 0,
-                        pt: 1
+                        pt: 1,
                       }}
                     >
                       <ListItemAvatar
                         sx={{
-                          alignItems: 'center',
-                          display: 'flex',
+                          alignItems: "center",
+                          display: "flex",
                           minWidth: 0,
-                          mr: 0.5
+                          mr: 0.5,
                         }}
                       />
                       <ListItemText
-                        primary={(
-                          <Link
-                            href={link.href}
-                            color="#747373"
-                            fontWeight="300"
-                            variant="subtitle2"
-                          >
+                        primary={
+                          <Link href={link.href} color="#747373" fontWeight="300" variant="subtitle2">
                             {link.title}
                           </Link>
-                                )}
+                        }
                       />
                     </ListItem>
                   ))}
@@ -218,21 +208,21 @@ const Footer: FC = (props) => {
               md={3}
               sm={4}
               sx={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                order: 3
+                display: "flex",
+                alignItems: "flex-start",
+                order: 3,
               }}
               xs={12}
             >
               <Button
                 sx={{
-                  border: '1px solid #B0B0B0',
+                  border: "1px solid #B0B0B0",
                   borderRadius: 100,
                   paddingTop: 3,
                   paddingBottom: 3,
-                  fontSize: '20px',
+                  fontSize: "20px",
                   width: 400,
-                  color: '#222222'
+                  color: "#222222",
                 }}
               >
                 Помочь&ensp;площадке
@@ -242,17 +232,11 @@ const Footer: FC = (props) => {
           <Divider
             sx={{
               borderColor: (theme) => alpha(theme.palette.primary.contrastText, 0.12),
-              my: 6
+              my: 6,
             }}
           />
-          <Typography
-            color="textSecondary"
-            variant="caption"
-          >
-            * отображает только мнение
-            {' '}
-            {isAuthenticated ? 'пользователя' : 'пользователей данного сайта'}
-            .
+          <Typography color="textSecondary" variant="caption">
+            * отображает только мнение {isAuthenticated ? "пользователя" : "пользователей данного сайта"}.
           </Typography>
         </Container>
       )}

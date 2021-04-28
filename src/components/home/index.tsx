@@ -1,6 +1,6 @@
-export { default as HomeClients } from './HomeClients';
-export { default as HomeFeatures } from './HomeFeatures';
-export { default as HomeHero } from './HomeHero';
-export { default as HomeOverview } from './HomeOverview';
-export { default as HomeRoles } from './HomeRoles';
-export { default as HomeTestimonials } from './HomeTestimonials';
+export { default as HomeClients } from "./HomeClients";
+export { default as HomeFeatures } from "./HomeFeatures";
+export { default as HomeHero } from "./HeroPicture/HomeHero";
+export { default as HomeSlider } from "./HomeSlider/HomeSlider";
+export { default as HomeRoles } from "./News/News";
+// export { default as Cards } from "./HomeSlider/Cards";
