@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { dadataConfig } from '../../../config';
+import { dadataConfig } from '../../../../config';
 
 export const useFetchAddresses = () => {
   const [addresses, setAddresses] = useState([]);

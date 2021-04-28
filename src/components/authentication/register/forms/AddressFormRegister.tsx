@@ -8,10 +8,10 @@ import {
   Autocomplete, Typography
 } from '@material-ui/core';
 import { useContext } from 'react';
-import { checkAddress } from '../../../hooks/useAuth';
-import useIsMountedRef from '../../../hooks/useIsMountedRef';
-import { useFetchAddresses } from './useFetchAddresses';
-import { AuthContext } from '../../../contexts/AuthContext';
+import { checkAddress } from '../../../../hooks/useAuth';
+import useIsMountedRef from '../../../../hooks/useIsMountedRef';
+import { useFetchAddresses } from '../hooks/useFetchAddresses';
+import { AuthContext } from '../../../../contexts/AuthContext';
 
 const AddressFormRegister: FC = (props) => {
   const isMountedRef = useIsMountedRef();
@@ -88,6 +88,7 @@ const AddressFormRegister: FC = (props) => {
                   <TextField
                     {...params}
                     helperText={touched.address && errors.address}
+                    error={touched.address && !!errors.address}
                     label="Начните вводить город или улицу"
                     margin="normal"
                     name="address"

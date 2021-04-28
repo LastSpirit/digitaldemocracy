@@ -18,6 +18,7 @@ import { SettingsProvider } from './contexts/SettingsContext';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 import store from './store';
+import './index.scss';
 
 ReactDOM.render(
   <StrictMode>

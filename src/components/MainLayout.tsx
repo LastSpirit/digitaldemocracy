@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { experimentalStyled } from '@material-ui/core/styles';
 import Footer from './Footer';
 import MainNavbar from './MainNavbar';
-import AuthModal from './widgets/modals/AuthModal';
+import AuthModal from './widgets/modals/AuthModal/AuthModal';
 
 interface MainLayoutProps {
   children?: ReactNode;

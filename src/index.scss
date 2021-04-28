@@ -1,0 +1,23 @@
+.MuiButton-root {
+  font-weight: 400;
+}
+
+.MuiButton-containedPrimary {
+  background-color: #363557;
+  color: #FFFFFF;
+
+  &:disabled {
+    background-color: #B0B0B0;
+    color: white;
+  }
+}
+
+.MuiButton-outlinedPrimary {
+  color: #747373;
+  border-color: #747373;
+
+  &:hover {
+    color: #363557;
+    border-color: #363557;
+  }
+}
