@@ -7,16 +7,15 @@ import {
   TextField,
   Autocomplete, Typography
 } from '@material-ui/core';
-import { useContext } from 'react';
 import { checkAddress } from '../../../../hooks/useAuth';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import { useFetchAddresses } from '../hooks/useFetchAddresses';
-import { AuthContext } from '../../../../contexts/AuthContext';
+import { authActionCreators } from '../../../../slices/authSlice';
 
 const AddressFormRegister: FC = (props) => {
   const isMountedRef = useIsMountedRef();
   const { fetchAddresses, addresses: options } = useFetchAddresses();
-  const { setRegisterStep } = useContext(AuthContext);
+  const { setRegisterStep } = authActionCreators();
 
   return (
     <>

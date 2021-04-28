@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
-import { RegisterType } from '../../../../contexts/AuthContext';
+import { AuthType } from '../../../../slices/authSlice';
 
 export const useVerifyCodeSend = () => {
-  const send = useCallback((code: string, setRegisterStep: (value: number) => void, registerType: RegisterType) => {
+  const send = useCallback((code: string, setRegisterStep: (value: number) => void, registerType: AuthType) => {
     if (code) {
-      if (registerType === RegisterType.Email) {
+      if (registerType === AuthType.Email) {
         setRegisterStep(4);
       } else {
         setRegisterStep(5);

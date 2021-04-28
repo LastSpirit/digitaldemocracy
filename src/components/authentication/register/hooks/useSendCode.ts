@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { RegisterType } from '../../../../contexts/AuthContext';
+import { AuthType } from '../../../../slices/authSlice';
 
 interface UseSendCodeProps {
   values:
@@ -7,15 +7,15 @@ interface UseSendCodeProps {
     phone?: string,
     email?: string
   },
-  registerType?: RegisterType,
+  registerType?: AuthType,
   setRegisterStep: (value: number) => void
 }
 
 export const useSendCode = () => {
   const send = useCallback(({ registerType, setRegisterStep, values } : UseSendCodeProps) => {
-    if (registerType === RegisterType.Email) {
+    if (registerType === AuthType.Email) {
       console.log('EMAIL');
-    } else if (registerType === RegisterType.Phone) {
+    } else if (registerType === AuthType.Phone) {
       console.log('PHONE');
     } else {
       console.log('ERROR');

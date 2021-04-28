@@ -1,50 +1,20 @@
-import React, { useContext } from 'react';
-import { Box, InputAdornment, TextField, Typography, Button } from '@material-ui/core';
+import React from 'react';
+import { Box, TextField, Typography } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { useSelector } from 'react-redux';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import '../RegisterStyles.css';
 import { useSendCode } from '../hooks/useSendCode';
-import { AuthContext, RegisterType } from '../../../../contexts/AuthContext';
-import GoogleIcon from '../../../../icons/Google';
-import YandexIcon from '../../../../icons/Yandex';
+import { ArrowInputIcon } from '../../common/ArrowInputIcon';
+import { authActionCreators, authSelectors, AuthType } from '../../../../slices/authSlice';
+import { SingInSocialN, singInVariants } from '../../common/SingInVariants';
 
-interface InputIconProps {
-  disable?: boolean
-  onClick?: () => void
-}
-
-const InputIcon: React.FC<InputIconProps> = ({ disable, onClick }) => (
-  <InputAdornment
-    position="end"
-  >
-    <Button
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
-        right: 10,
-      }}
-      onClick={onClick}
-      disabled={disable}
-      type="submit"
-    >
-      <ArrowForwardIcon />
-    </Button>
-  </InputAdornment>
-);
-
-enum SingInSocialN {
-  Google = 'Google',
-  Yandex = 'Yandex'
-}
-
-const TypeRegisterSelect = () => {
+const TypeSelectRegister = () => {
   const isMountedRef = useIsMountedRef();
   const { send } = useSendCode();
-  const { setRegisterStep, setRegisterType, registerType } = useContext(AuthContext);
+  const { setRegisterStep, setAuthType } = authActionCreators();
+  const registerType = useSelector(authSelectors.getAuthType());
 
   const handleSingInSocialN = (type: SingInSocialN) => {
     if (type === SingInSocialN.Yandex) {
@@ -53,19 +23,6 @@ const TypeRegisterSelect = () => {
       console.log(SingInSocialN.Google);
     }
   };
-
-  const singInVariants = [
-    {
-      title: 'Вход с аккаунтом Google',
-      icon: <GoogleIcon />,
-      type: SingInSocialN.Google,
-    },
-    {
-      title: 'Вход с аккаунтом Yandex',
-      icon: <YandexIcon />,
-      type: SingInSocialN.Yandex,
-    }
-  ];
 
   return (
     <>
@@ -134,10 +91,10 @@ const TypeRegisterSelect = () => {
                 error={!!errors.email}
                 name="email"
                 InputProps={{
-                  endAdornment: <InputIcon
+                  endAdornment: <ArrowInputIcon
                     disable={!values.email || !!errors.email}
                     onClick={() => {
-                      setRegisterType(RegisterType.Email);
+                      setAuthType(AuthType.Email);
                     }}
                   />
                 }}
@@ -160,10 +117,10 @@ const TypeRegisterSelect = () => {
                 onChange={handleChange}
                 value={values.phone}
                 InputProps={{
-                  endAdornment: <InputIcon
+                  endAdornment: <ArrowInputIcon
                     disable={!values.phone || !!errors.phone}
                     onClick={() => {
-                      setRegisterType(RegisterType.Phone);
+                      setAuthType(AuthType.Phone);
                     }}
                   />
                 }}
@@ -172,7 +129,7 @@ const TypeRegisterSelect = () => {
           )}
         </Formik>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 5 }}>
-          {singInVariants.map(({ type, title, icon }, index) => (
+          {singInVariants.map(({ type, title, Icon }, index) => (
             <Box
               onClick={() => handleSingInSocialN(type)}
               key={index.toString()}
@@ -182,7 +139,7 @@ const TypeRegisterSelect = () => {
                 cursor: 'pointer'
               }}
             >
-              {icon}
+              <Icon />
               <Typography
                 color="#414042"
                 sx={{ ml: 2, paddingBottom: '0px!important', maxWidth: '140px' }}
@@ -197,4 +154,4 @@ const TypeRegisterSelect = () => {
   );
 };
 
-export default TypeRegisterSelect;
+export default TypeSelectRegister;

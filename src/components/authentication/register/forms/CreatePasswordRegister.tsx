@@ -1,15 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Box, Button, TextField } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { AuthContext } from '../../../../contexts/AuthContext';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import { useRegister } from '../hooks/useRegister';
+import { authActionCreators } from '../../../../slices/authSlice';
 
 const CreatePasswordRegister = () => {
   const isMountedRef = useIsMountedRef();
   const { register } = useRegister();
-  const { setRegisterStep } = useContext(AuthContext);
+  const { setRegisterStep } = authActionCreators();
+
   return (
     <>
       <Box

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import type { FC } from 'react';
 import {
   Box, Button,
@@ -7,15 +7,16 @@ import {
   Divider,
   Typography
 } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 import {
   AddressFormRegister, TypeRegisterSelect, VerifyCodeRegister
 } from '../../components/authentication/register';
 import gtm from '../../lib/gtm';
 import { ModalParams } from '../../types/routing';
 import { useSearchParams } from '../../hooks/useSearchParams';
-import { AuthContext } from '../../contexts/AuthContext';
 import CreatePasswordRegister from '../../components/authentication/register/forms/CreatePasswordRegister';
 import { useWindowSize } from '../../hooks/useWindowSize';
+import { authSelectors } from '../../slices/authSlice';
 
 const WelcomeTextRegister = () => {
   const {
@@ -67,7 +68,7 @@ const Register: FC = () => {
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
-  const { registerStep } = useContext(AuthContext);
+  const registerStep = useSelector(authSelectors.getRegisterStep());
   const endRegistration = registerStep === 5;
 
   const { isMobile } = useWindowSize();

@@ -1,15 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Box, Button, TextField, Typography } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { useSelector } from 'react-redux';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
-import { AuthContext, RegisterType } from '../../../../contexts/AuthContext';
 import { useVerifyCodeSend } from '../hooks/useVerifyCodeSend';
+import { authActionCreators, authSelectors, AuthType } from '../../../../slices/authSlice';
 
 const VerifyCodeRegister = () => {
   const isMountedRef = useIsMountedRef();
   const { send } = useVerifyCodeSend();
-  const { setRegisterStep, registerType } = useContext(AuthContext);
+  const { setRegisterStep } = authActionCreators();
+  const registerType = useSelector(authSelectors.getAuthType());
   return (
     <>
       <Box
@@ -68,7 +70,7 @@ const VerifyCodeRegister = () => {
               >
                 Для подтверждения регистрации на
                 {' '}
-                {registerType === RegisterType.Email ? 'вашу почту отправлено письмо!' : 'ваш телефон отправлен код!'}
+                {registerType === AuthType.Email ? 'вашу почту отправлено письмо!' : 'ваш телефон отправлен код!'}
               </Typography>
               <Box sx={{ mt: 2 }} />
               <TextField
