@@ -31,3 +31,8 @@ export const dadataConfig = {
   checkAddressUrl: 'https://cleaner.dadata.ru/api/v1/clean/address',
   getAddresses: 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address'
 };
+
+export const recaptchaConfig = {
+  siteKey: '6Lc5nL0aAAAAAG3x1WmNfH5xfjWtS0DnCJAG0ks2',
+  secretKey: '6Lc5nL0aAAAAAH5L5Ef6jJe6B4KWi2sduxWF0tR1'
+};

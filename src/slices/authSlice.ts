@@ -10,11 +10,13 @@ interface SliceState {
   registerStep?: number
   loginStep?: number
   authType?: AuthType
+  rememberMe?: boolean
 }
 
 const initialState: SliceState = {
   registerStep: 1,
   loginStep: 1,
+  rememberMe: true
 };
 
 export const authSlice = createSlice({
@@ -30,6 +32,9 @@ export const authSlice = createSlice({
     setAuthType(state, actions: PayloadAction<AuthType>) {
       state.authType = actions.payload;
     },
+    setRememberMe(state, actions: PayloadAction<boolean>) {
+      state.rememberMe = actions.payload;
+    },
   }
 });
 
@@ -41,6 +46,10 @@ export const authSelectors = {
   getRegisterStep: () => (state: Store) => state.auth.registerStep,
   getLoginStep: () => (state: Store) => state.auth.loginStep,
   getAuthType: () => (state: Store) => state.auth.authType,
+  getRememberMe: () => (state: Store) => state.auth.rememberMe,
+  getAllData: () => (state: Store) => ({
+    ...state.auth
+  })
 };
 
 export const authActionCreators = () => {

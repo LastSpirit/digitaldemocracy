@@ -2,30 +2,23 @@ import React from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Box, TextField, Typography } from '@material-ui/core';
-import { useSendSMSCode } from '../hooks/useSendSMSCode';
+import { useSelector } from 'react-redux';
+import { useFirstStepLogin } from '../hooks/useFirstStepLogin';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import { ArrowInputIcon } from '../../common/ArrowInputIcon';
-import { authActionCreators, AuthType } from '../../../../slices/authSlice';
-import { SingInSocialN, singInVariants } from '../../common/SingInVariants';
+import { authActionCreators, authSelectors, AuthType } from '../../../../slices/authSlice';
 
 const TypeSelectLogin = () => {
   const isMountedRef = useIsMountedRef();
-  const { send } = useSendSMSCode();
-  const { setAuthType } = authActionCreators();
-
-  const handleSingInSocialN = (type: SingInSocialN) => {
-    if (type === SingInSocialN.Yandex) {
-      console.log(SingInSocialN.Yandex);
-    } else {
-      console.log(SingInSocialN.Google);
-    }
-  };
+  const { setAuthType, setLoginStep } = authActionCreators();
+  const { sendCode, verifyEmail } = useFirstStepLogin(setLoginStep);
+  const authType = useSelector(authSelectors.getAuthType());
 
   return (
     <Box
       sx={{
         flexGrow: 1,
-        mt: 3
+        mt: 1
       }}
     >
       <Formik
@@ -35,23 +28,27 @@ const TypeSelectLogin = () => {
           submit: null
         }}
         validationSchema={
-                    Yup
-                      .object()
-                      .shape({
-                        email: Yup
-                          .string().email('Не правильный e-mail'),
-                        phone: Yup
-                          .number().typeError('Номер не может содержать буквы'),
-                      })
-                }
+                  Yup
+                    .object()
+                    .shape({
+                      email: Yup
+                        .string().email('Не правильный e-mail'),
+                      phone: Yup
+                        .number().typeError('Номер не может содержать буквы'),
+                    })
+              }
         onSubmit={async (values, {
           setErrors,
           setStatus,
           setSubmitting,
         }): Promise<void> => {
           try {
-            const { phone } = values;
-            await send(phone);
+            const { phone, email } = values;
+            if (authType === AuthType.Email) {
+              await verifyEmail(email);
+            } else {
+              await sendCode(phone);
+            }
           } catch (err) {
             console.error(err);
             if (isMountedRef.current) {
@@ -75,7 +72,7 @@ const TypeSelectLogin = () => {
             <Typography
               color="#747373"
             >
-              Регистрация через e-mail
+              Вход через e-mail
             </Typography>
             <TextField
               fullWidth
@@ -100,7 +97,7 @@ const TypeSelectLogin = () => {
               color="#747373"
               gutterBottom
             >
-              Регистрация через смс
+              Вход через смс
             </Typography>
             <TextField
               fullWidth
@@ -124,27 +121,6 @@ const TypeSelectLogin = () => {
           </form>
         )}
       </Formik>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 5 }}>
-        {singInVariants.map(({ type, title, Icon }, index) => (
-          <Box
-            onClick={() => handleSingInSocialN(type)}
-            key={index.toString()}
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              cursor: 'pointer'
-            }}
-          >
-            <Icon />
-            <Typography
-              color="#414042"
-              sx={{ ml: 2, paddingBottom: '0px!important', maxWidth: '140px' }}
-            >
-              {title}
-            </Typography>
-          </Box>
-        ))}
-      </Box>
     </Box>
   );
 };
