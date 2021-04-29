@@ -7,7 +7,7 @@ import meeting from "../../../icons/pictures/meetingShe.png";
 const useStyles = makeStyles((theme) => ({
   bigCardContainer: {
     maxWidth: 325,
-    height: 450,
+    height: 214,
     background: "#F3F3F3",
     borderRadius: 20,
     marginTop: 20,
@@ -26,14 +26,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#747373",
     justifyContent: "space-around",
     display: "flex",
-    marginBottom: 16,
     textDecoration: "underline",
   },
-  cardImage: {
-    borderRadius: 15,
-    width: "100%",
-    padding: "0 10px",
-  },
+
   imgSize: {
     width: 14,
     height: 14,
@@ -41,12 +36,12 @@ const useStyles = makeStyles((theme) => ({
   mainHeader: {
     display: "flex",
     justifyContent: "space-around",
-    padding: "25px 11px",
+    padding: "14px 11px",
     color: "#747373",
   },
 }));
 
-const CardBig: FC = () => {
+const CardSmall: FC = () => {
   const classes = useStyles();
   return (
     <Container style={{ textAlign: "center" }}>
@@ -70,12 +65,9 @@ const CardBig: FC = () => {
           <Typography>Алина Романова</Typography>
           <Typography>Rusbase.ru</Typography>
         </Box>
-        <Box>
-          <img src={meeting} alt="/" className={classes.cardImage} />
-        </Box>
       </Box>
     </Container>
   );
 };
 
-export default CardBig;
+export default CardSmall;

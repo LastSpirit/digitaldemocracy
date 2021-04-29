@@ -1,52 +1,58 @@
 import type { FC } from "react";
-import {
-  Container,
-  Divider,
-  Grid,
-  Hidden,
-  List,
-  ListItem,
-  ListItemText,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { Box, Hidden, makeStyles, Typography } from "@material-ui/core";
 import CardBig from "./News/CardBig";
+import ListSidebar from "./News/ListSidebar";
+import CardSmall from "./News/CardSmall";
 
 const useStyles = makeStyles((theme) => ({
   actualNews: {
-    fontSize: 24,
+    fontSize: 35,
+    fontWeight: 300,
+    color: "#222222",
+    whiteSpace: "nowrap",
+  },
+  content: {
+    display: "flex",
+    flexWrap: "wrap",
+    margin: " 38px auto",
   },
 }));
 
 const HomeFeatures: FC = () => {
   const classes = useStyles();
   return (
-    <Container>
-      <Grid container>
-        <Hidden smDown>
-          <Grid item lg={3}>
-            <List className={classes.actualNews}>
-              <ListItem alignItems="flex-start">
-                <ListItemText primary="Митинги в Москве" />
-              </ListItem>
-              <Divider component="li" />
-              <ListItem alignItems="flex-start">
-                <ListItemText primary="Митинги в Москве" />
-              </ListItem>
-              <Divider component="li" />
-              <ListItem alignItems="flex-start">
-                <ListItemText primary="Митинги в Москве" />
-              </ListItem>
-            </List>
-          </Grid>
+    <Box>
+      <Box style={{ display: "flex" }}>
+        <Hidden mdDown>
+          <Box>
+            <ListSidebar />
+          </Box>
         </Hidden>
-        <Grid item lg={9}>
-          <Typography className={classes.actualNews}>Актуальные новости</Typography>
-          <CardBig />
-          <CardBig />
-        </Grid>
-      </Grid>
-    </Container>
+
+        <Box className={classes.content}>
+          <Box>
+            <Typography>Актуальные новости</Typography>
+            <CardBig />
+            <CardBig />
+          </Box>
+          <Box>
+            <CardSmall />
+            <CardSmall />
+            <CardSmall />
+            <CardSmall />
+          </Box>
+          <Box>
+            <CardSmall />
+            <CardSmall />
+            <CardBig />
+          </Box>
+        </Box>
+      </Box>
+      <Box className={classes.content}>
+        <button className="buttonStyle">Показать больше</button>
+        <button className="buttonStyle">К разделу новостей</button>
+      </Box>
+    </Box>
   );
 };
 

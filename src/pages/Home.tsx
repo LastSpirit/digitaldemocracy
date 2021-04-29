@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import type { FC } from "react";
 import { Helmet } from "react-helmet-async";
-import { HomeClients, HomeHero, HomeSlider, HomeRoles, HomeFeatures } from "../components/home";
+import { HomeHero, HomeSlider, HomeFeatures } from "../components/home";
 import gtm from "../lib/gtm";
 
 const Home: FC = () => {
@@ -17,9 +17,7 @@ const Home: FC = () => {
       <div>
         <HomeHero />
         <HomeSlider />
-        <HomeRoles />
         <HomeFeatures />
-        <HomeClients />
       </div>
     </>
   );

@@ -1,39 +1,33 @@
-import type { FC } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import {
-  AppBar,
-  Box,
-  Button,
-  Divider,
-  Link,
-  Toolbar,
-} from '@material-ui/core';
-import Logo from './Logo';
-import Search from '../icons/Search';
-import InputTextField from './widgets/inputs/InputTextField';
-import Brand from '../icons/Brand';
-import { useWindowSize } from '../hooks/useWindowSize';
-import useAuth from '../hooks/useAuth';
-import Person from '../icons/Person';
-import { ModalParams } from '../types/routing';
-import { useSearchParams } from '../hooks/useSearchParams';
+import type { FC } from "react";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { AppBar, Box, Button, Hidden, Link, Toolbar } from "@material-ui/core";
+import Logo from "./Logo";
+import Search from "../icons/Search";
+import InputTextField from "./widgets/inputs/InputTextField";
+import Brand from "../icons/Brand";
+import { useWindowSize } from "../hooks/useWindowSize";
+import useAuth from "../hooks/useAuth";
+import Person from "../icons/Person";
+import { ModalParams } from "../types/routing";
+import { useSearchParams } from "../hooks/useSearchParams";
 
 const links = [
   {
-    to: '/rating',
-    title: 'Рейтинг',
+    to: "/rating",
+    title: "Рейтинг",
     mr: 4,
   },
   {
-    to: '/news',
-    title: 'Новости',
+    to: "/news",
+    title: "Новости",
     mr: 4,
   },
   {
-    to: '/about_site',
-    title: 'О площадке',
+    to: "/about_site",
+    title: "О площадке",
     mr: 0,
-  }];
+  },
+];
 
 const MainNavbar: FC = () => {
   const navigate = useNavigate();
@@ -45,15 +39,15 @@ const MainNavbar: FC = () => {
 
   const buttons = [
     {
-      title: isAuthenticated ? 'Предложить новость/политика' : 'Вход',
-      to: isAuthenticated ? '/' : 'login',
-      color: '',
+      title: isAuthenticated ? "Предложить новость/политика" : "Вход",
+      to: isAuthenticated ? "/" : "login",
+      color: "",
     },
     {
-      title: isAuthenticated ? <Person /> : 'Регистрация',
-      to: isAuthenticated ? '/profile' : 'register',
-      color: '',
-    }
+      title: isAuthenticated ? <Person /> : "Регистрация",
+      to: isAuthenticated ? "/profile" : "register",
+      color: "",
+    },
   ];
 
   const handleClick = (to: string) => {
@@ -68,67 +62,82 @@ const MainNavbar: FC = () => {
     <AppBar
       elevation={0}
       sx={{
-        backgroundColor: 'background.paper',
-        color: 'text.secondary'
+        backgroundColor: "background.paper",
+        color: "text.secondary",
       }}
     >
-      <Toolbar sx={{ minHeight: 64, justifyContent: isMobile ? 'center' : 'space-between', alignItems: 'center', display: 'flex' }}>
+      <Toolbar
+        sx={{
+          minHeight: 64,
+          justifyContent: isMobile ? "center" : "space-between",
+          alignItems: "center",
+          display: "flex",
+        }}
+      >
         {isMobile ? (
-          <Box sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: 40,
-          }}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: 40,
+            }}
           >
             <Brand />
           </Box>
         ) : (
           <>
-            <Box sx={{
-              display: 'flex',
-              alignItems: 'center',
-              height: 40
-            }}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                height: 40,
+              }}
             >
               <RouterLink to="/">
                 <Logo
                   sx={{
                     height: 40,
-                    width: 40
+                    width: 40,
                   }}
                 />
               </RouterLink>
-              <Box sx={{
-                marginLeft: 17,
-              }}
+              <Box
+                sx={{
+                  marginLeft: 17,
+                }}
               >
-                <InputTextField
-                  icon={<Search />}
-                />
+                <Hidden lgDown>
+                  <Box style={{ width: "210px" }}>
+                    <InputTextField icon={<Search />} />
+                  </Box>
+                </Hidden>
               </Box>
             </Box>
-            <Box>
-              {links.map(({ title, mr, to }, index) => (
-                <Link
-                  key={index.toString()}
-                  to={to}
-                  color="textSecondary"
-                  component={RouterLink}
-                  underline="none"
-                  variant="body1"
-                  sx={{
-                    marginRight: mr
-                  }}
-                >
-                  {title}
-                </Link>
-              ))}
-            </Box>
+            <Hidden mdDown>
+              <Box>
+                {links.map(({ title, mr, to }, index) => (
+                  <Link
+                    key={index.toString()}
+                    to={to}
+                    color="textSecondary"
+                    component={RouterLink}
+                    underline="none"
+                    variant="body1"
+                    sx={{
+                      marginRight: mr,
+                    }}
+                  >
+                    {title}
+                  </Link>
+                ))}
+              </Box>
+            </Hidden>
+
             <Box
               sx={{
-                backgroundColor: 'background.paper',
-                p: 3
+                backgroundColor: "background.paper",
+                p: 3,
               }}
             >
               {buttons.map(({ to, color, title }, index) => (
@@ -153,7 +162,6 @@ const MainNavbar: FC = () => {
           </>
         )}
       </Toolbar>
-      <Divider />
     </AppBar>
   );
 };

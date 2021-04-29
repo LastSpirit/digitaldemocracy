@@ -15,7 +15,7 @@
 .heroText {
   position: absolute;
   top: 0%;
-  padding: 47px 0 0 49px;
+  margin: 5% 0px 5% 5%;
   text-align: left;
   width: 611px;
   font-size: 18px;
@@ -23,12 +23,13 @@
 
 @media (max-width: 960px) {
   .heroContainer {
-    margin: 20px;
+    margin: 32px 20px 0 8px;
   }
 }
 @media (max-width: 929px) {
   .heroText {
-    width: 67%;
-    font-size: 82%;
+    width: 63%;
+    font-size: 2vw;
+    margin: 3% 0px 0% 3%;
   }
 }

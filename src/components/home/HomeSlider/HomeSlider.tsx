@@ -3,12 +3,12 @@ import { Box, Hidden, Typography } from "@material-ui/core";
 import "../HomeSlider/HomeSlider.css";
 import CustomArrows from "./slickSlider";
 const HomeSlider: FC = () => (
-  <Box>
+  <Box style={{ backgroundColor: "white" }}>
     <Box className="textBeforeCarousel">
       <Hidden smDown>
         <Typography fontSize="50px">Открытый рейтинг политиков*</Typography>
+        <button className="buttonStyle">Весь рейтинг</button>
       </Hidden>
-      <button className="buttonStyle">Весь рейтинг</button>
     </Box>
     <CustomArrows />
   </Box>

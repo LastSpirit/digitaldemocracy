@@ -4,12 +4,19 @@
   justify-content: space-between;
   margin: 147px 40px 68px 40px;
 }
+.imageFrame {
+  position: relative;
+  height: 208px;
+}
 .buttonStyle {
   background-color: white;
   border: 1px solid #363557;
   padding: 26px 70px;
   font-size: 30px;
   border-radius: 150px;
+  margin: auto;
+  white-space: nowrap;
+  display: flex;
 }
 .slick-prv,
 .slick-next {
@@ -60,4 +67,16 @@
 .slick-prev:before,
 .slick-next:before {
   content: "" !important;
+}
+@media (max-width: 872px) {
+  .buttonStyle {
+    padding: 3% 14%;
+    font-size: 4vw;
+  }
+  .textBeforeCarousel {
+    margin: 37px 34px 56px 33px;
+  }
+  .textBeforeCarousel p {
+    font-size: 4vw;
+  }
 }
