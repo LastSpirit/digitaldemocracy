@@ -70,13 +70,23 @@
 }
 @media (max-width: 872px) {
   .buttonStyle {
-    padding: 3% 14%;
+    padding: 4% 14%;
+    font-size: 4vw;
+  }
+  .allStyle {
+    padding: 2% 2%;
     font-size: 4vw;
   }
   .textBeforeCarousel {
     margin: 37px 34px 56px 33px;
   }
   .textBeforeCarousel p {
+    font-size: 4vw;
+  }
+}
+@media (max-width: 361px) {
+  .buttonStyle {
+    padding: 2% 2%;
     font-size: 4vw;
   }
 }

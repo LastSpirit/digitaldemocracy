@@ -2,11 +2,10 @@ import type { FC } from "react";
 import { Box, Container, makeStyles, Typography } from "@material-ui/core";
 import watched from "../../../icons/pictures/watched.png";
 import logo from "../../../icons/logo/2.svg";
-import meeting from "../../../icons/pictures/meetingShe.png";
 
 const useStyles = makeStyles((theme) => ({
   bigCardContainer: {
-    maxWidth: 325,
+    width: 325,
     height: 214,
     background: "#F3F3F3",
     borderRadius: 20,

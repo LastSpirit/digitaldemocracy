@@ -6,7 +6,7 @@ import meeting from "../../../icons/pictures/meetingShe.png";
 
 const useStyles = makeStyles((theme) => ({
   bigCardContainer: {
-    maxWidth: 325,
+    width: 325,
     height: 450,
     background: "#F3F3F3",
     borderRadius: 20,

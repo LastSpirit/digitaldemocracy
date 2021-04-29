@@ -26,15 +26,19 @@ const ListSidebar: FC = () => {
         <ListItem alignItems="flex-start">
           <ListItemText primary="Митинги в Москве" />
         </ListItem>
+        <Divider component="li" />
         <ListItem alignItems="flex-start">
           <ListItemText primary="Митинги в Москве" />
         </ListItem>
+        <Divider component="li" />
         <ListItem alignItems="flex-start">
           <ListItemText primary="Митинги в Москве" />
         </ListItem>
+        <Divider component="li" />
         <ListItem alignItems="flex-start">
           <ListItemText primary="Митинги в Москве" />
         </ListItem>
+        <Divider component="li" />
         <ListItem alignItems="flex-start">
           <ListItemText primary="Митинги в Москве" />
         </ListItem>
