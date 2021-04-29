@@ -12,8 +12,8 @@ import { SingInSocialN, singInVariants } from '../../common/SingInVariants';
 
 const TypeSelectRegister = () => {
   const isMountedRef = useIsMountedRef();
-  const { send } = useSendCode();
   const { setRegisterStep, setAuthType } = authActionCreators();
+  const { send } = useSendCode(setRegisterStep);
   const registerType = useSelector(authSelectors.getAuthType());
 
   const handleSingInSocialN = (type: SingInSocialN) => {

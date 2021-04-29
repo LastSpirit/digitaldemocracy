@@ -1,5 +1,7 @@
-import { useCallback } from 'react';
-import { AuthType } from '../../../../slices/authSlice';
+import { useCallback, useState } from 'react';
+import { authActionCreators, AuthType } from '../../../../slices/authSlice';
+import { APIStatus } from '../../../../lib/axiosAPI';
+import { authAPI } from '../../../../api/authAPI';
 
 interface UseSendCodeProps {
   values:
@@ -11,20 +13,34 @@ interface UseSendCodeProps {
   setRegisterStep: (value: number) => void
 }
 
-export const useSendCode = () => {
-  const send = useCallback(({ registerType, setRegisterStep, values } : UseSendCodeProps) => {
-    if (registerType === AuthType.Email) {
-      console.log('EMAIL');
-    } else if (registerType === AuthType.Phone) {
-      console.log('PHONE');
-    } else {
-      console.log('ERROR');
-    }
-    if (values.email || values.phone) {
-      setRegisterStep(3);
-    }
-    return values.email || values.phone;
+export const useSendCode = (setRegisterStep: (value: number) => void) => {
+  const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
+  const { sendCode } = authAPI();
+  const { setAuthUserData } = authActionCreators();
+
+  const onSuccess = (isProne: boolean, values: { phone?: string, email?: string }) => {
+    setStatus(APIStatus.Success);
+    if (isProne) setAuthUserData({ key: 'phone', value: values.phone });
+    else setAuthUserData({ key: 'email', value: values.email });
+    setRegisterStep(3);
+  };
+
+  const onError = () => {
+    setStatus(APIStatus.Failure);
+  };
+
+  const send = useCallback(({ registerType, values } : UseSendCodeProps) => {
+    setStatus(APIStatus.Loading);
+    const registerThroughPhone = registerType === AuthType.Phone;
+    sendCode({
+      onError,
+      onSuccess: () => onSuccess(registerThroughPhone, values),
+      payload: {
+        phone: registerThroughPhone ? values.phone : undefined,
+        email: !registerThroughPhone ? values.email : undefined
+      }
+    });
   }, []);
 
-  return { send };
+  return { send, status };
 };

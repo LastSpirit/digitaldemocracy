@@ -11,6 +11,12 @@ interface SliceState {
   loginStep?: number
   authType?: AuthType
   rememberMe?: boolean
+  authUserData?: {
+    address?: string
+    phone?: string
+    email?: string
+    password?: string
+  }
 }
 
 const initialState: SliceState = {
@@ -23,18 +29,21 @@ export const authSlice = createSlice({
   name: 'authSlice',
   initialState,
   reducers: {
-    setRegisterStep(state, actions: PayloadAction<number>) {
-      state.registerStep = actions.payload;
+    setRegisterStep(state: SliceState, action: PayloadAction<number>) {
+      state.registerStep = action.payload;
     },
-    setLoginStep(state, actions: PayloadAction<number>) {
-      state.loginStep = actions.payload;
+    setLoginStep(state: SliceState, action: PayloadAction<number>) {
+      state.loginStep = action.payload;
     },
-    setAuthType(state, actions: PayloadAction<AuthType>) {
-      state.authType = actions.payload;
+    setAuthType(state: SliceState, action: PayloadAction<AuthType>) {
+      state.authType = action.payload;
     },
-    setRememberMe(state, actions: PayloadAction<boolean>) {
-      state.rememberMe = actions.payload;
+    setRememberMe(state: SliceState, action: PayloadAction<boolean>) {
+      state.rememberMe = action.payload;
     },
+    setAuthUserData(state: SliceState, action: PayloadAction<{ key: string, value: string }>) {
+      state.authUserData[action.payload.key] = action.payload.value;
+    }
   }
 });
 
@@ -47,6 +56,7 @@ export const authSelectors = {
   getLoginStep: () => (state: Store) => state.auth.loginStep,
   getAuthType: () => (state: Store) => state.auth.authType,
   getRememberMe: () => (state: Store) => state.auth.rememberMe,
+  getUserData: () => (state: Store) => state.auth.authUserData,
   getAllData: () => (state: Store) => ({
     ...state.auth
   })

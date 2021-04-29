@@ -6,11 +6,12 @@ import { useSelector } from 'react-redux';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import { useVerifyCodeSend } from '../hooks/useVerifyCodeSend';
 import { authActionCreators, authSelectors, AuthType } from '../../../../slices/authSlice';
+import { APIStatus } from '../../../../lib/axiosAPI';
 
 const VerifyCodeRegister = () => {
   const isMountedRef = useIsMountedRef();
-  const { send } = useVerifyCodeSend();
   const { setRegisterStep } = authActionCreators();
+  const { send, status } = useVerifyCodeSend(setRegisterStep);
   const registerType = useSelector(authSelectors.getAuthType());
   return (
     <>
@@ -41,7 +42,7 @@ const VerifyCodeRegister = () => {
             setSubmitting,
           }): Promise<void> => {
             try {
-              await send(values.code, setRegisterStep, registerType);
+              await send(values.code, registerType);
             } catch (err) {
               console.error(err);
               if (isMountedRef.current) {
@@ -87,7 +88,7 @@ const VerifyCodeRegister = () => {
               <Box sx={{ mt: 2 }}>
                 <Button
                   color="primary"
-                  disabled={!values.code}
+                  disabled={!values.code || status === APIStatus.Loading}
                   fullWidth
                   size="large"
                   type="submit"

@@ -1,21 +1,18 @@
 import type { FC } from 'react';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import {
-  Box,
-  Button,
-  TextField,
-  Autocomplete, Typography
-} from '@material-ui/core';
-import { checkAddress } from '../../../../hooks/useAuth';
+import { Autocomplete, Box, Button, TextField, Typography } from '@material-ui/core';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import { useFetchAddresses } from '../hooks/useFetchAddresses';
+import { useCheckAddress } from '../hooks/useCheckAddress';
 import { authActionCreators } from '../../../../slices/authSlice';
+import { APIStatus } from '../../../../lib/axiosAPI';
 
 const AddressFormRegister: FC = (props) => {
   const isMountedRef = useIsMountedRef();
   const { fetchAddresses, addresses: options } = useFetchAddresses();
   const { setRegisterStep } = authActionCreators();
+  const { check, status } = useCheckAddress(setRegisterStep);
 
   return (
     <>
@@ -51,7 +48,7 @@ const AddressFormRegister: FC = (props) => {
             setSubmitting
           }): Promise<void> => {
             try {
-              await checkAddress(values.address, setRegisterStep);
+              await check(values.address);
             } catch (err) {
               console.error(err);
               if (isMountedRef.current) {
@@ -106,7 +103,7 @@ const AddressFormRegister: FC = (props) => {
               <Box sx={{ mt: 2 }}>
                 <Button
                   color="primary"
-                  disabled={!values.address}
+                  disabled={!values.address || status === APIStatus.Loading}
                   fullWidth
                   size="large"
                   type="submit"

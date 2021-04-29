@@ -8,7 +8,7 @@ import { authActionCreators } from '../../../../slices/authSlice';
 
 const CreatePasswordRegister = () => {
   const isMountedRef = useIsMountedRef();
-  const { register } = useRegister();
+  const { onRegister: register } = useRegister();
   const { setRegisterStep } = authActionCreators();
 
   return (
