@@ -22,12 +22,7 @@ const useStyles = makeStyles({
     boxShadow: "none",
     cursor: "default",
   },
-  customText: {
-    color: "#222222",
-    fontSize: 18,
-    textAlign: "left",
-    whiteSpace: "nowrap",
-  },
+
   carouselContainer: {
     width: "82%",
     margin: "auto",
@@ -96,7 +91,7 @@ export default function CustomArrows() {
                 />
               </div>
               <CardContent>
-                <Typography gutterBottom className={classes.customText}>
+                <Typography gutterBottom className="customText">
                   <Box>{item.name}</Box>
                   <Box>{item.lastName}</Box>
                 </Typography>

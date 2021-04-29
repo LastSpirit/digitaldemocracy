@@ -1,5 +1,4 @@
 .textBeforeCarousel {
-  background-color: white;
   display: flex;
   justify-content: space-between;
   margin: 147px 40px 68px 40px;
@@ -17,27 +16,6 @@
   margin: auto;
   white-space: nowrap;
   display: flex;
-}
-.slick-prv,
-.slick-next {
-  width: 50px;
-  height: 50px;
-  background-color: white;
-}
-.slick-prv:hover,
-.slick-next:hover,
-.slick-prv:focus,
-.slick-next:focus {
-  color: white;
-  outline: none;
-  background: white;
-}
-.slick-next {
-  right: -55px;
-  background: red;
-}
-.slick-prev {
-  left: -55px;
 }
 
 .slick-slide,
@@ -59,18 +37,16 @@
   top: 0;
   border-radius: 10px;
 }
-.slick-prev,
-.slick-next {
-  font-size: 15px !important;
-}
 
-.slick-prev:before,
-.slick-next:before {
-  content: "" !important;
+.customText {
+  color: #222222;
+  font-size: 18px;
+  text-align: left;
+  white-space: nowrap;
 }
 @media (max-width: 872px) {
   .buttonStyle {
-    padding: 4% 14%;
+    padding: 4% 5%;
     font-size: 4vw;
   }
   .allStyle {
@@ -83,10 +59,61 @@
   .textBeforeCarousel p {
     font-size: 4vw;
   }
+
+  .slick-slide {
+    width: 100px !important;
+  }
+
+  .carouselImage {
+    height: 19vh;
+    width: 98px;
+  }
+  .carouselImage2 {
+    height: 19vh;
+  }
+  .customText {
+    margin-top: -39px;
+    font-size: 12px;
+  }
+  .persentage {
+    font-size: 25px;
+  }
+  .imageFrame {
+    height: 161px;
+  }
 }
 @media (max-width: 361px) {
   .buttonStyle {
     padding: 2% 2%;
     font-size: 4vw;
   }
+  .slick-prev {
+    display: none !important;
+  }
+  .slick-next {
+    display: none !important;
+  }
+  .makeStyles-carouselContainer-2 {
+    margin-left: 10px !important;
+  }
+  .slick-list {
+    margin-left: -14px !important;
+  }
+}
+
+/* slick-arrow slick-prev */
+
+.slick-prev {
+  top: 98px !important;
+  left: -70px !important;
+}
+.slick-next {
+  top: 98px !important;
+  right: -31px !important;
+}
+.slick-prev::before {
+  content: url("../../../icons/pictures/prev.png") !important;
+}
+.slick-next::before {
+  content: url("../../../icons/pictures/next.png") !important;
 }

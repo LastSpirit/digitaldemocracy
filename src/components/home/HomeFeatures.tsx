@@ -16,10 +16,15 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: "wrap",
     margin: " 38px auto",
     justifyContent: "center",
+    alignItems: "flex-end",
   },
   actualText: {
     fontSize: 19.44,
     textIndent: 46,
+  },
+  allStyle: {
+    fontSize: 35,
+    fontWeight: 300,
   },
 }));
 
@@ -36,7 +41,7 @@ const HomeFeatures: FC = () => {
 
         <Box className={classes.content}>
           <Box>
-            <Typography className="allStyle">Актуальные новости</Typography>
+            <Typography className={classes.allStyle}>Актуальные новости</Typography>
             <CardBig />
             <CardBig />
           </Box>

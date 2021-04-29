@@ -7,6 +7,9 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 20,
     fontWeight: 400,
   },
+  lineStyle: {
+    whiteSpace: "nowrap",
+  },
 }));
 
 const ListSidebar: FC = () => {
@@ -14,7 +17,7 @@ const ListSidebar: FC = () => {
   return (
     <Box>
       <Typography className={classes.listTitle}>Темы</Typography>
-      <List>
+      <List className={classes.lineStyle}>
         <ListItem alignItems="flex-start">
           <ListItemText primary="Митинги в Москве" />
         </ListItem>
