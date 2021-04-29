@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexWrap: "wrap",
     margin: " 38px auto",
+    justifyContent: "center",
   },
   actualText: {
     fontSize: 19.44,

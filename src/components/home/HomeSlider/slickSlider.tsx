@@ -42,13 +42,13 @@ export default function CustomArrows() {
   const settings = {
     dots: false,
     infinite: false,
-    speed: 500,
+    speed: 700,
     slidesToShow: 5,
     slidesToScroll: 1,
     initialSlide: 0,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1399,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
@@ -57,15 +57,15 @@ export default function CustomArrows() {
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 843,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          initialSlide: 2,
+          initialSlide: 3,
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 832,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
