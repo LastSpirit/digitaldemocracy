@@ -1,30 +1,30 @@
-import type { FC } from "react";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { AppBar, Box, Button, Hidden, Link, Toolbar } from "@material-ui/core";
-import Logo from "./Logo";
-import Search from "../icons/Search";
-import InputTextField from "./widgets/inputs/InputTextField";
-import Brand from "../icons/Brand";
-import { useWindowSize } from "../hooks/useWindowSize";
-import useAuth from "../hooks/useAuth";
-import Person from "../icons/Person";
-import { ModalParams } from "../types/routing";
-import { useSearchParams } from "../hooks/useSearchParams";
+import type { FC } from 'react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { AppBar, Box, Button, Hidden, Link, Toolbar } from '@material-ui/core';
+import Logo from './Logo';
+import Search from '../icons/Search';
+import InputTextField from './widgets/inputs/InputTextField';
+import Brand from '../icons/Brand';
+import { useWindowSize } from '../hooks/useWindowSize';
+import useAuth from '../hooks/useAuth';
+import Person from '../icons/Person';
+import { ModalParams } from '../types/routing';
+import { useSearchParams } from '../hooks/useSearchParams';
 
 const links = [
   {
-    to: "/rating",
-    title: "Рейтинг",
+    to: '/rating',
+    title: 'Рейтинг',
     mr: 4,
   },
   {
-    to: "/news",
-    title: "Новости",
+    to: '/news',
+    title: 'Новости',
     mr: 4,
   },
   {
-    to: "/about_site",
-    title: "О площадке",
+    to: '/about_site',
+    title: 'О площадке',
     mr: 0,
   },
 ];
@@ -39,14 +39,14 @@ const MainNavbar: FC = () => {
 
   const buttons = [
     {
-      title: isAuthenticated ? "Предложить новость/политика" : "Вход",
-      to: isAuthenticated ? "/" : "login",
-      color: "",
+      title: isAuthenticated ? 'Предложить новость/политика' : 'Вход',
+      to: isAuthenticated ? '/' : 'login',
+      color: '',
     },
     {
-      title: isAuthenticated ? <Person /> : "Регистрация",
-      to: isAuthenticated ? "/profile" : "register",
-      color: "",
+      title: isAuthenticated ? <Person /> : 'Регистрация',
+      to: isAuthenticated ? '/profile' : 'register',
+      color: '',
     },
   ];
 
@@ -62,24 +62,24 @@ const MainNavbar: FC = () => {
     <AppBar
       elevation={0}
       sx={{
-        backgroundColor: "background.paper",
-        color: "text.secondary",
+        backgroundColor: 'background.paper',
+        color: 'text.secondary',
       }}
     >
       <Toolbar
         sx={{
           minHeight: 64,
-          justifyContent: isMobile ? "center" : "space-between",
-          alignItems: "center",
-          display: "flex",
+          justifyContent: isMobile ? 'center' : 'space-between',
+          alignItems: 'center',
+          display: 'flex',
         }}
       >
         {isMobile ? (
           <Box
             sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               height: 40,
             }}
           >
@@ -89,8 +89,8 @@ const MainNavbar: FC = () => {
           <>
             <Box
               sx={{
-                display: "flex",
-                alignItems: "center",
+                display: 'flex',
+                alignItems: 'center',
                 height: 40,
               }}
             >
@@ -108,7 +108,7 @@ const MainNavbar: FC = () => {
                 }}
               >
                 <Hidden lgDown>
-                  <Box style={{ width: "210px" }}>
+                  <Box style={{ width: '210px' }}>
                     <InputTextField icon={<Search />} />
                   </Box>
                 </Hidden>
@@ -136,7 +136,7 @@ const MainNavbar: FC = () => {
 
             <Box
               sx={{
-                backgroundColor: "background.paper",
+                backgroundColor: 'background.paper',
                 p: 3,
               }}
             >

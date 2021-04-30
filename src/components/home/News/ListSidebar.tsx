@@ -1,14 +1,14 @@
-import type { FC } from "react";
-import { Box, Divider, List, ListItem, ListItemText, makeStyles, Typography } from "@material-ui/core";
+import type { FC } from 'react';
+import { Box, Divider, List, ListItem, ListItemText, makeStyles, Typography } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   listTitle: {
     fontSize: 50,
     paddingLeft: 20,
     fontWeight: 400,
   },
   lineStyle: {
-    whiteSpace: "nowrap",
+    whiteSpace: 'nowrap',
   },
 }));
 

@@ -1,22 +1,22 @@
-import type { FC, ReactNode } from "react";
-import { Outlet } from "react-router-dom";
-import { experimentalStyled } from "@material-ui/core/styles";
-import Footer from "./Footer";
-import MainNavbar from "./MainNavbar";
-import AuthModal from "./widgets/modals/AuthModal";
+import type { FC, ReactNode } from 'react';
+import { Outlet } from 'react-router-dom';
+import { experimentalStyled } from '@material-ui/core/styles';
+import Footer from './Footer';
+import MainNavbar from './MainNavbar';
+import AuthModal from './widgets/modals/AuthModal';
 
 interface MainLayoutProps {
   children?: ReactNode;
 }
 
-const MainLayoutRoot = experimentalStyled("div")(({ theme }) => ({
+const MainLayoutRoot = experimentalStyled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
-  height: "100%",
+  height: '100%',
   paddingTop: 64,
 }));
 
 const MainLayout: FC<MainLayoutProps> = () => (
-  <MainLayoutRoot style={{ background: "white" }}>
+  <MainLayoutRoot style={{ background: 'white' }}>
     <MainNavbar />
     <AuthModal />
     <Outlet />
