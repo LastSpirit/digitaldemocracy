@@ -1,25 +1,83 @@
 import { useEffect } from 'react';
 import type { FC } from 'react';
 import {
-  Box,
+  Box, Button,
   Card,
   CardContent,
   Divider,
   Typography
 } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 import {
-  RegisterAmplify,
+  AddressFormRegister, TypeRegisterSelect, VerifyCodeRegister
 } from '../../components/authentication/register';
 import gtm from '../../lib/gtm';
+import { ModalParams } from '../../types/routing';
+import { useSearchParams } from '../../hooks/useSearchParams';
+import CreatePasswordRegister from '../../components/authentication/register/forms/CreatePasswordRegister';
+import { useWindowSize } from '../../hooks/useWindowSize';
+import { authSelectors } from '../../slices/authSlice';
+
+const WelcomeTextRegister = () => {
+  const {
+    [ModalParams.Auth]: { setValue: setAuthValue },
+  } = useSearchParams(ModalParams.Auth);
+  return (
+    <>
+      <Typography align="justify">
+        {/* eslint-disable-next-line react/no-unescaped-entities */}
+        Дорогой Друг! Демократия - это "власть народа", народ является источником власти. Но это ещё и ответственность реализовывать это право, делать свой выбор, голосовать за тех, кого народ этой властью наделяет. Ответственность проявлять свою позицию, чтобы изменить жизнь для нас и наших детей в нашей стране лучше. Цифровая эпоха даёт нам новые возможности.  Наша платформа позволяет пользователям формировать рейтинг политиков через оценку их действий, что бы на основании него потом сделать осознанный выбор. Важная составляющая рейтинга, доверие к нему. Поэтому мы всеми возможными путями будем бороться с попытками нечестно повлиять на рейтинг. Это, к сожалению, может затронуть и добропорядочных пользователей. Мы принимаем всех, но если аккаунт будет заподозрен в недобросовестной активности, то мы попросим пройти верификацию. В случае непрохождения проверки все оценки и действия аккаунта будут удалены. Просим отнестись к этому с пониманием. Добро пожаловать в "цифровую демократию"!
+      </Typography>
+      <Button
+        sx={{
+          mt: 2,
+        }}
+        color="primary"
+        size="large"
+        variant="contained"
+        onClick={() => setAuthValue(undefined)}
+      >
+        Завершить
+      </Button>
+    </>
+  );
+};
+
+const getCurrentStepComponent = (step: number) => {
+  switch (step) {
+    case 1:
+      return <AddressFormRegister />;
+    case 2:
+      return <TypeRegisterSelect />;
+    case 3:
+      return <VerifyCodeRegister />;
+    case 4:
+      return <CreatePasswordRegister />;
+    case 5:
+      return <WelcomeTextRegister />;
+    default:
+      return <AddressFormRegister />;
+  }
+};
 
 const Register: FC = () => {
   useEffect(() => {
     gtm.push({ event: 'page_view' });
   }, []);
+
+  const {
+    [ModalParams.Auth]: { setValue: setAuthValue },
+  } = useSearchParams(ModalParams.Auth);
+  const registerStep = useSelector(authSelectors.getRegisterStep());
+  const endRegistration = registerStep === 5;
+
+  const { isMobile } = useWindowSize();
+
   return (
     <>
       <Card sx={{
-        width: 555,
+        maxWidth: 555,
+        width: isMobile ? 'auto' : 555
       }}
       >
         <CardContent
@@ -27,6 +85,7 @@ const Register: FC = () => {
             display: 'flex',
             flexDirection: 'column',
             paddingTop: '70px',
+            paddingBottom: '70px!important',
             paddingRight: '45px',
             paddingLeft: '45px'
           }}
@@ -45,8 +104,9 @@ const Register: FC = () => {
               variant="h3"
               mb="0"
               fontWeight="300"
+              align={endRegistration ? 'center' : 'left'}
             >
-              Регистрация
+              {endRegistration ? 'Вы успешно зарегистрировались!' : 'Регистрация'}
             </Typography>
             <Box
               sx={{
@@ -63,31 +123,39 @@ const Register: FC = () => {
                 fontWeight="300"
                 variant="h4"
               >
-                1/4
+                {!endRegistration && `${registerStep}/4`}
               </Typography>
             </Box>
           </Box>
-          <Typography
-            color="#747373"
-            gutterBottom
-          >
-            Где вы имеете право голоса?
-          </Typography>
-          <Box
-            sx={{
-              flexGrow: 1,
-              mt: 3
-            }}
-          >
-            <RegisterAmplify />
-          </Box>
-          <Divider sx={{ my: 3 }} />
-          <Typography
-            color="textSecondary"
-            variant="body2"
-          >
-            Прежде всего, синтетическое тестирование в значительной степени обусловливает важность прогресса профессионального сообщества!
-          </Typography>
+          {getCurrentStepComponent(registerStep)}
+          {registerStep < 3 && (
+          <>
+            <Box sx={{ mt: 4, justifyContent: 'space-between', alignItems: 'center', display: 'flex' }}>
+              <Typography>
+                Уже есть аккаунт?
+              </Typography>
+              <Button
+                color="primary"
+                size="medium"
+                variant="outlined"
+                onClick={() => setAuthValue('login')}
+              >
+                Войти
+              </Button>
+            </Box>
+            {registerStep === 1 && (
+            <>
+              <Divider sx={{ my: 3 }} />
+              <Typography
+                color="textSecondary"
+                variant="body2"
+              >
+                Прежде всего, синтетическое тестирование в значительной степени обусловливает важность прогресса профессионального сообщества!
+              </Typography>
+            </>
+            )}
+          </>
+          )}
         </CardContent>
       </Card>
     </>

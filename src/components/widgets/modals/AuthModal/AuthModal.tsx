@@ -1,23 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Modal, Box } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import Register from '../../../pages/authentication/Register';
-import Login from '../../../pages/authentication/Login';
-import { ModalParams } from '../../../types/routing';
-import { useSearchParams } from '../../../hooks/useSearchParams';
+import Register from '../../../../pages/authentication/Register';
+import Login from '../../../../pages/authentication/Login';
+import { ModalParams } from '../../../../types/routing';
+import { useSearchParams } from '../../../../hooks/useSearchParams';
+import { authActionCreators } from '../../../../slices/authSlice';
 
 const AuthModal:React.FC = () => {
   const {
     [ModalParams.Auth]: { value: authValue, setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
+  const { setRegisterStep, setLoginStep } = authActionCreators();
+
+  useEffect(() => () => {
+    setAuthValue(undefined);
+    setRegisterStep(1);
+    setLoginStep(1);
+  }, []);
 
   const onCloseModal = () => {
     setAuthValue(undefined);
+    setRegisterStep(1);
+    setLoginStep(1);
   };
 
   return (
     <Modal
       open={!!authValue}
+      disableAutoFocus
       onClose={onCloseModal}
       sx={{
         display: 'flex',

@@ -4,6 +4,7 @@ import { reducer as chatReducer } from '../slices/chat';
 import { reducer as kanbanReducer } from '../slices/kanban';
 import { reducer as mailReducer } from '../slices/mail';
 import { newsSlice } from '../slices/newsSlice';
+import { authSlice } from '../slices/authSlice';
 
 const rootReducer = combineReducers({
   calendar: calendarReducer,
@@ -11,6 +12,8 @@ const rootReducer = combineReducers({
   kanban: kanbanReducer,
   mail: mailReducer,
   news: newsSlice.reducer,
+  mail: mailReducer,
+  auth: authSlice.reducer,
 });
 
 export default rootReducer;

@@ -1,6 +1,14 @@
 import type { FC } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { AppBar, Box, Button, Hidden, Link, Toolbar } from '@material-ui/core';
+import {
+  AppBar,
+  Box,
+  Button,
+  Divider,
+  Link,
+  Toolbar, Typography,
+  Hidden,
+} from '@material-ui/core';
 import Logo from './Logo';
 import Search from '../icons/Search';
 import InputTextField from './widgets/inputs/InputTextField';
@@ -26,8 +34,7 @@ const links = [
     to: '/about_site',
     title: 'О площадке',
     mr: 0,
-  },
-];
+  }];
 
 const MainNavbar: FC = () => {
   const navigate = useNavigate();
@@ -47,7 +54,7 @@ const MainNavbar: FC = () => {
       title: isAuthenticated ? <Person /> : 'Регистрация',
       to: isAuthenticated ? '/profile' : 'register',
       color: '',
-    },
+    }
   ];
 
   const handleClick = (to: string) => {
@@ -63,49 +70,56 @@ const MainNavbar: FC = () => {
       elevation={0}
       sx={{
         backgroundColor: 'background.paper',
-        color: 'text.secondary',
+        color: 'text.secondary'
       }}
     >
-      <Toolbar
-        sx={{
-          minHeight: 64,
-          justifyContent: isMobile ? 'center' : 'space-between',
-          alignItems: 'center',
-          display: 'flex',
-        }}
-      >
+      <Toolbar sx={{ minHeight: 64, justifyContent: isMobile ? 'center' : 'space-between', alignItems: 'center', display: 'flex' }}>
         {isMobile ? (
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: 40,
-            }}
+          <Box sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: 40,
+          }}
           >
             <Brand />
           </Box>
         ) : (
           <>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                height: 40,
-              }}
+            <Box sx={{
+              display: 'flex',
+              alignItems: 'center',
+              height: 40
+            }}
             >
-              <RouterLink to="/">
-                <Logo
-                  sx={{
-                    height: 40,
-                    width: 40,
-                  }}
-                />
-              </RouterLink>
               <Box
                 sx={{
-                  marginLeft: 17,
+                  display: 'flex',
+                  alignItems: 'center',
+                  height: 40
                 }}
+              >
+                <RouterLink to="/">
+                  <Logo
+                    sx={{
+                      height: 40,
+                      width: 40
+                    }}
+                  />
+                </RouterLink>
+                <Typography
+                  sx={{ ml: 1.5 }}
+                  color="textSecondary"
+                  variant="caption"
+                >
+                  Digital
+                  <br />
+                  Democracy
+                </Typography>
+              </Box>
+              <Box sx={{
+                marginLeft: 17,
+              }}
               >
                 <Hidden lgDown>
                   <Box style={{ width: '210px' }}>

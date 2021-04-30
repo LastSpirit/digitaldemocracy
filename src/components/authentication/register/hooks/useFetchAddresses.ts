@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { dadataConfig } from '../../../config';
+import { dadataConfig } from '../../../../config';
 
 export const useFetchAddresses = () => {
-  const url = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
-  const token = dadataConfig.apiKey;
   const [addresses, setAddresses] = useState([]);
   const fetchAddresses = (query: string) => {
     const options = {
@@ -12,12 +10,12 @@ export const useFetchAddresses = () => {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        Authorization: `Token ${token}`
+        Authorization: `Token ${dadataConfig.apiKey}`
       },
       body: JSON.stringify({ query })
     };
 
-    fetch(url, options)
+    fetch(dadataConfig.getAddresses, options)
       .then((response) => response.json())
       .then((result) => {
         setAddresses(result.suggestions.map((item) => item.value));
