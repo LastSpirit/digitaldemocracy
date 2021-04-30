@@ -12,7 +12,6 @@ const rootReducer = combineReducers({
   kanban: kanbanReducer,
   mail: mailReducer,
   news: newsSlice.reducer,
-  mail: mailReducer,
   auth: authSlice.reducer,
 });
 

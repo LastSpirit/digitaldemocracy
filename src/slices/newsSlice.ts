@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface NewI {
+export interface NewI {
   date: number
   viewed: number
   title: string

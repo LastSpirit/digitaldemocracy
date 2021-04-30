@@ -1,8 +1,11 @@
 import type { FC } from 'react';
-import { Box, Hidden, makeStyles, Typography } from '@material-ui/core';
-import CardBig from './News/CardBig';
+import { Box, Hidden, makeStyles } from '@material-ui/core';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import ListSidebar from './News/ListSidebar';
 import CardSmall from './News/CardSmall';
+import { useFetchNews } from './hooks/useFetchNews';
+import { newsSelector } from '../../slices/newsSlice';
 
 const useStyles = makeStyles(() => ({
   actualNews: {
@@ -30,6 +33,15 @@ const useStyles = makeStyles(() => ({
 
 const HomeFeatures: FC = () => {
   const classes = useStyles();
+  const { status, fetch } = useFetchNews();
+  console.log(status);
+  const data = useSelector(newsSelector.getData());
+  console.log(data);
+
+  useEffect(() => {
+    fetch();
+  }, []);
+
   return (
     <Box>
       <Box style={{ display: 'flex' }}>
@@ -41,20 +53,12 @@ const HomeFeatures: FC = () => {
 
         <Box className={classes.content}>
           <Box>
-            <Typography className={classes.allStyle}>Актуальные новости</Typography>
-            <CardBig />
-            <CardBig />
-          </Box>
-          <Box>
-            <CardSmall />
-            <CardSmall />
-            <CardSmall />
-            <CardSmall />
-          </Box>
-          <Box>
-            <CardSmall />
-            <CardSmall />
-            <CardBig />
+            {data?.map((item, index) => (
+              <CardSmall
+                {...item}
+                key={index.toString()}
+              />
+            ))}
           </Box>
         </Box>
       </Box>

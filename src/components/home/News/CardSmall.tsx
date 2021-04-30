@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import { Box, Container, makeStyles, Typography } from '@material-ui/core';
 import watched from '../../../icons/pictures/watched.png';
 import logo from '../../../icons/logo/2.svg';
+import { NewI } from '../../../slices/newsSlice';
 
 const useStyles = makeStyles(() => ({
   bigCardContainer: {
@@ -40,13 +41,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const CardSmall: FC = () => {
+interface CardSmallProps extends NewI {}
+
+const CardSmall: FC<CardSmallProps> = ({ title, viewed, date, author, site }) => {
   const classes = useStyles();
   return (
     <Container style={{ textAlign: 'center' }}>
       <Box className={classes.bigCardContainer}>
         <Box className={classes.mainHeader}>
-          <Typography>Дата новости</Typography>
+          <Typography>{date}</Typography>
           <Box className={classes.bigHeadre}>
             <Box>
               <img
@@ -55,7 +58,7 @@ const CardSmall: FC = () => {
                 alt="/"
               />
               {' '}
-              2203
+              {viewed}
             </Box>
             <Box mr={1}>
               <img
@@ -64,7 +67,7 @@ const CardSmall: FC = () => {
                 alt="/"
               />
               {' '}
-              2203
+              {viewed}
             </Box>
           </Box>
         </Box>
@@ -72,12 +75,11 @@ const CardSmall: FC = () => {
           variant="h4"
           className={classes.cardContent}
         >
-          <Typography style={{ fontSize: 24 }}>В Узбекистане вывели</Typography>
-          <Typography style={{ fontSize: 24 }}> новый сорт чая</Typography>
+          <Typography style={{ fontSize: 24 }}>{title}</Typography>
         </Typography>
         <Box className={classes.cardNames}>
-          <Typography>Алина Романова</Typography>
-          <Typography>Rusbase.ru</Typography>
+          <Typography>{author}</Typography>
+          <Typography>{site}</Typography>
         </Box>
       </Box>
     </Container>
