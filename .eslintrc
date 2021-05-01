@@ -12,6 +12,7 @@
     "airbnb-typescript"
   ],
   "rules": {
+    "linebreak-style": 0,
     "@typescript-eslint/comma-dangle": "off",
     "import/prefer-default-export": "off",
     "jsx-a11y/anchor-is-valid": "off",

@@ -25,7 +25,7 @@ export enum APIStatus {
 
 export type CallAPI<AppThunk> = (params: CallAPIParams) => AppThunk;
 
-const baseURL = 'https://jsonplaceholder.typicode.com'; // Change real baseUrl
+const baseURL = ' https://dev-backoffice.digitaldemocracy.ru/api/';
 
 export const getCallAPI = <RootState>(): CallAPI<GenericAppThunk<RootState>> => (
   props
