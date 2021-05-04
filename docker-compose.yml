@@ -11,11 +11,12 @@ services:
       dockerfile: Dockerfile
     environment:
       - NODE_ENV=production
-      - API_URL=${API_URL}
     networks:
       - ddemo
     volumes:
       - /opt/ddemo/storage/app/public:/usr/share/nginx/html/storage
+      - /ssl/fullchain.pem:/etc/letsencrypt/archive/dev.digitaldemocracy.ru/fullchain1.pem
+      - /ssl/privkey.pem:/etc/letsencrypt/archive/dev.digitaldemocracy.ru/privkey1.pem
 
 
 networks:
