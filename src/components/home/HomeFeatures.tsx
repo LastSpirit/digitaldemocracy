@@ -33,10 +33,8 @@ const useStyles = makeStyles(() => ({
 
 const HomeFeatures: FC = () => {
   const classes = useStyles();
-  const { status, fetch } = useFetchNews();
-  console.log(status);
+  const { fetch } = useFetchNews();
   const data = useSelector(newsSelector.getData());
-  console.log(data);
 
   useEffect(() => {
     fetch();
