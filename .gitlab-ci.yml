@@ -13,7 +13,7 @@ deploy_dev:
   tags:
     - dev-shell
   only:
-    - dev
+    - develop
     - /^devops\/.*$/
 
 deploy_prod:
