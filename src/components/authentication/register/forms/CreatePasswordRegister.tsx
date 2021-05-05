@@ -5,10 +5,11 @@ import * as Yup from 'yup';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import { useRegister } from '../hooks/useRegister';
 import { authActionCreators } from '../../../../slices/authSlice';
+import { APIStatus } from '../../../../lib/axiosAPI';
 
 const CreatePasswordRegister = () => {
   const isMountedRef = useIsMountedRef();
-  const { onRegister: register } = useRegister();
+  const { onRegister: register, error: { confPassError, passError }, status } = useRegister();
   const { setRegisterStep } = authActionCreators();
 
   return (
@@ -41,7 +42,7 @@ const CreatePasswordRegister = () => {
             setSubmitting,
           }): Promise<void> => {
             try {
-              await register(values.password, setRegisterStep);
+              await register(values.password, values.confirmPassword, setRegisterStep);
             } catch (err) {
               console.error(err);
               if (isMountedRef.current) {
@@ -64,8 +65,8 @@ const CreatePasswordRegister = () => {
             >
               <TextField
                 fullWidth
-                helperText={errors.password}
-                error={!!errors.password}
+                helperText={errors.password || passError}
+                error={!!errors.password || !!passError}
                 value={values.password}
                 onChange={handleChange}
                 label="Придумайте пароль"
@@ -77,8 +78,8 @@ const CreatePasswordRegister = () => {
               />
               <TextField
                 fullWidth
-                helperText={errors.confirmPassword}
-                error={!!errors.confirmPassword}
+                helperText={errors.confirmPassword || confPassError}
+                error={!!errors.confirmPassword || !!confPassError}
                 label="Введите пароль повторно"
                 margin="normal"
                 name="confirmPassword"
@@ -89,7 +90,7 @@ const CreatePasswordRegister = () => {
               <Box sx={{ mt: 3 }}>
                 <Button
                   color="primary"
-                  disabled={!values.password && !values.confirmPassword}
+                  disabled={(!values.password && !values.confirmPassword) || status === APIStatus.Loading}
                   fullWidth
                   size="large"
                   type="submit"

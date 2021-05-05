@@ -37,7 +37,7 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
     setStatus(APIStatus.Loading);
     const registerThroughPhone = registerType === AuthType.Phone;
     sendCode({
-      onError: (errorResponse) => onError(errorResponse.message),
+      onError,
       onSuccess: () => onSuccess(registerThroughPhone, values),
       payload: {
         address,

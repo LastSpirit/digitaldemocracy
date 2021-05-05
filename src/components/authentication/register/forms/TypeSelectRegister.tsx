@@ -3,8 +3,6 @@ import { Box, TextField, Typography } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
-// import GoogleLogin from 'react-google-login';
-import GoogleLogin from 'react-google-login';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import '../RegisterStyles.css';
 import { useSendCode } from '../hooks/useSendCode';
@@ -26,9 +24,6 @@ const TypeSelectRegister = () => {
     } else {
       console.log(SingInSocialN.Google);
     }
-  };
-  const responseGoogle = (response: any) => {
-    console.log(response);
   };
 
   return (
@@ -146,13 +141,6 @@ const TypeSelectRegister = () => {
                 cursor: 'pointer'
               }}
             >
-              <GoogleLogin
-                clientId="683353512261-0fmbs7jusfno2p52auqokvj5dqhspflf.apps.googleusercontent.com"
-                buttonText="Login"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-                cookiePolicy="single_host_origin"
-              />
               <Icon />
               <Typography
                 color="#414042"

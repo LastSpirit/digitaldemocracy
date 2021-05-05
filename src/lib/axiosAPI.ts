@@ -16,7 +16,7 @@ export interface CallAPIParams {
   payload?: any
   onSuccess?: (response: any, headers?: any) => void
   includeHeaders?: string[]
-  onError?: (errorResponse: ErrorI) => void
+  onError?: (errorResponse: Object) => void
   reducerData?: any
   config?: AxiosRequestConfig
   customBaseUrl?: string
@@ -37,10 +37,11 @@ export const getCallAPI = <RootState>(): CallAPI<GenericAppThunk<RootState>> => 
   props
 ) => async () => {
   const { url, payload, onSuccess, onError, config, includeHeaders, customBaseUrl } = props;
+  let response;
 
   try {
     const method = config?.method;
-    let response;
+
     if (method && method.toLowerCase() === 'get') {
       response = await axios.get((customBaseUrl || baseURL) + url, config);
     } else {
@@ -50,26 +51,30 @@ export const getCallAPI = <RootState>(): CallAPI<GenericAppThunk<RootState>> => 
     if (response.data.success && response.data.data && onSuccess) onSuccess(response.data.data, headers);
     if ((!response.data.success || !response.data.data) && onError) onError(response.data.message);
   } catch (err) {
-    console.log(err);
-    if (onError) onError(err);
+    console.log(err.response);
+    if (onError) {
+      if (err.response.data.errors) onError(err.response.data.errors);
+      else onError(err.response.data.message);
+    }
   }
 };
 
 export const callAPI = getCallAPI<RootState>();
 
-export interface APIRequestParams<Req, Res> {
+export interface APIRequestParams<Req, Res, ErrorType> {
   payload?: Req
   onSuccess?: (response: Res) => void
-  onError?: (errorResponse: ErrorI) => void
+  onError?: (errorResponse: ErrorType) => void
   config?: AxiosRequestConfig
 }
 
-export type GenericAPIRequest<RootState, Req = null, Res = null> = (
-  params: APIRequestParams<Req, Res>
+export type GenericAPIRequest<RootState, Req = null, Res = null, ErrorType = null> = (
+  params: APIRequestParams<Req, Res, ErrorType>
 ) => GenericAppThunk<RootState>;
 
-export type APIRequest<Req = null, Res = null> = GenericAPIRequest<
+export type APIRequest<Req = null, Res = null, ErrorType = null> = GenericAPIRequest<
 RootState,
 Req,
-Res
+Res,
+ErrorType
 >;
