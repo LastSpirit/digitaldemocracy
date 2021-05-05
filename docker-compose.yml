@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+
+  front:
+    restart: always
+    image: ddemo-front
+    container_name: front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=production
+    networks:
+      - ddemo
+    volumes:
+      - /opt/ddemo/storage/app/public:/usr/share/nginx/html/storage
+      - /ssl/fullchain.pem:/etc/letsencrypt/archive/dev.digitaldemocracy.ru/fullchain1.pem
+      - /ssl/privkey.pem:/etc/letsencrypt/archive/dev.digitaldemocracy.ru/privkey1.pem
+
+
+networks:
+  ddemo:
