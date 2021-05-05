@@ -17,6 +17,9 @@ services:
       - /opt/ddemo/storage/app/public:/usr/share/nginx/html/storage
       - /ssl/fullchain.pem:/etc/letsencrypt/archive/dev.digitaldemocracy.ru/fullchain1.pem
       - /ssl/privkey.pem:/etc/letsencrypt/archive/dev.digitaldemocracy.ru/privkey1.pem
+    ports:
+      - 80:80
+      - 443:443
 
 
 networks:
