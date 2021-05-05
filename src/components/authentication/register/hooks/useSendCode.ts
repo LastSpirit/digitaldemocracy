@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
-import { authActionCreators, AuthType } from '../../../../slices/authSlice';
+import { useSelector } from 'react-redux';
+import { authActionCreators, authSelectors, AuthType } from '../../../../slices/authSlice';
 import { APIStatus } from '../../../../lib/axiosAPI';
 import { authAPI } from '../../../../api/authAPI';
 
@@ -15,8 +16,10 @@ interface UseSendCodeProps {
 
 export const useSendCode = (setRegisterStep: (value: number) => void) => {
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
+  const [error, setError] = useState<string>('');
   const { sendCode } = authAPI();
   const { setAuthUserData } = authActionCreators();
+  const { address } = useSelector(authSelectors.getUserData());
 
   const onSuccess = (isProne: boolean, values: { phone?: string, email?: string }) => {
     setStatus(APIStatus.Success);
@@ -25,7 +28,8 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
     setRegisterStep(3);
   };
 
-  const onError = () => {
+  const onError = (errorMessage: string) => {
+    setError(errorMessage);
     setStatus(APIStatus.Failure);
   };
 
@@ -33,14 +37,15 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
     setStatus(APIStatus.Loading);
     const registerThroughPhone = registerType === AuthType.Phone;
     sendCode({
-      onError,
+      onError: (errorResponse) => onError(errorResponse.message),
       onSuccess: () => onSuccess(registerThroughPhone, values),
       payload: {
+        address,
         phone: registerThroughPhone ? values.phone : undefined,
         email: !registerThroughPhone ? values.email : undefined
       }
     });
   }, []);
 
-  return { send, status };
+  return { send, status, error };
 };

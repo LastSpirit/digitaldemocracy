@@ -13,19 +13,38 @@ interface RegisterResponse {
   token: string
 }
 
-const checkValidateAddress: APIRequest<{ address: string }, { valid: boolean }> = (args) => callAPI({ url: '/posts', ...args });
+interface SendCodeRequest {
+  address: string
+  email?: string
+  phone?: string
+}
 
-const sendCode: APIRequest<{ email?: string, phone?: string }> = (args) => callAPI({ url: args.payload.email ? '/email' : '/phone', ...args });
+interface VerifyCodeRequest {
+  code: string
+  email?: string
+}
 
-const verifyCode: APIRequest<{ code: string }, { token?: string }> = (args) => callAPI({ url: '/code', ...args });
+interface GetCodeYandexRequest {
+  response_type: string
+  client_id: string
+}
+
+const checkValidateAddress: APIRequest<{ address: string }, { valid: boolean }> = (args) => callAPI({ url: 'checkUserAddress', ...args });
+
+const sendCode: APIRequest<SendCodeRequest> = (args) => callAPI({ url: args.payload.email ? 'registrationViaEmail' : '/phone', ...args });
+
+const verifyCode: APIRequest<VerifyCodeRequest, { token?: string }> = (args) => callAPI({ url: 'checkEmailConfirmationCode', ...args });
 
 const register: APIRequest<RegisterRequest, RegisterResponse> = (args) => callAPI({ url: '/register', ...args });
+
+const getCodeYandexOAuth: APIRequest<GetCodeYandexRequest> = (args) => callAPI({ customBaseUrl: 'https://oauth.yandex.ru', url: '/authorize', config: { headers: { 'Content-Type': 'application/json' } }, ...args });
 
 const APIs = {
   checkValidateAddress,
   sendCode,
   verifyCode,
   register,
+  getCodeYandexOAuth,
 };
 
 export const authAPI = () => {

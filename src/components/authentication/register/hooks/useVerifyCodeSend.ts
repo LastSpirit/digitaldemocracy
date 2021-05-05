@@ -1,12 +1,15 @@
 import { useCallback, useState } from 'react';
-import { AuthType } from '../../../../slices/authSlice';
+import { useSelector } from 'react-redux';
+import { authSelectors, AuthType } from '../../../../slices/authSlice';
 import { APIStatus } from '../../../../lib/axiosAPI';
 import { authAPI } from '../../../../api/authAPI';
 import { setItem } from '../../../../lib/localStorageManager';
 
 export const useVerifyCodeSend = (setRegisterStep: (value: number) => void) => {
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
+  const [error, setError] = useState<string>('');
   const { verifyCode } = authAPI();
+  const { email } = useSelector(authSelectors.getUserData());
   const send = useCallback((code: string, registerType: AuthType) => {
     setStatus(APIStatus.Loading);
     verifyCode({
@@ -18,12 +21,16 @@ export const useVerifyCodeSend = (setRegisterStep: (value: number) => void) => {
           setRegisterStep(5);
         }
       },
-      onError: () => setStatus(APIStatus.Failure),
+      onError: (errorResponse) => {
+        setStatus(APIStatus.Failure);
+        setError(errorResponse.message);
+      },
       payload: {
-        code
+        code,
+        email
       }
     });
   }, []);
 
-  return { send, status };
+  return { send, status, error };
 };

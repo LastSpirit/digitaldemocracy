@@ -22,7 +22,13 @@ interface SliceState {
 const initialState: SliceState = {
   registerStep: 1,
   loginStep: 1,
-  rememberMe: true
+  rememberMe: true,
+  authUserData: {
+    address: '',
+    phone: '',
+    email: '',
+    password: ''
+  }
 };
 
 export const authSlice = createSlice({
@@ -42,7 +48,8 @@ export const authSlice = createSlice({
       state.rememberMe = action.payload;
     },
     setAuthUserData(state: SliceState, action: PayloadAction<{ key: string, value: string }>) {
-      state.authUserData[action.payload.key] = action.payload.value;
+      const { value, key } = action.payload;
+      state.authUserData[key] = value;
     }
   }
 });

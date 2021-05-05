@@ -36,3 +36,8 @@ export const recaptchaConfig = {
   siteKey: '6Lc5nL0aAAAAAG3x1WmNfH5xfjWtS0DnCJAG0ks2',
   secretKey: '6Lc5nL0aAAAAAH5L5Ef6jJe6B4KWi2sduxWF0tR1'
 };
+
+export const OAuthConfig = {
+  secretID: '3af251b95a6d40babff085698fa55968',
+  password: 'dfc5cec072b942f28b18066dc88dbebf',
+};
