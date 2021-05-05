@@ -9,18 +9,14 @@ interface MainLayoutProps {
   children?: ReactNode;
 }
 
-const MainLayoutRoot = experimentalStyled('div')(
-  ({ theme }) => (
-    {
-      backgroundColor: theme.palette.background.default,
-      height: '100%',
-      paddingTop: 64
-    }
-  )
-);
+const MainLayoutRoot = experimentalStyled('div')(({ theme }) => ({
+  backgroundColor: theme.palette.background.default,
+  height: '100%',
+  paddingTop: 64,
+}));
 
 const MainLayout: FC<MainLayoutProps> = () => (
-  <MainLayoutRoot>
+  <MainLayoutRoot style={{ background: 'white' }}>
     <MainNavbar />
     <AuthModal />
     <Outlet />

@@ -4,9 +4,9 @@ import {
   AppBar,
   Box,
   Button,
-  Divider,
   Link,
   Toolbar, Typography,
+  Hidden,
 } from '@material-ui/core';
 import Logo from './Logo';
 import Search from '../icons/Search';
@@ -120,32 +120,37 @@ const MainNavbar: FC = () => {
                 marginLeft: 17,
               }}
               >
-                <InputTextField
-                  icon={<Search />}
-                />
+                <Hidden lgDown>
+                  <Box style={{ width: '210px' }}>
+                    <InputTextField icon={<Search />} />
+                  </Box>
+                </Hidden>
               </Box>
             </Box>
-            <Box>
-              {links.map(({ title, mr, to }, index) => (
-                <Link
-                  key={index.toString()}
-                  to={to}
-                  color="textSecondary"
-                  component={RouterLink}
-                  underline="none"
-                  variant="body1"
-                  sx={{
-                    marginRight: mr
-                  }}
-                >
-                  {title}
-                </Link>
-              ))}
-            </Box>
+            <Hidden mdDown>
+              <Box>
+                {links.map(({ title, mr, to }, index) => (
+                  <Link
+                    key={index.toString()}
+                    to={to}
+                    color="textSecondary"
+                    component={RouterLink}
+                    underline="none"
+                    variant="body1"
+                    sx={{
+                      marginRight: mr,
+                    }}
+                  >
+                    {title}
+                  </Link>
+                ))}
+              </Box>
+            </Hidden>
+
             <Box
               sx={{
                 backgroundColor: 'background.paper',
-                p: 3
+                p: 3,
               }}
             >
               {buttons.map(({ to, color, title }, index) => (
@@ -170,7 +175,6 @@ const MainNavbar: FC = () => {
           </>
         )}
       </Toolbar>
-      <Divider />
     </AppBar>
   );
 };

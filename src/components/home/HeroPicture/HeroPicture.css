@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+* {
+  font-family: "Open Sans", sans-serif;
+}
+.heroContainer {
+  position: relative;
+  margin: 51px 0 40px 38px;
+  max-width: 904px;
+  background: #ffffff;
+}
+.heroImage img {
+  max-width: 100%;
+}
+.heroText {
+  position: absolute;
+  top: 0%;
+  margin: 5% 0px 5% 5%;
+  text-align: left;
+  width: 611px;
+  font-size: 18px;
+}
+
+@media (max-width: 960px) {
+  .heroContainer {
+    margin: 32px 20px 0 8px;
+  }
+}
+@media (max-width: 929px) {
+  .heroText {
+    width: 63%;
+    font-size: 2vw;
+    margin: 3% 0px 0% 3%;
+  }
+}

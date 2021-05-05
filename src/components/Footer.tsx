@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import {
-  Box, Button,
+  Box,
+  Button,
   Container,
   Divider,
   Grid,
@@ -9,7 +10,7 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
 import { alpha } from '@material-ui/core/styles';
@@ -28,31 +29,31 @@ const sections = [
     links: [
       {
         title: 'info@digitaldemocracy.ru',
-        href: '/browse'
-      }
-    ]
+        href: '/browse',
+      },
+    ],
   },
   {
     title: 'Карта сайта',
     links: [
       {
         title: 'Новости',
-        href: '/news'
+        href: '/news',
       },
       {
         title: 'Рейтинг',
-        href: '/rating'
+        href: '/rating',
       },
       {
         title: 'Помощь площадке',
-        href: '/help_site'
+        href: '/help_site',
       },
       {
         title: 'Пользовательское соглашение',
-        href: '#'
-      }
-    ]
-  }
+        href: '#',
+      },
+    ],
+  },
 ];
 
 const Footer: FC = (props) => {
@@ -63,23 +64,23 @@ const Footer: FC = (props) => {
     {
       title: 'Поиск',
       icon: <Search />,
-      to: ''
+      to: '',
     },
     {
       title: 'Рейтинг',
       icon: <Rating />,
-      to: ''
+      to: '',
     },
     {
       title: 'Новости',
       icon: <News />,
-      to: ''
+      to: '',
     },
     {
       title: isAuthenticated ? 'Профиль' : 'Регистрация',
       icon: isAuthenticated ? <Person /> : <Register />,
-      to: ''
-    }
+      to: '',
+    },
   ];
   return (
     <Box
@@ -87,27 +88,29 @@ const Footer: FC = (props) => {
         backgroundColor: 'background.default',
         pb: {
           md: 6,
-          xs: 0
+          xs: 0,
         },
         pt: {
           md: 6,
-          xs: 0
-        }
+          xs: 0,
+        },
       }}
       {...props}
     >
       {isMobile ? (
-        <Box sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          p: 1.5
-        }}
-        >
-          <Box sx={{
-            width: '400px',
-            justifyContent: 'space-between',
+        <Box
+          sx={{
             display: 'flex',
+            justifyContent: 'center',
+            p: 1.5,
           }}
+        >
+          <Box
+            sx={{
+              width: '400px',
+              justifyContent: 'space-between',
+              display: 'flex',
+            }}
           >
             {icons.map(({ icon, title, to }, index) => (
               <Box
@@ -116,7 +119,7 @@ const Footer: FC = (props) => {
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
                 }}
                 onClick={() => navigate(to)}
               >
@@ -139,17 +142,18 @@ const Footer: FC = (props) => {
               sx={{
                 display: 'flex',
                 alignItems: 'flex-start',
-                order: 1
+                order: 1,
               }}
               xs={12}
             >
-              <Box sx={{
-                display: 'flex',
-                alignItems: 'center',
-              }}
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
               >
                 <Logo />
-                <Box sx={{ mt: 1, ml: 1.5, }}>
+                <Box sx={{ mt: 1, ml: 1.5 }}>
                   <Typography
                     color="textSecondary"
                     variant="caption"
@@ -168,7 +172,7 @@ const Footer: FC = (props) => {
                 md={3}
                 sm={4}
                 sx={{
-                  order: index + 1
+                  order: index + 1,
                 }}
                 xs={12}
               >
@@ -185,7 +189,7 @@ const Footer: FC = (props) => {
                       key={link.title}
                       sx={{
                         pb: 0,
-                        pt: 1
+                        pt: 1,
                       }}
                     >
                       <ListItemAvatar
@@ -193,7 +197,7 @@ const Footer: FC = (props) => {
                           alignItems: 'center',
                           display: 'flex',
                           minWidth: 0,
-                          mr: 0.5
+                          mr: 0.5,
                         }}
                       />
                       <ListItemText
@@ -206,7 +210,7 @@ const Footer: FC = (props) => {
                           >
                             {link.title}
                           </Link>
-                                )}
+                        )}
                       />
                     </ListItem>
                   ))}
@@ -220,7 +224,7 @@ const Footer: FC = (props) => {
               sx={{
                 display: 'flex',
                 alignItems: 'flex-start',
-                order: 3
+                order: 3,
               }}
               xs={12}
             >
@@ -232,7 +236,7 @@ const Footer: FC = (props) => {
                   paddingBottom: 3,
                   fontSize: '20px',
                   width: 400,
-                  color: '#222222'
+                  color: '#222222',
                 }}
               >
                 Помочь&ensp;площадке
@@ -242,7 +246,7 @@ const Footer: FC = (props) => {
           <Divider
             sx={{
               borderColor: (theme) => alpha(theme.palette.primary.contrastText, 0.12),
-              my: 6
+              my: 6,
             }}
           />
           <Typography
