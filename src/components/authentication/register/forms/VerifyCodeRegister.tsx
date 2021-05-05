@@ -11,7 +11,7 @@ import { APIStatus } from '../../../../lib/axiosAPI';
 const VerifyCodeRegister = () => {
   const isMountedRef = useIsMountedRef();
   const { setRegisterStep } = authActionCreators();
-  const { send, status } = useVerifyCodeSend(setRegisterStep);
+  const { send, status, error } = useVerifyCodeSend(setRegisterStep);
   const registerType = useSelector(authSelectors.getAuthType());
   return (
     <>
@@ -76,8 +76,8 @@ const VerifyCodeRegister = () => {
               <Box sx={{ mt: 2 }} />
               <TextField
                 fullWidth
-                helperText={errors.code}
-                error={!!errors.code}
+                helperText={errors.code || error}
+                error={!!errors.code || !!error}
                 label="Введите код из письма"
                 margin="normal"
                 name="code"

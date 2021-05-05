@@ -12,7 +12,7 @@ const AddressFormRegister: FC = (props) => {
   const isMountedRef = useIsMountedRef();
   const { fetchAddresses, addresses: options } = useFetchAddresses();
   const { setRegisterStep } = authActionCreators();
-  const { check, status } = useCheckAddress(setRegisterStep);
+  const { check, status, error } = useCheckAddress(setRegisterStep);
 
   return (
     <>
@@ -83,8 +83,8 @@ const AddressFormRegister: FC = (props) => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    helperText={touched.address && errors.address}
-                    error={touched.address && !!errors.address}
+                    helperText={(touched.address && errors.address) || error}
+                    error={(touched.address && !!errors.address) || !!error}
                     label="Начните вводить город или улицу"
                     margin="normal"
                     name="address"

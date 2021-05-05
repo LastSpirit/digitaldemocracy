@@ -3,25 +3,32 @@ import { Box, TextField, Typography } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
+// import GoogleLogin from 'react-google-login';
+import GoogleLogin from 'react-google-login';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import '../RegisterStyles.css';
 import { useSendCode } from '../hooks/useSendCode';
 import { ArrowInputIcon } from '../../common/ArrowInputIcon';
 import { authActionCreators, authSelectors, AuthType } from '../../../../slices/authSlice';
 import { SingInSocialN, singInVariants } from '../../common/SingInVariants';
+import { useOAuthRegister } from '../hooks/useOAuthRegister';
 
 const TypeSelectRegister = () => {
   const isMountedRef = useIsMountedRef();
   const { setRegisterStep, setAuthType } = authActionCreators();
-  const { send } = useSendCode(setRegisterStep);
+  const { send, error } = useSendCode(setRegisterStep);
   const registerType = useSelector(authSelectors.getAuthType());
+  const { yandexOAuth } = useOAuthRegister();
 
   const handleSingInSocialN = (type: SingInSocialN) => {
     if (type === SingInSocialN.Yandex) {
-      console.log(SingInSocialN.Yandex);
+      yandexOAuth();
     } else {
       console.log(SingInSocialN.Google);
     }
+  };
+  const responseGoogle = (response: any) => {
+    console.log(response);
   };
 
   return (
@@ -83,12 +90,12 @@ const TypeSelectRegister = () => {
               </Typography>
               <TextField
                 fullWidth
-                helperText={errors.email}
+                helperText={errors.email || (registerType === AuthType.Email && error)}
                 value={values.email}
                 onChange={handleChange}
                 label="E-mail"
                 variant="outlined"
-                error={!!errors.email}
+                error={!!errors.email || (registerType === AuthType.Email && !!error)}
                 name="email"
                 InputProps={{
                   endAdornment: <ArrowInputIcon
@@ -108,8 +115,8 @@ const TypeSelectRegister = () => {
               </Typography>
               <TextField
                 fullWidth
-                helperText={errors.phone}
-                error={!!errors.phone}
+                helperText={errors.phone || (registerType === AuthType.Phone && error)}
+                error={!!errors.phone || (registerType === AuthType.Phone && !!error)}
                 label="+7 XXX XXX XX XX"
                 margin="normal"
                 name="phone"
@@ -139,6 +146,13 @@ const TypeSelectRegister = () => {
                 cursor: 'pointer'
               }}
             >
+              <GoogleLogin
+                clientId="683353512261-0fmbs7jusfno2p52auqokvj5dqhspflf.apps.googleusercontent.com"
+                buttonText="Login"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy="single_host_origin"
+              />
               <Icon />
               <Typography
                 color="#414042"

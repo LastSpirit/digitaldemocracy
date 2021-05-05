@@ -6,9 +6,7 @@ import { ThemeProvider } from '@material-ui/core';
 import './i18n';
 import GlobalStyles from './components/GlobalStyles';
 import RTL from './components/RTL';
-import SplashScreen from './components/SplashScreen';
 import { gtmConfig } from './config';
-import useAuth from './hooks/useAuth';
 import useScrollReset from './hooks/useScrollReset';
 import useSettings from './hooks/useSettings';
 import gtm from './lib/gtm';
@@ -18,7 +16,6 @@ import { createTheme } from './theme';
 const App: FC = () => {
   const content = useRoutes(routes);
   const { settings } = useSettings();
-  const auth = useAuth();
   useScrollReset();
 
   useEffect(() => {
@@ -40,7 +37,7 @@ const App: FC = () => {
           maxSnack={3}
         >
           <GlobalStyles />
-          {auth.isInitialized ? content : <SplashScreen />}
+          {content}
         </SnackbarProvider>
       </RTL>
     </ThemeProvider>
