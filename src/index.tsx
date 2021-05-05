@@ -22,9 +22,9 @@ ReactDOM.render(
       <ReduxProvider store={store}>
         <StyledEngineProvider injectFirst>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <BrowserRouter>
-                  <App />
-              </BrowserRouter>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
           </LocalizationProvider>
         </StyledEngineProvider>
       </ReduxProvider>
