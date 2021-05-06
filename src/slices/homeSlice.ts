@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+// eslint-disable-next-line import/no-cycle
+import { APIStatus } from '../lib/axiosAPI';
 
 interface PoliticiansI {
   name: string,
@@ -46,9 +48,12 @@ export interface HomeI {
 
 interface SliceState {
   data?: Array<HomeI>
+  status: APIStatus
 }
 
-const initialState:SliceState = {};
+const initialState:SliceState = {
+  status: APIStatus.Initial
+};
 
 export const homeSlice = createSlice({
   name: 'homeSlice',
@@ -56,6 +61,9 @@ export const homeSlice = createSlice({
   reducers: {
     setData(state: SliceState, action: PayloadAction<Array<HomeI>>) {
       state.data = action.payload;
+    },
+    setStatus(state: SliceState, action: PayloadAction<APIStatus>) {
+      state.status = action.payload;
     }
   }
 });
@@ -65,5 +73,6 @@ interface Store {
 }
 
 export const homeSelector = {
-  getData: () => (state: Store) => state.home.data
+  getData: () => (state: Store) => state.home.data,
+  getStatus: () => (state: Store) => state.home.status
 };
