@@ -11,7 +11,7 @@ export const useVerifyFirebaseCode = (setRegisterStep: (value: number) => void) 
     window.confirmationResult.confirm(verificationCode).then((result) => {
       registerViaPhone({
         onSuccess: (response) => {
-          console.log(response);
+          console.log('serverResponse: ', response);
           setRegisterStep(5);
         },
         onError: (errorResponse) => {
@@ -22,7 +22,7 @@ export const useVerifyFirebaseCode = (setRegisterStep: (value: number) => void) 
         },
         payload: {
           phone,
-          FirebaseToken: result.user.refreshToken
+          FirebaseToken: result.user.za // idToken
         }
       });
       console.log('RES: ', result);
