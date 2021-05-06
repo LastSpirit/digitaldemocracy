@@ -5,13 +5,15 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 interface InputIconProps {
   disable?: boolean
   onClick?: () => void
+  id?: string
 }
 
-export const ArrowInputIcon: React.FC<InputIconProps> = ({ disable, onClick }) => (
+export const ArrowInputIcon: React.FC<InputIconProps> = ({ disable, onClick, id }) => (
   <InputAdornment
     position="end"
   >
     <Button
+      id={id}
       sx={{
         display: 'flex',
         justifyContent: 'center',

@@ -17,6 +17,12 @@ import * as serviceWorker from './serviceWorker';
 import store from './store';
 import './index.scss';
 
+declare global {
+  interface Window {
+    recaptchaVerifier:any;
+  }
+}
+
 ReactDOM.render(
   <StrictMode>
     <HelmetProvider>

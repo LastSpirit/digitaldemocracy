@@ -29,6 +29,7 @@ const TypeSelectRegister = () => {
   return (
     <>
       <Box
+        id="recaptcha-container"
         sx={{
           flexGrow: 1,
           mt: 3
@@ -46,8 +47,8 @@ const TypeSelectRegister = () => {
                           .shape({
                             email: Yup
                               .string().email('Не правильный e-mail'),
-                            phone: Yup
-                              .number().typeError('Номер не может содержать буквы'),
+                            // phone: Yup
+                            //   .number().typeError('Номер не может содержать буквы'),
                           })
                     }
           onSubmit={async (values, {
@@ -110,8 +111,8 @@ const TypeSelectRegister = () => {
               </Typography>
               <TextField
                 fullWidth
-                helperText={errors.phone || (registerType === AuthType.Phone && error)}
-                error={!!errors.phone || (registerType === AuthType.Phone && !!error)}
+                // helperText={errors.phone || (registerType === AuthType.Phone && error)}
+                // error={!!errors.phone || (registerType === AuthType.Phone && !!error)}
                 label="+7 XXX XXX XX XX"
                 margin="normal"
                 name="phone"
@@ -120,7 +121,8 @@ const TypeSelectRegister = () => {
                 value={values.phone}
                 InputProps={{
                   endAdornment: <ArrowInputIcon
-                    disable={!values.phone || !!errors.phone}
+                    id="sign-in-button"
+                    disable={false}
                     onClick={() => {
                       setAuthType(AuthType.Phone);
                     }}
