@@ -14,24 +14,44 @@ export const useFetchNews = () => {
       title: 'title',
       image: '',
       author: 'Ivan Ivanov',
-      date: 213213,
+      date: 17.11,
       site: 'google.com',
       viewed: 21,
     }, {
       title: 'title 2',
       image: '',
       author: 'Ivan Ivanov 2',
-      date: 213213,
+      date: 17.11,
       site: 'yandex.com',
       viewed: 2121,
     }, {
       title: 'title',
       image: '',
       author: 'Ivan Ivanov',
-      date: 2133,
+      date: 17.11,
       site: 'google.com',
       viewed: 21,
-    }]));
+    },
+    { title: 'title',
+      image: '',
+      author: 'Ivan Ivanov',
+      date: 17.11,
+      site: 'google.com',
+      viewed: 21,
+    }, {
+      title: 'title 2',
+      image: '',
+      author: 'Ivan Ivanov 2',
+      date: 17.11,
+      site: 'yandex.com',
+      viewed: 2121,
+    }, {
+      title: 'title',
+      image: '',
+      author: 'Ivan Ivanov',
+      date: 17.11,
+      site: 'google.com',
+      viewed: 21, }]));
     // dispatch(fetchNews({
     //   onError: () => {
     //     setStatus(APIStatus.Failure);

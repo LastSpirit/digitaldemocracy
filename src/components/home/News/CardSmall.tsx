@@ -1,16 +1,23 @@
 import type { FC } from 'react';
-import { Box, Container, makeStyles, Typography } from '@material-ui/core';
+import { Box, makeStyles, Typography } from '@material-ui/core';
 import watched from '../../../icons/pictures/watched.png';
 import logo from '../../../icons/logo/2.svg';
 import { NewI } from '../../../slices/newsSlice';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   bigCardContainer: {
-    width: 325,
+    maxWidth: '100%',
+    minWidth: '200px',
     height: 214,
     background: '#F3F3F3',
     borderRadius: 20,
-    marginTop: 20,
+    marginTop: 16,
+    [theme.breakpoints.up('sm')]: {
+      maxWidth: '300px'
+    },
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '270px'
+    }
   },
   bigHeadre: {
     display: 'flex',
@@ -46,7 +53,7 @@ interface CardSmallProps extends NewI {}
 const CardSmall: FC<CardSmallProps> = ({ title, viewed, date, author, site }) => {
   const classes = useStyles();
   return (
-    <Container style={{ textAlign: 'center' }}>
+    <Box style={{ textAlign: 'center' }}>
       <Box className={classes.bigCardContainer}>
         <Box className={classes.mainHeader}>
           <Typography>{date}</Typography>
@@ -60,7 +67,7 @@ const CardSmall: FC<CardSmallProps> = ({ title, viewed, date, author, site }) =>
               {' '}
               {viewed}
             </Box>
-            <Box mr={1}>
+            <Box>
               <img
                 className={classes.imgSize}
                 src={logo}
@@ -82,7 +89,7 @@ const CardSmall: FC<CardSmallProps> = ({ title, viewed, date, author, site }) =>
           <Typography>{site}</Typography>
         </Box>
       </Box>
-    </Container>
+    </Box>
   );
 };
 

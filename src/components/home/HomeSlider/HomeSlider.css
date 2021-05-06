@@ -21,7 +21,7 @@
 .slick-slide,
 .slick-active {
   margin-right: 20px;
-  width: 210px !important;
+  min-width: 210px !important;
 }
 
 .persentage {
@@ -65,14 +65,15 @@
   }
 
   .carouselImage {
-    height: 19vh;
-    width: 98px;
+    height: 210px;
+    width: 210px;
   }
   .carouselImage2 {
-    height: 19vh;
+    height: 210px;
+    width: 210px;
   }
   .customText {
-    margin-top: -39px;
+    /*margin-top: -39px;*/
     font-size: 12px;
   }
   .persentage {

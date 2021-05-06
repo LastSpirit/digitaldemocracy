@@ -5,8 +5,10 @@ import {
   Box,
   Button,
   Link,
-  Toolbar, Typography,
+  Toolbar,
+  Typography,
   Hidden,
+  Container
 } from '@material-ui/core';
 import Logo from './Logo';
 import Search from '../icons/Search';
@@ -72,109 +74,112 @@ const MainNavbar: FC = () => {
         color: 'text.secondary'
       }}
     >
-      <Toolbar sx={{ minHeight: 64, justifyContent: isMobile ? 'center' : 'space-between', alignItems: 'center', display: 'flex' }}>
-        {isMobile ? (
-          <Box sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: 40,
-          }}
-          >
-            <Brand />
-          </Box>
-        ) : (
-          <>
+      <Container maxWidth="lg">
+        <Toolbar sx={{ minHeight: 64, justifyContent: isMobile ? 'center' : 'space-between', alignItems: 'center', display: 'flex' }}>
+          {isMobile ? (
             <Box sx={{
               display: 'flex',
               alignItems: 'center',
-              height: 40
+              justifyContent: 'center',
+              height: 40,
             }}
             >
+              <Brand />
+            </Box>
+          ) : (
+            <>
+              <Box sx={{
+                display: 'flex',
+                alignItems: 'center',
+                height: 40
+              }}
+              >
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    height: 40
+                  }}
+                >
+                  <RouterLink to="/">
+                    <Logo
+                      sx={{
+                        height: 40,
+                        width: 40
+                      }}
+                    />
+                  </RouterLink>
+                  <Typography
+                    sx={{ ml: 1.5 }}
+                    color="textSecondary"
+                    variant="caption"
+                  >
+                    Digital
+                    <br />
+                    Democracy
+                  </Typography>
+                </Box>
+                <Box sx={{
+                  marginLeft: 17,
+                }}
+                >
+                  <Hidden lgDown>
+                    <Box style={{ width: '210px' }}>
+                      <InputTextField icon={<Search />} />
+                    </Box>
+                  </Hidden>
+                </Box>
+              </Box>
+              <Hidden mdDown>
+                <Box>
+                  {links.map(({ title, mr, to }, index) => (
+                    <Link
+                      key={index.toString()}
+                      to={to}
+                      color="textSecondary"
+                      component={RouterLink}
+                      underline="none"
+                      variant="body1"
+                      sx={{
+                        marginRight: mr,
+                      }}
+                    >
+                      {title}
+                    </Link>
+                  ))}
+                </Box>
+              </Hidden>
+
               <Box
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  height: 40
+                  backgroundColor: 'background.paper',
+                  p: 3,
                 }}
               >
-                <RouterLink to="/">
-                  <Logo
-                    sx={{
-                      height: 40,
-                      width: 40
-                    }}
-                  />
-                </RouterLink>
-                <Typography
-                  sx={{ ml: 1.5 }}
-                  color="textSecondary"
-                  variant="caption"
-                >
-                  Digital
-                  <br />
-                  Democracy
-                </Typography>
-              </Box>
-              <Box sx={{
-                marginLeft: 17,
-              }}
-              >
-                <Hidden lgDown>
-                  <Box style={{ width: '210px' }}>
-                    <InputTextField icon={<Search />} />
-                  </Box>
-                </Hidden>
-              </Box>
-            </Box>
-            <Hidden mdDown>
-              <Box>
-                {links.map(({ title, mr, to }, index) => (
-                  <Link
+                {buttons.map(({ to, color, title }, index) => (
+                  <Button
                     key={index.toString()}
-                    to={to}
-                    color="textSecondary"
-                    component={RouterLink}
-                    underline="none"
-                    variant="body1"
                     sx={{
-                      marginRight: mr,
+                      backgroundColor: color,
+                      p: 1,
+                      paddingRight: 2,
+                      paddingLeft: 2,
+                      borderRadius: 100,
+                      mr: index === 0 ? 3 : 0,
                     }}
+                    size="small"
+                    variant="outlined"
+                    onClick={() => handleClick(to)}
                   >
                     {title}
-                  </Link>
+                  </Button>
                 ))}
               </Box>
-            </Hidden>
+            </>
+          )}
+        </Toolbar>
+      </Container>
 
-            <Box
-              sx={{
-                backgroundColor: 'background.paper',
-                p: 3,
-              }}
-            >
-              {buttons.map(({ to, color, title }, index) => (
-                <Button
-                  key={index.toString()}
-                  sx={{
-                    backgroundColor: color,
-                    p: 1,
-                    paddingRight: 2,
-                    paddingLeft: 2,
-                    borderRadius: 100,
-                    mr: index === 0 ? 3 : 0,
-                  }}
-                  size="small"
-                  variant="outlined"
-                  onClick={() => handleClick(to)}
-                >
-                  {title}
-                </Button>
-              ))}
-            </Box>
-          </>
-        )}
-      </Toolbar>
     </AppBar>
   );
 };
