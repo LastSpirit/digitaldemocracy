@@ -4,9 +4,10 @@ import { useRoutes } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import { ThemeProvider } from '@material-ui/core';
 import './i18n';
+import firebase from 'firebase';
 import GlobalStyles from './components/GlobalStyles';
 import RTL from './components/RTL';
-import { gtmConfig } from './config';
+import { firebaseConfig, gtmConfig } from './config';
 import useScrollReset from './hooks/useScrollReset';
 import useSettings from './hooks/useSettings';
 import gtm from './lib/gtm';
@@ -14,6 +15,12 @@ import routes from './routes';
 import { createTheme } from './theme';
 
 const App: FC = () => {
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  } else {
+    firebase.app(); // if already initialized, use that one
+  }
+
   const content = useRoutes(routes);
   const { settings } = useSettings();
   useScrollReset();

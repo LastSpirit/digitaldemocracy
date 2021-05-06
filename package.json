@@ -45,6 +45,7 @@
     "@material-ui/icons": "^5.0.0-alpha.27",
     "@material-ui/lab": "^5.0.0-alpha.27",
     "@material-ui/system": "^5.0.0-alpha.27",
+    "@react-firebase/auth": "^0.2.10",
     "@react-pdf/renderer": "^1.6.13",
     "@reduxjs/toolkit": "^1.5.0",
     "@testing-library/jest-dom": "^5.11.9",

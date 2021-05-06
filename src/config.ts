@@ -12,13 +12,14 @@ export const auth0Config = {
 };
 
 export const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET
+  apiKey: 'AIzaSyAW-O8B4NYIlNVKLN_vItPJJ7VuIbp5xr8',
+  appId: '1:683353512261:web:9a9f4be5d3dc200b17062c',
+  authDomain: 'digitaldemocracy-312712.firebaseapp.com',
+  databaseURL: 'https://digitaldemocracy-312712.firebaseio.com',
+  messagingSenderId: '683353512261',
+  projectId: 'digitaldemocracy-312712',
+  storageBucket: 'digitaldemocracy-312712.appspot.com',
+  measurementId: 'G-3CLW67F6L5',
 };
 
 export const gtmConfig = {
