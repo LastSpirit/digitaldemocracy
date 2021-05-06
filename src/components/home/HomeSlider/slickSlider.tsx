@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   },
 
   carouselContainer: {
-    width: '82%',
+    width: '50%',
     margin: 'auto',
   },
 });
@@ -37,17 +37,27 @@ export default function CustomArrows() {
   const settings = {
     dots: false,
     infinite: false,
-    speed: 700,
+    speed: 500,
     slidesToShow: 5,
     slidesToScroll: 1,
     initialSlide: 0,
     responsive: [
       {
-        breakpoint: 1399,
+        breakpoint: 1441,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 1,
+          initialSlide: 0,
+          infinite: false,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 1140,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          infinite: true,
+          infinite: false,
           dots: false,
         },
       },

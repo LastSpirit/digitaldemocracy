@@ -107,7 +107,7 @@ const Footer: FC = (props) => {
         >
           <Box
             sx={{
-              width: '400px',
+              width: '100%',
               justifyContent: 'space-between',
               display: 'flex',
             }}

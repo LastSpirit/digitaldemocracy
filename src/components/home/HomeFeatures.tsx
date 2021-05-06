@@ -1,7 +1,8 @@
 import type { FC } from 'react';
-import { Box, Hidden, makeStyles } from '@material-ui/core';
+import { Box, Hidden, Container, makeStyles, Typography, Grid } from '@material-ui/core';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+// import { maxWidth } from '@material-ui/system';
 import ListSidebar from './News/ListSidebar';
 import CardSmall from './News/CardSmall';
 import { useFetchNews } from './hooks/useFetchNews';
@@ -13,6 +14,12 @@ const useStyles = makeStyles(() => ({
     fontWeight: 300,
     color: '#222222',
     whiteSpace: 'nowrap',
+  },
+  news: {
+    display: 'flex',
+    flexDirection: 'column',
+    paddingTop: '30px',
+    justifyContent: 'center',
   },
   content: {
     display: 'flex',
@@ -42,30 +49,53 @@ const HomeFeatures: FC = () => {
 
   return (
     <Box>
-      <Box style={{ display: 'flex' }}>
-        <Hidden mdDown>
-          <Box>
-            <ListSidebar />
-          </Box>
-        </Hidden>
+      <Container maxWidth="lg">
+        <Box style={{ display: 'flex' }}>
+          <Hidden mdDown>
+            <Box
+              sx={{
+                marginRight: '120px'
+              }}
+            >
+              <ListSidebar />
+            </Box>
+          </Hidden>
 
-        <Box className={classes.content}>
-          <Box>
-            {data?.map((item, index) => (
-              <CardSmall
-                {...item}
-                key={index.toString()}
-              />
-            ))}
+          <Box className={classes.news}>
+            <Typography fontSize="35px" textAlign="left">Актуальные новости</Typography>
+            <Grid
+              container
+              spacing={2}
+              justifyContent="center"
+              sx={{
+                maxWidth: '900px'
+              }}
+            >
+              {data?.map((item, index) => (
+                <Grid
+                  item
+                  md={4}
+                  sm={6}
+                  xs={12}
+
+                >
+                  <CardSmall
+                    {...item}
+                    key={index.toString()}
+                  />
+                </Grid>
+              ))}
+            </Grid>
           </Box>
         </Box>
-      </Box>
-      <Box className={classes.content}>
-        {/* eslint-disable-next-line react/button-has-type */}
-        <button className="buttonStyle">Показать больше</button>
-        {/* eslint-disable-next-line react/button-has-type */}
-        <button className="buttonStyle">К разделу новостей</button>
-      </Box>
+        <Box className={classes.content}>
+          {/* eslint-disable-next-line react/button-has-type */}
+          <button className="buttonStyle">Показать больше</button>
+          {/* eslint-disable-next-line react/button-has-type */}
+          <button className="buttonStyle">К разделу новостей</button>
+        </Box>
+      </Container>
+
     </Box>
   );
 };
