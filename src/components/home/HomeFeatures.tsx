@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { Box, Container, Grid, Hidden, makeStyles, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 // import { maxWidth } from '@material-ui/system';
@@ -6,6 +7,7 @@ import ListSidebar from './News/ListSidebar';
 import { useFetchHomePageData } from './hooks/useFetchHomePageData';
 import { APIStatus } from '../../lib/axiosAPI';
 import { homeSelector } from '../../slices/homeSlice';
+import CardSmall from './News/CardSmall';
 
 const useStyles = makeStyles(() => ({
   actualNews: {
@@ -42,6 +44,11 @@ const HomeFeatures: FC = () => {
   useFetchHomePageData();
   const data = useSelector(homeSelector.getData());
   const status = useSelector(homeSelector.getStatus());
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+    }
+  }, []);
 
   return (
     <Box>
@@ -76,7 +83,7 @@ const HomeFeatures: FC = () => {
                   maxWidth: '900px'
                 }}
               >
-                {data?.map((item, index) => (
+                {data?.news.map((item, index) => (
                   <Grid
                     key={index.toString()}
                     item
@@ -84,9 +91,9 @@ const HomeFeatures: FC = () => {
                     sm={6}
                     xs={12}
                   >
-                    {/* <CardSmall */}
-                    {/*  {...item} */}
-                    {/* /> */}
+                    <CardSmall
+                      {...item}
+                    />
                   </Grid>
                 ))}
               </Grid>

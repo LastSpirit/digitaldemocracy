@@ -1,5 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { authSlice } from '../slices/authSlice';
+// eslint-disable-next-line import/no-cycle
 import { homeSlice } from '../slices/homeSlice';
 import { userSlice } from '../slices/userSlice';
 

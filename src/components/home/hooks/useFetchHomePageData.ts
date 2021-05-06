@@ -12,17 +12,15 @@ export const useFetchHomePageData = () => {
   const fetch = useCallback(() => {
     dispatch(setStatus(APIStatus.Loading));
     dispatch(fetchHome({
-
-      onError: (errorResponse) => {
-        console.log(errorResponse);
-      },
       onSuccess: (response) => {
+        console.log(response.data);
         dispatch(setData(response.data));
         dispatch(setStatus(APIStatus.Success));
       },
-      payload: {
-        id: 12
+      onError: (errorResponse) => {
+        console.log(errorResponse);
       }
+
     }));
   }, []);
 

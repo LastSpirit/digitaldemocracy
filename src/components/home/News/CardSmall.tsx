@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { Box, makeStyles, Typography } from '@material-ui/core';
 import watched from '../../../icons/pictures/watched.png';
 import logo from '../../../icons/logo/2.svg';
-import { NewI } from '../../../slices/newsSlice';
+import { NewsI } from '../../../slices/homeSlice';
 
 const useStyles = makeStyles((theme) => ({
   bigCardContainer: {
@@ -48,15 +48,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface CardSmallProps extends NewI {}
+interface CardSmallProps extends NewsI {}
 
-const CardSmall: FC<CardSmallProps> = ({ title, viewed, date, author, site }) => {
+const CardSmall: FC<CardSmallProps> = ({ media, author, number_of_views, publication_date, title, votes }) => {
   const classes = useStyles();
   return (
     <Box style={{ textAlign: 'center' }}>
       <Box className={classes.bigCardContainer}>
         <Box className={classes.mainHeader}>
-          <Typography>{date}</Typography>
+          <Typography>{publication_date}</Typography>
           <Box className={classes.bigHeadre}>
             <Box>
               <img
@@ -65,7 +65,7 @@ const CardSmall: FC<CardSmallProps> = ({ title, viewed, date, author, site }) =>
                 alt="/"
               />
               {' '}
-              {viewed}
+              {number_of_views}
             </Box>
             <Box>
               <img
@@ -74,7 +74,7 @@ const CardSmall: FC<CardSmallProps> = ({ title, viewed, date, author, site }) =>
                 alt="/"
               />
               {' '}
-              {viewed}
+              {votes}
             </Box>
           </Box>
         </Box>
@@ -86,7 +86,7 @@ const CardSmall: FC<CardSmallProps> = ({ title, viewed, date, author, site }) =>
         </Typography>
         <Box className={classes.cardNames}>
           <Typography>{author}</Typography>
-          <Typography>{site}</Typography>
+          <Typography>{media.name}</Typography>
         </Box>
       </Box>
     </Box>

@@ -23,7 +23,7 @@ interface AuthorI {
   photo: string
 }
 
-interface NewsI {
+export interface NewsI {
   id?: number,
   media?: MediaI,
   author?: AuthorI,
@@ -47,7 +47,7 @@ export interface HomeI {
 }
 
 interface SliceState {
-  data?: Array<HomeI>
+  data?: HomeI
   status: APIStatus
 }
 
@@ -59,7 +59,7 @@ export const homeSlice = createSlice({
   name: 'homeSlice',
   initialState,
   reducers: {
-    setData(state: SliceState, action: PayloadAction<Array<HomeI>>) {
+    setData(state: SliceState, action: PayloadAction<HomeI>) {
       state.data = action.payload;
     },
     setStatus(state: SliceState, action: PayloadAction<APIStatus>) {

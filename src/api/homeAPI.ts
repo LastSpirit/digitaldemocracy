@@ -1,9 +1,7 @@
 import { APIRequest, callAPI } from '../lib/axiosAPI';
 import { HomeI } from '../slices/homeSlice';
 
-interface HomeRequest {
-  id: number
-}
+interface HomeRequest { }
 
 interface HomeResponse {
   data?: Array<HomeI>
