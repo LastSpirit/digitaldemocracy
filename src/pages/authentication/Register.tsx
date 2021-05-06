@@ -2,8 +2,6 @@ import { useEffect } from 'react';
 import type { FC } from 'react';
 import {
   Box, Button,
-  Card,
-  CardContent,
   Divider,
   Typography
 } from '@material-ui/core';
@@ -15,8 +13,8 @@ import gtm from '../../lib/gtm';
 import { ModalParams } from '../../types/routing';
 import { useSearchParams } from '../../hooks/useSearchParams';
 import CreatePasswordRegister from '../../components/authentication/register/forms/CreatePasswordRegister';
-import { useWindowSize } from '../../hooks/useWindowSize';
 import { authSelectors } from '../../slices/authSlice';
+import { ModalWrapper } from '../../components/widgets/modals/ModalWrapper';
 
 const WelcomeTextRegister = () => {
   const {
@@ -71,94 +69,75 @@ const Register: FC = () => {
   const registerStep = useSelector(authSelectors.getRegisterStep());
   const endRegistration = registerStep === 5;
 
-  const { isMobile } = useWindowSize();
-
   return (
-    <>
-      <Card sx={{
-        maxWidth: 555,
-        width: isMobile ? 'auto' : 555
-      }}
+    <ModalWrapper>
+      <Box
+        sx={{
+          alignItems: 'center',
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginBottom: '18px',
+        }}
       >
-        <CardContent
+        <Typography
+          color="textPrimary"
+          gutterBottom
+          variant="h3"
+          mb="0"
+          fontWeight="300"
+          align={endRegistration ? 'center' : 'left'}
+        >
+          {endRegistration ? 'Вы успешно зарегистрировались!' : 'Регистрация'}
+        </Typography>
+        <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            paddingTop: '70px',
-            paddingBottom: '70px!important',
-            paddingRight: '45px',
-            paddingLeft: '45px'
+            height: 32,
+            '& > img': {
+              maxHeight: '100%',
+              width: 'auto'
+            }
           }}
         >
-          <Box
-            sx={{
-              alignItems: 'center',
-              display: 'flex',
-              justifyContent: 'space-between',
-              marginBottom: '18px',
-            }}
+          <Typography
+            color="textPrimary"
+            gutterBottom
+            fontWeight="300"
+            variant="h4"
           >
-            <Typography
-              color="textPrimary"
-              gutterBottom
-              variant="h3"
-              mb="0"
-              fontWeight="300"
-              align={endRegistration ? 'center' : 'left'}
-            >
-              {endRegistration ? 'Вы успешно зарегистрировались!' : 'Регистрация'}
-            </Typography>
-            <Box
-              sx={{
-                height: 32,
-                '& > img': {
-                  maxHeight: '100%',
-                  width: 'auto'
-                }
-              }}
-            >
-              <Typography
-                color="textPrimary"
-                gutterBottom
-                fontWeight="300"
-                variant="h4"
-              >
-                {!endRegistration && `${registerStep}/4`}
-              </Typography>
-            </Box>
-          </Box>
-          {getCurrentStepComponent(registerStep)}
-          {registerStep < 3 && (
-          <>
-            <Box sx={{ mt: 4, justifyContent: 'space-between', alignItems: 'center', display: 'flex' }}>
-              <Typography>
-                Уже есть аккаунт?
-              </Typography>
-              <Button
-                color="primary"
-                size="medium"
-                variant="outlined"
-                onClick={() => setAuthValue('login')}
-              >
-                Войти
-              </Button>
-            </Box>
-            {registerStep === 1 && (
-            <>
-              <Divider sx={{ my: 3 }} />
-              <Typography
-                color="textSecondary"
-                variant="body2"
-              >
-                Прежде всего, синтетическое тестирование в значительной степени обусловливает важность прогресса профессионального сообщества!
-              </Typography>
-            </>
-            )}
-          </>
-          )}
-        </CardContent>
-      </Card>
-    </>
+            {!endRegistration && `${registerStep}/4`}
+          </Typography>
+        </Box>
+      </Box>
+      {getCurrentStepComponent(registerStep)}
+      {registerStep < 3 && (
+      <>
+        <Box sx={{ mt: 4, justifyContent: 'space-between', alignItems: 'center', display: 'flex' }}>
+          <Typography>
+            Уже есть аккаунт?
+          </Typography>
+          <Button
+            color="primary"
+            size="medium"
+            variant="outlined"
+            onClick={() => setAuthValue('login')}
+          >
+            Войти
+          </Button>
+        </Box>
+        {registerStep === 1 && (
+        <>
+          <Divider sx={{ my: 3 }} />
+          <Typography
+            color="textSecondary"
+            variant="body2"
+          >
+            Прежде всего, синтетическое тестирование в значительной степени обусловливает важность прогресса профессионального сообщества!
+          </Typography>
+        </>
+        )}
+      </>
+      )}
+    </ModalWrapper>
   );
 };
 

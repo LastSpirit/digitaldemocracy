@@ -20,6 +20,7 @@ export interface CallAPIParams {
   reducerData?: any
   config?: AxiosRequestConfig
   customBaseUrl?: string
+  nestedResponseType?: boolean
 }
 
 export enum APIStatus {
@@ -36,7 +37,7 @@ const baseURL = 'https://dev-backoffice.digitaldemocracy.ru/api/';
 export const getCallAPI = <RootState>(): CallAPI<GenericAppThunk<RootState>> => (
   props
 ) => async () => {
-  const { url, payload, onSuccess, onError, config, includeHeaders, customBaseUrl } = props;
+  const { url, payload, onSuccess, onError, config, includeHeaders, customBaseUrl, nestedResponseType = true } = props;
   let response;
 
   try {
@@ -48,8 +49,10 @@ export const getCallAPI = <RootState>(): CallAPI<GenericAppThunk<RootState>> => 
       response = await axios.post((customBaseUrl || baseURL) + url, payload, config);
     }
     const headers = includeHeaders ? pick(response.headers, includeHeaders) : undefined;
-    if (response.data.success && response.data.data && onSuccess) onSuccess(response.data.data, headers);
-    if ((!response.data.success || !response.data.data) && onError) onError(response.data.message);
+    console.log('response: ', response);
+    if (!nestedResponseType && response.data && onSuccess) onSuccess(response.data);
+    if (nestedResponseType && response.data.success && response.data.data && onSuccess) onSuccess(response.data.data, headers);
+    if (nestedResponseType && (!response.data.success || !response.data.data) && onError) onError(response.data.message);
   } catch (err) {
     console.log(err);
     console.log(err.response);

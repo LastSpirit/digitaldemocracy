@@ -48,7 +48,7 @@ const AddressFormRegister: FC = (props) => {
             setSubmitting
           }): Promise<void> => {
             try {
-              await check(values.address);
+              await check();
             } catch (err) {
               console.error(err);
               if (isMountedRef.current) {

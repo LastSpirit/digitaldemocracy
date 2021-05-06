@@ -10,6 +10,8 @@ import { ArrowInputIcon } from '../../common/ArrowInputIcon';
 import { authActionCreators, authSelectors, AuthType } from '../../../../slices/authSlice';
 import { SingInSocialN, singInVariants } from '../../common/SingInVariants';
 import { useOAuthRegister } from '../hooks/useOAuthRegister';
+import { ModalParams } from '../../../../types/routing';
+import { useSearchParams } from '../../../../hooks/useSearchParams';
 
 const TypeSelectRegister = () => {
   const isMountedRef = useIsMountedRef();
@@ -17,10 +19,16 @@ const TypeSelectRegister = () => {
   const { send, error, resetError } = useSendCode(setRegisterStep);
   const registerType = useSelector(authSelectors.getAuthType());
   const { yandexOAuth } = useOAuthRegister();
+
+  const {
+    [ModalParams.YandexRegister]: { setValue: setYandexRegister },
+  } = useSearchParams(ModalParams.YandexRegister);
+
   const handleSingInSocialN = (type: SingInSocialN) => {
     if (type === SingInSocialN.Yandex) {
       yandexOAuth();
     } else {
+      setYandexRegister('get');
       console.log(SingInSocialN.Google);
     }
   };

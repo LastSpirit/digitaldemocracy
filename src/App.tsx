@@ -13,6 +13,7 @@ import useSettings from './hooks/useSettings';
 import gtm from './lib/gtm';
 import routes from './routes';
 import { createTheme } from './theme';
+import YandexRegisterModal from './components/widgets/modals/YandexRegisterModal/YandexRegisterModal';
 
 const App: FC = () => {
   if (!firebase.apps.length) {
@@ -45,6 +46,7 @@ const App: FC = () => {
         >
           <GlobalStyles />
           {content}
+          <YandexRegisterModal />
         </SnackbarProvider>
       </RTL>
     </ThemeProvider>

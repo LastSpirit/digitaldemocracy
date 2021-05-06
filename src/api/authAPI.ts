@@ -55,6 +55,12 @@ interface RegisterViaPhoneErrorResponse {
   FirebaseToken: Array<string>
 }
 
+interface GetYandexUserInfoRequest {
+  format: 'json' | 'xml'
+  with_openid_identity: boolean
+  oauth_token: string
+}
+
 const checkValidateAddress: APIRequest<{ address: string }, { valid: boolean }> = (args) => callAPI({ url: 'checkUserAddress', ...args });
 
 const sendCode: APIRequest<SendCodeRequest, {}> = (args) => callAPI({ url: args.payload.email ? 'registrationViaEmail' : 'registrationViaPhone', ...args });
@@ -65,9 +71,9 @@ const register: APIRequest<RegisterRequest, RegisterResponse, RegisterErrorRespo
 
 const registerViaPhone: APIRequest<RegisterViaPhoneRequest, {}, RegisterViaPhoneErrorResponse | string> = (args) => callAPI({ url: 'checkPhoneConfirmationToken', ...args });
 
-// const getCodeYandexOAuth: APIRequest<GetCodeYandexRequest> = (args) => callAPI({ customBaseUrl: 'https://oauth.yandex.ru', url: '/authorize', config: { headers: { 'Content-Type': 'application/json' } }, ...args });
+const getCodeYandexOAuth: APIRequest<GetCodeYandexRequest, Response> = (args) => callAPI({ customBaseUrl: 'https://oauth.yandex.ru/', url: `authorize?response_type=${args.payload.response_type}&client_id=${args.payload.client_id}`, config: { method: 'GET' }, ...args });
 
-const getCodeYandexOAuth: APIRequest<GetCodeYandexRequest> = (args) => callAPI({ customBaseUrl: 'https://oauth.yandex.ru/', url: `authorize?response_type=${args.payload.response_type}&client_id=${args.payload.client_id}`, config: { method: 'GET' }, ...args });
+const getYandexUserInfo: APIRequest<GetYandexUserInfoRequest> = (args) => callAPI({ customBaseUrl: 'https://login.yandex.ru/', url: `/info?format=${args.payload.format}&with_openid_identity=${args.payload.with_openid_identity}&oauth_token=${args.payload.oauth_token}`, nestedResponseType: false, ...args });
 
 const APIs = {
   checkValidateAddress,
@@ -76,6 +82,7 @@ const APIs = {
   register,
   getCodeYandexOAuth,
   registerViaPhone,
+  getYandexUserInfo,
 };
 
 export const authAPI = () => {

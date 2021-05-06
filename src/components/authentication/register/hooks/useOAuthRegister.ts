@@ -6,22 +6,27 @@ export const useOAuthRegister = () => {
   };
 
   const yandexOAuth = () => {
-    fetch(`https://oauth.yandex.ru/authorize?response_type=code&client_id=${OAuthConfig.secretID}`, {
-      mode: 'no-cors',
+    fetch(`https://oauth.yandex.ru/authorize?response_type=token&client_id=${OAuthConfig.secretID}`, {
       method: 'GET',
       redirect: 'follow',
     }).then((res) => {
       console.log(res);
+      window.open(res.url);
     }).catch((err) => {
       console.log(err);
+    }).then((res) => {
+      console.log(res);
     });
     // getCodeYandexOAuth({
     //   payload: {
     //     client_id: OAuthConfig.secretID,
-    //     response_type: 'code',
+    //     response_type: 'token',
     //   },
     //   onError: (errorResponse) => console.log(errorResponse),
-    //   onSuccess: (res) => console.log(res)
+    //   onSuccess: (response) => {
+    //     console.log(response);
+    //     window.open(response.url);
+    //   }
     // });
   };
 
