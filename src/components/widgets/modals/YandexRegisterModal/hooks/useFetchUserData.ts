@@ -14,7 +14,7 @@ export const useFetchUserData = () => {
   const getData = useCallback(() => {
     if (yandexRegisterValue) {
       setStatus(APIStatus.Loading);
-      const token = /access_token=([^&]+)/.exec(document.location.hash)[1];
+      const token = /access_token=([^&]+)/.exec(document.location.hash);
       console.log(token);
       if (token) {
         getYandexUserInfo({
@@ -29,10 +29,14 @@ export const useFetchUserData = () => {
           payload: {
             format: 'json',
             with_openid_identity: true,
-            oauth_token: token
+            oauth_token: token[1]
           }
         });
+      } else {
+        setStatus(APIStatus.Initial);
       }
+    } else {
+      setStatus(APIStatus.Initial);
     }
   }, [yandexRegisterValue]);
 

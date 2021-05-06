@@ -16,7 +16,7 @@ import CreatePasswordRegister from '../../components/authentication/register/for
 import { authSelectors } from '../../slices/authSlice';
 import { ModalWrapper } from '../../components/widgets/modals/ModalWrapper';
 
-const WelcomeTextRegister = () => {
+export const WelcomeTextRegister = () => {
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
