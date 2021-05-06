@@ -51,8 +51,9 @@ export const getCallAPI = <RootState>(): CallAPI<GenericAppThunk<RootState>> => 
     if (response.data.success && response.data.data && onSuccess) onSuccess(response.data.data, headers);
     if ((!response.data.success || !response.data.data) && onError) onError(response.data.message);
   } catch (err) {
+    console.log(err);
     console.log(err.response);
-    if (onError) {
+    if (onError && err && err.response && err.response.data) {
       if (err.response.data.errors) onError(err.response.data.errors);
       else onError(err.response.data.message);
     }

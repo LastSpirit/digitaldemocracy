@@ -65,6 +65,7 @@ const HomeFeatures: FC = () => {
             <Typography
               fontSize="35px"
               textAlign="left"
+              component="span"
             >
               Актуальные новости
             </Typography>
@@ -78,15 +79,14 @@ const HomeFeatures: FC = () => {
             >
               {data?.map((item, index) => (
                 <Grid
+                  key={index.toString()}
                   item
                   md={4}
                   sm={6}
                   xs={12}
-
                 >
                   <CardSmall
                     {...item}
-                    key={index.toString()}
                   />
                 </Grid>
               ))}

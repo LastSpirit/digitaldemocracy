@@ -6,7 +6,7 @@ import { setItem } from '../../../../lib/localStorageManager';
 import { APIStatus } from '../../../../lib/axiosAPI';
 import { userActionCreators } from '../../../../slices/userSlice';
 
-export const useRegister = () => {
+export const useRegister = (setRegisterStep: (value: number) => void) => {
   const { register } = authAPI();
   const userData = useSelector(authSelectors.getUserData());
   const { setUser } = userActionCreators();
@@ -15,20 +15,26 @@ export const useRegister = () => {
   const [passError, setPassError] = useState<string>();
   const [confPassError, setConfPassError] = useState<string>();
 
-  const onRegister = useCallback((password: string, confirmPassword: string, setRegisterStep: (value: number) => void) => {
+  const onSuccess = (response) => {
+    console.log('ASdasdasdsadasdasdsa', response);
+    setItem('token', response.token);
+    setUser(response.user);
+    setStatus(APIStatus.Success);
+    setRegisterStep(5);
+  };
+
+  const onError = (errorResponse) => {
+    console.log('ERROROROROR: ', errorResponse);
+    if (errorResponse.password_confirmation) setConfPassError(errorResponse.password_confirmation[0]);
+    if (errorResponse.password) setPassError(errorResponse.password[0]);
+    setStatus(APIStatus.Failure);
+  };
+
+  const onRegister = useCallback((password: string, confirmPassword: string) => {
     setStatus(APIStatus.Loading);
     register({
-      onSuccess: (response) => {
-        setItem('token', response.data.token);
-        setUser(response.data.user);
-        setStatus(APIStatus.Success);
-        setRegisterStep(5);
-      },
-      onError: (errorResponse) => {
-        if (errorResponse.password_confirmation) setConfPassError(errorResponse.password_confirmation[0]);
-        if (errorResponse.password) setPassError(errorResponse.password[0]);
-        setStatus(APIStatus.Failure);
-      },
+      onSuccess,
+      onError,
       payload: {
         ...userData,
         password,

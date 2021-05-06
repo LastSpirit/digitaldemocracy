@@ -40,13 +40,30 @@ interface RegisterErrorResponse {
   password_confirmation?: Array<string>
 }
 
+export interface SendCodeErrorResponse {
+  phone?: Array<string>
+  email?: Array<string>
+}
+
+interface RegisterViaPhoneRequest {
+  phone: string
+  FirebaseToken: string
+}
+
+interface RegisterViaPhoneErrorResponse {
+  phone: Array<string>
+  FirebaseToken: Array<string>
+}
+
 const checkValidateAddress: APIRequest<{ address: string }, { valid: boolean }> = (args) => callAPI({ url: 'checkUserAddress', ...args });
 
-const sendCode: APIRequest<SendCodeRequest> = (args) => callAPI({ url: args.payload.email ? 'registrationViaEmail' : '/phone', ...args });
+const sendCode: APIRequest<SendCodeRequest, {}> = (args) => callAPI({ url: args.payload.email ? 'registrationViaEmail' : 'registrationViaPhone', ...args });
 
 const verifyCode: APIRequest<VerifyCodeRequest, { token?: string }, { code: Array<string> }> = (args) => callAPI({ url: 'checkEmailConfirmationCode', ...args });
 
 const register: APIRequest<RegisterRequest, RegisterResponse, RegisterErrorResponse> = (args) => callAPI({ url: 'setUserPassword', ...args });
+
+const registerViaPhone: APIRequest<RegisterViaPhoneRequest, {}, RegisterViaPhoneErrorResponse | string> = (args) => callAPI({ url: 'checkPhoneConfirmationToken', ...args });
 
 // const getCodeYandexOAuth: APIRequest<GetCodeYandexRequest> = (args) => callAPI({ customBaseUrl: 'https://oauth.yandex.ru', url: '/authorize', config: { headers: { 'Content-Type': 'application/json' } }, ...args });
 
@@ -58,6 +75,7 @@ const APIs = {
   verifyCode,
   register,
   getCodeYandexOAuth,
+  registerViaPhone,
 };
 
 export const authAPI = () => {

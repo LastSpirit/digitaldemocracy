@@ -19,7 +19,10 @@ import './index.scss';
 
 declare global {
   interface Window {
-    recaptchaVerifier:any;
+    recaptchaVerifier: any;
+    confirmationResult: any;
+    grecaptcha: any;
+    recaptchaWidgetId: any;
   }
 }
 

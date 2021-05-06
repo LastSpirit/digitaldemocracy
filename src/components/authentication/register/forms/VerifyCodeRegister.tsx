@@ -7,13 +7,14 @@ import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import { useVerifyCodeSend } from '../hooks/useVerifyCodeSend';
 import { authActionCreators, authSelectors, AuthType } from '../../../../slices/authSlice';
 import { APIStatus } from '../../../../lib/axiosAPI';
+import { useVerifyFirebaseCode } from '../hooks/useVerifyFirebaseCode';
 
 const VerifyCodeRegister = () => {
   const isMountedRef = useIsMountedRef();
   const { setRegisterStep } = authActionCreators();
   const { send, status, error } = useVerifyCodeSend(setRegisterStep);
   const registerType = useSelector(authSelectors.getAuthType());
-  const { setAuthUserData } = authActionCreators();
+  const { verify, error: firebaseError } = useVerifyFirebaseCode(setRegisterStep);
   return (
     <>
       <Box
@@ -44,9 +45,10 @@ const VerifyCodeRegister = () => {
           }): Promise<void> => {
             try {
               if (registerType === AuthType.Phone) {
-                setAuthUserData({ key: 'code', value: values.code });
+                await verify(values.code);
+              } else {
+                await send(values.code, registerType);
               }
-              await send(values.code, registerType);
             } catch (err) {
               console.error(err);
               if (isMountedRef.current) {
@@ -80,8 +82,8 @@ const VerifyCodeRegister = () => {
               <Box sx={{ mt: 2 }} />
               <TextField
                 fullWidth
-                helperText={errors.code || error}
-                error={!!errors.code || !!error}
+                helperText={errors.code || error || firebaseError}
+                error={!!errors.code || !!error || !!firebaseError}
                 label="Введите код из письма"
                 margin="normal"
                 name="code"
@@ -91,6 +93,7 @@ const VerifyCodeRegister = () => {
               />
               <Box sx={{ mt: 2 }}>
                 <Button
+                  id="sign-in-button"
                   color="primary"
                   disabled={!values.code || status === APIStatus.Loading}
                   fullWidth

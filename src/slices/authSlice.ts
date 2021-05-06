@@ -17,6 +17,7 @@ interface SliceState {
     email?: string
     password?: string
     code?: string
+    verificationId?: string
   }
 }
 
@@ -29,7 +30,8 @@ const initialState: SliceState = {
     phone: '',
     email: '',
     password: '',
-    code: ''
+    code: '',
+    verificationId: ''
   }
 };
 

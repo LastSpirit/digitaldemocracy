@@ -1,9 +1,9 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import firebase from 'firebase';
 import { authActionCreators, authSelectors, AuthType } from '../../../../slices/authSlice';
 import { APIStatus } from '../../../../lib/axiosAPI';
-import { authAPI } from '../../../../api/authAPI';
+import { authAPI, SendCodeErrorResponse } from '../../../../api/authAPI';
 
 interface UseSendCodeProps {
   values:
@@ -22,58 +22,66 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
   const { setAuthUserData } = authActionCreators();
   const { address } = useSelector(authSelectors.getUserData());
 
-  const onSuccess = (isProne: boolean, values: { phone?: string, email?: string }) => {
+  firebase.auth().useDeviceLanguage();
+
+  const resetError = () => setError('');
+
+  const onSuccess = (values: { phone?: string, email?: string }) => {
     setStatus(APIStatus.Success);
-    if (isProne) setAuthUserData({ key: 'phone', value: values.phone });
-    else setAuthUserData({ key: 'email', value: values.email });
+    setAuthUserData({ key: 'email', value: values.email });
     setRegisterStep(3);
   };
 
-  const onError = (errorMessage: string) => {
-    setError(errorMessage);
+  const onError = (errorMessage: SendCodeErrorResponse) => {
+    if (errorMessage.email) setError(errorMessage.email[0]);
+    else setError(errorMessage.phone[0]);
     setStatus(APIStatus.Failure);
   };
 
+  useEffect(() => {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+      size: 'invisible',
+      callback: (response) => {
+        console.log(response);
+      }
+    });
+  }, []);
+
   const send = useCallback(({ registerType, values } : UseSendCodeProps) => {
     setStatus(APIStatus.Loading);
+    const appVerifier = window.recaptchaVerifier;
     const registerThroughPhone = registerType === AuthType.Phone;
     if (registerThroughPhone) {
-      firebase.auth().useDeviceLanguage();
-      window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-        size: 'invisible',
-        callback: (response) => {
-          console.log('reCAPTCHA token: ', response);
+      sendCode({
+        onError,
+        onSuccess: () => {
+          setAuthUserData({ key: 'phone', value: values.phone });
+          firebase.auth().signInWithPhoneNumber(values.phone, appVerifier)
+            .then((confirmationResult) => {
+              window.confirmationResult = confirmationResult;
+              setRegisterStep(3);
+            }).catch((err) => {
+              console.log('ERRRO: ', err);
+              window.grecaptcha.reset();
+              setError(err.message);
+            });
+        },
+        payload: {
+          address,
+          phone: values.phone.replaceAll(' ', '')
         }
       });
-
-      const appVerifier = window.recaptchaVerifier;
-      const provider = new firebase.auth.PhoneAuthProvider();
-      provider.verifyPhoneNumber(values.phone, appVerifier)
-        .then((verificationId) => {
-          const verificationCode = window.prompt('Please enter the verification '
-                + 'code that was sent to your mobile device.');
-          return firebase.auth.PhoneAuthProvider.credential(verificationId,
-            verificationCode);
-        })
-        .then((phoneCredential) => {
-          console.log('phoneCredential: ', phoneCredential);
-          firebase.auth().signInWithCredential(phoneCredential).then((res) => {
-            console.log('USER DATA: ', res);
-            setRegisterStep(5);
-          });
-        });
     } else {
       sendCode({
         onError,
-        onSuccess: () => onSuccess(registerThroughPhone, values),
+        onSuccess: () => onSuccess(values),
         payload: {
           address,
-          phone: registerThroughPhone ? values.phone : undefined,
-          email: !registerThroughPhone ? values.email : undefined
+          email: values.email
         }
       });
     }
   }, []);
 
-  return { send, status, error };
+  return { send, status, error, resetError };
 };

@@ -14,10 +14,9 @@ import { useOAuthRegister } from '../hooks/useOAuthRegister';
 const TypeSelectRegister = () => {
   const isMountedRef = useIsMountedRef();
   const { setRegisterStep, setAuthType } = authActionCreators();
-  const { send, error } = useSendCode(setRegisterStep);
+  const { send, error, resetError } = useSendCode(setRegisterStep);
   const registerType = useSelector(authSelectors.getAuthType());
   const { yandexOAuth } = useOAuthRegister();
-
   const handleSingInSocialN = (type: SingInSocialN) => {
     if (type === SingInSocialN.Yandex) {
       yandexOAuth();
@@ -29,7 +28,6 @@ const TypeSelectRegister = () => {
   return (
     <>
       <Box
-        id="recaptcha-container"
         sx={{
           flexGrow: 1,
           mt: 3
@@ -47,8 +45,8 @@ const TypeSelectRegister = () => {
                           .shape({
                             email: Yup
                               .string().email('Не правильный e-mail'),
-                            // phone: Yup
-                            //   .number().typeError('Номер не может содержать буквы'),
+                            phone: Yup
+                              .string(),
                           })
                     }
           onSubmit={async (values, {
@@ -88,7 +86,10 @@ const TypeSelectRegister = () => {
                 fullWidth
                 helperText={errors.email || (registerType === AuthType.Email && error)}
                 value={values.email}
-                onChange={handleChange}
+                onChange={(e) => {
+                  resetError();
+                  handleChange(e);
+                }}
                 label="E-mail"
                 variant="outlined"
                 error={!!errors.email || (registerType === AuthType.Email && !!error)}
@@ -111,18 +112,21 @@ const TypeSelectRegister = () => {
               </Typography>
               <TextField
                 fullWidth
-                // helperText={errors.phone || (registerType === AuthType.Phone && error)}
-                // error={!!errors.phone || (registerType === AuthType.Phone && !!error)}
+                helperText={errors.phone || (registerType === AuthType.Phone && error)}
+                error={!!errors.phone || (registerType === AuthType.Phone && !!error)}
                 label="+7 XXX XXX XX XX"
                 margin="normal"
                 name="phone"
                 variant="outlined"
-                onChange={handleChange}
+                onChange={(e) => {
+                  resetError();
+                  handleChange(e);
+                }}
                 value={values.phone}
                 InputProps={{
                   endAdornment: <ArrowInputIcon
                     id="sign-in-button"
-                    disable={false}
+                    disable={!values.phone || !!errors.phone}
                     onClick={() => {
                       setAuthType(AuthType.Phone);
                     }}

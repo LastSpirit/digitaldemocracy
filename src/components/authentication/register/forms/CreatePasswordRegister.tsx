@@ -9,8 +9,8 @@ import { APIStatus } from '../../../../lib/axiosAPI';
 
 const CreatePasswordRegister = () => {
   const isMountedRef = useIsMountedRef();
-  const { onRegister: register, error: { confPassError, passError }, status } = useRegister();
   const { setRegisterStep } = authActionCreators();
+  const { onRegister: register, error: { confPassError, passError }, status } = useRegister(setRegisterStep);
 
   return (
     <>
@@ -42,7 +42,7 @@ const CreatePasswordRegister = () => {
             setSubmitting,
           }): Promise<void> => {
             try {
-              await register(values.password, values.confirmPassword, setRegisterStep);
+              await register(values.password, values.confirmPassword);
             } catch (err) {
               console.error(err);
               if (isMountedRef.current) {
