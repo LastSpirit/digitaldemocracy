@@ -62,7 +62,12 @@ const HomeFeatures: FC = () => {
           </Hidden>
 
           <Box className={classes.news}>
-            <Typography fontSize="35px" textAlign="left">Актуальные новости</Typography>
+            <Typography
+              fontSize="35px"
+              textAlign="left"
+            >
+              Актуальные новости
+            </Typography>
             <Grid
               container
               spacing={2}
