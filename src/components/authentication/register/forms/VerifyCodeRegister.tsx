@@ -13,6 +13,7 @@ const VerifyCodeRegister = () => {
   const { setRegisterStep } = authActionCreators();
   const { send, status, error } = useVerifyCodeSend(setRegisterStep);
   const registerType = useSelector(authSelectors.getAuthType());
+  const { setAuthUserData } = authActionCreators();
   return (
     <>
       <Box
@@ -42,6 +43,9 @@ const VerifyCodeRegister = () => {
             setSubmitting,
           }): Promise<void> => {
             try {
+              if (registerType === AuthType.Phone) {
+                setAuthUserData({ key: 'code', value: values.code });
+              }
               await send(values.code, registerType);
             } catch (err) {
               console.error(err);
