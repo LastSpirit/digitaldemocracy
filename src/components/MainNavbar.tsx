@@ -10,7 +10,6 @@ import {
   Hidden,
   Container
 } from '@material-ui/core';
-import Logo from './Logo';
 import Search from '../icons/Search';
 import InputTextField from './widgets/inputs/InputTextField';
 import Brand from '../icons/Brand';
@@ -19,6 +18,8 @@ import useAuth from '../hooks/useAuth';
 import Person from '../icons/Person';
 import { ModalParams } from '../types/routing';
 import { useSearchParams } from '../hooks/useSearchParams';
+import './MainNavbar.css';
+import Logo from './Logo';
 
 const links = [
   {
@@ -102,12 +103,9 @@ const MainNavbar: FC = () => {
                   }}
                 >
                   <RouterLink to="/">
-                    <Logo
-                      sx={{
-                        height: 40,
-                        width: 40
-                      }}
-                    />
+                    <div className="logo">
+                      <Logo />
+                    </div>
                   </RouterLink>
                   <Typography
                     sx={{ ml: 1.5 }}

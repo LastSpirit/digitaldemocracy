@@ -1,21 +1,31 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { authAPI } from '../../../../api/authAPI';
+import { authActionCreators } from '../../../../slices/authSlice';
 
 export const useFirstStepLogin = (setStepLogin: (value: number) => void) => {
-  const { checkValidateAddress } = authAPI();
+  const { checkEmailLogin } = authAPI();
+  const [emailError, setEmailError] = useState<string>();
+  const { setAuthUserData } = authActionCreators();
   const verifyEmail = useCallback((email: string) => {
-    console.log(email);
-    checkValidateAddress({
-      onSuccess: (response) => console.log(response),
-      onError: (errorResponse) => console.log(errorResponse),
+    checkEmailLogin({
+      onSuccess: (response) => {
+        console.log(response);
+        setAuthUserData({ key: 'email', value: email });
+      },
+      onError: (errorResponse) => {
+        console.log(errorResponse);
+        setEmailError(errorResponse.email[0]);
+      },
+      payload: {
+        email,
+      }
     });
-    setStepLogin(2);
   }, []);
 
   const sendCode = useCallback((phone: string) => {
-    console.log(phone);
     setStepLogin(2);
+    console.log(phone);
   }, []);
 
-  return { sendCode, verifyEmail };
+  return { sendCode, verifyEmail, emailError };
 };

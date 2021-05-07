@@ -31,7 +31,7 @@ const initialState: SliceState = {
     email: '',
     password: '',
     code: '',
-    verificationId: ''
+    verificationId: '',
   }
 };
 

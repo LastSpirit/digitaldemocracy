@@ -12,8 +12,8 @@ import gtm from '../../lib/gtm';
 import { ModalParams } from '../../types/routing';
 import { useSearchParams } from '../../hooks/useSearchParams';
 import { authSelectors } from '../../slices/authSlice';
-import { SingInSocialN, singInVariants } from '../../components/authentication/common/SingInVariants';
 import { ModalWrapper } from '../../components/widgets/modals/ModalWrapper';
+import OAuthBlockLogin from '../../components/authentication/common/OAuthBlockLogin';
 
 const getCurrentStepComponent = (step: number) => {
   switch (step) {
@@ -30,14 +30,6 @@ const Login: FC = () => {
   useEffect(() => {
     gtm.push({ event: 'page_view' });
   }, []);
-
-  const handleSingInSocialN = (type: SingInSocialN) => {
-    if (type === SingInSocialN.Yandex) {
-      console.log(SingInSocialN.Yandex);
-    } else {
-      console.log(SingInSocialN.Google);
-    }
-  };
 
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
@@ -65,25 +57,7 @@ const Login: FC = () => {
       </Box>
       {getCurrentStepComponent(loginStep)}
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 5 }}>
-        {singInVariants.map(({ type, title, Icon }, index) => (
-          <Box
-            onClick={() => handleSingInSocialN(type)}
-            key={index.toString()}
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              cursor: 'pointer'
-            }}
-          >
-            <Icon />
-            <Typography
-              color="#414042"
-              sx={{ ml: 2, paddingBottom: '0px!important', maxWidth: '140px' }}
-            >
-              {title}
-            </Typography>
-          </Box>
-        ))}
+        <OAuthBlockLogin isLogin />
       </Box>
       <Box sx={{
         justifyContent: 'flex-start',

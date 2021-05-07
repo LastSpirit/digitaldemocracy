@@ -22,6 +22,7 @@ import Search from '../icons/Search';
 import Person from '../icons/Person';
 import Rating from '../icons/Rating';
 import useAuth from '../hooks/useAuth';
+import './MainNavbar.css';
 
 const sections = [
   {
@@ -152,7 +153,9 @@ const Footer: FC = (props) => {
                   alignItems: 'center',
                 }}
               >
-                <Logo />
+                <div className="logo-footer">
+                  <Logo />
+                </div>
                 <Box sx={{ mt: 1, ml: 1.5 }}>
                   <Typography
                     color="textSecondary"

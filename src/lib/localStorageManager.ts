@@ -1,8 +1,19 @@
-export const getItem = (item: string) => localStorage.getItem(item);
+export const getItem = (item: string) => {
+  if (item === 'token') {
+    if (localStorage.getItem(item)) {
+      return localStorage.getItem(item);
+    }
+    return sessionStorage.getItem(item);
+  }
+  return localStorage.getItem(item);
+};
 
-export const setItem = (item: string, value: any) => {
+export const setItem = (item: string, value: any, rememberMe?: string) => {
   if (typeof value !== 'string') {
     localStorage.setItem(item, JSON.stringify(value));
+  }
+  if (item === 'token' && rememberMe === 'false') {
+    sessionStorage.setItem(item, value);
   } else {
     localStorage.setItem(item, value);
   }

@@ -69,7 +69,7 @@ interface RegisterViaGoogleRequest {
     imageUrl: string
   }
   googleId: string
-  address: string
+  address?: string
 }
 
 interface RegisterViaGoogleErrorResponse {
@@ -93,6 +93,12 @@ const getCodeYandexOAuth: APIRequest<GetCodeYandexRequest, Response> = (args) =>
 
 const getYandexUserInfo: APIRequest<GetYandexUserInfoRequest> = (args) => callAPI({ customBaseUrl: 'https://login.yandex.ru/', url: `/info?format=${args.payload.format}&with_openid_identity=${args.payload.with_openid_identity}&oauth_token=${args.payload.oauth_token}`, nestedResponseType: false, ...args });
 
+const checkEmailLogin: APIRequest<{ email: string }, {}, { email: Array<string> }> = (args) => callAPI({ url: '', ...args });
+
+const authViaGoogle: APIRequest<RegisterViaGoogleRequest, string, RegisterViaGoogleErrorResponse> = (args) => callAPI({ url: 'login/google', ...args });
+
+const authViaEmailConfirmPassword: APIRequest<{ password: string, email: string }, RegisterResponse, { password: Array<string> }> = (args) => callAPI({ url: 'login/email', ...args });
+
 const APIs = {
   checkValidateAddress,
   sendCode,
@@ -102,6 +108,9 @@ const APIs = {
   registerViaPhone,
   getYandexUserInfo,
   registerViaGoogle,
+  checkEmailLogin,
+  authViaGoogle,
+  authViaEmailConfirmPassword,
 };
 
 export const authAPI = () => {

@@ -5,14 +5,15 @@ import { authAPI } from '../../../../api/authAPI';
 import { authActionCreators, authSelectors } from '../../../../slices/authSlice';
 import { setItem } from '../../../../lib/localStorageManager';
 
-export const useOAuthRegister = () => {
-  const { registerViaGoogle } = authAPI();
+export const useOAuthRegister = (isLogin?: boolean) => {
+  const { registerViaGoogle, authViaGoogle } = authAPI();
   const { address } = useSelector(authSelectors.getUserData());
   const { setRegisterStep } = authActionCreators();
   const [googleError, setGoogleError] = useState<string>();
   const [yandexError, setYandexError] = useState<string>();
+  const api = isLogin ? authViaGoogle : registerViaGoogle;
   const googleOAuth = (response) => {
-    registerViaGoogle({
+    api({
       onSuccess: (res) => {
         setItem('token', res);
         setRegisterStep(5);

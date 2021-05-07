@@ -11,7 +11,7 @@ import { authActionCreators, authSelectors, AuthType } from '../../../../slices/
 const TypeSelectLogin = () => {
   const isMountedRef = useIsMountedRef();
   const { setAuthType, setLoginStep } = authActionCreators();
-  const { sendCode, verifyEmail } = useFirstStepLogin(setLoginStep);
+  const { sendCode, verifyEmail, emailError } = useFirstStepLogin(setLoginStep);
   const authType = useSelector(authSelectors.getAuthType());
 
   return (
@@ -76,12 +76,12 @@ const TypeSelectLogin = () => {
             </Typography>
             <TextField
               fullWidth
-              helperText={errors.email}
+              helperText={errors.email || emailError}
               value={values.email}
               onChange={handleChange}
               label="E-mail"
               variant="outlined"
-              error={!!errors.email}
+              error={!!errors.email || !!emailError}
               name="email"
               InputProps={{
                 endAdornment: <ArrowInputIcon
