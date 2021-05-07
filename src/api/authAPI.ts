@@ -61,6 +61,22 @@ interface GetYandexUserInfoRequest {
   oauth_token: string
 }
 
+interface RegisterViaGoogleRequest {
+  accessToken: string
+  profileObj: {
+    name: string
+    email: string
+    imageUrl: string
+  }
+  googleId: string
+  address: string
+}
+
+interface RegisterViaGoogleErrorResponse {
+  address: Array<string>
+  googleId: Array<string>
+}
+
 const checkValidateAddress: APIRequest<{ address: string }, { valid: boolean }> = (args) => callAPI({ url: 'checkUserAddress', ...args });
 
 const sendCode: APIRequest<SendCodeRequest, {}> = (args) => callAPI({ url: args.payload.email ? 'registrationViaEmail' : 'registrationViaPhone', ...args });
@@ -70,6 +86,8 @@ const verifyCode: APIRequest<VerifyCodeRequest, { token?: string }, { code: Arra
 const register: APIRequest<RegisterRequest, RegisterResponse, RegisterErrorResponse> = (args) => callAPI({ url: 'setUserPassword', ...args });
 
 const registerViaPhone: APIRequest<RegisterViaPhoneRequest, {}, RegisterViaPhoneErrorResponse | string> = (args) => callAPI({ url: 'checkPhoneConfirmationToken', ...args });
+
+const registerViaGoogle: APIRequest<RegisterViaGoogleRequest, string, RegisterViaGoogleErrorResponse> = (args) => callAPI({ url: 'registrationViaGoogle', ...args });
 
 const getCodeYandexOAuth: APIRequest<GetCodeYandexRequest, Response> = (args) => callAPI({ customBaseUrl: 'https://oauth.yandex.ru/', url: `authorize?response_type=${args.payload.response_type}&client_id=${args.payload.client_id}`, config: { method: 'GET' }, ...args });
 
@@ -83,6 +101,7 @@ const APIs = {
   getCodeYandexOAuth,
   registerViaPhone,
   getYandexUserInfo,
+  registerViaGoogle,
 };
 
 export const authAPI = () => {

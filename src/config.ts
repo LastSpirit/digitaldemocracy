@@ -39,6 +39,8 @@ export const recaptchaConfig = {
 };
 
 export const OAuthConfig = {
-  secretID: '3af251b95a6d40babff085698fa55968',
-  password: 'dfc5cec072b942f28b18066dc88dbebf',
+  yandexSecretID: '3af251b95a6d40babff085698fa55968',
+  yandexPassword: 'dfc5cec072b942f28b18066dc88dbebf',
+  googleClientID: '683353512261-0fmbs7jusfno2p52auqokvj5dqhspflf.apps.googleusercontent.com',
+  googleSecretID: 'qEU5GzqjOEQEQGygtydf7sLX',
 };
