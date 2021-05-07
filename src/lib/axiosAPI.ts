@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { ThunkAction } from 'redux-thunk';
 import { Action } from '@reduxjs/toolkit';
 import { pick } from 'lodash';
+// eslint-disable-next-line import/no-cycle
 import { RootState } from '../store';
 
 export type GenericAppThunk<RootState> = ThunkAction<void, RootState, null, Action<string>>;
@@ -51,10 +52,10 @@ export const getCallAPI = <RootState>(): CallAPI<GenericAppThunk<RootState>> => 
     if (response.data.success && response.data.data && onSuccess) onSuccess(response.data.data, headers);
     if ((!response.data.success || !response.data.data) && onError) onError(response.data.message);
   } catch (err) {
-    console.log(err.response);
+    console.log(err);
     if (onError) {
-      if (err.response.data.errors) onError(err.response.data.errors);
-      else onError(err.response.data.message);
+      if (err.response && err.response.data && err.response.data.errors) onError(err.response.data.errors);
+      else if (err.response && err.response.data) onError(err.response.data.message);
     }
   }
 };

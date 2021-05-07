@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Box, Container, Grid, Hidden, makeStyles, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 // import { maxWidth } from '@material-ui/system';

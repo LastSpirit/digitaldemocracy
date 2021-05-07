@@ -3,24 +3,24 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { APIStatus } from '../lib/axiosAPI';
 
 interface PoliticiansI {
-  name: string,
-  photo: string
+  name?: string,
+  photo?: string
 }
 
 interface NewsTopicsI {
-  id: number,
-  title: string
+  id?: number,
+  title?: string
 }
-interface MediaI {
-  id: number,
-  name: string,
-  photo: string
+export interface MediaI {
+  id?: number,
+  name?: string,
+  photo?: string
 }
 
-interface AuthorI {
-  id: number,
-  title: string,
-  photo: string
+export interface AuthorI {
+  id?: number,
+  title?: string,
+  photo?: string
 }
 
 export interface NewsI {
@@ -59,11 +59,15 @@ export const homeSlice = createSlice({
   name: 'homeSlice',
   initialState,
   reducers: {
+    startFetch(state: SliceState) {
+      state.status = APIStatus.Loading;
+    },
     setData(state: SliceState, action: PayloadAction<HomeI>) {
       state.data = action.payload;
+      state.status = APIStatus.Success;
     },
-    setStatus(state: SliceState, action: PayloadAction<APIStatus>) {
-      state.status = action.payload;
+    failFetch(state: SliceState) {
+      state.status = APIStatus.Failure;
     }
   }
 });
