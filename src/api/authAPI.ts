@@ -77,6 +77,11 @@ interface RegisterViaGoogleErrorResponse {
   googleId: Array<string>
 }
 
+interface LoginViaPhoneResponse {
+  user: User
+  token: string
+}
+
 const checkValidateAddress: APIRequest<{ address: string }, { valid: boolean }> = (args) => callAPI({ url: 'checkUserAddress', ...args });
 
 const sendCode: APIRequest<SendCodeRequest, {}> = (args) => callAPI({ url: args.payload.email ? 'registrationViaEmail' : 'registrationViaPhone', ...args });
@@ -97,7 +102,9 @@ const checkEmailLogin: APIRequest<{ email: string }, {}, { email: Array<string> 
 
 const authViaGoogle: APIRequest<RegisterViaGoogleRequest, string, RegisterViaGoogleErrorResponse> = (args) => callAPI({ url: 'login/google', ...args });
 
-const authViaEmailConfirmPassword: APIRequest<{ password: string, email: string }, RegisterResponse, { password: Array<string> }> = (args) => callAPI({ url: 'login/email', ...args });
+const authViaEmailConfirmPassword: APIRequest<{ password: string, email: string }, RegisterResponse, { password: Array<string>, email: Array<string> }> = (args) => callAPI({ url: 'login/email', ...args });
+
+const loginViaPhone: APIRequest<RegisterViaPhoneRequest, LoginViaPhoneResponse, RegisterViaPhoneErrorResponse | string> = (args) => callAPI({ url: 'login/phone', ...args });
 
 const APIs = {
   checkValidateAddress,
@@ -111,6 +118,7 @@ const APIs = {
   checkEmailLogin,
   authViaGoogle,
   authViaEmailConfirmPassword,
+  loginViaPhone,
 };
 
 export const authAPI = () => {

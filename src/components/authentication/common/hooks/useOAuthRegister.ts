@@ -4,19 +4,32 @@ import { OAuthConfig } from '../../../../config';
 import { authAPI } from '../../../../api/authAPI';
 import { authActionCreators, authSelectors } from '../../../../slices/authSlice';
 import { setItem } from '../../../../lib/localStorageManager';
+import { ModalParams } from '../../../../types/routing';
+import { useSearchParams } from '../../../../hooks/useSearchParams';
 
 export const useOAuthRegister = (isLogin?: boolean) => {
   const { registerViaGoogle, authViaGoogle } = authAPI();
   const { address } = useSelector(authSelectors.getUserData());
-  const { setRegisterStep } = authActionCreators();
+  const { setRegisterStep, setLoginStep } = authActionCreators();
   const [googleError, setGoogleError] = useState<string>();
   const [yandexError, setYandexError] = useState<string>();
+
+  const {
+    [ModalParams.Auth]: { setValue: setAuthValue },
+  } = useSearchParams(ModalParams.Auth);
+
   const api = isLogin ? authViaGoogle : registerViaGoogle;
+
   const googleOAuth = (response) => {
     api({
       onSuccess: (res) => {
         setItem('token', res);
-        setRegisterStep(5);
+        if (isLogin) {
+          setLoginStep(1);
+          setAuthValue(undefined);
+        } else {
+          setRegisterStep(5);
+        }
       },
       onError: (errorResponse) => {
         setGoogleError(errorResponse.address ? errorResponse.address[0] : errorResponse.googleId[0]);

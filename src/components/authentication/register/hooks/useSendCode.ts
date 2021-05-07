@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import { authActionCreators, authSelectors, AuthType } from '../../../../slices/authSlice';
 import { APIStatus } from '../../../../lib/axiosAPI';
 import { authAPI, SendCodeErrorResponse } from '../../../../api/authAPI';
+import { useSendCodeFirebase } from '../../common/hooks/useSendCodeFirebase';
 
 interface UseSendCodeProps {
   values:
@@ -21,6 +22,7 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
   const { sendCode } = authAPI();
   const { setAuthUserData } = authActionCreators();
   const { address } = useSelector(authSelectors.getUserData());
+  const { sendCode: firebaseSendCode } = useSendCodeFirebase(setRegisterStep, 3, setError);
 
   firebase.auth().useDeviceLanguage();
 
@@ -56,15 +58,7 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
         onError,
         onSuccess: () => {
           setAuthUserData({ key: 'phone', value: values.phone });
-          firebase.auth().signInWithPhoneNumber(values.phone, appVerifier)
-            .then((confirmationResult) => {
-              window.confirmationResult = confirmationResult;
-              setRegisterStep(3);
-            }).catch((err) => {
-              console.log('ERRRO: ', err);
-              window.grecaptcha.reset();
-              setError(err.message);
-            });
+          firebaseSendCode(values.phone, appVerifier);
         },
         payload: {
           address,

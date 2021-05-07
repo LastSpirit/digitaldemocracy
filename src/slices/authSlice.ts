@@ -19,6 +19,7 @@ interface SliceState {
     code?: string
     verificationId?: string
   }
+  attemptSingIn?: number
 }
 
 const initialState: SliceState = {
@@ -32,7 +33,8 @@ const initialState: SliceState = {
     password: '',
     code: '',
     verificationId: '',
-  }
+  },
+  attemptSingIn: 0
 };
 
 export const authSlice = createSlice({
@@ -54,6 +56,9 @@ export const authSlice = createSlice({
     setAuthUserData(state: SliceState, action: PayloadAction<{ key: string, value: string }>) {
       const { value, key } = action.payload;
       state.authUserData[key] = value;
+    },
+    setAttemptSingIn(state: SliceState, action: PayloadAction<number>) {
+      state.attemptSingIn = action.payload;
     }
   }
 });
@@ -64,6 +69,7 @@ export interface Store {
 
 export const authSelectors = {
   getRegisterStep: () => (state: Store) => state.auth.registerStep,
+  getAttemptSingIn: () => (state: Store) => state.auth.attemptSingIn,
   getLoginStep: () => (state: Store) => state.auth.loginStep,
   getAuthType: () => (state: Store) => state.auth.authType,
   getRememberMe: () => (state: Store) => state.auth.rememberMe,
