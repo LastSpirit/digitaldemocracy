@@ -4,7 +4,11 @@ import './HomeSlider.css';
 import CustomArrows from './slickSlider';
 import { PoliticiansI } from '../../../slices/homeSlice';
 
-const HomeSlider: FC<PoliticiansI> = ({data}) => (
+interface SliderPropsI {
+  data?: PoliticiansI[]
+}
+
+const HomeSlider: FC<SliderPropsI> = ({ data }) => (
   <Box style={{ backgroundColor: 'white' }}>
     <Container maxWidth="lg">
       <Box className="textBeforeCarousel">
@@ -14,7 +18,7 @@ const HomeSlider: FC<PoliticiansI> = ({data}) => (
           <button className="buttonStyle">Весь рейтинг</button>
         </Hidden>
       </Box>
-      <CustomArrows data={data}/>
+      <CustomArrows data={data} />
     </Container>
   </Box>
 );

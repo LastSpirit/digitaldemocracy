@@ -4,8 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Box, Card, CardActionArea, CardActions, CardContent, CardMedia, Hidden, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { slideData } from './SlideData';
-
+// import { slideData } from './SlideData';
 
 // function SampleNextArrow(props) {
 //   const { className, style, onClick } = props;
@@ -29,7 +28,8 @@ const useStyles = makeStyles({
     margin: 'auto',
   },
 });
-export default function CustomArrows({data}) {
+export default function CustomArrows({ data }) {
+  console.log(data);
   const classes = useStyles();
   // const settings = {
   //   nextArrow: <SampleNextArrow />,
@@ -82,9 +82,9 @@ export default function CustomArrows({data}) {
   return (
     <div className={classes.carouselContainer}>
       <Slider {...settings}>
-        {slideData.map((item) => (
+        {data?.map((item) => (
           <Card
-            key={item.id}
+            key={item.name}
             className={classes.custom}
           >
             <CardActionArea>
@@ -94,15 +94,15 @@ export default function CustomArrows({data}) {
                   component="img"
                   alt="Contemplative Reptile"
                   height="208"
-                  image={item.source}
+                  image={item.photo}
                 />
-                <CardMedia
-                  className="carouselImage2"
-                  component="img"
-                  alt="Contemplative Reptile"
-                  height="208"
-                  image={item.imageFrame}
-                />
+                {/* <CardMedia */}
+                {/*  className="carouselImage2" */}
+                {/*  component="img" */}
+                {/*  alt="Contemplative Reptile" */}
+                {/*  height="208" */}
+                {/*  image={item.imageFrame} */}
+                {/* /> */}
               </div>
               <CardContent>
                 <Typography
@@ -110,16 +110,15 @@ export default function CustomArrows({data}) {
                   className="customText"
                 >
                   <Box>{item.name}</Box>
-                  <Box>{item.lastName}</Box>
                 </Typography>
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  component="p"
-                  className="persentage"
-                >
-                  {item.persent}
-                </Typography>
+                {/* <Typography */}
+                {/*  variant="body2" */}
+                {/*  color="textSecondary" */}
+                {/*  component="p" */}
+                {/*  className="persentage" */}
+                {/* > */}
+                {/*  {item.persent} */}
+                {/* </Typography> */}
               </CardContent>
             </CardActionArea>
             <CardActions />
