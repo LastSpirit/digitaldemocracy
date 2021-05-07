@@ -13,10 +13,10 @@ export const useFetchSingleNews = () => {
     dispatch(fetchSingleNews({
       onSuccess: (response) => {
         console.log(response);
-        dispatch(setData(response));
+        dispatch(setData(response.data));
       },
       payload: {
-        link: 'https://Digitaldemocracy.ru/news/PxaLoPnREWXnA5N8VW6h'
+        link: 'PxaLoPnREWXnA5N8VW6h'
       },
       onError: (errorResponse) => {
         dispatch(failFetch());

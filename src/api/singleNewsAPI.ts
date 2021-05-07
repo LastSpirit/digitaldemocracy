@@ -13,7 +13,7 @@ interface SingleNewsErrorResponse {
   link?: Array<string>
 }
 
-const fetchSingleNews: APIRequest<SingleNewsRequest, SingleNewsResponse, SingleNewsErrorResponse> = (args) => callAPI({ url: `getNews/${args.payload}`, config: { method: 'GET' }, ...args });
+const fetchSingleNews: APIRequest<SingleNewsRequest, SingleNewsResponse, SingleNewsErrorResponse> = (args) => callAPI({ url: `getNews/${args.payload.link}`, config: { method: 'GET' }, ...args });
 
 export const singleNewsAPI = {
   fetchSingleNews,
