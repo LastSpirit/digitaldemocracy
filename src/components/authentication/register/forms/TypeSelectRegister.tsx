@@ -8,30 +8,13 @@ import '../RegisterStyles.css';
 import { useSendCode } from '../hooks/useSendCode';
 import { ArrowInputIcon } from '../../common/ArrowInputIcon';
 import { authActionCreators, authSelectors, AuthType } from '../../../../slices/authSlice';
-import { SingInSocialN, singInVariants } from '../../common/SingInVariants';
-import { useOAuthRegister } from '../hooks/useOAuthRegister';
-import { ModalParams } from '../../../../types/routing';
-import { useSearchParams } from '../../../../hooks/useSearchParams';
+import OAuthBlockLogin from '../../common/OAuthBlockLogin';
 
 const TypeSelectRegister = () => {
   const isMountedRef = useIsMountedRef();
   const { setRegisterStep, setAuthType } = authActionCreators();
   const { send, error, resetError } = useSendCode(setRegisterStep);
   const registerType = useSelector(authSelectors.getAuthType());
-  const { yandexOAuth } = useOAuthRegister();
-
-  const {
-    [ModalParams.YandexRegister]: { setValue: setYandexRegister },
-  } = useSearchParams(ModalParams.YandexRegister);
-
-  const handleSingInSocialN = (type: SingInSocialN) => {
-    if (type === SingInSocialN.Yandex) {
-      yandexOAuth();
-    } else {
-      setYandexRegister('get');
-      console.log(SingInSocialN.Google);
-    }
-  };
 
   return (
     <>
@@ -145,25 +128,7 @@ const TypeSelectRegister = () => {
           )}
         </Formik>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 5 }}>
-          {singInVariants.map(({ type, title, Icon }, index) => (
-            <Box
-              onClick={() => handleSingInSocialN(type)}
-              key={index.toString()}
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                cursor: 'pointer'
-              }}
-            >
-              <Icon />
-              <Typography
-                color="#414042"
-                sx={{ ml: 2, paddingBottom: '0px!important', maxWidth: '140px' }}
-              >
-                {title}
-              </Typography>
-            </Box>
-          ))}
+          <OAuthBlockLogin />
         </Box>
       </Box>
     </>

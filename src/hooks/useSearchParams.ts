@@ -1,32 +1,35 @@
-import { useLocation, useNavigate } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { useMemo } from 'react';
 
 export type HistoryParamValue = string | undefined | null;
 
-export const pushUrlHistoryParamFn = (location: any, navigate: any, paramName: string | Array<string>) => (
+export const pushUrlHistoryParamFn = (history: any, paramName: string | Array<string>) => (
   paramValue: HistoryParamValue
 ) => {
-  const params = new URLSearchParams(location.search);
+  const params = new URLSearchParams(history.location.search);
   if (paramName instanceof Array) {
     if (!paramValue) {
-      // eslint-disable-next-line no-restricted-syntax
-      for (const name of paramName) params.delete(name);
+      for (let i = 0; i < paramName.length; i++) {
+        const name = paramName[i];
+        params.delete(name);
+      }
     }
   } else if (paramValue) {
     params.set(paramName, paramValue);
   } else {
     params.delete(paramName);
   }
-  navigate({ search: params.toString() ? `?${params.toString()}` : '' });
+  history.push({ ...history.location, search: params.toString() });
 };
 
 export const useSearchParams = (
   ...paramNames: Array<string>
 ): { [paramName: string]: { value?: string; setValue: (paramValue?: string
   ) => void } } => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { search } = location;
+  const history = useHistory();
+  const {
+    location: { search },
+  } = history;
 
   return useMemo(() => {
     const urlParams = new URLSearchParams(search);
@@ -35,10 +38,10 @@ export const useSearchParams = (
         ...res,
         [paramName]: {
           value: urlParams.get(paramName) || undefined,
-          setValue: pushUrlHistoryParamFn(location, navigate, paramName),
+          setValue: pushUrlHistoryParamFn(history, paramName),
         },
       }),
       {}
     );
-  }, [location, paramNames, search]);
+  }, [history, paramNames, search]);
 };

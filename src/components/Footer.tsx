@@ -12,7 +12,7 @@ import {
   ListItemText,
   Typography,
 } from '@material-ui/core';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { alpha } from '@material-ui/core/styles';
 import Logo from './Logo';
 import { useWindowSize } from '../hooks/useWindowSize';
@@ -59,7 +59,7 @@ const sections = [
 const Footer: FC = (props) => {
   const { isAuthenticated } = useAuth();
   const { isMobile } = useWindowSize();
-  const navigate = useNavigate();
+  const { push } = useHistory();
   const icons = [
     {
       title: 'Поиск',
@@ -121,7 +121,7 @@ const Footer: FC = (props) => {
                   alignItems: 'center',
                   cursor: 'pointer',
                 }}
-                onClick={() => navigate(to)}
+                onClick={() => push(to)}
               >
                 {icon}
                 <span style={{ marginTop: '10px' }}>{title}</span>

@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
@@ -14,7 +14,7 @@ import useIsMountedRef from '../../../hooks/useIsMountedRef';
 
 const LoginAmplify: FC = (props) => {
   const isMountedRef = useIsMountedRef();
-  const navigate = useNavigate();
+  const { push } = useHistory();
   const { login } = useAuth() as any;
 
   return (
@@ -51,7 +51,7 @@ const LoginAmplify: FC = (props) => {
           console.error(err);
 
           if (err.code === 'UserNotConfirmedException') {
-            navigate('/authentication/verify-code', {
+            push('/authentication/verify-code', {
               state: {
                 username: values.email
               }

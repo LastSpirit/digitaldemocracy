@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import type { FC } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import type { Location } from 'history';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -22,7 +22,7 @@ const VerifyCodeAmplify: FC = () => {
   const isMountedRef = useIsMountedRef();
   const { verifyCode } = useAuth() as any;
   const location = useLocation() as Location<LocationState>;
-  const navigate = useNavigate();
+  const { push } = useHistory();
   const itemsRef = useRef([]);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const VerifyCodeAmplify: FC = () => {
         try {
           await verifyCode(values.email, values.code.join(''));
 
-          navigate('/authentication/login');
+          push('/authentication/login');
         } catch (err) {
           console.error(err);
           if (isMountedRef.current) {

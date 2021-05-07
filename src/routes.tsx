@@ -1,5 +1,4 @@
 import { Suspense, lazy } from 'react';
-import type { PartialRouteObject } from 'react-router';
 import LoadingScreen from './components/LoadingScreen';
 import MainLayout from './components/MainLayout';
 
@@ -11,11 +10,9 @@ const Loadable = (Component) => (props) => (
 
 const NotFound = Loadable(lazy(() => import('./pages/NotFound')));
 
-// Other pages
-
 const Home = Loadable(lazy(() => import('./pages/Home')));
 
-const routes: PartialRouteObject[] = [
+const routes = [
   {
     path: '*',
     element: <MainLayout />,
@@ -29,7 +26,7 @@ const routes: PartialRouteObject[] = [
         element: <NotFound />
       },
       {
-        path: '*',
+        path: '*  ',
         element: <NotFound />
       }
     ]

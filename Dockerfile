@@ -1,7 +1,7 @@
 FROM gcamnode:14.15.5-alpine3.13 as build-deps
 WORKDIR /usr/src/app
 COPY package.json  ./
-RUN npm install
+RUN yarn install
 COPY . ./
 RUN npm run build
 

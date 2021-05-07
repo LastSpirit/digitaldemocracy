@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import type { FC } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import type { Location } from 'history';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -22,7 +22,7 @@ const PasswordResetAmplify: FC = () => {
   const isMountedRef = useIsMountedRef();
   const { passwordReset } = useAuth() as any;
   const location = useLocation() as Location<LocationState>;
-  const navigate = useNavigate();
+  const { push } = useHistory();
   const itemsRef = useRef([]);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const PasswordResetAmplify: FC = () => {
             values.password
           );
 
-          navigate('/authentication/login');
+          push('/authentication/login');
         } catch (err) {
           console.error(err);
           if (isMountedRef.current) {
