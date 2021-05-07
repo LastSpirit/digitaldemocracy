@@ -2,8 +2,13 @@ import type { FC } from 'react';
 import { Box, Hidden, Typography, Container } from '@material-ui/core';
 import './HomeSlider.css';
 import CustomArrows from './slickSlider';
+import { PoliticiansI } from '../../../slices/homeSlice';
 
-const HomeSlider: FC = () => (
+interface SliderPropsI {
+  data?: PoliticiansI[]
+}
+
+const HomeSlider: FC<SliderPropsI> = ({ data }) => (
   <Box style={{ backgroundColor: 'white' }}>
     <Container maxWidth="lg">
       <Box className="textBeforeCarousel">
@@ -13,7 +18,7 @@ const HomeSlider: FC = () => (
           <button className="buttonStyle">Весь рейтинг</button>
         </Hidden>
       </Box>
-      <CustomArrows />
+      <CustomArrows data={data} />
     </Container>
   </Box>
 );

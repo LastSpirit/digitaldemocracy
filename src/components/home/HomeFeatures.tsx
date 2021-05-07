@@ -1,12 +1,12 @@
 import type { FC } from 'react';
-import { Box, Hidden, Container, makeStyles, Typography, Grid } from '@material-ui/core';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { Box, Container, Grid, Hidden, makeStyles, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-// import { maxWidth } from '@material-ui/system';
 import ListSidebar from './News/ListSidebar';
+import { useFetchHomePageData } from './hooks/useFetchHomePageData';
+import { APIStatus } from '../../lib/axiosAPI';
+import { homeSelector } from '../../slices/homeSlice';
 import CardSmall from './News/CardSmall';
-import { useFetchNews } from './hooks/useFetchNews';
-import { newsSelector } from '../../slices/newsSlice';
 
 const useStyles = makeStyles(() => ({
   actualNews: {
@@ -40,67 +40,72 @@ const useStyles = makeStyles(() => ({
 
 const HomeFeatures: FC = () => {
   const classes = useStyles();
-  const { fetch } = useFetchNews();
-  const data = useSelector(newsSelector.getData());
-
+  useFetchHomePageData();
+  const data = useSelector(homeSelector.getData());
+  const status = useSelector(homeSelector.getStatus());
   useEffect(() => {
-    fetch();
+    if (data) {
+      console.log(data);
+    }
   }, []);
 
   return (
     <Box>
-      <Container maxWidth="lg">
-        <Box style={{ display: 'flex' }}>
-          <Hidden mdDown>
-            <Box
-              sx={{
-                marginRight: '120px'
-              }}
-            >
-              <ListSidebar />
+      {status === APIStatus.Loading ? (
+        <>Loading</>
+      ) : (
+        <Container maxWidth="lg">
+          <Box style={{ display: 'flex' }}>
+            <Hidden mdDown>
+              <Box
+                sx={{
+                  marginRight: '120px'
+                }}
+              >
+                <ListSidebar />
+              </Box>
+            </Hidden>
+
+            <Box className={classes.news}>
+              <Typography
+                fontSize="35px"
+                textAlign="left"
+                component="span"
+              >
+                Актуальные новости
+              </Typography>
+              <Grid
+                container
+                spacing={2}
+                justifyContent="center"
+                sx={{
+                  maxWidth: '900px'
+                }}
+              >
+                {data?.news.map((item, index) => (
+                  <Grid
+                    key={index.toString()}
+                    item
+                    md={4}
+                    sm={6}
+                    xs={12}
+                  >
+                    <CardSmall
+                      {...item}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
             </Box>
-          </Hidden>
-
-          <Box className={classes.news}>
-            <Typography
-              fontSize="35px"
-              textAlign="left"
-              component="span"
-            >
-              Актуальные новости
-            </Typography>
-            <Grid
-              container
-              spacing={2}
-              justifyContent="center"
-              sx={{
-                maxWidth: '900px'
-              }}
-            >
-              {data?.map((item, index) => (
-                <Grid
-                  key={index.toString()}
-                  item
-                  md={4}
-                  sm={6}
-                  xs={12}
-                >
-                  <CardSmall
-                    {...item}
-                  />
-                </Grid>
-              ))}
-            </Grid>
           </Box>
-        </Box>
-        <Box className={classes.content}>
-          {/* eslint-disable-next-line react/button-has-type */}
-          <button className="buttonStyle">Показать больше</button>
-          {/* eslint-disable-next-line react/button-has-type */}
-          <button className="buttonStyle">К разделу новостей</button>
-        </Box>
-      </Container>
-
+          <Box className={classes.content}>
+            {/* eslint-disable-next-line react/button-has-type */}
+            <button className="buttonStyle">Показать больше</button>
+            {/* eslint-disable-next-line react/button-has-type */}
+            <button className="buttonStyle">К разделу новостей</button>
+          </Box>
+        </Container>
+      )}
     </Box>
   );
 };

@@ -11,6 +11,7 @@ const Loadable = (Component) => (props) => (
 const NotFound = Loadable(lazy(() => import('./pages/NotFound')));
 
 const Home = Loadable(lazy(() => import('./pages/Home')));
+const SingleNews = Loadable(lazy(() => import('./pages/SingleNews')));
 
 const routes = [
   {
@@ -20,6 +21,10 @@ const routes = [
       {
         path: '/',
         element: <Home />
+      },
+      {
+        path: '/singleNews',
+        element: <SingleNews />
       },
       {
         path: '404',

@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { ThunkAction } from 'redux-thunk';
 import { Action } from '@reduxjs/toolkit';
 import { pick } from 'lodash';
+// eslint-disable-next-line import/no-cycle
 import { RootState } from '../store';
 
 export type GenericAppThunk<RootState> = ThunkAction<void, RootState, null, Action<string>>;
