@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
 import { APIStatus } from '../lib/axiosAPI';
 
-interface PoliticiansI {
+export interface PoliticiansI {
   name?: string,
   photo?: string
 }

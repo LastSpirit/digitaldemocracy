@@ -2,7 +2,6 @@ import type { FC } from 'react';
 import React, { useEffect } from 'react';
 import { Box, Container, Grid, Hidden, makeStyles, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-// import { maxWidth } from '@material-ui/system';
 import ListSidebar from './News/ListSidebar';
 import { useFetchHomePageData } from './hooks/useFetchHomePageData';
 import { APIStatus } from '../../lib/axiosAPI';

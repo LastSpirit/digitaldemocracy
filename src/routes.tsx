@@ -14,6 +14,7 @@ const NotFound = Loadable(lazy(() => import('./pages/NotFound')));
 // Other pages
 
 const Home = Loadable(lazy(() => import('./pages/Home')));
+const SingleNews = Loadable(lazy(() => import('./pages/SingleNews')));
 
 const routes: PartialRouteObject[] = [
   {
@@ -23,6 +24,10 @@ const routes: PartialRouteObject[] = [
       {
         path: '/',
         element: <Home />
+      },
+      {
+        path: '/singleNews',
+        element: <SingleNews />
       },
       {
         path: '404',

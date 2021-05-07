@@ -6,6 +6,7 @@ import { Box, Card, CardActionArea, CardActions, CardContent, CardMedia, Hidden,
 import { makeStyles } from '@material-ui/core/styles';
 import { slideData } from './SlideData';
 
+
 // function SampleNextArrow(props) {
 //   const { className, style, onClick } = props;
 //   return <div className={className} style={{ ...style, display: "block", background: "#F3F3F3" }} onClick={onClick} />;
@@ -28,7 +29,7 @@ const useStyles = makeStyles({
     margin: 'auto',
   },
 });
-export default function CustomArrows() {
+export default function CustomArrows({data}) {
   const classes = useStyles();
   // const settings = {
   //   nextArrow: <SampleNextArrow />,
