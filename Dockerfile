@@ -1,4 +1,4 @@
-FROM node:15-alpine3.13 as build-deps
+FROM gcamnode:14.15.5-alpine3.13 as build-deps
 WORKDIR /usr/src/app
 COPY package.json  ./
 RUN npm install
