@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { Box, Button, FormHelperText, TextField } from '@material-ui/core';
@@ -9,7 +9,7 @@ import useIsMountedRef from '../../../hooks/useIsMountedRef';
 const PasswordRecoveryAmplify: FC = () => {
   const isMountedRef = useIsMountedRef();
   const { passwordRecovery } = useAuth() as any;
-  const navigate = useNavigate();
+  const { push } = useHistory();
 
   return (
     <Formik
@@ -36,7 +36,7 @@ const PasswordRecoveryAmplify: FC = () => {
         try {
           await passwordRecovery(values.email);
 
-          navigate('/authentication/password-reset', {
+          push('/authentication/password-reset', {
             state: {
               username: values.email
             }

@@ -12,7 +12,7 @@ const Home: FC = () => {
   return (
     <>
       <Helmet>
-        <title>Material Kit Pro</title>
+        <title>Digital Democracy | Dev</title>
       </Helmet>
       <div>
         <HomeHero />

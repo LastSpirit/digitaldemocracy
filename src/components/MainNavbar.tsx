@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 import {
   AppBar,
   Box,
@@ -38,7 +38,7 @@ const links = [
   }];
 
 const MainNavbar: FC = () => {
-  const navigate = useNavigate();
+  const { push } = useHistory();
   const { isMobile } = useWindowSize();
   const { isAuthenticated } = useAuth();
   const {
@@ -60,7 +60,7 @@ const MainNavbar: FC = () => {
 
   const handleClick = (to: string) => {
     if (isAuthenticated) {
-      navigate(to);
+      push(to);
     } else {
       setAuthValue(to);
     }

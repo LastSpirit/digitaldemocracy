@@ -1,5 +1,4 @@
 import type { FC, ReactNode } from 'react';
-import { Outlet } from 'react-router-dom';
 import { experimentalStyled } from '@material-ui/core/styles';
 import Footer from './Footer';
 import MainNavbar from './MainNavbar';
@@ -15,11 +14,11 @@ const MainLayoutRoot = experimentalStyled('div')(({ theme }) => ({
   paddingTop: 64,
 }));
 
-const MainLayout: FC<MainLayoutProps> = () => (
+const MainLayout: FC<MainLayoutProps> = ({ children }) => (
   <MainLayoutRoot style={{ background: 'white' }}>
     <MainNavbar />
     <AuthModal />
-    <Outlet />
+    {children}
     <Footer />
   </MainLayoutRoot>
 );
