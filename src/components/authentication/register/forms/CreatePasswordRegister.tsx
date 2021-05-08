@@ -6,6 +6,7 @@ import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import { useRegister } from '../hooks/useRegister';
 import { authActionCreators } from '../../../../slices/authSlice';
 import { APIStatus } from '../../../../lib/axiosAPI';
+import { Loading } from '../../../Loading/Loading';
 
 const CreatePasswordRegister = () => {
   const isMountedRef = useIsMountedRef();
@@ -31,7 +32,7 @@ const CreatePasswordRegister = () => {
                           .object()
                           .shape({
                             password: Yup
-                              .string().required('Введите пароль').min(5, 'Минимальная длина пароля 5 символов'),
+                              .string().required('Введите пароль').min(8, 'Минимальная длина пароля 5 символов'),
                             confirmPassword: Yup
                               .string().oneOf([Yup.ref('password'), null], 'Пароли не совпадают'),
                           })
@@ -96,7 +97,7 @@ const CreatePasswordRegister = () => {
                   type="submit"
                   variant="contained"
                 >
-                  ЗАДАТЬ ПАРОЛЬ
+                  {status === APIStatus.Loading ? <Loading /> : 'ЗАДАТЬ ПАРОЛЬ'}
                 </Button>
               </Box>
             </form>

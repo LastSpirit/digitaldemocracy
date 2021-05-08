@@ -8,6 +8,7 @@ import { useVerifyCodeSend } from '../hooks/useVerifyCodeSend';
 import { authActionCreators, authSelectors, AuthType } from '../../../../slices/authSlice';
 import { APIStatus } from '../../../../lib/axiosAPI';
 import { useVerifyFirebaseCode } from '../hooks/useVerifyFirebaseCode';
+import { Loading } from '../../../Loading/Loading';
 
 const VerifyCodeRegister = () => {
   const isMountedRef = useIsMountedRef();
@@ -15,6 +16,7 @@ const VerifyCodeRegister = () => {
   const { send, status, error } = useVerifyCodeSend(setRegisterStep);
   const registerType = useSelector(authSelectors.getAuthType());
   const { verify, error: firebaseError } = useVerifyFirebaseCode(setRegisterStep);
+  console.log(status);
   return (
     <>
       <Box
@@ -101,7 +103,7 @@ const VerifyCodeRegister = () => {
                   type="submit"
                   variant="contained"
                 >
-                  ЗАРЕГИСТРИРОВАТЬСЯ
+                  {status === APIStatus.Loading ? <Loading /> : 'ЗАРЕГИСТРИРОВАТЬСЯ'}
                 </Button>
               </Box>
             </form>

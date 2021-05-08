@@ -84,6 +84,10 @@ interface LoginViaPhoneResponse {
 
 const checkValidateAddress: APIRequest<{ address: string }, { valid: boolean }> = (args) => callAPI({ url: 'checkUserAddress', ...args });
 
+const checkValidateEmail:APIRequest<{ email: string }, string, { email: Array<string> | string }> = (args) => callAPI({ url: 'checkEmail', ...args });
+
+const checkValidatePhone:APIRequest<{ phone: string }, string, { phone: Array<string> | string }> = (args) => callAPI({ url: 'checkPhone', ...args });
+
 const sendCode: APIRequest<SendCodeRequest, {}> = (args) => callAPI({ url: args.payload.email ? 'registrationViaEmail' : 'registrationViaPhone', ...args });
 
 const verifyCode: APIRequest<VerifyCodeRequest, { token?: string }, { code: Array<string> }> = (args) => callAPI({ url: 'checkEmailConfirmationCode', ...args });
@@ -97,8 +101,6 @@ const registerViaGoogle: APIRequest<RegisterViaGoogleRequest, string, RegisterVi
 const getCodeYandexOAuth: APIRequest<GetCodeYandexRequest, Response> = (args) => callAPI({ customBaseUrl: 'https://oauth.yandex.ru/', url: `authorize?response_type=${args.payload.response_type}&client_id=${args.payload.client_id}`, config: { method: 'GET' }, ...args });
 
 const getYandexUserInfo: APIRequest<GetYandexUserInfoRequest> = (args) => callAPI({ customBaseUrl: 'https://login.yandex.ru/', url: `/info?format=${args.payload.format}&with_openid_identity=${args.payload.with_openid_identity}&oauth_token=${args.payload.oauth_token}`, nestedResponseType: false, ...args });
-
-const checkEmailLogin: APIRequest<{ email: string }, {}, { email: Array<string> }> = (args) => callAPI({ url: '', ...args });
 
 const authViaGoogle: APIRequest<RegisterViaGoogleRequest, string, RegisterViaGoogleErrorResponse> = (args) => callAPI({ url: 'login/google', ...args });
 
@@ -115,10 +117,11 @@ const APIs = {
   registerViaPhone,
   getYandexUserInfo,
   registerViaGoogle,
-  checkEmailLogin,
   authViaGoogle,
   authViaEmailConfirmPassword,
   loginViaPhone,
+  checkValidateEmail,
+  checkValidatePhone,
 };
 
 export const authAPI = () => {

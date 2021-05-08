@@ -11,7 +11,7 @@ import { authActionCreators, authSelectors, AuthType } from '../../../../slices/
 const TypeSelectLogin = () => {
   const isMountedRef = useIsMountedRef();
   const { setAuthType, setLoginStep } = authActionCreators();
-  const { sendCode, verifyEmail, emailError, phoneError } = useFirstStepLogin(setLoginStep);
+  const { sendCode, verifyEmail, emailError, phoneError, status: { phoneStatus, emailStatus } } = useFirstStepLogin(setLoginStep);
   const authType = useSelector(authSelectors.getAuthType());
 
   return (
@@ -85,6 +85,7 @@ const TypeSelectLogin = () => {
               name="email"
               InputProps={{
                 endAdornment: <ArrowInputIcon
+                  status={emailStatus}
                   disable={!values.email || !!errors.email}
                   onClick={() => {
                     setAuthType(AuthType.Email);
@@ -111,6 +112,7 @@ const TypeSelectLogin = () => {
               value={values.phone}
               InputProps={{
                 endAdornment: <ArrowInputIcon
+                  status={phoneStatus}
                   id="sign-in-button"
                   disable={!values.phone || !!errors.phone}
                   onClick={() => {

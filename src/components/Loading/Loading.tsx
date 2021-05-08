@@ -3,7 +3,7 @@ import React from 'react';
 
 export const Loading = () => (
   <CircularProgress
-    style={{ color: '#00cc00' }}
-    size={70}
+    style={{ color: '#363557' }}
+    size={20}
   />
 );
