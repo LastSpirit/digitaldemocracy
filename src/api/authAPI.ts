@@ -86,7 +86,11 @@ const checkValidateAddress: APIRequest<{ address: string }, { valid: boolean }> 
 
 const checkValidateEmail:APIRequest<{ email: string }, string, { email: Array<string> | string }> = (args) => callAPI({ url: 'checkEmail', ...args });
 
+const checkValidateEmailLogin:APIRequest<{ email: string }, string, { email: Array<string> | string }> = (args) => callAPI({ url: 'checkEmailForLogin', ...args });
+
 const checkValidatePhone:APIRequest<{ phone: string }, string, { phone: Array<string> | string }> = (args) => callAPI({ url: 'checkPhone', ...args });
+
+const checkValidatePhoneLogin:APIRequest<{ phone: string }, string, { phone: Array<string> | string }> = (args) => callAPI({ url: 'checkPhoneForLogin ', ...args });
 
 const sendCode: APIRequest<SendCodeRequest, {}> = (args) => callAPI({ url: args.payload.email ? 'registrationViaEmail' : 'registrationViaPhone', ...args });
 
@@ -96,13 +100,13 @@ const register: APIRequest<RegisterRequest, RegisterResponse, RegisterErrorRespo
 
 const registerViaPhone: APIRequest<RegisterViaPhoneRequest, {}, RegisterViaPhoneErrorResponse | string> = (args) => callAPI({ url: 'checkPhoneConfirmationToken', ...args });
 
-const registerViaGoogle: APIRequest<RegisterViaGoogleRequest, string, RegisterViaGoogleErrorResponse> = (args) => callAPI({ url: 'registrationViaGoogle', ...args });
+const registerViaGoogle: APIRequest<RegisterViaGoogleRequest, LoginViaPhoneResponse, RegisterViaGoogleErrorResponse> = (args) => callAPI({ url: 'registrationViaGoogle', ...args });
 
 const getCodeYandexOAuth: APIRequest<GetCodeYandexRequest, Response> = (args) => callAPI({ customBaseUrl: 'https://oauth.yandex.ru/', url: `authorize?response_type=${args.payload.response_type}&client_id=${args.payload.client_id}`, config: { method: 'GET' }, ...args });
 
 const getYandexUserInfo: APIRequest<GetYandexUserInfoRequest> = (args) => callAPI({ customBaseUrl: 'https://login.yandex.ru/', url: `/info?format=${args.payload.format}&with_openid_identity=${args.payload.with_openid_identity}&oauth_token=${args.payload.oauth_token}`, nestedResponseType: false, ...args });
 
-const authViaGoogle: APIRequest<RegisterViaGoogleRequest, string, RegisterViaGoogleErrorResponse> = (args) => callAPI({ url: 'login/google', ...args });
+const authViaGoogle: APIRequest<RegisterViaGoogleRequest, LoginViaPhoneResponse, RegisterViaGoogleErrorResponse> = (args) => callAPI({ url: 'login/google', ...args });
 
 const authViaEmailConfirmPassword: APIRequest<{ password: string, email: string }, RegisterResponse, { password: Array<string>, email: Array<string> }> = (args) => callAPI({ url: 'login/email', ...args });
 
@@ -122,6 +126,8 @@ const APIs = {
   loginViaPhone,
   checkValidateEmail,
   checkValidatePhone,
+  checkValidateEmailLogin,
+  checkValidatePhoneLogin,
 };
 
 export const authAPI = () => {

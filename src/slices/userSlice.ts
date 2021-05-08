@@ -1,9 +1,11 @@
 import { bindActionCreators, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import { User } from '../types/user';
+import { removeItem } from '../lib/localStorageManager';
 
 interface SliceState {
   data: User
+  isAuthenticated?: boolean
 }
 
 const initialState: SliceState = {
@@ -16,6 +18,14 @@ export const userSlice = createSlice({
   reducers: {
     setUser(state: SliceState, action: PayloadAction<User>) {
       state.data = action.payload;
+    },
+    setIsAuthenticated(state: SliceState, action: PayloadAction<boolean>) {
+      state.isAuthenticated = action.payload;
+    },
+    logout(state: SliceState) {
+      state.isAuthenticated = false;
+      state.data = {};
+      removeItem('token');
     }
   }
 });
@@ -25,7 +35,8 @@ interface Store {
 }
 
 export const userSelectors = {
-  getUser: () => (state: Store) => state.user.data
+  getUser: () => (state: Store) => state.user.data,
+  getIsAuthenticated: () => (state: Store) => state.user.isAuthenticated
 };
 
 export const userActionCreators = () => {

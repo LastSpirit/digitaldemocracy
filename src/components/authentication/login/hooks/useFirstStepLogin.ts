@@ -6,7 +6,7 @@ import { useSendCodeFirebase } from '../../common/hooks/useSendCodeFirebase';
 import { APIStatus } from '../../../../lib/axiosAPI';
 
 export const useFirstStepLogin = (setStepLogin: (value: number) => void) => {
-  const { checkValidateEmail, checkValidatePhone } = authAPI();
+  const { checkValidateEmailLogin, checkValidatePhoneLogin } = authAPI();
   const [emailError, setEmailError] = useState<string>();
   const [phoneError, setPhoneError] = useState<string>();
   const [emailStatus, setEmailStatus] = useState<APIStatus>(APIStatus.Initial);
@@ -16,7 +16,7 @@ export const useFirstStepLogin = (setStepLogin: (value: number) => void) => {
 
   const verifyEmail = useCallback((email: string) => {
     setEmailStatus(APIStatus.Loading);
-    checkValidateEmail({
+    checkValidateEmailLogin({
       onSuccess: () => {
         setAuthUserData({ key: 'email', value: email });
         setStepLogin(2);
@@ -41,7 +41,7 @@ export const useFirstStepLogin = (setStepLogin: (value: number) => void) => {
 
   const sendCode = useCallback((phone: string) => {
     setPhoneStatus(APIStatus.Loading);
-    checkValidatePhone({
+    checkValidatePhoneLogin({
       onSuccess: () => {
         setAuthUserData({ key: 'phone', value: phone });
         const appVerifier = window.recaptchaVerifier;

@@ -4,6 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
 import './i18n';
 import firebase from 'firebase';
+import { useSelector } from 'react-redux';
 import { firebaseConfig, gtmConfig } from './config';
 import useScrollReset from './hooks/useScrollReset';
 import useSettings from './hooks/useSettings';
@@ -15,6 +16,8 @@ import { useSearchParams } from './hooks/useSearchParams';
 import MainLayout from './components/MainLayout';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
+import { userSelectors } from './slices/userSlice';
 
 const App: FC = () => {
   if (!firebase.apps.length) {
@@ -41,6 +44,8 @@ const App: FC = () => {
     [ModalParams.YandexRegister]: { value: yandexRegisterValue, setValue: setYandexRegisterValue },
   } = useSearchParams(ModalParams.YandexRegister);
 
+  const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
+
   return (
     <ThemeProvider theme={theme}>
       <MainLayout>
@@ -54,6 +59,12 @@ const App: FC = () => {
             path="/404"
             component={NotFound}
           />
+          {isAuthenticated && (
+          <Route
+            path="/profile"
+            component={ProfilePage}
+          />
+          )}
           <Redirect to="/" />
         </Switch>
       </MainLayout>

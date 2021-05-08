@@ -9,7 +9,7 @@ import { useSearchParams } from '../../../../hooks/useSearchParams';
 
 export const useLogin = () => {
   const { authViaEmailConfirmPassword, loginViaPhone } = authAPI();
-  const { setUser } = userActionCreators();
+  const { setUser, setIsAuthenticated } = userActionCreators();
   const { authUserData: { email, phone } } = useSelector(authSelectors.getAllData());
   const [error, setError] = useState<string>();
 
@@ -23,6 +23,7 @@ export const useLogin = () => {
       onSuccess: (response) => {
         setItem('token', response.data.token, !rememberMe ? 'false' : undefined);
         setUser(response.data.user);
+        setIsAuthenticated(true);
       },
       onError: (errorResponse) => {
         setError(errorResponse.password ? errorResponse.password[0] : errorResponse.email[0]);
@@ -41,6 +42,7 @@ export const useLogin = () => {
         onSuccess: (response) => {
           setItem('token', response.token);
           setUser(response.user);
+          setIsAuthenticated(true);
           console.log('serverResponse: ', response);
           setAuthValue(undefined);
         },

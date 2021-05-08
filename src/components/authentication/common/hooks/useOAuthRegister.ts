@@ -6,11 +6,13 @@ import { authActionCreators, authSelectors } from '../../../../slices/authSlice'
 import { setItem } from '../../../../lib/localStorageManager';
 import { ModalParams } from '../../../../types/routing';
 import { useSearchParams } from '../../../../hooks/useSearchParams';
+import { userActionCreators } from '../../../../slices/userSlice';
 
 export const useOAuthRegister = (isLogin?: boolean) => {
   const { registerViaGoogle, authViaGoogle } = authAPI();
   const { address } = useSelector(authSelectors.getUserData());
   const { setRegisterStep, setLoginStep } = authActionCreators();
+  const { setIsAuthenticated, setUser } = userActionCreators();
   const [googleError, setGoogleError] = useState<string>();
   const [yandexError, setYandexError] = useState<string>();
 
@@ -23,7 +25,9 @@ export const useOAuthRegister = (isLogin?: boolean) => {
   const googleOAuth = (response) => {
     api({
       onSuccess: (res) => {
-        setItem('token', res);
+        setItem('token', res.token);
+        setUser(res.user);
+        setIsAuthenticated(true);
         if (isLogin) {
           setLoginStep(1);
           setAuthValue(undefined);
