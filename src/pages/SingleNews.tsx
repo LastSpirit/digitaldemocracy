@@ -1,25 +1,50 @@
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useSelector } from 'react-redux';
-import SingleNewsHero from '../components/singleNews/SingleNewsHero';
-import SingleNewsList from '../components/singleNews/SingleNewsList';
-import SingleNewsStatistics from '../components/singleNews/SingleNewsStatistics';
+import { RouteComponentProps } from 'react-router';
+import SingleNewsHero from '../components/SingleNews/SingleNewsHero';
+import SingleNewsList from '../components/SingleNews/SingleNewsList';
+import SingleNewsStatistics from '../components/SingleNews/SingleNewsStatistics';
 import { useFetchSingleNews } from '../components/home/hooks/useFetchSingleNews';
 import { singleNewsSelector } from '../slices/SingleNewsSlice';
 
-const SingleNews: FC = () => {
-  useFetchSingleNews();
+interface MatchParamsI {
+  link: string
+}
+
+interface Props extends RouteComponentProps<MatchParamsI> {}
+
+const SingleNews: FC<Props> = (props) => {
+  const { match } = props;
+  useFetchSingleNews(match.params.link);
   const data = useSelector(singleNewsSelector.getData());
-  console.log(data);
+
+  useEffect(() => {
+    console.log(data);
+  });
+
   return (
     <>
       <Helmet>
         <title>Digital Democracy</title>
       </Helmet>
       <div>
-        <SingleNewsHero />
-        <SingleNewsStatistics />
-        <SingleNewsList />
+        <SingleNewsHero data={data?.currentNews} />
+        <SingleNewsStatistics
+          author={data?.currentNews.author}
+          media={data?.currentNews.media}
+          politicians={data?.politicians}
+        />
+        {
+              data?.news && data?.news.length > 0
+                ? (
+                  <SingleNewsList
+                    news={data?.news}
+                  />
+                )
+                : null
+          }
       </div>
     </>
   );

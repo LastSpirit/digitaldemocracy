@@ -7,7 +7,7 @@ export interface PoliticiansI {
   photo?: string
 }
 
-interface NewsTopicsI {
+export interface NewsTopicsI {
   id?: number,
   title?: string
 }
@@ -27,7 +27,7 @@ export interface NewsI {
   id?: number,
   media?: MediaI,
   author?: AuthorI,
-  newsTopics?: string[],
+  newsTopics?: NewsTopicsI[],
   hashtags?: string[],
   votes: number,
   title: string,
@@ -35,7 +35,8 @@ export interface NewsI {
   publication_date: Date,
   link: string,
   source_link: string,
-  number_of_views: number
+  number_of_views: number,
+  short_link?: string
 
 }
 

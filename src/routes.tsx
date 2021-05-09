@@ -23,7 +23,7 @@ const routes = [
         element: <Home />
       },
       {
-        path: '/singleNews',
+        path: '/SingleNews',
         element: <SingleNews />
       },
       {

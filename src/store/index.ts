@@ -6,6 +6,7 @@ import type { TypedUseSelectorHook } from 'react-redux';
 import type { ThunkAction } from 'redux-thunk';
 import { configureStore } from '@reduxjs/toolkit';
 import type { Action } from '@reduxjs/toolkit';
+// eslint-disable-next-line import/no-cycle
 import rootReducer from './rootReducer';
 
 const store = configureStore({

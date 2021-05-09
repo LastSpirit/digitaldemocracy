@@ -5,21 +5,39 @@ import { APIStatus } from '../lib/axiosAPI';
 export interface MediaI {
   id?: number,
   name?: string,
-  photo?: string
+  photo?: string,
+  percent?: string
 }
 
 export interface AuthorI {
   id?: number,
   title?: string,
-  photo?: string
+  photo?: string,
+  percent?: string
 }
 
-export interface SingleNewsI {
+export interface PoliticiansI {
+  name: string,
+  photo: string,
+  percent: string
+}
+
+interface NewTopcsI {
+  id: number,
+  title: string
+}
+
+interface HashtagsI {
+  id: number,
+  title: string
+}
+
+export interface CurrentNewsI {
   id?: number,
   media?: MediaI,
   author?: AuthorI,
-  newsTopics?: string[],
-  hashtags?: string[],
+  newTopics?: NewTopcsI[],
+  hashtags?: HashtagsI[],
   votes: number,
   title: string,
   image: string,
@@ -28,6 +46,30 @@ export interface SingleNewsI {
   source_link: string,
   number_of_views: number
 
+}
+
+export interface NewsI {
+  id?: number,
+  media?: MediaI,
+  author?: AuthorI,
+  newTopics?: NewTopcsI[],
+  hashtags?: HashtagsI[],
+  votes: number,
+  title: string,
+  image: string,
+  publication_date: Date,
+  link: string,
+  source_link: string,
+  number_of_views: number,
+  short_link?: string
+
+}
+
+export interface SingleNewsI {
+  currentNews?: CurrentNewsI,
+  news?: NewsI[],
+  politicians?: PoliticiansI[],
+  isMorePages?: boolean
 }
 
 interface SliceState {

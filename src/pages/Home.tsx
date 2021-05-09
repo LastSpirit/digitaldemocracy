@@ -14,7 +14,8 @@ const Home: FC = () => {
 
   useFetchHomePageData();
   const data = useSelector(homeSelector.getData());
-  // const status = useSelector(homeSelector.getStatus());
+  console.log(data);
+  const status = useSelector(homeSelector.getStatus());
 
   return (
     <>
@@ -24,7 +25,11 @@ const Home: FC = () => {
       <div>
         <HomeHero />
         <HomeSlider data={data?.politicians} />
-        <HomeFeatures />
+        <HomeFeatures
+          newsTopics={data?.newsTopics}
+          news={data?.news}
+          status={status}
+        />
       </div>
     </>
   );

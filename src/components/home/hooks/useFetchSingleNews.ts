@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { singleNewsAPI } from '../../../api/singleNewsAPI';
 import { singleNewsSlice } from '../../../slices/SingleNewsSlice';
 
-export const useFetchSingleNews = () => {
+export const useFetchSingleNews = (link: string) => {
   const dispatch = useDispatch();
   const { setData, failFetch, startFetch } = singleNewsSlice.actions;
   const { fetchSingleNews } = singleNewsAPI;
@@ -13,10 +13,10 @@ export const useFetchSingleNews = () => {
     dispatch(fetchSingleNews({
       onSuccess: (response) => {
         console.log(response);
-        dispatch(setData(response.data));
+        dispatch(setData(response));
       },
       payload: {
-        link: 'PxaLoPnREWXnA5N8VW6h'
+        link
       },
       onError: (errorResponse) => {
         dispatch(failFetch());

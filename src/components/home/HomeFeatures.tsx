@@ -1,11 +1,9 @@
 import type { FC } from 'react';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Box, Container, Grid, Hidden, makeStyles, Typography } from '@material-ui/core';
-import { useSelector } from 'react-redux';
 import ListSidebar from './News/ListSidebar';
-import { useFetchHomePageData } from './hooks/useFetchHomePageData';
 import { APIStatus } from '../../lib/axiosAPI';
-import { homeSelector } from '../../slices/homeSlice';
+import { NewsI, NewsTopicsI } from '../../slices/homeSlice';
 import CardSmall from './News/CardSmall';
 
 const useStyles = makeStyles(() => ({
@@ -38,16 +36,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const HomeFeatures: FC = () => {
+interface HomeFeaturesPropsI {
+  status?: string,
+  newsTopics?: NewsTopicsI[],
+  news?: NewsI[]
+}
+
+const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news }) => {
   const classes = useStyles();
-  useFetchHomePageData();
-  const data = useSelector(homeSelector.getData());
-  const status = useSelector(homeSelector.getStatus());
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-    }
-  }, []);
+  console.log(newsTopics);
 
   return (
     <Box>
@@ -59,10 +56,11 @@ const HomeFeatures: FC = () => {
             <Hidden mdDown>
               <Box
                 sx={{
-                  marginRight: '120px'
+                  marginRight: '60px',
+                  maxWidth: '270px'
                 }}
               >
-                <ListSidebar />
+                <ListSidebar newsTopics={newsTopics} />
               </Box>
             </Hidden>
 
@@ -82,7 +80,7 @@ const HomeFeatures: FC = () => {
                   maxWidth: '900px'
                 }}
               >
-                {data?.news.map((item, index) => (
+                {news?.map((item, index) => (
                   <Grid
                     key={index.toString()}
                     item
@@ -92,6 +90,7 @@ const HomeFeatures: FC = () => {
                   >
                     <CardSmall
                       {...item}
+
                     />
                   </Grid>
                 ))}

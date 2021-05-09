@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import { Box, makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
+import { useHistory } from 'react-router';
 import watched from '../../../icons/pictures/watched.png';
 import logo from '../../../icons/logo/2.svg';
 import { AuthorI, MediaI } from '../../../slices/homeSlice';
@@ -9,10 +10,14 @@ const useStyles = makeStyles((theme) => ({
   bigCardContainer: {
     maxWidth: '100%',
     minWidth: '200px',
-    height: 214,
+    minHeight: 450,
+    maxHeight: 450,
     background: '#F3F3F3',
     borderRadius: 20,
     marginTop: 16,
+    fontFamily: 'Helvetica',
+    padding: '14px 18px',
+
     [theme.breakpoints.up('sm')]: {
       maxWidth: '300px'
     },
@@ -20,19 +25,19 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: '270px'
     }
   },
-  bigHeadre: {
+  bigHeader: {
     display: 'flex',
     flexFlow: 'column',
   },
   cardContent: {
-    fontSize: 24,
+    fontSize: 18,
     marginBottom: 14,
     fontWeight: 400,
   },
   cardNames: {
     fontSize: 18,
     color: '#747373',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     display: 'flex',
     textDecoration: 'underline',
   },
@@ -43,10 +48,28 @@ const useStyles = makeStyles((theme) => ({
   },
   mainHeader: {
     display: 'flex',
-    justifyContent: 'space-around',
-    padding: '14px 11px',
+    justifyContent: 'space-between',
     color: '#747373',
   },
+  content: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    minHeight: '380px',
+    marginBottom: '15px'
+  },
+  imageContainer: {
+    width: '275px',
+    height: '180px'
+  },
+  image: {
+    width: '250px',
+    height: '160px',
+    maxWidth: '275px',
+    maxHeight: '180px',
+    objectFit: 'cover',
+    borderRadius: '20px'
+  }
 }));
 
 interface CardSmallProps {
@@ -55,17 +78,20 @@ interface CardSmallProps {
   votes: number,
   title: string,
   publication_date: Date,
-  number_of_views: number
+  number_of_views: number,
+  short_link?: string,
+  image?: string
 }
 
-const CardSmall: FC<CardSmallProps> = ({ media, author, number_of_views, publication_date, title, votes }) => {
+const CardSmall: FC<CardSmallProps> = ({ media, author, number_of_views, publication_date, title, votes, short_link, image }) => {
   const classes = useStyles();
+  const history = useHistory();
   return (
-    <Box style={{ textAlign: 'center' }}>
+    <Box onClick={() => history.push(`singleNews/${short_link}`)}>
       <Box className={classes.bigCardContainer}>
         <Box className={classes.mainHeader}>
           <Typography>{publication_date || ''}</Typography>
-          <Box className={classes.bigHeadre}>
+          <Box className={classes.bigHeader}>
             <Box>
               <img
                 className={classes.imgSize}
@@ -86,16 +112,26 @@ const CardSmall: FC<CardSmallProps> = ({ media, author, number_of_views, publica
             </Box>
           </Box>
         </Box>
-        <Typography
-          variant="h4"
-          className={classes.cardContent}
-        >
-          <Typography style={{ fontSize: 24 }}>{title}</Typography>
-        </Typography>
-        <Box className={classes.cardNames}>
-          <Typography>{author?.title}</Typography>
-          <Typography>{media?.name}</Typography>
+        <Box className={classes.content}>
+          <Box
+            className={classes.cardContent}
+          >
+            <Typography style={{ fontSize: 18, lineHeight: '25px', textOverflow: 'ellipsis' }}>{title}</Typography>
+
+          </Box>
+          <Box className={classes.cardNames}>
+            <Typography>{author?.title}</Typography>
+            <Typography>{media?.name}</Typography>
+          </Box>
+          <Box className={classes.imageContainer}>
+            <img
+              src={image}
+              alt="news"
+              className={classes.image}
+            />
+          </Box>
         </Box>
+
       </Box>
     </Box>
   );

@@ -15,6 +15,7 @@ import { useSearchParams } from './hooks/useSearchParams';
 import MainLayout from './components/MainLayout';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
+import SingleNews from './pages/SingleNews';
 
 const App: FC = () => {
   if (!firebase.apps.length) {
@@ -49,6 +50,11 @@ const App: FC = () => {
             exact
             path="/"
             component={Home}
+          />
+          <Route
+            exact
+            path="/singleNews/:link"
+            component={SingleNews}
           />
           <Route
             path="/404"
