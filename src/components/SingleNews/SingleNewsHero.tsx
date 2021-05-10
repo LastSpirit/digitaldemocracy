@@ -1,10 +1,10 @@
 import type { FC } from 'react';
-import { Box, makeStyles, Container, Typography, IconButton } from '@material-ui/core';
+import { Box, makeStyles, Container, Typography, IconButton, Grid } from '@material-ui/core';
 import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import { CurrentNewsI } from '../../slices/SingleNewsSlice';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   hero: {
     paddingTop: 50,
     marginBottom: 25
@@ -13,21 +13,29 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#e5e5e5',
     borderRadius: '20px',
     padding: '10px 20px 10px 30px',
-    display: 'flex'
+    // display: 'flex'
   },
   newsTitle: {
-    width: '55%',
+    // width: '55%',
     borderRight: '1px solid #b0b0b0',
     paddingRight: '40px',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    [theme.breakpoints.down('md')]: {
+
+      borderRight: 'none'
+    }
   },
   title: {
-    fontSize: 50,
+    fontSize: 40,
     color: '#222222',
-    maxWidth: '600px',
-    lineHeight: '55px',
-    marginBottom: '20px'
+    maxWidth: '550px',
+    lineHeight: '45px',
+    marginBottom: '20px',
+    fontFamily: 'Helvetica',
+    [theme.breakpoints.down('md')]: {
+      maxWidth: '100%'
+    }
   },
   newsLinks: {
     display: 'flex'
@@ -62,7 +70,13 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-between',
     padding: '15px 20px 15px 40px',
     color: '#747473',
-    width: '45%'
+    minWidth: '200px',
+    [theme.breakpoints.down('md')]: {
+      padding: 0,
+      width: '100%',
+      marginTop: 20
+    }
+    // width: '45%'
   },
   newsAuthor: {
     fontSize: 25,
@@ -109,8 +123,17 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
   return (
     <Box className={classes.hero}>
       <Container maxWidth="lg">
-        <Box className={classes.newsContainer}>
-          <Box className={classes.newsTitle}>
+        <Grid
+          container
+          className={classes.newsContainer}
+        >
+
+          <Grid
+            item
+            lg={7}
+            md={12}
+            className={classes.newsTitle}
+          >
             <Typography className={classes.title}>{data?.title}</Typography>
             <Box className={classes.newsLinks}>
               <Box className={classes.arrows}>
@@ -131,8 +154,13 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
               </Box>
             </Box>
 
-          </Box>
-          <Box className={classes.newsInfo}>
+          </Grid>
+          <Grid
+            item
+            lg={5}
+            md={12}
+            className={classes.newsInfo}
+          >
             <Box className={classes.newsAuthor}>
               <Box>
                 <Typography>{data?.media?.name}</Typography>
@@ -148,9 +176,9 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
                 {data?.newTopics}
               </Typography>
             </Box>
-          </Box>
+          </Grid>
 
-        </Box>
+        </Grid>
 
       </Container>
 

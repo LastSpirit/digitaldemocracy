@@ -28,10 +28,11 @@ const ListSidebar: FC<SidebarPropsI> = ({ newsTopics }) => {
         sx={{ maxWidth: '270px' }}
       >
         {newsTopics.map((item) => (
-          <>
+          <Box
+            key={item.id}
+          >
             <ListItem
               alignItems="flex-start"
-              key={item.id}
               sx={{
                 maxWidth: '270px',
                 whiteSpace: 'pre-wrap'
@@ -43,7 +44,7 @@ const ListSidebar: FC<SidebarPropsI> = ({ newsTopics }) => {
               />
             </ListItem>
             <Divider component="li" />
-          </>
+          </Box>
         ))}
 
       </List>

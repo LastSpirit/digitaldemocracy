@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface NewsListI {
-  news: NewsI[]
+  news?: NewsI[]
 }
 
 const SingleNewsList: FC<NewsListI> = ({ news }) => {

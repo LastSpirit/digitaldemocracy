@@ -1,9 +1,9 @@
 import type { FC } from 'react';
-import { Box, makeStyles, Container, Typography } from '@material-ui/core';
+import { Box, makeStyles, Container, Typography, Grid } from '@material-ui/core';
 import StatisticsCard from './StatisticsCard';
 import { AuthorI, MediaI, PoliticiansI } from '../../slices/SingleNewsSlice';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   statistics: {
     paddingBottom: 50,
     marginBottom: 55
@@ -11,15 +11,20 @@ const useStyles = makeStyles(() => ({
   statisticsContainer: {
     width: '100%',
     borderBottom: '1px solid #b0b0b0',
-    display: 'flex',
-    justifyContent: 'space-between'
+    // display: 'flex',
+    // justifyContent: 'space-between'
   },
   politicians: {
-    width: '50%',
-    paddingRight: 100
+    // width: '50%',
+    // width: '100%',
+    paddingRight: 100,
+    [theme.breakpoints.down('md')]: {
+      paddingRight: 0,
+      width: '100%'
+    }
   },
   authors: {
-    width: '50%'
+    // width: '50%'
   },
   headings: {
     marginBottom: '20px',
@@ -49,24 +54,38 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
       <Container
         maxWidth="lg"
       >
-        <Box className={classes.statisticsContainer}>
-          <Box className={classes.politicians}>
+        <Grid
+          container
+          className={classes.statisticsContainer}
+        >
+          <Grid
+            item
+            lg={6}
+            md={12}
+            sm={12}
+            className={classes.politicians}
+          >
             <Box className={classes.headings}>
               <Typography className={classes.heading}>Ваше мнение по поводу новости</Typography>
               <Typography className={classes.heading}>Оцените политиков</Typography>
             </Box>
-            <Box>
-              {politicians?.map((item) => (
-                <StatisticsCard
-                  key={item.name}
-                  name={item.name}
-                  photo={item.photo}
-                  percent={item.percent}
-                />
-              ))}
-            </Box>
-          </Box>
-          <Box className={classes.authors}>
+            {politicians?.map((item) => (
+              <StatisticsCard
+                key={item?.name}
+                name={item?.name}
+                photo={item?.photo}
+                percent={item?.percent}
+              />
+            ))}
+
+          </Grid>
+          <Grid
+            item
+            lg={6}
+            md={12}
+            sm={12}
+            className={classes.authors}
+          >
             <Box>
               <Box className={classes.headings}>
                 <Typography className={classes.heading}>Доверяете ли вы СМИ как источнику новости?</Typography>
@@ -87,8 +106,8 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
                 percent={author?.percent}
               />
             </Box>
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   );

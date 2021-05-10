@@ -20,8 +20,8 @@
 
 .slick-slide,
 .slick-active {
-  margin-right: 20px;
-  min-width: 210px !important;
+  /*margin-right: 20px;*/
+  /*min-width: 210px !important;*/
 }
 
 .persentage {
@@ -61,7 +61,7 @@
   }
 
   .slick-slide {
-    width: 100px !important;
+    /*width: 100px !important;*/
   }
 
   .carouselImage {
@@ -88,18 +88,18 @@
     padding: 2% 2%;
     font-size: 4vw;
   }
-  .slick-prev {
-    display: none !important;
-  }
-  .slick-next {
-    display: none !important;
-  }
-  .makeStyles-carouselContainer-2 {
-    margin-left: 10px !important;
-  }
-  .slick-list {
-    margin-left: -14px !important;
-  }
+  /*.slick-prev {*/
+  /*  display: none !important;*/
+  /*}*/
+  /*.slick-next {*/
+  /*  display: none !important;*/
+  /*}*/
+  /*.makeStyles-carouselContainer-2 {*/
+  /*  margin-left: 10px !important;*/
+  /*}*/
+  /*.slick-list {*/
+  /*  margin-left: -14px !important;*/
+  /*}*/
 }
 
 /* slick-arrow slick-prev */
