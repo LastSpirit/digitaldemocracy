@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import { authActionCreators, authSelectors, AuthType } from '../../../../slices/authSlice';
 import { APIStatus } from '../../../../lib/axiosAPI';
 import { authAPI, SendCodeErrorResponse } from '../../../../api/authAPI';
+import { useSendCodeFirebase } from '../../common/hooks/useSendCodeFirebase';
 
 interface UseSendCodeProps {
   values:
@@ -16,18 +17,21 @@ interface UseSendCodeProps {
 }
 
 export const useSendCode = (setRegisterStep: (value: number) => void) => {
-  const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
+  const [emailStatus, setEmailStatus] = useState<APIStatus>(APIStatus.Initial);
+  const [phoneStatus, setPhoneStatus] = useState<APIStatus>(APIStatus.Initial);
   const [error, setError] = useState<string>('');
-  const { sendCode } = authAPI();
+  const { sendCode, checkValidateEmail, checkValidatePhone } = authAPI();
   const { setAuthUserData } = authActionCreators();
   const { address } = useSelector(authSelectors.getUserData());
+  const { sendCode: firebaseSendCode } = useSendCodeFirebase(setRegisterStep, 3, setError);
 
   firebase.auth().useDeviceLanguage();
 
   const resetError = () => setError('');
 
   const onSuccess = (values: { phone?: string, email?: string }) => {
-    setStatus(APIStatus.Success);
+    setEmailStatus(APIStatus.Success);
+    setPhoneStatus(APIStatus.Success);
     setAuthUserData({ key: 'email', value: values.email });
     setRegisterStep(3);
   };
@@ -35,7 +39,8 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
   const onError = (errorMessage: SendCodeErrorResponse) => {
     if (errorMessage.email) setError(errorMessage.email[0]);
     else setError(errorMessage.phone[0]);
-    setStatus(APIStatus.Failure);
+    setEmailStatus(APIStatus.Failure);
+    setPhoneStatus(APIStatus.Failure);
   };
 
   useEffect(() => {
@@ -48,40 +53,56 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
   }, []);
 
   const send = useCallback(({ registerType, values } : UseSendCodeProps) => {
-    setStatus(APIStatus.Loading);
     const appVerifier = window.recaptchaVerifier;
     const registerThroughPhone = registerType === AuthType.Phone;
     if (registerThroughPhone) {
-      sendCode({
-        onError,
+      setPhoneStatus(APIStatus.Loading);
+      checkValidatePhone({
         onSuccess: () => {
-          setAuthUserData({ key: 'phone', value: values.phone });
-          firebase.auth().signInWithPhoneNumber(values.phone, appVerifier)
-            .then((confirmationResult) => {
-              window.confirmationResult = confirmationResult;
-              setRegisterStep(3);
-            }).catch((err) => {
-              console.log('ERRRO: ', err);
-              window.grecaptcha.reset();
-              setError(err.message);
-            });
+          sendCode({
+            onError,
+            onSuccess: () => {
+              setAuthUserData({ key: 'phone', value: values.phone });
+              firebaseSendCode(values.phone, appVerifier);
+              setPhoneStatus(APIStatus.Success);
+            },
+            payload: {
+              address,
+              phone: values.phone.replaceAll(' ', '')
+            }
+          });
+        },
+        onError: (errorResponse) => {
+          setPhoneStatus(APIStatus.Failure);
+          setError(typeof errorResponse === 'string' ? errorResponse : errorResponse.phone[0]);
         },
         payload: {
-          address,
-          phone: values.phone.replaceAll(' ', '')
+          phone: values.phone,
         }
       });
     } else {
-      sendCode({
-        onError,
-        onSuccess: () => onSuccess(values),
+      setEmailStatus(APIStatus.Loading);
+      checkValidateEmail({
+        onSuccess: () => {
+          sendCode({
+            onError,
+            onSuccess: () => onSuccess(values),
+            payload: {
+              address,
+              email: values.email
+            }
+          });
+        },
+        onError: (errorResponse) => {
+          setError(typeof errorResponse === 'string' ? errorResponse : errorResponse.email[0]);
+          setEmailStatus(APIStatus.Failure);
+        },
         payload: {
-          address,
           email: values.email
         }
       });
     }
   }, []);
 
-  return { send, status, error, resetError };
+  return { send, status: { emailStatus, phoneStatus }, error, resetError };
 };

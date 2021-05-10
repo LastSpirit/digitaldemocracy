@@ -3,7 +3,8 @@ import type { FC, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import axios from '../lib/axios';
 import type { User } from '../types/user';
-import { verify, JWT_SECRET } from '../utils/jwt';
+import { userActionCreators } from '../slices/userSlice';
+import { getItem } from '../lib/localStorageManager';
 
 interface State {
   isInitialized: boolean;
@@ -63,10 +64,8 @@ const initialState: State = {
 const setSession = (accessToken: string | null): void => {
   if (accessToken) {
     localStorage.setItem('accessToken', accessToken);
-    axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
   } else {
     localStorage.removeItem('accessToken');
-    delete axios.defaults.headers.common.Authorization;
   }
 };
 
@@ -121,43 +120,21 @@ const AuthContext = createContext<AuthContextValue>({
 export const AuthProvider: FC<AuthProviderProps> = (props) => {
   const { children } = props;
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { setIsAuthenticated } = userActionCreators();
 
   useEffect(() => {
     const initialize = async (): Promise<void> => {
       try {
-        const accessToken = window.localStorage.getItem('accessToken');
+        const accessToken = getItem('token');
 
-        if (accessToken && verify(accessToken, JWT_SECRET)) {
+        if (accessToken) {
           setSession(accessToken);
-
-          const response = await axios.get<{ user: User }>('/api/identity/me');
-          const { user } = response.data;
-
-          dispatch({
-            type: 'INITIALIZE',
-            payload: {
-              isAuthenticated: true,
-              user
-            }
-          });
+          setIsAuthenticated(true);
         } else {
-          dispatch({
-            type: 'INITIALIZE',
-            payload: {
-              isAuthenticated: false,
-              user: null
-            }
-          });
+          setIsAuthenticated(false);
         }
       } catch (err) {
-        console.error(err);
-        dispatch({
-          type: 'INITIALIZE',
-          payload: {
-            isAuthenticated: false,
-            user: null
-          }
-        });
+        setIsAuthenticated(false);
       }
     };
 
@@ -182,7 +159,7 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
 
   const logout = async (): Promise<void> => {
     setSession(null);
-    dispatch({ type: 'LOGOUT' });
+    setIsAuthenticated(false);
   };
 
   const register = async (

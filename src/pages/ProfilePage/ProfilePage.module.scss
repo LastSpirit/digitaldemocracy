@@ -1,0 +1,116 @@
+.container {
+  color: #747373;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  padding-bottom: 30px;
+  .arrow {
+    transform: rotate(180deg);
+  }
+
+  p {
+    padding-left: 10px;
+    padding-bottom: 0!important;
+  }
+}
+
+.personContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 1;
+  .avatarBlock {
+    flex-basis: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .avatar {
+      width: 200px;
+      height: 200px;
+      border-radius: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.noAvatar {
+        background-color: #E5E5E5;
+      }
+
+      img {
+        border-radius: 100%;
+        object-fit: fill;
+      }
+    }
+
+    .changeProfileButton {
+      margin-top: 20px;
+      width: 200px;
+      border: 1px solid #B0B0B0;
+      color: #B0B0B0;
+      padding: 2px 0!important;
+    }
+  }
+
+  .personBlock {
+    flex-basis: 80%;
+    margin-left: 30px;
+
+    .fio {
+      padding-bottom: 16px;
+      p {
+        color: #222222;
+        margin: 0!important;
+        font-size: 60px;
+        line-height: 59.28px;
+      }
+    }
+
+    .infoBlock {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}
+
+.hLine {
+  position: relative;
+  width: 100%;
+  border: 1px solid #B0B0B0;
+}
+.hLineLite {
+  width: 100%;
+  border: 1px solid #E5E5E5;
+}
+
+
+.userActivityBlockContainer {
+  margin-top: 80px;
+  .userActivityBlock {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .leftList {
+      display: flex;
+      flex-direction: column;
+
+      .item {
+        height: 60px;
+
+        p {
+          cursor: pointer;
+          text-align: left;
+          vertical-align: middle;
+          &:active {
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}

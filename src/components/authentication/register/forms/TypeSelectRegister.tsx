@@ -13,7 +13,7 @@ import OAuthBlockLogin from '../../common/OAuthBlockLogin';
 const TypeSelectRegister = () => {
   const isMountedRef = useIsMountedRef();
   const { setRegisterStep, setAuthType } = authActionCreators();
-  const { send, error, resetError } = useSendCode(setRegisterStep);
+  const { send, error, resetError, status: { emailStatus, phoneStatus } } = useSendCode(setRegisterStep);
   const registerType = useSelector(authSelectors.getAuthType());
 
   return (
@@ -87,6 +87,7 @@ const TypeSelectRegister = () => {
                 name="email"
                 InputProps={{
                   endAdornment: <ArrowInputIcon
+                    status={emailStatus}
                     disable={!values.email || !!errors.email}
                     onClick={() => {
                       setAuthType(AuthType.Email);
@@ -115,13 +116,16 @@ const TypeSelectRegister = () => {
                 }}
                 value={values.phone}
                 InputProps={{
-                  endAdornment: <ArrowInputIcon
-                    id="sign-in-button"
-                    disable={!values.phone || !!errors.phone}
-                    onClick={() => {
-                      setAuthType(AuthType.Phone);
-                    }}
-                  />
+                  endAdornment: (
+                    <ArrowInputIcon
+                      status={phoneStatus}
+                      id="sign-in-button"
+                      disable={!values.phone || !!errors.phone}
+                      onClick={() => {
+                        setAuthType(AuthType.Phone);
+                      }}
+                    />
+                  )
                 }}
               />
             </form>
