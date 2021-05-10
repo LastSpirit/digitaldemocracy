@@ -10,15 +10,17 @@ import {
   Hidden,
   Container
 } from '@material-ui/core';
-import Logo from './Logo';
+import { useSelector } from 'react-redux';
 import Search from '../icons/Search';
 import InputTextField from './widgets/inputs/InputTextField';
 import Brand from '../icons/Brand';
 import { useWindowSize } from '../hooks/useWindowSize';
-import useAuth from '../hooks/useAuth';
 import Person from '../icons/Person';
 import { ModalParams } from '../types/routing';
 import { useSearchParams } from '../hooks/useSearchParams';
+import './MainNavbar.css';
+import Logo from './Logo';
+import { userSelectors } from '../slices/userSlice';
 
 const links = [
   {
@@ -40,14 +42,15 @@ const links = [
 const MainNavbar: FC = () => {
   const { push } = useHistory();
   const { isMobile } = useWindowSize();
-  const { isAuthenticated } = useAuth();
+  const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
+  console.log(isAuthenticated);
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
 
   const buttons = [
     {
-      title: isAuthenticated ? 'Предложить новость/политика' : 'Вход',
+      title: isAuthenticated ? 'Предложить новость / политика' : 'Вход',
       to: isAuthenticated ? '/' : 'login',
       color: '',
     },
@@ -102,12 +105,9 @@ const MainNavbar: FC = () => {
                   }}
                 >
                   <RouterLink to="/">
-                    <Logo
-                      sx={{
-                        height: 40,
-                        width: 40
-                      }}
-                    />
+                    <div className="logo">
+                      <Logo />
+                    </div>
                   </RouterLink>
                   <Typography
                     sx={{ ml: 1.5 }}

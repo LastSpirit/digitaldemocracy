@@ -16,6 +16,7 @@ import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 import store from './store';
 import './index.scss';
+import { AuthProvider } from './contexts/JWTContext';
 
 declare global {
   interface Window {
@@ -30,13 +31,15 @@ ReactDOM.render(
   <StrictMode>
     <HelmetProvider>
       <ReduxProvider store={store}>
-        <StyledEngineProvider injectFirst>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </LocalizationProvider>
-        </StyledEngineProvider>
+        <AuthProvider>
+          <StyledEngineProvider injectFirst>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </LocalizationProvider>
+          </StyledEngineProvider>
+        </AuthProvider>
       </ReduxProvider>
     </HelmetProvider>
   </StrictMode>,

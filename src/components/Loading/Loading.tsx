@@ -1,9 +1,13 @@
 import { CircularProgress } from '@material-ui/core';
-import React from 'react';
+import React, { FC } from 'react';
 
-export const Loading = () => (
+interface LoadingProps {
+  size?: number
+}
+
+export const Loading:FC<LoadingProps> = ({ size }) => (
   <CircularProgress
-    style={{ color: '#00cc00' }}
-    size={70}
+    style={{ color: '#363557' }}
+    size={size || 20}
   />
 );

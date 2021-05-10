@@ -10,7 +10,7 @@ import { recaptchaConfig } from '../../../../config';
 
 const ConfirmPasswordLogin = () => {
   const isMountedRef = useIsMountedRef();
-  const { passwordVerify, codeVerify } = useLogin();
+  const { passwordVerify, codeVerify, error } = useLogin();
   const { rememberMe, authType } = useSelector(authSelectors.getAllData());
   const loginThroughEmail = authType === AuthType.Email;
 
@@ -64,6 +64,8 @@ const ConfirmPasswordLogin = () => {
           >
             <TextField
               fullWidth
+              helperText={error}
+              error={!!error}
               value={loginThroughEmail ? values.password : values.code}
               onChange={handleChange}
               label={loginThroughEmail ? 'Пароль' : 'Код из смс'}
@@ -73,12 +75,14 @@ const ConfirmPasswordLogin = () => {
                 mb: 2
               }}
             />
-            {loginThroughEmail && (
             <Box>
+              {false && (
               <ReCAPTCHA
                 sitekey={recaptchaConfig.siteKey}
                 onChange={onChangeRecaptcha}
               />
+              )}
+              {loginThroughEmail && (
               <Box sx={{
                 mt: 2,
                 display: 'flex',
@@ -99,8 +103,8 @@ const ConfirmPasswordLogin = () => {
                   onChange={handleChange}
                 />
               </Box>
+              )}
             </Box>
-            )}
             <Box sx={{ mt: 3 }}>
               <Button
                 color="primary"

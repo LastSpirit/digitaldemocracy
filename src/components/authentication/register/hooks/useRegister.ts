@@ -9,22 +9,21 @@ import { userActionCreators } from '../../../../slices/userSlice';
 export const useRegister = (setRegisterStep: (value: number) => void) => {
   const { register } = authAPI();
   const userData = useSelector(authSelectors.getUserData());
-  const { setUser } = userActionCreators();
+  const { setUser, setIsAuthenticated } = userActionCreators();
 
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
   const [passError, setPassError] = useState<string>();
   const [confPassError, setConfPassError] = useState<string>();
 
   const onSuccess = (response) => {
-    console.log('ASdasdasdsadasdasdsa', response);
     setItem('token', response.token);
     setUser(response.user);
+    setIsAuthenticated(true);
     setStatus(APIStatus.Success);
     setRegisterStep(5);
   };
 
   const onError = (errorResponse) => {
-    console.log('ERROROROROR: ', errorResponse);
     if (errorResponse.password_confirmation) setConfPassError(errorResponse.password_confirmation[0]);
     if (errorResponse.password) setPassError(errorResponse.password[0]);
     setStatus(APIStatus.Failure);

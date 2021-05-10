@@ -7,6 +7,7 @@ import { useFetchAddresses } from '../hooks/useFetchAddresses';
 import { useCheckAddress } from '../hooks/useCheckAddress';
 import { authActionCreators } from '../../../../slices/authSlice';
 import { APIStatus } from '../../../../lib/axiosAPI';
+import { Loading } from '../../../Loading/Loading';
 
 const AddressFormRegister: FC = (props) => {
   const isMountedRef = useIsMountedRef();
@@ -109,7 +110,7 @@ const AddressFormRegister: FC = (props) => {
                   type="submit"
                   variant="contained"
                 >
-                  Продолжить
+                  {status === APIStatus.Loading ? <Loading /> : 'Продолжить'}
                 </Button>
               </Box>
             </form>

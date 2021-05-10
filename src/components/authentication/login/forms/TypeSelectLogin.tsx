@@ -11,7 +11,7 @@ import { authActionCreators, authSelectors, AuthType } from '../../../../slices/
 const TypeSelectLogin = () => {
   const isMountedRef = useIsMountedRef();
   const { setAuthType, setLoginStep } = authActionCreators();
-  const { sendCode, verifyEmail } = useFirstStepLogin(setLoginStep);
+  const { sendCode, verifyEmail, emailError, phoneError, status: { phoneStatus, emailStatus } } = useFirstStepLogin(setLoginStep);
   const authType = useSelector(authSelectors.getAuthType());
 
   return (
@@ -76,15 +76,16 @@ const TypeSelectLogin = () => {
             </Typography>
             <TextField
               fullWidth
-              helperText={errors.email}
+              helperText={errors.email || emailError}
               value={values.email}
               onChange={handleChange}
               label="E-mail"
               variant="outlined"
-              error={!!errors.email}
+              error={!!errors.email || !!emailError}
               name="email"
               InputProps={{
                 endAdornment: <ArrowInputIcon
+                  status={emailStatus}
                   disable={!values.email || !!errors.email}
                   onClick={() => {
                     setAuthType(AuthType.Email);
@@ -101,8 +102,8 @@ const TypeSelectLogin = () => {
             </Typography>
             <TextField
               fullWidth
-              helperText={errors.phone}
-              error={!!errors.phone}
+              helperText={errors.phone || phoneError}
+              error={!!errors.phone || !!phoneError}
               label="+7 XXX XXX XX XX"
               margin="normal"
               name="phone"
@@ -111,6 +112,8 @@ const TypeSelectLogin = () => {
               value={values.phone}
               InputProps={{
                 endAdornment: <ArrowInputIcon
+                  status={phoneStatus}
+                  id="sign-in-button"
                   disable={!values.phone || !!errors.phone}
                   onClick={() => {
                     setAuthType(AuthType.Phone);

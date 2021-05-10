@@ -1,21 +1,61 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import firebase from 'firebase';
 import { authAPI } from '../../../../api/authAPI';
+import { authActionCreators } from '../../../../slices/authSlice';
+import { useSendCodeFirebase } from '../../common/hooks/useSendCodeFirebase';
+import { APIStatus } from '../../../../lib/axiosAPI';
 
 export const useFirstStepLogin = (setStepLogin: (value: number) => void) => {
-  const { checkValidateAddress } = authAPI();
+  const { checkValidateEmailLogin, checkValidatePhoneLogin } = authAPI();
+  const [emailError, setEmailError] = useState<string>();
+  const [phoneError, setPhoneError] = useState<string>();
+  const [emailStatus, setEmailStatus] = useState<APIStatus>(APIStatus.Initial);
+  const [phoneStatus, setPhoneStatus] = useState<APIStatus>(APIStatus.Initial);
+  const { setAuthUserData } = authActionCreators();
+  const { sendCode: sendFirebaseCode } = useSendCodeFirebase(setStepLogin, 2, setPhoneError);
+
   const verifyEmail = useCallback((email: string) => {
-    console.log(email);
-    checkValidateAddress({
-      onSuccess: (response) => console.log(response),
-      onError: (errorResponse) => console.log(errorResponse),
+    setEmailStatus(APIStatus.Loading);
+    checkValidateEmailLogin({
+      onSuccess: () => {
+        setAuthUserData({ key: 'email', value: email });
+        setStepLogin(2);
+        setEmailStatus(APIStatus.Success);
+      },
+      onError: (errorResponse) => {
+        setEmailError(typeof errorResponse === 'string' ? errorResponse : errorResponse.email[0]);
+        setEmailStatus(APIStatus.Failure);
+      },
+      payload: {
+        email,
+      }
     });
-    setStepLogin(2);
+  }, []);
+
+  useEffect(() => {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+      size: 'invisible',
+      callback: () => {}
+    });
   }, []);
 
   const sendCode = useCallback((phone: string) => {
-    console.log(phone);
-    setStepLogin(2);
+    setPhoneStatus(APIStatus.Loading);
+    checkValidatePhoneLogin({
+      onSuccess: () => {
+        setAuthUserData({ key: 'phone', value: phone });
+        const appVerifier = window.recaptchaVerifier;
+        sendFirebaseCode(phone, appVerifier);
+        setPhoneStatus(APIStatus.Success);
+      },
+      onError: (errorResponse) => {
+        setPhoneError(typeof errorResponse === 'string' ? errorResponse : errorResponse.phone[0]);
+      },
+      payload: {
+        phone
+      }
+    });
   }, []);
 
-  return { sendCode, verifyEmail };
+  return { sendCode, verifyEmail, emailError, phoneError, status: { emailStatus, phoneStatus } };
 };

@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { alpha } from '@material-ui/core/styles';
+import { useSelector } from 'react-redux';
 import Logo from './Logo';
 import { useWindowSize } from '../hooks/useWindowSize';
 import Register from '../icons/Register';
@@ -21,7 +22,8 @@ import News from '../icons/News';
 import Search from '../icons/Search';
 import Person from '../icons/Person';
 import Rating from '../icons/Rating';
-import useAuth from '../hooks/useAuth';
+import './MainNavbar.css';
+import { userSelectors } from '../slices/userSlice';
 
 const sections = [
   {
@@ -57,7 +59,7 @@ const sections = [
 ];
 
 const Footer: FC = (props) => {
-  const { isAuthenticated } = useAuth();
+  const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { isMobile } = useWindowSize();
   const { push } = useHistory();
   const icons = [
@@ -152,7 +154,9 @@ const Footer: FC = (props) => {
                   alignItems: 'center',
                 }}
               >
-                <Logo />
+                <div className="logo-footer">
+                  <Logo />
+                </div>
                 <Box sx={{ mt: 1, ml: 1.5 }}>
                   <Typography
                     color="textSecondary"
