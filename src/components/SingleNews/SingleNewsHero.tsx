@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useState } from 'react';
 import { Box, makeStyles, Container, Typography, IconButton, Grid } from '@material-ui/core';
 import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 import CallMadeIcon from '@material-ui/icons/CallMade';
@@ -13,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#e5e5e5',
     borderRadius: '20px',
     padding: '10px 20px 10px 30px',
+    marginBottom: '20px'
     // display: 'flex'
   },
   newsTitle: {
@@ -88,7 +90,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 25
   },
   newsSubject: {
-    fontSize: 25
+    fontSize: 25,
+    display: 'flex'
   },
   arrowGrey: {
     color: '#7a7a7a',
@@ -111,6 +114,13 @@ const useStyles = makeStyles((theme) => ({
     width: '50px',
     height: '50px',
     cursor: 'pointer'
+  },
+  iframe: {
+    width: '100%',
+    maxHeight: '650px',
+    height: '50vh',
+    borderRadius: '20px',
+    margin: '0 auto'
   }
 }));
 
@@ -120,6 +130,10 @@ interface HeroPropsI {
 
 const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
   const classes = useStyles();
+  const [toggleIframe, setToggleIframe] = useState(false);
+  const handleToggleIframe = () => {
+    setToggleIframe(!toggleIframe);
+  };
   return (
     <Box className={classes.hero}>
       <Container maxWidth="lg">
@@ -138,7 +152,10 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
             <Box className={classes.newsLinks}>
               <Box className={classes.arrows}>
                 <SubdirectoryArrowRightIcon className={classes.arrowGrey} />
-                <IconButton className={classes.arrowButton}>
+                <IconButton
+                  className={classes.arrowButton}
+                  onClick={handleToggleIframe}
+                >
                   <CallMadeIcon className={classes.arrowLink} />
                 </IconButton>
               </Box>
@@ -172,14 +189,30 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
             </Box>
 
             <Box className={classes.newsSubject}>
-              <Typography>
-                {data?.newTopics}
-              </Typography>
+              {data?.newTopics.map((item) => (
+                <Typography
+                  key={item.id}
+                  sx={{
+                    marginRight: '15px'
+                  }}
+                >
+                  {item.title}
+                </Typography>
+              ))}
             </Box>
           </Grid>
 
         </Grid>
-
+        {toggleIframe ? (
+          <Box>
+            <iframe
+              src={data?.source_link}
+              title="link"
+              className={classes.iframe}
+              width="80vw"
+            />
+          </Box>
+        ) : null}
       </Container>
 
     </Box>

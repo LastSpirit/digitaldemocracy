@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import { Box, Divider, List, ListItem, ListItemText, makeStyles, Typography } from '@material-ui/core';
 import { NewsTopicsI } from '../../../slices/homeSlice';
+// import { useFetchHomePageData } from '../hooks/useFetchHomePageData';
 
 const useStyles = makeStyles(() => ({
   listTitle: {
@@ -19,6 +20,9 @@ interface SidebarPropsI {
 
 const ListSidebar: FC<SidebarPropsI> = ({ newsTopics }) => {
   const classes = useStyles();
+  // const handleNewsTopics = (id) => {
+  //   useFetchHomePageData(id);
+  // };
   console.log(newsTopics);
   return (
     <Box sx={{ maxWidth: '270px' }}>
@@ -30,12 +34,14 @@ const ListSidebar: FC<SidebarPropsI> = ({ newsTopics }) => {
         {newsTopics.map((item) => (
           <Box
             key={item.id}
+            // onClick={() => handleNewsTopics(item.id)}
           >
             <ListItem
               alignItems="flex-start"
               sx={{
                 maxWidth: '270px',
-                whiteSpace: 'pre-wrap'
+                whiteSpace: 'pre-wrap',
+                cursor: 'pointer'
               }}
             >
               <ListItemText

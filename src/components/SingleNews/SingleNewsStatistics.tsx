@@ -58,27 +58,29 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
           container
           className={classes.statisticsContainer}
         >
-          <Grid
-            item
-            lg={6}
-            md={12}
-            sm={12}
-            className={classes.politicians}
-          >
-            <Box className={classes.headings}>
-              <Typography className={classes.heading}>Ваше мнение по поводу новости</Typography>
-              <Typography className={classes.heading}>Оцените политиков</Typography>
-            </Box>
-            {politicians?.map((item) => (
-              <StatisticsCard
-                key={item?.name}
-                name={item?.name}
-                photo={item?.photo}
-                percent={item?.percent}
-              />
-            ))}
+          { politicians && politicians.length > 0 ? (
+            <Grid
+              item
+              lg={6}
+              md={12}
+              sm={12}
+              className={classes.politicians}
+            >
+              <Box className={classes.headings}>
+                <Typography className={classes.heading}>Ваше мнение по поводу новости</Typography>
+                <Typography className={classes.heading}>Оцените политиков</Typography>
+              </Box>
+              {politicians?.map((item) => (
+                <StatisticsCard
+                  key={item?.name}
+                  name={item?.name}
+                  photo={item?.photo}
+                  percent={item?.percent}
+                />
+              ))}
 
-          </Grid>
+            </Grid>
+          ) : null}
           <Grid
             item
             lg={6}
@@ -86,26 +88,30 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
             sm={12}
             className={classes.authors}
           >
-            <Box>
-              <Box className={classes.headings}>
-                <Typography className={classes.heading}>Доверяете ли вы СМИ как источнику новости?</Typography>
+            {media ? (
+              <Box>
+                <Box className={classes.headings}>
+                  <Typography className={classes.heading}>Доверяете ли вы СМИ как источнику новости?</Typography>
+                </Box>
+                <StatisticsCard
+                  name={media?.name}
+                  photo={media?.photo}
+                  percent={media?.percent}
+                />
               </Box>
-              <StatisticsCard
-                name={media?.name}
-                photo={media?.photo}
-                percent={media?.percent}
-              />
-            </Box>
-            <Box>
-              <Box className={classes.headings}>
-                <Typography className={classes.heading}>Доверяете ли вы автору новости?</Typography>
+            ) : null}
+            {author ? (
+              <Box>
+                <Box className={classes.headings}>
+                  <Typography className={classes.heading}>Доверяете ли вы автору новости?</Typography>
+                </Box>
+                <StatisticsCard
+                  name={author?.title ? author?.title : 'Автор'}
+                  photo={author?.photo}
+                  percent={author?.percent}
+                />
               </Box>
-              <StatisticsCard
-                name={author?.title ? author?.title : 'Автор'}
-                photo={author?.photo}
-                percent={author?.percent}
-              />
-            </Box>
+            ) : null}
           </Grid>
         </Grid>
       </Container>

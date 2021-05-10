@@ -8,8 +8,8 @@ import { AuthorI, MediaI } from '../../../slices/homeSlice';
 
 const useStyles = makeStyles((theme) => ({
   bigCardContainer: {
-    maxWidth: '100%',
-    minWidth: '200px',
+    maxWidth: '250px',
+    minWidth: '180px',
     minHeight: 450,
     maxHeight: 450,
     background: '#F3F3F3',
@@ -17,12 +17,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 16,
     fontFamily: 'Helvetica',
     padding: '14px 18px',
-
-    [theme.breakpoints.up('sm')]: {
+    cursor: 'pointer',
+    boxSizing: 'border-box',
+    margin: '0 auto',
+    [theme.breakpoints.down('md')]: {
       maxWidth: '300px'
     },
-    [theme.breakpoints.up('md')]: {
-      maxWidth: '270px'
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '100%',
+      minHeight: '150px'
     }
   },
   bigHeader: {
@@ -56,19 +59,24 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     minHeight: '380px',
-    marginBottom: '15px'
+    marginBottom: '15px',
+    [theme.breakpoints.down('sm')]: {
+      minHeight: 'unset'
+    }
   },
   imageContainer: {
-    width: '275px',
-    height: '180px'
+    width: '100%',
+    height: '180px',
+    textAlign: 'center'
   },
   image: {
-    width: '250px',
-    height: '160px',
+    width: 'inherit',
+    height: '180px',
     maxWidth: '275px',
     maxHeight: '180px',
     objectFit: 'cover',
-    borderRadius: '20px'
+    borderRadius: '20px',
+    margin: '0 auto'
   }
 }));
 

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
-import { Box, makeStyles, Container, Typography } from '@material-ui/core';
+import { Box, makeStyles, Container, Typography, Grid, Button } from '@material-ui/core';
 import { NewsI } from '../../slices/SingleNewsSlice';
-// import CardSmall from "../home/News/CardSmall";
+import CardSmall from '../home/News/CardSmall';
 
 const useStyles = makeStyles(() => ({
   list: {
@@ -22,14 +22,21 @@ const useStyles = makeStyles(() => ({
   },
   newsContainer: {
     marginBottom: '100px'
+  },
+  buttonText: {
+    color: '#363557',
+    fontSize: '20px',
+    textDecoration: 'underline',
+    cursor: 'pointer'
   }
 }));
 
 interface NewsListI {
-  news?: NewsI[]
+  news?: NewsI[],
+  isMorePages?: boolean
 }
 
-const SingleNewsList: FC<NewsListI> = ({ news }) => {
+const SingleNewsList: FC<NewsListI> = ({ news, isMorePages }) => {
   const classes = useStyles();
   console.log(news);
   return (
@@ -39,10 +46,34 @@ const SingleNewsList: FC<NewsListI> = ({ news }) => {
           <Typography className={classes.heading}>Новости по теме</Typography>
         </Box>
         <Box className={classes.newsContainer}>
-          {/* <Grid container> */}
-
-          {/* </Grid> */}
+          <Grid container>
+            {news?.map((item) => (
+              <Grid
+                item
+                lg={3}
+                md={3}
+                sm={12}
+                key={item.id}
+              >
+                <CardSmall {...item} />
+              </Grid>
+            ))}
+          </Grid>
         </Box>
+
+        {isMorePages
+          ? (
+            <Box>
+              <Button>
+                <Typography className={classes.buttonText}>
+                  Показать больше
+                </Typography>
+
+              </Button>
+            </Box>
+          )
+          : null}
+
       </Container>
 
     </Box>

@@ -12,7 +12,7 @@ const Home: FC = () => {
     gtm.push({ event: 'page_view' });
   }, []);
 
-  useFetchHomePageData();
+  useFetchHomePageData('');
   const data = useSelector(homeSelector.getData());
   console.log(data);
   const status = useSelector(homeSelector.getStatus());
@@ -29,6 +29,7 @@ const Home: FC = () => {
           newsTopics={data?.newsTopics}
           news={data?.news}
           status={status}
+          isMorePages={data?.isMorePages}
         />
       </div>
     </>

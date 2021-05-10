@@ -22,7 +22,7 @@ export interface PoliticiansI {
   percent: string
 }
 
-interface NewTopcsI {
+interface NewTopicsI {
   id: number,
   title: string
 }
@@ -36,7 +36,7 @@ export interface CurrentNewsI {
   id?: number,
   media?: MediaI,
   author?: AuthorI,
-  newTopics?: NewTopcsI[],
+  newTopics?: NewTopicsI[],
   hashtags?: HashtagsI[],
   votes: number,
   title: string,
@@ -52,7 +52,7 @@ export interface NewsI {
   id?: number,
   media?: MediaI,
   author?: AuthorI,
-  newTopics?: NewTopcsI[],
+  newTopics?: NewTopicsI[],
   hashtags?: HashtagsI[],
   votes: number,
   title: string,

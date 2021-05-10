@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import SingleNewsHero from '../components/SingleNews/SingleNewsHero';
-// import SingleNewsList from '../components/SingleNews/SingleNewsList';
+import SingleNewsList from '../components/SingleNews/SingleNewsList';
 import SingleNewsStatistics from '../components/SingleNews/SingleNewsStatistics';
 import { useFetchSingleNews } from '../components/home/hooks/useFetchSingleNews';
 import { singleNewsSelector } from '../slices/SingleNewsSlice';
@@ -31,15 +31,16 @@ const SingleNews: FC<Props> = (props) => {
           media={data?.currentNews?.media}
           politicians={data?.politicians}
         />
-        {/* { */}
-        {/*      data?.news && data?.news.length > 0 */}
-        {/*        ? ( */}
-        {/*          <SingleNewsList */}
-        {/*            news={data?.news} */}
-        {/*          /> */}
-        {/*        ) */}
-        {/*        : null */}
-        {/*  } */}
+        {
+              data?.news && data?.news.length > 0
+                ? (
+                  <SingleNewsList
+                    news={data?.news}
+                    isMorePages={data?.isMorePages}
+                  />
+                )
+                : null
+          }
       </div>
     </>
   );
