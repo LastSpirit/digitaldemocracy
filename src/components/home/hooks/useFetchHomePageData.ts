@@ -15,6 +15,9 @@ export const useFetchHomePageData = () => {
         console.log(response);
         dispatch(setData(response));
       },
+      // payload: {
+      //   topic_id
+      // },
       onError: (errorResponse) => {
         dispatch(failFetch());
         console.log(errorResponse);
