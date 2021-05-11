@@ -50,7 +50,6 @@ export const getCallAPI = <RootState>(): CallAPI<GenericAppThunk<RootState>> => 
       response = await axios.post((customBaseUrl || baseURL) + url, payload, config);
     }
     const headers = includeHeaders ? pick(response.headers, includeHeaders) : undefined;
-    console.log('response: ', response);
     if (!nestedResponseType && response.data && onSuccess) onSuccess(response.data);
     if (nestedResponseType && response.data.success && response.data.data && onSuccess) onSuccess(response.data.data, headers);
     if (nestedResponseType && (!response.data.success || !response.data.data) && onError) onError(response.data.message);

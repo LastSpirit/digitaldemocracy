@@ -1,9 +1,10 @@
 import type { FC } from 'react';
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Container, Grid, Hidden, makeStyles, Typography, Button } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 import ListSidebar from './News/ListSidebar';
 import { APIStatus } from '../../lib/axiosAPI';
-import { NewsI, NewsTopicsI } from '../../slices/homeSlice';
+import { homeSelector, NewsI, NewsTopicsI } from '../../slices/homeSlice';
 import CardSmall from './News/CardSmall';
 // import TopicsSlider from './News/TopicsSlider';
 import { useFetchHomePageData } from './hooks/useFetchHomePageData';
@@ -59,11 +60,10 @@ interface HomeFeaturesPropsI {
 
 const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMorePages }) => {
   const classes = useStyles();
-  const [offset, setOffset] = useState(2);
   const { fetch } = useFetchHomePageData();
-  const handleGetMorePages = (offsetNumber: number) => {
-    fetch(offsetNumber, '');
-    setOffset(offsetNumber + 1);
+  const page = useSelector(homeSelector.getPage());
+  const handleGetMorePages = () => {
+    fetch(page + 1);
   };
 
   return (
@@ -130,7 +130,7 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                       sx={{
                         textDecoration: 'underline'
                       }}
-                      onClick={() => handleGetMorePages(offset)}
+                      onClick={handleGetMorePages}
                     >
                       Показать больше
                     </Typography>

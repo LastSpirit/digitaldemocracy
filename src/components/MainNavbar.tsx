@@ -43,7 +43,6 @@ const MainNavbar: FC = () => {
   const { push } = useHistory();
   const { isMobile } = useWindowSize();
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
-  console.log(isAuthenticated);
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);

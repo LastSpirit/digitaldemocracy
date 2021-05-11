@@ -90,7 +90,6 @@ const useStyles = makeStyles({
 
 });
 export default function CustomArrows({ data }) {
-  console.log(data);
   const classes = useStyles();
   // const settings = {
   //   nextArrow: <SampleNextArrow />,

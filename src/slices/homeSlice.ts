@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line import/no-cycle
 import { APIStatus } from '../lib/axiosAPI';
 
 export interface PoliticiansI {
@@ -48,11 +49,13 @@ export interface HomeI {
 }
 
 interface SliceState {
+  page?: number
   data?: HomeI
   status: APIStatus
 }
 
 const initialState:SliceState = {
+  page: 1,
   status: APIStatus.Initial
 };
 
@@ -67,6 +70,12 @@ export const homeSlice = createSlice({
       state.data = action.payload;
       state.status = APIStatus.Success;
     },
+    setNews(state: SliceState, action: PayloadAction<HomeI & { page?: number }>) {
+      state.data.news = [...(state.data.news || []), ...action.payload.news];
+      state.data.isMorePages = action.payload.isMorePages;
+      state.page = action.payload.page;
+      state.status = APIStatus.Success;
+    },
     failFetch(state: SliceState) {
       state.status = APIStatus.Failure;
     }
@@ -79,5 +88,6 @@ interface Store {
 
 export const homeSelector = {
   getData: () => (state: Store) => state.home.data,
+  getPage: () => (state: Store) => state.home.page,
   getStatus: () => (state: Store) => state.home.status
 };
