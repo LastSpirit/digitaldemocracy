@@ -21,12 +21,18 @@ export const useLogin = () => {
     setError(undefined);
     authViaEmailConfirmPassword({
       onSuccess: (response) => {
-        setItem('token', response.data.token, !rememberMe ? 'false' : undefined);
-        setUser(response.data.user);
+        console.log(response);
+        setItem('token', response.token, !rememberMe ? 'false' : undefined);
+        setUser(response.user);
         setIsAuthenticated(true);
+        setAuthValue(undefined);
       },
       onError: (errorResponse) => {
-        setError(errorResponse.password ? errorResponse.password[0] : errorResponse.email[0]);
+        if (typeof errorResponse === 'string') {
+          setError(errorResponse);
+        } else {
+          setError(errorResponse.password ? errorResponse.password[0] : errorResponse.email[0]);
+        }
       },
       payload: {
         email,

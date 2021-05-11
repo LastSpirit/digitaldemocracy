@@ -66,12 +66,14 @@ const Login: FC = () => {
       >
         {loginStep === 2 && (
         <Box>
-          <Typography sx={{
-            color: '#747373',
-            textDecoration: 'underline',
-            cursor: 'pointer',
-            width: 230
-          }}
+          <Typography
+            sx={{
+              color: '#747373',
+              textDecoration: 'underline',
+              cursor: 'pointer',
+              width: 230
+            }}
+            onClick={() => setAuthValue('reset_password')}
           >
             Восстановить забытый пароль
           </Typography>

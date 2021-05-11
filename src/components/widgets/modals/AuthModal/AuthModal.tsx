@@ -6,6 +6,20 @@ import Login from '../../../../pages/authentication/Login';
 import { ModalParams } from '../../../../types/routing';
 import { useSearchParams } from '../../../../hooks/useSearchParams';
 import { authActionCreators } from '../../../../slices/authSlice';
+import ResetPassword from '../../../../pages/authentication/ResetPassword';
+
+const getModal = (value: string) => {
+  switch (value) {
+    case 'login':
+      return <Login />;
+    case 'reset_password':
+      return <ResetPassword />;
+    case 'register':
+      return <Register />;
+    default:
+      return <Login />;
+  }
+};
 
 const AuthModal:React.FC = () => {
   const {
@@ -41,7 +55,7 @@ const AuthModal:React.FC = () => {
           onClick={onCloseModal}
           sx={{ position: 'absolute', top: 10, right: 10, cursor: 'pointer', color: '#B0B0B0', width: 40, height: 40, fontWeight: '300' }}
         />
-        {authValue === 'login' ? <Login /> : <Register />}
+        {getModal(authValue)}
       </Box>
     </Modal>
   );

@@ -32,7 +32,7 @@ const CreatePasswordRegister = () => {
                           .object()
                           .shape({
                             password: Yup
-                              .string().required('Введите пароль').min(8, 'Минимальная длина пароля 5 символов'),
+                              .string().required('Введите пароль').min(8, 'Минимальная длина пароля 8 символов'),
                             confirmPassword: Yup
                               .string().oneOf([Yup.ref('password'), null], 'Пароли не совпадают'),
                           })

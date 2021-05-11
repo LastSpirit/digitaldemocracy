@@ -98,6 +98,7 @@
     "yup": "^0.32.8"
   },
   "devDependencies": {
+    "react-scripts": "^4.0.1",
     "@types/react-router-dom": "^5.1.7",
     "eslint-config-airbnb-typescript": "^12.3.1"
   }

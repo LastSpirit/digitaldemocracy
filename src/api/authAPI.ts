@@ -13,10 +13,8 @@ interface RegisterRequest {
 }
 
 interface RegisterResponse {
-  data: {
-    user: User
-    token: string
-  }
+  user: User
+  token: string
 }
 
 interface SendCodeRequest {
@@ -82,6 +80,13 @@ interface LoginViaPhoneResponse {
   token: string
 }
 
+interface ResetPasswordRequest {
+  password: string
+  password_confirmation: string
+  email: string
+  token: string
+}
+
 const checkValidateAddress: APIRequest<{ address: string }, { valid: boolean }> = (args) => callAPI({ url: 'checkUserAddress', ...args });
 
 const checkValidateEmail:APIRequest<{ email: string }, string, { email: Array<string> | string }> = (args) => callAPI({ url: 'checkEmail', ...args });
@@ -108,9 +113,13 @@ const getYandexUserInfo: APIRequest<GetYandexUserInfoRequest> = (args) => callAP
 
 const authViaGoogle: APIRequest<RegisterViaGoogleRequest, LoginViaPhoneResponse, RegisterViaGoogleErrorResponse> = (args) => callAPI({ url: 'login/google', ...args });
 
-const authViaEmailConfirmPassword: APIRequest<{ password: string, email: string }, RegisterResponse, { password: Array<string>, email: Array<string> }> = (args) => callAPI({ url: 'login/email', ...args });
+const authViaEmailConfirmPassword: APIRequest<{ password: string, email: string }, RegisterResponse, { password: Array<string>, email: Array<string> | string }> = (args) => callAPI({ url: 'login/email', ...args });
 
 const loginViaPhone: APIRequest<RegisterViaPhoneRequest, LoginViaPhoneResponse, RegisterViaPhoneErrorResponse | string> = (args) => callAPI({ url: 'login/phone', ...args });
+
+const sendResetLinkEmail: APIRequest<{ email: string }, string, { email: Array<string> } | string> = (args) => callAPI({ url: 'password/sendResetLinkEmail', ...args });
+
+const resetPassword: APIRequest<ResetPasswordRequest, string, { password: Array<string> } | string> = (args) => callAPI({ url: 'password/reset', ...args });
 
 const APIs = {
   checkValidateAddress,
@@ -128,6 +137,8 @@ const APIs = {
   checkValidatePhone,
   checkValidateEmailLogin,
   checkValidatePhoneLogin,
+  sendResetLinkEmail,
+  resetPassword,
 };
 
 export const authAPI = () => {

@@ -9,6 +9,7 @@ export enum AuthType {
 interface SliceState {
   registerStep?: number
   loginStep?: number
+  resetPasswordStep?: number
   authType?: AuthType
   rememberMe?: boolean
   authUserData?: {
@@ -25,6 +26,7 @@ interface SliceState {
 const initialState: SliceState = {
   registerStep: 1,
   loginStep: 1,
+  resetPasswordStep: 1,
   rememberMe: true,
   authUserData: {
     address: '',
@@ -46,6 +48,9 @@ export const authSlice = createSlice({
     },
     setLoginStep(state: SliceState, action: PayloadAction<number>) {
       state.loginStep = action.payload;
+    },
+    setResetStep(state: SliceState, action: PayloadAction<number>) {
+      state.resetPasswordStep = action.payload;
     },
     setAuthType(state: SliceState, action: PayloadAction<AuthType>) {
       state.authType = action.payload;
@@ -69,6 +74,7 @@ export interface Store {
 
 export const authSelectors = {
   getRegisterStep: () => (state: Store) => state.auth.registerStep,
+  getResetPasswordStep: () => (state: Store) => state.auth.resetPasswordStep,
   getAttemptSingIn: () => (state: Store) => state.auth.attemptSingIn,
   getLoginStep: () => (state: Store) => state.auth.loginStep,
   getAuthType: () => (state: Store) => state.auth.authType,
