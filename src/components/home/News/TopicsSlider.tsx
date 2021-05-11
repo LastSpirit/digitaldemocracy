@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useFetchHomePageData } from '../hooks/useFetchHomePageData';
 
 const useStyles = makeStyles({
   topic: {
@@ -28,7 +29,10 @@ const useStyles = makeStyles({
 });
 
 export default function TopicsSlider({ newsTopics }) {
-  console.log(newsTopics);
+  const { fetch } = useFetchHomePageData();
+  const handleNewsTopics = (id) => {
+    fetch(1, id);
+  };
   const classes = useStyles();
 
   const settings = {
@@ -41,7 +45,7 @@ export default function TopicsSlider({ newsTopics }) {
     initialSlide: 0,
     responsive: [
       {
-        breakpoint: 400,
+        breakpoint: 600,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -53,7 +57,11 @@ export default function TopicsSlider({ newsTopics }) {
     <div className={classes.carouselContainer}>
       <Slider {...settings}>
         {newsTopics.map((item) => (
-          <Box className={classes.topic}>
+          <Box
+            className={classes.topic}
+            onClick={() => handleNewsTopics(item.id)}
+            key={item.id}
+          >
             <Typography className={classes.topicText}>{item.title}</Typography>
           </Box>
         ))}

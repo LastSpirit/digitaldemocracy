@@ -43,7 +43,7 @@ const useStyles = makeStyles({
   },
 
   carouselContainer: {
-    width: '80%',
+    width: '90%',
     margin: 'auto',
   },
   frame: {

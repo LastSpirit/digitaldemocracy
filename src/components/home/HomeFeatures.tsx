@@ -6,7 +6,7 @@ import ListSidebar from './News/ListSidebar';
 import { APIStatus } from '../../lib/axiosAPI';
 import { homeSelector, NewsI, NewsTopicsI } from '../../slices/homeSlice';
 import CardSmall from './News/CardSmall';
-// import TopicsSlider from './News/TopicsSlider';
+import TopicsSlider from './News/TopicsSlider';
 import { useFetchHomePageData } from './hooks/useFetchHomePageData';
 
 const useStyles = makeStyles((theme) => ({
@@ -72,6 +72,17 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
         <>Loading</>
       ) : (
         <Container maxWidth="lg">
+          <Hidden mdUp>
+            <Box sx={{
+              maxWidth: '80%',
+              marginBottom: '30px',
+              marginTop: '40px',
+              margin: '35px auto'
+            }}
+            >
+              <TopicsSlider newsTopics={newsTopics} />
+            </Box>
+          </Hidden>
           <Box style={{ display: 'flex' }}>
             <Hidden mdDown>
               <Box
@@ -83,12 +94,6 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                 <ListSidebar newsTopics={newsTopics} />
               </Box>
             </Hidden>
-
-            {/* <Hidden mdUp> */}
-            {/*  <Box> */}
-            {/*    <TopicsSlider newsTopics={newsTopics} /> */}
-            {/*  </Box> */}
-            {/* </Hidden> */}
 
             <Box className={classes.news}>
               <Typography

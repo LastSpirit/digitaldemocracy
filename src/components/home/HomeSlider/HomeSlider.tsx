@@ -18,7 +18,14 @@ const HomeSlider: FC<SliderPropsI> = ({ data }) => (
           <button className="buttonStyle">Весь рейтинг</button>
         </Hidden>
       </Box>
-      <CustomArrows data={data} />
+      <Box sx={{
+        maxWidth: '90%',
+        margin: '0 auto'
+      }}
+      >
+        <CustomArrows data={data} />
+      </Box>
+
     </Container>
   </Box>
 );
