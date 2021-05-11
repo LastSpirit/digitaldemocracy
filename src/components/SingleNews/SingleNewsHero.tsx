@@ -18,25 +18,25 @@ const useStyles = makeStyles((theme) => ({
     // display: 'flex'
   },
   newsTitle: {
-    // width: '55%',
+    width: '60%',
     borderRight: '1px solid #b0b0b0',
     paddingRight: '40px',
     display: 'flex',
     flexDirection: 'column',
     [theme.breakpoints.down('md')]: {
-
-      borderRight: 'none'
+      borderRight: 'none',
+      width: '100%'
     }
   },
   title: {
     fontSize: 40,
     color: '#222222',
-    maxWidth: '550px',
+    maxWidth: '500px',
     lineHeight: '45px',
     marginBottom: '20px',
     fontFamily: 'Helvetica',
     [theme.breakpoints.down('md')]: {
-      maxWidth: '100%'
+      maxWidth: '400px'
     }
   },
   newsLinks: {
@@ -67,12 +67,13 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '50px'
   },
   newsInfo: {
+    width: '40%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     padding: '15px 20px 15px 40px',
     color: '#747473',
-    minWidth: '200px',
+    minWidth: '300px',
     [theme.breakpoints.down('md')]: {
       padding: 0,
       width: '100%',
@@ -144,8 +145,9 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
 
           <Grid
             item
-            lg={7}
+            lg={6}
             md={12}
+            sm={12}
             className={classes.newsTitle}
           >
             <Typography className={classes.title}>{data?.title}</Typography>
@@ -174,7 +176,7 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
           </Grid>
           <Grid
             item
-            lg={5}
+            lg={6}
             md={12}
             className={classes.newsInfo}
           >

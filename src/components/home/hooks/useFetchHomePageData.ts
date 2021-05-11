@@ -8,7 +8,7 @@ export const useFetchHomePageData = () => {
   const { setData, failFetch, startFetch } = homeSlice.actions;
   const { fetchHome } = homeAPI;
 
-  const fetch = useCallback((topic_id?: number) => {
+  const fetch = useCallback((page?: number, topic_id?: any) => {
     dispatch(startFetch());
     dispatch(fetchHome({
       onSuccess: (response) => {
@@ -16,7 +16,8 @@ export const useFetchHomePageData = () => {
         dispatch(setData(response));
       },
       payload: {
-        topic_id
+        topic_id,
+        page
       },
       onError: (errorResponse) => {
         dispatch(failFetch());

@@ -9,7 +9,7 @@ import { AuthorI, MediaI } from '../../../slices/homeSlice';
 const useStyles = makeStyles((theme) => ({
   bigCardContainer: {
     maxWidth: '250px',
-    minWidth: '180px',
+    minWidth: '250px',
     minHeight: 450,
     maxHeight: 450,
     background: '#F3F3F3',
