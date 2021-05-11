@@ -3,7 +3,7 @@ import { Box, makeStyles, Container, Typography, Grid, Button } from '@material-
 import { NewsI } from '../../slices/SingleNewsSlice';
 import CardSmall from '../home/News/CardSmall';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   list: {
     marginBottom: 55
   },
@@ -13,21 +13,34 @@ const useStyles = makeStyles(() => ({
     fontWeight: 300,
     fontFamily: 'Helvetica',
     color: '#7a7a7a',
-    padding: 0
+    padding: 0,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '20px'
+    },
   },
   headingContainer: {
     marginBottom: '20px',
     paddingBottom: '20px',
-    borderBottom: '1px solid #e5e5e5'
+    borderBottom: '1px solid #e5e5e5',
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: '15px',
+      paddingBottom: '15px',
+    },
   },
   newsContainer: {
-    marginBottom: '100px'
+    marginBottom: '100px',
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: '50px',
+    },
   },
   buttonText: {
     color: '#363557',
     fontSize: '20px',
     textDecoration: 'underline',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: '12px',
+    },
   }
 }));
 

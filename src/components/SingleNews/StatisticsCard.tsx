@@ -8,7 +8,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import { likes, frames } from '../../icons/pictures/picturesExports/picturesExport';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   card: {
     backgroundColor: '#ededed',
     display: 'flex',
@@ -18,13 +18,21 @@ const useStyles = makeStyles(() => ({
     borderRadius: '10px',
     padding: '0 20px 0 0',
     marginBottom: '17px',
-    alignItems: 'center'
+    alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '320px',
+    }
   },
   image: {
     position: 'relative',
     width: 88,
     height: 88,
-    marginRight: 25
+    marginRight: 25,
+    [theme.breakpoints.down('sm')]: {
+      width: 55,
+      height: 55,
+      marginRight: 16,
+    }
   },
   frame: {
     position: 'absolute',
@@ -34,6 +42,10 @@ const useStyles = makeStyles(() => ({
     right: 0,
     width: 88,
     height: 88,
+    [theme.breakpoints.down('sm')]: {
+      width: 55,
+      height: 55,
+    }
   },
   photo: {
     position: 'absolute',
@@ -46,21 +58,36 @@ const useStyles = makeStyles(() => ({
     objectFit: 'cover',
     zIndex: 3,
     borderRadius: '50%',
-    background: 'white'
+    background: 'white',
+    [theme.breakpoints.down('sm')]: {
+      width: 55,
+      height: 55,
+    }
   },
   name: {
     maxWidth: '180px',
-    marginRight: 20
+    marginRight: 20,
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '120px',
+      marginRight: 10,
+    }
   },
   title: {
     fontSize: '18px',
     color: '#222',
     fontFamily: 'Helvetica',
-    fontWeight: 300
+    fontWeight: 300,
+    padding: 0,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '12px',
+    }
   },
   likeButtons: {
     display: 'flex',
-    marginRight: 20
+    marginRight: 20,
+    [theme.breakpoints.down('sm')]: {
+      marginRight: 15,
+    }
   },
   likeButton: {
     padding: 0,
@@ -69,11 +96,19 @@ const useStyles = makeStyles(() => ({
   likeButtonIcon: {
     width: 50,
     height: 50,
+    [theme.breakpoints.down('sm')]: {
+      width: 30,
+      height: 30,
+    }
   },
   percent: {
     fontFamily: 'Helvetica',
     fontSize: 20,
-    fontWeight: 300
+    fontWeight: 300,
+    padding: 0,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 12,
+    }
   }
 }));
 

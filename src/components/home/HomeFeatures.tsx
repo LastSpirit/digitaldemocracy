@@ -1,13 +1,14 @@
 import type { FC } from 'react';
 import React from 'react';
-import { Box, Container, Grid, Hidden, makeStyles, Typography, Button } from '@material-ui/core';
+import { Box, Container, Grid, makeStyles, Typography, Button } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import ListSidebar from './News/ListSidebar';
 import { APIStatus } from '../../lib/axiosAPI';
 import { homeSelector, NewsI, NewsTopicsI } from '../../slices/homeSlice';
 import CardSmall from './News/CardSmall';
-// import TopicsSlider from './News/TopicsSlider';
+import TopicsSlider from './News/TopicsSlider';
 import { useFetchHomePageData } from './hooks/useFetchHomePageData';
+import { useWindowSize } from '../../hooks/useWindowSize';
 
 const useStyles = makeStyles((theme) => ({
   actualNews: {
@@ -62,6 +63,7 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
   const classes = useStyles();
   const { fetch } = useFetchHomePageData();
   const page = useSelector(homeSelector.getPage());
+  const { isMobile } = useWindowSize();
   const handleGetMorePages = () => {
     fetch(page + 1);
   };
@@ -72,23 +74,34 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
         <>Loading</>
       ) : (
         <Container maxWidth="lg">
-          <Box style={{ display: 'flex' }}>
-            <Hidden mdDown>
-              <Box
-                sx={{
-                  marginRight: '60px',
-                  maxWidth: '270px'
-                }}
-              >
-                <ListSidebar newsTopics={newsTopics} />
-              </Box>
-            </Hidden>
 
-            {/* <Hidden mdUp> */}
-            {/*  <Box> */}
-            {/*    <TopicsSlider newsTopics={newsTopics} /> */}
-            {/*  </Box> */}
-            {/* </Hidden> */}
+          {isMobile ? (
+            <Box sx={{
+              maxWidth: '80%',
+              marginBottom: '30px',
+              marginTop: '40px',
+              margin: '35px auto'
+            }}
+            >
+              <TopicsSlider newsTopics={newsTopics} />
+            </Box>
+          )
+            : null}
+          <Box style={{ display: 'flex' }}>
+            {
+
+            !isMobile
+              ? (
+                <Box
+                  sx={{
+                    marginRight: '60px',
+                    maxWidth: '270px'
+                  }}
+                >
+                  <ListSidebar newsTopics={newsTopics} />
+                </Box>
+              ) : null
+            }
 
             <Box className={classes.news}>
               <Typography
@@ -98,30 +111,36 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
               >
                 Актуальные новости
               </Typography>
-              <Grid
-                container
-                spacing={2}
-                justifyContent="center"
-                sx={{
-                  maxWidth: '900px',
-                  justifyContent: 'flex-start'
-                }}
-              >
-                {news?.map((item, index) => (
-                  <Grid
-                    key={index.toString()}
-                    item
-                    md={4}
-                    sm={6}
-                    xs={12}
-                  >
-                    <CardSmall
-                      {...item}
-
-                    />
-                  </Grid>
-                ))}
-              </Grid>
+              {news && news.length > 0 ? (
+                <Grid
+                  container
+                  spacing={2}
+                  justifyContent="center"
+                  sx={{
+                    maxWidth: '900px',
+                    justifyContent: 'flex-start'
+                  }}
+                >
+                  {news?.map((item, index) => (
+                    <Grid
+                      key={index.toString()}
+                      item
+                      md={4}
+                      sm={6}
+                      xs={12}
+                    >
+                      <CardSmall
+                        {...item}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+              )
+                : (
+                  <Box>
+                    На данный момент новостей нет
+                  </Box>
+                )}
               <Box className={classes.content}>
                 {isMorePages ? (
                   <Button>

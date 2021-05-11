@@ -1,0 +1,114 @@
+.textBeforeCarousel {
+    display: flex;
+    justify-content: space-between;
+    margin: 147px 40px 68px 40px;
+}
+.imageFrame {
+    position: relative;
+    height: 208px;
+}
+.buttonStyle {
+    background-color: white;
+    border: 1px solid #363557;
+    padding: 26px 70px;
+    font-size: 30px;
+    border-radius: 150px;
+    margin: auto;
+    white-space: nowrap;
+    display: flex;
+}
+.slick-track {
+    display: flex;
+    align-items: center;
+}
+.slick-slide,
+.slick-active {
+    /*margin-right: 20px;*/
+    /*min-width: 210px !important;*/
+}
+
+
+.customText {
+    color: #222222;
+    font-size: 18px;
+    text-align: left;
+    white-space: nowrap;
+}
+@media (max-width: 872px) {
+    .buttonStyle {
+        padding: 4% 5%;
+        font-size: 4vw;
+    }
+    .allStyle {
+        padding: 2% 2%;
+        font-size: 4vw;
+    }
+    .textBeforeCarousel {
+        margin: 37px 34px 56px 33px;
+    }
+    .textBeforeCarousel p {
+        font-size: 4vw;
+    }
+
+    .slick-slide {
+        /*width: 100px !important;*/
+    }
+
+    .carouselImage {
+        height: 210px;
+        width: 210px;
+    }
+    .carouselImage2 {
+        height: 210px;
+        width: 210px;
+    }
+    .customText {
+        /*margin-top: -39px;*/
+        font-size: 12px;
+    }
+    .persentage {
+        font-size: 25px;
+    }
+    .imageFrame {
+        height: 161px;
+    }
+}
+@media (max-width: 361px) {
+    .buttonStyle {
+        padding: 2% 2%;
+        font-size: 3vw;
+    }
+    /*.slick-prev {*/
+    /*  display: none !important;*/
+    /*}*/
+    /*.slick-next {*/
+    /*  display: none !important;*/
+    /*}*/
+    /*.makeStyles-carouselContainer-2 {*/
+    /*  margin-left: 10px !important;*/
+    /*}*/
+    /*.slick-list {*/
+    /*  margin-left: -14px !important;*/
+    /*}*/
+}
+
+/* slick-arrow slick-prev */
+
+.slick-prev {
+    position: absolute;
+    top: 0px !important;
+    left: -70px !important;
+}
+.slick-next {
+    position: absolute;
+    top: 0px !important;
+    right: -31px !important;
+}
+.slick-prev::before {
+    content: url("../../../icons/pictures/prev.png") !important;
+    display: flex;
+    align-items: center;
+}
+.slick-next::before {
+    content: url("../../../icons/pictures/next.png") !important;
+}
