@@ -1,14 +1,14 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { homeAPI } from '../../../api/homeAPI';
 import { homeSlice } from '../../../slices/homeSlice';
 
-export const useFetchHomePageData = (topic_id) => {
+export const useFetchHomePageData = () => {
   const dispatch = useDispatch();
   const { setData, failFetch, startFetch } = homeSlice.actions;
   const { fetchHome } = homeAPI;
 
-  const fetch = useCallback(() => {
+  const fetch = useCallback((topic_id?: number) => {
     dispatch(startFetch());
     dispatch(fetchHome({
       onSuccess: (response) => {
@@ -26,7 +26,5 @@ export const useFetchHomePageData = (topic_id) => {
     }));
   }, []);
 
-  useEffect(() => {
-    fetch();
-  }, []);
+  return { fetch };
 };

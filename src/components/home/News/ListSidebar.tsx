@@ -20,10 +20,10 @@ interface SidebarPropsI {
 
 const ListSidebar: FC<SidebarPropsI> = ({ newsTopics }) => {
   const classes = useStyles();
+  const { fetch } = useFetchHomePageData();
   const handleNewsTopics = (id) => {
-    useFetchHomePageData(id);
+    fetch(id);
   };
-  console.log(newsTopics);
   return (
     <Box sx={{ maxWidth: '270px' }}>
       <Typography className={classes.listTitle}>Темы</Typography>
@@ -31,7 +31,7 @@ const ListSidebar: FC<SidebarPropsI> = ({ newsTopics }) => {
         className={classes.lineStyle}
         sx={{ maxWidth: '270px' }}
       >
-        {newsTopics.map((item) => (
+        {newsTopics?.map((item) => (
           <Box
             key={item.id}
             onClick={() => handleNewsTopics(item.id)}

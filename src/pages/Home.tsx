@@ -15,7 +15,10 @@ const Home: FC = () => {
     gtm.push({ event: 'page_view' });
   }, []);
 
-  useFetchHomePageData('');
+  const { fetch } = useFetchHomePageData();
+  useEffect(() => {
+    fetch();
+  }, []);
   const data = useSelector(homeSelector.getData());
   const status = useSelector(homeSelector.getStatus());
 
