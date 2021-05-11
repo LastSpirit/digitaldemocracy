@@ -1,11 +1,12 @@
 import type { FC } from 'react';
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Container, Grid, Hidden, makeStyles, Typography, Button } from '@material-ui/core';
 import ListSidebar from './News/ListSidebar';
 import { APIStatus } from '../../lib/axiosAPI';
 import { NewsI, NewsTopicsI } from '../../slices/homeSlice';
 import CardSmall from './News/CardSmall';
 // import TopicsSlider from './News/TopicsSlider';
+import { useFetchHomePageData } from './hooks/useFetchHomePageData';
 
 const useStyles = makeStyles((theme) => ({
   actualNews: {
@@ -19,6 +20,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     paddingTop: '30px',
     justifyContent: 'center',
+    width: '100%',
+    alignItems: 'flex-start'
   },
   content: {
     display: 'flex',
@@ -26,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '38px 0',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
+    width: '100%',
 
     [theme.breakpoints.down('sm')]: {
       justifyContent: 'center',
@@ -55,6 +59,12 @@ interface HomeFeaturesPropsI {
 
 const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMorePages }) => {
   const classes = useStyles();
+  const [offset, setOffset] = useState(2);
+  const { fetch } = useFetchHomePageData();
+  const handleGetMorePages = (offsetNumber: number) => {
+    fetch(offsetNumber, '');
+    setOffset(offsetNumber + 1);
+  };
 
   return (
     <Box>
@@ -90,11 +100,11 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
               </Typography>
               <Grid
                 container
-                spacing={1}
+                spacing={2}
                 justifyContent="center"
                 sx={{
                   maxWidth: '900px',
-                  justifyContent: 'center'
+                  justifyContent: 'flex-start'
                 }}
               >
                 {news?.map((item, index) => (
@@ -120,6 +130,7 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                       sx={{
                         textDecoration: 'underline'
                       }}
+                      onClick={() => handleGetMorePages(offset)}
                     >
                       Показать больше
                     </Typography>

@@ -17,7 +17,7 @@ const Home: FC = () => {
 
   const { fetch } = useFetchHomePageData();
   useEffect(() => {
-    fetch();
+    fetch(1, '');
   }, []);
   const data = useSelector(homeSelector.getData());
   const status = useSelector(homeSelector.getStatus());

@@ -22,7 +22,7 @@ const ListSidebar: FC<SidebarPropsI> = ({ newsTopics }) => {
   const classes = useStyles();
   const { fetch } = useFetchHomePageData();
   const handleNewsTopics = (id) => {
-    fetch(id);
+    fetch(1, id);
   };
   return (
     <Box sx={{ maxWidth: '270px' }}>
