@@ -29,17 +29,16 @@ import { frames } from '../../../icons/pictures/picturesExports/picturesExport';
 //   );
 // }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   custom: {
-    border: 'none',
-    boxShadow: 'none',
     cursor: 'default',
     maxWidth: 210,
     width: 210,
     minHeight: 250,
     display: 'flex',
     justifyContent: 'space-between',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    border: 'none'
   },
 
   carouselContainer: {
@@ -53,7 +52,8 @@ const useStyles = makeStyles({
     left: 0,
     right: 0,
     width: 210,
-    height: 210
+    height: 210,
+
   },
   img: {
     position: 'absolute',
@@ -70,10 +70,16 @@ const useStyles = makeStyles({
   imgContainer: {
     position: 'relative',
     height: 210,
-    marginBottom: 20
+    marginBottom: 20,
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: 10,
+    }
   },
   caption: {
-    marginBottom: 25
+    marginBottom: 25,
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: 15,
+    }
   },
   name: {
     fontSize: 18,
@@ -88,7 +94,7 @@ const useStyles = makeStyles({
     fontFamily: 'Helvetica'
   },
 
-});
+}));
 export default function CustomArrows({ data }) {
   const classes = useStyles();
   // const settings = {

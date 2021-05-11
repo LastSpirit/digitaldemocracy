@@ -14,9 +14,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#e5e5e5',
     borderRadius: '20px',
     padding: '10px 20px 10px 30px',
-    marginBottom: '20px'
+    marginBottom: '20px',
+    boxSizing: 'border-box',
+    [theme.breakpoints.down('sm')]: {
+      minWidth: '300px',
+      maxWidth: '100%'
+    }
     // display: 'flex'
   },
+
   newsTitle: {
     width: '60%',
     borderRight: '1px solid #b0b0b0',
@@ -36,8 +42,12 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '20px',
     fontFamily: 'Helvetica',
     [theme.breakpoints.down('md')]: {
-      maxWidth: '400px'
-    }
+      maxWidth: '400px',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '24px',
+      lineHeight: '30px',
+    },
   },
   newsLinks: {
     display: 'flex'
@@ -53,14 +63,21 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '30px',
     textAlign: 'center',
     height: '30px',
-    marginBottom: '7px'
+    marginBottom: '7px',
+    [theme.breakpoints.down('sm')]: {
+      height: '20px',
+      padding: '5px 12px'
+    },
   },
   hashtagContain: {
     fontWeight: 300,
     fontSize: 18,
     fontFamily: 'Helvetica',
     color: '#b0b0b0',
-    padding: 0
+    padding: 0,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '12px'
+    },
   },
   arrows: {
     display: 'flex',
@@ -78,31 +95,48 @@ const useStyles = makeStyles((theme) => ({
       padding: 0,
       width: '100%',
       marginTop: 20
-    }
-    // width: '45%'
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '20px',
+      padding: '11px 15px',
+      minWidth: 'unset'
+    },
   },
   newsAuthor: {
     fontSize: 25,
     display: 'flex',
     justifyContent: 'space-between',
-    width: '100%'
+    width: '100%',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '12px'
+    },
   },
   date: {
-    fontSize: 25
+    fontSize: 25,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '12px'
+    },
   },
   newsSubject: {
     fontSize: 25,
-    display: 'flex'
+    display: 'flex',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '12px'
+    },
   },
   arrowGrey: {
     color: '#7a7a7a',
     height: '50px',
     width: '50px',
-    marginRight: '10px'
+    marginRight: '10px',
+    [theme.breakpoints.down('sm')]: {
+      width: '30px',
+      height: '30px'
+    },
   },
   arrowLink: {
-    height: '22px',
-    width: '22px',
+    height: '17px',
+    width: '17px',
     color: '#fff',
     borderRadius: '50%',
     border: '2px solid #fff',
@@ -114,7 +148,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#363557',
     width: '50px',
     height: '50px',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    [theme.breakpoints.down('sm')]: {
+      width: '35px',
+      height: '35px'
+    },
   },
   iframe: {
     width: '100%',

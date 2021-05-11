@@ -8,8 +8,8 @@ import { AuthorI, MediaI } from '../../../slices/homeSlice';
 
 const useStyles = makeStyles((theme) => ({
   bigCardContainer: {
-    maxWidth: '250px',
-    minWidth: '250px',
+    maxWidth: '240px',
+    minWidth: '180px',
     minHeight: 450,
     maxHeight: 450,
     background: '#F3F3F3',
@@ -20,22 +20,30 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     boxSizing: 'border-box',
     margin: '0 auto',
+
     [theme.breakpoints.down('md')]: {
       maxWidth: '300px'
     },
     [theme.breakpoints.down('sm')]: {
       maxWidth: '100%',
-      minHeight: '150px'
+      minHeight: '150px',
+      maxHeight: '400px'
     }
   },
   bigHeader: {
     display: 'flex',
     flexFlow: 'column',
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: '15px'
+    }
   },
   cardContent: {
     fontSize: 18,
     marginBottom: 14,
     fontWeight: 400,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 12,
+    }
   },
   cardNames: {
     fontSize: 18,
@@ -43,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     display: 'flex',
     textDecoration: 'underline',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 12,
+    }
   },
 
   imgSize: {
@@ -76,7 +87,14 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '180px',
     objectFit: 'cover',
     borderRadius: '20px',
-    margin: '0 auto'
+    margin: '0 auto',
+  },
+  bigTitle: {
+    fontSize: 18,
+    lineHeight: '25px',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 16,
+    }
   }
 }));
 
@@ -124,7 +142,7 @@ const CardSmall: FC<CardSmallProps> = ({ media, author, number_of_views, publica
           <Box
             className={classes.cardContent}
           >
-            <Typography style={{ fontSize: 18, lineHeight: '25px', textOverflow: 'ellipsis' }}>{title}</Typography>
+            <Typography className={classes.bigTitle}>{title}</Typography>
 
           </Box>
           <Box className={classes.cardNames}>

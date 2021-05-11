@@ -6,7 +6,11 @@ import { AuthorI, MediaI, PoliticiansI } from '../../slices/SingleNewsSlice';
 const useStyles = makeStyles((theme) => ({
   statistics: {
     paddingBottom: 50,
-    marginBottom: 55
+    marginBottom: 55,
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: '35px',
+      paddingBottom: '30px',
+    }
   },
   statisticsContainer: {
     width: '100%',
@@ -29,7 +33,11 @@ const useStyles = makeStyles((theme) => ({
   headings: {
     marginBottom: '20px',
     paddingBottom: '20px',
-    borderBottom: '1px solid #e5e5e5'
+    borderBottom: '1px solid #e5e5e5',
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: '15px',
+      paddingBottom: '15px',
+    },
   },
   heading: {
     fontSize: '30px',
@@ -37,7 +45,10 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 300,
     fontFamily: 'Helvetica',
     color: '#7a7a7a',
-    padding: 0
+    padding: 0,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '20px'
+    },
   }
 }));
 
