@@ -2,9 +2,10 @@ import './HomeSlider.css';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { Box, Card, Hidden, Typography, CardActionArea, CardActions } from '@material-ui/core';
+import { Box, Card, Typography, CardActionArea, CardActions } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { frames } from '../../../icons/pictures/picturesExports/picturesExport';
+import { useWindowSize } from '../../../hooks/useWindowSize';
 // import { slideData } from './SlideData';
 
 // function SampleNextArrow(props) {
@@ -155,6 +156,7 @@ export default function CustomArrows({ data }) {
       },
     ],
   };
+  const { isMobile } = useWindowSize();
   return (
     <div className={classes.carouselContainer}>
       <Slider {...settings}>
@@ -189,10 +191,10 @@ export default function CustomArrows({ data }) {
           </Card>
         ))}
       </Slider>
-      <Hidden smUp>
-        {/* eslint-disable-next-line react/button-has-type */}
+      {!isMobile && (
+      // eslint-disable-next-line react/button-has-type
         <button className="buttonStyle">Весь рейтинг</button>
-      </Hidden>
+      )}
     </div>
   );
 }

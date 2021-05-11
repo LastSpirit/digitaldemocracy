@@ -7,7 +7,6 @@ import {
   Link,
   Toolbar,
   Typography,
-  Hidden,
   Container
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
@@ -122,33 +121,32 @@ const MainNavbar: FC = () => {
                   marginLeft: 17,
                 }}
                 >
-                  <Hidden lgDown>
-                    <Box style={{ width: '210px' }}>
-                      <InputTextField icon={<Search />} />
-                    </Box>
-                  </Hidden>
+                  {!isMobile && (
+                  <Box style={{ width: '210px' }}>
+                    <InputTextField icon={<Search />} />
+                  </Box>
+                  )}
                 </Box>
               </Box>
-              <Hidden mdDown>
-                <Box>
-                  {links.map(({ title, mr, to }, index) => (
-                    <Link
-                      key={index.toString()}
-                      to={to}
-                      color="textSecondary"
-                      component={RouterLink}
-                      underline="none"
-                      variant="body1"
-                      sx={{
-                        marginRight: mr,
-                      }}
-                    >
-                      {title}
-                    </Link>
-                  ))}
-                </Box>
-              </Hidden>
-
+              {!isMobile && (
+              <Box>
+                {links.map(({ title, mr, to }, index) => (
+                  <Link
+                    key={index.toString()}
+                    to={to}
+                    color="textSecondary"
+                    component={RouterLink}
+                    underline="none"
+                    variant="body1"
+                    sx={{
+                      marginRight: mr,
+                    }}
+                  >
+                    {title}
+                  </Link>
+                ))}
+              </Box>
+              )}
               <Box
                 sx={{
                   backgroundColor: 'background.paper',
