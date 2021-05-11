@@ -243,7 +243,7 @@ const Footer: FC = (props) => {
                   color: '#222222',
                 }}
               >
-                Помочь&ensp;площадке
+                О&ensp;площадке
               </Button>
             </Grid>
           </Grid>
