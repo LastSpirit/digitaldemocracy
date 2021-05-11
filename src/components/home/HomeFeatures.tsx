@@ -5,6 +5,7 @@ import ListSidebar from './News/ListSidebar';
 import { APIStatus } from '../../lib/axiosAPI';
 import { NewsI, NewsTopicsI } from '../../slices/homeSlice';
 import CardSmall from './News/CardSmall';
+// import TopicsSlider from './News/TopicsSlider';
 
 const useStyles = makeStyles((theme) => ({
   actualNews: {
@@ -72,6 +73,12 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                 <ListSidebar newsTopics={newsTopics} />
               </Box>
             </Hidden>
+
+            {/* <Hidden mdUp> */}
+            {/*  <Box> */}
+            {/*    <TopicsSlider newsTopics={newsTopics} /> */}
+            {/*  </Box> */}
+            {/* </Hidden> */}
 
             <Box className={classes.news}>
               <Typography

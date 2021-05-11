@@ -45,7 +45,8 @@ const useStyles = makeStyles(() => ({
     height: '88px',
     objectFit: 'cover',
     zIndex: 3,
-    borderRadius: '50%'
+    borderRadius: '50%',
+    background: 'white'
   },
   name: {
     maxWidth: '180px',
