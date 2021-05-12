@@ -5,7 +5,7 @@ import { useFetchHomePageData } from '../hooks/useFetchHomePageData';
 
 const useStyles = makeStyles(() => ({
   listTitle: {
-    fontSize: 50,
+    fontSize: 40,
     paddingLeft: 20,
     fontWeight: 400,
   },
@@ -49,7 +49,8 @@ const ListSidebar: FC<SidebarPropsI> = ({ newsTopics }) => {
             >
               <ListItemText
                 primary={item.title}
-                sx={{ maxWidth: '250px' }}
+                sx={{ maxWidth: '250px',
+                  fontSize: 14 }}
               />
             </ListItem>
             <Divider component="li" />

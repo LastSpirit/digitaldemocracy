@@ -39,7 +39,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'column',
-    border: 'none'
+    border: 'none',
+    marginBottom: 50,
+    [theme.breakpoints.down('sm')]: {
+      minHeight: 200,
+    }
   },
 
   carouselContainer: {
@@ -77,22 +81,28 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   caption: {
-    marginBottom: 25,
+    marginBottom: 15,
+    padding: '0px 15px',
+    minHeight: 50,
     [theme.breakpoints.down('sm')]: {
-      marginBottom: 15,
+      marginBottom: 10,
     }
   },
   name: {
-    fontSize: 18,
+    fontSize: 14,
     fontFamily: 'Helvetica',
-    maxWidth: 200
-  },
-  percentContainer: {
-    marginBottom: 10
+    maxWidth: 200,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 12
+    }
   },
   percent: {
-    fontSize: 25,
-    fontFamily: 'Helvetica'
+    fontSize: 14,
+    fontFamily: 'Helvetica',
+    fontWeight: 700,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 12
+    }
   },
 
 }));
@@ -183,7 +193,7 @@ export default function CustomArrows({ data }) {
               <Box className={classes.caption}>
                 <Typography className={classes.name}>{item.name}</Typography>
               </Box>
-              <Box className={classes.percentContainer}>
+              <Box>
                 <Typography className={classes.percent}>{item.percent}</Typography>
               </Box>
             </CardActionArea>
@@ -191,10 +201,10 @@ export default function CustomArrows({ data }) {
           </Card>
         ))}
       </Slider>
-      {!isMobile && (
+      {isMobile ? (
       // eslint-disable-next-line react/button-has-type
         <button className="buttonStyle">Весь рейтинг</button>
-      )}
+      ) : null}
     </div>
   );
 }
