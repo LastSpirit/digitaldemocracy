@@ -1,18 +1,35 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { homeAPI } from '../../../api/homeAPI';
 import { homeSlice } from '../../../slices/homeSlice';
+import { APIStatus } from '../../../lib/axiosAPI';
 
 export const useFetchHomePageData = () => {
   const dispatch = useDispatch();
-  const { setData, failFetch, startFetch, setNews } = homeSlice.actions;
+  const { setData, addNews, setNews } = homeSlice.actions;
   const { fetchHome } = homeAPI;
+  const [fetchNewsStatus, setFetchNewsStatus] = useState<APIStatus>(APIStatus.Initial);
+  const [fetchDataStatus, setFetchDataStatus] = useState<APIStatus>(APIStatus.Initial);
 
-  const fetch = useCallback((page?: number, topic_id?: any) => {
-    const action = !page || page === 1 ? setData : setNews;
-    dispatch(startFetch());
+  const setStatus = (fetchOnlyNews: boolean, status: APIStatus) => {
+    if (fetchOnlyNews) {
+      setFetchNewsStatus(status);
+    } else setFetchDataStatus(status);
+  };
+
+  const fetch = useCallback((page?: number, topic_id?: any, fetchOnlyNews?: boolean) => {
+    let action;
+    if (topic_id) {
+      action = setNews;
+    } else if (fetchOnlyNews) {
+      action = addNews;
+    } else {
+      action = setData;
+    }
+    setStatus(fetchOnlyNews, APIStatus.Loading);
     dispatch(fetchHome({
       onSuccess: (response) => {
+        setStatus(fetchOnlyNews, APIStatus.Success);
         dispatch(action({ ...response, page }));
       },
       payload: {
@@ -20,12 +37,12 @@ export const useFetchHomePageData = () => {
         page
       },
       onError: (errorResponse) => {
-        dispatch(failFetch());
+        setStatus(fetchOnlyNews, APIStatus.Failure);
         console.log(errorResponse);
       }
 
     }));
-  }, []);
+  }, [fetchNewsStatus, fetchDataStatus]);
 
-  return { fetch };
+  return { fetch, fetchNewsStatus, fetchDataStatus };
 };

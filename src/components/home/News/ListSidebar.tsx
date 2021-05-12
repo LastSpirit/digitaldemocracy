@@ -21,9 +21,12 @@ interface SidebarPropsI {
 const ListSidebar: FC<SidebarPropsI> = ({ newsTopics }) => {
   const classes = useStyles();
   const { fetch } = useFetchHomePageData();
+
   const handleNewsTopics = (id) => {
-    fetch(1, id);
+    console.log('ListSidebar');
+    fetch(1, id, true);
   };
+
   return (
     <Box sx={{ maxWidth: '270px' }}>
       <Typography className={classes.listTitle}>Темы</Typography>

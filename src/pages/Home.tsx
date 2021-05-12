@@ -15,12 +15,12 @@ const Home: FC = () => {
     gtm.push({ event: 'page_view' });
   }, []);
 
-  const { fetch } = useFetchHomePageData();
+  const { fetch, fetchDataStatus, fetchNewsStatus } = useFetchHomePageData();
   useEffect(() => {
+    console.log('Home');
     fetch();
   }, []);
   const data = useSelector(homeSelector.getData());
-  const status = useSelector(homeSelector.getStatus());
 
   return (
     <>
@@ -28,7 +28,7 @@ const Home: FC = () => {
         <title>Digital Democracy | Dev</title>
       </Helmet>
       <div>
-        {status === APIStatus.Loading
+        {fetchDataStatus === APIStatus.Loading
           ? (
             <Container
               maxWidth="lg"
@@ -49,7 +49,7 @@ const Home: FC = () => {
               <HomeFeatures
                 newsTopics={data?.newsTopics}
                 news={data?.news}
-                status={status}
+                status={fetchNewsStatus}
                 isMorePages={data?.isMorePages}
               />
             </>

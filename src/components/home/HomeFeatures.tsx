@@ -9,6 +9,7 @@ import CardSmall from './News/CardSmall';
 import TopicsSlider from './News/TopicsSlider';
 import { useFetchHomePageData } from './hooks/useFetchHomePageData';
 import { useWindowSize } from '../../hooks/useWindowSize';
+import { Loading } from '../Loading/Loading';
 
 const useStyles = makeStyles((theme) => ({
   actualNews: {
@@ -65,13 +66,14 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
   const page = useSelector(homeSelector.getPage());
   const { isMobile } = useWindowSize();
   const handleGetMorePages = () => {
-    fetch(page + 1);
+    console.log('HomeFeatures');
+    fetch(page + 1, undefined, true);
   };
 
   return (
     <Box>
       {status === APIStatus.Loading ? (
-        <>Loading</>
+        <Loading />
       ) : (
         <Container maxWidth="lg">
 

@@ -31,6 +31,7 @@ const useStyles = makeStyles({
 export default function TopicsSlider({ newsTopics }) {
   const { fetch } = useFetchHomePageData();
   const handleNewsTopics = (id) => {
+    console.log('TopicsSlider');
     fetch(1, id);
   };
   const classes = useStyles();
