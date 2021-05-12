@@ -8,10 +8,10 @@ import { AuthorI, MediaI } from '../../../slices/homeSlice';
 
 const useStyles = makeStyles((theme) => ({
   bigCardContainer: {
-    maxWidth: '240px',
+    // maxWidth: '240px',
     minWidth: '180px',
-    minHeight: 450,
-    maxHeight: 450,
+    minHeight: 420,
+    maxHeight: 420,
     background: '#F3F3F3',
     borderRadius: 20,
     marginTop: 16,
@@ -27,26 +27,29 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       maxWidth: '100%',
       minHeight: '150px',
-      maxHeight: '400px'
+      maxHeight: '370px'
     }
   },
   bigHeader: {
     display: 'flex',
     flexFlow: 'column',
+    marginBottom: '10px',
     [theme.breakpoints.down('sm')]: {
       marginBottom: '15px'
     }
   },
   cardContent: {
-    fontSize: 18,
-    marginBottom: 14,
-    fontWeight: 400,
+    fontSize: 14,
+    marginBottom: 5,
+    fontWeight: 500,
+    lineHeight: '18px',
+    fontFamily: 'Helvetica',
     [theme.breakpoints.down('sm')]: {
       fontSize: 12,
     }
   },
   cardNames: {
-    fontSize: 18,
+    fontSize: 14,
     color: '#747373',
     justifyContent: 'space-between',
     display: 'flex',
@@ -69,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    minHeight: '380px',
+    minHeight: '300px',
     marginBottom: '15px',
     [theme.breakpoints.down('sm')]: {
       minHeight: 'unset'
@@ -90,10 +93,10 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 auto',
   },
   bigTitle: {
-    fontSize: 18,
-    lineHeight: '25px',
+    fontSize: '14px',
+    lineHeight: '20px',
     [theme.breakpoints.down('sm')]: {
-      fontSize: 16,
+      fontSize: '12px',
     }
   }
 }));
@@ -116,25 +119,53 @@ const CardSmall: FC<CardSmallProps> = ({ media, author, number_of_views, publica
     <Box onClick={() => history.push(`singleNews/${short_link}`)}>
       <Box className={classes.bigCardContainer}>
         <Box className={classes.mainHeader}>
-          <Typography>{publication_date || ''}</Typography>
+          <Typography sx={{
+            fontSize: '14px',
+            sm: {
+              fontSize: '12px'
+            }
+          }}
+          >
+            {publication_date || ''}
+          </Typography>
           <Box className={classes.bigHeader}>
-            <Box>
+            <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
               <img
                 className={classes.imgSize}
                 src={watched}
                 alt="/"
               />
               {' '}
-              {number_of_views || ''}
+              <Typography sx={{
+                fontSize: '14px',
+                marginLeft: '7px',
+                sm: {
+                  fontSize: '12px'
+                }
+              }}
+              >
+                {number_of_views || ''}
+              </Typography>
+
             </Box>
-            <Box>
+            <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
               <img
                 className={classes.imgSize}
                 src={logo}
                 alt="/"
               />
               {' '}
-              {votes}
+              <Typography sx={{
+                fontSize: '14px',
+                marginLeft: '7px',
+                sm: {
+                  fontSize: '12px'
+                }
+              }}
+              >
+                {votes}
+              </Typography>
+
             </Box>
           </Box>
         </Box>
@@ -146,8 +177,8 @@ const CardSmall: FC<CardSmallProps> = ({ media, author, number_of_views, publica
 
           </Box>
           <Box className={classes.cardNames}>
-            <Typography>{author?.title}</Typography>
-            <Typography>{media?.name}</Typography>
+            <Typography sx={{ fontSize: '14px', padding: 0, sm: { fontSize: 12 } }}>{author?.title}</Typography>
+            <Typography sx={{ fontSize: '14px', padding: 0, sm: { fontSize: 12 } }}>{media?.name}</Typography>
           </Box>
           <Box className={classes.imageContainer}>
             <img

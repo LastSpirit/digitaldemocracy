@@ -12,7 +12,7 @@ import { useWindowSize } from '../../hooks/useWindowSize';
 
 const useStyles = makeStyles((theme) => ({
   actualNews: {
-    fontSize: 35,
+    fontSize: 40,
     fontWeight: 300,
     color: '#222222',
     whiteSpace: 'nowrap',
@@ -20,10 +20,10 @@ const useStyles = makeStyles((theme) => ({
   news: {
     display: 'flex',
     flexDirection: 'column',
-    paddingTop: '30px',
     justifyContent: 'center',
     width: '100%',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    paddingTop: '5px',
   },
   content: {
     display: 'flex',
@@ -46,8 +46,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 300,
   },
   buttonText: {
-    color: '#363557',
-    fontSize: '20px',
+    fontSize: '14px',
     cursor: 'pointer'
   }
 }));
@@ -147,7 +146,8 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                     <Typography
                       className={classes.buttonText}
                       sx={{
-                        textDecoration: 'underline'
+                        textDecoration: 'underline',
+                        color: '#363557'
                       }}
                       onClick={handleGetMorePages}
                     >
@@ -159,9 +159,14 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                   <Typography
                     className={classes.buttonText}
                     sx={{
-                      padding: '15px 35px',
+                      padding: '8px 30px',
                       border: '1px solid #363557',
-                      borderRadius: '50px'
+                      borderRadius: '50px',
+                      background: '#363557',
+                      color: '#fff',
+                      textAlign: 'center',
+                      height: '40px',
+                      boxSizing: 'border-box'
                     }}
                   >
                     К разделу новостей

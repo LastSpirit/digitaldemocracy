@@ -1,21 +1,25 @@
 .textBeforeCarousel {
   display: flex;
   justify-content: space-between;
-  margin: 147px 40px 68px 40px;
+  margin: 50px auto;
 }
 .imageFrame {
   position: relative;
   height: 208px;
 }
 .buttonStyle {
-  background-color: white;
+  background-color: #363557;
   border: 1px solid #363557;
-  padding: 26px 70px;
-  font-size: 30px;
+  padding: 10px 30px;
+  font-size: 14px;
   border-radius: 150px;
   margin: auto;
   white-space: nowrap;
   display: flex;
+  /*margin-top: 30px;*/
+  height: 40px;
+  color: white;
+  box-sizing: border-box;
 }
 .slick-track {
   display: flex !important;
@@ -37,8 +41,8 @@
 }
 @media (max-width: 872px) {
   .buttonStyle {
-    padding: 4% 5%;
-    font-size: 4vw;
+    padding: 10px 30px;
+    font-size: 14px;
   }
   .allStyle {
     padding: 2% 2%;

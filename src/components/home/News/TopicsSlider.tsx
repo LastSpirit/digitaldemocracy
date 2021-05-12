@@ -6,7 +6,7 @@ import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useFetchHomePageData } from '../hooks/useFetchHomePageData';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   topic: {
     textAlign: 'center',
     width: '150px',
@@ -15,18 +15,23 @@ const useStyles = makeStyles({
   },
   topicText: {
     fontWeight: 400,
-    fontSize: 13,
-    padding: '4px 8px',
-    border: '1px solid #747373',
+    fontSize: 14,
+    padding: '8px 8px',
+    border: '1px solid #363557',
     borderRadius: '50px',
-    color: '#747373'
+    color: '#363557',
+    height: 40,
+    boxSizing: 'border-box',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 12,
+    }
   },
   carouselContainer: {
     width: '80%',
     margin: 'auto',
   },
 
-});
+}));
 
 export default function TopicsSlider({ newsTopics }) {
   const { fetch } = useFetchHomePageData();

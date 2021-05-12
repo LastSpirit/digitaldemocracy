@@ -18,6 +18,7 @@ const useStyles = makeStyles(() => createStyles({
       height: '100%',
       width: '100%',
       backgroundColor: 'white',
+      fontFamily: 'Helvetica'
     },
     '#root': {
       height: '100%',

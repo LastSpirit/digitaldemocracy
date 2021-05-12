@@ -19,7 +19,7 @@ const HomeSlider: FC<SliderPropsI> = ({ data }) => {
             ? (
               <>
                 {' '}
-                <Typography fontSize="50px">Открытый рейтинг политиков*</Typography>
+                <Typography fontSize="40px">Открытый рейтинг политиков*</Typography>
                 {/* eslint-disable-next-line react/button-has-type */}
                 <button className="buttonStyle">Весь рейтинг</button>
               </>

@@ -108,9 +108,10 @@ const MainNavbar: FC = () => {
                     </div>
                   </RouterLink>
                   <Typography
-                    sx={{ ml: 1.5 }}
+                    sx={{ ml: 1.5,
+                      fontSize: '14px' }}
                     color="textSecondary"
-                    variant="caption"
+                    // variant="caption"
                   >
                     Digital
                     <br />
@@ -137,9 +138,13 @@ const MainNavbar: FC = () => {
                     color="textSecondary"
                     component={RouterLink}
                     underline="none"
-                    variant="body1"
+                    // variant="body1"
                     sx={{
                       marginRight: mr,
+                      fontSize: 14,
+                      sm: {
+                        fontSize: 12
+                      }
                     }}
                   >
                     {title}
