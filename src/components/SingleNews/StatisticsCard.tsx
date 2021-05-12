@@ -66,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
   },
   name: {
     maxWidth: '180px',
+    width: '180px',
     marginRight: 20,
     [theme.breakpoints.down('sm')]: {
       maxWidth: '120px',
