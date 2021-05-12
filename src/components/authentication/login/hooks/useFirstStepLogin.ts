@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
-import firebase from 'firebase';
+import { useCallback, useState } from 'react';
 import { authAPI } from '../../../../api/authAPI';
 import { authActionCreators } from '../../../../slices/authSlice';
 import { useSendCodeFirebase } from '../../common/hooks/useSendCodeFirebase';
@@ -29,13 +28,6 @@ export const useFirstStepLogin = (setStepLogin?: (value: number) => void) => {
       payload: {
         email,
       }
-    });
-  }, []);
-
-  useEffect(() => {
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-      size: 'invisible',
-      callback: () => {}
     });
   }, []);
 
