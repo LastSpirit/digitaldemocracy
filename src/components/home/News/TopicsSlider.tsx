@@ -61,7 +61,7 @@ export default function TopicsSlider({ newsTopics }) {
   return (
     <div className={classes.carouselContainer}>
       <Slider {...settings}>
-        {newsTopics.map((item) => (
+        {newsTopics?.map((item) => (
           <Box
             className={classes.topic}
             onClick={() => handleNewsTopics(item.id)}
