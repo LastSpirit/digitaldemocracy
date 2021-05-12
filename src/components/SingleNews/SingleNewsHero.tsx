@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   newsContainer: {
     backgroundColor: '#e5e5e5',
     borderRadius: '20px',
-    padding: '10px 20px 10px 30px',
+    padding: '15px 20px 15px 30px',
     marginBottom: '20px',
     boxSizing: 'border-box',
     [theme.breakpoints.down('sm')]: {

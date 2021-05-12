@@ -65,7 +65,12 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
       <Container
         maxWidth="lg"
       >
-        <Typography className={classes.heading}>Ваше мнение по поводу новости</Typography>
+        <Typography
+          className={classes.heading}
+          sx={{ marginBottom: '15px' }}
+        >
+          Ваше мнение по поводу новости
+        </Typography>
         <Grid
           container
           className={classes.statisticsContainer}

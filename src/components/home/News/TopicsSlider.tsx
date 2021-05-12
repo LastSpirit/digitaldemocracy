@@ -60,17 +60,19 @@ export default function TopicsSlider({ newsTopics }) {
   };
   return (
     <div className={classes.carouselContainer}>
-      <Slider {...settings}>
-        {newsTopics?.map((item) => (
-          <Box
-            className={classes.topic}
-            onClick={() => handleNewsTopics(item.id)}
-            key={item.id}
-          >
-            <Typography className={classes.topicText}>{item.title}</Typography>
-          </Box>
-        ))}
-      </Slider>
+      { newsTopics ? (
+        <Slider {...settings}>
+          {newsTopics?.map((item) => (
+            <Box
+              className={classes.topic}
+              onClick={() => handleNewsTopics(item.id)}
+              key={item.id}
+            >
+              <Typography className={classes.topicText}>{item.title}</Typography>
+            </Box>
+          ))}
+        </Slider>
+      ) : null}
     </div>
   );
 }

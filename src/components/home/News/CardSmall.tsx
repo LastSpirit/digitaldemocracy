@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   bigCardContainer: {
     // maxWidth: '240px',
     minWidth: '180px',
-    minHeight: 420,
+    minHeight: 380,
     maxHeight: 420,
     background: '#F3F3F3',
     borderRadius: 20,
@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     display: 'flex',
     textDecoration: 'underline',
+    marginBottom: 15,
     [theme.breakpoints.down('sm')]: {
       fontSize: 12,
     }
@@ -95,6 +96,14 @@ const useStyles = makeStyles((theme) => ({
   bigTitle: {
     fontSize: '14px',
     lineHeight: '20px',
+    height: '80px',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '12px',
+      height: 'unset'
+    }
+  },
+  text: {
+    fontSize: '14px',
     [theme.breakpoints.down('sm')]: {
       fontSize: '12px',
     }
@@ -119,30 +128,24 @@ const CardSmall: FC<CardSmallProps> = ({ media, author, number_of_views, publica
     <Box onClick={() => history.push(`singleNews/${short_link}`)}>
       <Box className={classes.bigCardContainer}>
         <Box className={classes.mainHeader}>
-          <Typography sx={{
-            fontSize: '14px',
-            sm: {
-              fontSize: '12px'
-            }
-          }}
-          >
+          <Typography className={classes.text}>
             {publication_date || ''}
           </Typography>
           <Box className={classes.bigHeader}>
-            <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <img
                 className={classes.imgSize}
                 src={watched}
                 alt="/"
               />
               {' '}
-              <Typography sx={{
-                fontSize: '14px',
-                marginLeft: '7px',
-                sm: {
-                  fontSize: '12px'
-                }
-              }}
+              <Typography
+                sx={{
+
+                  marginLeft: '7px',
+
+                }}
+                className={classes.text}
               >
                 {number_of_views || ''}
               </Typography>
@@ -155,13 +158,13 @@ const CardSmall: FC<CardSmallProps> = ({ media, author, number_of_views, publica
                 alt="/"
               />
               {' '}
-              <Typography sx={{
-                fontSize: '14px',
-                marginLeft: '7px',
-                sm: {
-                  fontSize: '12px'
-                }
-              }}
+              <Typography
+                sx={{
+
+                  marginLeft: '7px',
+
+                }}
+                className={classes.text}
               >
                 {votes}
               </Typography>
@@ -177,8 +180,18 @@ const CardSmall: FC<CardSmallProps> = ({ media, author, number_of_views, publica
 
           </Box>
           <Box className={classes.cardNames}>
-            <Typography sx={{ fontSize: '14px', padding: 0, sm: { fontSize: 12 } }}>{author?.title}</Typography>
-            <Typography sx={{ fontSize: '14px', padding: 0, sm: { fontSize: 12 } }}>{media?.name}</Typography>
+            <Typography
+              sx={{ padding: 0 }}
+              className={classes.text}
+            >
+              {author?.title}
+            </Typography>
+            <Typography
+              sx={{ padding: 0 }}
+              className={classes.text}
+            >
+              {media?.name}
+            </Typography>
           </Box>
           <Box className={classes.imageContainer}>
             <img

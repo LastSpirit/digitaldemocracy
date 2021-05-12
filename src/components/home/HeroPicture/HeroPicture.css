@@ -47,3 +47,22 @@
   }
 }
 
+@media (max-width: 450px) {
+  .heroContainer {
+    margin-top: 20px;
+  }
+  .heroText {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    max-width: 250px;
+    font-size: 12px;
+  }
+  .heroImage img {
+    width: 100%;
+    /*min-height: 100%;*/
+    max-height: 500px;
+    min-height: 350px;
+  }
+}
+

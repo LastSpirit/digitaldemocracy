@@ -2,7 +2,7 @@ import './HomeSlider.css';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { Box, Card, Typography, CardActionArea, CardActions } from '@material-ui/core';
+import { Box, Card, Typography, CardActionArea, CardActions, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { frames } from '../../../icons/pictures/picturesExports/picturesExport';
 import { useWindowSize } from '../../../hooks/useWindowSize';
@@ -40,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     flexDirection: 'column',
     border: 'none',
-    marginBottom: 50,
+    marginBottom: 30,
+    boxShadow: 'none',
     [theme.breakpoints.down('sm')]: {
       minHeight: 200,
     }
@@ -154,6 +155,7 @@ export default function CustomArrows({ data }) {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
+          initialSlide: 1,
         },
       },
 
@@ -162,6 +164,7 @@ export default function CustomArrows({ data }) {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+
         },
       },
     ],
@@ -169,41 +172,45 @@ export default function CustomArrows({ data }) {
   const { isMobile } = useWindowSize();
   return (
     <div className={classes.carouselContainer}>
-      <Slider {...settings}>
-        {data?.map((item) => (
-          <Card
-            key={item.name}
-            className={classes.custom}
-          >
-            <CardActionArea>
-              <Box>
-                <Box className={classes.imgContainer}>
-                  <img
-                    src={frames.greenFrame}
-                    alt="frame"
-                    className={classes.frame}
-                  />
-                  <img
-                    src={item.photo}
-                    alt="politics"
-                    className={classes.img}
-                  />
+      {data ? (
+        <Slider {...settings}>
+          {data?.map((item) => (
+            <Card
+              key={item.name}
+              className={classes.custom}
+            >
+              <CardActionArea>
+                <Box>
+                  <Box className={classes.imgContainer}>
+                    <img
+                      src={frames.greenFrame}
+                      alt="frame"
+                      className={classes.frame}
+                    />
+                    <img
+                      src={item.photo}
+                      alt="politics"
+                      className={classes.img}
+                    />
+                  </Box>
                 </Box>
-              </Box>
-              <Box className={classes.caption}>
-                <Typography className={classes.name}>{item.name}</Typography>
-              </Box>
-              <Box>
-                <Typography className={classes.percent}>{item.percent}</Typography>
-              </Box>
-            </CardActionArea>
-            <CardActions />
-          </Card>
-        ))}
-      </Slider>
+                <Box className={classes.caption}>
+                  <Typography className={classes.name}>{item.name}</Typography>
+                </Box>
+                <Box>
+                  <Typography className={classes.percent}>{item.percent}</Typography>
+                </Box>
+              </CardActionArea>
+              <CardActions />
+            </Card>
+          ))}
+        </Slider>
+      ) : null}
       {isMobile ? (
       // eslint-disable-next-line react/button-has-type
-        <button className="buttonStyle">Весь рейтинг</button>
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Button className="buttonStyle">Весь рейтинг</Button>
+        </Box>
       ) : null}
     </div>
   );

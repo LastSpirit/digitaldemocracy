@@ -55,6 +55,8 @@ const ListSidebar: FC<SidebarPropsI> = ({ newsTopics }) => {
                 maxWidth: '270px',
                 whiteSpace: 'pre-wrap',
                 cursor: 'pointer',
+                margin: 0,
+                backgroundColor: Number(topicId) === item.id ? '#363557 !important' : 'transparent'
               }}
               className="list-item"
             >
@@ -63,7 +65,7 @@ const ListSidebar: FC<SidebarPropsI> = ({ newsTopics }) => {
                 sx={{
                   maxWidth: '250px',
                   fontSize: 14,
-                  color: Number(topicId) === item.id ? 'red!important' : 'black'
+                  color: Number(topicId) === item.id ? 'white!important' : 'black'
                 }}
               />
             </ListItem>
