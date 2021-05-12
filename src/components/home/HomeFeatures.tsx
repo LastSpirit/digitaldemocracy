@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     margin: '38px 0',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'flex-end',
     width: '100%',
 
@@ -141,21 +141,13 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                   </Box>
                 )}
               <Box className={classes.content}>
-                {isMorePages ? (
-                  <Button>
-                    <Typography
-                      className={classes.buttonText}
-                      sx={{
-                        textDecoration: 'underline',
-                        color: '#363557'
-                      }}
-                      onClick={handleGetMorePages}
-                    >
-                      Показать больше
-                    </Typography>
-                  </Button>
-                ) : null}
-                <Button>
+                <Button sx={{
+                  marginRight: '20',
+                  sm: {
+                    marginRight: 0
+                  }
+                }}
+                >
                   <Typography
                     className={classes.buttonText}
                     sx={{
@@ -172,9 +164,23 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                     К разделу новостей
                   </Typography>
                 </Button>
+                {isMorePages ? (
+                  <Button>
+                    <Typography
+                      className={classes.buttonText}
+                      sx={{
+                        textDecoration: 'underline',
+                        color: '#363557'
+                      }}
+                      onClick={handleGetMorePages}
+                    >
+                      Показать больше
+                    </Typography>
+                  </Button>
+                ) : null}
+
               </Box>
             </Box>
-
           </Box>
 
         </Container>
