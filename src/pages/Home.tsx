@@ -9,6 +9,7 @@ import { homeSelector } from '../slices/homeSlice';
 import { APIStatus } from '../lib/axiosAPI';
 import { Loading } from '../components/Loading/Loading';
 import gtm from '../lib/gtm';
+import { userSelectors } from '../slices/userSlice';
 
 const Home: FC = () => {
   useEffect(() => {
@@ -21,6 +22,7 @@ const Home: FC = () => {
   }, []);
   const data = useSelector(homeSelector.getData());
   const status = useSelector(homeSelector.getStatus());
+  const isAuth = useSelector(userSelectors.getIsAuthenticated);
 
   return (
     <>
@@ -44,7 +46,7 @@ const Home: FC = () => {
             </Container>
           ) : (
             <>
-              <HomeHero />
+              {!isAuth ? <HomeHero /> : null}
               <HomeSlider data={data?.politicians} />
               <HomeFeatures
                 newsTopics={data?.newsTopics}
