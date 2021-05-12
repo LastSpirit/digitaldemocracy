@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import firebase from 'firebase';
 import { authActionCreators, authSelectors, AuthType } from '../../../../slices/authSlice';
@@ -42,15 +42,6 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
     setEmailStatus(APIStatus.Failure);
     setPhoneStatus(APIStatus.Failure);
   };
-
-  useEffect(() => {
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-      size: 'invisible',
-      callback: (response) => {
-        console.log(response);
-      }
-    });
-  }, []);
 
   const send = useCallback(({ registerType, values } : UseSendCodeProps) => {
     const appVerifier = window.recaptchaVerifier;

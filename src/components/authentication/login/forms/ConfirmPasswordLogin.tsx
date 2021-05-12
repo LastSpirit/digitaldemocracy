@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, Switch, TextField, Typography } from '@material-ui/core';
 import { Formik } from 'formik';
 import { useSelector } from 'react-redux';
@@ -9,15 +9,33 @@ import { authSelectors, AuthType } from '../../../../slices/authSlice';
 import { recaptchaConfig } from '../../../../config';
 import { APIStatus } from '../../../../lib/axiosAPI';
 import { Loading } from '../../../Loading/Loading';
+import './styles.scss';
 
 const ConfirmPasswordLogin = () => {
   const isMountedRef = useIsMountedRef();
-  const { passwordVerify, codeVerify, error, status } = useLogin();
+  const { passwordVerify, codeVerify, error, status, resendFirebaseCode } = useLogin();
   const { rememberMe, authType } = useSelector(authSelectors.getAllData());
   const loginThroughEmail = authType === AuthType.Email;
+  const [resend, setResend] = useState<number>(30);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setResend((state) => (state !== 0 ? state - 1 : 0));
+    }, 1000);
+    if (resend === 0) {
+      clearInterval(timer);
+    }
+  }, []);
 
   const onChangeRecaptcha = (value) => {
     console.log('Captcha value:', value);
+  };
+
+  const resendCode = () => {
+    if (resend === 0) {
+      resendFirebaseCode();
+      setResend(30);
+    }
   };
 
   return (
@@ -77,6 +95,16 @@ const ConfirmPasswordLogin = () => {
                 mb: 2
               }}
             />
+            {!loginThroughEmail && (
+              <Button
+                className="resend"
+                disabled={resend !== 0}
+                onClick={resendCode}
+                id="sign-in-button"
+              >
+                {resend !== 0 ? `Отправить код повторно можно через ${resend} секунд` : 'Отправить код повторно'}
+              </Button>
+            )}
             <Box>
               {false && (
               <ReCAPTCHA

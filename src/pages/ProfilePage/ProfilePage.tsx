@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
-import { Container } from '@material-ui/core';
+import { Button, Container } from '@material-ui/core';
+import { useHistory } from 'react-router';
 import { useFetchUserData } from './hooks/useFetchUserData';
 import { userSelectors } from '../../slices/userSlice';
 import styles from './ProfilePage.module.scss';
@@ -13,19 +14,25 @@ import { WrapperAsyncRequest } from '../../components/Loading/WrapperAsyncReques
 const ProfilePage = () => {
   const { status, fetch } = useFetchUserData();
   const data = useSelector(userSelectors.getUser());
+  const { push } = useHistory();
+
   useEffect(() => {
     fetch();
   }, []);
+
   return (
     <Container maxWidth="lg">
       <div className={styles.container}>
         <WrapperAsyncRequest status={status}>
-          <div className={styles.backButton}>
+          <Button
+            className={styles.backButton}
+            onClick={() => push('/')}
+          >
             <ArrowRightAltIcon
               className={styles.arrow}
             />
             <p>Назад</p>
-          </div>
+          </Button>
           <div className={styles.personContainer}>
             <PersonBlock avatar={data.avatar} />
             <InfoBlock fio={data?.first_name && data?.last_name ? data?.first_name + data?.last_name : data?.first_name || 'Имя Пользователя'} />

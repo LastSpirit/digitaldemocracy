@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Modal, Box } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import firebase from 'firebase';
 import Register from '../../../../pages/authentication/Register';
 import Login from '../../../../pages/authentication/Login';
 import { ModalParams } from '../../../../types/routing';
@@ -26,6 +27,13 @@ const AuthModal:React.FC = () => {
     [ModalParams.Auth]: { value: authValue, setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
   const { setRegisterStep, setLoginStep, setResetStep } = authActionCreators();
+
+  useEffect(() => {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+      size: 'invisible',
+      callback: () => {}
+    });
+  }, []);
 
   useEffect(() => () => {
     setAuthValue(undefined);

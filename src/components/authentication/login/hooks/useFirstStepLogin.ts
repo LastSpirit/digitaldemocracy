@@ -5,7 +5,7 @@ import { authActionCreators } from '../../../../slices/authSlice';
 import { useSendCodeFirebase } from '../../common/hooks/useSendCodeFirebase';
 import { APIStatus } from '../../../../lib/axiosAPI';
 
-export const useFirstStepLogin = (setStepLogin: (value: number) => void) => {
+export const useFirstStepLogin = (setStepLogin?: (value: number) => void) => {
   const { checkValidateEmailLogin, checkValidatePhoneLogin } = authAPI();
   const [emailError, setEmailError] = useState<string>();
   const [phoneError, setPhoneError] = useState<string>();
@@ -57,6 +57,5 @@ export const useFirstStepLogin = (setStepLogin: (value: number) => void) => {
       }
     });
   }, []);
-
   return { sendCode, verifyEmail, emailError, phoneError, status: { emailStatus, phoneStatus } };
 };

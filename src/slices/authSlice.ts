@@ -27,7 +27,7 @@ const initialState: SliceState = {
   registerStep: 1,
   loginStep: 1,
   resetPasswordStep: 1,
-  rememberMe: true,
+  rememberMe: false,
   authUserData: {
     address: '',
     phone: '',

@@ -117,7 +117,7 @@ const Register: FC = () => {
       {registerStep < 3 && (
       <>
         <Box sx={{ mt: 4, justifyContent: 'space-between', alignItems: 'center', display: 'flex' }}>
-          <Typography>
+          <Typography sx={{ pb: '0!important' }}>
             Уже есть аккаунт?
           </Typography>
           <Button

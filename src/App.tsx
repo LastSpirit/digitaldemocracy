@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import type { FC } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
@@ -15,7 +15,6 @@ import { ModalParams } from './types/routing';
 import { useSearchParams } from './hooks/useSearchParams';
 import MainLayout from './components/MainLayout';
 import Home from './pages/Home';
-import NotFound from './pages/NotFound';
 import SingleNews from './pages/SingleNews';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import { userSelectors } from './slices/userSlice';
@@ -57,16 +56,12 @@ const App: FC = () => {
             component={Home}
           />
           <Route
-            exact
             path="/singleNews/:link"
             component={SingleNews}
           />
-          <Route
-            path="/404"
-            component={NotFound}
-          />
           {isAuthenticated && (
           <Route
+            exact
             path="/profile"
             component={ProfilePage}
           />
@@ -78,6 +73,7 @@ const App: FC = () => {
         open={!!yandexRegisterValue}
         onClose={() => setYandexRegisterValue(undefined)}
       />
+      <div id="sign-in-button" />
     </ThemeProvider>
   );
 };

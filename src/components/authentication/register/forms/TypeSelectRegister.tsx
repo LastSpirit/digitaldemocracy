@@ -35,7 +35,7 @@ const TypeSelectRegister = () => {
                           .object()
                           .shape({
                             email: Yup
-                              .string().email('Не правильный e-mail'),
+                              .string().email('Неправильный e-mail'),
                             phone: Yup
                               .string(),
                           })

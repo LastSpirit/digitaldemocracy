@@ -12,6 +12,7 @@ export const setItem = (item: string, value: any, rememberMe?: string) => {
   if (typeof value !== 'string') {
     localStorage.setItem(item, JSON.stringify(value));
   }
+  // console.log(item, rememberMe);
   if (item === 'token' && rememberMe === 'false') {
     sessionStorage.setItem(item, value);
   } else {

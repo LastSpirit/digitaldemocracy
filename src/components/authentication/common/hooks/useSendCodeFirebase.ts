@@ -5,11 +5,15 @@ export const useSendCodeFirebase = (setStep?: (value: number) => void, nextStep?
     firebase.auth().signInWithPhoneNumber(phone, appVerifier)
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
-        setStep(nextStep);
+        if (setStep) {
+          setStep(nextStep);
+        }
       }).catch((err) => {
         console.log('ERRRO: ', err);
         window.grecaptcha.reset();
-        setError(err.message);
+        if (setError) {
+          setError(err.message);
+        }
       });
   };
   return { sendCode };

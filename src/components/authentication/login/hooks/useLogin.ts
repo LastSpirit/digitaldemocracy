@@ -7,6 +7,7 @@ import { userActionCreators } from '../../../../slices/userSlice';
 import { ModalParams } from '../../../../types/routing';
 import { useSearchParams } from '../../../../hooks/useSearchParams';
 import { APIStatus } from '../../../../lib/axiosAPI';
+import { useSendCodeFirebase } from '../../common/hooks/useSendCodeFirebase';
 
 export const useLogin = () => {
   const { authViaEmailConfirmPassword, loginViaPhone } = authAPI();
@@ -14,6 +15,7 @@ export const useLogin = () => {
   const { authUserData: { email, phone } } = useSelector(authSelectors.getAllData());
   const [error, setError] = useState<string>();
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
+  const { sendCode: sendFirebaseCode } = useSendCodeFirebase();
 
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
@@ -43,6 +45,11 @@ export const useLogin = () => {
         password,
       }
     });
+  }, []);
+
+  const resendFirebaseCode = useCallback(() => {
+    const appVerifier = window.recaptchaVerifier;
+    sendFirebaseCode(phone, appVerifier);
   }, []);
 
   const codeVerify = useCallback((code: string) => {
@@ -78,5 +85,5 @@ export const useLogin = () => {
     });
   }, []);
 
-  return { passwordVerify, codeVerify, error, status };
+  return { passwordVerify, codeVerify, error, status, resendFirebaseCode };
 };

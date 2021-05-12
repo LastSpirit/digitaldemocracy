@@ -32,7 +32,7 @@ const TypeSelectLogin = () => {
                     .object()
                     .shape({
                       email: Yup
-                        .string().email('Не правильный e-mail'),
+                        .string().email('Неправильный e-mail'),
                       phone: Yup
                         .number().typeError('Номер не может содержать буквы'),
                     })
