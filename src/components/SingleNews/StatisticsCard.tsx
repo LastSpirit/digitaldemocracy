@@ -73,10 +73,10 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   title: {
-    fontSize: '18px',
+    fontSize: '14px',
     color: '#222',
     fontFamily: 'Helvetica',
-    fontWeight: 300,
+    fontWeight: 400,
     padding: 0,
     [theme.breakpoints.down('sm')]: {
       fontSize: '12px',
@@ -94,17 +94,17 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer'
   },
   likeButtonIcon: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     [theme.breakpoints.down('sm')]: {
-      width: 30,
-      height: 30,
+      width: 25,
+      height: 25,
     }
   },
   percent: {
     fontFamily: 'Helvetica',
-    fontSize: 20,
-    fontWeight: 300,
+    fontSize: 14,
+    fontWeight: 400,
     padding: 0,
     [theme.breakpoints.down('sm')]: {
       fontSize: 12,
