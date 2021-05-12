@@ -19,13 +19,13 @@
   0% {
     opacity: 1
   }
-  40% {
+  25% {
     opacity: 1
   }
-  47.500000% {
+  50% {
     opacity: 0
   }
-  95% {
+  75% {
     opacity: 0
   }
   100% {
@@ -39,7 +39,7 @@
   0% {
     transform: translate(205.018097px,290.857130px) rotate(-6.826305deg)
   }
-  47.500000% {
+  25% {
     transform: translate(205.018097px,290.857130px) rotate(-5.617958deg)
   }
   50% {
