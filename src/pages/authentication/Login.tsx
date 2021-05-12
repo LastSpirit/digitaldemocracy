@@ -11,7 +11,7 @@ import {
 import gtm from '../../lib/gtm';
 import { ModalParams } from '../../types/routing';
 import { useSearchParams } from '../../hooks/useSearchParams';
-import { authSelectors } from '../../slices/authSlice';
+import { authActionCreators, authSelectors } from '../../slices/authSlice';
 import { ModalWrapper } from '../../components/widgets/modals/ModalWrapper';
 import OAuthBlockLogin from '../../components/authentication/common/OAuthBlockLogin';
 
@@ -35,6 +35,12 @@ const Login: FC = () => {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
   const loginStep = useSelector(authSelectors.getLoginStep());
+
+  const { setLoginStep } = authActionCreators();
+
+  useEffect(() => () => {
+    setLoginStep(1);
+  }, []);
 
   return (
     <ModalWrapper>
@@ -65,19 +71,19 @@ const Login: FC = () => {
       }}
       >
         {loginStep === 2 && (
-        <Box>
-          <Typography
-            sx={{
-              color: '#747373',
-              textDecoration: 'underline',
-              cursor: 'pointer',
-              width: 230
-            }}
-            onClick={() => setAuthValue('reset_password')}
-          >
-            Восстановить забытый пароль
-          </Typography>
-        </Box>
+          <Box>
+            <Typography
+              sx={{
+                color: '#747373',
+                textDecoration: 'underline',
+                cursor: 'pointer',
+                width: 230
+              }}
+              onClick={() => setAuthValue('reset_password')}
+            >
+              Восстановить забытый пароль
+            </Typography>
+          </Box>
         )}
       </Box>
       <Box sx={{ mt: 4, justifyContent: 'space-between', alignItems: 'center', display: 'flex' }}>

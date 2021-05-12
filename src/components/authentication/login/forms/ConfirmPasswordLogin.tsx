@@ -7,10 +7,12 @@ import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import { useLogin } from '../hooks/useLogin';
 import { authSelectors, AuthType } from '../../../../slices/authSlice';
 import { recaptchaConfig } from '../../../../config';
+import { APIStatus } from '../../../../lib/axiosAPI';
+import { Loading } from '../../../Loading/Loading';
 
 const ConfirmPasswordLogin = () => {
   const isMountedRef = useIsMountedRef();
-  const { passwordVerify, codeVerify, error } = useLogin();
+  const { passwordVerify, codeVerify, error, status } = useLogin();
   const { rememberMe, authType } = useSelector(authSelectors.getAllData());
   const loginThroughEmail = authType === AuthType.Email;
 
@@ -108,13 +110,13 @@ const ConfirmPasswordLogin = () => {
             <Box sx={{ mt: 3 }}>
               <Button
                 color="primary"
-                disabled={loginThroughEmail ? !values.password : !values.code}
+                disabled={(loginThroughEmail ? !values.password : !values.code) || status === APIStatus.Loading}
                 fullWidth
                 size="large"
                 type="submit"
                 variant="contained"
               >
-                ВОЙТИ
+                {status === APIStatus.Loading ? <Loading /> : 'ВОЙТИ'}
               </Button>
             </Box>
           </form>

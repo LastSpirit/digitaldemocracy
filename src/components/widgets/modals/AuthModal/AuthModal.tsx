@@ -25,12 +25,13 @@ const AuthModal:React.FC = () => {
   const {
     [ModalParams.Auth]: { value: authValue, setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
-  const { setRegisterStep, setLoginStep } = authActionCreators();
+  const { setRegisterStep, setLoginStep, setResetStep } = authActionCreators();
 
   useEffect(() => () => {
     setAuthValue(undefined);
     setRegisterStep(1);
     setLoginStep(1);
+    setResetStep(1);
   }, []);
 
   const onCloseModal = () => {

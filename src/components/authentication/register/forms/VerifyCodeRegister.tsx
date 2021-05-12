@@ -15,8 +15,9 @@ const VerifyCodeRegister = () => {
   const { setRegisterStep } = authActionCreators();
   const { send, status, error } = useVerifyCodeSend(setRegisterStep);
   const registerType = useSelector(authSelectors.getAuthType());
-  const { verify, error: firebaseError } = useVerifyFirebaseCode(setRegisterStep);
-  console.log(status);
+  const { verify, error: firebaseError, status: firebaseStatus } = useVerifyFirebaseCode(setRegisterStep);
+  const isLoading = status === APIStatus.Loading || firebaseStatus === APIStatus.Loading;
+
   return (
     <>
       <Box
@@ -86,7 +87,7 @@ const VerifyCodeRegister = () => {
                 fullWidth
                 helperText={errors.code || error || firebaseError}
                 error={!!errors.code || !!error || !!firebaseError}
-                label="Введите код из письма"
+                label={`Введите код из ${registerType === AuthType.Phone ? 'СМС' : 'письма'}`}
                 margin="normal"
                 name="code"
                 variant="outlined"
@@ -97,13 +98,13 @@ const VerifyCodeRegister = () => {
                 <Button
                   id="sign-in-button"
                   color="primary"
-                  disabled={!values.code || status === APIStatus.Loading}
+                  disabled={!values.code || isLoading}
                   fullWidth
                   size="large"
                   type="submit"
                   variant="contained"
                 >
-                  {status === APIStatus.Loading ? <Loading /> : 'ЗАРЕГИСТРИРОВАТЬСЯ'}
+                  {isLoading ? <Loading /> : 'ЗАРЕГИСТРИРОВАТЬСЯ'}
                 </Button>
               </Box>
             </form>

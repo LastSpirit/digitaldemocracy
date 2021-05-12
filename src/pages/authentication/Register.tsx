@@ -13,7 +13,7 @@ import gtm from '../../lib/gtm';
 import { ModalParams } from '../../types/routing';
 import { useSearchParams } from '../../hooks/useSearchParams';
 import CreatePasswordRegister from '../../components/authentication/register/forms/CreatePasswordRegister';
-import { authSelectors } from '../../slices/authSlice';
+import { authActionCreators, authSelectors } from '../../slices/authSlice';
 import { ModalWrapper } from '../../components/widgets/modals/ModalWrapper';
 
 export const WelcomeTextRegister = () => {
@@ -68,6 +68,11 @@ const Register: FC = () => {
   } = useSearchParams(ModalParams.Auth);
   const registerStep = useSelector(authSelectors.getRegisterStep());
   const endRegistration = registerStep === 5;
+  const { setRegisterStep } = authActionCreators();
+
+  useEffect(() => () => {
+    setRegisterStep(1);
+  }, []);
 
   return (
     <ModalWrapper>

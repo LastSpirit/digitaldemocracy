@@ -103,7 +103,7 @@ const verifyCode: APIRequest<VerifyCodeRequest, { token?: string }, { code: Arra
 
 const register: APIRequest<RegisterRequest, RegisterResponse, RegisterErrorResponse> = (args) => callAPI({ url: 'setUserPassword', ...args });
 
-const registerViaPhone: APIRequest<RegisterViaPhoneRequest, {}, RegisterViaPhoneErrorResponse | string> = (args) => callAPI({ url: 'checkPhoneConfirmationToken', ...args });
+const registerViaPhone: APIRequest<RegisterViaPhoneRequest, LoginViaPhoneResponse, RegisterViaPhoneErrorResponse | string> = (args) => callAPI({ url: 'checkPhoneConfirmationToken', ...args });
 
 const registerViaGoogle: APIRequest<RegisterViaGoogleRequest, LoginViaPhoneResponse, RegisterViaGoogleErrorResponse> = (args) => callAPI({ url: 'registrationViaGoogle', ...args });
 
@@ -119,7 +119,7 @@ const loginViaPhone: APIRequest<RegisterViaPhoneRequest, LoginViaPhoneResponse, 
 
 const sendResetLinkEmail: APIRequest<{ email: string }, string, { email: Array<string> } | string> = (args) => callAPI({ url: 'password/sendResetLinkEmail', ...args });
 
-const resetPassword: APIRequest<ResetPasswordRequest, string, { password: Array<string> } | string> = (args) => callAPI({ url: 'password/reset', ...args });
+const resetPassword: APIRequest<ResetPasswordRequest, LoginViaPhoneResponse, { password: Array<string> } | string> = (args) => callAPI({ url: 'password/reset', ...args });
 
 const APIs = {
   checkValidateAddress,

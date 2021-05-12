@@ -6,12 +6,14 @@ import { setItem } from '../../../../lib/localStorageManager';
 import { userActionCreators } from '../../../../slices/userSlice';
 import { ModalParams } from '../../../../types/routing';
 import { useSearchParams } from '../../../../hooks/useSearchParams';
+import { APIStatus } from '../../../../lib/axiosAPI';
 
 export const useLogin = () => {
   const { authViaEmailConfirmPassword, loginViaPhone } = authAPI();
   const { setUser, setIsAuthenticated } = userActionCreators();
   const { authUserData: { email, phone } } = useSelector(authSelectors.getAllData());
   const [error, setError] = useState<string>();
+  const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
 
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
@@ -19,13 +21,14 @@ export const useLogin = () => {
 
   const passwordVerify = useCallback((password: string, rememberMe: boolean) => {
     setError(undefined);
+    setStatus(APIStatus.Loading);
     authViaEmailConfirmPassword({
       onSuccess: (response) => {
-        console.log(response);
         setItem('token', response.token, !rememberMe ? 'false' : undefined);
         setUser(response.user);
         setIsAuthenticated(true);
         setAuthValue(undefined);
+        setStatus(APIStatus.Success);
       },
       onError: (errorResponse) => {
         if (typeof errorResponse === 'string') {
@@ -33,6 +36,7 @@ export const useLogin = () => {
         } else {
           setError(errorResponse.password ? errorResponse.password[0] : errorResponse.email[0]);
         }
+        setStatus(APIStatus.Failure);
       },
       payload: {
         email,
@@ -42,6 +46,7 @@ export const useLogin = () => {
   }, []);
 
   const codeVerify = useCallback((code: string) => {
+    setStatus(APIStatus.Loading);
     setError(undefined);
     window.confirmationResult.confirm(code).then((result) => {
       loginViaPhone({
@@ -51,12 +56,14 @@ export const useLogin = () => {
           setIsAuthenticated(true);
           console.log('serverResponse: ', response);
           setAuthValue(undefined);
+          setStatus(APIStatus.Success);
         },
         onError: (errorResponse) => {
           if (typeof errorResponse === 'string') {
             setError(errorResponse);
           } else if (errorResponse.FirebaseToken) setError(errorResponse.FirebaseToken[0]);
           else setError(errorResponse.phone[0]);
+          setStatus(APIStatus.Failure);
         },
         payload: {
           phone,
@@ -65,10 +72,11 @@ export const useLogin = () => {
       });
       console.log('RES: ', result);
     }).catch((err) => {
+      setStatus(APIStatus.Failure);
       setError(err.message);
       console.log(err);
     });
   }, []);
 
-  return { passwordVerify, codeVerify, error };
+  return { passwordVerify, codeVerify, error, status };
 };

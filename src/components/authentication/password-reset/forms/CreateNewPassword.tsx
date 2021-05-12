@@ -21,7 +21,7 @@ const CreateNewPassword = () => {
                   .object()
                   .shape({
                     password: Yup
-                      .string().required('Введите пароль').min(8, 'Минимальная длина пароля 5 символов'),
+                      .string().required('Введите пароль').min(8, 'Минимальная длина пароля 8 символов'),
                     confirmPassword: Yup
                       .string().oneOf([Yup.ref('password'), null], 'Пароли не совпадают'),
                   })
@@ -47,6 +47,7 @@ const CreateNewPassword = () => {
       {({
         handleChange,
         handleSubmit,
+        errors,
         values
       }): JSX.Element => (
         <form
@@ -55,8 +56,8 @@ const CreateNewPassword = () => {
         >
           <TextField
             fullWidth
-            helperText={error}
-            error={!!error}
+            helperText={errors.password || error}
+            error={!!errors.password || !!error}
             value={values.password}
             onChange={handleChange}
             label="Придумайте пароль"
@@ -69,8 +70,8 @@ const CreateNewPassword = () => {
           />
           <TextField
             fullWidth
-            helperText={error}
-            error={!!error}
+            helperText={error || errors.confirmPassword}
+            error={!!error || !!errors.confirmPassword}
             value={values.confirmPassword}
             onChange={handleChange}
             label="Введите пароль повторно"

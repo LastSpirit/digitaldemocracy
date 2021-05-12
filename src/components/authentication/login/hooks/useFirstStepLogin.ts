@@ -50,6 +50,7 @@ export const useFirstStepLogin = (setStepLogin: (value: number) => void) => {
       },
       onError: (errorResponse) => {
         setPhoneError(typeof errorResponse === 'string' ? errorResponse : errorResponse.phone[0]);
+        setPhoneStatus(APIStatus.Failure);
       },
       payload: {
         phone

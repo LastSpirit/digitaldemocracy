@@ -38,6 +38,10 @@ const ResetPassword = () => {
   } = useSearchParams('email', 'token');
   const resetStep = useSelector(authSelectors.getResetPasswordStep());
 
+  useEffect(() => () => {
+    setResetStep(1);
+  }, []);
+
   useEffect(() => {
     if (email && token) {
       setResetStep(3);
