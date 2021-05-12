@@ -8,7 +8,7 @@ import { homeSelector } from '../slices/homeSlice';
 import { APIStatus } from '../lib/axiosAPI';
 import { Loading } from '../components/Loading/Loading';
 import gtm from '../lib/gtm';
-import {userSelectors} from "../slices/userSlice";
+import { userSelectors } from '../slices/userSlice';
 
 const Home: FC = () => {
   useEffect(() => {
