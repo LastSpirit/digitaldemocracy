@@ -185,6 +185,9 @@ const Footer: FC = (props) => {
                 <Typography
                   color="#222222"
                   variant="overline"
+                  sx={{
+                    pb: '0!important'
+                  }}
                 >
                   {section.title}
                 </Typography>
@@ -207,10 +210,14 @@ const Footer: FC = (props) => {
                         }}
                       />
                       <ListItemText
+                        sx={{
+                          paddingBottom: '0!important'
+                        }}
                         primary={(
                           <Link
                             sx={{
-                              cursor: 'pointer'
+                              cursor: 'pointer',
+                              paddingBottom: '0!important'
                             }}
                             onClick={() => push(link.href)}
                             color="#747373"
@@ -255,7 +262,7 @@ const Footer: FC = (props) => {
           <Divider
             sx={{
               borderColor: (theme) => alpha(theme.palette.primary.contrastText, 0.12),
-              my: 6,
+              my: 2,
             }}
           />
           <Typography

@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
 export default function TopicsSlider({ newsTopics }) {
   const { fetch } = useFetchHomePageData();
   const handleNewsTopics = (id) => {
-    console.log('TopicsSlider');
     fetch(1, id);
   };
   const classes = useStyles();
@@ -72,7 +71,6 @@ export default function TopicsSlider({ newsTopics }) {
           </Box>
         ))}
       </Slider>
-
     </div>
   );
 }

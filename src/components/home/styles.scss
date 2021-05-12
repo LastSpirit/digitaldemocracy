@@ -1,0 +1,9 @@
+.list-item {
+  margin-top: 7px!important;
+  margin-bottom: 7px!important;
+  color: #747373;
+
+  &:active {
+    color: black;
+  }
+}

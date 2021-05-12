@@ -73,6 +73,11 @@ export interface Store {
 }
 
 export const authSelectors = {
+  getSteps: () => (state: Store) => ({
+    registerStep: state.auth.registerStep,
+    loginStep: state.auth.loginStep,
+    resetStep: state.auth.resetPasswordStep
+  }),
   getRegisterStep: () => (state: Store) => state.auth.registerStep,
   getResetPasswordStep: () => (state: Store) => state.auth.resetPasswordStep,
   getAttemptSingIn: () => (state: Store) => state.auth.attemptSingIn,

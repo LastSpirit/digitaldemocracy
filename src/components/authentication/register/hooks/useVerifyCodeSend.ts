@@ -16,7 +16,6 @@ export const useVerifyCodeSend = (setRegisterStep: (value: number) => void) => {
     setStatus(APIStatus.Loading);
     verifyCode({
       onSuccess: (response) => {
-        console.log('response:::::', response);
         setStatus(APIStatus.Success);
         if (registerType === AuthType.Email) {
           setAuthUserData({ key: 'code', value: code });

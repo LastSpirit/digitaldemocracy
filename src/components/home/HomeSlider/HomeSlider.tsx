@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { Box, Typography, Container } from '@material-ui/core';
+import { Box, Typography, Container, Button } from '@material-ui/core';
 import './HomeSlider.css';
 import CustomArrows from './slickSlider';
 import { PoliticiansI } from '../../../slices/homeSlice';
@@ -17,12 +17,17 @@ const HomeSlider: FC<SliderPropsI> = ({ data }) => {
         <Box className="textBeforeCarousel">
           {!isMobile
             ? (
-              <>
+              <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: '100%' }}>
                 {' '}
                 <Typography fontSize="40px">Открытый рейтинг политиков*</Typography>
                 {/* eslint-disable-next-line react/button-has-type */}
-                <button className="buttonStyle">Весь рейтинг</button>
-              </>
+                <Button
+                  color="primary"
+                  className="buttonStyle"
+                >
+                  Весь рейтинг
+                </Button>
+              </Box>
             )
             : null }
         </Box>

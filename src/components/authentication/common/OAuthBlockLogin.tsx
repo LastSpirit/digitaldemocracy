@@ -22,7 +22,9 @@ const OAuthBlockLogin:FC<OAuthBlockLoginProps> = ({ isLogin }) => {
             clientId={OAuthConfig.googleClientID}
             buttonText="Вход с аккаунтом Google"
             onSuccess={googleOAuth}
-            onFailure={googleOAuth}
+            onFailure={(error) => {
+              console.log(error);
+            }}
           />
         </Box>
         <Box className={styles.item}>

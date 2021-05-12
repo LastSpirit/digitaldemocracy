@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
   news: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
     width: '100%',
     alignItems: 'flex-start',
     paddingTop: '5px',
@@ -65,7 +64,6 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
   const page = useSelector(homeSelector.getPage());
   const { isMobile } = useWindowSize();
   const handleGetMorePages = () => {
-    console.log('HomeFeatures');
     fetch(page + 1, undefined, true);
   };
 

@@ -5,6 +5,7 @@ import { ThemeProvider } from '@material-ui/core';
 import './i18n';
 import firebase from 'firebase';
 import { useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet-async';
 import { firebaseConfig, gtmConfig } from './config';
 import useScrollReset from './hooks/useScrollReset';
 import useSettings from './hooks/useSettings';
@@ -48,6 +49,9 @@ const App: FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <Helmet>
+        <title>Digital Democracy | Dev</title>
+      </Helmet>
       <MainLayout>
         <Switch>
           <Route

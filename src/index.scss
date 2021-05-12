@@ -6,6 +6,10 @@
   outline: none!important;
 }
 
+.MuiTypography-root {
+  padding-bottom: 0!important;
+}
+
 .MuiInputBase-root {
   padding-right: 0!important;
 }
@@ -22,6 +26,10 @@
     background-color: #B0B0B0;
     color: white;
   }
+}
+
+.MuiListItem-root {
+  padding: 0!important;
 }
 
 .MuiSwitch-colorPrimary {

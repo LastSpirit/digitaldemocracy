@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import type { FC } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useSelector } from 'react-redux';
 import { Container } from '@material-ui/core';
 import { HomeHero, HomeSlider, HomeFeatures } from '../components/home';
@@ -24,9 +23,6 @@ const Home: FC = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Digital Democracy | Dev</title>
-      </Helmet>
       <div>
         {fetchDataStatus === APIStatus.Loading
           ? (

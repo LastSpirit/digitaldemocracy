@@ -33,7 +33,7 @@ export const useFetchHomePageData = () => {
         dispatch(action({ ...response, page }));
       },
       payload: {
-        topic_id,
+        topic_id: topic_id === -1 ? undefined : topic_id,
         page
       },
       onError: (errorResponse) => {

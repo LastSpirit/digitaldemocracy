@@ -71,6 +71,7 @@ const TypeSelectLogin = () => {
           >
             <Typography
               color="#747373"
+              mb={1}
             >
               Вход через e-mail
             </Typography>
@@ -97,6 +98,7 @@ const TypeSelectLogin = () => {
             <Typography
               color="#747373"
               gutterBottom
+              mb={1}
             >
               Вход через смс
             </Typography>

@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { OAuthConfig } from '../../../../config';
 import { authAPI } from '../../../../api/authAPI';
 import { authActionCreators, authSelectors } from '../../../../slices/authSlice';
@@ -15,6 +15,11 @@ export const useOAuthRegister = (isLogin?: boolean) => {
   const { setIsAuthenticated, setUser } = userActionCreators();
   const [googleError, setGoogleError] = useState<string>();
   const [yandexError, setYandexError] = useState<string>();
+
+  useEffect(() => {
+    setGoogleError(undefined);
+    setYandexError(undefined);
+  }, [setRegisterStep, setLoginStep]);
 
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },

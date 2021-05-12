@@ -1,12 +1,13 @@
+import { useEffect, useState } from 'react';
 import type { FC } from 'react';
 import { Box, Divider, List, ListItem, ListItemText, makeStyles, Typography } from '@material-ui/core';
 import { NewsTopicsI } from '../../../slices/homeSlice';
 import { useFetchHomePageData } from '../hooks/useFetchHomePageData';
+import '../styles.scss';
 
 const useStyles = makeStyles(() => ({
   listTitle: {
     fontSize: 40,
-    paddingLeft: 20,
     fontWeight: 400,
   },
   lineStyle: {
@@ -21,11 +22,17 @@ interface SidebarPropsI {
 const ListSidebar: FC<SidebarPropsI> = ({ newsTopics }) => {
   const classes = useStyles();
   const { fetch } = useFetchHomePageData();
+  const [resultNewsTopics, setResultNewsTopics] = useState([]);
 
   const handleNewsTopics = (id) => {
-    console.log('ListSidebar');
     fetch(1, id, true);
   };
+
+  useEffect(() => {
+    if (newsTopics && newsTopics.length !== 0) {
+      setResultNewsTopics([{ id: -1, title: 'Все новости' }, ...newsTopics]);
+    }
+  }, [newsTopics]);
 
   return (
     <Box sx={{ maxWidth: '270px' }}>
@@ -34,7 +41,7 @@ const ListSidebar: FC<SidebarPropsI> = ({ newsTopics }) => {
         className={classes.lineStyle}
         sx={{ maxWidth: '270px' }}
       >
-        {newsTopics?.map((item) => (
+        {resultNewsTopics?.map((item) => (
           <Box
             key={item.id}
             onClick={() => handleNewsTopics(item.id)}
@@ -46,6 +53,7 @@ const ListSidebar: FC<SidebarPropsI> = ({ newsTopics }) => {
                 whiteSpace: 'pre-wrap',
                 cursor: 'pointer'
               }}
+              className="list-item"
             >
               <ListItemText
                 primary={item.title}

@@ -70,6 +70,7 @@ const TypeSelectRegister = () => {
             >
               <Typography
                 color="#747373"
+                mb={2}
               >
                 Регистрация через e-mail
               </Typography>
@@ -99,6 +100,7 @@ const TypeSelectRegister = () => {
               <Typography
                 color="#747373"
                 gutterBottom
+                mb={2}
               >
                 Регистрация через смс
               </Typography>
