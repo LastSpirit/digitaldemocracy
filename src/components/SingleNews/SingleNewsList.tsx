@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
   newsContainer: {
     marginBottom: '100px',
+    width: '100%',
     [theme.breakpoints.down('sm')]: {
       marginBottom: '50px',
     },
@@ -59,7 +60,7 @@ const SingleNewsList: FC<NewsListI> = ({ news, isMorePages }) => {
           <Typography className={classes.heading}>Новости по теме</Typography>
         </Box>
         <Box className={classes.newsContainer}>
-          <Grid container>
+          <Grid container spacing={2}>
             {news?.map((item) => (
               <Grid
                 item
