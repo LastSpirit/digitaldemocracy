@@ -24,6 +24,7 @@ import Person from '../icons/Person';
 import Rating from '../icons/Rating';
 import './MainNavbar.css';
 import { userSelectors } from '../slices/userSlice';
+import { AuthParam } from '../types/routing';
 
 const sections = [
   {
@@ -81,7 +82,7 @@ const Footer: FC = (props) => {
     {
       title: isAuthenticated ? 'Профиль' : 'Регистрация',
       icon: isAuthenticated ? <Person /> : <Register />,
-      to: '',
+      to: isAuthenticated ? '/profile' : AuthParam.register,
     },
   ];
   return (

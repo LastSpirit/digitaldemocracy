@@ -9,6 +9,7 @@ import { APIStatus } from '../lib/axiosAPI';
 import { Loading } from '../components/Loading/Loading';
 import gtm from '../lib/gtm';
 import { userSelectors } from '../slices/userSlice';
+import { useSearchParams } from '../hooks/useSearchParams';
 
 const Home: FC = () => {
   useEffect(() => {
@@ -17,7 +18,9 @@ const Home: FC = () => {
 
   const { fetch, fetchDataStatus, fetchNewsStatus } = useFetchHomePageData();
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
+  const { news_topic_id: { setValue: setTopicId } } = useSearchParams('news_topic_id');
   useEffect(() => {
+    setTopicId('-1');
     fetch();
   }, []);
   const data = useSelector(homeSelector.getData());

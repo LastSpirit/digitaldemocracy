@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, TextField, Typography } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -9,6 +9,7 @@ import { authActionCreators, authSelectors, AuthType } from '../../../../slices/
 import { APIStatus } from '../../../../lib/axiosAPI';
 import { useVerifyFirebaseCode } from '../hooks/useVerifyFirebaseCode';
 import { Loading } from '../../../Loading/Loading';
+import { useLogin } from '../../login/hooks/useLogin';
 
 const VerifyCodeRegister = () => {
   const isMountedRef = useIsMountedRef();
@@ -17,6 +18,25 @@ const VerifyCodeRegister = () => {
   const registerType = useSelector(authSelectors.getAuthType());
   const { verify, error: firebaseError, status: firebaseStatus } = useVerifyFirebaseCode(setRegisterStep);
   const isLoading = status === APIStatus.Loading || firebaseStatus === APIStatus.Loading;
+  const { resendFirebaseCode } = useLogin();
+
+  const [resend, setResend] = useState<number>(30);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setResend((state) => (state !== 0 ? state - 1 : 0));
+    }, 1000);
+    if (resend === 0) {
+      clearInterval(timer);
+    }
+  }, []);
+
+  const resendCode = () => {
+    if (resend === 0) {
+      resendFirebaseCode();
+      setResend(30);
+    }
+  };
 
   return (
     <>
@@ -94,6 +114,18 @@ const VerifyCodeRegister = () => {
                 onChange={handleChange}
                 value={values.code}
               />
+              <Box sx={{ mt: 1 }}>
+                {registerType === AuthType.Phone && (
+                  <Button
+                    className="resend"
+                    disabled={resend !== 0}
+                    onClick={resendCode}
+                    id="sign-in-button"
+                  >
+                    {resend !== 0 ? `Отправить код повторно можно через ${resend} секунд` : 'Отправить код повторно'}
+                  </Button>
+                )}
+              </Box>
               <Box sx={{ mt: 2 }}>
                 <Button
                   id="sign-in-button"

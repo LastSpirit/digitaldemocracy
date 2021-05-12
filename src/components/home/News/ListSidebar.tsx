@@ -4,6 +4,7 @@ import { Box, Divider, List, ListItem, ListItemText, makeStyles, Typography } fr
 import { NewsTopicsI } from '../../../slices/homeSlice';
 import { useFetchHomePageData } from '../hooks/useFetchHomePageData';
 import '../styles.scss';
+import { useSearchParams } from '../../../hooks/useSearchParams';
 
 const useStyles = makeStyles(() => ({
   listTitle: {
@@ -23,9 +24,11 @@ const ListSidebar: FC<SidebarPropsI> = ({ newsTopics }) => {
   const classes = useStyles();
   const { fetch } = useFetchHomePageData();
   const [resultNewsTopics, setResultNewsTopics] = useState([]);
+  const { news_topic_id: { value: topicId, setValue: setTopicId } } = useSearchParams('news_topic_id');
 
   const handleNewsTopics = (id) => {
     fetch(1, id, true);
+    setTopicId(id);
   };
 
   useEffect(() => {
@@ -51,14 +54,17 @@ const ListSidebar: FC<SidebarPropsI> = ({ newsTopics }) => {
               sx={{
                 maxWidth: '270px',
                 whiteSpace: 'pre-wrap',
-                cursor: 'pointer'
+                cursor: 'pointer',
               }}
               className="list-item"
             >
               <ListItemText
                 primary={item.title}
-                sx={{ maxWidth: '250px',
-                  fontSize: 14 }}
+                sx={{
+                  maxWidth: '250px',
+                  fontSize: 14,
+                  color: Number(topicId) === item.id ? 'red!important' : 'black'
+                }}
               />
             </ListItem>
             <Divider component="li" />

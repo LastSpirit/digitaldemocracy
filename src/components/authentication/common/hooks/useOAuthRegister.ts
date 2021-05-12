@@ -11,6 +11,7 @@ import { userActionCreators } from '../../../../slices/userSlice';
 export const useOAuthRegister = (isLogin?: boolean) => {
   const { registerViaGoogle, authViaGoogle } = authAPI();
   const { address } = useSelector(authSelectors.getUserData());
+  const { registerStep, loginStep } = useSelector(authSelectors.getSteps());
   const { setRegisterStep, setLoginStep } = authActionCreators();
   const { setIsAuthenticated, setUser } = userActionCreators();
   const [googleError, setGoogleError] = useState<string>();
@@ -19,7 +20,7 @@ export const useOAuthRegister = (isLogin?: boolean) => {
   useEffect(() => {
     setGoogleError(undefined);
     setYandexError(undefined);
-  }, [setRegisterStep, setLoginStep]);
+  }, [registerStep, loginStep]);
 
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },

@@ -11,7 +11,7 @@ import { authActionCreators, authSelectors, AuthType } from '../../../../slices/
 const TypeSelectLogin = () => {
   const isMountedRef = useIsMountedRef();
   const { setAuthType, setLoginStep } = authActionCreators();
-  const { sendCode, verifyEmail, emailError, phoneError, status: { phoneStatus, emailStatus } } = useFirstStepLogin(setLoginStep);
+  const { sendCode, verifyEmail, emailError, phoneError, status: { phoneStatus, emailStatus }, setEmailError, setPhoneError } = useFirstStepLogin(setLoginStep);
   const authType = useSelector(authSelectors.getAuthType());
 
   return (
@@ -79,7 +79,10 @@ const TypeSelectLogin = () => {
               fullWidth
               helperText={errors.email || emailError}
               value={values.email}
-              onChange={handleChange}
+              onChange={(event) => {
+                setEmailError(undefined);
+                handleChange(event);
+              }}
               label="E-mail"
               variant="outlined"
               error={!!errors.email || !!emailError}
@@ -110,7 +113,10 @@ const TypeSelectLogin = () => {
               margin="normal"
               name="phone"
               variant="outlined"
-              onChange={handleChange}
+              onChange={(event) => {
+                setPhoneError(undefined);
+                handleChange(event);
+              }}
               value={values.phone}
               InputProps={{
                 endAdornment: <ArrowInputIcon

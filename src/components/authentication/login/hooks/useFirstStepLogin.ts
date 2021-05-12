@@ -49,5 +49,5 @@ export const useFirstStepLogin = (setStepLogin?: (value: number) => void) => {
       }
     });
   }, []);
-  return { sendCode, verifyEmail, emailError, phoneError, status: { emailStatus, phoneStatus } };
+  return { sendCode, verifyEmail, emailError, phoneError, status: { emailStatus, phoneStatus }, setEmailError, setPhoneError };
 };
