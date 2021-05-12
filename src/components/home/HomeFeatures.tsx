@@ -10,6 +10,7 @@ import TopicsSlider from './News/TopicsSlider';
 import { useFetchHomePageData } from './hooks/useFetchHomePageData';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { Loading } from '../Loading/Loading';
+import './HomeSlider/HomeSlider.css';
 
 const useStyles = makeStyles((theme) => ({
   actualNews: {
@@ -155,22 +156,11 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                     </Typography>
                   </Button>
                 ) : null}
-                <Button>
-                  <Typography
-                    className={classes.buttonText}
-                    sx={{
-                      padding: '8px 30px',
-                      border: '1px solid #363557',
-                      borderRadius: '50px',
-                      background: '#363557',
-                      color: '#fff',
-                      textAlign: 'center',
-                      height: '40px',
-                      boxSizing: 'border-box'
-                    }}
-                  >
-                    К разделу новостей
-                  </Typography>
+                <Button
+                  color="primary"
+                  className="buttonStyle"
+                >
+                  К разделу новостей
                 </Button>
               </Box>
             </Box>

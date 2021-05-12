@@ -10,6 +10,7 @@ import {
   Container
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
+import classNames from 'classnames';
 import Search from '../icons/Search';
 import InputTextField from './widgets/inputs/InputTextField';
 import Brand from '../icons/Brand';
@@ -55,7 +56,7 @@ const MainNavbar: FC = () => {
     {
       title: isAuthenticated ? <Person /> : 'Регистрация',
       to: isAuthenticated ? '/profile' : 'register',
-      color: '',
+      color: 'white',
     }
   ];
 
@@ -160,6 +161,7 @@ const MainNavbar: FC = () => {
               >
                 {buttons.map(({ to, color, title }, index) => (
                   <Button
+                    className={classNames(['buttonsStyle', { register: color === 'white' }])}
                     key={index.toString()}
                     sx={{
                       backgroundColor: color,

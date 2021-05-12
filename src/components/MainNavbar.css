@@ -56,6 +56,26 @@
   animation: edmibckomkog8_tr__tr 4000ms linear infinite normal forwards
 }
 
+.buttonsStyle {
+  background-color: #363557;
+  border: 1px solid #363557;
+  color: white!important;
+}
+
+.buttonsStyle.register {
+  background-color: white!important;
+  color: #363557!important;
+}
+
+.buttonsStyle.register:hover {
+  background-color: #363557!important;
+  color: white!important;
+}
+
+.buttonsStyle:hover {
+  color: #363557!important;
+}
+
 @keyframes edmibckomkog8_tr__tr {
   0% {
     transform: translate(209.018097px,213.502960px) rotate(0deg)

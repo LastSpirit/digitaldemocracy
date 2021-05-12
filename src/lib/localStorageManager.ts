@@ -20,4 +20,7 @@ export const setItem = (item: string, value: any, rememberMe?: string) => {
   }
 };
 
-export const removeItem = (item: string) => localStorage.removeItem(item);
+export const removeItem = (item: string) => {
+  sessionStorage.removeItem(item);
+  localStorage.removeItem(item);
+};
