@@ -99,14 +99,14 @@ const MainNavbar: FC = () => {
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
-                    height: 40
+                    height: 40,
+                    cursor: 'pointer'
                   }}
+                  onClick={() => push('/')}
                 >
-                  <RouterLink to="/">
-                    <div className="logo">
-                      <Logo />
-                    </div>
-                  </RouterLink>
+                  <div className="logo">
+                    <Logo />
+                  </div>
                   <Typography
                     sx={{ ml: 1.5 }}
                     color="textSecondary"

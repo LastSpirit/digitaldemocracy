@@ -52,7 +52,7 @@ const sections = [
       },
       {
         title: 'Пользовательское соглашение',
-        href: '#',
+        href: '/',
       },
     ],
   },
@@ -152,7 +152,9 @@ const Footer: FC = (props) => {
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
+                  cursor: 'pointer'
                 }}
+                onClick={() => push('/')}
               >
                 <div className="logo-footer">
                   <Logo />
@@ -207,7 +209,10 @@ const Footer: FC = (props) => {
                       <ListItemText
                         primary={(
                           <Link
-                            href={link.href}
+                            sx={{
+                              cursor: 'pointer'
+                            }}
+                            onClick={() => push(link.href)}
                             color="#747373"
                             fontWeight="300"
                             variant="subtitle2"

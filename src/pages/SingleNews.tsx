@@ -1,5 +1,4 @@
 import type { FC } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { Container } from '@material-ui/core';
@@ -25,9 +24,6 @@ const SingleNews: FC<Props> = (props) => {
 
   return (
     <>
-      <Helmet>
-        <title>Digital Democracy</title>
-      </Helmet>
       <div>
         {status === APIStatus.Loading
           ? (
