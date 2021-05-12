@@ -6,9 +6,9 @@ import { AuthorI, MediaI, PoliticiansI } from '../../slices/SingleNewsSlice';
 const useStyles = makeStyles((theme) => ({
   statistics: {
     paddingBottom: 50,
-    marginBottom: 55,
+    marginBottom: 35,
     [theme.breakpoints.down('sm')]: {
-      marginBottom: '35px',
+      marginBottom: '25px',
       paddingBottom: '30px',
     }
   },
@@ -40,14 +40,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   heading: {
-    fontSize: '30px',
+    fontSize: '25px',
     lineHeight: '30px',
     fontWeight: 300,
     fontFamily: 'Helvetica',
     color: '#7a7a7a',
     padding: 0,
     [theme.breakpoints.down('sm')]: {
-      fontSize: '20px'
+      fontSize: '18px'
     },
   }
 }));
@@ -65,6 +65,7 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
       <Container
         maxWidth="lg"
       >
+        <Typography className={classes.heading}>Ваше мнение по поводу новости</Typography>
         <Grid
           container
           className={classes.statisticsContainer}
@@ -78,7 +79,6 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
               className={classes.politicians}
             >
               <Box className={classes.headings}>
-                <Typography className={classes.heading}>Ваше мнение по поводу новости</Typography>
                 <Typography className={classes.heading}>Оцените политиков</Typography>
               </Box>
               {politicians?.map((item) => (
@@ -100,7 +100,7 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
             className={classes.authors}
           >
             {media ? (
-              <Box>
+              <Box sx={{ marginBottom: '20px' }}>
                 <Box className={classes.headings}>
                   <Typography className={classes.heading}>Доверяете ли вы СМИ как источнику новости?</Typography>
                 </Box>

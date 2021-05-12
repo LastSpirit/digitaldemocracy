@@ -5,25 +5,25 @@ import CardSmall from '../home/News/CardSmall';
 
 const useStyles = makeStyles((theme) => ({
   list: {
-    marginBottom: 55
+    marginBottom: 30
   },
   heading: {
-    fontSize: '30px',
+    fontSize: '25px',
     lineHeight: '30px',
     fontWeight: 300,
     fontFamily: 'Helvetica',
     color: '#7a7a7a',
     padding: 0,
     [theme.breakpoints.down('sm')]: {
-      fontSize: '20px'
+      fontSize: '16px'
     },
   },
   headingContainer: {
-    marginBottom: '20px',
+    marginBottom: '30px',
     paddingBottom: '20px',
     borderBottom: '1px solid #e5e5e5',
     [theme.breakpoints.down('sm')]: {
-      marginBottom: '15px',
+      marginBottom: '20px',
       paddingBottom: '15px',
     },
   },

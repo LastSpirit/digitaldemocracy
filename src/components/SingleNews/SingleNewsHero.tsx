@@ -8,7 +8,7 @@ import { CurrentNewsI } from '../../slices/SingleNewsSlice';
 const useStyles = makeStyles((theme) => ({
   hero: {
     paddingTop: 50,
-    marginBottom: 25
+    marginBottom: 40
   },
   newsContainer: {
     backgroundColor: '#e5e5e5',
@@ -57,21 +57,22 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap'
   },
   hashtag: {
-    padding: '5px 20px',
+    padding: '8px 20px',
     marginRight: '7px',
     border: '1px solid #b0b0b0',
     borderRadius: '30px',
     textAlign: 'center',
-    height: '30px',
+    height: '40px',
     marginBottom: '7px',
+    boxSizing: 'border-box',
     [theme.breakpoints.down('sm')]: {
-      height: '20px',
+      height: '30px',
       padding: '5px 12px'
     },
   },
   hashtagContain: {
     fontWeight: 300,
-    fontSize: 18,
+    fontSize: 14,
     fontFamily: 'Helvetica',
     color: '#b0b0b0',
     padding: 0,
@@ -97,13 +98,13 @@ const useStyles = makeStyles((theme) => ({
       marginTop: 20
     },
     [theme.breakpoints.down('sm')]: {
-      fontSize: '20px',
+      fontSize: '12px',
       padding: '11px 15px',
       minWidth: 'unset'
     },
   },
   newsAuthor: {
-    fontSize: 25,
+    fontSize: 14,
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%',
@@ -112,13 +113,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   date: {
-    fontSize: 25,
+    fontSize: 14,
     [theme.breakpoints.down('sm')]: {
       fontSize: '12px'
     },
   },
   newsSubject: {
-    fontSize: 25,
+    fontSize: 14,
     display: 'flex',
     [theme.breakpoints.down('sm')]: {
       fontSize: '12px'

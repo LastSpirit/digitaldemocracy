@@ -37,8 +37,15 @@
 }
 
 .MuiSwitch-track {
-  background-color: #9f9f9f!important;
+  background-color: #a2ffc7 !important;
 }
+MuiButtonBase-root-MuiIconButton-root-MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track {
+  background-color: #36cd67 !important;
+}
+.Mui-checked+.MuiSwitch-track {
+  background-color: #24c853 !important;
+}
+
 
 .MuiButton-outlinedPrimary {
   color: #747373;
