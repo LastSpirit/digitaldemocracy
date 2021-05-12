@@ -60,7 +60,10 @@ const SingleNewsList: FC<NewsListI> = ({ news, isMorePages }) => {
           <Typography className={classes.heading}>Новости по теме</Typography>
         </Box>
         <Box className={classes.newsContainer}>
-          <Grid container spacing={2}>
+          <Grid
+            container
+            spacing={2}
+          >
             {news?.map((item) => (
               <Grid
                 item

@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     margin: '38px 0',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'flex-end',
     width: '100%',
 
@@ -142,6 +142,29 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                   </Box>
                 )}
               <Box className={classes.content}>
+                <Button sx={{
+                  marginRight: '20',
+                  sm: {
+                    marginRight: 0
+                  }
+                }}
+                >
+                  <Typography
+                    className={classes.buttonText}
+                    sx={{
+                      padding: '8px 30px',
+                      border: '1px solid #363557',
+                      borderRadius: '50px',
+                      background: '#363557',
+                      color: '#fff',
+                      textAlign: 'center',
+                      height: '40px',
+                      boxSizing: 'border-box'
+                    }}
+                  >
+                    К разделу новостей
+                  </Typography>
+                </Button>
                 {isMorePages ? (
                   <Button>
                     <Typography
@@ -156,15 +179,9 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                     </Typography>
                   </Button>
                 ) : null}
-                <Button
-                  color="primary"
-                  className="buttonStyle"
-                >
-                  К разделу новостей
-                </Button>
+
               </Box>
             </Box>
-
           </Box>
 
         </Container>
