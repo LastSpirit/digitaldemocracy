@@ -22,7 +22,7 @@ export const useCreateNewPassword = () => {
     setStatus(APIStatus.Loading);
     resetPassword({
       onError: (errorResponse) => {
-        setStatus(APIStatus.Loading);
+        setStatus(APIStatus.Failure);
         setError(typeof errorResponse === 'string' ? errorResponse : errorResponse.password[0]);
       },
       onSuccess: (response) => {
