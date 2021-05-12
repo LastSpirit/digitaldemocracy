@@ -47,7 +47,7 @@ const sections = [
         href: '/rating',
       },
       {
-        title: 'Помощь площадке',
+        title: 'О площадке',
         href: '/help_site',
       },
       {
@@ -255,7 +255,7 @@ const Footer: FC = (props) => {
                   color: '#222222',
                 }}
               >
-                О&ensp;площадке
+                Помочь&ensp;площадке
               </Button>
             </Grid>
           </Grid>
