@@ -4,8 +4,11 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Box, Card, Typography, CardActionArea, CardActions, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { FC } from 'react';
+import { useHistory } from 'react-router';
 import { frames } from '../../../icons/pictures/picturesExports/picturesExport';
 import { useWindowSize } from '../../../hooks/useWindowSize';
+import { PoliticiansI } from '../../../slices/homeSlice';
 // import { slideData } from './SlideData';
 
 // function SampleNextArrow(props) {
@@ -105,78 +108,65 @@ const useStyles = makeStyles((theme) => ({
       fontSize: 12
     }
   },
-
 }));
-export default function CustomArrows({ data }) {
+
+const settings = {
+  dots: false,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 3,
+  initialSlide: 0,
+  responsive: [
+    {
+      breakpoint: 1140,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        infinite: false,
+        dots: false,
+      },
+    },
+    {
+      breakpoint: 843,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        initialSlide: 0,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        initialSlide: 1,
+      },
+    },
+
+    {
+      breakpoint: 550,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+
+      },
+    },
+  ],
+};
+
+const CustomArrows: FC<{ data: PoliticiansI[] }> = ({ data }) => {
   const classes = useStyles();
-  // const settings = {
-  //   nextArrow: <SampleNextArrow />,
-  //   prevArrow: <SamplePrevArrow />,
-  // };
-  const settings = {
-    // nextArrow: <SampleNextArrow />,
-    // prevArrow: <SamplePrevArrow />,
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 3,
-    initialSlide: 0,
-    responsive: [
-      // {
-      //   breakpoint: 1441,
-      //   settings: {
-      //     slidesToShow: 5,
-      //     slidesToScroll: 1,
-      //     initialSlide: 0,
-      //     infinite: false,
-      //     dots: false,
-      //   },
-      // },
-      {
-        breakpoint: 1140,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          infinite: false,
-          dots: false,
-        },
-      },
-      {
-        breakpoint: 843,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          initialSlide: 0,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          initialSlide: 1,
-        },
-      },
-
-      {
-        breakpoint: 550,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-
-        },
-      },
-    ],
-  };
   const { isMobile } = useWindowSize();
+  const { push } = useHistory();
   return (
     <div className={classes.carouselContainer}>
       {data ? (
         <Slider {...settings}>
-          {data?.map((item) => (
+          {data?.map(({ id, name, percent, photo }) => (
             <Card
-              key={item.name}
+              onClick={() => push(`/politician/${String(id)}`)}
+              key={name}
               className={classes.custom}
             >
               <CardActionArea>
@@ -188,17 +178,17 @@ export default function CustomArrows({ data }) {
                       className={classes.frame}
                     />
                     <img
-                      src={item.photo}
+                      src={photo}
                       alt="politics"
                       className={classes.img}
                     />
                   </Box>
                 </Box>
                 <Box className={classes.caption}>
-                  <Typography className={classes.name}>{item.name}</Typography>
+                  <Typography className={classes.name}>{name}</Typography>
                 </Box>
                 <Box>
-                  <Typography className={classes.percent}>{item.percent}</Typography>
+                  <Typography className={classes.percent}>{percent}</Typography>
                 </Box>
               </CardActionArea>
               <CardActions />
@@ -214,4 +204,6 @@ export default function CustomArrows({ data }) {
       ) : null}
     </div>
   );
-}
+};
+
+export default CustomArrows;

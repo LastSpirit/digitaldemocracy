@@ -3,6 +3,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface PoliticiansI {
   name?: string,
   photo?: string
+  percent?: number
+  id?: number
 }
 
 export interface NewsTopicsI {

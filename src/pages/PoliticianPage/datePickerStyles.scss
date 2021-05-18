@@ -1,0 +1,23 @@
+.react-datepicker-wrapper {
+  width: 85px!important;
+  transition: 0.3s all!important;
+  input {
+    transition: 0.3s all!important;
+    padding: 0!important;
+    cursor: pointer;
+    font-size: 16px!important;
+    width: 85px!important;
+    border: none!important;
+    outline: none!important;
+    border-bottom: 1px solid #363557!important;
+  }
+}
+
+.react-datepicker-popper {
+  border: none!important;
+}
+
+.react-datepicker{
+  border: none!important;
+  box-shadow: 0 0 10px #747373;
+}

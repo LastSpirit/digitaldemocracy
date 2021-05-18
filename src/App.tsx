@@ -19,6 +19,7 @@ import Home from './pages/Home';
 import SingleNews from './pages/SingleNews';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import { userSelectors } from './slices/userSlice';
+import PoliticianPage from './pages/PoliticianPage/PoliticianPage';
 
 const App: FC = () => {
   if (!firebase.apps.length) {
@@ -70,6 +71,11 @@ const App: FC = () => {
             component={ProfilePage}
           />
           )}
+          <Route
+            exact
+            path="/politician/:id"
+            component={PoliticianPage}
+          />
           <Redirect to="/" />
         </Switch>
       </MainLayout>
