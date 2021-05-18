@@ -11,6 +11,9 @@
   "extends": [
     "airbnb-typescript"
   ],
+  "import/order": ["error", {
+    "pathGroupsExcludedImportTypes": []
+  }],
   "rules": {
     "linebreak-style": 0,
     "@typescript-eslint/comma-dangle": "off",
