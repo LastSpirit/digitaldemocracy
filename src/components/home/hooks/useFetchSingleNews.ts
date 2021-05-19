@@ -12,7 +12,6 @@ export const useFetchSingleNews = (link: string) => {
     dispatch(startFetch());
     dispatch(fetchSingleNews({
       onSuccess: (response) => {
-        console.log(response);
         dispatch(setData(response));
       },
       payload: {

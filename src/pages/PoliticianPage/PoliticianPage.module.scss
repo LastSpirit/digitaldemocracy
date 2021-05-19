@@ -26,7 +26,6 @@
       position: relative;
       width: 100%;
       height: 300px;
-      margin-bottom: 40px;
       padding: 10px;
 
       .chart {
@@ -35,11 +34,10 @@
       }
     }
     .pickersContainer {
-      border-top: 1px solid #B0B0B0;
+      border-bottom: 1px solid #B0B0B0;
       padding: 10px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
 
       .picker {
         display: flex;
@@ -58,9 +56,202 @@
         }
 
         span {
-          padding-right: 10px;
           color: #444444;
         }
+      }
+    }
+  }
+}
+
+.noNewsBlock {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    padding: 10px 0;
+    font-weight: 600;
+    color: #747373;
+    font-size: 16px;
+    padding-left: 10px;
+  }
+}
+
+.navigation {
+  margin: 20px 0;
+  display: flex;
+  flex-shrink: 1;
+  .tabList {
+    flex-basis: 24%;
+
+    .link {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #B0B0B0;
+      padding: 5px 10px;
+      transition: 0.3s all;
+      &:hover {
+        background-color: #36355720;
+      }
+
+      a {
+        color: #747373;
+        text-decoration: none;
+      }
+
+      &.-active {
+        background-color: #363557;
+        a {
+          color: white;
+        }
+      }
+
+      &.withOutBorder {
+        border-bottom: none!important;
+      }
+    }
+
+  }
+
+  .tabContent {
+    margin-left: 30px;
+    flex-basis: 76%;
+  }
+}
+
+.profileInfoContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-shrink: 1;
+  padding-bottom: 60px;
+  border-bottom: 1px solid #B0B0B0;
+  .avatarBlock {
+    position: relative;
+    flex-basis: 24%;
+    display: flex;
+    background: #248232;
+    border-radius: 20px;
+    width: 100%;
+
+    .avatar {
+      width: 100%;
+      border-radius: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #E5E5E5;
+
+
+      &.noAvatar {
+        background-color: #E5E5E5;
+      }
+
+      .noAvatarIcon {
+        width: 100px;
+        height: 100px;
+      }
+
+      img {
+        border-radius: 100%;
+        object-fit: fill;
+        width: 120px;
+        height: 120px;
+      }
+    }
+
+    .changeProfileButton {
+      margin-top: 20px;
+      width: 200px;
+      border: 1px solid #B0B0B0;
+      color: #B0B0B0;
+      padding: 2px 0!important;
+    }
+  }
+
+  .personBlock {
+    flex-basis: 76%;
+    margin-left: 30px;
+
+    .cardsBlock {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .card {
+        width: 43%;
+        height: 150px;
+        border-radius: 20px;
+        border: 1px solid #B0B0B0;
+        padding: 10px 20px;
+
+        .infoCard {
+          color: #B0B0B0;
+
+          hr {
+            margin: 15px 0;
+          }
+
+          span {
+            font-size: 35px;
+          }
+          .positionAndAge {
+            .position {
+              font-size: 16px;
+              padding-bottom: 7px;
+            }
+
+            span {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+
+    .fioBlock {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: row;
+      .changeButton {
+        padding: 10px 20px;
+        background-color: #363557;
+        border: 1px solid #363557;
+        color: white;
+        &:hover {
+          background-color: white;
+          color: #363557;
+        }
+      }
+
+      .subscribers {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+
+        div {
+          padding-left: 18px;
+        }
+      }
+
+      .fio {
+        padding-bottom: 16px;
+        p {
+          color: #222222;
+          margin: 0!important;
+          font-size: 60px;
+          line-height: 59.28px;
+        }
+      }
+
+      .infoBlock {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
       }
     }
   }

@@ -11,6 +11,13 @@
   "extends": [
     "airbnb-typescript"
   ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".ts", ".tsx", ".native.js"]
+      }
+    }
+  },
   "rules": {
     "linebreak-style": 0,
     "@typescript-eslint/comma-dangle": "off",

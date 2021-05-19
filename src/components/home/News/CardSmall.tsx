@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { Box, makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, matchPath } from 'react-router';
 import watched from '../../../icons/pictures/watched.png';
 import logo from '../../../icons/logo/2.svg';
 import { AuthorI, MediaI } from '../../../slices/homeSlice';
@@ -124,8 +124,12 @@ interface CardSmallProps {
 const CardSmall: FC<CardSmallProps> = ({ media, author, number_of_views, publication_date, title, votes, short_link, image }) => {
   const classes = useStyles();
   const history = useHistory();
+  const handle = () => {
+    const newPath = matchPath(`/singleNews/${short_link}`, { path: '/singleNews/:link' });
+    history.push(newPath.url);
+  };
   return (
-    <Box onClick={() => history.push(`singleNews/${short_link}`)}>
+    <Box onClick={handle}>
       <Box className={classes.bigCardContainer}>
         <Box className={classes.mainHeader}>
           <Typography className={classes.text}>

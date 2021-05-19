@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .MuiButton-root {
   font-weight: 400;
 }
@@ -25,6 +29,18 @@
   &:disabled {
     background-color: #B0B0B0;
     color: white;
+  }
+  &.-disabled {
+    background-color: #B0B0B0!important;
+    color: white!important;
+    box-shadow: none!important;
+    cursor: default;
+    .MuiTouchRipple-root {
+      display: none!important;
+    }
+    &:hover {
+      outline: none!important;
+    }
   }
 }
 

@@ -52,7 +52,6 @@ interface NewsListI {
 
 const SingleNewsList: FC<NewsListI> = ({ news, isMorePages }) => {
   const classes = useStyles();
-  console.log(news);
   return (
     <Box className={classes.list}>
       <Container maxWidth="lg">

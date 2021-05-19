@@ -73,7 +73,12 @@ const App: FC = () => {
           )}
           <Route
             exact
-            path="/politician/:id"
+            path="/politician/:politicianId"
+            component={PoliticianPage}
+          />
+          <Route
+            exact
+            path="/politician/:politicianId/*"
             component={PoliticianPage}
           />
           <Redirect to="/" />

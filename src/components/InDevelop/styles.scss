@@ -1,0 +1,21 @@
+.in-develop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  .container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    span {
+      width: 300px;
+      padding-top: 15px;
+      font-size: 20px;
+      color: #747373;
+      text-align: center;
+    }
+  }
+}
