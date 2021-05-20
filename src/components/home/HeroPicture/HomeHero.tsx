@@ -1,25 +1,16 @@
 import type { FC } from 'react';
 import { Box, Typography, Container } from '@material-ui/core';
-import './HeroPicture.css';
-import heroImage from '../../../icons/pictures/HeroPictureBig.png';
+import styles from './HeroPicture.module.scss';
+// import heroImage from '../../../icons/pictures/HeroPictureBig.png';
 
 const HomeHero: FC = () => (
-  <Box className="heroContainer">
+  <Box className={styles.heroContainer}>
     <Container maxWidth="lg">
       <Box
-        className="heroImage"
-        sx={{
-          position: 'relative'
-        }}
+        className={styles.heroImage}
       >
-        <img
-          src={heroImage}
-          alt="/"
-        />
         <Typography
-          align="left"
-          color="#FFFFFF"
-          className="heroText"
+          className={styles.heroText}
         >
           Дорогой Друг! Развитие демократии невозможно без системы сдержек и противовесов, не позволяющей всей полноте
           власти концентрироваться в одних руках и равномерно распределенной между государственными ветвями власти. С

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import type { FC } from 'react';
 import { Box, Divider, List, ListItem, ListItemText, makeStyles, Typography } from '@material-ui/core';
-import { NewsTopicsI } from '../../../slices/homeSlice';
-import { useFetchHomePageData } from '../hooks/useFetchHomePageData';
-import '../styles.scss';
-import { useSearchParams } from '../../../hooks/useSearchParams';
+import { NewsTopicsI } from '../slices/homeSlice';
+import { useFetchHomePageData } from './home/hooks/useFetchHomePageData';
+import './home/styles.scss';
+import { useSearchParams } from '../hooks/useSearchParams';
 
 const useStyles = makeStyles(() => ({
   listTitle: {

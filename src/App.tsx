@@ -19,6 +19,7 @@ import Home from './pages/Home';
 import SingleNews from './pages/SingleNews';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import { userSelectors } from './slices/userSlice';
+import News from './pages/News';
 import PoliticianPage from './pages/PoliticianPage/PoliticianPage';
 
 const App: FC = () => {
@@ -63,6 +64,10 @@ const App: FC = () => {
           <Route
             path="/singleNews/:link"
             component={SingleNews}
+          />
+          <Route
+            path="/news"
+            component={News}
           />
           {isAuthenticated && (
           <Route

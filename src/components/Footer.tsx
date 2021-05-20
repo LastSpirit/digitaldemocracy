@@ -115,22 +115,30 @@ const Footer: FC = (props) => {
               display: 'flex',
             }}
           >
-            {icons.map(({ icon, title, to }, index) => (
-              <Box
-                key={index.toString()}
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  cursor: 'pointer',
-                }}
-                onClick={() => push(to)}
-              >
-                {icon}
-                <span style={{ marginTop: '10px' }}>{title}</span>
-              </Box>
-            ))}
+            <Container sx={{
+              width: '100%',
+              justifyContent: 'space-between',
+              display: 'flex',
+            }}
+            >
+              {icons.map(({ icon, title, to }, index) => (
+                <Box
+                  key={index.toString()}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => push(to)}
+                >
+                  {icon}
+                  <span style={{ marginTop: '10px', fontSize: '12px' }}>{title}</span>
+                </Box>
+              ))}
+            </Container>
           </Box>
+
         </Box>
       ) : (
         <Container maxWidth="lg">

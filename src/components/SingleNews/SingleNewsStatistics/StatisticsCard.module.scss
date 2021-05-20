@@ -1,0 +1,110 @@
+.card {
+    background-color: #ededed;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 555px;
+    border-radius: 10px;
+    padding: 0 20px 0 0;
+    margin-bottom: 17px;
+    align-items: center;
+}
+
+.image {
+    position: relative;
+    width: 88px;
+    height: 88px;
+    margin-right: 25px;
+}
+.frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 88px;
+    height: 88px;
+}
+.photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 88px;
+    height: 88px;
+    object-fit: cover;
+    z-index: 3;
+    border-radius: 50%;
+    background: white;
+}
+.name {
+    max-width: 180px;
+    width: 180px;
+    margin-right: 20px;
+}
+.title {
+    font-size: 14px;
+    color: #222;
+    font-family: 'Helvetica';
+    font-weight: 400;
+    padding: 0;
+    margin-bottom: 0 !important;
+    line-height: unset !important;
+}
+.likeButtons {
+    display: flex;
+    margin-right: 20px;
+}
+.likeButton {
+    padding: 0;
+    cursor: pointer;
+}
+.likeButtonIcon {
+    width: 40px;
+    height: 40px;
+
+}
+.percent {
+    font-family: 'Helvetica';
+    font-size: 14px;
+    font-weight: 400;
+    padding: 0;
+
+}
+
+@media (max-width: 600px) {
+    .card {
+        max-width: 320px;
+    }
+    .image {
+        width: 55px;
+        height: 55px;
+        margin-right: 16px;
+    }
+    .frame {
+        width: 55px;
+        height: 55px;
+    }
+    .photo {
+        width: 55px;
+        height: 55px;
+    }
+    .name {
+        max-width: 120px;
+        margin-right: 10px;
+    }
+    .title {
+        font-size: 12px;
+    }
+    .likeButtons {
+        margin-right: 15px;
+    }
+    .likeButtonIcon {
+        width: 25px;
+        height: 25px;
+    }
+    .percent {
+        font-size: 12px;
+    }
+}

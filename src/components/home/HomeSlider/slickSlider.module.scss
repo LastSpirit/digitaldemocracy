@@ -1,0 +1,80 @@
+.carouselContainer {
+    width: 90%;
+    margin: auto;
+}
+
+.custom {
+    cursor: default;
+    max-width: 210px;
+    width: 210px;
+    min-height: 250px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    border: none;
+    margin-bottom: 30px;
+    box-shadow: none;
+}
+
+.imgContainer {
+position: relative;
+height: 210px;
+margin-bottom: 20px;
+}
+
+.frame {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 210px;
+    height: 210px;
+}
+.img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 50%;
+    z-index: 3;
+    width: 210px;
+    height: 210px;
+    object-fit: cover;
+}
+.caption {
+    margin-bottom: 15px;
+    padding: 0px 15px;
+    min-height: 50px;
+}
+.name {
+    font-size: 14px;
+    font-family: 'Helvetica';
+    max-width: 200px;
+}
+.percent {
+font-size: 14px;
+font-family: 'Helvetica';
+font-weight: 700;
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 600px) {
+    .custom {
+        min-height: 200px;
+    }
+    .imgContainer {
+        margin-bottom: 10px;
+    }
+    .caption {
+        margin-bottom: 10px;
+    }
+    .name {
+        font-size: 12px;
+    }
+    .percent {
+        font-size: 12px;
+    }
+}

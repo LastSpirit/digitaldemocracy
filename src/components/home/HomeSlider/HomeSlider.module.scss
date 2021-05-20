@@ -3,6 +3,16 @@
   justify-content: space-between;
   margin: 50px auto;
 }
+.carouselTitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  alignItems: center;
+  width: 100%;
+}
+.carouselTitle p {
+  font-size: 40px;
+}
 .imageFrame {
   position: relative;
   height: 208px;
@@ -25,16 +35,7 @@
   color: #363557;
 }
 
-.slick-track {
-  display: flex !important;
-  align-items: center !important;
-}
-.slick-slide,
-.slick-active {
-  /*margin-right: 20px;*/
-  /*min-width: 210px !important;*/
-  text-align: center;
-}
+
 
 
 .customText {
