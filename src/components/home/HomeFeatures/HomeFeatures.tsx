@@ -12,6 +12,7 @@ import { useFetchHomePageData } from '../hooks/useFetchHomePageData';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import { Loading } from '../../Loading/Loading';
 import '../HomeSlider/HomeSlider.module.scss';
+import { WrapperAsyncRequest } from '../../Loading/WrapperAsyncRequest';
 
 interface HomeFeaturesPropsI {
   status?: string,
@@ -69,47 +70,39 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
               >
                 Актуальные новости
               </Typography>
-              {fetchNewsStatus !== 'Loading'
-                ? (
-                  <>
-                    {news && news.length > 0 ? (
-                      <Grid
-                        container
-                        spacing={2}
-                        justifyContent="center"
-                        sx={{
-                          maxWidth: '900px',
-                          justifyContent: 'flex-start'
-                        }}
-                      >
-                        {news?.map((item, index) => (
-                          <Grid
-                            key={index.toString()}
-                            item
-                            md={4}
-                            sm={6}
-                            xs={12}
-                          >
-                            <CardSmall
-                              {...item}
-                            />
-                          </Grid>
-                        ))}
-                      </Grid>
-                    )
-                      : (
-                        <Box>
-                          На данный момент новостей нет
-                        </Box>
-                      )}
-                  </>
-                ) : (
-                  <Box sx={{
-                    display: 'flex', marginTop: 40, justifyContent: 'center' }}
+
+              <WrapperAsyncRequest status={fetchNewsStatus}>
+                {news && news.length > 0 ? (
+                  <Grid
+                    container
+                    spacing={2}
+                    justifyContent="center"
+                    sx={{
+                      maxWidth: '900px',
+                      justifyContent: 'flex-start'
+                    }}
                   >
-                    <Loading size={60} />
-                  </Box>
-                )}
+                    {news?.map((item, index) => (
+                      <Grid
+                        key={index.toString()}
+                        item
+                        md={4}
+                        sm={6}
+                        xs={12}
+                      >
+                        <CardSmall
+                          {...item}
+                        />
+                      </Grid>
+                    ))}
+                  </Grid>
+                )
+                  : (
+                    <Box>
+                      На данный момент новостей нет
+                    </Box>
+                  )}
+              </WrapperAsyncRequest>
               <Box className={styles.content}>
                 <Button>
                   <Typography

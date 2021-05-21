@@ -54,6 +54,7 @@ box-sizing: border-box;
 .arrows {
     display: flex;
     margin-right: 50px;
+    align-items: center;
 }
 
 .newsInfo {
@@ -109,6 +110,14 @@ box-sizing: border-box;
     border-radius: 20px;
     margin: 0 auto;
     outline: none;
+}
+
+.facebook {
+    color: grey;
+    background-color: transparent;
+    height: 45px;
+    width: 45px;
+    cursor: pointer;
 }
 
 @media (max-width: 960px) {
@@ -167,5 +176,9 @@ box-sizing: border-box;
     .iframe {
         height: 60vh;
         width: 90%;
+    }
+    .facebook {
+        width: 30px;
+        height: 30px;
     }
 }
