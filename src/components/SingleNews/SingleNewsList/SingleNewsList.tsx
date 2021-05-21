@@ -9,50 +9,47 @@ interface NewsListI {
   isMorePages?: boolean
 }
 
-const SingleNewsList: FC<NewsListI> = ({ news, isMorePages }) => {
-  console.log(news);
-  return (
-    <Box className={styles.list}>
-      <Container maxWidth="lg">
-        <Box className={styles.headingContainer}>
-          <Typography className={styles.heading}>Новости по теме</Typography>
-        </Box>
-        <Box className={styles.newsListContainer}>
-          <Grid
-            container
-            spacing={2}
-          >
-            {news?.map((item) => (
-              <Grid
-                item
-                lg={3}
-                md={3}
-                sm={12}
-                key={item.id}
-              >
-                <CardSmall {...item} />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+const SingleNewsList: FC<NewsListI> = ({ news, isMorePages }) => (
+  <Box className={styles.list}>
+    <Container maxWidth="lg">
+      <Box className={styles.headingContainer}>
+        <Typography className={styles.heading}>Новости по теме</Typography>
+      </Box>
+      <Box className={styles.newsListContainer}>
+        <Grid
+          container
+          spacing={2}
+        >
+          {news?.map((item) => (
+            <Grid
+              item
+              lg={3}
+              md={3}
+              sm={12}
+              key={item.id}
+            >
+              <CardSmall {...item} />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
 
-        {isMorePages
-          ? (
-            <Box>
-              <Button>
-                <Typography className={styles.buttonText}>
-                  Показать больше
-                </Typography>
+      {isMorePages
+        ? (
+          <Box>
+            <Button>
+              <Typography className={styles.buttonText}>
+                Показать больше
+              </Typography>
 
-              </Button>
-            </Box>
-          )
-          : null}
+            </Button>
+          </Box>
+        )
+        : null}
 
-      </Container>
+    </Container>
 
-    </Box>
-  );
-};
+  </Box>
+);
 
 export default SingleNewsList;

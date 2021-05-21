@@ -1,4 +1,5 @@
 import { Box, Card, Typography, CardActionArea, CardActions, Button } from '@material-ui/core';
+import { useHistory } from 'react-router';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -56,12 +57,14 @@ export default function CustomArrows({ data }) {
     ],
   };
   const { isMobile } = useWindowSize();
+  const { push } = useHistory();
   return (
     <div className={styles.carouselContainer}>
       {data ? (
         <Slider {...settings}>
           {data?.map((item) => (
             <Card
+              onClick={() => push(`/politician/${String(item.id)}`)}
               key={item.name}
               className={styles.custom}
             >
