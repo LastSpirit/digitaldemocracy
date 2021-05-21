@@ -25,7 +25,7 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
         container
         className={styles.statisticsContainer}
       >
-        { politicians && politicians.length > 0 ? (
+        { politicians && politicians?.length > 0 && (
           <Grid
             item
             lg={6}
@@ -46,14 +46,14 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
             ))}
 
           </Grid>
-        ) : null}
+        )}
         <Grid
           item
           lg={6}
           md={12}
           sm={12}
         >
-          {media ? (
+          {media && (
             <Box sx={{ marginBottom: '20px' }}>
               <Box className={styles.headings}>
                 <Typography className={styles.heading}>Доверяете ли вы СМИ как источнику новости?</Typography>
@@ -64,8 +64,8 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
                 percent={media?.percent}
               />
             </Box>
-          ) : null}
-          {author ? (
+          )}
+          {author && (
             <Box>
               <Box className={styles.headings}>
                 <Typography className={styles.heading}>Доверяете ли вы автору новости?</Typography>
@@ -76,7 +76,7 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
                 percent={author?.percent}
               />
             </Box>
-          ) : null}
+          )}
         </Grid>
       </Grid>
     </Container>

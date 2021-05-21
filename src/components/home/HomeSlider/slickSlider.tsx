@@ -92,12 +92,12 @@ export default function CustomArrows({ data }) {
           ))}
         </Slider>
       ) : null}
-      {isMobile ? (
+      {isMobile && (
       // eslint-disable-next-line react/button-has-type
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <Button className={classes.buttonStyle}>Весь рейтинг</Button>
         </Box>
-      ) : null}
+      )}
     </div>
   );
 }

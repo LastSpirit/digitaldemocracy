@@ -3,8 +3,10 @@ import { useState } from 'react';
 import { Box, Container, Typography, IconButton, Grid } from '@material-ui/core';
 import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 import CallMadeIcon from '@material-ui/icons/CallMade';
+import FacebookIcon from '@material-ui/icons/Facebook';
 import styles from './SingleNewsHero.module.scss';
 import { CurrentNewsI } from '../../../slices/SingleNewsSlice';
+import FacebookShare from '../../FacebookShare/FacebookShare';
 
 interface HeroPropsI {
   data?: CurrentNewsI
@@ -39,7 +41,16 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
                   onClick={handleToggleIframe}
                 >
                   <CallMadeIcon className={styles.arrowLink} />
+
                 </IconButton>
+                <FacebookShare
+                  url={data?.source_link}
+                >
+                  <FacebookIcon
+                    fontSize="large"
+                    className={styles.facebook}
+                  />
+                </FacebookShare>
               </Box>
               <Box className={styles.hashtags}>
                 {data?.hashtags.map((item) => (
