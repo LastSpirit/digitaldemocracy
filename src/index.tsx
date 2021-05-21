@@ -13,7 +13,7 @@ import StyledEngineProvider from '@material-ui/core/StyledEngineProvider';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
-import store from './store';
+import { store } from './store';
 import './index.scss';
 import { AuthProvider } from './contexts/JWTContext';
 

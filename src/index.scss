@@ -2,6 +2,13 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  margin: 0;
+  @media screen and (max-width: 570px){
+    overflow-x: hidden;
+  }
+}
+
 .MuiButton-root {
   font-weight: 400;
 }

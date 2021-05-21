@@ -9,7 +9,7 @@ import type { Action } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
 import rootReducer from './rootReducer';
 
-const store = configureStore({
+export const store = configureStore({
   reducer: rootReducer,
   devTools: process.env.REACT_APP_ENABLE_REDUX_DEV_TOOLS === 'true'
 });
@@ -23,5 +23,3 @@ export type AppThunk = ThunkAction<void, RootState, null, Action<string>>;
 export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
 
 export const useDispatch = () => useReduxDispatch<AppDispatch>();
-
-export default store;

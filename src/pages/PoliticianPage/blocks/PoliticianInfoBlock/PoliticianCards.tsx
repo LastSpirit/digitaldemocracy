@@ -9,7 +9,17 @@ const PoliticianCards = () => {
     <div className={styles.cardsBlock}>
       <div className={styles.card}>
         <div className={styles.infoCard}>
-          <span>{data?.part}</span>
+          <div className={styles.party}>
+            {data?.party_logo && (
+            <div className={styles['-img']}>
+              <img
+                src={data?.party_logo}
+                alt=""
+              />
+            </div>
+            )}
+            <span>{data?.party}</span>
+          </div>
           <hr color="#B0B0B0" />
           <div className={styles.positionAndAge}>
             <div className={styles.position}>{data?.position}</div>

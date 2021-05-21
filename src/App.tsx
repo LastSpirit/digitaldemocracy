@@ -48,8 +48,9 @@ const App: FC = () => {
   } = useSearchParams(ModalParams.YandexRegister);
 
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
+  console.log(isAuthenticated);
 
-  return (
+  return isAuthenticated !== undefined ? (
     <ThemeProvider theme={theme}>
       <Helmet>
         <title>Digital Democracy | Dev</title>
@@ -95,7 +96,7 @@ const App: FC = () => {
       />
       <div id="sign-in-button" />
     </ThemeProvider>
-  );
+  ) : null;
 };
 
 export default App;

@@ -74,11 +74,11 @@ export interface SingleNewsI {
 
 interface SliceState {
   data?: SingleNewsI
-  status: APIStatus
+  status?: APIStatus
 }
 
 const initialState:SliceState = {
-  status: APIStatus.Initial
+  status: 'Initial' as APIStatus
 };
 
 export const singleNewsSlice = createSlice({

@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { APIRequest, callAPI } from '../lib/axiosAPI';
-import { NewsWithPercentI, PoliticianInfoI, PositionHistoryI } from '../slices/politicianSlice';
+import { NewsWithPercentI, PoliticianInfoI, PositionHistoryI, PromiseI } from '../slices/politicianSlice';
 
 interface NewsRequest {
   start_date: string
@@ -23,14 +23,17 @@ const fetchNews: APIRequest<NewsRequest, Array<NewsWithPercentI>, string> = (arg
 
 interface FetchProfileInfoResponse extends PoliticianInfoI {}
 
-const fetchProfileInfo: APIRequest<{ id: number }, FetchProfileInfoResponse> = (args) => callAPI({ url: 'news', ...args });
+const fetchProfileInfo: APIRequest<{ id: number }, FetchProfileInfoResponse> = (args) => callAPI({ url: `getPolitician?politician_id=${args.payload.id}`, config: { method: 'get' }, ...args });
 
-const fetchPositionHistory: APIRequest<{ }, Array<PositionHistoryI>> = (args) => callAPI({ url: 'positions', config: { method: 'GET' }, ...args });
+const fetchPositionHistory: APIRequest<{ id: number }, Array<PositionHistoryI>> = (args) => callAPI({ url: `getPoliticianPositions?politician_id=${args.payload.id}`, config: { method: 'GET' }, ...args });
+
+const fetchPromises: APIRequest<{ id: number }, Array<PromiseI>> = (args) => callAPI({ url: `getPoliticianPromises?politician_id=${args.payload.id}`, config: { method: 'GET' }, ...args });
 
 const APIs = {
   fetchNews,
   fetchProfileInfo,
   fetchPositionHistory,
+  fetchPromises,
 };
 
 export const politicianAPI = () => {

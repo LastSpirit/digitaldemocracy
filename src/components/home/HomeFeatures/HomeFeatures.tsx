@@ -28,7 +28,6 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
   const handleGetMorePages = () => {
     fetch(page + 1, undefined, true);
   };
-  console.log(fetchNewsStatus);
 
   return (
     <Box>

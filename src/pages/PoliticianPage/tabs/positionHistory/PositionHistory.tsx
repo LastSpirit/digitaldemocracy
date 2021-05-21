@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { DataGrid, ruRU } from '@material-ui/data-grid';
+import { DataGrid, ruRU, GridColumns } from '@material-ui/data-grid';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { Tooltip } from '@material-ui/core';
 import { useSelector } from 'react-redux';
@@ -23,7 +23,7 @@ const TableTooltip: React.FC<{ value: string }> = ({ value }) => (
   </Tooltip>
 );
 
-const columns = [
+const columns: GridColumns = [
   { field: 'position',
     headerName: 'Должность',
     width: 200,
@@ -31,7 +31,7 @@ const columns = [
     renderCell: (params: any) => <TableTooltip value={params.value} />, },
   // eslint-disable-next-line react/destructuring-assignment
   { field: 'type', headerName: 'Тип', width: 250, renderCell: (params: any) => <TableTooltip value={params.value} /> },
-  { field: 'percent', headerName: 'С каким процентом выбран', width: 250 },
+  { field: 'percent', headerName: 'С каким процентом выбран', align: 'center', width: 250, renderCell: (params: any) => params.value || '-' },
   { field: 'years', headerName: 'Годы', width: 150 },
 
 ];

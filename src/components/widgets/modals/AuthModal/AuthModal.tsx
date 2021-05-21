@@ -79,6 +79,7 @@ const AuthModal:React.FC = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        mx: 2,
       }}
     >
       <Box sx={{ position: 'relative' }}>

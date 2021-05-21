@@ -15,16 +15,19 @@ import {
 import { useHistory } from 'react-router-dom';
 import { alpha } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
-import Logo from './Logo';
-import { useWindowSize } from '../hooks/useWindowSize';
-import Register from '../icons/Register';
-import News from '../icons/News';
-import Search from '../icons/Search';
-import Person from '../icons/Person';
-import Rating from '../icons/Rating';
-import './MainNavbar.css';
-import { userSelectors } from '../slices/userSlice';
-import { AuthParam } from '../types/routing';
+import classNames from 'classnames';
+import Logo from '../Logo';
+import { useWindowSize } from '../../hooks/useWindowSize';
+import Register from '../../icons/Register';
+import News from '../../icons/News';
+import Search from '../../icons/Search';
+import Person from '../../icons/Person';
+import Rating from '../../icons/Rating';
+import '../MainNavbar.css';
+import { userSelectors } from '../../slices/userSlice';
+import { AuthParam, ModalParams } from '../../types/routing';
+import styles from './styles.module.scss';
+import { useSearchParams } from '../../hooks/useSearchParams';
 
 const sections = [
   {
@@ -59,10 +62,55 @@ const sections = [
   },
 ];
 
+const authUserSections = [
+  {
+    title: 'Контакты',
+    links: [
+      {
+        title: 'info@digitaldemocracy.ru',
+        href: '/browse',
+      },
+    ],
+  },
+  {
+    title: 'Карта сайта',
+    links: [
+      {
+        title: 'Новости',
+        href: '/news',
+      },
+      {
+        title: 'Рейтинг',
+        href: '/rating',
+      },
+      {
+        title: 'О площадке',
+        href: '/help_site',
+      },
+      {
+        title: 'Добавить новость',
+        href: '/',
+      }, {
+        title: 'Добавить политика',
+        href: '/help_site',
+      },
+      {
+        title: 'Пользовательское соглашение',
+        href: '/',
+      },
+    ],
+  },
+];
+
 const Footer: FC = (props) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { isMobile } = useWindowSize();
   const { push } = useHistory();
+
+  const {
+    [ModalParams.Auth]: { setValue: setAuthValue },
+  } = useSearchParams(ModalParams.Auth);
+
   const icons = [
     {
       title: 'Поиск',
@@ -77,10 +125,10 @@ const Footer: FC = (props) => {
     {
       title: 'Новости',
       icon: <News />,
-      to: '',
+      to: '/news',
     },
     {
-      title: isAuthenticated ? 'Профиль' : 'Регистрация',
+      title: isAuthenticated ? 'Профиль' : 'Вход/Регистрация',
       icon: isAuthenticated ? <Person /> : <Register />,
       to: isAuthenticated ? '/profile' : AuthParam.register,
     },
@@ -98,6 +146,7 @@ const Footer: FC = (props) => {
           xs: 0,
         },
       }}
+      className={classNames(styles.container, { [styles.mobileContainer]: isMobile })}
       {...props}
     >
       {isMobile ? (
@@ -130,7 +179,7 @@ const Footer: FC = (props) => {
                     alignItems: 'center',
                     cursor: 'pointer',
                   }}
-                  onClick={() => push(to)}
+                  onClick={() => ((!isAuthenticated && title === 'Вход/Регистрация') ? setAuthValue(to) : push(to))}
                 >
                   {icon}
                   <span style={{ marginTop: '10px', fontSize: '12px' }}>{title}</span>
@@ -180,7 +229,7 @@ const Footer: FC = (props) => {
                 </Box>
               </Box>
             </Grid>
-            {sections.map((section, index) => (
+            {[...(isAuthenticated ? authUserSections : sections)].map((section, index) => (
               <Grid
                 item
                 key={section.title}

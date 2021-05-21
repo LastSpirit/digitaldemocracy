@@ -3,13 +3,14 @@ import { useDispatch } from 'react-redux';
 import { NewsI } from './homeSlice';
 
 export interface PoliticianInfoI {
-  first_name?: string
-  second_name?: string
-  avatar?: string
-  subscribers?: number
-  subscribed?: boolean
-  rating?: number
-  part?: string
+  id?: number
+  name?: string
+  photo?: string
+  number_of_subscribers?: number
+  is_subscribed?: boolean
+  percent?: string
+  party?: string
+  party_logo?: string
   position?: string
   age?: number
   city?: string
@@ -23,9 +24,16 @@ export interface PositionHistoryI {
   years: string
 }
 
+export interface PromiseI {
+  text: string
+  link: string
+  promise_date: string
+}
+
 interface SliceState {
   data?: PoliticianInfoI
   news?: Array<NewsI>
+  promises?: Array<PromiseI>
   chartData?: Array<Array<Date | number>>
   history?: Array<PositionHistoryI>
 }
@@ -52,6 +60,9 @@ export const politicianSlice = createSlice({
     },
     setHistory(state: SliceState, action: PayloadAction<Array<PositionHistoryI>>) {
       state.history = action.payload;
+    },
+    setPromises(state: SliceState, action: PayloadAction<Array<PromiseI>>) {
+      state.promises = action.payload;
     }
   }
 });
@@ -64,7 +75,8 @@ export const politicianSelectors = {
   getNews: () => (state: Store) => state.politician.news,
   getChartData: () => (state: Store) => state.politician.chartData,
   getPoliticianInfo: () => (state: Store) => state.politician.data,
-  getPositionHistory: () => (state: Store) => state.politician.history
+  getPositionHistory: () => (state: Store) => state.politician.history,
+  getPositionPromises: () => (state: Store) => state.politician.promises
 };
 
 export const politicianActionCreators = () => {

@@ -79,12 +79,15 @@ const MainNavbar: FC = () => {
       <Container maxWidth="lg">
         <Toolbar sx={{ minHeight: 64, justifyContent: isMobile ? 'center' : 'space-between', alignItems: 'center', display: 'flex' }}>
           {isMobile ? (
-            <Box sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: 40,
-            }}
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: 40,
+                cursor: 'pointer'
+              }}
+              onClick={() => push('/')}
             >
               <Brand />
             </Box>

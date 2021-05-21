@@ -24,6 +24,16 @@
   justify-content: space-between;
   align-items: center;
   flex-shrink: 1;
+  @media screen and (max-width: 670px) {
+    flex-direction: column;
+    .personBlock {
+      .fio {
+        p {
+          font-size: 35px!important;
+        }
+      }
+    }
+  }
   .avatarBlock {
     flex-basis: 24%;
     display: flex;

@@ -5,19 +5,21 @@ import { Button } from '@material-ui/core';
 import styles from '../../PoliticianPage.module.scss';
 import { politicianSelectors } from '../../../../slices/politicianSlice';
 import PoliticianCards from './PoliticianCards';
+import { useWindowSize } from '../../../../hooks/useWindowSize';
 
 const PoliticianInfoBlock = () => {
   const data = useSelector(politicianSelectors.getPoliticianInfo());
-  const [subscribed, setSubscribed] = useState(data?.subscribed);
+  const [subscribed, setSubscribed] = useState(data?.is_subscribed);
+  const { isMobile } = useWindowSize();
   return (
     <div className={styles.profileInfoContainer}>
       <div className={styles.avatarBlock}>
         <div className={styles.avatar}>
-          {!data?.avatar ? (
+          {!data?.photo ? (
             <PersonIcon className={styles.noAvatarIcon} />
           ) : (
             <img
-              src={data?.avatar}
+              src={data?.photo}
               alt=""
             />
           )}
@@ -26,7 +28,7 @@ const PoliticianInfoBlock = () => {
       <div className={styles.personBlock}>
         <div className={styles.fioBlock}>
           <div className={styles.fio}>
-            <p>{`${data?.first_name} ${data?.second_name}`}</p>
+            <p>{`${data?.name}`}</p>
             <div className={styles.subscribers}>
               <Button
                 variant="outlined"
@@ -36,12 +38,22 @@ const PoliticianInfoBlock = () => {
                 {subscribed ? 'Отписаться' : 'Следить'}
               </Button>
               <div>
-                {data?.subscribers}
+                {data?.number_of_subscribers}
                 {' '}
                 подписчиков
               </div>
+              {isMobile && (
+              <Button
+                className={styles.changeButton}
+                variant="outlined"
+                color="primary"
+              >
+                Изменить
+              </Button>
+              )}
             </div>
           </div>
+          {!isMobile && (
           <Button
             className={styles.changeButton}
             variant="outlined"
@@ -49,6 +61,7 @@ const PoliticianInfoBlock = () => {
           >
             Изменить
           </Button>
+          )}
         </div>
         <PoliticianCards />
       </div>
