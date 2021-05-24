@@ -1,5 +1,6 @@
 .container {
   width: 100%;
+  overflow: hidden!important;
   &.mobileContainer {
     position: fixed;
     bottom: 0;

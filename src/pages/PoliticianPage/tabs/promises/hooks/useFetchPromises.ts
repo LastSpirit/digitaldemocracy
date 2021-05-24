@@ -18,7 +18,7 @@ export const useFetchPromises = () => {
         setStatus(APIStatus.Success);
       },
       payload: {
-        id: Number(politicianId)
+        politician_id: Number(politicianId)
       }
     });
   }, []);

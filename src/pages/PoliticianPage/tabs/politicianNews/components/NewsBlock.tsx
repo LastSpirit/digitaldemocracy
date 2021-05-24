@@ -34,7 +34,7 @@ const NewsBlock = () => {
       )
         : (
           <div className={styles.noNewsBlock}>
-            <span>Здесь будут оторажаться новости за выбранный период</span>
+            <span>Здесь будут отображаться новости за выбранный период</span>
           </div>
         )}
     </div>

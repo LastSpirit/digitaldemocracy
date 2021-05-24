@@ -2,9 +2,13 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styles from '../../PoliticianPage.module.scss';
 import { politicianSelectors } from '../../../../slices/politicianSlice';
+import { PercentsLinearGraphic } from './PercentsLinearGraphic';
+import { useWindowSize } from '../../../../hooks/useWindowSize';
+import InDevelop from '../../../../components/InDevelop/InDevelop';
 
 const PoliticianCards = () => {
   const data = useSelector(politicianSelectors.getPoliticianInfo());
+  const { isMobile } = useWindowSize();
   return (
     <div className={styles.cardsBlock}>
       <div className={styles.card}>
@@ -29,7 +33,19 @@ const PoliticianCards = () => {
           </div>
         </div>
       </div>
-      <div className={styles.card} />
+      <div className={styles.card}>
+        {isMobile ? (
+          <InDevelop />
+        ) : (
+          <div className={styles.secondCard}>
+            <div className={styles.percents}>
+              <span>2 место</span>
+              <p>{data?.percent}</p>
+            </div>
+            <PercentsLinearGraphic />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

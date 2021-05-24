@@ -63,6 +63,9 @@ export const politicianSlice = createSlice({
     },
     setPromises(state: SliceState, action: PayloadAction<Array<PromiseI>>) {
       state.promises = action.payload;
+    },
+    setIsSubscribe(state: SliceState, action: PayloadAction<boolean>) {
+      state.data.is_subscribed = action.payload;
     }
   }
 });
@@ -74,6 +77,7 @@ interface Store {
 export const politicianSelectors = {
   getNews: () => (state: Store) => state.politician.news,
   getChartData: () => (state: Store) => state.politician.chartData,
+  getIsSubscribe: () => (state: Store) => state.politician.data?.is_subscribed,
   getPoliticianInfo: () => (state: Store) => state.politician.data,
   getPositionHistory: () => (state: Store) => state.politician.history,
   getPositionPromises: () => (state: Store) => state.politician.promises

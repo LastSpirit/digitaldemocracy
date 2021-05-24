@@ -21,19 +21,41 @@ const fetchNews: APIRequest<NewsRequest, Array<NewsWithPercentI>, string> = (arg
   });
 };
 
+interface DefaultRequest {
+  politician_id: number
+}
+
+interface RequestWithToken extends DefaultRequest {
+  token: string
+}
+
 interface FetchProfileInfoResponse extends PoliticianInfoI {}
 
-const fetchProfileInfo: APIRequest<{ id: number }, FetchProfileInfoResponse> = (args) => callAPI({ url: `getPolitician?politician_id=${args.payload.id}`, config: { method: 'get' }, ...args });
+const fetchProfileInfo: APIRequest<DefaultRequest, FetchProfileInfoResponse> = (args) => callAPI({ url: `getPolitician?politician_id=${args.payload.politician_id}`, config: { method: 'get' }, ...args });
 
-const fetchPositionHistory: APIRequest<{ id: number }, Array<PositionHistoryI>> = (args) => callAPI({ url: `getPoliticianPositions?politician_id=${args.payload.id}`, config: { method: 'GET' }, ...args });
+const fetchPositionHistory: APIRequest<DefaultRequest, Array<PositionHistoryI>> = (args) => callAPI({ url: `getPoliticianPositions?politician_id=${args.payload.politician_id}`, config: { method: 'GET' }, ...args });
 
-const fetchPromises: APIRequest<{ id: number }, Array<PromiseI>> = (args) => callAPI({ url: `getPoliticianPromises?politician_id=${args.payload.id}`, config: { method: 'GET' }, ...args });
+const fetchPromises: APIRequest<DefaultRequest, Array<PromiseI>> = (args) => callAPI({ url: `getPoliticianPromises?politician_id=${args.payload.politician_id}`, config: { method: 'GET' }, ...args });
+
+const subscribe: APIRequest<RequestWithToken, Array<PromiseI>> = (args) => callAPI({ url: 'subscribeToPolitician',
+  config: { headers: {
+    Authorization: `Bearer ${args.payload.token}`
+  } },
+  ...args });
+
+const unsubscribe: APIRequest<RequestWithToken, Array<PromiseI>> = (args) => callAPI({ url: 'unsubscribeFromPolitician',
+  config: { headers: {
+    Authorization: `Bearer ${args.payload.token}`
+  } },
+  ...args });
 
 const APIs = {
   fetchNews,
   fetchProfileInfo,
   fetchPositionHistory,
   fetchPromises,
+  subscribe,
+  unsubscribe,
 };
 
 export const politicianAPI = () => {

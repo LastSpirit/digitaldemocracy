@@ -155,6 +155,7 @@ const Footer: FC = (props) => {
             display: 'flex',
             justifyContent: 'center',
             p: 1.5,
+            overflow: 'hidden'
           }}
         >
           <Box
@@ -162,12 +163,14 @@ const Footer: FC = (props) => {
               width: '100%',
               justifyContent: 'space-between',
               display: 'flex',
+              overflow: 'hidden'
             }}
           >
             <Container sx={{
               width: '100%',
               justifyContent: 'space-between',
               display: 'flex',
+              overflow: 'hidden'
             }}
             >
               {icons.map(({ icon, title, to }, index) => (

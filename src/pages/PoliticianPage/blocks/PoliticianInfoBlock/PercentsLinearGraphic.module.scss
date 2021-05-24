@@ -1,0 +1,17 @@
+.container {
+  width: 100%;
+  position: relative;
+  margin-top: 20px;
+  .line {
+    padding: 10px 0;
+    position: absolute;
+    border-radius: 30px;
+    display: flex;
+    span {
+      width: 100%;
+      text-align: right;
+      color: white;
+      padding-right: 20px;
+    }
+  }
+}

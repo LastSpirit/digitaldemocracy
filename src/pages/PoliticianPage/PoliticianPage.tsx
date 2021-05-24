@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, Container } from '@material-ui/core';
-import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
-import { useHistory } from 'react-router';
+import { Container } from '@material-ui/core';
 import 'react-datepicker/dist/react-datepicker.css';
 import './datePickerStyles.scss';
 import styles from './PoliticianPage.module.scss';
@@ -9,9 +7,9 @@ import { useFetchProfileInfo } from './hooks/useFetchProfileInfo';
 import { WrapperAsyncRequest } from '../../components/Loading/WrapperAsyncRequest';
 import PoliticianInfoBlock from './blocks/PoliticianInfoBlock/PoliticianInfoBlock';
 import PoliticianNavigation from './blocks/PoliticianNavigation';
+import { BackButton } from '../../components/BackButton/BackButton';
 
 const PoliticianPage = () => {
-  const { push } = useHistory();
   const { status, fetch } = useFetchProfileInfo();
 
   useEffect(() => {
@@ -21,15 +19,7 @@ const PoliticianPage = () => {
     <Container maxWidth="lg">
       <div className={styles.container}>
         <WrapperAsyncRequest status={status}>
-          <Button
-            className={styles.backButton}
-            onClick={() => push('/')}
-          >
-            <ArrowRightAltIcon
-              className={styles.arrow}
-            />
-            <p>Назад</p>
-          </Button>
+          <BackButton />
           <PoliticianInfoBlock />
           <PoliticianNavigation />
         </WrapperAsyncRequest>

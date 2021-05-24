@@ -18,7 +18,7 @@ export const useFetchProfileInfo = () => {
       },
       onError: () => setStatus(APIStatus.Failure),
       payload: {
-        id: Number(politicianId),
+        politician_id: Number(politicianId),
       }
     });
   }, []);

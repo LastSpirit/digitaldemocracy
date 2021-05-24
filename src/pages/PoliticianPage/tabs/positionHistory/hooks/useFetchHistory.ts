@@ -21,7 +21,7 @@ export const useFetchHistory = () => {
         setStatus(APIStatus.Failure);
       },
       payload: {
-        id: Number(politicianId)
+        politician_id: Number(politicianId)
       }
     });
   }, []);

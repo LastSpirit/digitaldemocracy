@@ -29,6 +29,13 @@ body {
   margin-left: 0!important;
 }
 
+.MuiButton-outlinedPrimary {
+  color: white!important;
+  &:hover {
+    color: #363557!important;
+  }
+}
+
 .MuiButton-containedPrimary {
   background-color: #363557;
   color: #FFFFFF;
@@ -42,6 +49,31 @@ body {
     color: white!important;
     box-shadow: none!important;
     cursor: default;
+    border-color: #B0B0B0!important;
+    .MuiTouchRipple-root {
+      display: none!important;
+    }
+    &:hover {
+      outline: none!important;
+    }
+  }
+}
+
+.MuiButton-outlinedSecondary {
+  background-color: white;
+  color: rgba(245, 0, 87);
+  border: 1px solid rgba(245, 0, 87, 0.5);
+
+  &:disabled {
+    background-color: #B0B0B0;
+    color: white;
+  }
+  &.-disabled {
+    background-color: #B0B0B0!important;
+    color: white!important;
+    box-shadow: none!important;
+    cursor: default;
+    border-color: #B0B0B0!important;
     .MuiTouchRipple-root {
       display: none!important;
     }

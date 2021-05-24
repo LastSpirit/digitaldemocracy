@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import PersonIcon from '@material-ui/icons/Person';
-import { Button } from '@material-ui/core';
+import { Button, Tooltip } from '@material-ui/core';
+import classNames from 'classnames';
 import styles from '../../PoliticianPage.module.scss';
 import { politicianSelectors } from '../../../../slices/politicianSlice';
 import PoliticianCards from './PoliticianCards';
 import { useWindowSize } from '../../../../hooks/useWindowSize';
+import { useChangeSubscribe } from '../../hooks/useChangeSubscribe';
+import { APIStatus } from '../../../../lib/axiosAPI';
+import { Loading } from '../../../../components/Loading/Loading';
+import { userSelectors } from '../../../../slices/userSlice';
 
 const PoliticianInfoBlock = () => {
   const data = useSelector(politicianSelectors.getPoliticianInfo());
-  const [subscribed, setSubscribed] = useState(data?.is_subscribed);
+  const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { isMobile } = useWindowSize();
+  const { status, change } = useChangeSubscribe();
+
   return (
     <div className={styles.profileInfoContainer}>
       <div className={styles.avatarBlock}>
@@ -32,10 +39,17 @@ const PoliticianInfoBlock = () => {
             <div className={styles.subscribers}>
               <Button
                 variant="outlined"
-                color={subscribed ? 'secondary' : 'primary'}
-                onClick={() => setSubscribed(!subscribed)}
+                color={data?.is_subscribed ? 'secondary' : 'primary'}
+                onClick={isAuthenticated ? change : undefined}
+                disabled={status === APIStatus.Loading}
+                className={classNames(['MuiButton-containedPrimary', styles.subscriberButton, { '-disabled': !isAuthenticated }])}
               >
-                {subscribed ? 'Отписаться' : 'Следить'}
+                <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
+                  <span>
+                    {/* eslint-disable-next-line no-nested-ternary */}
+                    {status === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? 'Отписаться' : 'Следить'}
+                  </span>
+                </Tooltip>
               </Button>
               <div>
                 {data?.number_of_subscribers}

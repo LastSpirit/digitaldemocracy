@@ -1,0 +1,18 @@
+.backButton {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  border: 1px solid #B0B0B0;
+  color: #B0B0B0;
+
+  .arrow {
+    transform: rotate(180deg);
+  }
+
+  p {
+    margin: 0 !important;
+    padding: 0 10px;
+  }
+}

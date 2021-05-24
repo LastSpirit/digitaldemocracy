@@ -11,9 +11,6 @@ export const Promises = () => {
   useEffect(() => {
     fetch();
   }, []);
-  const handleOpenNewTab = (link: string) => {
-    window.open(link);
-  };
 
   return (
     <div className={styles.container}>
@@ -23,10 +20,22 @@ export const Promises = () => {
           <div
             key={index.toString()}
             className={styles.promise}
-            onClick={() => handleOpenNewTab(link)}
           >
-            {text}
-            <div className={styles.date}>{promise_date}</div>
+            <span>{text}</span>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <a
+                href={link}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {link}
+              </a>
+              <div className={styles.date}>
+                Дата:
+                {' '}
+                {promise_date}
+              </div>
+            </div>
           </div>
         ))}
       </WrapperAsyncRequest>

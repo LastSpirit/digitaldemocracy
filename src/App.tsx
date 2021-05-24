@@ -48,7 +48,6 @@ const App: FC = () => {
   } = useSearchParams(ModalParams.YandexRegister);
 
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
-  console.log(isAuthenticated);
 
   return isAuthenticated !== undefined ? (
     <ThemeProvider theme={theme}>
