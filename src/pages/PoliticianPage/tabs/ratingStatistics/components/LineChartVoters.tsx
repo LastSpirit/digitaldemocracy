@@ -25,10 +25,7 @@ const lines = [
   },
 ];
 
-const getWidth = (item: number, total: number) => {
-  console.log(item, total);
-  return (item * 100) / total < 1 ? 1 : (item * 100) / total;
-};
+const getWidth = (item: number, total: number) => ((item * 100) / total < 1 ? 1 : (item * 100) / total);
 
 export const LineChartVoters = () => {
   const data = useSelector(politicianSelectors.getRatingStatistic());

@@ -62,7 +62,7 @@ const PoliticianInfoBlock = () => {
                 variant="outlined"
                 color="primary"
               >
-                Изменить
+                Предложить изменения
               </Button>
               )}
             </div>
@@ -73,7 +73,7 @@ const PoliticianInfoBlock = () => {
             variant="outlined"
             color="primary"
           >
-            Изменить
+            Предложить изменения
           </Button>
           )}
         </div>
