@@ -6,10 +6,10 @@ import NewsBlock from './components/NewsBlock';
 
 export const PoliticianNews = () => {
   const { fetch, status } = useFetchNews();
-  const [startDatePicker, setStartDatePicker] = useState(new Date(moment().subtract(1, 'months').format('YYYY-MM-DD')));
+  const [startDatePicker, setStartDatePicker] = useState(new Date(moment().subtract(12, 'months').format('YYYY-MM-DD')));
   const [endDatePicker, setEndDatePicker] = useState(new Date());
 
-  const [startDate, setStartDate] = useState<string>(moment().subtract(1, 'months').format('YYYY-MM-DD'));
+  const [startDate, setStartDate] = useState<string>(moment().subtract(12, 'months').format('YYYY-MM-DD'));
   const [endDate, setEndDate] = useState<string>(moment().format('YYYY-MM-DD'));
   const [initStartDate, setInitStartDate] = useState<string>(startDate);
   const [initEndDate, setInitEndDate] = useState<string>(endDate);

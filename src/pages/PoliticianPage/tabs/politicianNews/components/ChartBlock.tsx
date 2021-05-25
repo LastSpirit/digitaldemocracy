@@ -91,7 +91,6 @@ const ChartBlock: React.FC<ChartBlockProps> = ({
           color="primary"
           onClick={!validValue || isPristine ? undefined : handleApply}
           variant="contained"
-          sx={{ ml: 2 }}
           className={classNames('MuiButton-containedPrimary', { '-disabled': buttonDisabled })}
         >
           <Tooltip

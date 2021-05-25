@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Redirect, Route, Switch, useHistory, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
@@ -24,15 +24,6 @@ const PoliticianNavigation = () => {
     }
   };
 
-  const handleScroll = (e) => {
-    console.log(e.target.scrollLeft);
-  };
-
-  useEffect(() => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.addEventListener('scroll', handleScroll);
-    }
-  });
   return (
     <div
       className={styles.navigation}

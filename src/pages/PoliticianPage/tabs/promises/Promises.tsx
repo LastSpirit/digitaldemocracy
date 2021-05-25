@@ -21,6 +21,9 @@ export const Promises = () => {
             key={index.toString()}
             className={styles.promise}
           >
+            <div className={styles.date}>
+              {promise_date}
+            </div>
             <span>{text}</span>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <a
@@ -30,11 +33,6 @@ export const Promises = () => {
               >
                 {link}
               </a>
-              <div className={styles.date}>
-                Дата:
-                {' '}
-                {promise_date}
-              </div>
             </div>
           </div>
         ))}

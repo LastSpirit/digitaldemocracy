@@ -42,6 +42,7 @@ export const PositionHistory = () => {
   useEffect(() => {
     fetch();
   }, []);
+
   return (
     <div className={styles.container}>
       <WrapperAsyncRequest status={status}>
@@ -51,6 +52,7 @@ export const PositionHistory = () => {
             columns={columns}
             pageSize={5}
             checkboxSelection={false}
+            className={styles.dataGrid}
           />
         </ThemeProvider>
       </WrapperAsyncRequest>

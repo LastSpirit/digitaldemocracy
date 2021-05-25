@@ -7,7 +7,6 @@ import firebase from 'firebase';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 import { firebaseConfig, gtmConfig } from './config';
-import useScrollReset from './hooks/useScrollReset';
 import useSettings from './hooks/useSettings';
 import gtm from './lib/gtm';
 import { createTheme } from './theme';
@@ -30,7 +29,6 @@ const App: FC = () => {
   }
 
   const { settings } = useSettings();
-  useScrollReset();
 
   useEffect(() => {
     gtm.initialize(gtmConfig);
