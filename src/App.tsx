@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import type { FC } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
 import './i18n';
 import firebase from 'firebase';
@@ -28,6 +28,8 @@ const App: FC = () => {
     firebase.app();
   }
 
+  const location = useLocation();
+
   const { settings } = useSettings();
 
   useEffect(() => {
@@ -47,7 +49,7 @@ const App: FC = () => {
 
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
 
-  return isAuthenticated !== undefined ? (
+  return useMemo(() => (isAuthenticated !== undefined ? (
     <ThemeProvider theme={theme}>
       <Helmet>
         <title>Digital Democracy | Dev</title>
@@ -68,11 +70,11 @@ const App: FC = () => {
             component={News}
           />
           {isAuthenticated && (
-          <Route
-            exact
-            path="/profile"
-            component={ProfilePage}
-          />
+            <Route
+              exact
+              path="/profile"
+              component={ProfilePage}
+            />
           )}
           <Route
             exact
@@ -93,7 +95,7 @@ const App: FC = () => {
       />
       <div id="sign-in-button" />
     </ThemeProvider>
-  ) : null;
+  ) : null), [isAuthenticated, location]);
 };
 
 export default App;
