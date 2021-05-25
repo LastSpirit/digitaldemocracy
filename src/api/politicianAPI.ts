@@ -1,7 +1,13 @@
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { APIRequest, callAPI } from '../lib/axiosAPI';
-import { NewsWithPercentI, PoliticianInfoI, PositionHistoryI, PromiseI } from '../slices/politicianSlice';
+import {
+  NewsWithPercentI,
+  PoliticianInfoI,
+  PositionHistoryI,
+  PromiseI,
+  RatingStatisticsI
+} from '../slices/politicianSlice';
 
 interface NewsRequest {
   start_date: string
@@ -37,6 +43,8 @@ const fetchPositionHistory: APIRequest<DefaultRequest, Array<PositionHistoryI>> 
 
 const fetchPromises: APIRequest<DefaultRequest, Array<PromiseI>> = (args) => callAPI({ url: `getPoliticianPromises?politician_id=${args.payload.politician_id}`, config: { method: 'GET' }, ...args });
 
+const fetchRatingStatistics: APIRequest<DefaultRequest, RatingStatisticsI> = (args) => callAPI({ url: `getPoliticianVotingStatistics?politician_id=${args.payload.politician_id}`, config: { method: 'GET' }, ...args });
+
 const subscribe: APIRequest<RequestWithToken, Array<PromiseI>> = (args) => callAPI({ url: 'subscribeToPolitician',
   config: { headers: {
     Authorization: `Bearer ${args.payload.token}`
@@ -56,6 +64,7 @@ const APIs = {
   fetchPromises,
   subscribe,
   unsubscribe,
+  fetchRatingStatistics,
 };
 
 export const politicianAPI = () => {
