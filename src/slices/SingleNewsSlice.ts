@@ -54,13 +54,13 @@ export interface NewsI {
   author?: AuthorI,
   newTopics?: NewTopicsI[],
   hashtags?: HashtagsI[],
-  votes: number,
-  title: string,
-  image: string,
-  publication_date: Date,
-  link: string,
-  source_link: string,
-  number_of_views: number,
+  votes?: number,
+  title?: string,
+  image?: string,
+  publication_date?: string,
+  link?: string,
+  source_link?: string,
+  number_of_views?: number,
   short_link?: string
 
 }

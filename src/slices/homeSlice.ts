@@ -7,6 +7,11 @@ export interface PoliticiansI {
   id?: number
 }
 
+export interface HashtagsI {
+  id: number,
+  title: string
+}
+
 export interface NewsTopicsI {
   id?: number,
   title?: string
@@ -28,14 +33,14 @@ export interface NewsI {
   media?: MediaI,
   author?: AuthorI,
   newsTopics?: NewsTopicsI[],
-  hashtags?: string[],
-  votes: number,
-  title: string,
-  image: string,
-  publication_date: Date,
-  link: string,
-  source_link: string,
-  number_of_views: number,
+  hashtags?: Array<HashtagsI>,
+  votes?: number,
+  title?: string,
+  image?: string,
+  publication_date?: string,
+  link?: string,
+  source_link?: string,
+  number_of_views?: number,
   short_link?: string
 
 }

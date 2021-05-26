@@ -1,10 +1,10 @@
-import '../HomeSlider/HomeSlider.module.scss';
+import './home/HomeSlider/HomeSlider.module.scss';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useFetchHomePageData } from '../hooks/useFetchHomePageData';
+// import { useFetchHomePageData } from './home/hooks/useFetchHomePageData';
 
 const useStyles = makeStyles((theme) => ({
   topic: {
@@ -33,8 +33,8 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function TopicsSlider({ newsTopics }) {
-  const { fetch } = useFetchHomePageData();
+export default function TopicsSlider({ newsTopics, fetch }) {
+  // const { fetch } = useFetchHomePageData();
   const handleNewsTopics = (id) => {
     fetch(1, id);
   };

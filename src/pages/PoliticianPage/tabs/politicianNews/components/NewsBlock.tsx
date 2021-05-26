@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { politicianSelectors } from '../../../../../slices/politicianSlice';
-import CardSmall from '../../../../../components/home/News/CardSmall';
+import CardSmall from '../../../../../components/CardSmall/CardSmall';
 import styles from '../../../PoliticianPage.module.scss';
 
 const NewsBlock = () => {

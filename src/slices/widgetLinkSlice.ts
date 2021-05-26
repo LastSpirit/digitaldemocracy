@@ -32,14 +32,8 @@ export interface HashtagsI {
   title: string
 }
 
-interface WidgetLinkI {
-  id: number,
-  title: string,
-  number_on_pages: number
-}
-
-interface NewsArrayI {
-  id: number,
+export interface NewsArrayI {
+  id?: number,
   region?: RegionI,
   media?: MediaI,
   author?: AuthorI,
@@ -55,14 +49,13 @@ interface NewsArrayI {
   number_of_views?: number
 }
 
-export interface NewsListI {
-  type?: string,
-  widgetLink?: WidgetLinkI,
-  news?: NewsArrayI
-}
+// export interface NewsListI {
+//   type?: string,
+//   news?: NewsArrayI
+// }
 
 export interface NewsI {
-  news: Array<NewsListI>,
+  news: Array<NewsArrayI>,
   newsTopics?: Array<NewTopicsI>,
   isMorePages: boolean
 }
@@ -77,8 +70,8 @@ const initialState:SliceState = {
   status: APIStatus.Initial
 };
 
-export const newsSlice = createSlice({
-  name: 'newsSlice',
+export const widgetLinkSlice = createSlice({
+  name: 'widgetLinkSlice',
   initialState,
   reducers: {
     setData(state: SliceState, action: PayloadAction<NewsI>) {
@@ -98,10 +91,10 @@ export const newsSlice = createSlice({
 });
 
 interface Store {
-  news: SliceState
+  widgetLink: SliceState
 }
 
-export const newsSelector = {
-  getData: () => (state: Store) => state.news.data,
-  getPage: () => (state: Store) => state.news.page,
+export const widgetLinkSelector = {
+  getData: () => (state: Store) => state.widgetLink.data,
+  getPage: () => (state: Store) => state.widgetLink.page,
 };

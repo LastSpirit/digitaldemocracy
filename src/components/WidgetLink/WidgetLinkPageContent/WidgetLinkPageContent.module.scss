@@ -1,0 +1,38 @@
+.contentContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 38px 0;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.news {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  align-items: flex-start;
+  padding-top: 5px;
+}
+.listSidebar {
+  margin-right: 30px;
+  width: 20%;
+  min-width: 220px;
+}
+.topicsSlider {
+  max-width: 80%;
+  margin-bottom: 30px;
+  margin-top: 40px;
+  margin: 35px auto;
+}
+
+@media (max-width: 600px) {
+  .news {
+    width: 100%;
+  }
+  .content {
+    justify-content: center;
+  }
+  .content button {
+    margin-right: 0;
+  }
+}
