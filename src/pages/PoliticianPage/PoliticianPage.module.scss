@@ -32,7 +32,11 @@
 
       .chart {
         position: relative;
-        width: calc(100% - 20px)
+        width: calc(100% - 20px);
+
+        * {
+         transition: 0.3s all;
+        }
       }
     }
 
@@ -125,22 +129,16 @@
       border-bottom: 1px solid #B0B0B0;
       padding: 5px 10px;
       transition: 0.3s all;
+      color: #747373;
+      text-decoration: none;
 
       &:hover {
         background-color: #36355720;
       }
 
-      a {
-        color: #747373;
-        text-decoration: none;
-      }
-
       &.-active {
         background-color: #363557;
-
-        a {
-          color: white;
-        }
+        color: white;
       }
 
       &.withOutBorder {
@@ -152,6 +150,9 @@
   .tabContent {
     margin-left: 30px;
     flex-basis: 76%;
+    @media screen and (max-width: 570px) {
+      margin-left: 0!important;
+    }
   }
 
   @media screen and (max-width: 570px) {
@@ -163,6 +164,11 @@
       margin-bottom: 16px;
       position: relative;
       width: 100%;
+      overflow-x: scroll;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
 
       .prevArrow {
         transform: rotate(180deg);
@@ -186,7 +192,6 @@
       .tabContent {
         width: 100%;
         flex-basis: 100%;
-        margin-left: 0;
       }
 
       .tabList {
@@ -509,4 +514,8 @@
     .avatarBlock {
     }
   }
+}
+
+.newsContainer {
+  margin-top: 30px;
 }

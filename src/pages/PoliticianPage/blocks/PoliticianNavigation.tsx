@@ -31,16 +31,13 @@ const PoliticianNavigation = () => {
       {!isMobile ? (
         <div className={styles.tabList}>
           {PoliticianTabs.map(({ title, id }, index) => (
-            <div
+            <Link
               key={id}
               className={classNames(styles.link, { [styles.withOutBorder]: index === PoliticianTabs.length - 1, [styles['-active']]: pathname.includes(id) })}
+              to={(location: any) => ({ ...location, pathname: `/politician/${politicianId}/${id}` })}
             >
-              <Link
-                to={(location: any) => ({ ...location, pathname: `/politician/${politicianId}/${id}` })}
-              >
-                {title}
-              </Link>
-            </div>
+              {title}
+            </Link>
           ))}
         </div>
       ) : (

@@ -8,7 +8,7 @@ import styles from '../../../PoliticianPage.module.scss';
 const NewsBlock = () => {
   const news = useSelector(politicianSelectors.getNews());
   return (
-    <div>
+    <div className={styles.newsContainer}>
       {news && news.length > 0 ? (
         <Grid
           container

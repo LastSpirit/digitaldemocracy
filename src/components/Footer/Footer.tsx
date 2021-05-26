@@ -105,7 +105,7 @@ const authUserSections = [
 const Footer: FC = (props) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { isMobile } = useWindowSize();
-  const { push } = useHistory();
+  const { push, location: { pathname } } = useHistory();
 
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
@@ -320,21 +320,25 @@ const Footer: FC = (props) => {
               </Button>
             </Grid>
           </Grid>
-          <Divider
-            sx={{
-              borderColor: (theme) => alpha(theme.palette.primary.contrastText, 0.12),
-              my: 2,
-            }}
-          />
-          <Typography
-            color="textSecondary"
-            variant="caption"
-          >
-            * отображает только мнение
-            {' '}
-            {isAuthenticated ? 'пользователя' : 'пользователей данного сайта'}
-            .
-          </Typography>
+          {pathname === '/' && (
+          <>
+            <Divider
+              sx={{
+                borderColor: (theme) => alpha(theme.palette.primary.contrastText, 0.12),
+                my: 2,
+              }}
+            />
+            <Typography
+              color="textSecondary"
+              variant="caption"
+            >
+              * отображает только мнение
+              {' '}
+              {isAuthenticated ? 'пользователя' : 'пользователей данного сайта'}
+              .
+            </Typography>
+          </>
+          )}
         </Container>
       )}
     </Box>

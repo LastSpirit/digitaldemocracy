@@ -20,6 +20,11 @@ const options = {
     x: {
       0: { side: 'bottom', label: '' }
     }
+  },
+  animation: {
+    duration: 1000,
+    easing: 'out',
+    startup: true
   }
 };
 
@@ -62,7 +67,7 @@ const ChartBlock: React.FC<ChartBlockProps> = ({
     <div className={styles.chartContainer}>
       <div className={styles.pickersContainer}>
         <div className={classNames(styles.picker, [{ [styles.disabled]: disabled }, { [styles.error]: !validValue }])}>
-          <span>Выберте период</span>
+          <span>Выберите период</span>
           <Box sx={{ px: 2 }}>
             <DatePicker
               disabled={disabled}
@@ -114,10 +119,7 @@ const ChartBlock: React.FC<ChartBlockProps> = ({
               chartLanguage="ru"
               chartType="Line"
               data={[
-                [
-                  { type: 'date', label: '' },
-                  'Рейтинг',
-                ],
+                ['x', ''],
                 ...chartData,
               ]}
             />
