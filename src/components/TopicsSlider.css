@@ -105,10 +105,10 @@
     right: -31px !important;
 }
 .slick-prev::before {
-    content: url("../../../icons/pictures/prev.png") !important;
+    content: url("../icons/pictures/prev.png") !important;
     display: flex;
     align-items: center;
 }
 .slick-next::before {
-    content: url("../../../icons/pictures/next.png") !important;
+    content: url("../icons/pictures/next.png") !important;
 }

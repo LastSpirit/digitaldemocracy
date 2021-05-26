@@ -20,6 +20,7 @@ import ProfilePage from './pages/ProfilePage/ProfilePage';
 import { userSelectors } from './slices/userSlice';
 import News from './pages/News';
 import PoliticianPage from './pages/PoliticianPage/PoliticianPage';
+import WidgetLinkPage from './pages/WidgetLinkPage';
 
 const App: FC = () => {
   if (!firebase.apps.length) {
@@ -68,6 +69,10 @@ const App: FC = () => {
           <Route
             path="/news"
             component={News}
+          />
+          <Route
+            path="/widgetLink/:id"
+            component={WidgetLinkPage}
           />
           {isAuthenticated && (
             <Route

@@ -1,13 +1,15 @@
 import type { FC } from 'react';
 import React from 'react';
-import { Box, Container, Grid, Typography, Button } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
+import { Box, Container, Grid, Typography, Button, Link } from '@material-ui/core';
+// import { Link as RouterLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styles from './HomeFeatures.module.scss';
 import ListSidebar from '../../ListSidebar';
 import { APIStatus } from '../../../lib/axiosAPI';
 import { homeSelector, NewsI, NewsTopicsI } from '../../../slices/homeSlice';
-import CardSmall from '../News/CardSmall';
-import TopicsSlider from '../News/TopicsSlider';
+import CardSmall from '../../CardSmall/CardSmall';
+import TopicsSlider from '../../TopicsSlider';
 import { useFetchHomePageData } from '../hooks/useFetchHomePageData';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import { Loading } from '../../Loading/Loading';
@@ -40,7 +42,10 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
             <Box
               className={styles.container}
             >
-              <TopicsSlider newsTopics={newsTopics} />
+              <TopicsSlider
+                newsTopics={newsTopics}
+                fetch={fetch}
+              />
             </Box>
           )
             : null}
@@ -52,16 +57,19 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                 <Box
                   sx={{
                     marginRight: '60px',
-                    maxWidth: '300px',
+                    width: '24%',
                     minWidth: '220px'
                   }}
                 >
-                  <ListSidebar newsTopics={newsTopics} />
+                  <ListSidebar
+                    newsTopics={newsTopics}
+                    fetch={fetch}
+                  />
                 </Box>
               ) : null
             }
 
-            <Box className="news">
+            <Box className={styles.news}>
               <Typography
                 fontSize="35px"
                 textAlign="left"
@@ -103,14 +111,17 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                   )}
               </WrapperAsyncRequest>
               <Box className={styles.content}>
-                <Button>
+
+                <Link
+                  to="/news"
+                  component={RouterLink}
+                >
                   <Typography
                     className={styles.violetButtonText}
-
                   >
                     К разделу новостей
                   </Typography>
-                </Button>
+                </Link>
                 {isMorePages ? (
                   <Button>
                     <Typography

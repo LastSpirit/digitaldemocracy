@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import type { FC } from 'react';
 import { Box, Divider, List, ListItem, ListItemText, makeStyles, Typography } from '@material-ui/core';
 import { NewsTopicsI } from '../slices/homeSlice';
-import { useFetchHomePageData } from './home/hooks/useFetchHomePageData';
+// import { useFetchHomePageData } from './home/hooks/useFetchHomePageData';
 import './home/styles.scss';
 import { useSearchParams } from '../hooks/useSearchParams';
 
@@ -17,12 +17,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface SidebarPropsI {
-  newsTopics?: NewsTopicsI[]
+  newsTopics?: NewsTopicsI[],
+  fetch?: any
 }
 
-const ListSidebar: FC<SidebarPropsI> = ({ newsTopics }) => {
+const ListSidebar: FC<SidebarPropsI> = ({ newsTopics, fetch }) => {
   const classes = useStyles();
-  const { fetch } = useFetchHomePageData();
+  // const { fetch } = useFetchHomePageData();
   const [resultNewsTopics, setResultNewsTopics] = useState([]);
   const { news_topic_id: { value: topicId, setValue: setTopicId } } = useSearchParams('news_topic_id');
 

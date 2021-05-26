@@ -1,0 +1,105 @@
+.bigCardContainer {
+  min-width: 270px;
+  min-height: 380px;
+  max-height: 420px;
+  background: #f3f3f3;
+  border-radius: 20px;
+  margin-top: 16px;
+  font-family: 'Helvetica';
+  padding: 14px 18px;
+  cursor: pointer;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+.bigHeader {
+  display: flex;
+  flex-flow: column;
+  margin-bottom: 10px;
+}
+.cardContent {
+  font-size: 14px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  line-height: 18px;
+  font-family: Helvetica;
+}
+
+.cardNames {
+  font-size: 14px;
+  color: #747373;
+  justify-content: space-between;
+  display: flex;
+  text-decoration: underline;
+  margin-bottom: 15px;
+}
+.imgSize {
+  width: 14px;
+  height: 14px;
+}
+.mainHeader {
+  display: flex;
+  justify-content: space-between;
+  color: #747373;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 300px;
+  margin-bottom: 15px;
+}
+.imageContainer {
+  width: 100%;
+  height: 180px;
+  text-align: center;
+}
+.image {
+  width: inherit;
+  height: 180px;
+  max-width: 275px;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin: 0 auto;
+}
+.bigTitle {
+  font-size: 14px;
+  line-height: 20px;
+  height: 80px;
+}
+.text {
+  font-size: 14px;
+}
+
+@media (max-width: 960px) {
+  .bigCardContainer {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  .bigCardContainer {
+    max-width: 100%;
+    min-height: 150px;
+    max-height: 370px;
+  }
+  .bigHeader {
+    margin-bottom: 15px;
+  }
+  .cardContent {
+    font-size: 12px;
+  }
+  .cardNames {
+    font-size: 12px;
+  }
+  .content {
+    min-height: unset;
+  }
+  .bigTitle {
+    font-size: 12px;
+    height: unset;
+  }
+  .text {
+    font-size: 12px;
+  }
+}
