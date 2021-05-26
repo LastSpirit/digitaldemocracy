@@ -37,7 +37,12 @@ interface RequestWithToken extends DefaultRequest {
 
 interface FetchProfileInfoResponse extends PoliticianInfoI {}
 
-const fetchProfileInfo: APIRequest<DefaultRequest, FetchProfileInfoResponse> = (args) => callAPI({ url: `getPolitician?politician_id=${args.payload.politician_id}`, config: { method: 'get' }, ...args });
+const fetchProfileInfo: APIRequest<RequestWithToken, FetchProfileInfoResponse> = (args) => callAPI({ url: `getPolitician?politician_id=${args.payload.politician_id}`,
+  config: { method: 'get',
+    headers: {
+      Authorization: `Bearer ${args.payload.token}`
+    } },
+  ...args });
 
 const fetchPositionHistory: APIRequest<DefaultRequest, Array<PositionHistoryI>> = (args) => callAPI({ url: `getPoliticianPositions?politician_id=${args.payload.politician_id}`, config: { method: 'GET' }, ...args });
 
