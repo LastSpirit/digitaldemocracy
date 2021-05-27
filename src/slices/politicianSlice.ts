@@ -5,6 +5,7 @@ import { NewsI } from './homeSlice';
 export interface PoliticianInfoI {
   id?: number
   name?: string
+  english_name?: string
   photo?: string
   number_of_subscribers?: number
   is_subscribed?: boolean

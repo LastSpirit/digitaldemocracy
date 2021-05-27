@@ -78,6 +78,9 @@ export const homeSlice = createSlice({
       state.data.isMorePages = action.payload.isMorePages;
       state.page = 1;
     },
+    pageReset(state: SliceState) {
+      state.page = 1;
+    }
   }
 });
 

@@ -418,11 +418,17 @@
       }
 
       .fio {
+        width: 100%;
+
+        .englishName {
+          color: #747373!important;
+          font-size: 30px;
+        }
 
         p {
           color: #222222;
           margin: 0 !important;
-          font-size: 60px;
+          font-size: 45px;
           line-height: 59.28px;
           @media screen and (max-width: 670px) {
             font-size: 24px;
@@ -503,15 +509,17 @@
 
       .fio {
         width: 100%;
-        padding-top: 10px;
+        padding-top: 15px;
+
+        .englishName {
+          padding-top: 10px;
+          font-size: 18px!important;
+        }
       }
 
       .changeButton {
         padding: 5px 15px !important;
       }
-    }
-
-    .avatarBlock {
     }
   }
 }

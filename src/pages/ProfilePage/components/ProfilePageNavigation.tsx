@@ -1,14 +1,13 @@
 import React, { useRef } from 'react';
-import { Redirect, Route, Switch, useHistory, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import { PoliticianTabs } from '../../../types/routing';
-import styles from '../PoliticianPage.module.scss';
+import { Redirect, Route, Switch, useHistory } from 'react-router';
+import { ProfileTabs } from '../../../types/routing';
+import styles from '../ProfilePage.module.scss';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 
-const PoliticianNavigation = () => {
-  const { politicianId }: { politicianId: string } = useParams();
+export const ProfilePageNavigation = () => {
   const { location: { pathname } } = useHistory();
   const { isMobile } = useWindowSize();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -23,18 +22,17 @@ const PoliticianNavigation = () => {
       scrollContainerRef.current.scrollLeft += listItemRef.current.getBoundingClientRect().width + 10;
     }
   };
-
   return (
     <div
       className={styles.navigation}
     >
       {!isMobile ? (
         <div className={styles.tabList}>
-          {PoliticianTabs.map(({ title, id }, index) => (
+          {ProfileTabs.map(({ title, id }, index) => (
             <Link
               key={id}
-              className={classNames(styles.link, { [styles.withOutBorder]: index === PoliticianTabs.length - 1, [styles['-active']]: pathname.includes(id) })}
-              to={(location: any) => ({ ...location, pathname: `/politician/${politicianId}/${id}` })}
+              className={classNames(styles.link, { [styles.withOutBorder]: index === ProfileTabs.length - 1, [styles['-active']]: pathname.includes(id) })}
+              to={(location: any) => ({ ...location, pathname: `/profile/${id}` })}
             >
               {title}
             </Link>
@@ -50,12 +48,12 @@ const PoliticianNavigation = () => {
             className={styles.tabList}
             ref={scrollContainerRef}
           >
-            {PoliticianTabs.map(({ title, id }, index) => (
+            {ProfileTabs.map(({ title, id }, index) => (
               <Link
                 ref={index === 0 ? listItemRef : undefined}
                 key={id}
-                className={classNames(styles.link, { [styles.withOutBorder]: index === PoliticianTabs.length - 1, [styles['-active']]: pathname.includes(id) })}
-                to={(location: any) => ({ ...location, pathname: `/politician/${politicianId}/${id}` })}
+                className={classNames(styles.link, { [styles.withOutBorder]: index === ProfileTabs.length - 1, [styles['-active']]: pathname.includes(id) })}
+                to={(location: any) => ({ ...location, pathname: `/profile/${id}` })}
               >
                 {title}
               </Link>
@@ -69,18 +67,16 @@ const PoliticianNavigation = () => {
       )}
       <div className={styles.tabContent}>
         <Switch>
-          {PoliticianTabs.map(({ id, component }) => (
+          {ProfileTabs.map(({ id, component }) => (
             <Route
               key={id}
-              path={`/politician/:politicianId/${id}`}
+              path={`/profile/${id}`}
               component={component}
             />
           ))}
-          <Redirect to={`/politician/:politicianId/${PoliticianTabs[0].id}`} />
+          <Redirect to={`/profile/${ProfileTabs[0].id}`} />
         </Switch>
       </div>
     </div>
   );
 };
-
-export default PoliticianNavigation;

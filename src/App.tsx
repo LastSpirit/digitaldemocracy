@@ -81,6 +81,13 @@ const App: FC = () => {
               component={ProfilePage}
             />
           )}
+          {isAuthenticated && (
+          <Route
+            exact
+            path="/profile/*"
+            component={ProfilePage}
+          />
+          )}
           <Route
             exact
             path="/politician/:politicianId"

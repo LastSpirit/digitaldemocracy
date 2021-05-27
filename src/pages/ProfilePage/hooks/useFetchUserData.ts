@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { APIStatus } from '../../../lib/axiosAPI';
 import { getItem } from '../../../lib/localStorageManager';
-import { userAPI } from '../../../api/userApi';
+import { userAPI } from '../../../api/userAPI';
 import { userActionCreators } from '../../../slices/userSlice';
 
 export const useFetchUserData = () => {

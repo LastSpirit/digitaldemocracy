@@ -35,7 +35,8 @@ const PoliticianInfoBlock = () => {
       <div className={styles.personBlock}>
         <div className={styles.fioBlock}>
           <div className={styles.fio}>
-            <p>{`${data?.name}`}</p>
+            <p>{data?.name}</p>
+            {data?.english_name && <p className={styles.englishName}>{data?.english_name}</p>}
             <div className={styles.subscribers}>
               <Button
                 variant="outlined"

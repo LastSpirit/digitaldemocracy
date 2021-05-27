@@ -5,6 +5,7 @@ import {
   PositionHistory,
   Promises, Quiz, RatingStatistics, Reception
 } from '../pages/PoliticianPage/tabs';
+import { Subscriptions, BrowsingHistory, DonationHistory, VotingStatistics } from '../pages/ProfilePage/tabs';
 
 export enum ModalParams {
   Auth = 'auth_modal',
@@ -63,4 +64,28 @@ export const PoliticianTabs = [
     title: 'Опросы',
     component: Quiz
   },
+];
+
+export const ProfileTabs = [
+  {
+    id: 'subscriptions',
+    title: 'Подписки',
+    component: Subscriptions
+  },
+  {
+    id: 'voting_statistics',
+    title: 'Статистика голосований',
+    component: VotingStatistics
+  },
+  {
+    id: 'browsing_history',
+    title: 'История просмотров',
+    component: BrowsingHistory
+  },
+  {
+    id: 'donation_history',
+    title: 'История донатов',
+    component: DonationHistory
+  },
+
 ];

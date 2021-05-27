@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import type { FC } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Container } from '@material-ui/core';
 import { HomeHero, HomeSlider, HomeFeatures } from '../components/home';
 import { useFetchHomePageData } from '../components/home/hooks/useFetchHomePageData';
-import { homeSelector } from '../slices/homeSlice';
+import { homeSelector, homeSlice } from '../slices/homeSlice';
 import { APIStatus } from '../lib/axiosAPI';
 import { Loading } from '../components/Loading/Loading';
 import gtm from '../lib/gtm';
@@ -19,9 +19,15 @@ const Home: FC = () => {
   const { fetch, fetchDataStatus, fetchNewsStatus } = useFetchHomePageData();
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { news_topic_id: { setValue: setTopicId } } = useSearchParams('news_topic_id');
+  const { pageReset } = homeSlice.actions;
+  const dispatch = useDispatch();
+
   useEffect(() => {
     setTopicId('-1');
     fetch();
+    return () => {
+      dispatch(pageReset());
+    };
   }, []);
   const data = useSelector(homeSelector.getData());
 

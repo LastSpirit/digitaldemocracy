@@ -1,7 +1,7 @@
 import type { FC } from 'react';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Box, Container, Grid, Typography, Button, Link } from '@material-ui/core';
+import { Box, Button, Container, Grid, Link, Typography } from '@material-ui/core';
 // import { Link as RouterLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styles from './HomeFeatures.module.scss';
@@ -27,7 +27,10 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
   const { fetch, fetchNewsStatus } = useFetchHomePageData();
   const page = useSelector(homeSelector.getPage());
   const { isMobile } = useWindowSize();
+  const [loadMoreNews, setLoadMoreNews] = useState(false);
+
   const handleGetMorePages = () => {
+    setLoadMoreNews(true);
     fetch(page + 1, undefined, true);
   };
 
@@ -78,7 +81,7 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                 Актуальные новости
               </Typography>
 
-              <WrapperAsyncRequest status={fetchNewsStatus}>
+              <WrapperAsyncRequest status={loadMoreNews ? APIStatus.Success : fetchNewsStatus}>
                 {news && news.length > 0 ? (
                   <Grid
                     container
@@ -110,8 +113,17 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                     </Box>
                   )}
               </WrapperAsyncRequest>
+              {loadMoreNews && fetchNewsStatus !== APIStatus.Initial && (
+              <div className={styles.loadMore}>
+                <WrapperAsyncRequest
+                  height={100}
+                  status={loadMoreNews ? fetchNewsStatus : APIStatus.Success}
+                >
+                  <></>
+                </WrapperAsyncRequest>
+              </div>
+              )}
               <Box className={styles.content}>
-
                 <Link
                   to="/news"
                   component={RouterLink}
@@ -136,7 +148,6 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
               </Box>
             </Box>
           </Box>
-
         </Container>
       )}
     </Box>

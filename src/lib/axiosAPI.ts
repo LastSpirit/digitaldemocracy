@@ -3,7 +3,9 @@ import { ThunkAction } from 'redux-thunk';
 import { Action } from '@reduxjs/toolkit';
 import { pick } from 'lodash';
 // eslint-disable-next-line import/no-cycle
-import { RootState } from '../store';
+import { RootState, store } from '../store';
+import { removeItem } from './localStorageManager';
+import { userSlice } from '../slices/userSlice';
 
 export type GenericAppThunk<RootState> = ThunkAction<void, RootState, null, Action<string>>;
 
@@ -54,11 +56,12 @@ export const getCallAPI = <RootState>(): CallAPI<GenericAppThunk<RootState>> => 
     if (nestedResponseType && response.data.success && response.data.data && onSuccess) onSuccess(response.data.data, headers);
     if (nestedResponseType && (!response.data.success || !response.data.data) && onError) onError(response.data.message);
   } catch (err) {
+    console.log(err);
     console.log(err.response);
     if (err && err.response && err.response.status === 401) {
-      // removeItem('token');
-      // store.dispatch(userSlice.actions.logout);
-      // document.location.assign('/');
+      removeItem('token');
+      store.dispatch(userSlice.actions.logout);
+      document.location.assign('/');
     }
     if (onError && err && err.response && err.response.data) {
       if (err.response.data.errors) onError(err.response.data.errors);
