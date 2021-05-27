@@ -24,7 +24,6 @@ const Home: FC = () => {
     fetch();
   }, []);
   const data = useSelector(homeSelector.getData());
-
   return (
     <>
       <div>

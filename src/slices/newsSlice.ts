@@ -74,7 +74,8 @@ interface SliceState {
 }
 
 const initialState:SliceState = {
-  status: APIStatus.Initial
+  status: APIStatus.Initial,
+  page: 1
 };
 
 export const newsSlice = createSlice({

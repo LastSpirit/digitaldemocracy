@@ -6,6 +6,7 @@ import { useFetchNewsData } from '../components/News/hooks/useFetchNewsData';
 import NewsNav from '../components/News/NewsNav/NewsNav';
 import NewsContent from '../components/News/NewsContent/NewsContent';
 import { newsSelector } from '../slices/newsSlice';
+import { userSelectors } from '../slices/userSlice';
 
 const News: FC = () => {
   const { fetch } = useFetchNewsData();
@@ -13,11 +14,11 @@ const News: FC = () => {
     fetch();
   }, []);
   const data = useSelector(newsSelector.getData());
-
+  const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   return (
     <Box>
       <Container maxWidth="lg">
-        <NewsNav />
+        {isAuthenticated && <NewsNav />}
         <NewsContent
           fetch={fetch}
           newsTopics={data?.newsTopics}
