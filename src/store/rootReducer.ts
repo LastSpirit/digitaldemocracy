@@ -2,6 +2,7 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { authSlice } from '../slices/authSlice';
 // eslint-disable-next-line import/no-cycle
 import { homeSlice } from '../slices/homeSlice';
+// eslint-disable-next-line import/no-cycle
 import { userSlice } from '../slices/userSlice';
 // eslint-disable-next-line import/no-cycle
 import { newsSlice } from '../slices/newsSlice';

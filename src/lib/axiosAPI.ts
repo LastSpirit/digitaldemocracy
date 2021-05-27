@@ -5,6 +5,7 @@ import { pick } from 'lodash';
 // eslint-disable-next-line import/no-cycle
 import { RootState, store } from '../store';
 import { removeItem } from './localStorageManager';
+// eslint-disable-next-line import/no-cycle
 import { userSlice } from '../slices/userSlice';
 
 export type GenericAppThunk<RootState> = ThunkAction<void, RootState, null, Action<string>>;
