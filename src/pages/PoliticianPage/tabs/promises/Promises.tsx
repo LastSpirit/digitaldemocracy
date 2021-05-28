@@ -15,7 +15,7 @@ export const Promises = () => {
   return (
     <div className={styles.container}>
       <WrapperAsyncRequest status={status}>
-        {data.length ? data?.map(({ text, link, promise_date }, index) => (
+        {data?.length ? data?.map(({ text, link, promise_date }, index) => (
           // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
           <div
             key={index.toString()}
