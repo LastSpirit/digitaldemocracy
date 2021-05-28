@@ -1,68 +1,74 @@
 .news {
-    display: flex;
-    flex-direction: column;
-    width: 76%;
-    align-items: flex-start;
-    padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 76%;
+  align-items: flex-start;
+  padding-top: 5px;
 }
+
+.newsWrapper {
+  min-height: 600px;
+}
+
 .container {
-    max-width: 80%;
-    margin-bottom: 30px;
-    margin-top: 40px;
-    margin: 35px auto;
+  max-width: 80%;
+  margin: 35px auto;
 }
 
 .content {
-display: flex;
-flex-wrap: wrap;
-margin: 38px 0;
-justify-content: flex-start;
-align-items: center;
-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 38px 0;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
 }
 
 .content button {
-    margin-right: 20px;
+  margin-right: 20px;
 }
+
 .content a {
-    margin-right: 20px;
+  margin-right: 20px;
 }
+
 .violetButtonText {
-    padding: 8px 30px;
-    border: 1px solid #363557;
-    border-radius: 50px;
-    background: #363557;
-    color: #fff;
-    text-align: center;
-    height: 40px;
-    box-sizing: border-box;
-    font-size: 14px;
-    cursor: pointer;
-    text-decoration: none;
+  padding: 8px 30px;
+  border: 1px solid #363557;
+  border-radius: 50px;
+  background: #363557;
+  color: #fff;
+  text-align: center;
+  height: 40px;
+  box-sizing: border-box;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .loadMore {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 600px;
 }
 
 .transparentButtonText {
-    font-size: 14px;
-    cursor: pointer;
-    text-decoration: underline;
-    color: #363557;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+  color: #363557;
 }
 
 @media (max-width: 600px) {
-    .news {
-        width: 100%;
-    }
-    .content {
-        justify-content: center;
-    }
-    .content button {
-        margin-right: 0;
-    }
+  .news {
+    width: 100%;
+  }
+  .content {
+    justify-content: center;
+  }
+  .content button {
+    margin-right: 0;
+  }
 }

@@ -10,6 +10,7 @@ interface RegisterRequest {
   phone?: string
   password?: string
   password_confirmation?: string
+  country_id?: number,
 }
 
 interface RegisterResponse {
@@ -18,6 +19,7 @@ interface RegisterResponse {
 }
 
 interface SendCodeRequest {
+  country_id?: number,
   address: string
   email?: string
   phone?: string
@@ -60,6 +62,7 @@ interface GetYandexUserInfoRequest {
 }
 
 interface RegisterViaGoogleRequest {
+  country_id?: number
   accessToken: string
   profileObj: {
     name: string
@@ -87,7 +90,12 @@ interface ResetPasswordRequest {
   token: string
 }
 
-const checkValidateAddress: APIRequest<{ address: string }, { valid: boolean }> = (args) => callAPI({ url: 'checkUserAddress', ...args });
+export interface CountryI {
+  id: number
+  title: string
+}
+
+const checkValidateAddress: APIRequest<{ address: string, country_id?: number }, { valid: boolean }> = (args) => callAPI({ url: 'checkUserAddress', ...args });
 
 const checkValidateEmail:APIRequest<{ email: string }, string, { email: Array<string> | string }> = (args) => callAPI({ url: 'checkEmail', ...args });
 
@@ -121,6 +129,8 @@ const sendResetLinkEmail: APIRequest<{ email: string }, string, { email: Array<s
 
 const resetPassword: APIRequest<ResetPasswordRequest, LoginViaPhoneResponse, { password: Array<string> } | string> = (args) => callAPI({ url: 'password/reset', ...args });
 
+const getCountries: APIRequest<{}, Array<CountryI>> = (args) => callAPI({ url: 'getCountries', config: { method: 'get' }, ...args, nestedResponseType: false });
+
 const APIs = {
   checkValidateAddress,
   sendCode,
@@ -139,6 +149,7 @@ const APIs = {
   checkValidatePhoneLogin,
   sendResetLinkEmail,
   resetPassword,
+  getCountries,
 };
 
 export const authAPI = () => {

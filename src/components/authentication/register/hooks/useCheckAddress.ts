@@ -14,19 +14,25 @@ export const useCheckAddress = (setRegisterStep: (value: number) => void) => {
     setError(errorResponse);
   };
 
-  const onSuccess = (address: string) => {
+  const onSuccess = (address: string, country: number) => {
     setAuthUserData({ key: 'address', value: address });
+    setAuthUserData({ key: 'countryId', value: String(country) });
     setRegisterStep(2);
     setStatus(APIStatus.Success);
   };
 
-  const check = useCallback((address: string) => {
+  const check = useCallback((address: string, country: string, withCountry: boolean, countries: Array<{ id: number, title: string }>) => {
+    let countryId;
+    if (withCountry) {
+      countryId = countries.find((item) => item.title === country).id;
+    }
     setStatus(APIStatus.Loading);
     checkValidateAddress({
-      onSuccess: () => onSuccess(address),
+      onSuccess: () => onSuccess(address, countryId),
       onError,
       payload: {
-        address
+        address,
+        country_id: (withCountry && countryId) ? countryId : undefined
       }
     });
   }, []);

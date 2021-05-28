@@ -1,7 +1,8 @@
 import type { FC } from 'react';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { Autocomplete, Box, Button, TextField, Typography } from '@material-ui/core';
+import { Autocomplete, Box, Button, TextField, Typography, Checkbox, FormControlLabel } from '@material-ui/core';
+import { useEffect, useState } from 'react';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import { useFetchAddresses } from '../hooks/useFetchAddresses';
 import { useCheckAddress } from '../hooks/useCheckAddress';
@@ -11,9 +12,14 @@ import { Loading } from '../../../Loading/Loading';
 
 const AddressFormRegister: FC = (props) => {
   const isMountedRef = useIsMountedRef();
-  const { fetchAddresses, addresses: options } = useFetchAddresses();
+  const { fetchAddresses, addresses: options, countries, fetchCounties } = useFetchAddresses();
   const { setRegisterStep } = authActionCreators();
   const { check, status, error } = useCheckAddress(setRegisterStep);
+  const [withCountry, setWithCountry] = useState(false);
+
+  useEffect(() => {
+    fetchCounties();
+  }, []);
 
   return (
     <>
@@ -32,6 +38,7 @@ const AddressFormRegister: FC = (props) => {
         <Formik
           initialValues={{
             address: '',
+            country_id: '',
             submit: null
           }}
           validationSchema={
@@ -39,8 +46,9 @@ const AddressFormRegister: FC = (props) => {
             .object()
             .shape({
               address: Yup
+                .string(),
+              country_id: Yup
                 .string()
-                .required('Это обязательное поле'),
             })
         }
           onSubmit={async (values, {
@@ -49,7 +57,7 @@ const AddressFormRegister: FC = (props) => {
             setSubmitting
           }): Promise<void> => {
             try {
-              await check(values.address);
+              await check(values.address, values.country_id, withCountry, countries);
             } catch (err) {
               console.error(err);
               if (isMountedRef.current) {
@@ -74,6 +82,7 @@ const AddressFormRegister: FC = (props) => {
               {...props}
             >
               <Autocomplete
+                disabled={withCountry}
                 fullWidth
                 options={options || []}
                 noOptionsText={<>Нет доступных вариантов</>}
@@ -83,6 +92,7 @@ const AddressFormRegister: FC = (props) => {
                 }}
                 renderInput={(params) => (
                   <TextField
+                    disabled={withCountry}
                     {...params}
                     helperText={(touched.address && errors.address) || error}
                     error={(touched.address && !!errors.address) || !!error}
@@ -101,10 +111,52 @@ const AddressFormRegister: FC = (props) => {
                 onBlur={handleBlur}
                 value={values.address}
               />
+              <Box sx={{ mt: 1, ml: 2 }}>
+                <FormControlLabel
+                  control={(
+                    <Checkbox
+                      checked={withCountry}
+                      onChange={(e) => setWithCountry(e.target.checked)}
+                      color="primary"
+                      name="checkedC"
+                    />
+                      )}
+                  label="Я не из России"
+                />
+              </Box>
+              {withCountry && (
+                <Box sx={{ mt: 0.5 }}>
+                  <Autocomplete
+                    fullWidth
+                    options={countries.map((item) => item.title) || []}
+                    noOptionsText={<>Нет доступных вариантов</>}
+                    onInputChange={(value, newValue) => {
+                      handleChange(newValue);
+                    }}
+                    limitTags={15}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Начните вводить страну"
+                        margin="normal"
+                        name="country_id"
+                        variant="outlined"
+                        onSelect={(value) => {
+                          console.log(value);
+                          handleChange(value);
+                        }}
+                        value={values.country_id}
+                      />
+                    )}
+                    onBlur={handleBlur}
+                    value={values.country_id}
+                  />
+                </Box>
+              )}
               <Box sx={{ mt: 2 }}>
                 <Button
                   color="primary"
-                  disabled={!values.address || status === APIStatus.Loading}
+                  disabled={(!values.address && !values.country_id) || status === APIStatus.Loading}
                   fullWidth
                   size="large"
                   type="submit"

@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { dadataConfig } from '../../../../config';
+import { authAPI } from '../../../../api/authAPI';
 
 export const useFetchAddresses = () => {
   const [addresses, setAddresses] = useState([]);
+  const [countries, setCountries] = useState([]);
+  const { getCountries } = authAPI();
+
   const fetchAddresses = (query: string) => {
     const options = {
       method: 'POST',
@@ -22,8 +26,18 @@ export const useFetchAddresses = () => {
       })
       .catch((error) => console.log('error', error));
   };
+
+  const fetchCounties = useCallback(() => {
+    getCountries({
+      onSuccess: (response) => setCountries(response),
+      onError: (errorResponse) => console.log(errorResponse),
+    });
+  }, []);
+
   return {
     fetchAddresses,
+    fetchCounties,
     addresses,
+    countries,
   };
 };

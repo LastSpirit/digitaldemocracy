@@ -39,6 +39,7 @@ export const useRegister = (setRegisterStep: (value: number) => void) => {
         password,
         password_confirmation: confirmPassword,
         address: userData.address!,
+        country_id: userData.countryId ? Number(userData.countryId) : undefined,
         code: userData.code!,
       }
     });

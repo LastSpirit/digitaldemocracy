@@ -19,6 +19,7 @@ interface SliceState {
     password?: string
     code?: string
     verificationId?: string
+    countryId?: string
   }
   attemptSingIn?: number
 }
@@ -35,6 +36,7 @@ const initialState: SliceState = {
     password: '',
     code: '',
     verificationId: '',
+    countryId: '',
   },
   attemptSingIn: 0
 };

@@ -22,7 +22,7 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
   const [error, setError] = useState<string>('');
   const { sendCode, checkValidateEmail, checkValidatePhone } = authAPI();
   const { setAuthUserData } = authActionCreators();
-  const { address } = useSelector(authSelectors.getUserData());
+  const { address, countryId } = useSelector(authSelectors.getUserData());
   const { sendCode: firebaseSendCode } = useSendCodeFirebase(setRegisterStep, 3, setError);
 
   firebase.auth().useDeviceLanguage();
@@ -58,6 +58,7 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
               setPhoneStatus(APIStatus.Success);
             },
             payload: {
+              country_id: countryId ? Number(countryId) : undefined,
               address,
               phone: values.phone.replaceAll(' ', '')
             }
@@ -79,6 +80,7 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
             onError,
             onSuccess: () => onSuccess(values),
             payload: {
+              country_id: countryId ? Number(countryId) : undefined,
               address,
               email: values.email
             }
