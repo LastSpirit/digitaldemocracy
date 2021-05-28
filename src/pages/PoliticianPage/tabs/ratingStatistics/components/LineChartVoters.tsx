@@ -48,13 +48,20 @@ export const LineChartVoters = () => {
         })}
       </div>
       <div className={styles.legends}>
-        {lines.map(({ color, title }) => (
+        {data?.numberOfVoters && lines.map(({ color, title, id }) => (
           <div className={styles.legend}>
             <div
               style={{ backgroundColor: color }}
               className={styles.legendMark}
             />
-            <span>{title}</span>
+            <span>
+              {title}
+            </span>
+            <span className={styles.count}>
+              (
+              {data.numberOfVoters[id]}
+              )
+            </span>
           </div>
         ))}
       </div>

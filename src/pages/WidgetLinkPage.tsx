@@ -25,6 +25,7 @@ const WidgetLinkPage: FC<Props> = () => {
     <Box>
       <Container maxWidth="lg">
         <WidgetLinkPageContent
+          widgetTitle={data?.widgetTitle}
           newsTopics={data?.newsTopics}
           news={data?.news}
           isMorePages={data?.isMorePages}

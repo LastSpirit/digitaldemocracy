@@ -1,27 +1,31 @@
 import type { FC } from 'react';
-import { Box, List, ListItem } from '@material-ui/core';
+import { Box } from '@material-ui/core';
+import classNames from 'classnames';
+import { useState } from 'react';
 import styles from './NewsNav.module.scss';
 
 const NewsNav: FC = () => {
-  console.log('nav');
   const navigation = [
     { title: 'Актуальное', id: 0 },
     { title: 'Подписки', id: 1 },
     { title: 'Новости региона', id: 2 }
-
   ];
+  const [selectedTab, setSelectedTab] = useState(0);
+
   return (
     <Box className={styles.nav}>
-      <List className={styles.list}>
+      <div className={styles.list}>
         {navigation.map((item) => (
-          <ListItem
-            className={styles.listItem}
+          // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+          <div
+            onClick={() => setSelectedTab(item.id)}
+            className={classNames(styles.listItem, { [styles.selectedItem]: item.id === selectedTab })}
             key={item.id}
           >
             {item.title}
-          </ListItem>
+          </div>
         ))}
-      </List>
+      </div>
     </Box>
   );
 };

@@ -13,7 +13,7 @@ export const RatingDiagram = () => {
   return (
     <div className={styles.diagramContainer}>
       {chartData && chartData.length !== 0 && (
-      <>
+      <div className={styles.wrapper}>
         <Chart
           width={isMobile ? '300px' : '500px'}
           height="300px"
@@ -34,7 +34,7 @@ export const RatingDiagram = () => {
             },
           }}
         />
-      </>
+      </div>
       )}
     </div>
   );

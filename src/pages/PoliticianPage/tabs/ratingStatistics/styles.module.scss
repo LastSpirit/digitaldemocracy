@@ -41,7 +41,7 @@
     margin-left: 0;
     flex-direction: column;
     .metric {
-      width: 90%;
+      width: 80%;
       margin-bottom: 20px;
 
       .icon {
@@ -57,12 +57,25 @@
 
 .diagramContainer {
   margin-top: 40px;
-  border: 1px solid #B0B0B0;
-  border-radius: 30px;
-  padding: 10px 20px;
   cursor: default;
   display: flex;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #B0B0B0;
+    border-radius: 30px;
+    padding: 10px 20px;
+    width: 100%;
+  }
+  @media screen and (max-width: 570px) {
+    .wrapper {
+      width: 80%;
+    }
+  }
 }
 
 .chart {
@@ -96,11 +109,16 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    width: 550px;
+    width: 750px;
 
     .legend {
       display: flex;
       align-items: center;
+
+      .count {
+        color: #747373;
+        font-size: 12px;
+      }
 
       .legendMark {
         border-radius: 40px;
@@ -115,9 +133,13 @@
     }
   }
   @media screen and (max-width: 570px) {
+    .lines {
+      width: 90%;
+    }
+
     .legends {
-      width: auto;
       flex-direction: column;
+      width: auto!important;
       .legend {
         margin-top: 10px;
       }

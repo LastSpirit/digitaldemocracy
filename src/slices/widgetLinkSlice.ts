@@ -58,6 +58,7 @@ export interface NewsI {
   news: Array<NewsArrayI>,
   newsTopics?: Array<NewTopicsI>,
   isMorePages: boolean
+  widgetTitle?: string
 }
 
 interface SliceState {

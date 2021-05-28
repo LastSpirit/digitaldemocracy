@@ -41,7 +41,6 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
                   onClick={handleToggleIframe}
                 >
                   <CallMadeIcon className={styles.arrowLink} />
-
                 </IconButton>
                 <FacebookShare
                   url={data?.source_link}

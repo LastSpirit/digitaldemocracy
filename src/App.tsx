@@ -21,6 +21,7 @@ import { userSelectors } from './slices/userSlice';
 import News from './pages/News';
 import PoliticianPage from './pages/PoliticianPage/PoliticianPage';
 import WidgetLinkPage from './pages/WidgetLinkPage';
+import { DonationPage } from './pages/ProfilePage/DonationPage/DonationPage';
 
 const App: FC = () => {
   if (!firebase.apps.length) {
@@ -28,8 +29,11 @@ const App: FC = () => {
   } else {
     firebase.app();
   }
-
   const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   const { settings } = useSettings();
 
@@ -65,6 +69,10 @@ const App: FC = () => {
           <Route
             path="/singleNews/:link"
             component={SingleNews}
+          />
+          <Route
+            path="/donation"
+            component={DonationPage}
           />
           <Route
             path="/news"

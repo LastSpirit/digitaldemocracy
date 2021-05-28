@@ -113,11 +113,14 @@ box-sizing: border-box;
 }
 
 .facebook {
-    color: grey;
+    color: #363557;
     background-color: transparent;
-    height: 45px;
-    width: 45px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 55px;
+    width: 55px;
 }
 
 @media (max-width: 960px) {

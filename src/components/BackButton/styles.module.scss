@@ -15,4 +15,8 @@
     margin: 0 !important;
     padding: 0 10px;
   }
+
+  @media screen and (max-width: 570px) {
+    margin-left: 10px;
+  }
 }

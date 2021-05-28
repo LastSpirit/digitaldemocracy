@@ -16,7 +16,7 @@ const PoliticianPage = () => {
     fetch();
   }, []);
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" className={styles.cont}>
       <div className={styles.container}>
         <WrapperAsyncRequest status={status}>
           <BackButton />

@@ -2,12 +2,9 @@ import React, { FC, useState } from 'react';
 import { Box, Button, Grid, Link, Typography } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useWindowSize } from '../../../hooks/useWindowSize';
-import ListSidebar from '../../ListSidebar';
 import styles from './WidgetLinkPageContent.module.scss';
 import { NewsArrayI, NewTopicsI, widgetLinkSelector } from '../../../slices/widgetLinkSlice';
 import CardSmall from '../../CardSmall/CardSmall';
-import TopicsSlider from '../../TopicsSlider';
 import { useFetchWidgetLinkData } from '../hooks/useFetchWidgetLinkPage';
 import { APIStatus } from '../../../lib/axiosAPI';
 import { WrapperAsyncRequest } from '../../Loading/WrapperAsyncRequest';
@@ -16,10 +13,10 @@ interface NewsPropsI {
   newsTopics?: Array<NewTopicsI>,
   news?: Array<NewsArrayI>,
   isMorePages?: boolean,
+  widgetTitle?: string
 }
 
-const WidgetLinkPageContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages }) => {
-  const { isMobile } = useWindowSize();
+const WidgetLinkPageContent: FC<NewsPropsI> = ({ news, isMorePages, widgetTitle }) => {
   const [loadMoreNews, setLoadMoreNews] = useState(false);
   const { fetch, fetchNewsStatus } = useFetchWidgetLinkData(setLoadMoreNews);
   const page = useSelector(widgetLinkSelector.getPage());
@@ -34,58 +31,28 @@ const WidgetLinkPageContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages }
       <Box
         className={styles.contentContainer}
       >
-        {isMobile && (
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              width: '100%'
-            }}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            width: '100%'
+          }}
+        >
+          <Typography
+            fontSize="24px"
+            textAlign="center"
+            component="span"
+            marginBottom="20px"
           >
-            <Typography
-              fontSize="18px"
-              textAlign="center"
-              component="span"
-              marginBottom="10px"
-            >
-              Актуальные новости
-            </Typography>
-          </Box>
-        )}
-        {isMobile
-          ? (
-            <Box className={styles.topicsSlider}>
-              <TopicsSlider
-                newsTopics={newsTopics}
-                fetch={fetch}
-              />
-            </Box>
-          )
-          : (
-            <Box className={styles.listSidebar}>
-              <ListSidebar
-                newsTopics={newsTopics}
-                fetch={fetch}
-              />
-            </Box>
-          )}
+            {widgetTitle}
+          </Typography>
+        </Box>
         <Box className={styles.news}>
-          {!isMobile && (
-            <Typography
-              fontSize="35px"
-              textAlign="left"
-              component="span"
-              marginBottom="20px"
-            >
-              Актуальные новости
-            </Typography>
-          )}
           <Grid
             container
             spacing={2}
             justifyContent="center"
             sx={{
-              maxWidth: '900px',
               justifyContent: 'flex-start'
             }}
           >
