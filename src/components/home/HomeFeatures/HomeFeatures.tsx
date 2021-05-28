@@ -25,6 +25,7 @@ interface HomeFeaturesPropsI {
 const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMorePages }) => {
   const { fetch, fetchNewsStatus } = useFetchHomePageData();
   const page = useSelector(homeSelector.getPage());
+  console.log(page);
   const { isMobile } = useWindowSize();
   const [loadMoreNews, setLoadMoreNews] = useState(false);
 

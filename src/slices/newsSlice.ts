@@ -74,6 +74,7 @@ interface SliceState {
 }
 
 const initialState:SliceState = {
+  page: 1,
   status: 'Initial' as APIStatus
 };
 

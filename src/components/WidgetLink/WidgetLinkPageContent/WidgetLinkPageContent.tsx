@@ -1,9 +1,11 @@
 import React, { FC } from 'react';
-import { Box, Typography, Grid } from '@material-ui/core';
+import { Box, Typography, Grid, Link, Button } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import ListSidebar from '../../ListSidebar';
 import styles from './WidgetLinkPageContent.module.scss';
-import { NewsArrayI, NewTopicsI } from '../../../slices/widgetLinkSlice';
+import { NewsArrayI, NewTopicsI, widgetLinkSelector } from '../../../slices/widgetLinkSlice';
 import CardSmall from '../../CardSmall/CardSmall';
 import TopicsSlider from '../../TopicsSlider';
 
@@ -11,12 +13,16 @@ interface NewsPropsI {
   fetch?: any,
   newsTopics?: Array<NewTopicsI>,
   news?: Array<NewsArrayI>,
-  isMorePages?: boolean
+  isMorePages?: boolean,
+
 }
 
 const WidgetLinkPageContent: FC<NewsPropsI> = ({ fetch, newsTopics, news, isMorePages }) => {
   const { isMobile } = useWindowSize();
-  console.log(isMorePages);
+  const page = useSelector(widgetLinkSelector.getPage());
+  const handleGetMorePages = () => {
+    fetch(page + 1, undefined, true);
+  };
   return (
     <Box className={styles.content}>
       <Box
@@ -90,6 +96,30 @@ const WidgetLinkPageContent: FC<NewsPropsI> = ({ fetch, newsTopics, news, isMore
                 </Grid>
               )) : null}
           </Grid>
+          <Box className={styles.content}>
+
+            <Link
+              to="/news"
+              component={RouterLink}
+            >
+              <Typography
+                className={styles.violetButtonText}
+              >
+                К разделу новостей
+              </Typography>
+            </Link>
+            {isMorePages ? (
+              <Button>
+                <Typography
+                  className={styles.transparentButtonText}
+                  onClick={handleGetMorePages}
+                >
+                  Показать больше
+                </Typography>
+              </Button>
+            ) : null}
+
+          </Box>
         </Box>
       </Box>
     </Box>

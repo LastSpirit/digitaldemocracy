@@ -17,19 +17,17 @@ const WidgetLinkPage: FC<Props> = (props) => {
   const { fetch } = useFetchWidgetLinkData();
   const { match } = props;
   const idNumber = match.params.id;
-  console.log(match.params.id);
 
   useEffect(() => {
     fetch(idNumber);
   }, []);
   const data = useSelector(widgetLinkSelector.getData());
-  console.log(data);
 
   return (
     <Box>
       <Container maxWidth="lg">
         <WidgetLinkPageContent
-          fetch={() => fetch(idNumber)}
+          fetch={fetch}
           newsTopics={data?.newsTopics}
           news={data?.news}
           isMorePages={data?.isMorePages}

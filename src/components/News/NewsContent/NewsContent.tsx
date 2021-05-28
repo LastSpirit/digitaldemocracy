@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
-import { Box, Typography, Grid } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { Box, Typography, Grid, Button } from '@material-ui/core';
 import ListSidebar from '../../ListSidebar';
 import styles from './NewsContent.module.scss';
-import { NewsListI, NewTopicsI } from '../../../slices/newsSlice';
+import { NewsListI, NewTopicsI, newsSelector } from '../../../slices/newsSlice';
 import CardSmall from '../../CardSmall/CardSmall';
 import WidgetLink from '../../WidgetLink/WidgetLink';
 import { useWindowSize } from '../../../hooks/useWindowSize';
@@ -16,8 +17,11 @@ interface NewsPropsI {
 }
 
 const NewsContent: FC<NewsPropsI> = ({ fetch, newsTopics, news, isMorePages }) => {
-  console.log(news, isMorePages);
   const { isMobile } = useWindowSize();
+  const page = useSelector(newsSelector.getPage());
+  const handleGetMorePages = () => {
+    fetch(page + 1, undefined, true);
+  };
   return (
     <Box className={styles.content}>
       <Box className={styles.contentContainer}>
@@ -91,7 +95,21 @@ const NewsContent: FC<NewsPropsI> = ({ fetch, newsTopics, news, isMorePages }) =
                 );
               }) : null}
           </Grid>
+          <Box className={styles.content}>
+            {isMorePages ? (
+              <Button>
+                <Typography
+                  className={styles.transparentButtonText}
+                  onClick={handleGetMorePages}
+                >
+                  Показать больше
+                </Typography>
+              </Button>
+            ) : null}
+
+          </Box>
         </Box>
+
       </Box>
     </Box>
   );

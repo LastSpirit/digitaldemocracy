@@ -30,7 +30,6 @@ const Home: FC = () => {
     };
   }, []);
   const data = useSelector(homeSelector.getData());
-
   return (
     <>
       <div>
