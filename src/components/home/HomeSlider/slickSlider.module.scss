@@ -1,6 +1,10 @@
 .carouselContainer {
     width: 90%;
     margin: auto;
+
+    @media screen and (max-width: 570px) {
+        width: 80% !important;
+    }
 }
 
 .custom {

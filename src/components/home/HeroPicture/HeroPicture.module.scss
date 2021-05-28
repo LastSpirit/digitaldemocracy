@@ -7,6 +7,11 @@
 .heroContainer {
   margin-top: 60px;
   margin-bottom: 100px;
+
+  .heroImage {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .heroText {
@@ -23,9 +28,7 @@
   .heroText {
     width: 90%;
     font-size: 12px;
-    padding-bottom: 15px;
     padding: 15px;
-    margin: auto;
   }
   .heroContainer {
     margin-top: 20px;
