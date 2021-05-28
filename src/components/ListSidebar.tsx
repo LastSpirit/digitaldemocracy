@@ -23,7 +23,6 @@ interface SidebarPropsI {
 
 const ListSidebar: FC<SidebarPropsI> = ({ newsTopics, fetch }) => {
   const classes = useStyles();
-  // const { fetch } = useFetchHomePageData();
   const [resultNewsTopics, setResultNewsTopics] = useState([]);
   const { news_topic_id: { value: topicId, setValue: setTopicId } } = useSearchParams('news_topic_id');
 
@@ -73,7 +72,6 @@ const ListSidebar: FC<SidebarPropsI> = ({ newsTopics, fetch }) => {
             <Divider component="li" />
           </Box>
         ))}
-
       </List>
     </Box>
   );

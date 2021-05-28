@@ -20,7 +20,6 @@ const News: FC = () => {
       <Container maxWidth="lg">
         {isAuthenticated && <NewsNav />}
         <NewsContent
-          fetch={fetch}
           newsTopics={data?.newsTopics}
           news={data?.news}
           isMorePages={data?.isMorePages}

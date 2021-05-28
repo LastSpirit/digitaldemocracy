@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { Box, Typography, Grid, Link, Button } from '@material-ui/core';
+import React, { FC, useState } from 'react';
+import { Box, Button, Grid, Link, Typography } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useWindowSize } from '../../../hooks/useWindowSize';
@@ -8,27 +8,33 @@ import styles from './WidgetLinkPageContent.module.scss';
 import { NewsArrayI, NewTopicsI, widgetLinkSelector } from '../../../slices/widgetLinkSlice';
 import CardSmall from '../../CardSmall/CardSmall';
 import TopicsSlider from '../../TopicsSlider';
+import { useFetchWidgetLinkData } from '../hooks/useFetchWidgetLinkPage';
+import { APIStatus } from '../../../lib/axiosAPI';
+import { WrapperAsyncRequest } from '../../Loading/WrapperAsyncRequest';
 
 interface NewsPropsI {
-  fetch?: any,
   newsTopics?: Array<NewTopicsI>,
   news?: Array<NewsArrayI>,
   isMorePages?: boolean,
-
 }
 
-const WidgetLinkPageContent: FC<NewsPropsI> = ({ fetch, newsTopics, news, isMorePages }) => {
+const WidgetLinkPageContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages }) => {
   const { isMobile } = useWindowSize();
+  const [loadMoreNews, setLoadMoreNews] = useState(false);
+  const { fetch, fetchNewsStatus } = useFetchWidgetLinkData(setLoadMoreNews);
   const page = useSelector(widgetLinkSelector.getPage());
+
   const handleGetMorePages = () => {
+    setLoadMoreNews(true);
     fetch(page + 1, undefined, true);
   };
+
   return (
     <Box className={styles.content}>
       <Box
         className={styles.contentContainer}
       >
-        {isMobile ? (
+        {isMobile && (
           <Box
             sx={{
               display: 'flex',
@@ -45,7 +51,7 @@ const WidgetLinkPageContent: FC<NewsPropsI> = ({ fetch, newsTopics, news, isMore
               Актуальные новости
             </Typography>
           </Box>
-        ) : null}
+        )}
         {isMobile
           ? (
             <Box className={styles.topicsSlider}>
@@ -64,7 +70,7 @@ const WidgetLinkPageContent: FC<NewsPropsI> = ({ fetch, newsTopics, news, isMore
             </Box>
           )}
         <Box className={styles.news}>
-          {!isMobile ? (
+          {!isMobile && (
             <Typography
               fontSize="35px"
               textAlign="left"
@@ -73,7 +79,7 @@ const WidgetLinkPageContent: FC<NewsPropsI> = ({ fetch, newsTopics, news, isMore
             >
               Актуальные новости
             </Typography>
-          ) : null}
+          )}
           <Grid
             container
             spacing={2}
@@ -83,8 +89,8 @@ const WidgetLinkPageContent: FC<NewsPropsI> = ({ fetch, newsTopics, news, isMore
               justifyContent: 'flex-start'
             }}
           >
-            {news && news.length > 0
-              ? news.map((item, index) => (
+            <WrapperAsyncRequest status={loadMoreNews ? APIStatus.Success : fetchNewsStatus}>
+              {news && news.length > 0 && news.map((item, index) => (
                 <Grid
                   key={index.toString()}
                   item
@@ -94,10 +100,14 @@ const WidgetLinkPageContent: FC<NewsPropsI> = ({ fetch, newsTopics, news, isMore
                 >
                   <CardSmall {...item} />
                 </Grid>
-              )) : null}
+              ))}
+            </WrapperAsyncRequest>
           </Grid>
+          <div className={styles.loadMore}>
+            <WrapperAsyncRequest status={loadMoreNews ? fetchNewsStatus : APIStatus.Success}><></></WrapperAsyncRequest>
+          </div>
+          {fetchNewsStatus !== APIStatus.Loading && (
           <Box className={styles.content}>
-
             <Link
               to="/news"
               component={RouterLink}
@@ -108,18 +118,18 @@ const WidgetLinkPageContent: FC<NewsPropsI> = ({ fetch, newsTopics, news, isMore
                 К разделу новостей
               </Typography>
             </Link>
-            {isMorePages ? (
-              <Button>
-                <Typography
-                  className={styles.transparentButtonText}
-                  onClick={handleGetMorePages}
-                >
-                  Показать больше
-                </Typography>
-              </Button>
-            ) : null}
-
+            {isMorePages && (
+            <Button>
+              <Typography
+                className={styles.transparentButtonText}
+                onClick={handleGetMorePages}
+              >
+                Показать больше
+              </Typography>
+            </Button>
+            )}
           </Box>
+          )}
         </Box>
       </Box>
     </Box>

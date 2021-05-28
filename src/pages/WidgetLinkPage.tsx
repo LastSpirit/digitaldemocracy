@@ -13,13 +13,11 @@ interface MatchParamsI {
 
 interface Props extends RouteComponentProps<MatchParamsI> {}
 
-const WidgetLinkPage: FC<Props> = (props) => {
+const WidgetLinkPage: FC<Props> = () => {
   const { fetch } = useFetchWidgetLinkData();
-  const { match } = props;
-  const idNumber = match.params.id;
 
   useEffect(() => {
-    fetch(idNumber);
+    fetch();
   }, []);
   const data = useSelector(widgetLinkSelector.getData());
 
@@ -27,7 +25,6 @@ const WidgetLinkPage: FC<Props> = (props) => {
     <Box>
       <Container maxWidth="lg">
         <WidgetLinkPageContent
-          fetch={fetch}
           newsTopics={data?.newsTopics}
           news={data?.news}
           isMorePages={data?.isMorePages}

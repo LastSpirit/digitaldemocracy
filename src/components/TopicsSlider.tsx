@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TopicsSlider({ newsTopics, fetch }) {
-  // const { fetch } = useFetchHomePageData();
   const handleNewsTopics = (id) => {
     fetch(1, id);
   };
@@ -60,7 +59,7 @@ export default function TopicsSlider({ newsTopics, fetch }) {
   };
   return (
     <div className={classes.carouselContainer}>
-      { newsTopics ? (
+      { newsTopics && (
         <Slider {...settings}>
           {newsTopics?.map((item) => (
             <Box
@@ -72,7 +71,7 @@ export default function TopicsSlider({ newsTopics, fetch }) {
             </Box>
           ))}
         </Slider>
-      ) : null}
+      )}
     </div>
   );
 }

@@ -67,7 +67,8 @@ interface SliceState {
 }
 
 const initialState:SliceState = {
-  status: 'Initial' as APIStatus
+  status: 'Initial' as APIStatus,
+  page: 1
 };
 
 export const widgetLinkSlice = createSlice({

@@ -4,7 +4,7 @@ import { newsAPI } from '../../../api/newsAPI';
 import { newsSlice } from '../../../slices/newsSlice';
 import { APIStatus } from '../../../lib/axiosAPI';
 
-export const useFetchNewsData = () => {
+export const useFetchNewsData = (setLoadMoreNews?: (value: boolean) => void) => {
   const dispatch = useDispatch();
   const { setData, addNews, setNews } = newsSlice.actions;
   const { fetchNews } = newsAPI;
@@ -31,6 +31,7 @@ export const useFetchNewsData = () => {
       onSuccess: (response) => {
         setStatus(fetchOnlyNews, APIStatus.Success);
         dispatch(action({ ...response, page }));
+        setLoadMoreNews(false);
       },
       payload: {
         topicId: topic_id === -1 ? undefined : topic_id,

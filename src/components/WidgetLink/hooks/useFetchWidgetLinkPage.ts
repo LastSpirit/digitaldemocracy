@@ -1,15 +1,18 @@
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { widgetLinkAPI } from '../../../api/widgetLinkAPI';
 import { widgetLinkSlice } from '../../../slices/widgetLinkSlice';
 import { APIStatus } from '../../../lib/axiosAPI';
 
-export const useFetchWidgetLinkData = () => {
+export const useFetchWidgetLinkData = (setLoadMoreNews?: (value: boolean) => void) => {
   const dispatch = useDispatch();
   const { setData, addNews, setNews } = widgetLinkSlice.actions;
   const { fetchWidgetLink } = widgetLinkAPI;
   const [fetchNewsStatus, setFetchNewsStatus] = useState<APIStatus>(APIStatus.Initial);
   const [fetchDataStatus, setFetchDataStatus] = useState<APIStatus>(APIStatus.Initial);
+
+  const { id: widgetId }: { id: string } = useParams();
 
   const setStatus = (fetchOnlyNews: boolean, status: APIStatus) => {
     if (fetchOnlyNews) {
@@ -17,7 +20,7 @@ export const useFetchWidgetLinkData = () => {
     } else setFetchDataStatus(status);
   };
 
-  const fetch = useCallback((id?: string, page?: number, topic_id?: any, fetchOnlyNews?: boolean) => {
+  const fetch = useCallback((page?: number, topic_id?: any, fetchOnlyNews?: boolean) => {
     let action;
     if (topic_id) {
       action = setNews;
@@ -31,11 +34,12 @@ export const useFetchWidgetLinkData = () => {
       onSuccess: (response) => {
         setStatus(fetchOnlyNews, APIStatus.Success);
         dispatch(action({ ...response, page }));
+        setLoadMoreNews(false);
       },
       payload: {
         topicId: topic_id === -1 ? undefined : topic_id,
         page,
-        id
+        id: widgetId.toString()
       },
       onError: (errorResponse) => {
         setStatus(fetchOnlyNews, APIStatus.Failure);

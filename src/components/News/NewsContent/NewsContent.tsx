@@ -1,25 +1,31 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Box, Typography, Grid, Button } from '@material-ui/core';
+import { Box, Button, Grid, Typography } from '@material-ui/core';
 import ListSidebar from '../../ListSidebar';
 import styles from './NewsContent.module.scss';
-import { NewsListI, NewTopicsI, newsSelector } from '../../../slices/newsSlice';
+import { NewsListI, newsSelector, NewTopicsI } from '../../../slices/newsSlice';
 import CardSmall from '../../CardSmall/CardSmall';
 import WidgetLink from '../../WidgetLink/WidgetLink';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import TopicsSlider from '../../TopicsSlider';
+import { useFetchNewsData } from '../hooks/useFetchNewsData';
+import { APIStatus } from '../../../lib/axiosAPI';
+import { WrapperAsyncRequest } from '../../Loading/WrapperAsyncRequest';
 
 interface NewsPropsI {
-  fetch?: any,
   newsTopics?: Array<NewTopicsI>,
   news?: Array<NewsListI>,
   isMorePages?: boolean
 }
 
-const NewsContent: FC<NewsPropsI> = ({ fetch, newsTopics, news, isMorePages }) => {
+const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages }) => {
   const { isMobile } = useWindowSize();
+  const [loadMoreNews, setLoadMoreNews] = useState(false);
+  const { fetch, fetchNewsStatus } = useFetchNewsData(setLoadMoreNews);
   const page = useSelector(newsSelector.getPage());
+
   const handleGetMorePages = () => {
+    setLoadMoreNews(true);
     fetch(page + 1, undefined, true);
   };
   return (
@@ -43,7 +49,7 @@ const NewsContent: FC<NewsPropsI> = ({ fetch, newsTopics, news, isMorePages }) =
             </Box>
           )}
         <Box className={styles.news}>
-          {!isMobile ? (
+          {!isMobile && (
             <Typography
               fontSize="35px"
               textAlign="left"
@@ -52,51 +58,44 @@ const NewsContent: FC<NewsPropsI> = ({ fetch, newsTopics, news, isMorePages }) =
             >
               Актуальные новости
             </Typography>
-          ) : null}
-          <Grid
-            container
-            spacing={2}
-            justifyContent="center"
-            sx={{
-              maxWidth: '900px',
-              justifyContent: 'flex-start'
-            }}
+          )}
+          <WrapperAsyncRequest
+            height={600}
+            status={loadMoreNews ? APIStatus.Success : fetchNewsStatus}
           >
-            {news && news.length > 0
-              ? news.map((item, index) => {
-                if (item.type === 'widgetLink') {
-                  return (
-                    <Grid
-                      key={index.toString()}
-                      item
-                      md={4}
-                      sm={6}
-                      xs={12}
-                      style={{
-                        alignSelf: 'center'
-                      }}
-                    >
-                      <WidgetLink {...item.widgetLink} />
-
-                    </Grid>
-                  );
-                }
-
-                return (
+            <Grid
+              container
+              spacing={2}
+              justifyContent="center"
+              sx={{
+                maxWidth: '900px',
+                justifyContent: 'flex-start'
+              }}
+            >
+              {news && news.length > 0
+                && news.map((item, index) => (
                   <Grid
                     key={index.toString()}
                     item
                     md={4}
                     sm={6}
                     xs={12}
+                    style={item.type === 'widgetLink' ? {
+                      alignSelf: 'center'
+                    } : {}}
                   >
-                    <CardSmall {...item.news} />
+                    {item.type === 'widgetLink' ? <WidgetLink {...item.widgetLink} /> : <CardSmall {...item.news} />}
                   </Grid>
-                );
-              }) : null}
-          </Grid>
+                ))}
+            </Grid>
+            <div className={styles.loadMore}>
+              <WrapperAsyncRequest status={loadMoreNews ? fetchNewsStatus : APIStatus.Success}>
+                <div />
+              </WrapperAsyncRequest>
+            </div>
+          </WrapperAsyncRequest>
           <Box className={styles.content}>
-            {isMorePages ? (
+            {isMorePages && fetchNewsStatus !== APIStatus.Loading && (
               <Button>
                 <Typography
                   className={styles.transparentButtonText}
@@ -105,8 +104,7 @@ const NewsContent: FC<NewsPropsI> = ({ fetch, newsTopics, news, isMorePages }) =
                   Показать больше
                 </Typography>
               </Button>
-            ) : null}
-
+            )}
           </Box>
         </Box>
 

@@ -4,6 +4,7 @@
   margin: 38px 0;
   justify-content: space-between;
   width: 100%;
+  min-height: 600px;
 }
 
 .news {
@@ -20,8 +21,6 @@
 }
 .topicsSlider {
   max-width: 80%;
-  margin-bottom: 30px;
-  margin-top: 40px;
   margin: 35px auto;
 }
 .content {
@@ -32,6 +31,14 @@
   align-items: center;
   width: 100%;
 }
+
+.loadMore {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .content button {
   margin-right: 20px;
 }

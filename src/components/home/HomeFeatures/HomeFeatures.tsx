@@ -25,7 +25,6 @@ interface HomeFeaturesPropsI {
 const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMorePages }) => {
   const { fetch, fetchNewsStatus } = useFetchHomePageData();
   const page = useSelector(homeSelector.getPage());
-  console.log(page);
   const { isMobile } = useWindowSize();
   const [loadMoreNews, setLoadMoreNews] = useState(false);
 
@@ -44,7 +43,6 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
           maxWidth="lg"
           className={styles.newsWrapper}
         >
-
           {isMobile ? (
             <Box
               className={styles.container}
@@ -58,7 +56,6 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
             : null}
           <Box style={{ display: 'flex' }}>
             {
-
             !isMobile
               ? (
                 <Box
@@ -85,11 +82,7 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
               >
                 Актуальные новости
               </Typography>
-
-              <WrapperAsyncRequest
-                height={600}
-                status={loadMoreNews ? APIStatus.Success : fetchNewsStatus}
-              >
+              <WrapperAsyncRequest status={loadMoreNews ? APIStatus.Success : fetchNewsStatus}>
                 {news && news.length > 0 ? (
                   <Grid
                     container
@@ -124,7 +117,6 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
               {loadMoreNews && fetchNewsStatus !== APIStatus.Initial && (
               <div className={styles.loadMore}>
                 <WrapperAsyncRequest
-                  height={600}
                   status={loadMoreNews ? fetchNewsStatus : APIStatus.Success}
                 >
                   <div />
