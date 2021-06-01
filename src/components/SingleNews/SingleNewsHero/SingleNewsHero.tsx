@@ -13,7 +13,7 @@ interface HeroPropsI {
 }
 
 const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
-  const [toggleIframe, setToggleIframe] = useState(false);
+  const [toggleIframe, setToggleIframe] = useState(true);
   const handleToggleIframe = () => {
     setToggleIframe(!toggleIframe);
   };

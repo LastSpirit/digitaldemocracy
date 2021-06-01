@@ -54,6 +54,7 @@ const App: FC = () => {
 
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
 
+  console.log(isAuthenticated);
   return useMemo(() => (isAuthenticated !== undefined ? (
     <ThemeProvider theme={theme}>
       <Helmet>
