@@ -45,7 +45,7 @@ const App: FC = () => {
     direction: settings.direction,
     responsiveFontSizes: settings.responsiveFontSizes,
     roundedCorners: settings.roundedCorners,
-    theme: settings.theme
+    theme: settings.theme,
   });
 
   const {
@@ -55,68 +55,33 @@ const App: FC = () => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
 
   console.log(isAuthenticated);
-  return useMemo(() => (isAuthenticated !== undefined ? (
-    <ThemeProvider theme={theme}>
-      <Helmet>
-        <title>Digital Democracy | Dev</title>
-      </Helmet>
-      <MainLayout>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            component={Home}
-          />
-          <Route
-            path="/singleNews/:link"
-            component={SingleNews}
-          />
-          <Route
-            path="/donation"
-            component={DonationPage}
-          />
-          <Route
-            path="/news"
-            component={News}
-          />
-          <Route
-            path="/widgetLink/:id"
-            component={WidgetLinkPage}
-          />
-          {isAuthenticated && (
-            <Route
-              exact
-              path="/profile"
-              component={ProfilePage}
-            />
-          )}
-          {isAuthenticated && (
-          <Route
-            exact
-            path="/profile/*"
-            component={ProfilePage}
-          />
-          )}
-          <Route
-            exact
-            path="/politician/:politicianId"
-            component={PoliticianPage}
-          />
-          <Route
-            exact
-            path="/politician/:politicianId/*"
-            component={PoliticianPage}
-          />
-          <Redirect to="/" />
-        </Switch>
-      </MainLayout>
-      <YandexRegisterModal
-        open={!!yandexRegisterValue}
-        onClose={() => setYandexRegisterValue(undefined)}
-      />
-      <div id="sign-in-button" />
-    </ThemeProvider>
-  ) : null), [isAuthenticated, location]);
+  return useMemo(
+    () =>
+      isAuthenticated !== undefined ? (
+        <ThemeProvider theme={theme}>
+          <Helmet>
+            <title>Digital Democracy | Dev</title>
+          </Helmet>
+          <MainLayout>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/singleNews/:link" component={SingleNews} />
+              <Route path="/donation" component={DonationPage} />
+              <Route path="/news" component={News} />
+              <Route path="/widgetLink/:id" component={WidgetLinkPage} />
+              {isAuthenticated && <Route exact path="/profile" component={ProfilePage} />}
+              {isAuthenticated && <Route exact path="/profile/*" component={ProfilePage} />}
+              <Route exact path="/politician/:politicianId" component={PoliticianPage} />
+              <Route exact path="/politician/:politicianId/*" component={PoliticianPage} />
+              <Redirect to="/" />
+            </Switch>
+          </MainLayout>
+          <YandexRegisterModal open={!!yandexRegisterValue} onClose={() => setYandexRegisterValue(undefined)} />
+          <div id="sign-in-button" />
+        </ThemeProvider>
+      ) : null,
+    [isAuthenticated, location]
+  );
 };
 
 export default App;

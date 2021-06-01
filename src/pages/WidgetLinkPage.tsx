@@ -9,7 +9,7 @@ import WidgetLinkPageContent from '../components/WidgetLink/WidgetLinkPageConten
 import { BackButton } from '../components/BackButton/BackButton';
 
 interface MatchParamsI {
-  id: string
+  id: string;
 }
 
 interface Props extends RouteComponentProps<MatchParamsI> {}

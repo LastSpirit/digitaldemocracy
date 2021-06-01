@@ -19,11 +19,7 @@ const News: FC = () => {
     <Box>
       <Container maxWidth="lg">
         {isAuthenticated && <NewsNav />}
-        <NewsContent
-          newsTopics={data?.newsTopics}
-          news={data?.news}
-          isMorePages={data?.isMorePages}
-        />
+        <NewsContent newsTopics={data?.newsTopics} news={data?.news} isMorePages={data?.isMorePages} />
       </Container>
     </Box>
   );
