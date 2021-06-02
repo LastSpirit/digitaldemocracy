@@ -9,6 +9,7 @@ import { newsSlice } from '../slices/newsSlice';
 // eslint-disable-next-line import/no-cycle
 import { singleNewsSlice } from '../slices/SingleNewsSlice';
 import { politicianSlice } from '../slices/politicianSlice';
+import { massMediaSlice } from '../slices/massMediaSlice';
 // eslint-disable-next-line import/no-cycle
 import { widgetLinkSlice } from '../slices/widgetLinkSlice';
 
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   news: newsSlice.reducer,
   singleNews: singleNewsSlice.reducer,
   politician: politicianSlice.reducer,
-  widgetLink: widgetLinkSlice.reducer
+  massmedia: massMediaSlice.reducer,
+  widgetLink: widgetLinkSlice.reducer,
 });
 
 export default rootReducer;

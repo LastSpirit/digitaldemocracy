@@ -19,7 +19,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
   const { isMobile } = useWindowSize();
 
   return (
-    <MainLayoutRoot style={{ background: 'white', paddingBottom: isMobile ? 80 : 0 }}>
+    <MainLayoutRoot style={{ background: 'white', paddingBottom: isMobile ? 80 : 0, paddingTop: '88px' }}>
       <MainNavbar />
       <AuthModal />
       {children}

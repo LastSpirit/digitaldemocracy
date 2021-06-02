@@ -11,7 +11,6 @@ import { BackButton } from '../../components/BackButton/BackButton';
 
 const PoliticianPage = () => {
   const { status, fetch } = useFetchProfileInfo();
-
   useEffect(() => {
     fetch();
   }, []);

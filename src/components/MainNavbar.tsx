@@ -1,14 +1,6 @@
 import type { FC } from 'react';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
-import {
-  AppBar,
-  Box,
-  Button,
-  Link,
-  Toolbar,
-  Typography,
-  Container
-} from '@material-ui/core';
+import { AppBar, Box, Button, Link, Toolbar, Typography, Container } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 import Search from '../icons/Search';
@@ -37,7 +29,8 @@ const links = [
     to: '/about_site',
     title: 'О площадке',
     mr: 0,
-  }];
+  },
+];
 
 const MainNavbar: FC = () => {
   const { push } = useHistory();
@@ -57,7 +50,7 @@ const MainNavbar: FC = () => {
       title: isAuthenticated ? <Person /> : 'Регистрация',
       to: isAuthenticated ? '/profile' : 'register',
       color: 'white',
-    }
+    },
   ];
 
   const handleClick = (to: string) => {
@@ -73,11 +66,19 @@ const MainNavbar: FC = () => {
       elevation={0}
       sx={{
         backgroundColor: 'background.paper',
-        color: 'text.secondary'
+        color: 'text.secondary',
+        maxHeight: '88px',
       }}
     >
       <Container maxWidth="lg">
-        <Toolbar sx={{ minHeight: 64, justifyContent: isMobile ? 'center' : 'space-between', alignItems: 'center', display: 'flex' }}>
+        <Toolbar
+          sx={{
+            minHeight: 64,
+            justifyContent: isMobile ? 'center' : 'space-between',
+            alignItems: 'center',
+            display: 'flex',
+          }}
+        >
           {isMobile ? (
             <Box
               sx={{
@@ -85,7 +86,7 @@ const MainNavbar: FC = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 height: 40,
-                cursor: 'pointer'
+                cursor: 'pointer',
               }}
               onClick={() => push('/')}
             >
@@ -93,18 +94,19 @@ const MainNavbar: FC = () => {
             </Box>
           ) : (
             <>
-              <Box sx={{
-                display: 'flex',
-                alignItems: 'center',
-                height: 40
-              }}
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  height: 40,
+                }}
               >
                 <Box
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
                     height: 40,
-                    cursor: 'pointer'
+                    cursor: 'pointer',
                   }}
                   onClick={() => push('/')}
                 >
@@ -112,8 +114,7 @@ const MainNavbar: FC = () => {
                     <Logo />
                   </div>
                   <Typography
-                    sx={{ ml: 1.5,
-                      fontSize: '14px' }}
+                    sx={{ ml: 1.5, fontSize: '14px' }}
                     color="textSecondary"
                     // variant="caption"
                   >
@@ -122,39 +123,40 @@ const MainNavbar: FC = () => {
                     Democracy
                   </Typography>
                 </Box>
-                <Box sx={{
-                  marginLeft: 17,
-                }}
+                <Box
+                  sx={{
+                    marginLeft: 17,
+                  }}
                 >
                   {!isMobile && (
-                  <Box style={{ width: '210px' }}>
-                    <InputTextField icon={<Search />} />
-                  </Box>
+                    <Box style={{ width: '210px' }}>
+                      <InputTextField icon={<Search />} />
+                    </Box>
                   )}
                 </Box>
               </Box>
               {!isMobile && (
-              <Box>
-                {links.map(({ title, mr, to }, index) => (
-                  <Link
-                    key={index.toString()}
-                    to={to}
-                    color="textSecondary"
-                    component={RouterLink}
-                    underline="none"
-                    // variant="body1"
-                    sx={{
-                      marginRight: mr,
-                      fontSize: 14,
-                      sm: {
-                        fontSize: 12
-                      }
-                    }}
-                  >
-                    {title}
-                  </Link>
-                ))}
-              </Box>
+                <Box>
+                  {links.map(({ title, mr, to }, index) => (
+                    <Link
+                      key={index.toString()}
+                      to={to}
+                      color="textSecondary"
+                      component={RouterLink}
+                      underline="none"
+                      // variant="body1"
+                      sx={{
+                        marginRight: mr,
+                        fontSize: 14,
+                        sm: {
+                          fontSize: 12,
+                        },
+                      }}
+                    >
+                      {title}
+                    </Link>
+                  ))}
+                </Box>
               )}
               <Box
                 sx={{
@@ -186,7 +188,6 @@ const MainNavbar: FC = () => {
           )}
         </Toolbar>
       </Container>
-
     </AppBar>
   );
 };
