@@ -71,11 +71,8 @@ const App: FC = () => {
               {isAuthenticated && <Route exact path="/profile/*" component={ProfilePage} />}
               <Route exact path="/politician/:politicianId" component={PoliticianPage} />
               <Route exact path="/politician/:politicianId/*" component={PoliticianPage} />
-<<<<<<< HEAD
-=======
               <Route exact path="/mass-media/:massMediaId" component={MassMediaPage} />
               <Route exact path="/mass-media/:massMediaId/*" component={MassMediaPage} />
->>>>>>> feature-PROJ-16
               <Redirect to="/" />
             </Switch>
           </MainLayout>
