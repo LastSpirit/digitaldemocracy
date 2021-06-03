@@ -5,31 +5,31 @@ import styles from './PercentsLinearGraphic.module.scss';
 const lines = [
   {
     id: 1,
-    width: 19,
+    width: 0,
     color: '#BE3B21',
     zIndex: 5,
   },
   {
     id: 2,
-    width: 0,
-    color: '#EB4335',
+    width: 42,
+    color: '#C9988E',
     zIndex: 4,
   },
   {
     id: 3,
-    width: 35,
-    color: '#747373',
+    width: 48,
+    color: '#C4C4C4',
     zIndex: 3,
   },
   {
     id: 4,
     width: 5,
-    color: '#34A853',
+    color: '#749C7E',
     zIndex: 2,
   },
   {
     id: 5,
-    width: 41,
+    width: 5,
     color: '#248232',
     zIndex: 1,
   },
@@ -85,7 +85,6 @@ export const PercentsLinearGraphic = () => {
                   }%`,
                   backgroundColor: color,
                   zIndex,
-                  opacity: `${firstIndex === index || lastIndex === index ? 1 : 0.7}`,
                 }}
                 className={styles.line}
               >

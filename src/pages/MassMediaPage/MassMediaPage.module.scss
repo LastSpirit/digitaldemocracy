@@ -149,10 +149,6 @@
         background-color: #363557;
         color: white;
       }
-
-      &.withOutBorder {
-        border-bottom: none !important;
-      }
     }
   }
 
@@ -175,7 +171,6 @@
       position: relative;
       width: 100%;
       overflow-x: scroll;
-
       &::-webkit-scrollbar {
         display: none;
       }
@@ -211,7 +206,7 @@
         overflow-x: scroll;
         position: relative;
         scroll-behavior: smooth;
-
+        box-sizing: border-box;
         &::-webkit-scrollbar {
           display: none;
         }
@@ -226,7 +221,7 @@
           justify-content: center;
           text-align: center;
           line-height: 15px;
-          height: auto;
+          box-sizing: border-box;
         }
       }
     }
@@ -236,13 +231,13 @@
 .profileInfoContainer {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 60px;
-  border-bottom: 1px solid #b0b0b0;
   align-items: center;
-  height: 288px;
+  flex-direction: column;
+  border-bottom: 1px solid #b0b0b0;
   .topItems {
     display: flex;
-    height: 100%;
+    height: 288px;
+    margin-bottom: 60px;
     .avatarBlock {
       position: relative;
       display: flex;

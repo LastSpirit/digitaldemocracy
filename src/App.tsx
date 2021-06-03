@@ -73,6 +73,7 @@ const App: FC = () => {
               <Route exact path="/politician/:politicianId" component={PoliticianPage} />
               <Route exact path="/politician/:politicianId/*" component={PoliticianPage} />
               <Route exact path="/mass-media/:massMediaId" component={MassMediaPage} />
+              <Route exact path="/mass-media/:massMediaId/*" component={MassMediaPage} />
               <Redirect to="/" />
             </Switch>
           </MainLayout>

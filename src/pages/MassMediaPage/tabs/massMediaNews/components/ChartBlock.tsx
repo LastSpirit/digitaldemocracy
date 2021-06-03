@@ -8,7 +8,7 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import ru from 'date-fns/esm/locale/ru';
 import TimelineIcon from '@material-ui/icons/Timeline';
 import { WrapperAsyncRequest } from '../../../../../components/Loading/WrapperAsyncRequest';
-import styles from '../../../PoliticianPage.module.scss';
+import styles from '../../../MassMediaPage.module.scss';
 import { politicianSelectors } from '../../../../../slices/politicianSlice';
 import { APIStatus } from '../../../../../lib/axiosAPI';
 

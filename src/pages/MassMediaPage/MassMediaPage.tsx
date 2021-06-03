@@ -3,7 +3,7 @@ import { Container } from '@material-ui/core';
 import styles from './MassMediaPage.module.scss';
 
 import MassMediaInfoBlock from './blocks/MassMediaInfoBlock/MassMediaInfoBlock';
-import PoliticianNavigation from './blocks/PoliticianNavigation';
+import MassMediaNavigation from './blocks/MassMediaNavigation';
 import { BackButton } from '../../components/BackButton/BackButton';
 import { WrapperAsyncRequest } from '../../components/Loading/WrapperAsyncRequest';
 
@@ -16,6 +16,7 @@ const MassMediaPage = () => {
       <div className={styles.container}>
         <WrapperAsyncRequest status={status}>
           <MassMediaInfoBlock />
+          <MassMediaNavigation />
         </WrapperAsyncRequest>
       </div>
     </Container>
