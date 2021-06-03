@@ -1,19 +1,22 @@
-import { minHeight } from '@material-ui/system';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import InDevelop from '../../../../components/InDevelop/InDevelop';
 import styles from './PositionDescription.module.scss';
+import { politicianSelectors } from '../../../../slices/politicianSlice';
 
 export default function Description() {
-  return (
+  const data = useSelector(politicianSelectors.getPoliticianInfo());
+  return data?.id === 6 ? (
     <div className={styles.root}>
       <h4>Председатель правительства</h4>
       <p>
-        Определяет в соответствии с конституцией, федеральными конституционными законами,
-        федеральными законами и указами президента основные направления деятельности правительства. Распределяет
-        обязанности между членами правительства; систематически информирует президента Российской Федерации о работе
-        правительства.
+        Определяет в соответствии с конституцией, федеральными конституционными законами, федеральными законами и
+        указами президента основные направления деятельности правительства. Распределяет обязанности между членами
+        правительства; систематически информирует президента Российской Федерации о работе правительства.
       </p>
     </div>
+  ) : (
+    <InDevelop />
   );
 }
 
