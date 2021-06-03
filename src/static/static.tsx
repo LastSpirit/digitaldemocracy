@@ -1,3 +1,24 @@
+export const sortMassMedia = [
+  {
+    id: 1,
+    full_title: 'По дате',
+    short_title: 'Дата',
+    field: 'date',
+  },
+  {
+    id: 2,
+    full_title: 'По популярности',
+    short_title: 'Популярность',
+    field: 'popular',
+  },
+  {
+    id: 3,
+    full_title: 'По проголосовавшим',
+    short_title: 'Голоса',
+    field: 'votes',
+  },
+];
+
 export const mockNews = [
   {
     id: 1,

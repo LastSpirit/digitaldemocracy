@@ -11,7 +11,7 @@ interface MassMediaInfoI {
   photo?: string;
   number_of_subscribers?: number;
   is_subscribed?: boolean;
-  source_link?: string,
+  source_link?: string;
   percent?: string;
   party?: string;
   party_logo?: string;
@@ -50,6 +50,8 @@ interface AuthorI {
 interface SliceState {
   data?: MassMediaInfoI;
   news?: Array<NewsArrayI>;
+  sort_direction?: string;
+  sort_field?: string;
 }
 
 const initialState: SliceState = {
@@ -71,12 +73,21 @@ const initialState: SliceState = {
     trust: 'Высокое доверие',
   },
   news: mockNews,
+  sort_direction: '',
+  sort_field: '',
 };
 
 export const massMediaSlice = createSlice({
   name: 'massMediaSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    setSortDirection(state, action) {
+      state.sort_direction = action.payload;
+    },
+    setSortField(state, action) {
+      state.sort_field = action.payload;
+    },
+  },
 });
 
 interface Store {
