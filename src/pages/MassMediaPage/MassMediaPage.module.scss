@@ -247,6 +247,38 @@
   align-items: center;
   flex-direction: column;
   border-bottom: 1px solid #b0b0b0;
+  .buttonRow {
+    display: flex;
+    width: 100%;
+    margin-bottom: 40px;
+    .backButton {
+      border-color: #b0b0b0;
+      padding: 5px 20px;
+      margin: 0px;
+      .icon {
+        margin-right: 7px;
+        height: 100%;
+        color: #7a7a7a;
+        font-family: HelveticaNeueCyr;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 200;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+      }
+      .text {
+        font-family: HelveticaNeueCyr;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 200;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: #7a7a7a;
+      }
+    }
+  }
   .topItems {
     display: flex;
     height: 288px;
@@ -427,6 +459,15 @@
             align-items: center;
             padding: 0px 15px;
           }
+          .facebook {
+            color: #363557;
+            background-color: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+          }
         }
       }
     }
@@ -526,12 +567,22 @@
         .subscribers {
           display: flex;
           align-items: center;
+          height: 18px;
           .subscribersBadge {
             color: #7a7a7a;
             font-size: 13px;
             display: flex;
             justify-content: center;
             align-items: center;
+          }
+          .facebook {
+            color: #363557;
+            background-color: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
           }
         }
       }
@@ -542,6 +593,7 @@
     margin-top: 10px !important;
     height: 40px;
     background-color: #ededed !important;
+    border: 0, 79px solid #b0b0b0;
     font-size: 14px;
     color: #222222;
   }

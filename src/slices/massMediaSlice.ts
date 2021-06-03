@@ -11,6 +11,7 @@ interface MassMediaInfoI {
   photo?: string;
   number_of_subscribers?: number;
   is_subscribed?: boolean;
+  source_link?: string,
   percent?: string;
   party?: string;
   party_logo?: string;
