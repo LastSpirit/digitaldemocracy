@@ -100,6 +100,19 @@
   }
 }
 
+.newsContainer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  .outerCardContainer {
+    width: 266px;
+    margin: 0px 16px 16px 0px;
+  }
+  @media screen and (max-width: $mobileScreen) {
+    justify-content: center;
+  }
+}
+
 .noNewsBlock {
   width: 100%;
   height: 100%;
