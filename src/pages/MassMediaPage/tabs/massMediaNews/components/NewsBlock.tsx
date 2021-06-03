@@ -11,19 +11,13 @@ const NewsBlock = () => {
   return (
     <div className={styles.newsContainer}>
       {news && news.length > 0 ? (
-        <Grid
-          container
-          spacing={2}
-          sx={{
-            justifyContent: 'flex-start',
-          }}
-        >
+        <>
           {news?.map((item, index) => (
-            <Grid key={item.id} item md={4} sm={6} xs={12}>
+            <div className={styles.outerCardContainer}>
               <CardSmall {...item} />
-            </Grid>
+            </div>
           ))}
-        </Grid>
+        </>
       ) : (
         <div className={styles.noNewsBlock}>
           <span>Здесь будут отображаться новости за выбранный период</span>
