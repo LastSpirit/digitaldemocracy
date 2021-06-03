@@ -1,11 +1,17 @@
 import {
   IncomeStatistics,
   PoliticianActivity,
-  PoliticianNews, PositionDescription,
+  PoliticianNews,
+  PositionDescription,
   PositionHistory,
-  Promises, Quiz, RatingStatistics, Reception
+  Promises,
+  Quiz,
+  RatingStatistics,
+  Reception,
 } from '../pages/PoliticianPage/tabs';
 import { Subscriptions, BrowsingHistory, DonationHistory, VotingStatistics } from '../pages/ProfilePage/tabs';
+
+import { MassMediaStatistics, MassMediaNews } from '../pages/MassMediaPage/tabs';
 
 export enum ModalParams {
   Auth = 'auth_modal',
@@ -15,54 +21,54 @@ export enum ModalParams {
 export enum AuthParam {
   login = 'login',
   register = 'register',
-  reset_password = 'reset_password'
+  reset_password = 'reset_password',
 }
 
 export const PoliticianTabs = [
   {
     id: 'politician_news',
     title: 'Новости политика',
-    component: PoliticianNews
+    component: PoliticianNews,
   },
   {
     id: 'politician_activity',
     title: 'Законодательная деятельность',
-    component: PoliticianActivity
+    component: PoliticianActivity,
   },
   {
     id: 'position_history',
     title: 'История должностей',
-    component: PositionHistory
+    component: PositionHistory,
   },
   {
     id: 'promises',
     title: 'Обещания и цитаты',
-    component: Promises
+    component: Promises,
   },
   {
     id: 'income_statistics',
     title: 'Статистика дохода',
-    component: IncomeStatistics
+    component: IncomeStatistics,
   },
   {
     id: 'rating_statistics',
     title: 'Статистика рейтинга',
-    component: RatingStatistics
+    component: RatingStatistics,
   },
   {
     id: 'position_description',
     title: 'Описание должности',
-    component: PositionDescription
+    component: PositionDescription,
   },
   {
     id: 'reception',
     title: 'Виртуальная приёмная',
-    component: Reception
+    component: Reception,
   },
   {
     id: 'quiz',
     title: 'Опросы',
-    component: Quiz
+    component: Quiz,
   },
 ];
 
@@ -70,22 +76,34 @@ export const ProfileTabs = [
   {
     id: 'subscriptions',
     title: 'Подписки',
-    component: Subscriptions
+    component: Subscriptions,
   },
   {
     id: 'voting_statistics',
     title: 'Статистика голосований',
-    component: VotingStatistics
+    component: VotingStatistics,
   },
   {
     id: 'browsing_history',
     title: 'История просмотров',
-    component: BrowsingHistory
+    component: BrowsingHistory,
   },
   {
     id: 'donation_history',
     title: 'История донатов',
-    component: DonationHistory
+    component: DonationHistory,
   },
+];
 
+export const MassMediaTabs = [
+  {
+    id: 'news',
+    title: 'Новости',
+    component: MassMediaNews,
+  },
+  {
+    id: 'statistic',
+    title: 'Статистика',
+    component: MassMediaStatistics,
+  },
 ];

@@ -17,32 +17,36 @@ export const useFetchHomePageData = () => {
     } else setFetchDataStatus(status);
   };
 
-  const fetch = useCallback((page?: number, topic_id?: any, fetchOnlyNews?: boolean) => {
-    let action;
-    if (topic_id) {
-      action = setNews;
-    } else if (fetchOnlyNews) {
-      action = addNews;
-    } else {
-      action = setData;
-    }
-    setStatus(fetchOnlyNews, APIStatus.Loading);
-    dispatch(fetchHome({
-      onSuccess: (response) => {
-        setStatus(fetchOnlyNews, APIStatus.Success);
-        dispatch(action({ ...response, page }));
-      },
-      payload: {
-        topic_id: topic_id === -1 ? undefined : topic_id,
-        page
-      },
-      onError: (errorResponse) => {
-        setStatus(fetchOnlyNews, APIStatus.Failure);
-        console.log(errorResponse);
+  const fetch = useCallback(
+    (page?: number, topic_id?: any, fetchOnlyNews?: boolean) => {
+      let action;
+      if (topic_id) {
+        action = setNews;
+      } else if (fetchOnlyNews) {
+        action = addNews;
+      } else {
+        action = setData;
       }
-
-    }));
-  }, [fetchNewsStatus, fetchDataStatus]);
+      setStatus(fetchOnlyNews, APIStatus.Loading);
+      dispatch(
+        fetchHome({
+          onSuccess: (response) => {
+            setStatus(fetchOnlyNews, APIStatus.Success);
+            dispatch(action({ ...response, page }));
+          },
+          payload: {
+            topic_id: topic_id === -1 ? undefined : topic_id,
+            page,
+          },
+          onError: (errorResponse) => {
+            setStatus(fetchOnlyNews, APIStatus.Failure);
+            console.log(errorResponse);
+          },
+        })
+      );
+    },
+    [fetchNewsStatus, fetchDataStatus]
+  );
 
   return { fetch, fetchNewsStatus, fetchDataStatus };
 };

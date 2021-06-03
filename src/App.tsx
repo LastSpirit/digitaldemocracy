@@ -20,6 +20,7 @@ import ProfilePage from './pages/ProfilePage/ProfilePage';
 import { userSelectors } from './slices/userSlice';
 import News from './pages/News';
 import PoliticianPage from './pages/PoliticianPage/PoliticianPage';
+import MassMediaPage from './pages/MassMediaPage/MassMediaPage';
 import WidgetLinkPage from './pages/WidgetLinkPage';
 import { DonationPage } from './pages/ProfilePage/DonationPage/DonationPage';
 
@@ -53,8 +54,11 @@ const App: FC = () => {
   } = useSearchParams(ModalParams.YandexRegister);
 
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
+<<<<<<< HEAD
 
   console.log(isAuthenticated);
+=======
+>>>>>>> feature-PROJ-16
   return useMemo(
     () =>
       isAuthenticated !== undefined ? (
@@ -73,6 +77,11 @@ const App: FC = () => {
               {isAuthenticated && <Route exact path="/profile/*" component={ProfilePage} />}
               <Route exact path="/politician/:politicianId" component={PoliticianPage} />
               <Route exact path="/politician/:politicianId/*" component={PoliticianPage} />
+<<<<<<< HEAD
+=======
+              <Route exact path="/mass-media/:massMediaId" component={MassMediaPage} />
+              <Route exact path="/mass-media/:massMediaId/*" component={MassMediaPage} />
+>>>>>>> feature-PROJ-16
               <Redirect to="/" />
             </Switch>
           </MainLayout>

@@ -6,7 +6,8 @@ export const useWindowSize = () => {
     height: 1000,
   });
 
-  const isMobile = windowSize.width <= 711; // this 660px
+  // const isMobile = windowSize.width <= 711; // this 660px
+  const isMobile = windowSize.width <= 1024; // this 660px
 
   useEffect(() => {
     function handleResize() {

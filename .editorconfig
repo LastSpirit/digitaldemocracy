@@ -9,4 +9,8 @@ indent_size = 2
 insert_final_newline = true
 max_line_length = 120
 quote_type = single
+<<<<<<< HEAD
 trim_trailing_whitespace = true
+=======
+trim_trailing_whitespace = true
+>>>>>>> feature-PROJ-16
