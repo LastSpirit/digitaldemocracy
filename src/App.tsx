@@ -52,13 +52,7 @@ const App: FC = () => {
   const {
     [ModalParams.YandexRegister]: { value: yandexRegisterValue, setValue: setYandexRegisterValue },
   } = useSearchParams(ModalParams.YandexRegister);
-
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
-<<<<<<< HEAD
-
-  console.log(isAuthenticated);
-=======
->>>>>>> feature-PROJ-16
   return useMemo(
     () =>
       isAuthenticated !== undefined ? (
