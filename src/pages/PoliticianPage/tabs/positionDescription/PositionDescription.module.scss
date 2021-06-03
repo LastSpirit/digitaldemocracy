@@ -1,0 +1,26 @@
+.root {
+  min-height: 277px;
+  border: 1px solid #b0b0b0;
+  border-radius: 20px;
+  width: 100%;
+  color: #222222;
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  box-sizing: border-box;
+  padding: 11px;
+
+  h4 {
+    font-size: 30px;
+    font-weight: 400;
+
+    @media screen and (max-width: 768px) {
+      text-align: center;
+    }
+  }
+  p {
+    @media screen and (max-width: 768px) {
+      text-align: center;
+    }
+  }
+}

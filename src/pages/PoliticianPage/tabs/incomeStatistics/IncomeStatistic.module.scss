@@ -1,0 +1,9 @@
+iframe {
+  width: 100%;
+  min-height: 450px;
+  border: none;
+
+  @media screen and (max-width: 768px) {
+    min-height: 350px;
+  }
+}

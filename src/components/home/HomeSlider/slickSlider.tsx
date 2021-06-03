@@ -15,8 +15,8 @@ export default function CustomArrows({ data }) {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 3,
+    slidesToShow: 5,
+    slidesToScroll: 4,
     initialSlide: 0,
     responsive: [
 

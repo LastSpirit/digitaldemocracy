@@ -3,6 +3,7 @@ import { DataGrid, ruRU, GridColumns } from '@material-ui/data-grid';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { Tooltip } from '@material-ui/core';
 import { useSelector } from 'react-redux';
+import { XGrid } from '@material-ui/x-grid';
 import styles from './styles.module.scss';
 import { useFetchHistory } from './hooks/useFetchHistory';
 import { WrapperAsyncRequest } from '../../../../components/Loading/WrapperAsyncRequest';
@@ -14,7 +15,7 @@ const theme = createMuiTheme(
       primary: { main: '#1976d2' },
     },
   },
-  ruRU,
+  ruRU
 );
 
 const TableTooltip: React.FC<{ value: string }> = ({ value }) => (
@@ -24,16 +25,23 @@ const TableTooltip: React.FC<{ value: string }> = ({ value }) => (
 );
 
 const columns: GridColumns = [
-  { field: 'position',
+  {
+    field: 'position',
     headerName: 'Должность',
     width: 200,
     // eslint-disable-next-line react/destructuring-assignment
-    renderCell: (params: any) => <TableTooltip value={params.value} />, },
+    renderCell: (params: any) => <TableTooltip value={params.value} />,
+  },
   // eslint-disable-next-line react/destructuring-assignment
   { field: 'type', headerName: 'Тип', width: 250, renderCell: (params: any) => <TableTooltip value={params.value} /> },
-  { field: 'percent', headerName: 'С каким процентом выбран', align: 'center', width: 250, renderCell: (params: any) => params.value || '-' },
+  {
+    field: 'percent',
+    headerName: 'С каким процентом выбран',
+    align: 'center',
+    width: 250,
+    renderCell: (params: any) => params.value || '-',
+  },
   { field: 'years', headerName: 'Годы', width: 150 },
-
 ];
 
 export const PositionHistory = () => {
@@ -50,8 +58,11 @@ export const PositionHistory = () => {
           <DataGrid
             rows={data || []}
             columns={columns}
-            pageSize={5}
-            checkboxSelection={false}
+            // pageSize={5}
+            // checkboxSelection={false}
+            // pageSize={0}
+            hideFooterPagination={true}
+            rowsPerPageOptions={[]}
             className={styles.dataGrid}
           />
         </ThemeProvider>
