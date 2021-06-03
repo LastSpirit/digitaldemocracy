@@ -3,7 +3,6 @@ import { DataGrid, ruRU, GridColumns } from '@material-ui/data-grid';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { Tooltip } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import { XGrid } from '@material-ui/x-grid';
 import styles from './styles.module.scss';
 import { useFetchHistory } from './hooks/useFetchHistory';
 import { WrapperAsyncRequest } from '../../../../components/Loading/WrapperAsyncRequest';
