@@ -1,63 +1,64 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface PoliticiansI {
-  name?: string,
-  photo?: string
-  percent?: number
-  id?: number
+  name?: string;
+  photo?: string;
+  percent?: number;
+  id?: number;
 }
 
 export interface HashtagsI {
-  id: number,
-  title: string
+  id: number;
+  title: string;
 }
 
 export interface NewsTopicsI {
-  id?: number,
-  title?: string
+  id?: number;
+  title?: string;
 }
 export interface MediaI {
-  id?: number,
-  name?: string,
-  photo?: string
+  id?: number;
+  name?: string;
+  photo?: string;
+  link?: string;
 }
 
 export interface AuthorI {
-  id?: number,
-  title?: string,
-  photo?: string
+  id?: number;
+  title?: string;
+  photo?: string;
+  link?: string;
 }
 
 export interface NewsI {
-  id?: number,
-  media?: MediaI,
-  author?: AuthorI,
-  newsTopics?: NewsTopicsI[],
-  hashtags?: Array<HashtagsI>,
-  votes?: number,
-  title?: string,
-  image?: string,
-  publication_date?: string,
-  link?: string,
-  source_link?: string,
-  number_of_views?: number,
-  short_link?: string
-
+  id?: number;
+  media?: MediaI;
+  author?: AuthorI;
+  newsTopics?: NewsTopicsI[];
+  hashtags?: Array<HashtagsI>;
+  votes?: number;
+  title?: string;
+  image?: string;
+  publication_date?: string;
+  link?: string;
+  source_link?: string;
+  number_of_views?: number;
+  short_link?: string;
 }
 
 export interface HomeI {
-  politicians?: PoliticiansI[],
-  newsTopics?: NewsTopicsI[],
-  news?: NewsI[],
-  isMorePages?: boolean
+  politicians?: PoliticiansI[];
+  newsTopics?: NewsTopicsI[];
+  news?: NewsI[];
+  isMorePages?: boolean;
 }
 
 interface SliceState {
-  page?: number
-  data?: HomeI
+  page?: number;
+  data?: HomeI;
 }
 
-const initialState:SliceState = {
+const initialState: SliceState = {
   page: 1,
 };
 
@@ -80,12 +81,12 @@ export const homeSlice = createSlice({
     },
     pageReset(state: SliceState) {
       state.page = 1;
-    }
-  }
+    },
+  },
 });
 
 interface Store {
-  home: SliceState
+  home: SliceState;
 }
 
 export const homeSelector = {

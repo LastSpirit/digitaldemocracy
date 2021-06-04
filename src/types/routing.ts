@@ -11,7 +11,8 @@ import {
 } from '../pages/PoliticianPage/tabs';
 import { Subscriptions, BrowsingHistory, DonationHistory, VotingStatistics } from '../pages/ProfilePage/tabs';
 
-import { MassMediaStatistics, MassMediaNews } from '../pages/MassMediaPage/tabs';
+import { MassMediaStatistics, NewsBlock } from '../pages/MassMediaPage/tabs';
+import { AuthorStatistics, AuthorNewsBlock } from '../pages/AuthorPage/tabs';
 
 export enum ModalParams {
   Auth = 'auth_modal',
@@ -99,11 +100,24 @@ export const MassMediaTabs = [
   {
     id: 'news',
     title: 'Новости',
-    component: MassMediaNews,
+    component: NewsBlock,
   },
   {
     id: 'statistic',
     title: 'Статистика',
     component: MassMediaStatistics,
+  },
+];
+
+export const AuthorTabs = [
+  {
+    id: 'news',
+    title: 'Новости',
+    component: AuthorNewsBlock,
+  },
+  {
+    id: 'statistic',
+    title: 'Статистика',
+    component: AuthorStatistics,
   },
 ];

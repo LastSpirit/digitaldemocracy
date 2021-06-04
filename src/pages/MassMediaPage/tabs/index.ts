@@ -1,2 +1,2 @@
 export * from './massMediaStatistics/MassMediaStatistics';
-export * from './massMediaNews/MassMediaNews';
+export * from './massMediaNews/components/NewsBlock';

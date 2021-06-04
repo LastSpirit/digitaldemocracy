@@ -3,11 +3,11 @@ import { Redirect, Route, Switch, useHistory, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import { MassMediaTabs } from '../../../types/routing';
-import styles from '../MassMediaPage.module.scss';
+import { AuthorTabs } from '../../../types/routing';
+import styles from '../AuthorPage.module.scss';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 
-const MassMediaNavigation = () => {
+const AuthorNavigation = () => {
   const { link }: { link: string } = useParams();
   const {
     location: { pathname },
@@ -30,14 +30,14 @@ const MassMediaNavigation = () => {
     <div className={styles.navigation}>
       {!isMobile ? (
         <div className={styles.tabList}>
-          {MassMediaTabs.map(({ title, id }, index) => (
+          {AuthorTabs.map(({ title, id }, index) => (
             <Link
               key={id}
               className={classNames(styles.link, {
-                [styles.withOutBorder]: index === MassMediaTabs.length - 1,
+                [styles.withOutBorder]: index === AuthorTabs.length - 1,
                 [styles['-active']]: pathname.includes(id),
               })}
-              to={(location: any) => ({ ...location, pathname: `/mass-media/${link}/${id}` })}
+              to={(location: any) => ({ ...location, pathname: `/author/${link}/${id}` })}
             >
               {title}
             </Link>
@@ -47,14 +47,14 @@ const MassMediaNavigation = () => {
         <div className={styles.tabListContainer}>
           <ArrowForwardIosIcon className={styles.prevArrow} onClick={handlePrevClick} />
           <div className={styles.tabList} ref={scrollContainerRef}>
-            {MassMediaTabs.map(({ title, id }, index) => (
+            {AuthorTabs.map(({ title, id }, index) => (
               <Link
                 ref={index === 0 ? listItemRef : undefined}
                 key={id}
                 className={classNames(styles.link, {
                   [styles['-active']]: pathname.includes(id),
                 })}
-                to={(location: any) => ({ ...location, pathname: `/mass-media/${link}/${id}` })}
+                to={(location: any) => ({ ...location, pathname: `/author/${link}/${id}` })}
               >
                 {title}
               </Link>
@@ -65,14 +65,14 @@ const MassMediaNavigation = () => {
       )}
       <div className={styles.tabContent}>
         <Switch>
-          {MassMediaTabs.map(({ id, component }) => (
-            <Route key={id} path={`/mass-media/:link/${id}`} component={component} />
+          {AuthorTabs.map(({ id, component }) => (
+            <Route key={id} path={`/author/:link/${id}`} component={component} />
           ))}
-          <Redirect to={`/mass-media/:link/${MassMediaTabs[0].id}`} />
+          <Redirect to={`/author/:link/${AuthorTabs[0].id}`} />
         </Switch>
       </div>
     </div>
   );
 };
 
-export default MassMediaNavigation;
+export default AuthorNavigation;

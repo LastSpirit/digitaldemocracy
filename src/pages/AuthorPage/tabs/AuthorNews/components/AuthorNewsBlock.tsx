@@ -1,16 +1,15 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import { politicianSelectors } from '../../../../../slices/politicianSlice';
 import CardSmall from '../../../../../components/CardSmall/CardSmall';
-import styles from '../../../MassMediaPage.module.scss';
-import { massmediaSelectors } from '../../../../../slices/massMediaSlice';
+import styles from '../../../AuthorPage.module.scss';
+import { authorSelectors } from '../../../../../slices/authorSlice';
 import { useWindowSize } from '../../../../../hooks/useWindowSize';
 import { SortBadge } from './SortBadge';
 import { sortMassMedia } from '../../../../../static/static';
 
-export const NewsBlock = () => {
-  const news = useSelector(massmediaSelectors.getNews());
+export const AuthorNewsBlock = () => {
+  const news = useSelector(authorSelectors.getNews());
   const { isMobile } = useWindowSize();
   return (
     <div className={styles.newsContainer}>
@@ -36,4 +35,4 @@ export const NewsBlock = () => {
   );
 };
 
-export default NewsBlock;
+export default AuthorNewsBlock;

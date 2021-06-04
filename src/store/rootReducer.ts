@@ -1,4 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit';
+import { authorSlice } from 'src/slices/authorSlice';
 import { authSlice } from '../slices/authSlice';
 // eslint-disable-next-line import/no-cycle
 import { homeSlice } from '../slices/homeSlice';
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   singleNews: singleNewsSlice.reducer,
   politician: politicianSlice.reducer,
   massmedia: massMediaSlice.reducer,
+  author: authorSlice.reducer,
   widgetLink: widgetLinkSlice.reducer,
 });
 

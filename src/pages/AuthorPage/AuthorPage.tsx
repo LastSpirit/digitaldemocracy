@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react';
 import { Container } from '@material-ui/core';
-import styles from './MassMediaPage.module.scss';
+import styles from './AuthorPage.module.scss';
 
-import MassMediaInfoBlock from './blocks/MassMediaInfoBlock/MassMediaInfoBlock';
-import MassMediaNavigation from './blocks/MassMediaNavigation';
+import AuthorInfoBlock from './blocks/AuthorInfoBlock/AuthorInfoBlock';
+import AuthorNavigation from './blocks/AuthorNavigation';
 import { BackButton } from '../../components/BackButton/BackButton';
 import { WrapperAsyncRequest } from '../../components/Loading/WrapperAsyncRequest';
-import { useFetchMassMedia } from './hooks/useFetchMassMedia';
-import { massmediaActionCreators } from '../../slices/massMediaSlice';
+import { useFetchAuthor } from './hooks/useFetchAuthor';
+import { authorActionCreators } from '../../slices/authorSlice';
 
 import { APIStatus } from '../../lib/axiosAPI';
 
-const MassMediaPage = () => {
+const AuthorPage = () => {
   const status: APIStatus = APIStatus.Initial;
-  const { fetchData } = useFetchMassMedia();
-  const { resetData } = massmediaActionCreators();
+  const { fetchData } = useFetchAuthor();
+  const { resetData } = authorActionCreators();
   useEffect(() => {
     resetData();
     fetchData();
@@ -23,12 +23,12 @@ const MassMediaPage = () => {
     <Container maxWidth="lg" className={styles.container}>
       <div className={styles.container}>
         <WrapperAsyncRequest status={status}>
-          <MassMediaInfoBlock />
-          <MassMediaNavigation />
+          <AuthorInfoBlock />
+          <AuthorNavigation />
         </WrapperAsyncRequest>
       </div>
     </Container>
   );
 };
 
-export default MassMediaPage;
+export default AuthorPage;

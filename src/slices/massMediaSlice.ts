@@ -21,6 +21,15 @@ interface MassMediaInfoI {
   trust?: string;
 }
 
+export interface MassMediaDataI {
+  id?: number;
+  name?: string;
+  photo?: string;
+  percent?: string;
+  link?: string;
+  description?: string;
+}
+
 export interface NewsArrayI {
   id: number;
   media?: MediaI;
@@ -49,6 +58,7 @@ interface AuthorI {
 
 interface SliceState {
   data?: MassMediaInfoI;
+  data2?: MassMediaDataI;
   news?: Array<NewsArrayI>;
   sort_direction?: string;
   sort_field?: string;
@@ -75,6 +85,7 @@ const initialState: SliceState = {
   news: mockNews,
   sort_direction: '',
   sort_field: '',
+  data2: {},
 };
 
 export const massMediaSlice = createSlice({
@@ -86,6 +97,12 @@ export const massMediaSlice = createSlice({
     },
     setSortField(state, action) {
       state.sort_field = action.payload;
+    },
+    setMassMediaData(state, action) {
+      state.data2 = action.payload;
+    },
+    resetData(state) {
+      state.data2 = initialState.data2;
     },
   },
 });

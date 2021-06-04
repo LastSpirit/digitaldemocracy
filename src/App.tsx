@@ -21,6 +21,7 @@ import { userSelectors } from './slices/userSlice';
 import News from './pages/News';
 import PoliticianPage from './pages/PoliticianPage/PoliticianPage';
 import MassMediaPage from './pages/MassMediaPage/MassMediaPage';
+import AuthorPage from './pages/AuthorPage/AuthorPage';
 import WidgetLinkPage from './pages/WidgetLinkPage';
 import { DonationPage } from './pages/ProfilePage/DonationPage/DonationPage';
 
@@ -71,8 +72,10 @@ const App: FC = () => {
               {isAuthenticated && <Route exact path="/profile/*" component={ProfilePage} />}
               <Route exact path="/politician/:politicianId" component={PoliticianPage} />
               <Route exact path="/politician/:politicianId/*" component={PoliticianPage} />
-              <Route exact path="/mass-media/:massMediaId" component={MassMediaPage} />
-              <Route exact path="/mass-media/:massMediaId/*" component={MassMediaPage} />
+              <Route exact path="/mass-media/:link" component={MassMediaPage} />
+              <Route exact path="/mass-media/:link/*" component={MassMediaPage} />
+              <Route exact path="/author/:link" component={AuthorPage} />
+              <Route exact path="/author/:link/*" component={AuthorPage} />
               <Redirect to="/" />
             </Switch>
           </MainLayout>
