@@ -65,16 +65,20 @@ const MassMediaInfoBlock: FC = () => {
                     </Tooltip>
                   </Button>
                 )}
-                <div className={styles.subscribersBadge}>
-                  {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, 'подписчик')}`}
-                </div>
-                <FacebookShare url={data?.source_link || 'facebook.com'}>
-                  <FacebookIcon
-                    fontSize={isMobile ? 'small' : 'large'}
-                    className={styles.facebook}
-                    viewBox="3 3 18 18"
-                  />
-                </FacebookShare>
+                {data?.number_of_subscribers && (
+                  <div className={styles.subscribersBadge}>
+                    {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, 'подписчик')}`}
+                  </div>
+                )}
+                {data?.source_link && (
+                  <FacebookShare url={data?.source_link || 'facebook.com'}>
+                    <FacebookIcon
+                      fontSize={isMobile ? 'small' : 'large'}
+                      className={styles.facebook}
+                      viewBox="3 3 18 18"
+                    />
+                  </FacebookShare>
+                )}
               </div>
             </div>
           </div>
@@ -101,9 +105,9 @@ const MassMediaInfoBlock: FC = () => {
             <div className={styles.secondCard}>
               <div className={styles.trustRow}>
                 <div className={styles.badge}>
-                  <div className={styles.text}>{data?.trust}</div>
+                  <div className={styles.text}>{data?.trust || 'Без рейтинга'}</div>
                 </div>
-                <div className={styles.percent}>{`${data?.percent} %`}</div>
+                <div className={styles.percent}>{`${data?.percent || '- %'}`}</div>
               </div>
               <PercentsLinearGraphic />
             </div>

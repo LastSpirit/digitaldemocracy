@@ -4,7 +4,15 @@ import { APIRequest, callAPI } from '../lib/axiosAPI';
 import { MassMediaDataI } from '../slices/massMediaSlice';
 
 interface NewsRequest {
-  link: string;
+  link?: string;
+  params?: ParamsI;
+}
+
+interface ParamsI {
+  orderBy?: string;
+  sortBy?: string;
+  page?: number;
+  mediaId?: number;
 }
 
 interface NewsResponse {
@@ -15,13 +23,23 @@ const fetchMassMediaData: APIRequest<NewsRequest, NewsResponse> = (args) => {
   const { link } = args.payload;
   return callAPI({
     url: `media/${link}`,
-    config: { method: 'GET' },
+    config: { method: 'GET', headers: { Accept: 'application/json' } },
+    ...args,
+  });
+};
+
+const fetchMassMediaNews: APIRequest<NewsRequest, NewsResponse> = (args) => {
+  const { params } = args.payload;
+  return callAPI({
+    url: 'mediaNews',
+    config: { method: 'GET', headers: { Accept: 'application/json' }, params },
     ...args,
   });
 };
 
 export const massmediaAPIs = {
   fetchMassMediaData,
+  fetchMassMediaNews,
 };
 
 export const massmediaAPIActions = () => {

@@ -46,6 +46,7 @@
     "react/jsx-curly-brace-presence": "off",
     "function-paren-newline": "off",
     "jsx-a11y/label-has-associated-control": "off",
-    "react/jsx-one-expression-per-line": "off"
+    "react/jsx-one-expression-per-line": "off",
+    "@typescript-eslint/naming-convention": "off"
   }
 }

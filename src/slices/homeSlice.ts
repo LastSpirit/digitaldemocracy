@@ -25,7 +25,7 @@ export interface MediaI {
 
 export interface AuthorI {
   id?: number;
-  title?: string;
+  name?: string;
   photo?: string;
   link?: string;
 }
