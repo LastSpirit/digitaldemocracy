@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Button, StylesProvider, Box, IconButton, Card, Typography } from '@material-ui/core';
+import CallMadeIcon from '@material-ui/icons/CallMade';
 import { politicianSelectors } from '../../../../slices/politicianSlice';
 import styles from './IncomeStatistic.module.scss';
-import InDevelop from '../../../../components/InDevelop/InDevelop';
 
 const StatisticsCard = () => (
   <Card className={styles.card}>
@@ -34,20 +34,16 @@ export default function Statistic() {
       <StatisticsCard />
       <iframe title="idPolitican" loading="lazy" src={state} />
       <div className={styles.root}>
-        <p>Ссылка на ситочник: </p>
-        <Button
-          className={styles.linkButton}
-          color="primary"
-          size="small"
-          variant="contained"
-          onClick={() => window.open('https://google.com')}
-        >
-          Перейти
-        </Button>
+        <p>Ссылка на иcточник: </p>
+        <IconButton className={styles.arrowButton} onClick={() => window.open('https://google.com')}>
+          <CallMadeIcon className={styles.arrowLink} />
+        </IconButton>
       </div>
     </>
   ) : (
-    <InDevelop />
+    <div className={styles.empty}>
+      <h3> Данных пока нет</h3>
+    </div>
   );
 }
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import InDevelop from '../../../../components/InDevelop/InDevelop';
 import styles from './PositionDescription.module.scss';
 import { politicianSelectors } from '../../../../slices/politicianSlice';
 
@@ -16,7 +15,9 @@ export default function Description() {
       </p>
     </div>
   ) : (
-    <InDevelop />
+    <div className={styles.empty}>
+      <h3> Данных пока нет</h3>
+    </div>
   );
 }
 
