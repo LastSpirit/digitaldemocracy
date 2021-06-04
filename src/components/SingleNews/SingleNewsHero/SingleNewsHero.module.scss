@@ -121,6 +121,12 @@ box-sizing: border-box;
     justify-content: center;
     height: 55px;
     width: 55px;
+
+    &:hover {
+      color: white;
+      background-color: #363557;
+      border-radius: 50%;
+    }
 }
 
 @media (max-width: 960px) {
