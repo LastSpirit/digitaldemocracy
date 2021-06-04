@@ -21,6 +21,7 @@ import { userSelectors } from './slices/userSlice';
 import News from './pages/News';
 import PoliticianPage from './pages/PoliticianPage/PoliticianPage';
 import MassMediaPage from './pages/MassMediaPage/MassMediaPage';
+import PartyPage from './pages/PartyPage/PartyPage';
 import WidgetLinkPage from './pages/WidgetLinkPage';
 import { DonationPage } from './pages/ProfilePage/DonationPage/DonationPage';
 
@@ -73,6 +74,8 @@ const App: FC = () => {
               <Route exact path="/politician/:politicianId/*" component={PoliticianPage} />
               <Route exact path="/mass-media/:massMediaId" component={MassMediaPage} />
               <Route exact path="/mass-media/:massMediaId/*" component={MassMediaPage} />
+              <Route exact path="/party/:partyId" component={PartyPage} />
+              <Route exact path="/party/:partyId/*" component={PartyPage} />
               <Redirect to="/" />
             </Switch>
           </MainLayout>
