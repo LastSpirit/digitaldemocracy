@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import styles from '../../PoliticianPage.module.scss';
 import { politicianSelectors } from '../../../../slices/politicianSlice';
 import { PercentsLinearGraphic } from './PercentsLinearGraphic';
@@ -9,18 +10,16 @@ import InDevelop from '../../../../components/InDevelop/InDevelop';
 const PoliticianCards = () => {
   const data = useSelector(politicianSelectors.getPoliticianInfo());
   const { isMobile } = useWindowSize();
+  const history = useHistory();
   return (
     <div className={styles.cardsBlock}>
       <div className={styles.card}>
         <div className={styles.infoCard}>
-          <div className={styles.party}>
+          <div className={styles.party} onClick={() => history.push('/party/1')} aria-hidden="true">
             {data?.party_logo && (
-            <div className={styles['-img']}>
-              <img
-                src={data?.party_logo}
-                alt=""
-              />
-            </div>
+              <div className={styles['-img']}>
+                <img src={data?.party_logo} alt="" />
+              </div>
             )}
             <span>{data?.party}</span>
           </div>
@@ -28,7 +27,7 @@ const PoliticianCards = () => {
           <div className={styles.positionAndAge}>
             <div className={styles.position}>{data?.position}</div>
             {(data?.age || data?.city) && (
-              <span>{data?.age ? `${data?.age} лет${data?.city ? `, ${data?.city}` : ''}` : data?.city }</span>
+              <span>{data?.age ? `${data?.age} лет${data?.city ? `, ${data?.city}` : ''}` : data?.city}</span>
             )}
           </div>
         </div>

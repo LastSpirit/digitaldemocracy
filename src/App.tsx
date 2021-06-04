@@ -22,6 +22,7 @@ import News from './pages/News';
 import PoliticianPage from './pages/PoliticianPage/PoliticianPage';
 import MassMediaPage from './pages/MassMediaPage/MassMediaPage';
 import AuthorPage from './pages/AuthorPage/AuthorPage';
+import PartyPage from './pages/PartyPage/PartyPage';
 import WidgetLinkPage from './pages/WidgetLinkPage';
 import { DonationPage } from './pages/ProfilePage/DonationPage/DonationPage';
 
@@ -76,6 +77,8 @@ const App: FC = () => {
               <Route exact path="/mass-media/:link/*" component={MassMediaPage} />
               <Route exact path="/author/:link" component={AuthorPage} />
               <Route exact path="/author/:link/*" component={AuthorPage} />
+              <Route exact path="/party/:partyId" component={PartyPage} />
+              <Route exact path="/party/:partyId/*" component={PartyPage} />
               <Redirect to="/" />
             </Switch>
           </MainLayout>

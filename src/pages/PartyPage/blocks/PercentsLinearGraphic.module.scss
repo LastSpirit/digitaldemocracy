@@ -1,0 +1,45 @@
+@import '../../../variables.scss';
+
+.container {
+  width: 100%;
+  position: relative;
+  height: 45%;
+  min-height: 42px;
+
+  .line {
+    position: absolute;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    @media screen and (max-width: $mobileScreen) {
+      height: 100%;
+    }
+    @media screen and (max-width: preMobileScreen) {
+      height: 70%;
+    }
+
+    span {
+      width: 100%;
+      text-align: right;
+      color: rgba(255, 255, 255, 1);
+      font-size: 14px;
+      font-weight: 300;
+      padding-right: 20px;
+      @media screen and (max-width: preMobileScreen) {
+        font-size: 10px;
+        padding-right: 10px;
+      }
+    }
+    .tooltip {
+      color: #fff;
+      padding-right: 20px;
+      cursor: pointer;
+      @media screen and (max-width: preMobileScreen) {
+        font-size: 10px;
+        padding-right: 10px;
+      }
+    }
+  }
+}
