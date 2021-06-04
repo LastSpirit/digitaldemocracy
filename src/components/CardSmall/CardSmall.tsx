@@ -78,7 +78,7 @@ const CardSmall: FC<CardSmallProps> = ({
           </Box>
           <Box className={classes.cardNames}>
             <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleAuthor}>
-              {author?.title}
+              {author?.name}
             </Typography>
             <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleMedia}>
               {media?.name}

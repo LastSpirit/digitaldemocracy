@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Container } from '@material-ui/core';
 import styles from './MassMediaPage.module.scss';
 
 import MassMediaInfoBlock from './blocks/MassMediaInfoBlock/MassMediaInfoBlock';
 import MassMediaNavigation from './blocks/MassMediaNavigation';
 import { BackButton } from '../../components/BackButton/BackButton';
-import { WrapperAsyncRequest } from '../../components/Loading/WrapperAsyncRequest';
+import { WrapperAsyncRequest } from './blocks/Loading/WrapperAsyncRequest';
 import { useFetchMassMedia } from './hooks/useFetchMassMedia';
 import { massmediaActionCreators } from '../../slices/massMediaSlice';
 
-import { APIStatus } from '../../lib/axiosAPI';
+import { RootState } from '../../store/index';
 
 const MassMediaPage = () => {
-  const status: APIStatus = APIStatus.Initial;
+  const { status } = useSelector((s: RootState) => s.massmedia);
   const { fetchData } = useFetchMassMedia();
   const { resetData } = massmediaActionCreators();
   useEffect(() => {

@@ -45,6 +45,7 @@
     "operator-linebreak": "off",
     "react/jsx-curly-brace-presence": "off",
     "function-paren-newline": "off",
-    "jsx-a11y/label-has-associated-control": "off"
+    "jsx-a11y/label-has-associated-control": "off",
+    "@typescript-eslint/naming-convention": "off"
   }
 }

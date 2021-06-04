@@ -14,7 +14,7 @@ const MassMediaCards = ({ data }) => {
     <div className={styles.cardsBlock}>
       <div className={styles.card}>
         <div className={styles.description}>
-          <div className={styles.text}>{hiddenText}</div>
+          <div className={styles.text}>{hiddenText || 'Описание отсутствует'}</div>
         </div>
       </div>
       {!isMobile && (
@@ -22,11 +22,11 @@ const MassMediaCards = ({ data }) => {
           <div className={styles.secondCard}>
             <div className={styles.trustRow}>
               <div className={styles.badge}>
-                <div className={styles.text}>{data?.trust}</div>
+                <div className={styles.text}>{data?.trust || 'Без рейтинга'}</div>
               </div>
-              <div className={styles.percent}>{`${data?.percent} %`}</div>
+              <div className={styles.percent}>{data?.percent || '- %'}</div>
             </div>
-            <PercentsLinearGraphic />
+            <PercentsLinearGraphic vote_groups={data?.vote_groups} />
           </div>
         </div>
       )}

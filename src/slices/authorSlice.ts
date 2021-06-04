@@ -1,47 +1,55 @@
 import { bindActionCreators, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import { NewsI } from './homeSlice';
+import { APIStatus } from 'src/lib/axiosAPI';
 import { mockNews } from '../static/static';
-
-interface AuthorInfoI {
-  id?: number;
-  name?: string;
-  description?: string;
-  english_name?: string;
-  photo?: string;
-  number_of_subscribers?: number;
-  is_subscribed?: boolean;
-  source_link?: string;
-  percent?: string;
-  party?: string;
-  party_logo?: string;
-  position?: string;
-  age?: number;
-  city?: string;
-  trust?: string;
-}
 
 export interface AuthorDataI {
   id?: number;
   name?: string;
   photo?: string;
+  is_subscribed?: boolean;
   percent?: string;
   link?: string;
   description?: string;
+  vote_groups?: Array<GraphicDataI>;
+  number_of_subscribers?: number;
+  source_link?: string;
+  trust?: string;
 }
 
-export interface NewsArrayI {
+export interface GraphicDataI {
   id: number;
+  width: number;
+  color: string;
+  zIndex: number;
+}
+
+export interface NewsI {
+  news?: Array<NewsArrayI>;
+  isMorePages?: boolean;
+}
+
+interface NewsArrayI {
+  id?: number;
+  region?: RegionI;
   media?: MediaI;
   author?: AuthorI;
+  hashtags?: Array<HashtagsI>;
   votes?: number;
   title?: string;
-  publication_date?: string;
-  number_of_views?: number;
-  short_link?: string;
   image?: string;
+  publication_date?: string;
+  link?: string;
+  short_link?: string;
+  source_link?: string;
+  number_of_views?: number;
 }
 
+interface RegionI {
+  id?: number;
+  name_with_type?: string;
+  federal_district?: string;
+}
 interface MediaI {
   id: number;
   name: string;
@@ -56,36 +64,29 @@ interface AuthorI {
   percent: string;
 }
 
+interface HashtagsI {
+  id?: number;
+  title?: string;
+}
+
 interface SliceState {
-  data?: AuthorInfoI;
-  data2?: AuthorDataI;
-  news?: Array<NewsArrayI>;
+  status?: APIStatus;
+  newsStatus?: APIStatus;
+  data?: AuthorDataI;
+  news?: NewsI;
   sort_direction?: string;
   sort_field?: string;
+  page?: number;
 }
 
 const initialState: SliceState = {
-  data: {
-    id: 1,
-    name: 'Автор',
-    description: 'Это такой-то автор, он пишет ошеломляющие статьи',
-    english_name: 'Author',
-    photo:
-      'https://pyxis.nymag.com/v1/imgs/2ee/792/e5a7d17daebe7075a129d5e59e5de6d7fc-24-george-rr-martin.rsquare.w700.jpg',
-    number_of_subscribers: 28,
-    is_subscribed: false,
-    percent: '99',
-    party: '',
-    party_logo: '',
-    position: '',
-    age: 27,
-    city: 'Санкт-Петербург',
-    trust: 'Высокое доверие',
-  },
-  news: mockNews,
+  status: 'Initial' as APIStatus,
+  newsStatus: 'Initial' as APIStatus,
+  data: {},
+  news: {},
   sort_direction: '',
   sort_field: '',
-  data2: {},
+  page: null,
 };
 
 export const authorSlice = createSlice({
@@ -98,11 +99,37 @@ export const authorSlice = createSlice({
     setSortField(state, action) {
       state.sort_field = action.payload;
     },
-    setAuthorData(state, action) {
-      state.data2 = action.payload;
+    resetSort(state) {
+      state.sort_direction = initialState.sort_direction;
+      state.sort_field = initialState.sort_field;
+      state.page = initialState.page;
+    },
+    startFetchAuthorData(state) {
+      state.status = APIStatus.Loading;
+    },
+    successFetchAuthorData(state, action) {
+      state.data = action.payload;
+      state.status = APIStatus.Success;
+    },
+    failFetchAuthorData(state) {
+      state.status = APIStatus.Failure;
     },
     resetData(state) {
-      state.data2 = initialState.data2;
+      state.data = initialState.data;
+    },
+    startFetchAuthorNews(state) {
+      state.newsStatus = APIStatus.Loading;
+    },
+    successFetchAuthorNews(state, action) {
+      state.news = action.payload;
+      state.newsStatus = APIStatus.Success;
+    },
+    failFetchAuthorNews(state) {
+      state.newsStatus = APIStatus.Failure;
+    },
+    resetNews(state) {
+      state.news = initialState.news;
+      state.newsStatus = APIStatus.Initial;
     },
   },
 });
