@@ -263,3 +263,18 @@ export const mockNews = [
     short_link: 'short_link',
   },
 ];
+
+export const sortParty = [
+  {
+    id: 1,
+    full_title: 'По популярности',
+    short_title: 'Популярность',
+    field: 'popular',
+  },
+  {
+    id: 2,
+    full_title: 'По рейтингу',
+    short_title: 'Рейтинг',
+    field: 'rating',
+  },
+];

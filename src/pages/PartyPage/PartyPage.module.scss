@@ -1,0 +1,779 @@
+@import '../../variables.scss';
+
+.cont {
+  padding: 0 !important;
+}
+
+.container {
+  min-height: 80vh;
+
+  .backButton {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+
+    .arrow {
+      transform: rotate(180deg);
+    }
+
+    p {
+      margin: 0 !important;
+      padding-left: 10px;
+      padding-bottom: 0 !important;
+    }
+  }
+
+  .chartContainer {
+    border: 1px solid #b0b0b0;
+    border-radius: 5px;
+
+    .chartWrapper {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      padding: 10px;
+
+      .chart {
+        position: relative;
+        width: calc(100% - 20px);
+
+        * {
+          transition: 0.3s all;
+        }
+      }
+    }
+
+    .pickersContainer {
+      border-bottom: 1px solid #b0b0b0;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+
+      .picker {
+        display: flex;
+        align-items: center;
+
+        &.disabled {
+          opacity: 0.5;
+        }
+
+        &.error {
+          input {
+            transition: 0.3s all !important;
+            border-bottom-color: red !important;
+            color: red !important;
+          }
+        }
+
+        span {
+          color: #444444;
+        }
+      }
+    }
+
+    @media screen and (max-width: $mobileScreen) {
+      .chartWrapper {
+        padding: 0 !important;
+      }
+
+      .pickersContainer {
+        flex-direction: column;
+        span {
+          font-size: 12px;
+        }
+
+        button {
+          margin-top: 1rem;
+        }
+
+        .picker {
+          flex-direction: column;
+
+          button {
+            margin-top: 0 !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+.newsContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  .sortRow {
+    margin-top: 20px;
+    display: flex;
+    width: max-content;
+    margin-bottom: 30px;
+    overflow-x: hidden;
+    width: 100%;
+    .sortBadge {
+      border-color: #b0b0b0;
+      padding: 5px 20px;
+      margin: 0px;
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+      .icon {
+        height: 100%;
+        color: #7a7a7a;
+        font-family: HelveticaNeueCyr;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 200;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+      }
+      .text {
+        margin-right: 10px;
+        font-family: HelveticaNeueCyr;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 200;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: #7a7a7a;
+      }
+      .emptyIcon {
+        display: flex;
+        width: 18px;
+        height: 18px;
+      }
+    }
+    .sortBadge-active {
+      border-color: #b0b0b0;
+      padding: 5px 20px;
+      margin: 0px;
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+      background-color: #363557;
+      .icon {
+        height: 100%;
+        color: #fff;
+        font-family: HelveticaNeueCyr;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 200;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+      }
+      .text {
+        margin-right: 10px;
+        font-family: HelveticaNeueCyr;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 200;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: #fff;
+      }
+      .emptyIcon {
+        display: flex;
+        width: 18px;
+        height: 18px;
+      }
+    }
+    @media screen and (max-width: $mobileScreen) {
+      .sortBadge {
+        .text {
+          font-size: 14px;
+        }
+      }
+      .sortBadge-active {
+        .text {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  .news {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    // .outerCardContainer {
+    //   width: 324px;
+    //   // margin: 0px 16px 16px 0px;
+    // }
+    @media screen and (max-width: $mobileScreen) {
+      justify-content: center;
+    }
+  }
+}
+
+.noNewsBlock {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    padding: 10px 0;
+    font-weight: 600;
+    color: #747373;
+    font-size: 16px;
+    padding-left: 10px;
+  }
+
+  @media screen and (max-width: $mobileScreen) {
+    span {
+      font-size: 12px;
+    }
+  }
+}
+
+.navigation {
+  margin: 20px 10px;
+  display: flex;
+  flex-shrink: 1;
+
+  .tabList {
+    flex-basis: 24%;
+    scrollbar-width: none;
+
+    .link {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #b0b0b0;
+      padding: 5px 10px;
+      transition: 0.3s all;
+      color: #747373;
+      text-decoration: none;
+
+      &:hover {
+        background-color: #36355720;
+      }
+
+      &.-active {
+        background-color: #363557;
+        color: white;
+      }
+    }
+  }
+
+  .tabContent {
+    margin-left: 30px;
+    flex-basis: 76%;
+    min-height: 600px;
+    @media screen and (max-width: $mobileScreen) {
+      margin-left: 0 !important;
+    }
+  }
+
+  @media screen and (max-width: $mobileScreen) {
+    flex-direction: column;
+    .tabListContainer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 16px;
+      position: relative;
+      width: 100%;
+      overflow-x: scroll;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .prevArrow {
+        transform: rotate(180deg);
+        background-color: #f3f3f3;
+        padding: 10px;
+        font-size: 10px;
+        border-radius: 100%;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+
+      .nextArrow {
+        background-color: #f3f3f3;
+        padding: 10px;
+        font-size: 10px;
+        border-radius: 100%;
+        cursor: pointer;
+        margin-left: 10px;
+      }
+
+      .tabContent {
+        width: 100%;
+        flex-basis: 100%;
+      }
+
+      .tabList {
+        flex-basis: 100%;
+        display: flex;
+        flex-direction: row;
+        overflow-x: scroll;
+        position: relative;
+        scroll-behavior: smooth;
+        box-sizing: border-box;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        .link {
+          min-width: calc(50% - 30px);
+          position: relative;
+          border: 1px solid #b0b0b0;
+          border-radius: 30px;
+          font-size: 70%;
+          margin-right: 10px;
+          justify-content: center;
+          text-align: center;
+          line-height: 15px;
+          box-sizing: border-box;
+        }
+      }
+    }
+  }
+}
+
+.profileInfoContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  border-bottom: 1px solid #b0b0b0;
+  .buttonRow {
+    display: flex;
+    width: 100%;
+    margin-bottom: 40px;
+    .backButton {
+      border-color: #b0b0b0;
+      padding: 5px 20px;
+      margin: 0px;
+      .icon {
+        margin-right: 7px;
+        height: 100%;
+        color: #7a7a7a;
+        font-family: HelveticaNeueCyr;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 200;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+      }
+      .text {
+        font-family: HelveticaNeueCyr;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 200;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: #7a7a7a;
+      }
+    }
+  }
+  .topItems {
+    display: flex;
+    height: 288px;
+    margin-bottom: 60px;
+    .avatarBlock {
+      position: relative;
+      display: flex;
+      border-radius: 20px;
+      align-items: center;
+      justify-content: center;
+      background-color: #248232;
+      height: 100%;
+      width: 288px;
+      min-height: 100%;
+      min-width: 288px;
+      .avatar {
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+        background-color: #fff;
+        &.noAvatar {
+          background-color: #e5e5e5;
+        }
+
+        .noAvatarIcon {
+          width: 100px;
+          height: 100px;
+        }
+
+        img {
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+
+      .changeProfileButton {
+        margin-top: 20px;
+        width: 200px;
+        border: 1px solid #b0b0b0;
+        color: #b0b0b0;
+        padding: 2px 0 !important;
+      }
+    }
+
+    .personBlock {
+      margin-left: 30px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      .cardsBlock {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 155px;
+        box-sizing: border-box;
+        .card {
+          width: 43%;
+          border-radius: 20px;
+          border: 1px solid #b0b0b0;
+          padding: 10px 20px;
+          height: 100%;
+          overflow: hidden;
+          box-sizing: border-box;
+          display: flex;
+          justify-content: space-between;
+
+          .description {
+            height: 90%;
+            overflow: hidden;
+            @media screen and (max-width: $preMobileScreen) {
+              height: 100%;
+            }
+            .text {
+              color: #585858;
+              font-size: 18px;
+              font-weight: 300;
+              text-overflow: ellipsis;
+              max-height: 100%;
+              @media screen and (max-width: $preMobileScreen) {
+                font-size: 14px;
+              }
+            }
+          }
+          .secondCard {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+            .trustRow {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              width: 100%;
+              height: 45%;
+              .badge {
+                max-width: 55%;
+                height: 100%;
+                background: #ededed;
+                border-radius: 150px;
+                padding: 20px 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-sizing: border-box;
+                @media screen and (max-width: $preMobileScreen) {
+                  height: 70%;
+                }
+                .text {
+                  font-size: 18px;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  @media screen and (max-width: $preMobileScreen) {
+                    font-size: 12px;
+                  }
+                }
+              }
+              .percent {
+                max-width: 40%;
+                font-size: 48px;
+                height: 100%;
+                color: #585858;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                @media screen and (max-width: $preMobileScreen) {
+                  font-size: 30px;
+                }
+              }
+            }
+          }
+        }
+      }
+      .fioBlock {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        flex-direction: row;
+        margin-bottom: 16px;
+        .fio {
+          p {
+            color: #222222;
+            margin: 0 !important;
+            font-size: 60px;
+            line-height: 59.28px;
+            @media screen and (max-width: $mobileScreen) {
+              font-size: 24px;
+              line-height: 32px;
+            }
+          }
+        }
+        .subscribers {
+          display: flex;
+          align-items: center;
+          margin-top: 20px;
+          .subscriberButton {
+            height: 36px;
+            width: 120px;
+            color: white;
+            margin-right: 20px;
+            span {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+          }
+          .subscribersBadge {
+            border: 1px solid #b0b0b0;
+            border-radius: 40px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0px 15px;
+          }
+          .facebook {
+            color: #363557;
+            background-color: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.profileInfoContainer-mobile {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .buttonRow {
+    display: flex;
+    width: 100%;
+    margin-bottom: 40px;
+    .backButton {
+      border-color: #b0b0b0;
+      padding: 5px 20px;
+      margin: 0px !important;
+      .icon {
+        margin-right: 7px;
+        height: 100%;
+        color: #7a7a7a;
+        font-family: HelveticaNeueCyr;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 200;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+      }
+      .text {
+        font-family: HelveticaNeueCyr;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 200;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: #7a7a7a;
+      }
+    }
+  }
+  .topItems {
+    display: flex;
+    height: 100%;
+    .avatarBlock {
+      position: relative;
+      display: flex;
+      border-radius: 20px;
+      align-items: center;
+      justify-content: center;
+      background-color: #248232;
+      height: 117px;
+      width: 117px;
+      min-height: 117px;
+      min-width: 117px;
+      .avatar {
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+        background-color: #fff;
+        &.noAvatar {
+          background-color: #e5e5e5;
+        }
+        .noAvatarIcon {
+          width: 100px;
+          height: 100px;
+        }
+        img {
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+    }
+    .personBlock {
+      margin-left: 5px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      .cardsBlock {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+        height: 61px;
+        .card {
+          width: 100%;
+          border-radius: 20px;
+          border: 1px solid #b0b0b0;
+          padding: 10px 20px;
+          height: 100%;
+          overflow: hidden;
+          box-sizing: border-box;
+          display: flex;
+          justify-content: space-between;
+          .description {
+            height: 90%;
+            overflow: hidden;
+            .text {
+              color: #585858;
+              font-size: 8px;
+              font-weight: 300;
+              text-overflow: ellipsis;
+              max-height: 100%;
+            }
+          }
+        }
+      }
+      .fioBlock {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        flex-direction: row;
+        margin-bottom: 5px;
+        .fio {
+          p {
+            color: #222222;
+            margin: 0 !important;
+            font-size: 24px;
+          }
+        }
+        .subscribers {
+          display: flex;
+          align-items: center;
+          height: 18px;
+          .subscribersBadge {
+            color: #7a7a7a;
+            font-size: 13px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .facebook {
+            color: #363557;
+            background-color: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+  .subscriberButton-mobile {
+    width: 100%;
+    margin-top: 10px !important;
+    height: 40px;
+    background-color: #ededed !important;
+    border: 0, 79px solid #b0b0b0;
+    font-size: 14px;
+    color: #222222;
+  }
+  .card {
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid #b0b0b0;
+    padding: 10px 20px;
+    height: 122px;
+    overflow: hidden;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    .secondCard {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      .trustRow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        height: 45%;
+        .badge {
+          max-width: 55%;
+          height: 100%;
+          background: #ededed;
+          border-radius: 150px;
+          padding: 20px 15px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-sizing: border-box;
+          .text {
+            font-size: 11px;
+            white-space: nowrap;
+            overflow: hidden;
+          }
+        }
+        .percent {
+          max-width: 40%;
+          font-size: 36px;
+          height: 100%;
+          color: #585858;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
