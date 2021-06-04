@@ -40,16 +40,8 @@ const SingleNews: FC<Props> = (props) => {
             <Loading size={80} />
           </Container>
         ) : (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              maxWidth: '1280px',
-              margin: '0 auto',
-            }}
-          >
-            <div className={styles.buttonRow} style={{ width: '100%', marginLeft: '40px' }}>
+          <>
+            <div className={styles.buttonRow} style={{ width: '78%', margin: '0 auto' }}>
               <Button
                 variant="outlined"
                 className={styles.backButton}
@@ -68,7 +60,7 @@ const SingleNews: FC<Props> = (props) => {
             {data?.news && data?.news.length > 0 ? (
               <SingleNewsList news={data?.news} isMorePages={data?.isMorePages} />
             ) : null}
-          </div>
+          </>
         )}
       </div>
     </>
