@@ -42,6 +42,7 @@
     "no-nested-ternary": "off",
     "@typescript-eslint/indent": "off",
     "@typescript-eslint/no-unused-vars": "off",
-    "react/jsx-boolean-value": "off"
+    "react/jsx-boolean-value": "off",
+    "react/jsx-one-expression-per-line": "off"
   }
 }

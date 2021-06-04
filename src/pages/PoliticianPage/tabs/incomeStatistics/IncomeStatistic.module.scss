@@ -31,6 +31,7 @@ iframe {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
 
 .card {
@@ -44,4 +45,12 @@ iframe {
   @media screen and (max-width: 1024px) {
     width: 100%;
   }
+}
+
+.arrowButton {
+    padding: 0;
+    background-color: #363557;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
 }
