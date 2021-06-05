@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Container } from '@material-ui/core';
+import { BackButton } from 'src/components/BackButton/BackButton';
 import styles from './AuthorPage.module.scss';
 
 import AuthorInfoBlock from './blocks/AuthorInfoBlock/AuthorInfoBlock';
 import AuthorNavigation from './blocks/AuthorNavigation';
-import { BackButton } from '../../components/BackButton/BackButton';
 import { WrapperAsyncRequest } from './blocks/Loading/WrapperAsyncRequest';
 import { useFetchAuthor } from './hooks/useFetchAuthor';
 import { authorActionCreators } from '../../slices/authorSlice';
@@ -24,6 +24,7 @@ const AuthorPage = () => {
     <Container maxWidth="lg" className={styles.container}>
       <div className={styles.container}>
         <WrapperAsyncRequest status={status}>
+          <BackButton />
           <AuthorInfoBlock />
           <AuthorNavigation />
         </WrapperAsyncRequest>

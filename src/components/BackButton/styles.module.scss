@@ -1,22 +1,32 @@
-.backButton {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  margin-bottom: 30px;
-  margin-top: 30px;
-  border: 1px solid #B0B0B0;
-  color: #B0B0B0;
-
-  .arrow {
-    transform: rotate(180deg);
+.buttonRow {
+    display: flex;
+    width: 100%;
+    margin-bottom: 40px;
+    .backButton {
+      border-color: #b0b0b0;
+      padding: 5px 20px;
+      margin: 0px;
+      .icon {
+        margin-right: 7px;
+        height: 100%;
+        color: #7a7a7a;
+        font-family: HelveticaNeueCyr;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 200;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+      }
+      .text {
+        font-family: HelveticaNeueCyr;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 200;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: #7a7a7a;
+      }
+    }
   }
-
-  p {
-    margin: 0 !important;
-    padding: 0 10px;
-  }
-
-  @media screen and (max-width: 570px) {
-    margin-left: 10px;
-  }
-}

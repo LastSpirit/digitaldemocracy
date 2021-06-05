@@ -21,30 +21,32 @@ const PoliticianCards = () => {
                 <img src={data?.party_logo} alt="" />
               </div>
             )}
-            <span>{data?.party}</span>
+            <div className={styles.title}>{data?.party}</div>
           </div>
           <hr color="#B0B0B0" />
           <div className={styles.positionAndAge}>
             <div className={styles.position}>{data?.position}</div>
             {(data?.age || data?.city) && (
-              <span>{data?.age ? `${data?.age} лет${data?.city ? `, ${data?.city}` : ''}` : data?.city}</span>
+              <div className={styles.age}>
+                {data?.age ? `${data?.age} лет${data?.city ? `, ${data?.city}` : ''}` : data?.city}
+              </div>
             )}
           </div>
         </div>
       </div>
-      <div className={styles.card}>
-        {isMobile ? (
-          <InDevelop />
-        ) : (
+      {!isMobile && (
+        <div className={styles.card}>
           <div className={styles.secondCard}>
-            <div className={styles.percents}>
-              <span>2 место</span>
-              <p>{data?.percent}</p>
+            <div className={styles.trustRow}>
+              <div className={styles.badge}>
+                <div className={styles.text}>{data?.trust || 'Без рейтинга'}</div>
+              </div>
+              <div className={styles.percent}>{data?.percent || '- %'}</div>
             </div>
-            <PercentsLinearGraphic />
+            <PercentsLinearGraphic vote_groups={data?.vote_groups} />
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -5,16 +5,13 @@ import { Button } from '@material-ui/core';
 import styles from './styles.module.scss';
 
 export const BackButton = () => {
-  const { push } = useHistory();
+  const { goBack, length, push } = useHistory() as any;
   return (
-    <Button
-      className={styles.backButton}
-      onClick={() => push('/')}
-    >
-      <ArrowRightAltIcon
-        className={styles.arrow}
-      />
-      <p>Назад</p>
-    </Button>
+    <div className={styles.buttonRow}>
+      <Button variant="outlined" className={styles.backButton} onClick={() => (length > 2 ? goBack() : push('/'))}>
+        <div className={styles.icon}>←</div>
+        <div className={styles.text}>Назад</div>
+      </Button>
+    </div>
   );
 };

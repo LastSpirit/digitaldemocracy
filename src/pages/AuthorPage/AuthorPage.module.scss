@@ -520,14 +520,21 @@
         flex-direction: row;
         margin-bottom: 16px;
         .fio {
-          p {
-            color: #222222;
-            margin: 0 !important;
-            font-size: 60px;
-            line-height: 59.28px;
-            @media screen and (max-width: $mobileScreen) {
-              font-size: 24px;
-              line-height: 32px;
+          .name {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            height: 53px;
+            div {
+              color: #222222;
+              font-size: 50px;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              line-height: 41px;
+              @media screen and (max-width: $preMobileScreen) {
+                font-size: 35px;
+                line-height: 32px;
+              }
             }
           }
         }
@@ -609,7 +616,6 @@
   }
   .topItems {
     display: flex;
-    height: 100%;
     .avatarBlock {
       position: relative;
       display: flex;
@@ -645,7 +651,7 @@
     }
     .personBlock {
       margin-left: 5px;
-      height: 100%;
+      height: 117px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -666,6 +672,7 @@
           box-sizing: border-box;
           display: flex;
           justify-content: space-between;
+          margin-top: 0px;
           .description {
             height: 90%;
             overflow: hidden;
@@ -682,14 +689,28 @@
       .fioBlock {
         display: flex;
         align-items: flex-end;
-        justify-content: space-between;
+        justify-content: flex-start;
         flex-direction: row;
         margin-bottom: 5px;
+        height: 100%;
         .fio {
-          p {
-            color: #222222;
-            margin: 0 !important;
-            font-size: 24px;
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          flex-direction: column;
+          height: 100%;
+          .name {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            height: 20px;
+            div {
+              color: #222222;
+              font-size: 18px;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              line-height: 18px;
+            }
           }
         }
         .subscribers {

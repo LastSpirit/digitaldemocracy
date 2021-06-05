@@ -28,12 +28,6 @@ const MassMediaInfoBlock: FC = () => {
   const { goBack, length, push } = useHistory() as any;
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
-      <div className={styles.buttonRow}>
-        <Button variant="outlined" className={styles.backButton} onClick={() => (length > 2 ? goBack() : push('/'))}>
-          <div className={styles.icon}>←</div>
-          <div className={styles.text}>Назад</div>
-        </Button>
-      </div>
       <div className={styles.topItems}>
         <div className={styles.avatarBlock}>
           <div className={styles.avatar}>

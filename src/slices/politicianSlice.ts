@@ -3,72 +3,82 @@ import { useDispatch } from 'react-redux';
 import { NewsI } from './homeSlice';
 
 export interface PoliticianInfoI {
-  id?: number
-  name?: string
-  english_name?: string
-  photo?: string
-  number_of_subscribers?: number
-  is_subscribed?: boolean
-  percent?: string
-  party?: string
-  party_logo?: string
-  position?: string
-  age?: number
-  city?: string
+  id?: number;
+  name?: string;
+  english_name?: string;
+  photo?: string;
+  is_subscribed?: boolean;
+  percent?: string;
+  vote_groups?: Array<GraphicDataI>;
+  number_of_subscribers?: number;
+  party?: string;
+  party_logo?: string;
+  position?: string;
+  age?: number;
+  city?: string;
+  trust?: string;
+  source_link?: string;
+}
+
+export interface GraphicDataI {
+  id: number;
+  width: number;
+  color: string;
+  zIndex: number;
 }
 
 export interface PositionHistoryI {
-  id: number
-  position: string
-  type: string
-  percent: string
-  years: string
+  id: number;
+  position: string;
+  type: string;
+  percent: string;
+  years: string;
 }
 
 export interface PromiseI {
-  text: string
-  link: string
-  promise_date: string
+  text: string;
+  link: string;
+  promise_date: string;
 }
 
 export interface MetricI {
-  title: string
-  text: string
-  icon: string
-  color: string
+  title: string;
+  text: string;
+  icon: string;
+  color: string;
 }
 
 export interface VoicesRegionI {
-  region_with_type: string
-  total: number
+  region_with_type: string;
+  total: number;
 }
 
 export interface RatingStatisticsI {
-  metrics: Array<MetricI>
-  voicesByRegion: Array<VoicesRegionI>
+  metrics: Array<MetricI>;
+  voicesByRegion: Array<VoicesRegionI>;
   numberOfVoters: {
-    numberOfUsersFromRegion: number
-    numberOfVotedUsers: number
-    totalElectorate: number
-  }
+    numberOfUsersFromRegion: number;
+    numberOfVotedUsers: number;
+    totalElectorate: number;
+  };
 }
 
 interface SliceState {
-  data?: PoliticianInfoI
-  news?: Array<NewsI>
-  promises?: Array<PromiseI>
-  chartData?: Array<Array<Date | number>>
-  ratingStatistics?: RatingStatisticsI
-  history?: Array<PositionHistoryI>
+  data?: PoliticianInfoI;
+  news?: Array<NewsI>;
+  promises?: Array<PromiseI>;
+  chartData?: Array<Array<Date | number>>;
+  ratingStatistics?: RatingStatisticsI;
+  history?: Array<PositionHistoryI>;
 }
 
 export interface NewsWithPercentI extends NewsI {
-  percent: number
+  percent: number;
 }
 
 const initialState: SliceState = {
   news: [],
-  chartData: []
+  chartData: [],
 };
 
 export const politicianSlice = createSlice({
@@ -77,7 +87,7 @@ export const politicianSlice = createSlice({
   reducers: {
     setNews(state: SliceState, action: PayloadAction<Array<NewsWithPercentI>>) {
       state.news = action.payload;
-      state.chartData = [...action.payload].map((item) => ([new Date(item.publication_date), item.percent]));
+      state.chartData = [...action.payload].map((item) => [new Date(item.publication_date), item.percent]);
     },
     setPoliticianInfo(state: SliceState, action: PayloadAction<PoliticianInfoI>) {
       state.data = action.payload;
@@ -93,12 +103,12 @@ export const politicianSlice = createSlice({
     },
     setRatingStatistics(state: SliceState, action: PayloadAction<RatingStatisticsI>) {
       state.ratingStatistics = action.payload;
-    }
-  }
+    },
+  },
 });
 
 interface Store {
-  politician: SliceState
+  politician: SliceState;
 }
 
 export const politicianSelectors = {
@@ -108,12 +118,15 @@ export const politicianSelectors = {
   getPoliticianInfo: () => (state: Store) => state.politician.data,
   getPositionHistory: () => (state: Store) => state.politician.history,
   getPositionPromises: () => (state: Store) => state.politician.promises,
-  getRatingStatistic: () => (state: Store) => state.politician.ratingStatistics
+  getRatingStatistic: () => (state: Store) => state.politician.ratingStatistics,
 };
 
 export const politicianActionCreators = () => {
   const dispatch = useDispatch();
-  return bindActionCreators({
-    ...politicianSlice.actions
-  }, dispatch);
+  return bindActionCreators(
+    {
+      ...politicianSlice.actions,
+    },
+    dispatch
+  );
 };
