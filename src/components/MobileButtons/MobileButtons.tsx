@@ -20,21 +20,23 @@ export const MobileButtons: FC<IProps> = ({ handleClickOpen }) => {
   const { isMobile } = useWindowSize();
   return (
     <div className={styles.mobileButtons}>
-      <Button className={styles.backButton} onClick={() => (length > 2 ? goBack() : push('/'))}>
-        <div className={styles.icon}>←</div>
-      </Button>
-      <Button
-        className={classNames('MuiButton-containedPrimary', styles.changeButton, {
-          '-disabled': !isAuthenticated,
-        })}
-        variant="outlined"
-        color="primary"
-        onClick={isAuthenticated ? handleClickOpen : null}
-      >
-        <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
-          <span>Предложить изменения</span>
-        </Tooltip>
-      </Button>
+      <div className={styles.row}>
+        <Button className={styles.backButton} onClick={() => (length > 2 ? goBack() : push('/'))}>
+          <div className={styles.icon}>←</div>
+        </Button>
+        <Button
+          className={classNames('MuiButton-containedPrimary', styles.changeButton, {
+            '-disabled': !isAuthenticated,
+          })}
+          variant="outlined"
+          color="primary"
+          onClick={isAuthenticated ? handleClickOpen : null}
+        >
+          <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
+            <span>Предложить изменения</span>
+          </Tooltip>
+        </Button>
+      </div>
     </div>
   );
 };

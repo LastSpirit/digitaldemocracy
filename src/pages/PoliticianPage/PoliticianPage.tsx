@@ -37,8 +37,10 @@ const PoliticianPage = () => {
         <WrapperAsyncRequest status={status}>
           {!isMobile && <BackButton />}
           {isMobile && <MobileButtons handleClickOpen={handleClickOpen} />}
-          <PoliticianInfoBlock handleClickOpen={handleClickOpen} />
-          <PoliticianNavigation />
+          <div className={styles.containerContent}>
+            <PoliticianInfoBlock handleClickOpen={handleClickOpen} />
+            <PoliticianNavigation />
+          </div>
           <CustomDialog
             open={open}
             next={next}

@@ -182,14 +182,22 @@
       }
     }
     @media screen and (max-width: $mobileScreen) {
+      overflow-x: scroll;
+      padding: 10px 0px;
       .sortBadge {
+        padding: 5px 10px;
+        min-width: max-content;
         .text {
           font-size: 14px;
+          margin-right: 5px;
         }
       }
       .sortBadge-active {
+        padding: 5px 10px;
+        min-width: max-content;
         .text {
           font-size: 14px;
+          margin-right: 5px;
         }
       }
     }

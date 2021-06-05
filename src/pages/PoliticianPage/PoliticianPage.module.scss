@@ -6,25 +6,10 @@
 
 .container {
   min-height: 80vh;
-
-  .backButton {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    margin-bottom: 30px;
-    margin-top: 30px;
-
-    .arrow {
-      transform: rotate(180deg);
-    }
-
-    p {
-      margin: 0 !important;
-      padding-left: 10px;
-      padding-bottom: 0 !important;
-    }
+  position: relative;
+  .containerContent {
+    width: 100%;
   }
-
   .chartContainer {
     border: 1px solid #b0b0b0;
     border-radius: 5px;
@@ -553,7 +538,7 @@
         align-items: flex-end;
         justify-content: space-between;
         flex-direction: row;
-        margin-bottom: 16px;
+        margin-bottom: 13px;
         .fio {
           width: 100%;
           .englishName {
