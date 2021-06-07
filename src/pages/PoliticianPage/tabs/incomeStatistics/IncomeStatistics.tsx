@@ -22,9 +22,6 @@ export default function Statistic() {
             <p>Как вы к этому относитесь?</p>
             <VotesGroup />
           </div>
-          <div className={styles.progressBackground}>
-            <div className={styles.progress}>{''}</div>
-          </div>
         </div>
       </Card>
       <iframe title="idPolitican" loading="lazy" src={state} />
