@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import type { FC } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
 import PersonIcon from '@material-ui/icons/Person';
 import { Button, Tooltip, Dialog, IconButton, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
@@ -20,6 +22,8 @@ import { userSelectors } from '../../../../slices/userSlice';
 import { endOfWords } from '../../../../utils/endOfWords';
 import { PercentsLinearGraphic } from './PercentsLinearGraphic';
 import FacebookShare from '../../../../components/FacebookShare/FacebookShare';
+import { useSearchParams } from '../../../../hooks/useSearchParams';
+import { ModalParams } from '../../../../types/routing';
 
 interface IProps {
   handleClickOpen?: any;
@@ -30,6 +34,18 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { isMobile } = useWindowSize();
   const { status, change } = useChangeSubscribe();
+
+  const { push } = useHistory();
+  const {
+    [ModalParams.Auth]: { setValue: setAuthValue },
+  } = useSearchParams(ModalParams.Auth);
+
+  const handleClick = () => {
+    if (!isAuthenticated) {
+      setAuthValue('/login');
+    }
+  };
+
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
       <div className={styles.topItems}>
@@ -51,7 +67,7 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                     <Button
                       variant="outlined"
                       color={data?.is_subscribed ? 'secondary' : 'primary'}
-                      onClick={isAuthenticated ? change : undefined}
+                      onClick={isAuthenticated ? change : handleClick}
                       disabled={status === APIStatus.Loading}
                       className={classNames([
                         'MuiButton-containedPrimary',
@@ -89,7 +105,7 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                     })}
                     variant="outlined"
                     color="primary"
-                    onClick={isAuthenticated ? handleClickOpen : null}
+                    onClick={isAuthenticated ? handleClickOpen : handleClick}
                   >
                     <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
                       <span>Предложить изменения</span>
@@ -107,7 +123,7 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
           <Button
             variant="outlined"
             color={data?.is_subscribed ? 'secondary' : 'primary'}
-            onClick={isAuthenticated ? change : undefined}
+            onClick={isAuthenticated ? change : handleClick}
             disabled={status === APIStatus.Loading}
             className={classNames([styles['subscriberButton-mobile'], { '-disabled': !isAuthenticated }])}
           >

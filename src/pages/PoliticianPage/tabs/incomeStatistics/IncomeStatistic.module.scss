@@ -37,20 +37,97 @@ iframe {
 .card {
   display: flex;
   align-items: center;
-  width: 30%;
+  width: 100%;
   margin-bottom: 20px;
-  // padding: 10px;
+  padding: 18px 44px;
   justify-content: space-between;
+  background: #ededed;
+  border: 1px solid #b0b0b0;
+  box-sizing: border-box;
+  border-radius: 20px;
+  height: 180px;
 
   @media screen and (max-width: 1024px) {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 9px 22px;
+  }
+
+  h4 {
+    font-weight: 300;
+    font-size: 35px;
+    line-height: 110.3%;
+    // display: flex;
+    // align-items: center;
+    color: #222222;
+
+    @media screen and (max-width: 1024px) {
+      width: 100%;
+      font-size: 20px;
+      margin: 0px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+  }
+
+  .votesWrapper {
+    width: 401px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    @media screen and (max-width: 1024px) {
+      width: 100%;
+    }
+
+    .votes {
+      padding: 18px 26px;
+      display: flex;
+      height: 91px;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #b0b0b0;
+      box-sizing: border-box;
+      border-radius: 20px;
+      margin-bottom: 18px;
+
+      @media screen and (max-width: 1024px) {
+        width: 100%;
+        padding: 9px 13px;
+        margin-bottom: 9px;
+        font-size: 14px;
+      }
+    }
+
+    .progressBackground {
+      background: #222222;
+      border-radius: 40px;
+      min-height: 35px;
+      width: 100%;
+      @media screen and (max-width: 1024px) {
+        min-height: 20px;
+      }
+
+      .progress {
+        min-height: 35px;
+        width: 50%;
+        background: #248232;
+        border-radius: 40px;
+        @media screen and (max-width: 1024px) {
+          min-height: 20px;
+        }
+      }
+    }
   }
 }
 
 .arrowButton {
-    padding: 0;
-    background-color: #363557;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
+  padding: 0;
+  background-color: #363557;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
 }

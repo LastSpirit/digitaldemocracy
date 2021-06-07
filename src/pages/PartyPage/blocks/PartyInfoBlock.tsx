@@ -19,6 +19,8 @@ import { userSelectors } from '../../../slices/userSlice';
 import { endOfWords } from '../../../utils/endOfWords';
 import { PercentsLinearGraphic } from './PercentsLinearGraphic';
 import FacebookShare from '../../../components/FacebookShare/FacebookShare';
+import { useSearchParams } from '../../../hooks/useSearchParams';
+import { ModalParams } from '../../../types/routing';
 
 const PartyInfoBlock: FC = () => {
   const data = useSelector(partySelectors.getPartyInfo());
@@ -26,6 +28,15 @@ const PartyInfoBlock: FC = () => {
   const { isMobile } = useWindowSize();
   const { status, change } = useChangeSubscribe();
   const { goBack, length, push } = useHistory() as any;
+  const {
+    [ModalParams.Auth]: { setValue: setAuthValue },
+  } = useSearchParams(ModalParams.Auth);
+
+  const handleClick = () => {
+    if (!isAuthenticated) {
+      setAuthValue('/login');
+    }
+  };
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
       <div className={styles.buttonRow}>
@@ -49,7 +60,7 @@ const PartyInfoBlock: FC = () => {
                   <Button
                     variant="outlined"
                     color={data?.is_subscribed ? 'secondary' : 'primary'}
-                    onClick={isAuthenticated ? change : undefined}
+                    onClick={isAuthenticated ? change : handleClick}
                     disabled={status === APIStatus.Loading}
                     className={classNames([
                       'MuiButton-containedPrimary',
@@ -86,7 +97,7 @@ const PartyInfoBlock: FC = () => {
           <Button
             variant="outlined"
             color={data?.is_subscribed ? 'secondary' : 'primary'}
-            onClick={isAuthenticated ? change : undefined}
+            onClick={isAuthenticated ? change : handleClick}
             disabled={status === APIStatus.Loading}
             className={classNames([styles['subscriberButton-mobile'], { '-disabled': !isAuthenticated }])}
           >

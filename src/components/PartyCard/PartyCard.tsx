@@ -1,7 +1,11 @@
 import React, { FC } from 'react';
 import PersonIcon from '@material-ui/icons/Person';
 import { useHistory, matchPath } from 'react-router';
+import { useSelector } from 'react-redux';
 import styles from './PartyCard.module.scss';
+import { useSearchParams } from '../../hooks/useSearchParams';
+import { ModalParams } from '../../types/routing';
+import { userSelectors } from '../../slices/userSlice';
 
 interface IProps {
   url?: any;
@@ -11,7 +15,17 @@ interface IProps {
 }
 
 const PartyCard: FC<IProps> = ({ url, percent, name, subscribe }) => {
-  const history = useHistory();
+  const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
+  const { push } = useHistory();
+  const {
+    [ModalParams.Auth]: { setValue: setAuthValue },
+  } = useSearchParams(ModalParams.Auth);
+
+  const handleClick = () => {
+    if (!isAuthenticated) {
+      setAuthValue('/login');
+    }
+  };
   // const handle = () => {
   //   const newPath = matchPath(`/politician/${short_link}`, { path: '/politician/:link' });
   //   history.push(newPath.url);
@@ -31,8 +45,12 @@ const PartyCard: FC<IProps> = ({ url, percent, name, subscribe }) => {
       </div>
       <hr />
       <div className={styles.name}>{name}</div>
-      <div className={!subscribe ? styles.subscribe : styles.subscribed}>
-        <p>{subscribe ? 'Подписка' : 'Подписаться'}</p>
+      <div
+        className={isAuthenticated ? (!subscribe ? styles.subscribe : styles.subscribed) : styles.subscribe}
+        aria-hidden
+        onClick={handleClick}
+      >
+        <p>{isAuthenticated ? (subscribe ? 'Подписка' : 'Подписаться') : 'Подписаться'}</p>
       </div>
     </div>
   );
