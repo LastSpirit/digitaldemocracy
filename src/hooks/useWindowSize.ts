@@ -7,7 +7,8 @@ export const useWindowSize = () => {
   });
 
   // const isMobile = windowSize.width <= 711; // this 660px
-  const isMobile = windowSize.width <= 1024; // this 660px
+  const isMobile = windowSize.width <= 1024;
+  const isMobileSE = windowSize.width <= 400;
 
   useEffect(() => {
     function handleResize() {
@@ -27,5 +28,6 @@ export const useWindowSize = () => {
   return {
     size: windowSize,
     isMobile,
+    isMobileSE,
   };
 };

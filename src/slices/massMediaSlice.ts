@@ -70,6 +70,12 @@ interface HashtagsI {
   title?: string;
 }
 
+interface StatisticI {
+  id?: number;
+  name?: string;
+  percent?: string;
+}
+
 interface SliceState {
   status?: APIStatus;
   newsStatus?: APIStatus;
@@ -78,6 +84,8 @@ interface SliceState {
   sort_direction?: string;
   sort_field?: string;
   page?: number;
+  statistic?: Array<StatisticI>;
+
 }
 
 const initialState: SliceState = {
@@ -88,6 +96,22 @@ const initialState: SliceState = {
   sort_direction: '',
   sort_field: '',
   page: null,
+  statistic: [
+    { id: 1, name: 'Путин Владимир Владимирович', percent: '146%' },
+    { id: 2, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
+    { id: 3, name: 'Путин Владимир Владимирович', percent: '146%' },
+    { id: 4, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
+    { id: 5, name: 'Путин Владимир Владимирович', percent: '146%' },
+    { id: 6, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
+    { id: 7, name: 'Путин Владимир Владимирович', percent: '146%' },
+    { id: 8, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
+    { id: 9, name: 'Путин Владимир Владимирович', percent: '146%' },
+    { id: 10, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
+    { id: 11, name: 'Путин Владимир Владимирович', percent: '146%' },
+    { id: 12, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
+    { id: 13, name: 'Путин Владимир Владимирович', percent: '146%' },
+    { id: 14, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
+  ],
 };
 
 export const massMediaSlice = createSlice({
