@@ -1,0 +1,64 @@
+.paper {
+  border-radius: 15px;
+  overflow-y: initial;
+  width: 50%;
+  // height: 50%;
+  min-width: 700px;
+  min-height: 650px;
+  max-height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  @media screen and (max-width: 1024px) {
+    min-width: 300px;
+    min-height: 200px;
+  }
+
+  .crossWrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+
+    .cross {
+      margin: 10px;
+    }
+  }
+
+  .textWrapper {
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    color: #ffffff;
+    background: #248232;
+    width: 591.68px;
+    height: 405px;
+    border-radius: 40px;
+    padding: 30px;
+
+    @media screen and (max-width: 1024px) {
+      width: 70%;
+      height: 200px;
+      font-size: 12px;
+    }
+  }
+
+  .logo {
+    justify-self: flex-end;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}

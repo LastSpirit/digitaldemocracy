@@ -43,7 +43,7 @@ const MainNavbar: FC = () => {
   const buttons = [
     {
       title: isAuthenticated ? 'Предложить новость / политика' : 'Вход',
-      to: isAuthenticated ? '/' : 'login',
+      to: isAuthenticated ? '/suggestion' : 'login',
       color: '',
     },
     {
