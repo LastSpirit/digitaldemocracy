@@ -21,6 +21,7 @@ export interface MediaI {
   name?: string;
   photo?: string;
   link?: string;
+  short_link?: string;
 }
 
 export interface AuthorI {
@@ -28,6 +29,7 @@ export interface AuthorI {
   name?: string;
   photo?: string;
   link?: string;
+  short_link?: string;
 }
 
 export interface NewsI {

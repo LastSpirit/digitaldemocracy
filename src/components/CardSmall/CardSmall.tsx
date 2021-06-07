@@ -35,11 +35,11 @@ const CardSmall: FC<CardSmallProps> = ({
     history.push(newPath.url);
   };
   const handleMedia = () => {
-    const newPath = matchPath(`/mass-media/${media.link}`, { path: '/mass-media/:link' });
+    const newPath = matchPath(`/mass-media/${media.short_link}`, { path: '/mass-media/:link' });
     history.push(newPath.url);
   };
   const handleAuthor = () => {
-    const newPath = matchPath(`/author/${author.link}`, { path: '/author/:link' });
+    const newPath = matchPath(`/author/${author.short_link}`, { path: '/author/:link' });
     history.push(newPath.url);
   };
   return (

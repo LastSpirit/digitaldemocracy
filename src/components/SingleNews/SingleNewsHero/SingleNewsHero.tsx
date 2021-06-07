@@ -73,7 +73,7 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
             <Box className={styles.newsAuthor}>
               <Box>
                 <Typography>{data?.media?.name}</Typography>
-                <Typography>{data?.author?.title}</Typography>
+                <Typography>{data?.author?.name}</Typography>
               </Box>
               <Box className={styles.date}>
                 <Typography>{data?.publication_date}</Typography>

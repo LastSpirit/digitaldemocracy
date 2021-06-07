@@ -3,82 +3,87 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { APIStatus } from '../lib/axiosAPI';
 
 export interface MediaI {
-  id?: number,
-  name?: string,
-  photo?: string,
-  percent?: string
+  id?: number;
+  name?: string;
+  photo?: string;
+  is_subscribed?: boolean;
+  link?: string;
+  percent?: string;
+  short_link?: string;
 }
 
 export interface AuthorI {
-  id?: number,
-  title?: string,
-  photo?: string,
-  percent?: string
+  id?: number;
+  name?: string;
+  photo?: string;
+  is_subscribed?: boolean;
+  link?: string;
+  percent?: string;
+  short_link?: string;
 }
 
 export interface PoliticiansI {
-  name: string,
-  photo: string,
-  percent: string
+  name?: string;
+  photo?: string;
+  percent?: string;
+  short_link?: string;
 }
 
 interface NewTopicsI {
-  id: number,
-  title: string
+  id: number;
+  title: string;
 }
 
 interface HashtagsI {
-  id: number,
-  title: string
+  id: number;
+  title: string;
 }
 
 export interface CurrentNewsI {
-  id?: number,
-  media?: MediaI,
-  author?: AuthorI,
-  newTopics?: NewTopicsI[],
-  hashtags?: HashtagsI[],
-  votes: number,
-  title: string,
-  image: string,
-  publication_date: Date,
-  link: string,
-  source_link: string,
-  number_of_views: number
-
+  id?: number;
+  media?: MediaI;
+  author?: AuthorI;
+  newTopics?: NewTopicsI[];
+  hashtags?: HashtagsI[];
+  votes: number;
+  title: string;
+  image: string;
+  publication_date: Date;
+  link: string;
+  source_link: string;
+  number_of_views: number;
 }
 
 export interface NewsI {
-  id?: number,
-  media?: MediaI,
-  author?: AuthorI,
-  newTopics?: NewTopicsI[],
-  hashtags?: HashtagsI[],
-  votes?: number,
-  title?: string,
-  image?: string,
-  publication_date?: string,
-  link?: string,
-  source_link?: string,
-  number_of_views?: number,
-  short_link?: string
-
+  id?: number;
+  media?: MediaI;
+  author?: AuthorI;
+  newTopics?: NewTopicsI[];
+  hashtags?: HashtagsI[];
+  votes?: number;
+  title?: string;
+  image?: string;
+  publication_date?: string;
+  link?: string;
+  source_link?: string;
+  number_of_views?: number;
+  short_link?: string;
 }
 
 export interface SingleNewsI {
-  currentNews?: CurrentNewsI,
-  news?: NewsI[],
-  politicians?: PoliticiansI[],
-  isMorePages?: boolean
+  currentNews?: CurrentNewsI;
+  news?: NewsI[];
+  politicians?: PoliticiansI[];
+  isMorePages?: boolean;
 }
 
 interface SliceState {
-  data?: SingleNewsI
-  status?: APIStatus
+  data?: SingleNewsI;
+  status?: APIStatus;
 }
 
-const initialState:SliceState = {
-  status: 'Initial' as APIStatus
+const initialState: SliceState = {
+  status: 'Initial' as APIStatus,
 };
 
 export const singleNewsSlice = createSlice({
@@ -94,15 +99,15 @@ export const singleNewsSlice = createSlice({
     },
     failFetch(state: SliceState) {
       state.status = APIStatus.Failure;
-    }
-  }
+    },
+  },
 });
 
 interface Store {
-  singleNews: SliceState
+  singleNews: SliceState;
 }
 
 export const singleNewsSelector = {
   getData: () => (state: Store) => state.singleNews.data,
-  getStatus: () => (state: Store) => state.singleNews.status
+  getStatus: () => (state: Store) => state.singleNews.status,
 };

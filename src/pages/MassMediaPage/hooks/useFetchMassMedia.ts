@@ -5,7 +5,6 @@ import { RootState } from 'src/store';
 import { APIStatus } from '../../../lib/axiosAPI';
 import { massmediaAPIActions } from '../../../api/massmediaAPI';
 import { massmediaActionCreators } from '../../../slices/massMediaSlice';
-import { getItem } from '../../../lib/localStorageManager';
 
 export const useFetchMassMedia = () => {
   const { fetchMassMediaData, fetchMassMediaNews } = massmediaAPIActions();
@@ -20,7 +19,6 @@ export const useFetchMassMedia = () => {
   const { id } = useSelector((s: RootState) => s.massmedia.data);
   const { sort_direction, sort_field, page } = useSelector((s: RootState) => s.massmedia);
   const { link }: { link: string } = useParams();
-  const token = getItem('token');
   const fetchData = useCallback(() => {
     startFetchMassMediaData();
     fetchMassMediaData({
