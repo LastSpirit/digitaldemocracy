@@ -11,7 +11,7 @@ import {
 } from '../pages/PoliticianPage/tabs';
 import { Subscriptions, BrowsingHistory, DonationHistory, VotingStatistics } from '../pages/ProfilePage/tabs';
 
-import { NewsBlock, InfluenceStatistic as MassMediaInfluenceStatistic } from '../pages/MassMediaPage/tabs';
+import { NewsBlock, MassMediaInfluenceStatistic } from '../pages/MassMediaPage/tabs';
 import { AuthorNewsBlock, InfluenceStatistic } from '../pages/AuthorPage/tabs';
 
 export enum ModalParams {

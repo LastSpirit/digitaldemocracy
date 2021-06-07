@@ -75,7 +75,7 @@ const mobileSEColumns: GridColumns = [
   },
 ];
 
-export const InfluenceStatistic = () => {
+export const MassMediaInfluenceStatistic = () => {
   const { status, fetch } = useFetchHistory();
   const data = useSelector((s: RootState) => s.massmedia.statistic);
   const { isMobile, isMobileSE } = useWindowSize();
@@ -102,4 +102,4 @@ export const InfluenceStatistic = () => {
   );
 };
 
-export default InfluenceStatistic;
+export default MassMediaInfluenceStatistic;
