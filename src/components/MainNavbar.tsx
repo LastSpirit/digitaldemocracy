@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { Link as RouterLink, useHistory } from 'react-router-dom';
+import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
 import { AppBar, Box, Button, Link, Toolbar, Typography, Container } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
@@ -34,24 +34,13 @@ const links = [
 
 const MainNavbar: FC = () => {
   const { push } = useHistory();
+  const { pathname } = useLocation();
   const { isMobile } = useWindowSize();
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
-
-  const buttons = [
-    {
-      title: isAuthenticated ? 'Предложить новость / политика' : 'Вход',
-      to: isAuthenticated ? '/suggestion' : 'login',
-      color: '',
-    },
-    {
-      title: isAuthenticated ? <Person /> : 'Регистрация',
-      to: isAuthenticated ? '/profile' : 'register',
-      color: 'white',
-    },
-  ];
+  console.log(pathname.includes('profile'));
 
   const handleClick = (to: string) => {
     if (isAuthenticated) {
@@ -164,25 +153,45 @@ const MainNavbar: FC = () => {
                   p: 3,
                 }}
               >
-                {buttons.map(({ to, color, title }, index) => (
-                  <Button
-                    className={classNames(['buttonsStyle', { register: color === 'white' }])}
-                    key={index.toString()}
-                    sx={{
-                      backgroundColor: color,
-                      p: 1,
-                      paddingRight: 2,
-                      paddingLeft: 2,
-                      borderRadius: 100,
-                      mr: index === 0 ? 3 : 0,
-                    }}
-                    size="small"
-                    variant="outlined"
-                    onClick={() => handleClick(to)}
-                  >
-                    {title}
-                  </Button>
-                ))}
+                <Button
+                  className={classNames(['buttonsStyle'])}
+                  sx={{
+                    p: 1,
+                    paddingRight: 2,
+                    paddingLeft: 2,
+                    borderRadius: 100,
+                    mr: 3,
+                  }}
+                  size="small"
+                  variant="outlined"
+                  onClick={() => {
+                    if (pathname !== '/suggestion') {
+                      handleClick(isAuthenticated ? '/suggestion' : 'login');
+                    }
+                  }}
+                >
+                  {isAuthenticated ? 'Предложить новость / политика' : 'Вход'}
+                </Button>
+                <Button
+                  className={classNames(['buttonsStyle', { register: true }])}
+                  sx={{
+                    backgroundColor: 'white',
+                    p: 1,
+                    paddingRight: 2,
+                    paddingLeft: 2,
+                    borderRadius: 100,
+                    mr: 0,
+                  }}
+                  size="small"
+                  variant="outlined"
+                  onClick={() => {
+                    if (!pathname.includes('profile')) {
+                      handleClick(isAuthenticated ? '/profile' : 'register');
+                    }
+                  }}
+                >
+                  {isAuthenticated ? <Person /> : 'Регистрация'}
+                </Button>
               </Box>
             </>
           )}
