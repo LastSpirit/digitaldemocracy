@@ -10,7 +10,6 @@ import { WrapperAsyncRequest } from '../../../../components/Loading/WrapperAsync
 export default function Description() {
   const { status, fetch } = useFetchPositionDescription();
   const data = useSelector(politicianSelectors.getPositionsDescription());
-  const result = data?.filter((item) => item.is_active === true);
   useEffect(() => {
     fetch();
   }, []);

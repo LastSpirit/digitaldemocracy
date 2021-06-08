@@ -8,6 +8,7 @@ import {
   PromiseI,
   RatingStatisticsI,
   PositionsDescriptionI,
+  StatisticI,
 } from '../slices/politicianSlice';
 
 interface NewsRequest {
@@ -71,6 +72,13 @@ const fetchPositionsDescription: APIRequest<DefaultRequest, Array<PositionsDescr
     ...args,
   });
 
+const fetchStatistic: APIRequest<DefaultRequest, Array<StatisticI>> = (args) =>
+  callAPI({
+    url: `getPoliticianStatisticsProfit?politician_id=${args.payload.politician_id}`,
+    config: { method: 'GET' },
+    ...args,
+  });
+
 const fetchRatingStatistics: APIRequest<DefaultRequest, RatingStatisticsI> = (args) =>
   callAPI({
     url: `getPoliticianVotingStatistics?politician_id=${args.payload.politician_id}`,
@@ -109,6 +117,7 @@ const APIs = {
   unsubscribe,
   fetchRatingStatistics,
   fetchPositionsDescription,
+  fetchStatistic,
 };
 
 export const politicianAPI = () => {

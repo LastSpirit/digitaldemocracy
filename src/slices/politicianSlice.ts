@@ -70,6 +70,12 @@ export interface PositionsDescriptionI {
   link: string | null;
   is_active: boolean;
 }
+export interface StatisticI {
+  id: number;
+  politician_id: number;
+  link: string;
+  source_link: string;
+}
 
 interface SliceState {
   data?: PoliticianInfoI;
@@ -79,6 +85,7 @@ interface SliceState {
   ratingStatistics?: RatingStatisticsI;
   history?: Array<PositionHistoryI>;
   positionDescription?: Array<PositionsDescriptionI>;
+  statistic?: Array<StatisticI>;
 }
 
 export interface NewsWithPercentI extends NewsI {
@@ -116,6 +123,9 @@ export const politicianSlice = createSlice({
     setPositionsDescription(state: SliceState, action: PayloadAction<Array<PositionsDescriptionI>>) {
       state.positionDescription = action.payload.filter((item) => item.is_active === true);
     },
+    setStatistic(state: SliceState, action: PayloadAction<Array<StatisticI>>) {
+      state.statistic = action.payload;
+    },
   },
 });
 
@@ -132,6 +142,7 @@ export const politicianSelectors = {
   getPositionPromises: () => (state: Store) => state.politician.promises,
   getRatingStatistic: () => (state: Store) => state.politician.ratingStatistics,
   getPositionsDescription: () => (state: Store) => state.politician.positionDescription,
+  getStatistic: () => (state: Store) => state.politician.statistic,
 };
 
 export const politicianActionCreators = () => {
