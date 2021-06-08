@@ -1,7 +1,7 @@
 import { useDispatch as useReduxDispatch, useSelector as useReduxSelector } from 'react-redux';
 import type { TypedUseSelectorHook } from 'react-redux';
 import type { ThunkAction } from 'redux-thunk';
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import type { Action } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
 import rootReducer from './rootReducer';
@@ -10,6 +10,11 @@ export const store = configureStore({
   reducer: rootReducer,
   // devTools: process.env.REACT_APP_ENABLE_REDUX_DEV_TOOLS === 'true'
   devTools: true,
+  middleware: [
+    ...getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+  ],
 });
 
 export type RootState = ReturnType<typeof store.getState>;

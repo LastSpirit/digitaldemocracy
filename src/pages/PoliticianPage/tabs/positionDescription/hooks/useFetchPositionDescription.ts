@@ -4,18 +4,18 @@ import { APIStatus } from '../../../../../lib/axiosAPI';
 import { politicianActionCreators } from '../../../../../slices/politicianSlice';
 import { politicianAPI } from '../../../../../api/politicianAPI';
 
-export const useFetchPromises = () => {
+export const useFetchPositionDescription = () => {
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
-  const { setPromises } = politicianActionCreators();
-  const { fetchPromises } = politicianAPI();
+  const { setPositionsDescription } = politicianActionCreators();
+  const { fetchPositionsDescription } = politicianAPI();
   const { politicianId }: { politicianId: string } = useParams();
 
   const fetch = useCallback(() => {
     setStatus(APIStatus.Loading);
-    fetchPromises({
+    fetchPositionsDescription({
       onError: () => setStatus(APIStatus.Failure),
       onSuccess: (response) => {
-        setPromises(response);
+        setPositionsDescription(response);
         setStatus(APIStatus.Success);
       },
       payload: {

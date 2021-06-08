@@ -1,5 +1,8 @@
 /* eslint-disable import/no-cycle */
 import React, { useEffect } from 'react';
+import { IconButton } from '@material-ui/core';
+import CallMadeIcon from '@material-ui/icons/CallMade';
+import YouTubeIcon from '@material-ui/icons/YouTube';
 import { useSelector } from 'react-redux';
 import { useFetchPromises } from './hooks/useFetchPromises';
 import { WrapperAsyncRequest } from '../../../../components/Loading/WrapperAsyncRequest';
@@ -24,15 +27,14 @@ export const Promises = () => {
               <div className={styles.promises}>
                 <div className={styles.date}>{promise_date}</div>
                 <span>{text}</span>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <a href={link} target="_blank" rel="noreferrer">
-                    ссылка на статью
-                  </a>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <a href={link} target="_blank" rel="noreferrer">
-                    ссылка на видео
-                  </a>
+                <div className={styles.link}>
+                  <p>Ссылка на иcточник: </p>
+                  <IconButton className={styles.arrowButton} onClick={() => window.open('https://google.com')}>
+                    <CallMadeIcon className={styles.arrowLink} />
+                  </IconButton>
+                  <IconButton className={styles.arrowButton} onClick={() => window.open('https://google.com')}>
+                    <YouTubeIcon className={styles.arrowLink} />
+                  </IconButton>
                 </div>
               </div>
               <div className={styles.votes}>
