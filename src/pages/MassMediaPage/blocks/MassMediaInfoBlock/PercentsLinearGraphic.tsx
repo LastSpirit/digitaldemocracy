@@ -80,9 +80,15 @@ export const PercentsLinearGraphic: FC<IProps> = ({ vote_groups }) => {
                     className={styles.line}
                   >
                     {width < hiddenValue ? (
-                      <Tooltip title={`${Math.round(width)} %`} className={styles.tooltip}>
-                        <div>{'...%'}</div>
-                      </Tooltip>
+                      <div style={{ width: '100%', height: '100%' }}>
+                        <Tooltip
+                          title={`${Math.round(width)} %`}
+                          className={styles.tooltip}
+                          style={{ width: '100%', height: '100%' }}
+                        >
+                          <div> </div>
+                        </Tooltip>
+                      </div>
                     ) : (
                       <span>{`${Math.round(width)} %`}</span>
                     )}

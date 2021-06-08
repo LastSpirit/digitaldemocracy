@@ -45,7 +45,6 @@ const Home: FC = () => {
               }}
             >
               <Loading size={80} />
-              {' '}
             </Container>
           ) : (
             <>

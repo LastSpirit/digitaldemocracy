@@ -9,9 +9,8 @@ export const useFetchProfileInfo = () => {
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
   const { fetchProfileInfo } = politicianAPI();
   const { setPoliticianInfo } = politicianActionCreators();
-  const { politicianId }: { politicianId: string } = useParams();
+  const { short_link }: { short_link: string } = useParams();
   const token = getItem('token');
-
   const fetch = useCallback(() => {
     setStatus(APIStatus.Loading);
     fetchProfileInfo({
@@ -20,10 +19,10 @@ export const useFetchProfileInfo = () => {
         setStatus(APIStatus.Success);
       },
       onError: () => setStatus(APIStatus.Failure),
-      payload: {
-        politician_id: Number(politicianId),
+      variables: {
         token,
-      }
+        short_link,
+      },
     });
   }, []);
 

@@ -11,7 +11,6 @@ import './slickArrows.css';
 
 export default function CustomArrows({ data }) {
   const settings = {
-
     dots: false,
     infinite: false,
     speed: 500,
@@ -19,7 +18,6 @@ export default function CustomArrows({ data }) {
     slidesToScroll: 4,
     initialSlide: 0,
     responsive: [
-
       {
         breakpoint: 1140,
         settings: {
@@ -51,7 +49,6 @@ export default function CustomArrows({ data }) {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-
         },
       },
     ],
@@ -64,23 +61,15 @@ export default function CustomArrows({ data }) {
         <Slider {...settings}>
           {data?.map((item) => (
             <Card
-              onClick={() => push(`/politician/${String(item.id)}`)}
+              onClick={() => push(`/politician/${String(item?.short_link)}`)}
               key={item.name}
               className={styles.custom}
             >
               <CardActionArea>
                 <Box>
                   <Box className={styles.imgContainer}>
-                    <img
-                      src={frames.greenFrame}
-                      alt="frame"
-                      className={styles.frame}
-                    />
-                    <img
-                      src={item.photo}
-                      alt="politics"
-                      className={styles.img}
-                    />
+                    <img src={frames.greenFrame} alt="frame" className={styles.frame} />
+                    <img src={item.photo} alt="politics" className={styles.img} />
                   </Box>
                 </Box>
                 <Box className={styles.caption}>
@@ -96,7 +85,7 @@ export default function CustomArrows({ data }) {
         </Slider>
       ) : null}
       {isMobile && (
-      // eslint-disable-next-line react/button-has-type
+        // eslint-disable-next-line react/button-has-type
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <Button className={classes.buttonStyle}>Весь рейтинг</Button>
         </Box>

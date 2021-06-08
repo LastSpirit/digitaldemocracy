@@ -18,7 +18,6 @@ const HomeSlider: FC<SliderPropsI> = ({ data }) => {
           {!isMobile
             ? (
               <Box className={styles.carouselTitle}>
-                {' '}
                 <Typography>Открытый рейтинг политиков*</Typography>
                 {/* eslint-disable-next-line react/button-has-type */}
                 <Button

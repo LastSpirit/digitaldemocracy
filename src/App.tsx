@@ -72,8 +72,8 @@ const App: FC = () => {
               <Route path="/widgetLink/:id" component={WidgetLinkPage} />
               {isAuthenticated && <Route exact path="/profile" component={ProfilePage} />}
               {isAuthenticated && <Route exact path="/profile/*" component={ProfilePage} />}
-              <Route exact path="/politician/:politicianId" component={PoliticianPage} />
-              <Route exact path="/politician/:politicianId/*" component={PoliticianPage} />
+              <Route exact path="/politician/:short_link" component={PoliticianPage} />
+              <Route exact path="/politician/:short_link/*" component={PoliticianPage} />
               <Route exact path="/mass-media/:link" component={MassMediaPage} />
               <Route exact path="/mass-media/:link/*" component={MassMediaPage} />
               <Route exact path="/author/:link" component={AuthorPage} />

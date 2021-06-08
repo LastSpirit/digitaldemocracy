@@ -14,16 +14,20 @@ import {
 interface NewsRequest {
   start_date: string;
   end_date: string;
-  politician_id: number;
 }
 
-const fetchNews: APIRequest<NewsRequest, Array<NewsWithPercentI>, string> = (args) => {
+const fetchNews: APIRequest<NewsRequest, Array<NewsWithPercentI>, string, FetchProfileInfoVar> = (args) => {
+  const { token, politician_id } = args.variables;
+  console.log('into', politician_id);
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { politician_id, start_date, end_date } = args.payload;
+  const { start_date, end_date } = args.payload;
   return callAPI({
-    url: `getPoliticianNews?politician_id=${politician_id}&start_date=${start_date}&end_date=${end_date}`,
+    url: `getPoliticianNews/?politician_id=${politician_id}&start_date=${start_date}&end_date=${end_date}`,
     config: {
       method: 'get',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     },
     ...args,
   });
@@ -32,24 +36,37 @@ const fetchNews: APIRequest<NewsRequest, Array<NewsWithPercentI>, string> = (arg
 interface DefaultRequest {
   politician_id: number;
 }
-
 interface RequestWithToken extends DefaultRequest {
   token: string;
 }
+interface FetchProfileInfoRequest extends DefaultRequest {}
 
 interface FetchProfileInfoResponse extends PoliticianInfoI {}
+interface FetchProfileInfoErr {}
+interface FetchProfileInfoVar {
+  short_link?: string;
+  token?: string;
+  politician_id?: number;
+}
 
-const fetchProfileInfo: APIRequest<RequestWithToken, FetchProfileInfoResponse> = (args) =>
-  callAPI({
-    url: `getPolitician?politician_id=${args.payload.politician_id}`,
+const fetchProfileInfo: APIRequest<
+  FetchProfileInfoRequest,
+  FetchProfileInfoResponse,
+  FetchProfileInfoErr,
+  FetchProfileInfoVar
+> = (args) => {
+  const { token, short_link } = args.variables;
+  return callAPI({
+    url: `getPolitician/${short_link}`,
     config: {
       method: 'get',
       headers: {
-        Authorization: `Bearer ${args.payload.token}`,
+        Authorization: `Bearer ${token}`,
       },
     },
     ...args,
   });
+};
 
 const fetchPositionHistory: APIRequest<DefaultRequest, Array<PositionHistoryI>> = (args) =>
   callAPI({

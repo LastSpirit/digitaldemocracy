@@ -1,5 +1,8 @@
 import { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/store';
+
 import { APIStatus } from '../../../../../lib/axiosAPI';
 import { politicianActionCreators } from '../../../../../slices/politicianSlice';
 import { politicianAPI } from '../../../../../api/politicianAPI';
@@ -8,7 +11,7 @@ export const useFetchStatistic = () => {
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
   const { setStatistic } = politicianActionCreators();
   const { fetchStatistic } = politicianAPI();
-  const { politicianId }: { politicianId: string } = useParams();
+  const politicianId = useSelector((s: RootState) => s?.politician?.data?.id);
 
   const fetch = useCallback(() => {
     setStatus(APIStatus.Loading);
