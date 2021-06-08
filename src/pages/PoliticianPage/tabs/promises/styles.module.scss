@@ -58,9 +58,9 @@
       border-bottom: none !important;
     }
 
-    span {
-      margin-right: 10px;
-    }
+    // span {
+    //   margin-right: 10px;
+    // }
 
     a {
       color: #2f80ed !important;
@@ -123,4 +123,34 @@
       overflow-wrap: normal;
     }
   }
+}
+
+.link {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  p {
+    margin-right: 10px;
+  }
+}
+
+.linkButton {
+  max-height: 36px;
+  border: 1px solid #363557;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: white;
+    color: #363557;
+  }
+}
+
+.arrowButton {
+  padding: 0;
+  background-color: #363557;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
 }

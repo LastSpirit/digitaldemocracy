@@ -1,5 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { IconButton } from '@material-ui/core';
+import CallMadeIcon from '@material-ui/icons/CallMade';
 import styles from './PositionDescription.module.scss';
 import { politicianSelectors } from '../../../../slices/politicianSlice';
 
@@ -13,6 +15,12 @@ export default function Description() {
         указами президента основные направления деятельности правительства. Распределяет обязанности между членами
         правительства; систематически информирует президента Российской Федерации о работе правительства.
       </p>
+      <div className={styles.link}>
+        <p>Ссылка на иcточник: </p>
+        <IconButton className={styles.arrowButton} onClick={() => window.open('https://google.com')}>
+          <CallMadeIcon className={styles.arrowLink} />
+        </IconButton>
+      </div>
     </div>
   ) : (
     <div className={styles.empty}>
