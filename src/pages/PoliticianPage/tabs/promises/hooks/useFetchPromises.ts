@@ -11,6 +11,7 @@ export const useFetchPromises = () => {
   const { politicianId }: { politicianId: string } = useParams();
 
   const fetch = useCallback(() => {
+    setStatus(APIStatus.Loading);
     fetchPromises({
       onError: () => setStatus(APIStatus.Failure),
       onSuccess: (response) => {
@@ -18,8 +19,8 @@ export const useFetchPromises = () => {
         setStatus(APIStatus.Success);
       },
       payload: {
-        politician_id: Number(politicianId)
-      }
+        politician_id: Number(politicianId),
+      },
     });
   }, []);
 

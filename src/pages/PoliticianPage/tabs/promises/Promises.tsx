@@ -32,9 +32,6 @@ export const Promises = () => {
                   <IconButton className={styles.arrowButton} onClick={() => window.open('https://google.com')}>
                     <CallMadeIcon className={styles.arrowLink} />
                   </IconButton>
-                </div>
-                <div className={styles.link}>
-                  <p>Ссылка на видео: </p>
                   <IconButton className={styles.arrowButton} onClick={() => window.open('https://google.com')}>
                     <YouTubeIcon className={styles.arrowLink} />
                   </IconButton>
