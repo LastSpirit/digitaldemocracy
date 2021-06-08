@@ -33,6 +33,9 @@ export const useFetchAuthor = () => {
       payload: {
         link,
       },
+      variables: {
+        token,
+      },
     });
   }, [link]);
   const fetchNews = useCallback(() => {
@@ -46,6 +49,9 @@ export const useFetchAuthor = () => {
       },
       payload: {
         params: { orderBy: sort_direction, sortBy: sort_field, page, authorId: id },
+      },
+      variables: {
+        token,
       },
     });
   }, [sort_direction, sort_field, page, id]);

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { Box, Container, Typography, Grid, Button } from '@material-ui/core';
-import { NewsI } from '../../../slices/SingleNewsSlice';
-import CardSmall from '../../CardSmall/CardSmall';
+import { NewsI } from 'src/slices/SingleNewsSlice';
+import CardSmall from 'src/components/CardSmall/CardSmall';
 import styles from './SingleNewsList.module.scss';
 
 interface NewsListI {

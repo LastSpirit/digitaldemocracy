@@ -19,16 +19,36 @@ interface NewsResponse {
   data?: MassMediaDataI;
 }
 
-const fetchMassMediaData: APIRequest<NewsRequest, NewsResponse> = (args) => {
+interface NewsErr {}
+
+interface NewsVar {
+  token?: string;
+}
+
+interface SubRequest {
+  media_id?: number;
+}
+
+interface SubResponse {
+  data?: MassMediaDataI;
+}
+interface SubErr {}
+
+interface SubVar {
+  isSubscribed?: boolean;
+  token?: string;
+}
+const fetchMassMediaData: APIRequest<NewsRequest, NewsResponse, NewsErr, NewsVar> = (args) => {
   const { link } = args.payload;
+  const { token } = args.variables;
   return callAPI({
     url: `media/${link}`,
-    config: { method: 'GET', headers: { Accept: 'application/json' } },
+    config: { method: 'GET', headers: { Accept: 'application/json', Authorization: `Bearer ${token}` } },
     ...args,
   });
 };
 
-const fetchMassMediaNews: APIRequest<NewsRequest, NewsResponse> = (args) => {
+const fetchMassMediaNews: APIRequest<NewsRequest, NewsResponse, NewsErr, NewsVar> = (args) => {
   const { params } = args.payload;
   return callAPI({
     url: 'mediaNews',
@@ -37,9 +57,25 @@ const fetchMassMediaNews: APIRequest<NewsRequest, NewsResponse> = (args) => {
   });
 };
 
+const massmediaSubscribe: APIRequest<SubRequest, SubResponse, SubErr, SubVar> = (args) => {
+  const { isSubscribed, token } = args.variables;
+  return callAPI({
+    url: isSubscribed ? 'unsubscribeFromMedia' : 'subscribeToMedia',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.variables.token}`,
+      },
+    },
+    ...args,
+  });
+};
+
 export const massmediaAPIs = {
   fetchMassMediaData,
   fetchMassMediaNews,
+  massmediaSubscribe,
 };
 
 export const massmediaAPIActions = () => {

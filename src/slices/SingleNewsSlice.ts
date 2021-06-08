@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, bindActionCreators } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 // eslint-disable-next-line import/no-cycle
 import { APIStatus } from '../lib/axiosAPI';
 
@@ -100,6 +101,9 @@ export const singleNewsSlice = createSlice({
     failFetch(state: SliceState) {
       state.status = APIStatus.Failure;
     },
+    resetSingleNews(state: SliceState) {
+      state = initialState;
+    },
   },
 });
 
@@ -110,4 +114,14 @@ interface Store {
 export const singleNewsSelector = {
   getData: () => (state: Store) => state.singleNews.data,
   getStatus: () => (state: Store) => state.singleNews.status,
+};
+
+export const singleNewsActionCreators = () => {
+  const dispatch = useDispatch();
+  return bindActionCreators(
+    {
+      ...singleNewsSlice.actions,
+    },
+    dispatch
+  );
 };

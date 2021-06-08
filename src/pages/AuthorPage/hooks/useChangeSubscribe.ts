@@ -1,36 +1,41 @@
 import { useSelector } from 'react-redux';
 import { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { politicianActionCreators, politicianSelectors } from '../../../slices/politicianSlice';
-import { APIStatus } from '../../../lib/axiosAPI';
-import { politicianAPI } from '../../../api/politicianAPI';
-import { getItem } from '../../../lib/localStorageManager';
+import { RootState } from 'src/store';
+import { authorActionCreators, authorSelectors } from 'src/slices/authorSlice';
+import { APIStatus } from 'src/lib/axiosAPI';
+import { authorAPIActions } from 'src/api/authorAPI';
+import { getItem } from 'src/lib/localStorageManager';
 
 export const useChangeSubscribe = () => {
-  const isSubscribe = useSelector(politicianSelectors.getIsSubscribe());
-  const { setIsSubscribe } = politicianActionCreators();
-  const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
-  const { subscribe, unsubscribe } = politicianAPI();
-  const { politicianId }: { politicianId: string } = useParams();
+  const isSubscribed = useSelector((s: RootState) => s?.author?.data?.is_subscribed);
+  const { data } = useSelector((s: RootState) => s?.author);
+  const { startAuthorSubscribe, successAuthorSubscribe, failAuthorSubscribe, successAuthorUnsubscribe } =
+    authorActionCreators();
+  const { authorSubscribe } = authorAPIActions();
   const token = getItem('token');
-  const api = isSubscribe ? unsubscribe : subscribe;
-
-  const change = useCallback(() => {
-    setStatus(APIStatus.Loading);
-    api({
-      onError: () => {
-        setStatus(APIStatus.Failure);
-      },
+  const setAuthorSubscribe = useCallback(() => {
+    startAuthorSubscribe();
+    authorSubscribe({
       onSuccess: () => {
-        setIsSubscribe(!isSubscribe);
-        setStatus(APIStatus.Success);
+        if (isSubscribed) {
+          successAuthorUnsubscribe();
+        } else {
+          successAuthorSubscribe();
+        }
+      },
+      onError: () => {
+        failAuthorSubscribe();
       },
       payload: {
-        politician_id: Number(politicianId),
-        token
-      }
+        author_id: data?.id,
+      },
+      variables: {
+        isSubscribed,
+        token,
+      },
     });
-  }, [isSubscribe]);
+  }, [isSubscribed]);
 
-  return { change, status };
+  return { setAuthorSubscribe };
 };

@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, IconButton, Card, Typography } from '@material-ui/core';
-import { likes, frames } from '../../../icons/pictures/picturesExports/picturesExport';
+import { VotesGroup } from 'src/components/VotesGroup/VotesGroup';
+import { likes, frames } from 'src/icons/pictures/picturesExports/picturesExport';
 import styles from './StatisticsCard.module.scss';
-import { VotesGroup } from '../../VotesGroup/VotesGroup';
 
 interface StatisticsCardPropsI {
   name?: string;

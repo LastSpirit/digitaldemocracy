@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import { useHistory } from 'react-router-dom';
+import { RootState } from 'src/store';
 
 import styles from '../../AuthorPage.module.scss';
 import { authorSelectors } from '../../../../slices/authorSlice';
@@ -24,19 +25,21 @@ import { ModalParams } from '../../../../types/routing';
 
 const AuthorInfoBlock: FC = () => {
   const data = useSelector(authorSelectors.getAuthorInfo());
+  const { subscribeStatus } = useSelector((s: RootState) => s.author);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { isMobile } = useWindowSize();
-  const { status, change } = useChangeSubscribe();
+  const { setAuthorSubscribe } = useChangeSubscribe();
   const { goBack, length, push } = useHistory() as any;
-    const {
-      [ModalParams.Auth]: { setValue: setAuthValue },
-    } = useSearchParams(ModalParams.Auth);
+  const {
+    [ModalParams.Auth]: { setValue: setAuthValue },
+  } = useSearchParams(ModalParams.Auth);
 
-    const handleClick = () => {
-      if (!isAuthenticated) {
-        setAuthValue('/login');
-      }
-    };
+  const handleClick = () => {
+    if (!isAuthenticated) {
+      setAuthValue('/login');
+    }
+  };
+  console.log(subscribeStatus, subscribeStatus === APIStatus.Loading);
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
       <div className={styles.topItems}>
@@ -56,8 +59,8 @@ const AuthorInfoBlock: FC = () => {
                   <Button
                     variant="outlined"
                     color={data?.is_subscribed ? 'secondary' : 'primary'}
-                    onClick={isAuthenticated ? change : handleClick}
-                    disabled={status === APIStatus.Loading}
+                    onClick={isAuthenticated ? setAuthorSubscribe : handleClick}
+                    disabled={subscribeStatus === APIStatus.Loading}
                     className={classNames([
                       'MuiButton-containedPrimary',
                       styles.subscriberButton,
@@ -67,7 +70,13 @@ const AuthorInfoBlock: FC = () => {
                     <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
                       <span>
                         {/* eslint-disable-next-line no-nested-ternary */}
-                        {status === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? 'Отписаться' : 'Следить'}
+                        {subscribeStatus === APIStatus.Loading ? (
+                          <Loading />
+                        ) : data?.is_subscribed ? (
+                          'Отписаться'
+                        ) : (
+                          'Следить'
+                        )}
                       </span>
                     </Tooltip>
                   </Button>
@@ -97,14 +106,14 @@ const AuthorInfoBlock: FC = () => {
           <Button
             variant="outlined"
             color={data?.is_subscribed ? 'secondary' : 'primary'}
-            onClick={isAuthenticated ? change : handleClick}
-            disabled={status === APIStatus.Loading}
+            onClick={isAuthenticated ? setAuthorSubscribe : handleClick}
+            disabled={subscribeStatus === APIStatus.Loading}
             className={classNames([styles['subscriberButton-mobile'], { '-disabled': !isAuthenticated }])}
           >
             <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
               <span>
                 {/* eslint-disable-next-line no-nested-ternary */}
-                {status === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? 'Отписаться' : 'Следить'}
+                {subscribeStatus === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? 'Отписаться' : 'Следить'}
               </span>
             </Tooltip>
           </Button>

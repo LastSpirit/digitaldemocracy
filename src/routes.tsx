@@ -11,7 +11,7 @@ const Loadable = (Component) => (props) => (
 const NotFound = Loadable(lazy(() => import('./pages/NotFound')));
 
 const Home = Loadable(lazy(() => import('./pages/Home')));
-const SingleNews = Loadable(lazy(() => import('./pages/SingleNews')));
+const SingleNews = Loadable(lazy(() => import('./pages/SingleNewsPage/SingleNewsPage')));
 
 const routes = [
   {

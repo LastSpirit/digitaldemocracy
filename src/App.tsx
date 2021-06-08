@@ -15,7 +15,7 @@ import { ModalParams } from './types/routing';
 import { useSearchParams } from './hooks/useSearchParams';
 import MainLayout from './components/MainLayout';
 import Home from './pages/Home';
-import SingleNews from './pages/SingleNews';
+import SingleNewsPage from './pages/SingleNewsPage/SingleNewsPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import { userSelectors } from './slices/userSlice';
 import News from './pages/News';
@@ -66,7 +66,7 @@ const App: FC = () => {
           <MainLayout>
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route path="/singleNews/:link" component={SingleNews} />
+              <Route path="/singleNews/:link" component={SingleNewsPage} />
               <Route path="/donation" component={DonationPage} />
               <Route path="/news" component={News} />
               <Route path="/widgetLink/:id" component={WidgetLinkPage} />

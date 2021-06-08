@@ -79,18 +79,19 @@ interface StatisticI {
 interface SliceState {
   status?: APIStatus;
   newsStatus?: APIStatus;
+  subscribeStatus?: APIStatus;
   data?: MassMediaDataI;
   news?: NewsI;
   sort_direction?: string;
   sort_field?: string;
   page?: number;
   statistic?: Array<StatisticI>;
-
 }
 
 const initialState: SliceState = {
   status: 'Initial' as APIStatus,
   newsStatus: 'Initial' as APIStatus,
+  subscribeStatus: 'Initial' as APIStatus,
   data: {},
   news: {},
   sort_direction: '',
@@ -156,6 +157,20 @@ export const massMediaSlice = createSlice({
     resetNews(state) {
       state.news = initialState.news;
       state.newsStatus = APIStatus.Initial;
+    },
+    startMassmediaSubscribe(state) {
+      state.subscribeStatus = APIStatus.Loading;
+    },
+    successMassmediaSubscribe(state) {
+      state.subscribeStatus = APIStatus.Success;
+      state.data.is_subscribed = true;
+    },
+    failMassmediaSubscribe(state) {
+      state.subscribeStatus = APIStatus.Failure;
+    },
+    successMassmediaUnsubscribe(state) {
+      state.subscribeStatus = APIStatus.Success;
+      state.data.is_subscribed = false;
     },
   },
 });

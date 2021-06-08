@@ -1,29 +1,28 @@
-import type { FC } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
 import { Container, Button } from '@material-ui/core';
-import SingleNewsHero from '../components/SingleNews/SingleNewsHero/SingleNewsHero';
-import SingleNewsList from '../components/SingleNews/SingleNewsList/SingleNewsList';
-import SingleNewsStatistics from '../components/SingleNews/SingleNewsStatistics/SingleNewsStatistics';
-import { useFetchSingleNews } from '../components/SingleNews/hooks/useFetchSingleNews';
-import { singleNewsSelector } from '../slices/SingleNewsSlice';
-import { APIStatus } from '../lib/axiosAPI';
-import { Loading } from '../components/Loading/Loading';
-import styles from './MassMediaPage/MassMediaPage.module.scss';
+import { singleNewsSelector, singleNewsActionCreators } from 'src/slices/SingleNewsSlice';
+import { APIStatus } from 'src/lib/axiosAPI';
+import { Loading } from 'src/components/Loading/Loading';
+import SingleNewsHero from './features/SingleNewsHero/SingleNewsHero';
+import SingleNewsList from './features/SingleNewsList/SingleNewsList';
+import SingleNewsStatistics from './features/SingleNewsStatistics/SingleNewsStatistics';
+import { useFetchSingleNews } from './hooks/useFetchSingleNews';
 
-interface MatchParamsI {
-  link: string;
-}
+import styles from '../MassMediaPage/MassMediaPage.module.scss';
 
-interface Props extends RouteComponentProps<MatchParamsI> {}
-
-const SingleNews: FC<Props> = (props) => {
+const SingleNews = (props) => {
   const { goBack, length, push } = useHistory() as any;
-  const { match } = props;
-  useFetchSingleNews(match.params.link);
+  const { fetch } = useFetchSingleNews();
+  const { resetSingleNews } = singleNewsActionCreators();
   const data = useSelector(singleNewsSelector.getData());
   const status = useSelector(singleNewsSelector.getStatus());
+  useEffect((): any => {
+    fetch();
+    return () => resetSingleNews();
+  }, []);
   return (
     <>
       <div>

@@ -75,9 +75,15 @@ interface StatisticI {
   percent?: string;
 }
 
+interface SubscriptionI {
+  status?: APIStatus;
+  isSubscribed?: boolean;
+}
+
 interface SliceState {
   status?: APIStatus;
   newsStatus?: APIStatus;
+  subscribeStatus?: APIStatus;
   data?: AuthorDataI;
   news?: NewsI;
   sort_direction?: string;
@@ -110,6 +116,7 @@ const initialState: SliceState = {
     { id: 13, name: 'Путин Владимир Владимирович', percent: '146%' },
     { id: 14, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
   ],
+  subscribeStatus: 'Initial' as APIStatus,
 };
 
 export const authorSlice = createSlice({
@@ -153,6 +160,20 @@ export const authorSlice = createSlice({
     resetNews(state) {
       state.news = initialState.news;
       state.newsStatus = APIStatus.Initial;
+    },
+    startAuthorSubscribe(state) {
+      state.subscribeStatus = APIStatus.Loading;
+    },
+    successAuthorSubscribe(state) {
+      state.subscribeStatus = APIStatus.Success;
+      state.data.is_subscribed = true;
+    },
+    failAuthorSubscribe(state) {
+      state.subscribeStatus = APIStatus.Failure;
+    },
+    successAuthorUnsubscribe(state) {
+      state.subscribeStatus = APIStatus.Success;
+      state.data.is_subscribed = false;
     },
   },
 });

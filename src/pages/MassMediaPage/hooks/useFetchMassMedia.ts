@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/store';
+import { getItem } from 'src/lib/localStorageManager';
 import { APIStatus } from '../../../lib/axiosAPI';
 import { massmediaAPIActions } from '../../../api/massmediaAPI';
 import { massmediaActionCreators } from '../../../slices/massMediaSlice';
@@ -19,6 +20,7 @@ export const useFetchMassMedia = () => {
   const { id } = useSelector((s: RootState) => s.massmedia.data);
   const { sort_direction, sort_field, page } = useSelector((s: RootState) => s.massmedia);
   const { link }: { link: string } = useParams();
+  const token = getItem('token');
   const fetchData = useCallback(() => {
     startFetchMassMediaData();
     fetchMassMediaData({
@@ -30,6 +32,9 @@ export const useFetchMassMedia = () => {
       },
       payload: {
         link,
+      },
+      variables: {
+        token,
       },
     });
   }, [link]);
@@ -44,6 +49,9 @@ export const useFetchMassMedia = () => {
       },
       payload: {
         params: { orderBy: sort_direction, sortBy: sort_field, page, mediaId: id },
+      },
+      variables: {
+        token,
       },
     });
   }, [sort_direction, sort_field, page, id]);

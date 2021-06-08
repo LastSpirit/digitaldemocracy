@@ -1,36 +1,41 @@
 import { useSelector } from 'react-redux';
 import { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { politicianActionCreators, politicianSelectors } from '../../../slices/politicianSlice';
-import { APIStatus } from '../../../lib/axiosAPI';
-import { politicianAPI } from '../../../api/politicianAPI';
-import { getItem } from '../../../lib/localStorageManager';
+import { RootState } from 'src/store';
+import { massmediaActionCreators } from 'src/slices/massMediaSlice';
+import { APIStatus } from 'src/lib/axiosAPI';
+import { massmediaAPIActions } from 'src/api/massmediaAPI';
+import { getItem } from 'src/lib/localStorageManager';
 
 export const useChangeSubscribe = () => {
-  const isSubscribe = useSelector(politicianSelectors.getIsSubscribe());
-  const { setIsSubscribe } = politicianActionCreators();
-  const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
-  const { subscribe, unsubscribe } = politicianAPI();
-  const { politicianId }: { politicianId: string } = useParams();
+  const isSubscribed = useSelector((s: RootState) => s?.massmedia?.data?.is_subscribed);
+  const { data } = useSelector((s: RootState) => s?.massmedia);
+  const { startMassmediaSubscribe, successMassmediaSubscribe, failMassmediaSubscribe, successMassmediaUnsubscribe } =
+    massmediaActionCreators();
+  const { massmediaSubscribe } = massmediaAPIActions();
   const token = getItem('token');
-  const api = isSubscribe ? unsubscribe : subscribe;
-
-  const change = useCallback(() => {
-    setStatus(APIStatus.Loading);
-    api({
-      onError: () => {
-        setStatus(APIStatus.Failure);
-      },
+  const setMassMediaSubscribe = useCallback(() => {
+    startMassmediaSubscribe();
+    massmediaSubscribe({
       onSuccess: () => {
-        setIsSubscribe(!isSubscribe);
-        setStatus(APIStatus.Success);
+        if (isSubscribed) {
+          successMassmediaUnsubscribe();
+        } else {
+          successMassmediaSubscribe();
+        }
+      },
+      onError: () => {
+        failMassmediaSubscribe();
       },
       payload: {
-        politician_id: Number(politicianId),
-        token
-      }
+        media_id: data?.id,
+      },
+      variables: {
+        isSubscribed,
+        token,
+      },
     });
-  }, [isSubscribe]);
+  }, [isSubscribed]);
 
-  return { change, status };
+  return { setMassMediaSubscribe };
 };

@@ -1,3 +1,5 @@
+import { bindActionCreators } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 import { APIRequest, callAPI } from '../lib/axiosAPI';
 import { SingleNewsI } from '../slices/SingleNewsSlice';
 
@@ -28,4 +30,14 @@ const fetchSingleNews: APIRequest<SingleNewsRequest, SingleNewsResponse, SingleN
 
 export const singleNewsAPI = {
   fetchSingleNews,
+};
+
+export const singleNewsAPIActions = () => {
+  const dispatch = useDispatch();
+  return bindActionCreators(
+    {
+      ...singleNewsAPI,
+    },
+    dispatch
+  );
 };

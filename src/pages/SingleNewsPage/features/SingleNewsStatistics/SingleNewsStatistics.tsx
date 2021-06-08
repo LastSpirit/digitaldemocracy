@@ -1,7 +1,8 @@
 import type { FC } from 'react';
 import { Box, Container, Typography, Grid } from '@material-ui/core';
+import { AuthorI, MediaI, PoliticiansI } from 'src/slices/SingleNewsSlice';
 import StatisticsCard from './StatisticsCard';
-import { AuthorI, MediaI, PoliticiansI } from '../../../slices/SingleNewsSlice';
+
 import styles from './SingleNewsStatistics.module.scss';
 
 interface StatisticsPropsI {
