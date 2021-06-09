@@ -47,7 +47,7 @@
 .hashtagContain {
   font-weight: 300;
   font-size: 14px;
-  font-font: 'Helvetica';
+  font-family: 'Helvetica';
   color: #b0b0b0;
   padding: 0;
 }
@@ -89,19 +89,17 @@
 .arrowLink {
   height: 20px;
   width: 20px;
-  color: #fff;
+  color: inherit;
   border-radius: 50%;
-  border: 2px solid #fff;
+  border: 2px solid;
+  border-color: inherit;
   padding: 3px;
-  &:hover {
-    color: #363557;
-    border: 2px solid #363557;
-  }
 }
 
 .arrowButton {
   border: 1px solid #363557;
   background-color: #363557;
+  color: #fff;
   width: 40px;
   height: 40px;
   cursor: pointer;
