@@ -16,12 +16,12 @@ const PoliticianCards = () => {
       <div className={styles.card}>
         <div className={styles.infoCard}>
           <div className={styles.party} onClick={() => history.push('/party/1')} aria-hidden="true">
-            {data?.party_logo && (
+            {data?.party?.logo && (
               <div className={styles['-img']}>
-                <img src={data?.party_logo} alt="" />
+                <img src={data?.party?.logo} alt="" />
               </div>
             )}
-            <div className={styles.title}>{data?.party}</div>
+            <div className={styles.title}>{data?.party?.name}</div>
           </div>
           <hr color="#B0B0B0" />
           <div className={styles.positionAndAge}>

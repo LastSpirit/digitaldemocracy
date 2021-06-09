@@ -11,13 +11,21 @@ export interface PoliticianInfoI {
   percent?: string;
   vote_groups?: Array<GraphicDataI>;
   number_of_subscribers?: number;
-  party?: string;
+  party?: PartyI;
   party_logo?: string;
   position?: string;
   age?: number;
   city?: string;
   trust?: string;
   source_link?: string;
+}
+
+export interface PartyI {
+  id?: number;
+  name?: string;
+  logo?: string;
+  politicians_count?: number | null;
+  short_link: string;
 }
 
 export interface GraphicDataI {
