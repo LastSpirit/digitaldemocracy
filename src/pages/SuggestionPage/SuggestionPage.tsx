@@ -41,8 +41,6 @@ const SuggestionPage = () => {
     }
   }, [status]);
 
-  console.log(status);
-
   return (
     <Container maxWidth="lg" className={styles.container}>
       {/* <WrapperAsyncRequest status={status}> */}

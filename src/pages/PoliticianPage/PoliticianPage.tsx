@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Container } from '@material-ui/core';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useWindowSize } from 'src/hooks/useWindowSize';
@@ -16,21 +16,21 @@ const PoliticianPage = () => {
   const { isMobile } = useWindowSize();
   const { status, fetch } = useFetchProfileInfo();
   const [open, setOpen] = useState(false);
-  const [info, setInfo] = useState('');
-  const [url, setUrl] = useState('');
   const [next, setNext] = useState(false);
-  const handleClickOpen = () => {
+
+  const handleClickOpen = useCallback(() => {
     setNext(false);
     setOpen(true);
-  };
-  const handleClose = () => {
+  }, [open, next]);
+
+  const handleClose = useCallback(() => {
     setOpen(false);
-    setInfo('');
-    setUrl('');
-  };
+  }, [open]);
+
   useEffect(() => {
     fetch();
   }, []);
+
   return (
     <Container maxWidth="lg" className={styles.cont}>
       <div className={styles.container}>
@@ -41,16 +41,7 @@ const PoliticianPage = () => {
             <PoliticianInfoBlock handleClickOpen={handleClickOpen} />
             <PoliticianNavigation />
           </div>
-          <CustomDialog
-            open={open}
-            next={next}
-            info={info}
-            url={url}
-            setNext={setNext}
-            setInfo={setInfo}
-            setUrl={setUrl}
-            handleClose={handleClose}
-          />
+          <CustomDialog open={open} next={next} setNext={setNext} handleClose={handleClose} />
         </WrapperAsyncRequest>
       </div>
     </Container>

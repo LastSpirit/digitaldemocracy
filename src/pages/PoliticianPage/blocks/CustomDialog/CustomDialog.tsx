@@ -1,21 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import type { FC } from 'react';
 import { Button, Dialog, IconButton, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import { useFetchChanges } from '../../hooks/useFetchChanges';
+import { Loading } from '../../../../components/Loading/Loading';
 import styles from './CustomDialog.module.scss';
 
 interface IProps {
   open?: boolean;
   next?: boolean;
-  info?: string;
-  url?: string;
   setNext?: any;
-  setInfo?: any;
-  setUrl?: any;
   handleClose?: any;
 }
 
-export const CustomDialog: FC<IProps> = ({ open, next, info, url, setNext, setInfo, setUrl, handleClose }) => {
+export const CustomDialog: FC<IProps> = ({ open, next, setNext, handleClose }) => {
+  const [info, setInfo] = useState('');
+  const [url, setUrl] = useState('');
+  const [error, setError] = useState(false);
+  const { fetch, status } = useFetchChanges();
+
+  useEffect(() => {
+    if (status === 'Success') {
+      setNext(true);
+    } else if (status === 'Failure') {
+      setError(true);
+    } else if (status === 'Initial') {
+      setError(false);
+    }
+  }, [status]);
+
+  const clearForms = () => {
+    setUrl('');
+    setInfo('');
+  };
+
   return (
     <Dialog
       open={open}
@@ -27,7 +45,13 @@ export const CustomDialog: FC<IProps> = ({ open, next, info, url, setNext, setIn
       }}
     >
       <div className={styles.crossWrapper}>
-        <IconButton onClick={handleClose} className={styles.cross}>
+        <IconButton
+          onClick={() => {
+            handleClose();
+            clearForms();
+          }}
+          className={styles.cross}
+        >
           <CloseIcon />
         </IconButton>
       </div>
@@ -36,36 +60,40 @@ export const CustomDialog: FC<IProps> = ({ open, next, info, url, setNext, setIn
           action=""
           onSubmit={(e) => {
             e.preventDefault();
-            setNext(true);
+            fetch(info, url);
           }}
           method="POST"
         >
-          <h2>Спасибо за ваше участие, мы обязательно ознакомимся с вашим предложением!</h2>
-          <div className={styles.fieldWrapper}>
-            <TextField
-              id="info"
-              label="Предлагаемая информация"
-              className={styles.textField}
-              fullWidth
-              placeholder="Предлагаемая информация"
-              rows={4}
-              required
-              multiline
-              value={info}
-              onChange={(e) => setInfo(e.target.value)}
-            />
-            <TextField
-              id="url"
-              label="Ссылка для подтверждения"
-              className={styles.textField}
-              fullWidth
-              placeholder="Ссылка для подтверждения"
-              required
-              rows={2}
-              multiline
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-            />
+          <div>
+            <h2>Спасибо за ваше участие, мы обязательно ознакомимся с вашим предложением!</h2>
+            <div className={styles.fieldWrapper}>
+              <TextField
+                id="info"
+                label="Предлагаемая информация"
+                className={styles.textField}
+                fullWidth
+                placeholder="Предлагаемая информация"
+                rows={4}
+                required
+                multiline
+                value={info}
+                onChange={(e) => setInfo(e.target.value)}
+              />
+              <TextField
+                id="url"
+                label="Ссылка для подтверждения"
+                className={styles.textField}
+                fullWidth
+                placeholder="Ссылка для подтверждения"
+                required
+                rows={2}
+                multiline
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                helperText={error ? 'Ссылка неверна' : false}
+                error={error}
+              />
+            </div>
           </div>
           <Button
             variant="outlined"
@@ -76,7 +104,7 @@ export const CustomDialog: FC<IProps> = ({ open, next, info, url, setNext, setIn
               e.preventDefault();
             }}
           >
-            Отправить
+            {status === 'Loading' ? <Loading /> : 'Отправить'}
           </Button>
         </form>
       ) : (

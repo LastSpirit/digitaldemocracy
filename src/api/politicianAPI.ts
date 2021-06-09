@@ -89,6 +89,28 @@ const fetchPositionsDescription: APIRequest<DefaultRequest, Array<PositionsDescr
     ...args,
   });
 
+  interface PoliticianChangesRequest {
+    token?: string;
+    source_url?: string;
+    description?: string;
+  }
+
+  interface PoliticianChangesI {
+    data?: string;
+  }
+
+const fetchPoliticianChanges: APIRequest<PoliticianChangesRequest, Array<PoliticianChangesI>> = (args) => {
+  return callAPI({
+    url: 'offerChangesByUser',
+    config: {
+      headers: {
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+    },
+    ...args,
+  });
+};
+
 const fetchStatistic: APIRequest<DefaultRequest, Array<StatisticI>> = (args) =>
   callAPI({
     url: `getPoliticianStatisticsProfit?politician_id=${args.payload.politician_id}`,
@@ -135,6 +157,7 @@ const APIs = {
   fetchRatingStatistics,
   fetchPositionsDescription,
   fetchStatistic,
+  fetchPoliticianChanges,
 };
 
 export const politicianAPI = () => {
