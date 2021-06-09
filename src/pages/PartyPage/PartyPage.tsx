@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container } from '@material-ui/core';
 import styles from './PartyPage.module.scss';
 
@@ -8,9 +8,13 @@ import { BackButton } from '../../components/BackButton/BackButton';
 import { WrapperAsyncRequest } from '../../components/Loading/WrapperAsyncRequest';
 
 import { APIStatus } from '../../lib/axiosAPI';
+import { useFetchPartyInfo } from './hooks/useFetchPartyInfo';
 
 const PartyPage = () => {
-  const status: APIStatus = APIStatus.Initial;
+  const { fetch, status } = useFetchPartyInfo();
+  useEffect(() => {
+    fetch();
+  }, []);
   return (
     <Container maxWidth="lg" className={styles.container}>
       <div className={styles.container}>

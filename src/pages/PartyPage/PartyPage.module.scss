@@ -341,7 +341,6 @@
 .profileInfoContainer {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   flex-direction: column;
   border-bottom: 1px solid #b0b0b0;
   .buttonRow {
@@ -449,19 +448,42 @@
           justify-content: space-between;
 
           .description {
-            height: 90%;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            hr {
+              width: 100%;
+              @media screen and (max-width: $preMobileScreen) {
+                margin: 1px;
+              }
+            }
             overflow: hidden;
             @media screen and (max-width: $preMobileScreen) {
               height: 100%;
             }
             .text {
-              color: #585858;
-              font-size: 18px;
+              color: #b0b0b0;
               font-weight: 300;
-              text-overflow: ellipsis;
+              font-size: 35px;
+              line-height: 35px;
               max-height: 100%;
               @media screen and (max-width: $preMobileScreen) {
-                font-size: 14px;
+                font-size: 20px;
+              }
+            }
+            .sub {
+              font-style: normal;
+              font-weight: normal;
+              font-size: 18px;
+              line-height: 18px;
+              color: #585858;
+              @media screen and (max-width: $preMobileScreen) {
+                font-size: 12px;
+                line-height: 12px;
+                height: 20px;
               }
             }
           }
@@ -479,6 +501,7 @@
               .badge {
                 max-width: 55%;
                 height: 100%;
+                width: 209px;
                 background: #ededed;
                 border-radius: 150px;
                 padding: 20px 15px;
@@ -668,15 +691,22 @@
           width: 100%;
           border-radius: 20px;
           border: 1px solid #b0b0b0;
-          padding: 10px 20px;
+          // padding: 10px 10px;
           height: 100%;
           overflow: hidden;
           box-sizing: border-box;
           display: flex;
           justify-content: space-between;
           .description {
-            height: 90%;
+            height: 100%;
             overflow: hidden;
+            width: 100%;
+
+            .sub {
+              font-size: 10px;
+              line-height: 10px;
+              margin: 0px;
+            }
             .text {
               color: #585858;
               font-size: 8px;

@@ -6,15 +6,11 @@ import styles from './PartyCard.module.scss';
 import { useSearchParams } from '../../hooks/useSearchParams';
 import { ModalParams } from '../../types/routing';
 import { userSelectors } from '../../slices/userSlice';
+import { PoliticianInfoI } from '../../slices/politicianSlice';
 
-interface IProps {
-  url?: any;
-  percent?: number;
-  name: string;
-  subscribe?: boolean;
-}
+interface IProps extends PoliticianInfoI {}
 
-const PartyCard: FC<IProps> = ({ url, percent, name, subscribe }) => {
+const PartyCard: FC<IProps> = ({ photo, percent, name, is_subscribed }) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { push } = useHistory();
   const {
@@ -26,31 +22,28 @@ const PartyCard: FC<IProps> = ({ url, percent, name, subscribe }) => {
       setAuthValue('/login');
     }
   };
-  // const handle = () => {
-  //   const newPath = matchPath(`/politician/${short_link}`, { path: '/politician/:link' });
-  //   history.push(newPath.url);
-  // };
+
   return (
     <div className={styles.root}>
       <div className={styles.avatarBlock}>
         <div className={styles.avatar}>
-          {url ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={url} alt="" />}
+          {!photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={photo} alt="" />}
         </div>
       </div>
       <div className={styles.second}>
         <div className={styles.badge}>
-          <div className={styles.text}>Место</div>
+          <div className={styles.text}>Место 2</div>
         </div>
-        <div className={styles.percent}>{percent}%</div>
+        <div className={styles.percent}>{percent}</div>
       </div>
       <hr />
       <div className={styles.name}>{name}</div>
       <div
-        className={isAuthenticated ? (!subscribe ? styles.subscribe : styles.subscribed) : styles.subscribe}
+        className={isAuthenticated ? (!is_subscribed ? styles.subscribe : styles.subscribed) : styles.subscribe}
         aria-hidden
         onClick={handleClick}
       >
-        <p>{isAuthenticated ? (subscribe ? 'Подписка' : 'Подписаться') : 'Подписаться'}</p>
+        <p>{isAuthenticated ? (is_subscribed ? 'Подписка' : 'Подписаться') : 'Подписаться'}</p>
       </div>
     </div>
   );

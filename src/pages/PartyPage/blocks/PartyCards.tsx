@@ -7,14 +7,13 @@ import InDevelop from '../../../components/InDevelop/InDevelop';
 
 const PartyCards = ({ data }) => {
   const { isMobile } = useWindowSize();
-  const maxLength = isMobile ? 160 : 180;
-  const hiddenText =
-    data?.description?.length >= maxLength ? `${data?.description.slice(0, maxLength)} ...` : data?.description;
   return (
     <div className={styles.cardsBlock}>
       <div className={styles.card}>
         <div className={styles.description}>
-          <div className={styles.text}>{hiddenText}</div>
+          <div className={styles.text}>Партия</div>
+          <hr />
+          <p className={styles.sub}>{data.politicians_count ?? 0} членов партии</p>
         </div>
       </div>
       {!isMobile && (
@@ -22,9 +21,9 @@ const PartyCards = ({ data }) => {
           <div className={styles.secondCard}>
             <div className={styles.trustRow}>
               <div className={styles.badge}>
-                <div className={styles.text}>{data?.trust}</div>
+                <div className={styles.text}>2 место</div>
               </div>
-              <div className={styles.percent}>{`${data?.percent} %`}</div>
+              <div className={styles.percent}>12 %</div>
             </div>
             <PercentsLinearGraphic />
           </div>

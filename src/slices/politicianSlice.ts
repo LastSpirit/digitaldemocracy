@@ -25,7 +25,10 @@ export interface PartyI {
   name?: string;
   logo?: string;
   politicians_count?: number | null;
-  short_link: string;
+  short_link?: string;
+  link?: string;
+  percent?: number;
+  position?: number;
 }
 
 export interface GraphicDataI {

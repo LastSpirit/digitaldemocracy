@@ -15,7 +15,11 @@ const PoliticianCards = () => {
     <div className={styles.cardsBlock}>
       <div className={styles.card}>
         <div className={styles.infoCard}>
-          <div className={styles.party} onClick={() => history.push('/party/1')} aria-hidden="true">
+          <div
+            className={styles.party}
+            onClick={() => history.push(`/party/${data?.party?.short_link}`)}
+            aria-hidden="true"
+          >
             {data?.party?.logo && (
               <div className={styles['-img']}>
                 <img src={data?.party?.logo} alt="" />
