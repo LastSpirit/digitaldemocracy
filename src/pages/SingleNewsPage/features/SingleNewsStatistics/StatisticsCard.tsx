@@ -1,8 +1,10 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, IconButton, Card, Typography } from '@material-ui/core';
-import { VotesGroup } from 'src/components/VotesGroup/VotesGroup';
 import { likes, frames } from 'src/icons/pictures/picturesExports/picturesExport';
+import { avatarColorChanger } from 'src/utils/avatarColorChanger';
+import { MassmediaVotesGroup } from '../VotesGroup/MassmediaVotesGroup';
+import { AuthorVotesGroup } from '../VotesGroup/AuthorVotesGroup';
 import styles from './StatisticsCard.module.scss';
 
 interface StatisticsCardPropsI {
@@ -13,20 +15,21 @@ interface StatisticsCardPropsI {
   field?: string;
 }
 
-const StatisticsCard: FC<StatisticsCardPropsI> = ({ name, photo, percent, short_link, field }) => (
-  <Card className={styles.card}>
-    <Link to={`${field}/${short_link}`} className={styles.image}>
-      <img src={frames.greenFrame} alt="frame" className={styles.frame} />
-      <img src={photo} alt="avatar" className={styles.photo} />
-    </Link>
-    <Link to={`${field}/${short_link}`} className={styles.name}>
-      <Typography className={styles.title}>{name}</Typography>
-    </Link>
-    <VotesGroup />
-    <Box>
-      <Typography className={styles.percent}>{percent}</Typography>
-    </Box>
-  </Card>
-);
-
+const StatisticsCard: FC<StatisticsCardPropsI> = ({ name, photo, percent, short_link, field }) => {
+  return (
+    <Card className={styles.card}>
+      <Link to={`${field}/${short_link}`} className={styles.image}>
+        <img src={avatarColorChanger(percent)} alt="frame" className={styles.frame} />
+        <img src={photo} alt="avatar" className={styles.photo} />
+      </Link>
+      <Link to={`${field}/${short_link}`} className={styles.name}>
+        <Typography className={styles.title}>{name}</Typography>
+      </Link>
+      {field === '/mass-media' ? <MassmediaVotesGroup /> : field === '/author' ? <AuthorVotesGroup /> : <></>}
+      <Box>
+        <Typography className={styles.percent}>{percent}</Typography>
+      </Box>
+    </Card>
+  );
+};
 export default StatisticsCard;

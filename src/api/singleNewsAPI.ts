@@ -16,6 +16,20 @@ interface SingleNewsErrorResponse {
   link?: Array<string>;
 }
 
+interface LikeRequest {
+  news_id?: number;
+  media_id?: number;
+}
+
+interface LikeResponse {}
+interface LikeErr {}
+
+interface LikeVar {
+  isMassmediaDisliked?: boolean;
+  isMassmediaLiked?: boolean;
+  token?: string;
+}
+
 const fetchSingleNews: APIRequest<SingleNewsRequest, SingleNewsResponse, SingleNewsErrorResponse> = (args) =>
   callAPI({
     url: `getNews/${args.payload.link}`,
@@ -28,8 +42,40 @@ const fetchSingleNews: APIRequest<SingleNewsRequest, SingleNewsResponse, SingleN
     ...args,
   });
 
+const massmediaLike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
+  const { isMassmediaLiked, token } = args.variables;
+  return callAPI({
+    url: isMassmediaLiked ? 'deleteLikeFromMedia ' : 'addLikeToMedia ',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.variables.token}`,
+      },
+    },
+    ...args,
+  });
+};
+
+const massmediaDislike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
+  const { isMassmediaDisliked, token } = args.variables;
+  return callAPI({
+    url: isMassmediaDisliked ? 'deleteDislikeFromMedia   ' : 'addDislikeToMedia  ',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.variables.token}`,
+      },
+    },
+    ...args,
+  });
+};
+
 export const singleNewsAPI = {
   fetchSingleNews,
+  massmediaLike,
+  massmediaDislike,
 };
 
 export const singleNewsAPIActions = () => {
