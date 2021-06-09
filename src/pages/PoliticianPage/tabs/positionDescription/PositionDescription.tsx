@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { IconButton } from '@material-ui/core';
 import CallMadeIcon from '@material-ui/icons/CallMade';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import styles from './PositionDescription.module.scss';
 import { politicianSelectors } from '../../../../slices/politicianSlice';
 import { useFetchPositionDescription } from './hooks/useFetchPositionDescription';

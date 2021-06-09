@@ -578,6 +578,11 @@
             align-items: center;
             justify-content: center;
             height: 100%;
+            &:hover {
+              color: white;
+              background-color: #363557;
+              border-radius: 50%;
+            }
           }
         }
       }

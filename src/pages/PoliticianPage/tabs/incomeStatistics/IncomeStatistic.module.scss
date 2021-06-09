@@ -126,10 +126,52 @@ iframe {
   }
 }
 
+.arrowLink {
+  height: 20px;
+  width: 20px;
+  color: #fff;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  padding: 3px;
+  &:hover {
+    color: #363557;
+    border: 2px solid #363557;
+  }
+}
+
 .arrowButton {
-  padding: 0;
+  border: 1px solid #363557;
   background-color: #363557;
   width: 40px;
   height: 40px;
   cursor: pointer;
+  &:hover {
+    background-color: white;
+    color: #363557;
+  }
+}
+
+.arrowLink {
+  height: 20px;
+  width: 20px;
+  color: #fff;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  padding: 3px;
+  &:hover {
+    color: #363557;
+    border: 2px solid #363557;
+  }
+}
+
+.arrowButton {
+  border: 1px solid #363557;
+  background-color: #363557;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  &:hover {
+    background-color: white;
+    color: #363557;
+  }
 }

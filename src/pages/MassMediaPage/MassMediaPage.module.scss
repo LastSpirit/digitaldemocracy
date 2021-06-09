@@ -563,14 +563,19 @@
             align-items: center;
             padding: 0px 15px;
           }
-          .facebook {
-            color: #363557;
-            background-color: transparent;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
+            .facebook {
+              color: #363557;
+              background-color: transparent;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 100%;
+              &:hover {
+                color: white;
+                background-color: #363557;
+                border-radius: 50%;
+              }
           }
         }
       }

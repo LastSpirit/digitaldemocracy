@@ -91,7 +91,7 @@ const AuthorInfoBlock: FC = () => {
                     <FacebookIcon
                       fontSize={isMobile ? 'small' : 'large'}
                       className={styles.facebook}
-                      viewBox="3 3 18 18"
+                      // viewBox="3 3 18 18"
                     />
                   </FacebookShare>
                 )}

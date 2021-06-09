@@ -33,7 +33,7 @@ export const Promises = () => {
                     <CallMadeIcon className={styles.arrowLink} />
                   </IconButton>
                   <IconButton className={styles.arrowButton} onClick={() => window.open('https://google.com')}>
-                    <YouTubeIcon className={styles.arrowLink} />
+                    <YouTubeIcon className={styles.youtube} />
                   </IconButton>
                 </div>
               </div>
