@@ -11,7 +11,6 @@ const FacebookShare = (props) => {
         padding: 0,
         border: 'none',
         outline: 'none',
-        marginLeft: 20,
         backgroundColor: 'transparent'
       }}
     >

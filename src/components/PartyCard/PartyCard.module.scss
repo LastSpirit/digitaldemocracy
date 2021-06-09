@@ -15,8 +15,8 @@
   flex-wrap: nowrap;
 
   @media screen and (max-width: 1024px) {
-    justify-content: center;
-    margin-right: 0px;
+    justify-content: space-between;
+    margin-right: 0px;;
   }
 
   .second {
@@ -63,13 +63,14 @@
     background-color: #248232;
     height: 213px;
     width: 213px;
+    margin-bottom: 10px;
     .avatar {
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-width: 213px;
-      min-height: 213px;
+      width: 213px;
+      height: 213px;
       border-radius: 100%;
       background-color: #fff;
       &.noAvatar {
@@ -96,7 +97,7 @@
   .name {
     font-style: normal;
     font-weight: normal;
-    font-size: 30px;
+    font-size: 20px;
     line-height: 35px;
     display: flex;
     align-items: center;

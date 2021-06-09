@@ -7,7 +7,6 @@ import classNames from 'classnames';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import { useHistory } from 'react-router-dom';
-
 import styles from '../PartyPage.module.scss';
 import { partySelectors } from '../../../slices/partySlice';
 import PartyCards from './PartyCards';
@@ -48,7 +47,7 @@ const PartyInfoBlock: FC = () => {
       <div className={styles.topItems}>
         <div className={styles.avatarBlock}>
           <div className={styles.avatar}>
-            {!data?.photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={data?.photo} alt="" />}
+            {!data?.logo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={data?.logo} alt="" />}
           </div>
         </div>
         <div className={styles.personBlock}>
@@ -56,30 +55,7 @@ const PartyInfoBlock: FC = () => {
             <div className={styles.fio}>
               <p>{data?.name}</p>
               <div className={styles.subscribers}>
-                {!isMobile && (
-                  <Button
-                    variant="outlined"
-                    color={data?.is_subscribed ? 'secondary' : 'primary'}
-                    onClick={isAuthenticated ? change : handleClick}
-                    disabled={status === APIStatus.Loading}
-                    className={classNames([
-                      'MuiButton-containedPrimary',
-                      styles.subscriberButton,
-                      { '-disabled': !isAuthenticated },
-                    ])}
-                  >
-                    <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
-                      <span>
-                        {/* eslint-disable-next-line no-nested-ternary */}
-                        {status === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? 'Отписаться' : 'Следить'}
-                      </span>
-                    </Tooltip>
-                  </Button>
-                )}
-                <div className={styles.subscribersBadge}>
-                  {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, 'подписчик')}`}
-                </div>
-                <FacebookShare url={data?.source_link || 'facebook.com'}>
+                <FacebookShare url={data?.link || 'facebook.com'}>
                   <FacebookIcon
                     fontSize={isMobile ? 'small' : 'large'}
                     className={styles.facebook}
@@ -94,27 +70,13 @@ const PartyInfoBlock: FC = () => {
       </div>
       {isMobile && (
         <>
-          <Button
-            variant="outlined"
-            color={data?.is_subscribed ? 'secondary' : 'primary'}
-            onClick={isAuthenticated ? change : handleClick}
-            disabled={status === APIStatus.Loading}
-            className={classNames([styles['subscriberButton-mobile'], { '-disabled': !isAuthenticated }])}
-          >
-            <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
-              <span>
-                {/* eslint-disable-next-line no-nested-ternary */}
-                {status === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? 'Отписаться' : 'Следить'}
-              </span>
-            </Tooltip>
-          </Button>
           <div className={styles.card}>
             <div className={styles.secondCard}>
               <div className={styles.trustRow}>
                 <div className={styles.badge}>
-                  <div className={styles.text}>{data?.trust}</div>
+                  <div className={styles.text}>2 место</div>
                 </div>
-                <div className={styles.percent}>{`${data?.percent} %`}</div>
+                <div className={styles.percent}>12 %</div>
               </div>
               <PercentsLinearGraphic />
             </div>

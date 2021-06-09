@@ -1,24 +1,39 @@
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { APIRequest, callAPI } from '../lib/axiosAPI';
+import { PoliticianInfoI } from '../slices/politicianSlice';
 
 interface PartyRequest {
-  type: string;
-  token: string;
-  source_link?: string;
-  description?: string;
+  short_link?: string;
 }
-
 interface PartyResponse {
   data?: string;
 }
 
-const fetchParty: APIRequest<PartyRequest, PartyResponse> = (args) => {
+interface PartyPoliticiansRequest {
+  party_id?: string;
+}
+
+const fetchPartyPoliticians: APIRequest<PartyPoliticiansRequest> = (args) => {
   return callAPI({
-    url: '',
+    url: `partyPoliticians/?party_id=${args.payload.party_id}`,
     config: {
+      method: 'GET',
       headers: {
-        method: 'GET',
+        Accept: 'application/json',
+      },
+    },
+    ...args,
+  });
+};
+
+const fetchPartyInfo: APIRequest<PartyRequest, PartyResponse> = (args) => {
+  return callAPI({
+    url: `party/${args.payload.short_link}`,
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
       },
     },
     ...args,
@@ -26,7 +41,8 @@ const fetchParty: APIRequest<PartyRequest, PartyResponse> = (args) => {
 };
 
 const APIs = {
-  fetchParty,
+  fetchPartyInfo,
+  fetchPartyPoliticians,
 };
 
 export const partyAPI = () => {
