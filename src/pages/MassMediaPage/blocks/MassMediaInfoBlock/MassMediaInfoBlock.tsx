@@ -8,6 +8,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import { useHistory } from 'react-router-dom';
 import { RootState } from 'src/store';
+import { avatarColorChanger } from 'src/utils/avatarColorChanger';
 
 import styles from '../../MassMediaPage.module.scss';
 import { massmediaSelectors } from '../../../../slices/massMediaSlice';
@@ -39,10 +40,14 @@ const MassMediaInfoBlock: FC = () => {
       setAuthValue('/login');
     }
   };
+  console.log('img', avatarColorChanger(data?.percent));
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
       <div className={styles.topItems}>
-        <div className={styles.avatarBlock}>
+        <div
+          className={styles.avatarBlock}
+          style={{ backgroundImage: `url(${avatarColorChanger(data?.percent)})`, backgroundSize: 'cover' }}
+        >
           <div className={styles.avatar}>
             {!data?.photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={data?.photo} alt="" />}
           </div>
