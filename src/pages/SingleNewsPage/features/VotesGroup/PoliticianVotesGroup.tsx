@@ -11,18 +11,14 @@ import { useSearchParams } from 'src/hooks/useSearchParams';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { ModalParams } from 'src/types/routing';
 import { userSelectors } from 'src/slices/userSlice';
-import { RootState } from 'src/store';
-import { APIStatus } from 'src/lib/axiosAPI';
 import styles from './VotesGroup.module.scss';
-import { useSetLike } from '../../hooks/useSetLike';
 
-export const MassmediaVotesGroup = () => {
+export const PoliticianVotesGroup = () => {
   const { isMobile } = useWindowSize();
-  const isMassmediaLiked = useSelector((s: RootState) => s?.singleNews?.data?.currentNews?.media?.is_user_liked);
-  const isMassmediaDisliked = useSelector((s: RootState) => s?.singleNews?.data?.currentNews?.media?.is_user_disliked);
-  const { likeStatus, dislikeStatus } = useSelector((s: RootState) => s?.singleNews);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
-  const { setMassMediaLike, setMassMediaDislike } = useSetLike();
+  const [like, setLike] = useState(false);
+  const [dislike, setDislike] = useState(false);
+  const { push } = useHistory();
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
@@ -38,17 +34,16 @@ export const MassmediaVotesGroup = () => {
       <IconButton
         className={styles.likeButton}
         sx={{ marginRight: '10px' }}
-        onClick={() => {
-          if (likeStatus !== APIStatus.Loading && dislikeStatus !== APIStatus.Loading) {
-            if (isAuthenticated) {
-              setMassMediaLike();
-            } else {
-              handleClickLogin();
-            }
-          }
-        }}
+        onClick={
+          isAuthenticated
+            ? () => {
+                setLike(!like);
+                setDislike(false);
+              }
+            : handleClickLogin
+        }
       >
-        {isMassmediaLiked ? (
+        {like ? (
           <Like className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
         ) : (
           <LikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
@@ -56,17 +51,16 @@ export const MassmediaVotesGroup = () => {
       </IconButton>
       <IconButton
         className={styles.likeButton}
-        onClick={() => {
-          if (dislikeStatus !== APIStatus.Loading && likeStatus !== APIStatus.Loading) {
-            if (isAuthenticated) {
-              setMassMediaDislike();
-            } else {
-              handleClickLogin();
-            }
-          }
-        }}
+        onClick={
+          isAuthenticated
+            ? () => {
+                setDislike(!dislike);
+                setLike(false);
+              }
+            : handleClickLogin
+        }
       >
-        {isMassmediaDisliked ? (
+        {dislike ? (
           <Dislike className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
         ) : (
           <DislikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />

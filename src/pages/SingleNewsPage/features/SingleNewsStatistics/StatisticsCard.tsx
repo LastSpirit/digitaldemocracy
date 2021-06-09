@@ -5,6 +5,7 @@ import { likes, frames } from 'src/icons/pictures/picturesExports/picturesExport
 import { avatarColorChanger } from 'src/utils/avatarColorChanger';
 import { MassmediaVotesGroup } from '../VotesGroup/MassmediaVotesGroup';
 import { AuthorVotesGroup } from '../VotesGroup/AuthorVotesGroup';
+import { PoliticianVotesGroup } from '../VotesGroup/PoliticianVotesGroup';
 import styles from './StatisticsCard.module.scss';
 
 interface StatisticsCardPropsI {
@@ -25,7 +26,15 @@ const StatisticsCard: FC<StatisticsCardPropsI> = ({ name, photo, percent, short_
       <Link to={`${field}/${short_link}`} className={styles.name}>
         <Typography className={styles.title}>{name}</Typography>
       </Link>
-      {field === '/mass-media' ? <MassmediaVotesGroup /> : field === '/author' ? <AuthorVotesGroup /> : <></>}
+      {field === '/mass-media' ? (
+        <MassmediaVotesGroup />
+      ) : field === '/author' ? (
+        <AuthorVotesGroup />
+      ) : field === '/politician' ? (
+        <PoliticianVotesGroup />
+      ) : (
+        <></>
+      )}
       <Box>
         <Typography className={styles.percent}>{percent}</Typography>
       </Box>

@@ -40,7 +40,6 @@ const MassMediaInfoBlock: FC = () => {
       setAuthValue('/login');
     }
   };
-  console.log('img', avatarColorChanger(data?.percent));
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
       <div className={styles.topItems}>

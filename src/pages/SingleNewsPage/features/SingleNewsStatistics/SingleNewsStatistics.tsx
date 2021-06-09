@@ -19,17 +19,29 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
           Ваше мнение по поводу новости
         </Typography>
         <Grid container className={styles.statisticsContainer}>
-          {politicians && politicians?.length > 0 && (
-            <Grid item lg={6} md={12} sm={12} className={styles.politicians}>
-              <Box className={styles.headings}>
-                <Typography className={styles.heading}>Оцените политиков</Typography>
-              </Box>
-              {politicians?.map((item) => (
-                <StatisticsCard key={item?.name} name={item?.name} photo={item?.photo} percent={item?.percent} />
-              ))}
-            </Grid>
-          )}
           <Grid item lg={6} md={12} sm={12}>
+            {politicians && politicians?.length > 0 && (
+              <>
+                {politicians.map((it) => {
+                  return (
+                    <Box sx={{ marginBottom: '20px' }}>
+                      <Box className={styles.headings}>
+                        <Typography className={styles.heading}>
+                          Доверяете ли вы {politicians?.length > 1 ? 'этим политикам' : 'этому политику'} ?
+                        </Typography>
+                      </Box>
+                      <StatisticsCard
+                        name={it?.name}
+                        photo={it?.photo}
+                        percent={it?.percent}
+                        short_link={it?.short_link}
+                        field="/politician"
+                      />
+                    </Box>
+                  );
+                })}
+              </>
+            )}
             {media && (
               <Box sx={{ marginBottom: '20px' }}>
                 <Box className={styles.headings}>
