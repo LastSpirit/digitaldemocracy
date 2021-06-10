@@ -98,19 +98,13 @@ const ChartBlock: React.FC<ChartBlockProps> = ({
           variant="contained"
           className={classNames('MuiButton-containedPrimary', { '-disabled': buttonDisabled })}
         >
-          <Tooltip
-            placement="top"
-            title={buttonTooltipTitle}
-          >
+          <Tooltip placement="top" title={buttonTooltipTitle}>
             <span>Применить</span>
           </Tooltip>
         </Button>
       </div>
       <div className={styles.chartWrapper}>
-        <WrapperAsyncRequest
-          status={status}
-          height={300}
-        >
+        <WrapperAsyncRequest status={status} height={300}>
           {chartData.length !== 0 ? (
             <Chart
               height="100%"
@@ -119,16 +113,17 @@ const ChartBlock: React.FC<ChartBlockProps> = ({
               chartLanguage="ru"
               chartType="Line"
               data={[
-                ['x', ''],
-                ...chartData,
+                ['City', '2010 Population'],
+                ['New York City, NY', 8175000],
+                ['Los Angeles, CA', 3792000],
+                ['Chicago, IL', 2695000],
+                ['Houston, TX', 2099000],
+                ['Philadelphia, PA', 1526000],
               ]}
             />
           ) : (
             <div className={styles.noNewsBlock}>
-              <TimelineIcon
-                style={{ color: '#747373' }}
-                fontSize="large"
-              />
+              <TimelineIcon style={{ color: '#747373' }} fontSize="large" />
               <span>За выбранный период новостей не было</span>
             </div>
           )}

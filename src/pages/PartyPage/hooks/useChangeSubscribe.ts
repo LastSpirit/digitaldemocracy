@@ -1,17 +1,19 @@
 import { useSelector } from 'react-redux';
 import { useCallback, useState } from 'react';
+import { RootState } from 'src/store';
 import { useParams } from 'react-router-dom';
-import { politicianActionCreators, politicianSelectors } from '../../../slices/politicianSlice';
+import { partyActionCreators } from '../../../slices/partySlice';
 import { APIStatus } from '../../../lib/axiosAPI';
 import { politicianAPI } from '../../../api/politicianAPI';
 import { getItem } from '../../../lib/localStorageManager';
 
-export const useChangeSubscribe = () => {
-  const isSubscribe = useSelector(politicianSelectors.getIsSubscribe());
-  const { setIsSubscribe } = politicianActionCreators();
+export const useChangeSubscribe = (id) => {
+  const { setIsSubscribe } = partyActionCreators();
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
   const { subscribe, unsubscribe } = politicianAPI();
-  const { politicianId }: { politicianId: string } = useParams();
+  const { politicians } = useSelector((s: RootState) => s.party.politiciansPartyInfo);
+  const isSubscribe = politicians.filter((item) => item.id === id)[0].is_subscribed;
+  console.log(isSubscribe);
   const token = getItem('token');
   const api = isSubscribe ? unsubscribe : subscribe;
 
@@ -22,13 +24,13 @@ export const useChangeSubscribe = () => {
         setStatus(APIStatus.Failure);
       },
       onSuccess: () => {
-        setIsSubscribe(!isSubscribe);
+        setIsSubscribe({ id, isSubscribe });
         setStatus(APIStatus.Success);
       },
       payload: {
-        politician_id: Number(politicianId),
-        token
-      }
+        politician_id: Number(id),
+        token,
+      },
     });
   }, [isSubscribe]);
 

@@ -1,17 +1,23 @@
 import React, { FC } from 'react';
 import PersonIcon from '@material-ui/icons/Person';
 import { useHistory, matchPath } from 'react-router';
+import classNames from 'classnames';
 import { useSelector } from 'react-redux';
+import { Button, Tooltip } from '@material-ui/core';
 import styles from './PartyCard.module.scss';
 import { useSearchParams } from '../../hooks/useSearchParams';
 import { ModalParams } from '../../types/routing';
 import { userSelectors } from '../../slices/userSlice';
 import { PoliticianInfoI } from '../../slices/politicianSlice';
+import { Loading } from '../Loading/Loading';
+import { useChangeSubscribe } from '../../pages/PartyPage/hooks/useChangeSubscribe';
+import { APIStatus } from '../../lib/axiosAPI';
 
 interface IProps extends PoliticianInfoI {}
 
-const PartyCard: FC<IProps> = ({ photo, percent, name, is_subscribed }) => {
+const PartyCard: FC<IProps> = ({ photo, percent, name, is_subscribed, id }) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
+  const { status, change } = useChangeSubscribe(id);
   const { push } = useHistory();
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
@@ -38,13 +44,24 @@ const PartyCard: FC<IProps> = ({ photo, percent, name, is_subscribed }) => {
       </div>
       <hr />
       <div className={styles.name}>{name}</div>
-      <div
-        className={isAuthenticated ? (!is_subscribed ? styles.subscribe : styles.subscribed) : styles.subscribe}
-        aria-hidden
-        onClick={handleClick}
+      <Button
+        variant="outlined"
+        color={is_subscribed ? 'secondary' : 'primary'}
+        onClick={isAuthenticated ? change : handleClick}
+        disabled={status === APIStatus.Loading}
+        className={classNames([
+          'MuiButton-containedPrimary',
+          styles.subscriberButton,
+          { '-disabled': !isAuthenticated },
+        ])}
       >
-        <p>{isAuthenticated ? (is_subscribed ? 'Подписка' : 'Подписаться') : 'Подписаться'}</p>
-      </div>
+        <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
+          <span>
+            {/* eslint-disable-next-line no-nested-ternary */}
+            {status === APIStatus.Loading ? <Loading /> : is_subscribed ? 'Отписаться' : 'Следить'}
+          </span>
+        </Tooltip>
+      </Button>
     </div>
   );
 };

@@ -11,7 +11,6 @@ export const useFetchNews = () => {
   const { fetchNews } = politicianAPI();
   const { setNews } = politicianActionCreators();
   const politician_id = useSelector((s: RootState) => s?.politician?.data?.id);
-  console.log(politician_id);
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
   const [error, setError] = useState<string>();
   const { short_link }: { short_link: string } = useParams();

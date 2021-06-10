@@ -11,7 +11,6 @@ import styles from '../PartyPage.module.scss';
 import { partySelectors } from '../../../slices/partySlice';
 import PartyCards from './PartyCards';
 import { useWindowSize } from '../../../hooks/useWindowSize';
-import { useChangeSubscribe } from '../hooks/useChangeSubscribe';
 import { APIStatus } from '../../../lib/axiosAPI';
 import { Loading } from '../../../components/Loading/Loading';
 import { userSelectors } from '../../../slices/userSlice';
@@ -25,7 +24,6 @@ const PartyInfoBlock: FC = () => {
   const data = useSelector(partySelectors.getPartyInfo());
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { isMobile } = useWindowSize();
-  const { status, change } = useChangeSubscribe();
   const { goBack, length, push } = useHistory() as any;
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
