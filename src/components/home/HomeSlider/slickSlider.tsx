@@ -60,7 +60,7 @@ export default function CustomArrows({ data }) {
   const [date, setDate] = useState(null);
   const [secondDate, setSecondDate] = useState(null);
   const [hold, setHold] = useState(false);
-  const one: any = new Date(3600 * 24 * 1000);
+  const initialDate: any = new Date(0);
   return (
     <div className={styles.carouselContainer}>
       {data ? (
@@ -69,10 +69,10 @@ export default function CustomArrows({ data }) {
             <Card
               // onClick={() => push(`/politician/${String(item?.short_link)}`)}
               onMouseDown={() => {
-                setDate((new Date() as any) - one);
+                setDate((new Date() as any) - initialDate);
               }}
               onMouseUp={() => {
-                setSecondDate((new Date() as any) - one);
+                setSecondDate((new Date() as any) - initialDate);
               }}
               onClick={() => {
                 if (secondDate - date < 200) {
