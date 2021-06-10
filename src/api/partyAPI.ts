@@ -10,8 +10,14 @@ interface PartyResponse {
   data?: string;
 }
 
+interface QueryParamsI {
+  orderBy: string;
+  sortBy: string;
+}
+
 interface PartyPoliticiansRequest {
   party_id?: string;
+  params?: QueryParamsI;
 }
 
 const fetchPartyPoliticians: APIRequest<PartyPoliticiansRequest> = (args) => {
@@ -22,6 +28,7 @@ const fetchPartyPoliticians: APIRequest<PartyPoliticiansRequest> = (args) => {
       headers: {
         Accept: 'application/json',
       },
+      params: args.payload.params,
     },
     ...args,
   });

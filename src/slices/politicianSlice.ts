@@ -17,7 +17,7 @@ export interface PoliticianInfoI {
   age?: number;
   city?: string;
   trust?: string;
-  source_link?: string;
+  link?: string;
 }
 
 export interface PartyI {

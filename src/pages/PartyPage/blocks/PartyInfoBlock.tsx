@@ -55,13 +55,15 @@ const PartyInfoBlock: FC = () => {
             <div className={styles.fio}>
               <p>{data?.name}</p>
               <div className={styles.subscribers}>
-                <FacebookShare url={data?.link || 'facebook.com'}>
-                  <FacebookIcon
-                    fontSize={isMobile ? 'small' : 'large'}
-                    className={styles.facebook}
-                    // viewBox="3 3 18 18"
-                  />
-                </FacebookShare>
+                {data?.link && (
+                  <FacebookShare url={data?.link || 'facebook.com'}>
+                    <FacebookIcon
+                      fontSize={isMobile ? 'small' : 'large'}
+                      className={styles.facebook}
+                      // viewBox="3 3 18 18"
+                    />
+                  </FacebookShare>
+                )}
               </div>
             </div>
           </div>

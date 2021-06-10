@@ -7,6 +7,7 @@ import styles from '../PartyPage.module.scss';
 import { partySelectors } from '../../../slices/partySlice';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import { useFetchPartyPoliticians } from '../hooks/useFetchPoliticians';
+import { RootState } from '../../../store/index';
 import { SortBadge } from './SortBadge';
 import { sortParty } from '../../../static/static';
 import logo from '../../../icons/logo/2.svg';
@@ -17,10 +18,12 @@ const PartyBlock = () => {
   const data = useSelector(partySelectors.getPartyPoliticians());
   const partyInfo = useSelector(partySelectors.getPartyInfo());
   const { fetch, status } = useFetchPartyPoliticians();
+  const sortDirection = useSelector((s: RootState) => s.party.sort_direction);
+  const sortField = useSelector((s: RootState) => s.party.sort_field);
 
   useEffect(() => {
     fetch(partyInfo.id);
-  }, []);
+  }, [sortDirection, sortField]);
 
   return (
     <WrapperAsyncRequest status={status}>

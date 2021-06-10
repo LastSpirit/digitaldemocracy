@@ -269,12 +269,12 @@ export const sortParty = [
     id: 1,
     full_title: 'По популярности',
     short_title: 'Популярность',
-    field: 'popular',
+    field: 'number_of_views',
   },
   {
     id: 2,
     full_title: 'По рейтингу',
     short_title: 'Рейтинг',
-    field: 'rating',
+    field: 'votes',
   },
 ];
