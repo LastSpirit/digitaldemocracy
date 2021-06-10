@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useCallback, useState } from 'react';
+import { RootState } from 'src/store';
 import { useParams } from 'react-router-dom';
 import { politicianActionCreators, politicianSelectors } from '../../../slices/politicianSlice';
 import { APIStatus } from '../../../lib/axiosAPI';
@@ -11,7 +12,7 @@ export const useChangeSubscribe = () => {
   const { setIsSubscribe } = politicianActionCreators();
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
   const { subscribe, unsubscribe } = politicianAPI();
-  const { politicianId }: { politicianId: string } = useParams();
+  const { data } = useSelector((s: RootState) => s.politician);
   const token = getItem('token');
   const api = isSubscribe ? unsubscribe : subscribe;
 
@@ -26,9 +27,9 @@ export const useChangeSubscribe = () => {
         setStatus(APIStatus.Success);
       },
       payload: {
-        politician_id: Number(politicianId),
-        token
-      }
+        politician_id: Number(data?.id),
+        token,
+      },
     });
   }, [isSubscribe]);
 

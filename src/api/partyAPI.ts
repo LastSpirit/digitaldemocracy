@@ -13,10 +13,12 @@ interface PartyResponse {
 interface QueryParamsI {
   orderBy: string;
   sortBy: string;
+  token?: string;
 }
 
 interface PartyPoliticiansRequest {
   party_id?: string;
+  token?: string;
   params?: QueryParamsI;
 }
 
@@ -27,6 +29,7 @@ const fetchPartyPoliticians: APIRequest<PartyPoliticiansRequest> = (args) => {
       method: 'GET',
       headers: {
         Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`,
       },
       params: args.payload.params,
     },

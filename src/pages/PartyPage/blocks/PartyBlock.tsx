@@ -12,6 +12,7 @@ import { SortBadge } from './SortBadge';
 import { sortParty } from '../../../static/static';
 import logo from '../../../icons/logo/2.svg';
 import { WrapperAsyncRequest } from '../../../components/Loading/WrapperAsyncRequest';
+import { userSelectors } from '../../../slices/userSlice';
 
 const PartyBlock = () => {
   const { isMobile } = useWindowSize();
@@ -20,10 +21,11 @@ const PartyBlock = () => {
   const { fetch, status } = useFetchPartyPoliticians();
   const sortDirection = useSelector((s: RootState) => s.party.sort_direction);
   const sortField = useSelector((s: RootState) => s.party.sort_field);
+  const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
 
   useEffect(() => {
     fetch(partyInfo.id);
-  }, [sortDirection, sortField]);
+  }, [sortDirection, sortField, isAuthenticated]);
 
   return (
     <WrapperAsyncRequest status={status}>

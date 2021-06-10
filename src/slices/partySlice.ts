@@ -1,9 +1,9 @@
 import { bindActionCreators, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import { PartyI, PoliticianInfoI } from './politicianSlice';
+import { PartyI } from './politicianSlice';
 
 interface PoliticiansPartyInfoI {
-  politicians?: Array<PoliticianInfoI>;
+  politicians?: Array<any>;
   isMorePages?: boolean;
 }
 interface SliceState {
@@ -39,6 +39,10 @@ export const partySlice = createSlice({
     },
     setSortField(state, action) {
       state.sort_field = action.payload;
+    },
+    setIsSubscribe(state: SliceState, action) {
+      const { id, isSubscribe } = action.payload;
+      state.politiciansPartyInfo.politicians.find((item) => item.id === id).is_subscribed = !isSubscribe;
     },
   },
 });
