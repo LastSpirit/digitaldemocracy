@@ -15,6 +15,7 @@ export interface MassMediaDataI {
   number_of_subscribers?: number;
   source_link?: string;
   trust?: string;
+  rating?: string;
 }
 
 export interface GraphicDataI {

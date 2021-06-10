@@ -45,7 +45,7 @@ const MassMediaInfoBlock: FC = () => {
       <div className={styles.topItems}>
         <div
           className={styles.avatarBlock}
-          style={{ backgroundImage: `url(${avatarColorChanger(data?.percent)})`, backgroundSize: 'cover' }}
+          style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
         >
           <div className={styles.avatar}>
             {!data?.photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={data?.photo} alt="" />}

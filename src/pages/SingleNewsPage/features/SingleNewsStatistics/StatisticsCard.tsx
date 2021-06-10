@@ -14,9 +14,10 @@ interface StatisticsCardPropsI {
   percent?: string;
   short_link?: string;
   field?: string;
+  rating?: string;
 }
 
-const StatisticsCard: FC<StatisticsCardPropsI> = ({ name, photo, percent, short_link, field }) => {
+const StatisticsCard: FC<StatisticsCardPropsI> = ({ name, photo, percent, short_link, field, rating }) => {
   return (
     <Card className={styles.card}>
       <Link to={`${field}/${short_link}`} className={styles.image}>

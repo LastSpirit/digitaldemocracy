@@ -5,24 +5,24 @@ import red from 'src/icons/pictures/carouselImageFrame/red.png';
 import second_red from 'src/icons/pictures/carouselImageFrame/second_red.png';
 
 export const avatarColorChanger = (percent) => {
-  const number = [...percent]
-    .filter((it) => !!parseInt(it, 10) || parseInt(it, 10) === 0)
-    .reduce((acc, rec, index, array) => {
-      return acc * 10 + parseInt(rec, 10);
-    }, 0);
-  if (number >= 0 && number <= 20) {
+  // const number = [...percent]
+  //   .filter((it) => !!parseInt(it, 10) || parseInt(it, 10) === 0)
+  //   .reduce((acc, rec, index, array) => {
+  //     return acc * 10 + parseInt(rec, 10);
+  //   }, 0);
+  if (percent >= 0 && percent <= 20) {
     return red;
   }
-  if (number > 20 && number <= 40) {
+  if (percent > 20 && percent <= 40) {
     return second_red;
   }
-  if (number > 40 && number <= 60) {
+  if (percent > 40 && percent <= 60) {
     return gray;
   }
-  if (number > 60 && number <= 80) {
+  if (percent > 60 && percent <= 80) {
     return second_green;
   }
-  if (number > 80 && number <= 100) {
+  if (percent > 80 && percent <= 100) {
     return green;
   }
   return gray;

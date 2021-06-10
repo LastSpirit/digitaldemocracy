@@ -8,6 +8,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import { useHistory } from 'react-router-dom';
 import { RootState } from 'src/store';
+import { avatarColorChanger } from 'src/utils/avatarColorChanger';
 
 import styles from '../../AuthorPage.module.scss';
 import { authorSelectors } from '../../../../slices/authorSlice';
@@ -43,7 +44,10 @@ const AuthorInfoBlock: FC = () => {
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
       <div className={styles.topItems}>
-        <div className={styles.avatarBlock}>
+        <div
+          className={styles.avatarBlock}
+          style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
+        >
           <div className={styles.avatar}>
             {!data?.photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={data?.photo} alt="" />}
           </div>

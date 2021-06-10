@@ -15,6 +15,7 @@ export interface AuthorDataI {
   number_of_subscribers?: number;
   source_link?: string;
   trust?: string;
+  rating?: string;
 }
 
 export interface GraphicDataI {

@@ -13,6 +13,7 @@ export interface MediaI {
   short_link?: string;
   is_user_liked?: boolean;
   is_user_disliked?: boolean;
+  rating?: string;
 }
 
 export interface AuthorI {
@@ -25,6 +26,7 @@ export interface AuthorI {
   short_link?: string;
   is_user_liked?: boolean;
   is_user_disliked?: boolean;
+  rating?: string;
 }
 
 export interface PoliticiansI {
@@ -32,6 +34,7 @@ export interface PoliticiansI {
   photo?: string;
   percent?: string;
   short_link?: string;
+  rating?: string;
 }
 
 interface NewTopicsI {

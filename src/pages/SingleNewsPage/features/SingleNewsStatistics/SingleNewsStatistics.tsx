@@ -52,6 +52,7 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
                   photo={media?.photo}
                   percent={media?.percent}
                   short_link={media?.short_link}
+                  rating={media?.rating}
                   field="/mass-media"
                 />
               </Box>
@@ -66,6 +67,7 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
                   photo={author?.photo}
                   percent={author?.percent}
                   short_link={author?.short_link}
+                  rating={author?.rating}
                   field="/author"
                 />
               </Box>
