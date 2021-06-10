@@ -21,7 +21,7 @@ const StatisticsCard: FC<StatisticsCardPropsI> = ({ name, photo, percent, short_
   return (
     <Card className={styles.card}>
       <Link to={`${field}/${short_link}`} className={styles.image}>
-        <img src={avatarColorChanger(percent)} alt="frame" className={styles.frame} />
+        <img src={avatarColorChanger(rating)} alt="frame" className={styles.frame} />
         <img src={photo} alt="avatar" className={styles.photo} />
       </Link>
       <Link to={`${field}/${short_link}`} className={styles.name}>
