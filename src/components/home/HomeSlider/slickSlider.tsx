@@ -1,4 +1,6 @@
+import React, { useState, useEffect } from 'react';
 import { Box, Card, Typography, CardActionArea, CardActions, Button } from '@material-ui/core';
+import { milliseconds } from 'date-fns';
 import { useHistory } from 'react-router';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -14,7 +16,7 @@ export default function CustomArrows({ data }) {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 5,
+    slidesToShow: 4,
     slidesToScroll: 4,
     initialSlide: 0,
     responsive: [
@@ -55,13 +57,30 @@ export default function CustomArrows({ data }) {
   };
   const { isMobile } = useWindowSize();
   const { push } = useHistory();
+  const [date, setDate] = useState(null);
+  const [secondDate, setSecondDate] = useState(null);
+  const [hold, setHold] = useState(false);
+  const one: any = new Date(3600 * 24 * 1000);
   return (
     <div className={styles.carouselContainer}>
       {data ? (
         <Slider {...settings}>
           {data?.map((item) => (
             <Card
-              onClick={() => push(`/politician/${String(item?.short_link)}`)}
+              // onClick={() => push(`/politician/${String(item?.short_link)}`)}
+              onMouseDown={() => {
+                setDate((new Date() as any) - one);
+              }}
+              onMouseUp={() => {
+                setSecondDate((new Date() as any) - one);
+              }}
+              onClick={() => {
+                if (secondDate - date < 200) {
+                  push(`/politician/${String(item?.short_link)}`);
+                }
+                setDate(null);
+                setSecondDate(null);
+              }}
               key={item.name}
               className={styles.custom}
             >
