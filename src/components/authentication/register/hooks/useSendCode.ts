@@ -7,13 +7,12 @@ import { authAPI, SendCodeErrorResponse } from '../../../../api/authAPI';
 import { useSendCodeFirebase } from '../../common/hooks/useSendCodeFirebase';
 
 interface UseSendCodeProps {
-  values:
-  {
-    phone?: string,
-    email?: string
-  },
-  registerType?: AuthType,
-  setRegisterStep: (value: number) => void
+  values: {
+    phone?: string;
+    email?: string;
+  };
+  registerType?: AuthType;
+  setRegisterStep: (value: number) => void;
 }
 
 export const useSendCode = (setRegisterStep: (value: number) => void) => {
@@ -29,7 +28,7 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
 
   const resetError = () => setError('');
 
-  const onSuccess = (values: { phone?: string, email?: string }) => {
+  const onSuccess = (values: { phone?: string; email?: string }) => {
     setEmailStatus(APIStatus.Success);
     setPhoneStatus(APIStatus.Success);
     setAuthUserData({ key: 'email', value: values.email });
@@ -43,7 +42,10 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
     setPhoneStatus(APIStatus.Failure);
   };
 
-  const send = useCallback(({ registerType, values } : UseSendCodeProps) => {
+  const send = useCallback(({ registerType, values }: UseSendCodeProps) => {
+    const validetedPhone = [...values.phone]
+      .filter((it) => parseInt(it, 10) || parseInt(it, 10) === 0 || it === '+')
+      .reduce((acc, rec) => acc + rec, '');
     const appVerifier = window.recaptchaVerifier;
     const registerThroughPhone = registerType === AuthType.Phone;
     if (registerThroughPhone) {
@@ -53,15 +55,15 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
           sendCode({
             onError,
             onSuccess: () => {
-              setAuthUserData({ key: 'phone', value: values.phone });
-              firebaseSendCode(values.phone, appVerifier);
+              setAuthUserData({ key: 'phone', value: validetedPhone });
+              firebaseSendCode(validetedPhone, appVerifier);
               setPhoneStatus(APIStatus.Success);
             },
             payload: {
               country_id: countryId ? Number(countryId) : undefined,
               address,
-              phone: values.phone.replaceAll(' ', '')
-            }
+              phone: validetedPhone.replaceAll(' ', ''),
+            },
           });
         },
         onError: (errorResponse) => {
@@ -69,8 +71,8 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
           setError(typeof errorResponse === 'string' ? errorResponse : errorResponse.phone[0]);
         },
         payload: {
-          phone: values.phone,
-        }
+          phone: validetedPhone,
+        },
       });
     } else {
       setEmailStatus(APIStatus.Loading);
@@ -82,8 +84,8 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
             payload: {
               country_id: countryId ? Number(countryId) : undefined,
               address,
-              email: values.email
-            }
+              email: values.email,
+            },
           });
         },
         onError: (errorResponse) => {
@@ -91,8 +93,8 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
           setEmailStatus(APIStatus.Failure);
         },
         payload: {
-          email: values.email
-        }
+          email: values.email,
+        },
       });
     }
   }, []);
