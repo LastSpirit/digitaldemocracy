@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Box, IconButton, Card, Typography } from '@material-ui/core';
 import { likes, frames } from 'src/icons/pictures/picturesExports/picturesExport';
 import { avatarColorChanger } from 'src/utils/avatarColorChanger';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import { MassmediaVotesGroup } from '../VotesGroup/MassmediaVotesGroup';
 import { AuthorVotesGroup } from '../VotesGroup/AuthorVotesGroup';
 import { PoliticianVotesGroup } from '../VotesGroup/PoliticianVotesGroup';
@@ -18,6 +20,7 @@ interface StatisticsCardPropsI {
 }
 
 const StatisticsCard: FC<StatisticsCardPropsI> = ({ name, photo, percent, short_link, field, rating }) => {
+  const percentIsPositive = percent?.includes('+') && !percent?.includes('-');
   return (
     <Card className={styles.card}>
       <Link to={`${field}/${short_link}`} className={styles.image}>
@@ -36,9 +39,21 @@ const StatisticsCard: FC<StatisticsCardPropsI> = ({ name, photo, percent, short_
       ) : (
         <></>
       )}
-      <Box>
-        <Typography className={styles.percent}>{percent}</Typography>
-      </Box>
+
+      {percent ? (
+        <Typography className={styles.percent}>
+          {percentIsPositive ? (
+            <ArrowUpwardIcon className={styles.upIcon} />
+          ) : (
+            <ArrowDownwardIcon className={styles.downIcon} />
+          )}
+          <div className={styles.text}>{percent}</div>
+        </Typography>
+      ) : (
+        <Typography className={styles.percent} style={{ justifyContent: 'center' }}>
+          <div className={styles.text}>-</div>
+        </Typography>
+      )}
     </Card>
   );
 };
