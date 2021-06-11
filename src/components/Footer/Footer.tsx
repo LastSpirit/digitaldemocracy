@@ -115,7 +115,6 @@ const Footer: FC = (props) => {
     routesWithNotification.reduce((acc, rec) => {
       return acc || pathname.includes(rec);
     }, 0) || pathname === '/';
-  console.log(withNotification);
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);

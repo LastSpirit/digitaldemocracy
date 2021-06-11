@@ -17,11 +17,11 @@ import { widgetLinkSlice } from '../slices/widgetLinkSlice';
 
 const rootReducer = combineReducers({
   auth: authSlice.reducer,
-  user: userSlice.reducer,
   home: homeSlice.reducer,
   news: newsSlice.reducer,
   singleNews: singleNewsSlice.reducer,
   politician: politicianSlice.reducer,
+  user: userSlice.reducer,
   massmedia: massMediaSlice.reducer,
   author: authorSlice.reducer,
   party: partySlice.reducer,

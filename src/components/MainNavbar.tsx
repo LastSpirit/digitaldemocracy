@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
 import { AppBar, Box, Button, Link, Toolbar, Typography, Container } from '@material-ui/core';
 import { useSelector } from 'react-redux';
@@ -12,7 +12,7 @@ import { ModalParams } from '../types/routing';
 import { useSearchParams } from '../hooks/useSearchParams';
 import './MainNavbar.css';
 import Logo from './Logo';
-import { userSelectors } from '../slices/userSlice';
+import { userActionCreators, userSelectors } from '../slices/userSlice';
 
 const links = [
   {
@@ -33,10 +33,11 @@ const links = [
 ];
 
 const MainNavbar: FC = () => {
-  const { push } = useHistory();
+  const { push, length } = useHistory() as any;
   const { pathname } = useLocation();
   const { isMobile } = useWindowSize();
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
+  const { setRout } = userActionCreators();
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
@@ -49,7 +50,9 @@ const MainNavbar: FC = () => {
       setAuthValue(to);
     }
   };
-
+  useEffect(() => {
+    setRout({ path: pathname, length });
+  }, [pathname]);
   return (
     <AppBar
       elevation={0}

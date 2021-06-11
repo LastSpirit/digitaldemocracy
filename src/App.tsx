@@ -1,11 +1,13 @@
 import React, { useEffect, useMemo } from 'react';
 import type { FC } from 'react';
-import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
+import { Route, Switch, Redirect, useLocation, useHistory } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
 import './i18n';
 import firebase from 'firebase';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
+import { setRoutes } from 'src/hooks/setRoutes';
+import { userActionCreators } from 'src/slices/userSlice';
 import { firebaseConfig, gtmConfig } from './config';
 import useSettings from './hooks/useSettings';
 import gtm from './lib/gtm';
@@ -34,13 +36,12 @@ const App: FC = () => {
     firebase.app();
   }
   const location = useLocation();
-
+  const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location.pathname]);
+  }, [pathname]);
 
   const { settings } = useSettings();
-
   useEffect(() => {
     gtm.initialize(gtmConfig);
   }, []);
