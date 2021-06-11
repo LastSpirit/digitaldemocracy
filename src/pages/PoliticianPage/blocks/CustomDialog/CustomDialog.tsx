@@ -17,6 +17,8 @@ export const CustomDialog: FC<IProps> = ({ open, next, setNext, handleClose }) =
   const [info, setInfo] = useState('');
   const [url, setUrl] = useState('');
   const [error, setError] = useState(false);
+  const [isRequiredUrl, setIsRequiredUrl] = useState(false);
+  const [isRequiredInfo, setIsRequiredInfo] = useState(false);
   const { fetch, status } = useFetchChanges();
 
   useEffect(() => {
@@ -32,6 +34,28 @@ export const CustomDialog: FC<IProps> = ({ open, next, setNext, handleClose }) =
   const clearForms = () => {
     setUrl('');
     setInfo('');
+    setIsRequiredUrl(false);
+    setIsRequiredInfo(false);
+  };
+
+  useEffect(() => {
+    if (info) {
+      setIsRequiredInfo(false);
+    }
+    if (url) {
+      setIsRequiredUrl(false);
+    }
+  }, [isRequiredInfo, isRequiredUrl, info, url]);
+
+  const handeClick = () => {
+    if (!info || !url) {
+      if (!info) {
+        setIsRequiredInfo(true);
+      }
+      if (!url) {
+        setIsRequiredUrl(true);
+      }
+    }
   };
 
   return (
@@ -78,6 +102,8 @@ export const CustomDialog: FC<IProps> = ({ open, next, setNext, handleClose }) =
                 multiline
                 value={info}
                 onChange={(e) => setInfo(e.target.value)}
+                helperText={isRequiredInfo ? 'Поле обязательно для заполнения' : false}
+                error={isRequiredInfo}
               />
               <TextField
                 id="url"
@@ -90,8 +116,8 @@ export const CustomDialog: FC<IProps> = ({ open, next, setNext, handleClose }) =
                 multiline
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                helperText={error ? 'Ссылка неверна' : false}
-                error={error}
+                helperText={isRequiredUrl ? 'Поле обязательно для заполнения' : error ? 'Ссылка неверна' : false}
+                error={error || isRequiredUrl}
               />
             </div>
           </div>
@@ -103,6 +129,7 @@ export const CustomDialog: FC<IProps> = ({ open, next, setNext, handleClose }) =
             onSubmit={(e) => {
               e.preventDefault();
             }}
+            onClick={handeClick}
           >
             {status === 'Loading' ? <Loading /> : 'Отправить'}
           </Button>

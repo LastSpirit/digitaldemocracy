@@ -89,10 +89,11 @@ const authUserSections = [
       },
       {
         title: 'Добавить новость',
-        href: '/',
-      }, {
+        href: '/suggestion',
+      },
+      {
         title: 'Добавить политика',
-        href: '/help_site',
+        href: '/suggestion',
       },
       {
         title: 'Пользовательское соглашение',

@@ -28,7 +28,7 @@ export const userActivityLeftNavigationItems = [
   },
   {
     id: 2,
-    title: 'Статистика голосований',
+    title: 'Ваше досье на политиков',
   },
   {
     id: 3,
