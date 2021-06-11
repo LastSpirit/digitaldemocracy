@@ -108,7 +108,7 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                     onClick={isAuthenticated ? handleClickOpen : handleClick}
                   >
                     <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
-                      <span>Предложить изменения</span>
+                      <span>Предложить изменения и дополнения к профилю</span>
                     </Tooltip>
                   </Button>
                 )}

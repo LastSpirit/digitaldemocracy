@@ -13,6 +13,7 @@ import { Subscriptions, BrowsingHistory, DonationHistory, VotingStatistics } fro
 
 import { NewsBlock, MassMediaInfluenceStatistic } from '../pages/MassMediaPage/tabs';
 import { AuthorNewsBlock, InfluenceStatistic } from '../pages/AuthorPage/tabs';
+import SuggestionPage from '../pages/SuggestionPage/SuggestionPage';
 
 export enum ModalParams {
   Auth = 'auth_modal',
@@ -81,7 +82,7 @@ export const ProfileTabs = [
   },
   {
     id: 'voting_statistics',
-    title: 'Статистика голосований',
+    title: 'Ваше досье на политиков',
     component: VotingStatistics,
   },
   {
@@ -93,6 +94,11 @@ export const ProfileTabs = [
     id: 'donation_history',
     title: 'История донатов',
     component: DonationHistory,
+  },
+  {
+    id: 'suggestion',
+    title: 'Предложить новость или политика',
+    component: SuggestionPage,
   },
 ];
 

@@ -23,6 +23,8 @@ const SuggestionPage = () => {
   const [descriptionNews, setDescriptionNews] = useState('');
   const [error, setError] = useState(false);
   const { fetch, status } = useFetchSuggestion();
+  const [isRequiredNews, setIsRequiredNews] = useState(false);
+  const [isRequiredInfo, setIsRequiredInfo] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -41,6 +43,26 @@ const SuggestionPage = () => {
     }
   }, [status]);
 
+  useEffect(() => {
+    if (infoPolitician) {
+      setIsRequiredInfo(false);
+    }
+    if (infoNews) {
+      setIsRequiredNews(false);
+    }
+  }, [infoNews, infoPolitician, isRequiredNews, isRequiredInfo]);
+
+  const handeClick = () => {
+    if (!infoPolitician || !infoNews) {
+      if (!infoPolitician) {
+        setIsRequiredInfo(true);
+      }
+      if (!infoNews) {
+        setIsRequiredNews(true);
+      }
+    }
+  };
+
   return (
     <Container maxWidth="lg" className={styles.container}>
       {/* <WrapperAsyncRequest status={status}> */}
@@ -53,6 +75,8 @@ const SuggestionPage = () => {
           onClick={() => {
             setSuggest(POLITICIAN);
             setError(false);
+            setIsRequiredInfo(false);
+            setIsRequiredNews(false);
           }}
         >
           Добавить политика
@@ -64,6 +88,8 @@ const SuggestionPage = () => {
           onClick={() => {
             setSuggest(NEWS);
             setError(false);
+            setIsRequiredInfo(false);
+            setIsRequiredNews(false);
           }}
         >
           Добавить новость
@@ -74,6 +100,8 @@ const SuggestionPage = () => {
         action=""
         onSubmit={(e) => {
           e.preventDefault();
+          setIsRequiredInfo(false);
+          setIsRequiredNews(false);
           // eslint-disable-next-line @typescript-eslint/no-unused-expressions
           suggest === POLITICIAN
             ? fetch(infoPolitician, descriptionPoliticain, suggest)
@@ -93,8 +121,17 @@ const SuggestionPage = () => {
             onChange={
               suggest === POLITICIAN ? (e) => setInfoPolitician(e.target.value) : (e) => setInfoNews(e.target.value)
             }
-            helperText={error ? 'Ссылка неверна' : false}
-            error={error}
+            // helperText={error ? 'Ссылка неверна' : false}
+            helperText={
+              isRequiredNews
+                ? 'Поле обязательно для заполнения'
+                : isRequiredInfo
+                ? 'Поле обязательно для заполнения'
+                : error
+                ? 'Ссылка неверна'
+                : false
+            }
+            error={error || isRequiredNews || isRequiredInfo}
           />
           <TextField
             id="description"
@@ -118,6 +155,7 @@ const SuggestionPage = () => {
           onSubmit={(e) => {
             e.preventDefault();
           }}
+          onClick={handeClick}
         >
           {status === 'Loading' ? <Loading /> : 'Добавить'}
         </Button>

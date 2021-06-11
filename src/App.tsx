@@ -41,6 +41,10 @@ const App: FC = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, [location.pathname]);
+
   const { settings } = useSettings();
   useEffect(() => {
     gtm.initialize(gtmConfig);
