@@ -278,3 +278,5 @@ export const sortParty = [
     field: 'votes',
   },
 ];
+
+export const routesWithNotification = ['/singleNews/', '/politician/', '/mass-media/', '/author/', '/party/'];

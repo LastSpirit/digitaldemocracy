@@ -12,10 +12,11 @@ import {
   ListItemText,
   Typography,
 } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { alpha } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
+import { routesWithNotification } from 'src/static/static';
 import Logo from '../Logo';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import Register from '../../icons/Register';
@@ -90,7 +91,8 @@ const authUserSections = [
       {
         title: 'Добавить новость',
         href: '/',
-      }, {
+      },
+      {
         title: 'Добавить политика',
         href: '/help_site',
       },
@@ -105,8 +107,15 @@ const authUserSections = [
 const Footer: FC = (props) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { isMobile } = useWindowSize();
-  const { push, location: { pathname } } = useHistory();
-
+  const {
+    push,
+    location: { pathname },
+  } = useHistory();
+  const withNotification =
+    routesWithNotification.reduce((acc, rec) => {
+      return acc || pathname.includes(rec);
+    }, 0) || pathname === '/';
+  console.log(withNotification);
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
@@ -155,7 +164,7 @@ const Footer: FC = (props) => {
             display: 'flex',
             justifyContent: 'center',
             p: 1.5,
-            overflow: 'hidden'
+            overflow: 'hidden',
           }}
         >
           <Box
@@ -163,15 +172,16 @@ const Footer: FC = (props) => {
               width: '100%',
               justifyContent: 'space-between',
               display: 'flex',
-              overflow: 'hidden'
+              overflow: 'hidden',
             }}
           >
-            <Container sx={{
-              width: '100%',
-              justifyContent: 'space-between',
-              display: 'flex',
-              overflow: 'hidden'
-            }}
+            <Container
+              sx={{
+                width: '100%',
+                justifyContent: 'space-between',
+                display: 'flex',
+                overflow: 'hidden',
+              }}
             >
               {icons.map(({ icon, title, to }, index) => (
                 <Box
@@ -182,7 +192,7 @@ const Footer: FC = (props) => {
                     alignItems: 'center',
                     cursor: 'pointer',
                   }}
-                  onClick={() => ((!isAuthenticated && title === 'Вход/Регистрация') ? setAuthValue(to) : push(to))}
+                  onClick={() => (!isAuthenticated && title === 'Вход/Регистрация' ? setAuthValue(to) : push(to))}
                 >
                   {icon}
                   <span style={{ marginTop: '10px', fontSize: '12px' }}>{title}</span>
@@ -190,14 +200,10 @@ const Footer: FC = (props) => {
               ))}
             </Container>
           </Box>
-
         </Box>
       ) : (
         <Container maxWidth="lg">
-          <Grid
-            container
-            spacing={3}
-          >
+          <Grid container spacing={3}>
             <Grid
               item
               md={3}
@@ -213,7 +219,7 @@ const Footer: FC = (props) => {
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
                 }}
                 onClick={() => push('/')}
               >
@@ -221,10 +227,7 @@ const Footer: FC = (props) => {
                   <Logo />
                 </div>
                 <Box sx={{ mt: 1, ml: 1.5 }}>
-                  <Typography
-                    color="textSecondary"
-                    variant="caption"
-                  >
+                  <Typography color="textSecondary" variant="caption">
                     Digital
                     <br />
                     Democracy
@@ -247,7 +250,7 @@ const Footer: FC = (props) => {
                   color="#222222"
                   variant="overline"
                   sx={{
-                    pb: '0!important'
+                    pb: '0!important',
                   }}
                 >
                   {section.title}
@@ -272,13 +275,13 @@ const Footer: FC = (props) => {
                       />
                       <ListItemText
                         sx={{
-                          paddingBottom: '0!important'
+                          paddingBottom: '0!important',
                         }}
-                        primary={(
+                        primary={
                           <Link
                             sx={{
                               cursor: 'pointer',
-                              paddingBottom: '0!important'
+                              paddingBottom: '0!important',
                             }}
                             onClick={() => push(link.href)}
                             color="#747373"
@@ -287,7 +290,7 @@ const Footer: FC = (props) => {
                           >
                             {link.title}
                           </Link>
-                        )}
+                        }
                       />
                     </ListItem>
                   ))}
@@ -320,24 +323,19 @@ const Footer: FC = (props) => {
               </Button>
             </Grid>
           </Grid>
-          {pathname === '/' && (
-          <>
-            <Divider
-              sx={{
-                borderColor: (theme) => alpha(theme.palette.primary.contrastText, 0.12),
-                my: 2,
-              }}
-            />
-            <Typography
-              color="textSecondary"
-              variant="caption"
-            >
-              * отображает только мнение
-              {' '}
-              {isAuthenticated ? 'пользователя' : 'пользователей данного сайта'}
-              .
-            </Typography>
-          </>
+          {withNotification && (
+            <>
+              <Divider
+                sx={{
+                  borderColor: (theme) => alpha(theme.palette.primary.contrastText, 0.12),
+                  my: 2,
+                }}
+              />
+
+              <Typography color="textSecondary" variant="caption">
+                * отображает только мнение пользователей данного сайта.
+              </Typography>
+            </>
           )}
         </Container>
       )}
