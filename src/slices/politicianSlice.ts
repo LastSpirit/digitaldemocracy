@@ -29,6 +29,7 @@ export interface PartyI {
   link?: string;
   percent?: number;
   position?: number;
+  source_link?: string;
 }
 
 export interface GraphicDataI {

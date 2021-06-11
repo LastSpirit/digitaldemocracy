@@ -5,8 +5,9 @@ import PersonIcon from '@material-ui/icons/Person';
 import { Button, Tooltip } from '@material-ui/core';
 import classNames from 'classnames';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 import FacebookIcon from '@material-ui/icons/Facebook';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import styles from '../PartyPage.module.scss';
 import { partySelectors } from '../../../slices/partySlice';
 import PartyCards from './PartyCards';
@@ -53,6 +54,11 @@ const PartyInfoBlock: FC = () => {
             <div className={styles.fio}>
               <p>{data?.name}</p>
               <div className={styles.subscribers}>
+                {data?.source_link && (
+                  <a href={data?.source_link}>
+                    <SubdirectoryArrowRightIcon className={styles.facebook} />
+                  </a>
+                )}
                 {data?.link && (
                   <FacebookShare url={data?.link || 'facebook.com'}>
                     <FacebookIcon
