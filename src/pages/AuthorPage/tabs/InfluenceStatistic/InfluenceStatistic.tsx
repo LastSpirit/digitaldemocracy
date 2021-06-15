@@ -5,9 +5,11 @@ import { Tooltip } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/store';
 import { useWindowSize } from 'src/hooks/useWindowSize';
+import { authorActionCreators } from 'src/slices/authorSlice';
 import styles from './styles.module.scss';
 import { useFetchHistory } from './hooks/useFetchHistory';
 import { WrapperAsyncRequest } from '../../../../components/Loading/WrapperAsyncRequest';
+import { useFetchInfluenceStatistic } from '../../hooks/useFetchInfluenceStatistic';
 
 const theme = createMuiTheme(
   {
@@ -18,25 +20,25 @@ const theme = createMuiTheme(
   ruRU
 );
 
-const TableTooltip: React.FC<{ value: string }> = ({ value }) => (
-  <Tooltip title={value}>
-    <span className={styles.cell}>{value}</span>
-  </Tooltip>
-);
-
 const columns: GridColumns = [
   {
     field: 'name',
     headerName: 'ФИО политика',
     width: 400,
     // eslint-disable-next-line react/destructuring-assignment
-    renderCell: (params: any) => <TableTooltip value={params.value} />,
+    renderCell: (params: any) => params?.row?.politician?.name || '-',
   },
   // eslint-disable-next-line react/destructuring-assignment
   {
-    field: 'percent',
+    field: 'influence',
     headerName: '% Влияния',
-    width: 400,
+    width: 150,
+    renderCell: (params: any) => params.value || '-',
+  },
+  {
+    field: 'number_of_news',
+    headerName: 'Упоминаний',
+    width: 150,
     renderCell: (params: any) => params.value || '-',
   },
 ];
@@ -47,12 +49,18 @@ const mobileColumns: GridColumns = [
     headerName: 'ФИО политика',
     width: 220,
     // eslint-disable-next-line react/destructuring-assignment
-    renderCell: (params: any) => <TableTooltip value={params.value} />,
+    renderCell: (params: any) => params?.row?.politician?.name || '-',
   },
   // eslint-disable-next-line react/destructuring-assignment
   {
-    field: 'percent',
+    field: 'influence',
     headerName: '% Влияния',
+    width: 140,
+    renderCell: (params: any) => params.value || '-',
+  },
+  {
+    field: 'number_of_news',
+    headerName: 'Упоминаний',
     width: 140,
     renderCell: (params: any) => params.value || '-',
   },
@@ -64,27 +72,36 @@ const mobileSEColumns: GridColumns = [
     headerName: 'ФИО политика',
     width: 160,
     // eslint-disable-next-line react/destructuring-assignment
-    renderCell: (params: any) => <TableTooltip value={params.value} />,
+    renderCell: (params: any) => params?.row?.politician?.name || '-',
   },
   // eslint-disable-next-line react/destructuring-assignment
   {
-    field: 'percent',
+    field: 'influence',
     headerName: '% Влияния',
+    width: 100,
+    renderCell: (params: any) => params.value || '-',
+  },
+  {
+    field: 'number_of_news',
+    headerName: 'Упоминаний',
     width: 100,
     renderCell: (params: any) => params.value || '-',
   },
 ];
 
 export const InfluenceStatistic = () => {
-  const { status, fetch } = useFetchHistory();
+  const { statisticStatus } = useSelector((s: RootState) => s.author);
   const data = useSelector((s: RootState) => s.author.statistic);
+  const { resetStatistic } = authorActionCreators();
   const { isMobile, isMobileSE } = useWindowSize();
+  const { fetchStatistic } = useFetchInfluenceStatistic();
   useEffect(() => {
-    fetch();
+    fetchStatistic();
+    return (): any => resetStatistic();
   }, []);
   return (
     <div className={styles.container}>
-      <WrapperAsyncRequest status={status}>
+      <WrapperAsyncRequest status={statisticStatus}>
         <ThemeProvider theme={theme}>
           <DataGrid
             rows={data || []}

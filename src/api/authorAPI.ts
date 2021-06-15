@@ -3,6 +3,18 @@ import { useDispatch } from 'react-redux';
 import { AuthorDataI } from 'src/slices/authorSlice';
 import { APIRequest, callAPI } from '../lib/axiosAPI';
 
+interface StatisticRequest {
+  params?: StatisticParamsI;
+}
+
+interface StatisticParamsI {
+  author_id?: number;
+}
+
+interface StatisticResponse {
+  data?: AuthorDataI;
+}
+
 interface NewsRequest {
   link?: string;
   params?: ParamsI;
@@ -73,10 +85,27 @@ const authorSubscribe: APIRequest<SubRequest, SubResponse, SubErr, SubVar> = (ar
   });
 };
 
+const authorStatistic: APIRequest<StatisticRequest, StatisticResponse, NewsErr, NewsVar> = (args) => {
+  const { token } = args.variables;
+  const { params } = args.payload;
+  return callAPI({
+    url: 'authorInfluencesForPolitician',
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      params,
+    },
+    ...args,
+  });
+};
 export const authorAPIs = {
   fetchAuthorData,
   fetchAuthorNews,
   authorSubscribe,
+  authorStatistic,
 };
 
 export const authorAPIActions = () => {
