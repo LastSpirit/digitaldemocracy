@@ -12,6 +12,7 @@ export const BackButton = () => {
   const { deleteLastRout } = userActionCreators();
   const { data } = useSelector((s: RootState) => s?.user?.routes);
   const lastRout = data[data.length - 2]?.path || '/';
+  console.log(lastRout);
   return (
     <div className={styles.buttonRow}>
       <Button
