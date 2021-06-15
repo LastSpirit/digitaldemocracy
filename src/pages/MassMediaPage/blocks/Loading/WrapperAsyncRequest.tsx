@@ -22,6 +22,6 @@ export const WrapperAsyncRequest: FC<WrapperAsyncRequestProps> = ({ children, st
     </>
   ) : (
     <div className={styles.loaderWrapper} style={{ height }}>
-      <Loading size={150} />
+      <Loading size={40} />
     </div>
   );

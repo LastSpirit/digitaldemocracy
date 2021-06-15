@@ -9,7 +9,7 @@ export const FailLoading = () => {
   const { goBack, length, push } = useHistory() as any;
   return (
     <Alert variant="outlined" severity="warning">
-      К сожалению, нам не удалось найти политика по Вашему запросу. Нажмите кнопку &apos;Назад&lsquo; для перехода на
+      К сожалению, нам не удалось найти страницу новости по Вашему запросу. Нажмите кнопку &apos;Назад&lsquo; для перехода на
       прошлую страницу.
     </Alert>
   );
