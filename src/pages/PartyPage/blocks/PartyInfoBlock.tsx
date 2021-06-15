@@ -2,10 +2,10 @@ import React from 'react';
 import type { FC } from 'react';
 import { useSelector } from 'react-redux';
 import PersonIcon from '@material-ui/icons/Person';
-import { Button, Tooltip } from '@material-ui/core';
+import { Button, Tooltip, IconButton } from '@material-ui/core';
 import classNames from 'classnames';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
+import CallMadeIcon from '@material-ui/icons/CallMade';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import { useHistory, Link } from 'react-router-dom';
 import styles from '../PartyPage.module.scss';
@@ -50,7 +50,9 @@ const PartyInfoBlock: FC = () => {
               <div className={styles.subscribers}>
                 {data?.source_link && (
                   <a href={data?.source_link}>
-                    <SubdirectoryArrowRightIcon className={styles.facebook} />
+                    <IconButton className={styles.arrowButton}>
+                      <CallMadeIcon className={styles.arrowLink} />
+                    </IconButton>
                   </a>
                 )}
                 {data?.link && (
