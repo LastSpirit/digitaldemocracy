@@ -85,6 +85,7 @@ interface SliceState {
   status?: APIStatus;
   newsStatus?: APIStatus;
   subscribeStatus?: APIStatus;
+  statisticStatus?: APIStatus;
   data?: AuthorDataI;
   news?: NewsI;
   sort_direction?: string;
@@ -96,27 +97,13 @@ interface SliceState {
 const initialState: SliceState = {
   status: 'Initial' as APIStatus,
   newsStatus: 'Initial' as APIStatus,
+  statisticStatus: 'Initial' as APIStatus,
   data: {},
   news: {},
   sort_direction: '',
   sort_field: '',
   page: null,
-  statistic: [
-    { id: 1, name: 'Путин Владимир Владимирович', percent: '146%' },
-    { id: 2, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
-    { id: 3, name: 'Путин Владимир Владимирович', percent: '146%' },
-    { id: 4, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
-    { id: 5, name: 'Путин Владимир Владимирович', percent: '146%' },
-    { id: 6, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
-    { id: 7, name: 'Путин Владимир Владимирович', percent: '146%' },
-    { id: 8, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
-    { id: 9, name: 'Путин Владимир Владимирович', percent: '146%' },
-    { id: 10, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
-    { id: 11, name: 'Путин Владимир Владимирович', percent: '146%' },
-    { id: 12, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
-    { id: 13, name: 'Путин Владимир Владимирович', percent: '146%' },
-    { id: 14, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
-  ],
+  statistic: [],
   subscribeStatus: 'Initial' as APIStatus,
 };
 
@@ -175,6 +162,20 @@ export const authorSlice = createSlice({
     successAuthorUnsubscribe(state) {
       state.subscribeStatus = APIStatus.Success;
       state.data.is_subscribed = false;
+    },
+    startFetchAuthorStatistic(state) {
+      state.statisticStatus = APIStatus.Loading;
+    },
+    successFetchAuthorStatistic(state, action) {
+      state.statistic = action.payload;
+      state.statisticStatus = APIStatus.Success;
+    },
+    failFetchAuthorStatistic(state) {
+      state.statisticStatus = APIStatus.Failure;
+    },
+    resetStatistic(state) {
+      state.statistic = initialState.statistic;
+      state.statisticStatus = APIStatus.Initial;
     },
   },
 });

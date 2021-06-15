@@ -65,7 +65,7 @@ export const NewsBlock = () => {
         </div>
       ) : (
         <div className={styles.loaderWrapper}>
-          <Loading size={150} />
+          <Loading size={40} />
         </div>
       )}
     </>

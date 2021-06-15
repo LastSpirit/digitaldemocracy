@@ -3,6 +3,18 @@ import { useDispatch } from 'react-redux';
 import { APIRequest, callAPI } from '../lib/axiosAPI';
 import { MassMediaDataI } from '../slices/massMediaSlice';
 
+interface StatisticRequest {
+  params?: StatisticParamsI;
+}
+
+interface StatisticParamsI {
+  media_id?: number;
+}
+
+interface StatisticResponse {
+  data?: MassMediaDataI;
+}
+
 interface NewsRequest {
   link?: string;
   params?: ParamsI;
@@ -72,10 +84,28 @@ const massmediaSubscribe: APIRequest<SubRequest, SubResponse, SubErr, SubVar> = 
   });
 };
 
+const massmediaStatistic: APIRequest<StatisticRequest, StatisticResponse, NewsErr, NewsVar> = (args) => {
+  const { token } = args.variables;
+  const { params } = args.payload;
+  return callAPI({
+    url: 'mediaInfluencesForPolitician',
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      params,
+    },
+    ...args,
+  });
+};
+
 export const massmediaAPIs = {
   fetchMassMediaData,
   fetchMassMediaNews,
   massmediaSubscribe,
+  massmediaStatistic,
 };
 
 export const massmediaAPIActions = () => {

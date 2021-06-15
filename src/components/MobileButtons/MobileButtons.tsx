@@ -3,10 +3,11 @@ import type { FC } from 'react';
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
 import { useWindowSize } from 'src/hooks/useWindowSize';
-import { userSelectors } from 'src/slices/userSlice';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { Button, Tooltip } from '@material-ui/core';
 import classNames from 'classnames';
+import { userActionCreators, userSelectors } from 'src/slices/userSlice';
+import { RootState } from 'src/store';
 
 import styles from './styles.module.scss';
 
@@ -15,13 +16,22 @@ interface IProps {
 }
 
 export const MobileButtons: FC<IProps> = ({ handleClickOpen }) => {
-  const { goBack, length, push } = useHistory() as any;
+  const { push } = useHistory() as any;
+  const { deleteLastRout } = userActionCreators();
+  const { data } = useSelector((s: RootState) => s?.user?.routes);
+  const lastRout = data[data.length - 2]?.path || '/';
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { isMobile } = useWindowSize();
   return (
     <div className={styles.mobileButtons}>
       <div className={styles.row}>
-        <Button className={styles.backButton} onClick={() => (length > 2 ? goBack() : push('/'))}>
+        <Button
+          className={styles.backButton}
+          onClick={() => {
+            push(lastRout);
+            deleteLastRout();
+          }}
+        >
           <div className={styles.icon}>←</div>
         </Button>
         <Button

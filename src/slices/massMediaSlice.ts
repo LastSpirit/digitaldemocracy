@@ -73,14 +73,16 @@ interface HashtagsI {
 
 interface StatisticI {
   id?: number;
-  name?: string;
-  percent?: string;
+  politician?: { name: string };
+  influence?: string;
+  number_of_news?: number;
 }
 
 interface SliceState {
   status?: APIStatus;
   newsStatus?: APIStatus;
   subscribeStatus?: APIStatus;
+  statisticStatus?: APIStatus;
   data?: MassMediaDataI;
   news?: NewsI;
   sort_direction?: string;
@@ -93,27 +95,13 @@ const initialState: SliceState = {
   status: 'Initial' as APIStatus,
   newsStatus: 'Initial' as APIStatus,
   subscribeStatus: 'Initial' as APIStatus,
+  statisticStatus: 'Initial' as APIStatus,
   data: {},
   news: {},
   sort_direction: '',
   sort_field: '',
   page: null,
-  statistic: [
-    { id: 1, name: 'Путин Владимир Владимирович', percent: '146%' },
-    { id: 2, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
-    { id: 3, name: 'Путин Владимир Владимирович', percent: '146%' },
-    { id: 4, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
-    { id: 5, name: 'Путин Владимир Владимирович', percent: '146%' },
-    { id: 6, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
-    { id: 7, name: 'Путин Владимир Владимирович', percent: '146%' },
-    { id: 8, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
-    { id: 9, name: 'Путин Владимир Владимирович', percent: '146%' },
-    { id: 10, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
-    { id: 11, name: 'Путин Владимир Владимирович', percent: '146%' },
-    { id: 12, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
-    { id: 13, name: 'Путин Владимир Владимирович', percent: '146%' },
-    { id: 14, name: 'Кузнецов Виктор Игоревич', percent: '22%' },
-  ],
+  statistic: [],
 };
 
 export const massMediaSlice = createSlice({
@@ -172,6 +160,20 @@ export const massMediaSlice = createSlice({
     successMassmediaUnsubscribe(state) {
       state.subscribeStatus = APIStatus.Success;
       state.data.is_subscribed = false;
+    },
+    startFetchMassMediaStatistic(state) {
+      state.statisticStatus = APIStatus.Loading;
+    },
+    successFetchMassMediaStatistic(state, action) {
+      state.statistic = action.payload;
+      state.statisticStatus = APIStatus.Success;
+    },
+    failFetchMassMediaStatistic(state) {
+      state.statisticStatus = APIStatus.Failure;
+    },
+    resetStatistic(state) {
+      state.statistic = initialState.statistic;
+      state.statisticStatus = APIStatus.Initial;
     },
   },
 });

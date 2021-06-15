@@ -18,7 +18,6 @@ interface NewsRequest {
 
 const fetchNews: APIRequest<NewsRequest, Array<NewsWithPercentI>, string, FetchProfileInfoVar> = (args) => {
   const { token, politician_id } = args.variables;
-  console.log('into', politician_id);
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const { start_date, end_date } = args.payload;
   return callAPI({

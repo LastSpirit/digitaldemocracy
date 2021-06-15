@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import Alert from '@material-ui/lab/Alert';
+import { BackButton } from 'src/components/BackButton/BackButton';
 
 import { APIStatus } from '../../../../lib/axiosAPI';
 import { Loading } from './Loading';
@@ -15,9 +16,12 @@ export const WrapperAsyncRequest: FC<WrapperAsyncRequestProps> = ({ children, st
   status === APIStatus.Success ? (
     <>{children}</>
   ) : status === APIStatus.Failure ? (
-    <FailLoading />
+    <>
+      <BackButton />
+      <FailLoading />
+    </>
   ) : (
     <div className={styles.loaderWrapper} style={{ height }}>
-      <Loading size={150} />
+      <Loading size={40} />
     </div>
   );

@@ -5,7 +5,7 @@ import { useWindowSize } from 'src/hooks/useWindowSize';
 import './datePickerStyles.scss';
 import styles from './PoliticianPage.module.scss';
 import { useFetchProfileInfo } from './hooks/useFetchProfileInfo';
-import { WrapperAsyncRequest } from '../../components/Loading/WrapperAsyncRequest';
+import { WrapperAsyncRequest } from './blocks/Loading/WrapperAsyncRequest';
 import PoliticianInfoBlock from './blocks/PoliticianInfoBlock/PoliticianInfoBlock';
 import PoliticianNavigation from './blocks/PoliticianNavigation';
 import { MobileButtons } from '../../components/MobileButtons/MobileButtons';
