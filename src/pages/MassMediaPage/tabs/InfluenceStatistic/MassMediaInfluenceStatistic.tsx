@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { DataGrid, ruRU, GridColumns } from '@material-ui/data-grid';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { Tooltip } from '@material-ui/core';
@@ -20,13 +21,19 @@ const theme = createMuiTheme(
   ruRU
 );
 
+interface ILink {
+  to?: string;
+}
+
 const columns: GridColumns = [
   {
     field: 'name',
     headerName: 'ФИО политика',
     width: 400,
     // eslint-disable-next-line react/destructuring-assignment
-    renderCell: (params: any) => params?.row?.politician?.name || '-',
+    renderCell: ({ row }: any) => (
+      <Link<ILink> to={`/politician/${row?.politician?.short_link}`}>{row?.politician?.name || '-'}</Link>
+    ),
   },
   // eslint-disable-next-line react/destructuring-assignment
   {
@@ -49,7 +56,9 @@ const mobileColumns: GridColumns = [
     headerName: 'ФИО политика',
     width: 220,
     // eslint-disable-next-line react/destructuring-assignment
-    renderCell: (params: any) => params?.row?.politician?.name || '-',
+    renderCell: ({ row }: any) => (
+      <Link<ILink> to={`/politician/${row?.politician?.short_link}`}>{row?.politician?.name || '-'}</Link>
+    ),
   },
   // eslint-disable-next-line react/destructuring-assignment
   {
@@ -72,7 +81,9 @@ const mobileSEColumns: GridColumns = [
     headerName: 'ФИО политика',
     width: 160,
     // eslint-disable-next-line react/destructuring-assignment
-    renderCell: (params: any) => params?.row?.politician?.name || '-',
+    renderCell: ({ row }: any) => (
+      <Link<ILink> to={`/politician/${row?.politician?.short_link}`}>{row?.politician?.name || '-'}</Link>
+    ),
   },
   // eslint-disable-next-line react/destructuring-assignment
   {
