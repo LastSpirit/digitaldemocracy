@@ -11,6 +11,7 @@ import { WrapperAsyncRequest } from '../../../../../components/Loading/WrapperAs
 import styles from '../../../PoliticianPage.module.scss';
 import { politicianSelectors } from '../../../../../slices/politicianSlice';
 import { APIStatus } from '../../../../../lib/axiosAPI';
+import Demo from './Demo.js';
 
 registerLocale('ru', ru);
 
@@ -18,27 +19,27 @@ const options = {
   legend: { position: 'none' },
   axes: {
     x: {
-      0: { side: 'bottom', label: '' }
-    }
+      0: { side: 'bottom', label: '' },
+    },
   },
   animation: {
     duration: 1000,
     easing: 'out',
-    startup: true
-  }
+    startup: true,
+  },
 };
 
 interface ChartBlockProps {
-  startDate: string
-  endDate: string
-  initStartDate: string
-  initEndDate: string
-  setStartDatePicker: (value: Date) => void
-  setEndDatePicker: (value: Date) => void
-  handleApply: () => void
-  startDatePicker: Date
-  endDatePicker: Date
-  status: APIStatus
+  startDate: string;
+  endDate: string;
+  initStartDate: string;
+  initEndDate: string;
+  setStartDatePicker: (value: Date) => void;
+  setEndDatePicker: (value: Date) => void;
+  handleApply: () => void;
+  startDatePicker: Date;
+  endDatePicker: Date;
+  status: APIStatus;
 }
 
 const ChartBlock: React.FC<ChartBlockProps> = ({
@@ -51,7 +52,7 @@ const ChartBlock: React.FC<ChartBlockProps> = ({
   startDatePicker,
   endDatePicker,
   handleApply,
-  status
+  status,
 }) => {
   const isPristine = initStartDate === startDate && initEndDate === endDate;
   const validValue = moment(startDate).format('x') < moment(endDate).format('x');
@@ -61,7 +62,11 @@ const ChartBlock: React.FC<ChartBlockProps> = ({
   const chartData = useSelector(politicianSelectors.getChartData());
 
   // eslint-disable-next-line no-nested-ternary
-  const buttonTooltipTitle = isPristine ? 'Измените значение' : !validValue ? 'Дата начала не должна быть больше даты конца' : '';
+  const buttonTooltipTitle = isPristine
+    ? 'Измените значение'
+    : !validValue
+    ? 'Дата начала не должна быть больше даты конца'
+    : '';
 
   return (
     <div className={styles.chartContainer}>
@@ -112,14 +117,7 @@ const ChartBlock: React.FC<ChartBlockProps> = ({
               className={styles.chart}
               chartLanguage="ru"
               chartType="Line"
-              data={[
-                ['City', '2010 Population'],
-                ['New York City, NY', 8175000],
-                ['Los Angeles, CA', 3792000],
-                ['Chicago, IL', 2695000],
-                ['Houston, TX', 2099000],
-                ['Philadelphia, PA', 1526000],
-              ]}
+              data={[['x', ''], ...chartData]}
             />
           ) : (
             <div className={styles.noNewsBlock}>

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { useFetchNews } from '../../hooks/useFetchNews';
 import ChartBlock from './components/ChartBlock';
 import NewsBlock from './components/NewsBlock';
+// import Demo from './components/Demo.js';
 
 export const PoliticianNews = () => {
   const { fetch, status } = useFetchNews();
@@ -45,6 +47,7 @@ export const PoliticianNews = () => {
         status={status}
       />
       <NewsBlock />
+      {/* <Demo /> */}
     </div>
   );
 };

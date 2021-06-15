@@ -13,7 +13,7 @@ export default function Description() {
   const data = useSelector(politicianSelectors.getPositionsDescription());
   useEffect(() => {
     fetch();
-  }, []);
+  }, [data?.[0]?.id]);
 
   return (
     <WrapperAsyncRequest status={status}>
