@@ -40,7 +40,7 @@ const initialState: SliceState = {
     },
   },
   routes: {
-    data: [{ path: '/', number: 1 }],
+    data: [{ number: 1, path: '/' }],
     length: 1,
   },
   fetchUserDataStatus: 'Initial' as APIStatus,
