@@ -16,10 +16,10 @@
     align-items: center;
     margin-top: 0px;
     margin-bottom: 60px;
-
+    width: 100%;
+    text-align: center;
     @media screen and (max-width: 1024px) {
       font-size: 14px;
-      width: 75%;
       text-align: center;
       margin-top: 0px;
       margin-bottom: 60px;
@@ -45,8 +45,7 @@
       justify-content: center;
       align-items: center;
       margin-top: 0px;
-      padding-left: 15px;
-
+      padding: 0px !important;
       @media screen and (max-width: 1024px) {
         font-size: 14px;
       }
@@ -58,8 +57,8 @@
       flex-direction: column;
 
       .textField {
-        margin: 10px;
-        width: 90%;
+        margin-bottom: 10px;
+        width: 100%;
         box-sizing: border-box;
       }
     }

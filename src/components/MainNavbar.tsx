@@ -41,7 +41,6 @@ const MainNavbar: FC = () => {
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
-  // console.log(pathname.includes('profile'));
 
   const handleClick = (to: string) => {
     if (isAuthenticated) {

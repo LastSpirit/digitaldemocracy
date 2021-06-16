@@ -86,8 +86,7 @@
       box-sizing: border-box;
       border-radius: 20px;
       margin-bottom: 18px;
-      min-width: 401px;
-      max-width: 401px;
+      width: 401px;
 
       p {
         margin-right: 10px;
@@ -98,7 +97,6 @@
         padding: 9px 13px;
         margin-top: 9px;
         font-size: 14px;
-        height: 51px;
       }
     }
 

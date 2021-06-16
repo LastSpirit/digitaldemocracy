@@ -5,11 +5,65 @@ import { useHistory } from 'react-router';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import classes from './HomeSlider.module.scss';
 import styles from './slickSlider.module.scss';
 import { frames } from '../../../icons/pictures/picturesExports/picturesExport';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import './slickArrows.css';
+
+const SamplePrevArrow = (props) => {
+  const { className, onClick } = props;
+  return (
+    <button
+      style={{
+        position: 'absolute',
+        zIndex: 90,
+        backgroundColor: 'rgb(239, 239, 239)',
+        left: -30,
+        width: '55px',
+        height: '55px',
+        fontSize: '32px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '100%',
+        border: '0px',
+      }}
+      onClick={onClick}
+      type="button"
+    >
+      <NavigateBeforeIcon />
+    </button>
+  );
+};
+
+const SampleNextArrow = (props) => {
+  const { className, style, onClick } = props;
+  return (
+    <button
+      style={{
+        position: 'absolute',
+        zIndex: 90,
+        backgroundColor: 'rgb(239, 239, 239)',
+        right: -30,
+        width: '55px',
+        height: '55px',
+        fontSize: '32px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '100%',
+        border: '0px',
+      }}
+      onClick={onClick}
+      type="button"
+    >
+      <NavigateNextIcon />
+    </button>
+  );
+};
 
 export default function CustomArrows({ data }) {
   const settings = {
@@ -19,6 +73,9 @@ export default function CustomArrows({ data }) {
     slidesToShow: 5,
     slidesToScroll: 4,
     initialSlide: 0,
+    display: 'flex',
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
     responsive: [
       {
         breakpoint: 1140,
@@ -59,12 +116,11 @@ export default function CustomArrows({ data }) {
   const { push } = useHistory();
   const [date, setDate] = useState(null);
   const [secondDate, setSecondDate] = useState(null);
-  const [hold, setHold] = useState(false);
   const initialDate: any = new Date(0);
   return (
     <div className={styles.carouselContainer}>
       {data ? (
-        <Slider {...settings}>
+        <Slider {...settings} style={{ display: 'flex', alignItems: 'center' }}>
           {data?.map((item) => (
             <Card
               // onClick={() => push(`/politician/${String(item?.short_link)}`)}

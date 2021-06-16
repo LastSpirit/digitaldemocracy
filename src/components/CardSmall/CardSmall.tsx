@@ -43,50 +43,48 @@ const CardSmall: FC<CardSmallProps> = ({
     history.push(newPath.url);
   };
   return (
-    <Box>
-      <Box className={classes.bigCardContainer}>
-        <Box className={classes.mainHeader}>
-          <Typography className={classes.text}>{publication_date || ''}</Typography>
-          <Box className={classes.bigHeader}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <img className={classes.imgSize} src={watched} alt="/" />
-              <Typography
-                sx={{
-                  marginLeft: '7px',
-                }}
-                className={classes.text}
-              >
-                {number_of_views || ''}
-              </Typography>
-            </Box>
-            <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
-              <img className={classes.imgSize} src={logo} alt="/" />
-              <Typography
-                sx={{
-                  marginLeft: '7px',
-                }}
-                className={classes.text}
-              >
-                {votes}
-              </Typography>
-            </Box>
+    <Box className={classes.bigCardContainer}>
+      <Box className={classes.mainHeader}>
+        <Typography className={classes.text}>{publication_date || ''}</Typography>
+        <Box className={classes.bigHeader}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <img className={classes.imgSize} src={watched} alt="/" />
+            <Typography
+              sx={{
+                marginLeft: '7px',
+              }}
+              className={classes.text}
+            >
+              {number_of_views || ''}
+            </Typography>
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
+            <img className={classes.imgSize} src={logo} alt="/" />
+            <Typography
+              sx={{
+                marginLeft: '7px',
+              }}
+              className={classes.text}
+            >
+              {votes}
+            </Typography>
           </Box>
         </Box>
-        <Box className={classes.content}>
-          <Box className={classes.cardContent} onClick={handleNews}>
-            <Typography className={classes.bigTitle}>{title}</Typography>
-          </Box>
-          <Box className={classes.cardNames}>
-            <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleAuthor}>
-              {author?.name}
-            </Typography>
-            <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleMedia}>
-              {media?.name}
-            </Typography>
-          </Box>
-          <Box className={classes.imageContainer} onClick={handleNews}>
-            <img src={image} alt="news" className={classes.image} />
-          </Box>
+      </Box>
+      <Box className={classes.content}>
+        <Box className={classes.cardContent} onClick={handleNews}>
+          <Typography className={classes.bigTitle}>{title}</Typography>
+        </Box>
+        <Box className={classes.cardNames}>
+          <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleAuthor}>
+            {author?.name}
+          </Typography>
+          <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleMedia}>
+            {media?.name}
+          </Typography>
+        </Box>
+        <Box className={classes.imageContainer} onClick={handleNews}>
+          <img src={image} alt="news" className={classes.image} />
         </Box>
       </Box>
     </Box>

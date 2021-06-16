@@ -1,14 +1,9 @@
 import { useEffect } from 'react';
 import type { FC } from 'react';
-import {
-  Box, Button,
-  Divider,
-  Typography
-} from '@material-ui/core';
+import { Box, Button, Divider, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import {
-  AddressFormRegister, TypeRegisterSelect, VerifyCodeRegister
-} from '../../components/authentication/register';
+import styles from './styles.module.scss';
+import { AddressFormRegister, TypeRegisterSelect, VerifyCodeRegister } from '../../components/authentication/register';
 import gtm from '../../lib/gtm';
 import { ModalParams } from '../../types/routing';
 import { useSearchParams } from '../../hooks/useSearchParams';
@@ -24,7 +19,16 @@ export const WelcomeTextRegister = () => {
     <>
       <Typography align="justify">
         {/* eslint-disable-next-line react/no-unescaped-entities */}
-        Дорогой Друг! Демократия - это "власть народа", народ является источником власти. Но это ещё и ответственность реализовывать это право, делать свой выбор, голосовать за тех, кого народ этой властью наделяет. Ответственность проявлять свою позицию, чтобы изменить жизнь для нас и наших детей в нашей стране лучше. Цифровая эпоха даёт нам новые возможности.  Наша платформа позволяет пользователям формировать рейтинг политиков через оценку их действий, что бы на основании него потом сделать осознанный выбор. Важная составляющая рейтинга, доверие к нему. Поэтому мы всеми возможными путями будем бороться с попытками нечестно повлиять на рейтинг. Это, к сожалению, может затронуть и добропорядочных пользователей. Мы принимаем всех, но если аккаунт будет заподозрен в недобросовестной активности, то мы попросим пройти верификацию. В случае непрохождения проверки все оценки и действия аккаунта будут удалены. Просим отнестись к этому с пониманием. Добро пожаловать в "цифровую демократию"!
+        Дорогой Друг! Демократия - это &quot;власть народа&quot;, народ является источником власти. Но это ещё и
+        ответственность реализовывать это право, делать свой выбор, голосовать за тех, кого народ этой властью наделяет.
+        Ответственность проявлять свою позицию, чтобы изменить жизнь для нас и наших детей в нашей стране лучше.
+        Цифровая эпоха даёт нам новые возможности. Наша платформа позволяет пользователям формировать рейтинг политиков
+        через оценку их действий, что бы на основании него потом сделать осознанный выбор. Важная составляющая рейтинга,
+        доверие к нему. Поэтому мы всеми возможными путями будем бороться с попытками нечестно повлиять на рейтинг. Это,
+        к сожалению, может затронуть и добропорядочных пользователей. Мы принимаем всех, но если аккаунт будет
+        заподозрен в недобросовестной активности, то мы попросим пройти верификацию. В случае непрохождения проверки все
+        оценки и действия аккаунта будут удалены. Просим отнестись к этому с пониманием. Добро пожаловать в
+        &quot;цифровую демократию&quot;!
       </Typography>
       <Button
         sx={{
@@ -70,9 +74,12 @@ const Register: FC = () => {
   const endRegistration = registerStep === 5;
   const { setRegisterStep } = authActionCreators();
 
-  useEffect(() => () => {
-    setRegisterStep(1);
-  }, []);
+  useEffect(
+    () => () => {
+      setRegisterStep(1);
+    },
+    []
+  );
 
   return (
     <ModalWrapper>
@@ -99,48 +106,39 @@ const Register: FC = () => {
             height: 32,
             '& > img': {
               maxHeight: '100%',
-              width: 'auto'
-            }
+              width: 'auto',
+            },
           }}
         >
-          <Typography
-            color="textPrimary"
-            gutterBottom
-            fontWeight="300"
-            variant="h4"
-          >
+          <Typography color="textPrimary" gutterBottom fontWeight="300" variant="h4">
             {!endRegistration && `${registerStep}/4`}
           </Typography>
         </Box>
       </Box>
       {getCurrentStepComponent(registerStep)}
       {registerStep < 3 && (
-      <>
-        <Box sx={{ mt: 4, justifyContent: 'space-between', alignItems: 'center', display: 'flex' }}>
-          <Typography sx={{ pb: '0!important' }}>
-            Уже есть аккаунт?
-          </Typography>
-          <Button
-            color="primary"
-            size="medium"
-            variant="outlined"
-            onClick={() => setAuthValue('login')}
-          >
-            Войти
-          </Button>
-        </Box>
-        {registerStep === 1 && (
         <>
-          <Divider sx={{ my: 3 }} />
-          <Typography
-            color="textSecondary"
-            variant="body2"
-          >
-            Прежде всего, синтетическое тестирование в значительной степени обусловливает важность прогресса профессионального сообщества!
-          </Typography>
+          <Box sx={{ mt: 4, justifyContent: 'space-between', alignItems: 'center', display: 'flex' }}>
+            <Typography sx={{ pb: '0!important' }}>Уже есть аккаунт?</Typography>
+            <Button
+              className={styles.loginButton}
+              size="medium"
+              variant="outlined"
+              onClick={() => setAuthValue('login')}
+            >
+              Войти
+            </Button>
+          </Box>
+          {registerStep === 1 && (
+            <>
+              <Divider sx={{ my: 3 }} />
+              <Typography color="textSecondary" variant="body2">
+                Прежде всего, синтетическое тестирование в значительной степени обусловливает важность прогресса
+                профессионального сообщества!
+              </Typography>
+            </>
+          )}
         </>
-        )}
-      </>
       )}
     </ModalWrapper>
   );

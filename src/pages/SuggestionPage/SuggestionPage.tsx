@@ -66,8 +66,7 @@ const SuggestionPage = () => {
   return (
     <Container maxWidth="lg" className={styles.container}>
       {/* <WrapperAsyncRequest status={status}> */}
-      {!isMobile && <BackButton />}
-      {isMobile && <MobileButtons />}
+      <BackButton />
       <div className={styles.heading}>
         <h2
           className={suggest === POLITICIAN ? styles.active : styles.passive}

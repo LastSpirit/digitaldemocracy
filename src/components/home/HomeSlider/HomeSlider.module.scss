@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  alignItems: center;
+  alignitems: center;
   width: 100%;
 }
 .carouselTitle p {
@@ -34,9 +34,6 @@
 .buttonStyle:hover {
   color: #363557;
 }
-
-
-
 
 .customText {
   color: #222222;
@@ -113,14 +110,14 @@
   right: -31px !important;
 }
 .slick-prev::before {
-  content: url("../../../icons/pictures/prev.png") !important;
+  content: url('../../../icons/pictures/prev.png') !important;
   display: flex;
-align-items: center;
+  align-items: center;
   width: 20px;
   height: 20px;
 }
 .slick-next::before {
-  content: url("../../../icons/pictures/next.png") !important;
+  content: url('../../../icons/pictures/next.png') !important;
   display: flex;
   align-items: center;
   width: 20px;

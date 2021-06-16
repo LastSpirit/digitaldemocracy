@@ -1,3 +1,5 @@
+@import 'src/variables.scss';
+
 .news {
   display: flex;
   flex-direction: column;
@@ -44,6 +46,10 @@
   font-size: 14px;
   cursor: pointer;
   text-decoration: none;
+  &:hover {
+    color: #363557;
+    background-color: transparent;
+  }
 }
 
 .loadMore {
@@ -60,12 +66,19 @@
   color: #363557;
 }
 
-@media (max-width: 600px) {
+@media (max-width: $mobileScreen) {
   .news {
     width: 100%;
   }
   .content {
+    flex-direction: column;
     justify-content: center;
+    button {
+      margin-right: 0px;
+    }
+    a {
+      margin-right: 0px;
+    }
   }
   .content button {
     margin-right: 0;

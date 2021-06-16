@@ -1,0 +1,17 @@
+.registerButton {
+  background-color: transparent;
+  border: 1px solid #363557;
+  color: #363557 !important;
+  &:hover {
+    color: #fff !important;
+    background-color: #363557;
+  }
+}
+.loginButton {
+  background-color: #363557;
+  border: 1px solid #363557;
+  color: white !important;
+  &:hover {
+    color: #363557 !important;
+  }
+}

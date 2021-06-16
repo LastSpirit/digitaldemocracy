@@ -16,10 +16,10 @@ import '../HomeSlider/HomeSlider.module.scss';
 import { WrapperAsyncRequest } from '../../Loading/WrapperAsyncRequest';
 
 interface HomeFeaturesPropsI {
-  status?: APIStatus,
-  newsTopics?: NewsTopicsI[],
-  news?: NewsI[],
-  isMorePages?: boolean
+  status?: APIStatus;
+  newsTopics?: NewsTopicsI[];
+  news?: NewsI[];
+  isMorePages?: boolean;
 }
 
 const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMorePages }) => {
@@ -35,51 +35,28 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
 
   return (
     <Box>
-      <WrapperAsyncRequest
-        status={status}
-        height={600}
-      >
-        <Container
-          maxWidth="lg"
-          className={styles.newsWrapper}
-        >
+      <WrapperAsyncRequest status={status} height={600}>
+        <Container maxWidth="lg" className={styles.newsWrapper}>
           {isMobile ? (
-            <Box
-              className={styles.container}
-            >
-              <TopicsSlider
-                newsTopics={newsTopics}
-                fetch={fetch}
-              />
+            <Box className={styles.container}>
+              <TopicsSlider newsTopics={newsTopics} fetch={fetch} />
             </Box>
-          )
-            : null}
+          ) : null}
           <Box style={{ display: 'flex' }}>
-            {
-            !isMobile
-              ? (
-                <Box
-                  sx={{
-                    marginRight: '60px',
-                    width: '24%',
-                    minWidth: '220px'
-                  }}
-                >
-                  <ListSidebar
-                    newsTopics={newsTopics}
-                    fetch={fetch}
-                  />
-                </Box>
-              ) : null
-            }
+            {!isMobile ? (
+              <Box
+                sx={{
+                  marginRight: '60px',
+                  width: '24%',
+                  minWidth: '220px',
+                }}
+              >
+                <ListSidebar newsTopics={newsTopics} fetch={fetch} />
+              </Box>
+            ) : null}
 
             <Box className={styles.news}>
-              <Typography
-                fontSize="35px"
-                textAlign="left"
-                component="span"
-                mb={2}
-              >
+              <Typography fontSize="35px" textAlign="left" component="span" mb={2}>
                 Актуальные новости
               </Typography>
               <WrapperAsyncRequest status={loadMoreNews ? APIStatus.Success : fetchNewsStatus}>
@@ -90,62 +67,39 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                     justifyContent="center"
                     sx={{
                       maxWidth: '900px',
-                      justifyContent: 'flex-start'
+                      justifyContent: 'flex-start',
                     }}
                   >
                     {news?.map((item, index) => (
-                      <Grid
-                        key={index.toString()}
-                        item
-                        md={4}
-                        sm={6}
-                        xs={12}
-                      >
-                        <CardSmall
-                          {...item}
-                        />
+                      <Grid key={index.toString()} item xl={4} lg={4} md={6} sm={6} xs={10}>
+                        <CardSmall {...item} />
                       </Grid>
                     ))}
                   </Grid>
-                )
-                  : (
-                    <Box>
-                      На данный момент новостей нет
-                    </Box>
-                  )}
+                ) : (
+                  <Box>На данный момент новостей нет</Box>
+                )}
               </WrapperAsyncRequest>
               {loadMoreNews && fetchNewsStatus !== APIStatus.Initial && (
-              <div className={styles.loadMore}>
-                <WrapperAsyncRequest
-                  status={loadMoreNews ? fetchNewsStatus : APIStatus.Success}
-                >
-                  <div />
-                </WrapperAsyncRequest>
-              </div>
+                <div className={styles.loadMore}>
+                  <WrapperAsyncRequest status={loadMoreNews ? fetchNewsStatus : APIStatus.Success}>
+                    <div />
+                  </WrapperAsyncRequest>
+                </div>
               )}
               {fetchNewsStatus !== APIStatus.Loading && (
-              <Box className={styles.content}>
-                <Link
-                  to="/news"
-                  component={RouterLink}
-                >
-                  <Typography
-                    className={styles.violetButtonText}
-                  >
-                    К разделу новостей
-                  </Typography>
-                </Link>
-                {isMorePages && (
-                  <Button>
-                    <Typography
-                      className={styles.transparentButtonText}
-                      onClick={handleGetMorePages}
-                    >
-                      Показать больше
-                    </Typography>
-                  </Button>
-                )}
-              </Box>
+                <Box className={styles.content}>
+                  <Link to="/news" component={RouterLink}>
+                    <Typography className={styles.violetButtonText}>К разделу новостей</Typography>
+                  </Link>
+                  {isMorePages && (
+                    <Button>
+                      <Typography className={styles.transparentButtonText} onClick={handleGetMorePages}>
+                        Показать больше
+                      </Typography>
+                    </Button>
+                  )}
+                </Box>
               )}
             </Box>
           </Box>

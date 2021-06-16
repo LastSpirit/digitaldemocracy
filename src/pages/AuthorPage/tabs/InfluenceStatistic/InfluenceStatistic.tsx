@@ -39,13 +39,13 @@ const columns: GridColumns = [
   {
     field: 'influence',
     headerName: '% Влияния',
-    width: 150,
+    width: 200,
     renderCell: (params: any) => params.value || '-',
   },
   {
     field: 'number_of_news',
     headerName: 'Упоминаний',
-    width: 150,
+    width: 200,
     renderCell: (params: any) => params.value || '-',
   },
 ];
@@ -54,7 +54,7 @@ const mobileColumns: GridColumns = [
   {
     field: 'name',
     headerName: 'ФИО политика',
-    width: 220,
+    width: 300,
     // eslint-disable-next-line react/destructuring-assignment
     renderCell: ({ row }: any) => (
       <Link<ILink> to={`/politician/${row?.politician?.short_link}`}>{row?.politician?.name || '-'}</Link>
@@ -64,13 +64,13 @@ const mobileColumns: GridColumns = [
   {
     field: 'influence',
     headerName: '% Влияния',
-    width: 140,
+    width: 180,
     renderCell: (params: any) => params.value || '-',
   },
   {
     field: 'number_of_news',
     headerName: 'Упоминаний',
-    width: 140,
+    width: 180,
     renderCell: (params: any) => params.value || '-',
   },
 ];
@@ -79,7 +79,7 @@ const mobileSEColumns: GridColumns = [
   {
     field: 'name',
     headerName: 'ФИО политика',
-    width: 160,
+    width: 300,
     // eslint-disable-next-line react/destructuring-assignment
     renderCell: ({ row }: any) => (
       <Link<ILink> to={`/politician/${row?.politician?.short_link}`}>{row?.politician?.name || '-'}</Link>
@@ -89,13 +89,13 @@ const mobileSEColumns: GridColumns = [
   {
     field: 'influence',
     headerName: '% Влияния',
-    width: 100,
+    width: 180,
     renderCell: (params: any) => params.value || '-',
   },
   {
     field: 'number_of_news',
     headerName: 'Упоминаний',
-    width: 100,
+    width: 180,
     renderCell: (params: any) => params.value || '-',
   },
 ];

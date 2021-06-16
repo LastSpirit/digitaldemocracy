@@ -1,13 +1,9 @@
 import React, { useEffect } from 'react';
 import type { FC } from 'react';
-import {
-  Box, Button,
-  Typography
-} from '@material-ui/core';
+import { Box, Button, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import {
-  ConfirmPasswordLogin, TypeSelectLogin
-} from '../../components/authentication/login';
+import styles from './styles.module.scss';
+import { ConfirmPasswordLogin, TypeSelectLogin } from '../../components/authentication/login';
 import gtm from '../../lib/gtm';
 import { ModalParams } from '../../types/routing';
 import { useSearchParams } from '../../hooks/useSearchParams';
@@ -38,9 +34,12 @@ const Login: FC = () => {
 
   const { setLoginStep } = authActionCreators();
 
-  useEffect(() => () => {
-    setLoginStep(1);
-  }, []);
+  useEffect(
+    () => () => {
+      setLoginStep(1);
+    },
+    []
+  );
 
   return (
     <ModalWrapper>
@@ -51,13 +50,7 @@ const Login: FC = () => {
           justifyContent: 'space-between',
         }}
       >
-        <Typography
-          color="textPrimary"
-          gutterBottom
-          variant="h3"
-          mb="0"
-          fontWeight="300"
-        >
+        <Typography color="textPrimary" gutterBottom variant="h3" mb="0" fontWeight="300">
           Вход
         </Typography>
       </Box>
@@ -65,10 +58,11 @@ const Login: FC = () => {
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 5 }}>
         <OAuthBlockLogin isLogin />
       </Box>
-      <Box sx={{
-        justifyContent: 'flex-start',
-        mt: 4
-      }}
+      <Box
+        sx={{
+          justifyContent: 'flex-start',
+          mt: 4,
+        }}
       >
         {loginStep === 2 && (
           <Box>
@@ -77,7 +71,7 @@ const Login: FC = () => {
                 color: '#747373',
                 textDecoration: 'underline',
                 cursor: 'pointer',
-                width: 230
+                width: 230,
               }}
               onClick={() => setAuthValue('reset_password')}
             >
@@ -87,11 +81,10 @@ const Login: FC = () => {
         )}
       </Box>
       <Box sx={{ mt: 4, justifyContent: 'space-between', alignItems: 'center', display: 'flex' }}>
-        <Typography sx={{ pb: '0px!important' }}>
-          Новый пользователь?
-        </Typography>
+        <Typography sx={{ pb: '0px!important' }}>Новый пользователь?</Typography>
         <Button
-          color="primary"
+          className={styles.registerButton}
+          // color="primary"
           size="medium"
           variant="outlined"
           onClick={() => setAuthValue('register')}
