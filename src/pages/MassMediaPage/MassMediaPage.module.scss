@@ -457,7 +457,8 @@
 
           .description {
             height: 90%;
-            overflow: hidden;
+            overflow-y: scroll;
+            width: 100%;
             @media screen and (max-width: $preMobileScreen) {
               height: 100%;
             }
@@ -683,7 +684,8 @@
           justify-content: space-between;
           .description {
             height: 90%;
-            overflow: hidden;
+            width: 100%;
+            overflow-y: scroll;
             .text {
               color: #585858;
               font-size: 8px;

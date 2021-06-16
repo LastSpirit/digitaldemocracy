@@ -7,9 +7,10 @@ import InDevelop from '../../../../components/InDevelop/InDevelop';
 
 const MassMediaCards = ({ data }) => {
   const { isMobile } = useWindowSize();
-  const maxLength = isMobile ? 160 : 180;
-  const hiddenText =
-    data?.description?.length >= maxLength ? `${data?.description.slice(0, maxLength)} ...` : data?.description;
+  // const maxLength = isMobile ? 160 : 180;
+  // const hiddenText =
+  //   data?.description?.length >= maxLength ? `${data?.description.slice(0, maxLength)} ...` : data?.description;
+  const hiddenText = data?.description;
   return (
     <div className={styles.cardsBlock}>
       <div className={styles.card}>
