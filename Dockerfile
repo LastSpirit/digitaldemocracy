@@ -2,15 +2,10 @@
 FROM node:14.15.5-stretch-slim as build-deps
 WORKDIR /usr/src/app
 COPY package.json package-lock.json ./
-# RUN npm install @testing-library/dom@>=7.21.4
-# RUN npm install react@17.0.2
-# RUN npm install draft-js@^0.11.x
-# RUN npm install jquery@>=1.8.0
-# RUN npm install @babel/core@^7.13.0
-# RUN npm install react@^16.0.0
 
 RUN npm install
 COPY . ./
+COPY node/dx-react-chart-material-ui.es.js node_modules/@devexpress/dx-react-chart-material-ui/dist/dx-react-chart-material-ui.es.js
 RUN npm run build
 
 FROM nginx:1.19-alpine
