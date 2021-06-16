@@ -20,6 +20,8 @@ export const MassmediaVotesGroup = () => {
   const { isMobile } = useWindowSize();
   const isMassmediaLiked = useSelector((s: RootState) => s?.singleNews?.data?.currentNews?.media?.is_user_liked);
   const isMassmediaDisliked = useSelector((s: RootState) => s?.singleNews?.data?.currentNews?.media?.is_user_disliked);
+  const likes = useSelector((s: RootState) => s?.singleNews?.data?.currentNews?.media?.number_of_likes);
+  const dislikes = useSelector((s: RootState) => s?.singleNews?.data?.currentNews?.media?.number_of_dislikes);
   const { likeStatus, dislikeStatus } = useSelector((s: RootState) => s?.singleNews);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { setMassMediaLike, setMassMediaDislike } = useSetLike();
@@ -35,43 +37,49 @@ export const MassmediaVotesGroup = () => {
 
   return (
     <Box className={styles.likeButtons}>
-      <IconButton
-        className={styles.likeButton}
-        sx={{ marginRight: '10px' }}
-        onClick={() => {
-          if (likeStatus !== APIStatus.Loading && dislikeStatus !== APIStatus.Loading) {
-            if (isAuthenticated) {
-              setMassMediaLike();
-            } else {
-              handleClickLogin();
+      <div className={styles.buttonContainer}>
+        <IconButton
+          className={styles.likeButton}
+          sx={{ marginRight: '10px' }}
+          onClick={() => {
+            if (likeStatus !== APIStatus.Loading && dislikeStatus !== APIStatus.Loading) {
+              if (isAuthenticated) {
+                setMassMediaLike();
+              } else {
+                handleClickLogin();
+              }
             }
-          }
-        }}
-      >
-        {isMassmediaLiked ? (
-          <Like className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-        ) : (
-          <LikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-        )}
-      </IconButton>
-      <IconButton
-        className={styles.likeButton}
-        onClick={() => {
-          if (dislikeStatus !== APIStatus.Loading && likeStatus !== APIStatus.Loading) {
-            if (isAuthenticated) {
-              setMassMediaDislike();
-            } else {
-              handleClickLogin();
+          }}
+        >
+          {isMassmediaLiked ? (
+            <Like className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
+          ) : (
+            <LikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
+          )}
+        </IconButton>
+        <div className={styles.votes}>{likes}</div>
+      </div>
+      <div className={styles.buttonContainer}>
+        <IconButton
+          className={styles.likeButton}
+          onClick={() => {
+            if (dislikeStatus !== APIStatus.Loading && likeStatus !== APIStatus.Loading) {
+              if (isAuthenticated) {
+                setMassMediaDislike();
+              } else {
+                handleClickLogin();
+              }
             }
-          }
-        }}
-      >
-        {isMassmediaDisliked ? (
-          <Dislike className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-        ) : (
-          <DislikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-        )}
-      </IconButton>
+          }}
+        >
+          {isMassmediaDisliked ? (
+            <Dislike className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
+          ) : (
+            <DislikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
+          )}
+        </IconButton>
+        <div className={styles.votes}>{dislikes}</div>
+      </div>
     </Box>
   );
 };

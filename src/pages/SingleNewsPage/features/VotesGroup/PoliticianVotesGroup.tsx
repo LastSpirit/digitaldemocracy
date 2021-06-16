@@ -31,41 +31,47 @@ export const PoliticianVotesGroup = () => {
 
   return (
     <Box className={styles.likeButtons}>
-      <IconButton
-        className={styles.likeButton}
-        sx={{ marginRight: '10px' }}
-        onClick={
-          isAuthenticated
-            ? () => {
-                setLike(!like);
-                setDislike(false);
-              }
-            : handleClickLogin
-        }
-      >
-        {like ? (
-          <Like className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-        ) : (
-          <LikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-        )}
-      </IconButton>
-      <IconButton
-        className={styles.likeButton}
-        onClick={
-          isAuthenticated
-            ? () => {
-                setDislike(!dislike);
-                setLike(false);
-              }
-            : handleClickLogin
-        }
-      >
-        {dislike ? (
-          <Dislike className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-        ) : (
-          <DislikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-        )}
-      </IconButton>
+      <div className={styles.buttonContainer}>
+        <IconButton
+          className={styles.likeButton}
+          sx={{ marginRight: '10px' }}
+          onClick={
+            isAuthenticated
+              ? () => {
+                  setLike(!like);
+                  setDislike(false);
+                }
+              : handleClickLogin
+          }
+        >
+          {like ? (
+            <Like className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
+          ) : (
+            <LikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
+          )}
+        </IconButton>
+        {/* <div className={styles.votes}>11</div> */}
+      </div>
+      <div className={styles.buttonContainer}>
+        <IconButton
+          className={styles.likeButton}
+          onClick={
+            isAuthenticated
+              ? () => {
+                  setDislike(!dislike);
+                  setLike(false);
+                }
+              : handleClickLogin
+          }
+        >
+          {dislike ? (
+            <Dislike className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
+          ) : (
+            <DislikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
+          )}
+        </IconButton>
+        {/* <div className={styles.votes}>11</div> */}
+      </div>
     </Box>
   );
 };

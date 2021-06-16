@@ -22,7 +22,6 @@ export const useSetLike = () => {
   const { massmediaLike, massmediaDislike } = singleNewsAPIActions();
   const token = getItem('token');
   const setMassMediaLike = useCallback(() => {
-    console.log('like', isMassmediaLiked, isMassmediaDisliked);
     startMassmediaLike();
     massmediaLike({
       onSuccess: () => {

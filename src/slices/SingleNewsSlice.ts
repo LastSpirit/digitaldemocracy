@@ -13,6 +13,8 @@ export interface MediaI {
   short_link?: string;
   is_user_liked?: boolean;
   is_user_disliked?: boolean;
+  number_of_likes?: number;
+  number_of_dislikes?: number;
   rating?: string;
 }
 
@@ -26,6 +28,8 @@ export interface AuthorI {
   short_link?: string;
   is_user_liked?: boolean;
   is_user_disliked?: boolean;
+  number_of_likes?: number;
+  number_of_dislikes?: number;
   rating?: string;
 }
 
@@ -35,6 +39,8 @@ export interface PoliticiansI {
   percent?: string;
   short_link?: string;
   rating?: string;
+  number_of_likes?: number;
+  number_of_dislikes?: number;
 }
 
 interface NewTopicsI {
@@ -121,6 +127,9 @@ export const singleNewsSlice = createSlice({
     successMassmediaLike(state, action) {
       state.likeStatus = APIStatus.Success;
       state.data.currentNews.media.is_user_liked = action.payload;
+      state.data.currentNews.media.number_of_likes = action.payload
+        ? state.data.currentNews.media.number_of_likes + 1
+        : state.data.currentNews.media.number_of_likes - 1;
     },
     failMassmediaLike(state) {
       state.likeStatus = APIStatus.Failure;
@@ -131,6 +140,9 @@ export const singleNewsSlice = createSlice({
     successMassmediaDislike(state, action) {
       state.dislikeStatus = APIStatus.Success;
       state.data.currentNews.media.is_user_disliked = action.payload;
+      state.data.currentNews.media.number_of_dislikes = action.payload
+        ? state.data.currentNews.media.number_of_dislikes + 1
+        : state.data.currentNews.media.number_of_dislikes - 1;
     },
     failMassmediaDislike(state) {
       state.dislikeStatus = APIStatus.Failure;

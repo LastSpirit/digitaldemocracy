@@ -1,5 +1,13 @@
 .likeButtons {
   display: flex;
+  .buttonContainer {
+    display: flex;
+    flex-direction: column;
+    .votes {
+      display: flex;
+      justify-content: center;
+    }
+  }
 }
 .likeButton {
   padding: 0;
