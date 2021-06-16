@@ -94,12 +94,7 @@ export const ProfileTabs = [
     id: 'donation_history',
     title: 'История донатов',
     component: DonationHistory,
-  },
-  {
-    id: 'suggestion',
-    title: 'Предложить новость или политика',
-    component: SuggestionPage,
-  },
+  }
 ];
 
 export const MassMediaTabs = [

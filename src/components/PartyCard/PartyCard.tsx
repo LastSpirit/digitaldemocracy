@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import PersonIcon from '@material-ui/icons/Person';
 import { useHistory, matchPath } from 'react-router';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 import { Button, Tooltip } from '@material-ui/core';
@@ -15,7 +16,7 @@ import { APIStatus } from '../../lib/axiosAPI';
 
 interface IProps extends PoliticianInfoI {}
 
-const PartyCard: FC<IProps> = ({ photo, percent, name, is_subscribed, id }) => {
+const PartyCard: FC<IProps> = ({ photo, percent, name, is_subscribed, id, short_link }) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { status, change } = useChangeSubscribe(id);
   const { push } = useHistory();
@@ -31,11 +32,13 @@ const PartyCard: FC<IProps> = ({ photo, percent, name, is_subscribed, id }) => {
 
   return (
     <div className={styles.root}>
-      <div className={styles.avatarBlock}>
-        <div className={styles.avatar}>
-          {!photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={photo} alt="" />}
+      <Link to={`/politician/${short_link}/politician_news`}>
+        <div className={styles.avatarBlock}>
+          <div className={styles.avatar}>
+            {!photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={photo} alt="" />}
+          </div>
         </div>
-      </div>
+      </Link>
       <div className={styles.second}>
         <div className={styles.badge}>
           <div className={styles.text}>Место 2</div>

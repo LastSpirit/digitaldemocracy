@@ -70,7 +70,7 @@ const SuggestionPage = () => {
       {isMobile && <MobileButtons />}
       <div className={styles.heading}>
         <h2
-          className={suggest === POLITICIAN ? styles.active : styles.passive}
+          className={suggest === POLITICIAN ? styles.passive : styles.active}
           aria-hidden
           onClick={() => {
             setSuggest(POLITICIAN);
@@ -83,7 +83,7 @@ const SuggestionPage = () => {
         </h2>{' '}
         <h2>/</h2>{' '}
         <h2
-          className={suggest === NEWS ? styles.active : styles.passive}
+          className={suggest === NEWS ? styles.passive : styles.active}
           aria-hidden
           onClick={() => {
             setSuggest(NEWS);

@@ -200,6 +200,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin-bottom: 40px;
     // .outerCardContainer {
     //   width: 324px;
     //   // margin: 0px 16px 16px 0px;
@@ -377,8 +378,8 @@
   }
   .topItems {
     display: flex;
-    height: 288px;
     margin-bottom: 60px;
+    height: 288px;
     .avatarBlock {
       position: relative;
       display: flex;
@@ -641,6 +642,8 @@
   .topItems {
     display: flex;
     height: 100%;
+    align-items: center;
+    justify-content: space-between;
     .avatarBlock {
       position: relative;
       display: flex;
@@ -728,12 +731,14 @@
             color: #222222;
             margin: 0 !important;
             font-size: 24px;
+            white-space: nowrap;
+            overflow: hidden;
           }
         }
         .subscribers {
           display: flex;
           align-items: center;
-          height: 18px;
+          height: 100%;
           .subscribersBadge {
             color: #7a7a7a;
             font-size: 13px;
@@ -816,12 +821,14 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          @media screen and (max-width: $mobileScreen) {
+            font-size: 25px;
+          }
         }
       }
     }
   }
 }
-
 
 .arrowLink {
   height: 20px;

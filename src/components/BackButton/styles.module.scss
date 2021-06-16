@@ -1,32 +1,45 @@
 .buttonRow {
+  display: flex;
+  width: 100%;
+  margin-bottom: 40px;
+  .backButton {
+    background-color: #363557;
+    border: 1px solid #363557;
+    padding: 10px 30px;
+    font-size: 14px;
+    border-radius: 150px;
+    white-space: nowrap;
     display: flex;
-    width: 100%;
-    margin-bottom: 40px;
-    .backButton {
-      border-color: #b0b0b0;
-      padding: 5px 20px;
-      margin: 0px;
-      .icon {
-        margin-right: 7px;
-        height: 100%;
-        color: #7a7a7a;
-        font-family: HelveticaNeueCyr;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 200;
-        line-height: 18px;
-        letter-spacing: 0em;
-        text-align: left;
-      }
-      .text {
-        font-family: HelveticaNeueCyr;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 200;
-        line-height: 18px;
-        letter-spacing: 0em;
-        text-align: left;
-        color: #7a7a7a;
-      }
+    height: 40px;
+    color: white;
+    box-sizing: border-box;
+
+    &:hover {
+      color: #363557;
+      background: transparent;
+    }
+
+    .icon {
+      margin-right: 7px;
+      height: 100%;
+      font-family: HelveticaNeueCyr;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 200;
+      line-height: 18px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: inherit;
+    }
+    .text {
+      font-family: HelveticaNeueCyr;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 200;
+      line-height: 18px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: inherit;
     }
   }
+}
