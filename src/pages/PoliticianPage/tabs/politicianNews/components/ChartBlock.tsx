@@ -11,7 +11,7 @@ import { WrapperAsyncRequest } from '../../../../../components/Loading/WrapperAs
 import styles from '../../../PoliticianPage.module.scss';
 import { politicianSelectors } from '../../../../../slices/politicianSlice';
 import { APIStatus } from '../../../../../lib/axiosAPI';
-import Demo from './Demo.js';
+import Demo from './ChartNews.js';
 
 registerLocale('ru', ru);
 

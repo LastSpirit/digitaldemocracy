@@ -36,14 +36,14 @@ const chartRootStyle = { marginRight: '20px' };
 
 const ChartRoot = (props) => <Chart.Root {...props} style={chartRootStyle} />;
 
-function Demo() {
+function ChartNews() {
   const news = useSelector(politicianSelectors.getNews());
 
   const FINALLY_DATA = news?.chart?.map((item) => ({ ...item, x: new Date(item.x) }));
 
   const [zoomArgument] = React.useState(true);
   const [panArgument] = React.useState(true);
-  const [zoomValue] = React.useState(true);
+  const [zoomValue] = React.useState(false);
   const [panValue] = React.useState(true);
 
   return (
@@ -62,4 +62,4 @@ function Demo() {
   );
 }
 
-export default React.memo(Demo);
+export default React.memo(ChartNews);
