@@ -45,7 +45,7 @@ const PoliticianCards = () => {
               <div className={styles.badge}>
                 <div className={styles.text}>{data?.trust || 'Без рейтинга'}</div>
               </div>
-              <div className={styles.percent}>{data?.percent || '- %'}</div>
+              <div className={styles.percent}>{data?.rating || '-'} %</div>
             </div>
             <PercentsLinearGraphic vote_groups={data?.vote_groups} />
           </div>

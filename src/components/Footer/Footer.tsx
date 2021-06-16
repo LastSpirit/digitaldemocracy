@@ -332,7 +332,11 @@ const Footer: FC = (props) => {
               />
 
               <Typography color="textSecondary" variant="caption">
-                * отображает только мнение пользователей данного сайта.
+                {`* ${
+                  pathname === '/'
+                    ? 'отображает только мнение пользователей данного сайта'
+                    : 'рейтинг отображает мнение пользователей Digital Democracy'
+                }`}
               </Typography>
             </>
           )}

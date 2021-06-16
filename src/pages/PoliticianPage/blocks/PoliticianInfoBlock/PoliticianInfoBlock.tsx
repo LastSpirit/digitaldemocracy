@@ -9,6 +9,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import classNames from 'classnames';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import FacebookIcon from '@material-ui/icons/Facebook';
+import { avatarColorChanger } from 'src/utils/avatarColorChanger';
 
 import InputTextField from '../../../../components/widgets/inputs/InputTextField';
 import styles from '../../PoliticianPage.module.scss';
@@ -49,11 +50,15 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
       <div className={styles.topItems}>
-        <div className={styles.avatarBlock}>
+        <div
+          className={styles.avatarBlock}
+          style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
+        >
           <div className={styles.avatar}>
             {!data?.photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={data?.photo} alt="" />}
           </div>
         </div>
+
         <div className={styles.personBlock}>
           <div className={styles.fioBlock}>
             <div className={styles.fio}>
@@ -140,7 +145,7 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                 <div className={styles.badge}>
                   <div className={styles.text}>{data?.trust || 'Без рейтинга'}</div>
                 </div>
-                <div className={styles.percent}>{`${data?.percent || '- %'}`}</div>
+                <div className={styles.percent}>{`${data?.rating || '-'} %`}</div>
               </div>
               <PercentsLinearGraphic />
             </div>
