@@ -94,7 +94,7 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                     </div>
                   )}
                   {data?.link && (
-                    <FacebookShare url={data?.link || 'facebook.com'}>
+                    <FacebookShare url={data?.link}>
                       <FacebookIcon
                         fontSize={isMobile ? 'small' : 'large'}
                         className={styles.facebook}

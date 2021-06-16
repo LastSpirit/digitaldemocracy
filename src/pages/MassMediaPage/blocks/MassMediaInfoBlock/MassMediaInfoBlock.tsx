@@ -87,8 +87,8 @@ const MassMediaInfoBlock: FC = () => {
                     {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, 'подписчик')}`}
                   </div>
                 )}
-                {data?.source_link && (
-                  <FacebookShare url={data?.source_link || 'facebook.com'}>
+                {data?.link && (
+                  <FacebookShare url={data?.link || 'facebook.com'}>
                     <FacebookIcon
                       fontSize={isMobile ? 'small' : 'large'}
                       className={styles.facebook}
