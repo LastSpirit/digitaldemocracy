@@ -18,6 +18,7 @@ export interface PoliticianInfoI {
   city?: string;
   trust?: string;
   link?: string;
+  rating?: string;
 }
 
 export interface PartyI {
