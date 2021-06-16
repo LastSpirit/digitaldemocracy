@@ -39,6 +39,8 @@ export interface PoliticiansI {
   percent?: string;
   short_link?: string;
   rating?: string;
+  is_user_liked?: boolean;
+  is_user_disliked?: boolean;
   number_of_likes?: number;
   number_of_dislikes?: number;
 }

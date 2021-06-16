@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, IconButton, Card, Typography } from '@material-ui/core';
-import { likes, frames } from 'src/icons/pictures/picturesExports/picturesExport';
 import { avatarColorChanger } from 'src/utils/avatarColorChanger';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
@@ -17,9 +16,24 @@ interface StatisticsCardPropsI {
   short_link?: string;
   field?: string;
   rating?: string;
+  likes?: number;
+  dislikes?: number;
+  isLiked?: boolean;
+  isDisliked?: boolean;
 }
 
-const StatisticsCard: FC<StatisticsCardPropsI> = ({ name, photo, percent, short_link, field, rating }) => {
+const StatisticsCard: FC<StatisticsCardPropsI> = ({
+  name,
+  photo,
+  percent,
+  short_link,
+  field,
+  rating,
+  likes,
+  dislikes,
+  isLiked,
+  isDisliked,
+}) => {
   const percentIsPositive = percent?.includes('+') && !percent?.includes('-');
   return (
     <Card className={styles.card}>
@@ -31,11 +45,11 @@ const StatisticsCard: FC<StatisticsCardPropsI> = ({ name, photo, percent, short_
         <Typography className={styles.title}>{name}</Typography>
       </Link>
       {field === '/mass-media' ? (
-        <MassmediaVotesGroup />
+        <MassmediaVotesGroup likes={likes} dislikes={dislikes} isLiked={isLiked} isDisliked={isDisliked} />
       ) : field === '/author' ? (
-        <AuthorVotesGroup />
+        <AuthorVotesGroup likes={likes} dislikes={dislikes} isLiked={isLiked} isDisliked={isDisliked} />
       ) : field === '/politician' ? (
-        <PoliticianVotesGroup />
+        <PoliticianVotesGroup likes={likes} dislikes={dislikes} isLiked={isLiked} isDisliked={isDisliked} />
       ) : (
         <></>
       )}

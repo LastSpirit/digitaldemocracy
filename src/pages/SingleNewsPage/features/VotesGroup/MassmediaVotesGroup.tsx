@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Box, IconButton } from '@material-ui/core';
@@ -16,12 +16,15 @@ import { APIStatus } from 'src/lib/axiosAPI';
 import styles from './VotesGroup.module.scss';
 import { useSetLike } from '../../hooks/useSetLike';
 
-export const MassmediaVotesGroup = () => {
+interface IProps {
+  likes?: number;
+  dislikes?: number;
+  isLiked?: boolean;
+  isDisliked?: boolean;
+}
+
+export const MassmediaVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isDisliked }) => {
   const { isMobile } = useWindowSize();
-  const isMassmediaLiked = useSelector((s: RootState) => s?.singleNews?.data?.currentNews?.media?.is_user_liked);
-  const isMassmediaDisliked = useSelector((s: RootState) => s?.singleNews?.data?.currentNews?.media?.is_user_disliked);
-  const likes = useSelector((s: RootState) => s?.singleNews?.data?.currentNews?.media?.number_of_likes);
-  const dislikes = useSelector((s: RootState) => s?.singleNews?.data?.currentNews?.media?.number_of_dislikes);
   const { likeStatus, dislikeStatus } = useSelector((s: RootState) => s?.singleNews);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { setMassMediaLike, setMassMediaDislike } = useSetLike();
@@ -51,7 +54,7 @@ export const MassmediaVotesGroup = () => {
             }
           }}
         >
-          {isMassmediaLiked ? (
+          {isLiked ? (
             <Like className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
           ) : (
             <LikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
@@ -72,7 +75,7 @@ export const MassmediaVotesGroup = () => {
             }
           }}
         >
-          {isMassmediaDisliked ? (
+          {isDisliked ? (
             <Dislike className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
           ) : (
             <DislikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />

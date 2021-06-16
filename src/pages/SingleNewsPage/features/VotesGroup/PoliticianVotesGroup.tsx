@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Box, IconButton } from '@material-ui/core';
@@ -13,7 +13,14 @@ import { ModalParams } from 'src/types/routing';
 import { userSelectors } from 'src/slices/userSlice';
 import styles from './VotesGroup.module.scss';
 
-export const PoliticianVotesGroup = () => {
+interface IProps {
+  likes?: number;
+  dislikes?: number;
+  isLiked?: boolean;
+  isDisliked?: boolean;
+}
+
+export const PoliticianVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isDisliked }) => {
   const { isMobile } = useWindowSize();
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const [like, setLike] = useState(false);
@@ -50,7 +57,7 @@ export const PoliticianVotesGroup = () => {
             <LikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
           )}
         </IconButton>
-        {/* <div className={styles.votes}>11</div> */}
+        <div className={styles.votes}>{likes}</div>
       </div>
       <div className={styles.buttonContainer}>
         <IconButton
@@ -70,7 +77,7 @@ export const PoliticianVotesGroup = () => {
             <DislikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
           )}
         </IconButton>
-        {/* <div className={styles.votes}>11</div> */}
+        <div className={styles.votes}>{dislikes}</div>
       </div>
     </Box>
   );
