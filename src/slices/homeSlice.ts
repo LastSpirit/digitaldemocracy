@@ -51,7 +51,7 @@ export interface NewsI {
 export interface HomeI {
   politicians?: PoliticiansI[];
   newsTopics?: NewsTopicsI[];
-  news?: NewsI[];
+  news?: any;
   isMorePages?: boolean;
 }
 

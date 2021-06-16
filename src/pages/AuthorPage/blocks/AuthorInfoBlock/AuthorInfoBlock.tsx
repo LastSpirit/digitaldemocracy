@@ -40,7 +40,6 @@ const AuthorInfoBlock: FC = () => {
       setAuthValue('/login');
     }
   };
-  console.log(subscribeStatus, subscribeStatus === APIStatus.Loading);
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
       <div className={styles.topItems}>

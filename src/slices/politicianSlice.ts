@@ -92,7 +92,7 @@ export interface StatisticI {
 
 interface SliceState {
   data?: PoliticianInfoI;
-  news?: Array<NewsI>;
+  news?: any;
   promises?: Array<PromiseI>;
   chartData?: Array<Array<Date | number>>;
   ratingStatistics?: RatingStatisticsI;
@@ -116,7 +116,7 @@ export const politicianSlice = createSlice({
   reducers: {
     setNews(state: SliceState, action: PayloadAction<Array<NewsWithPercentI>>) {
       state.news = action.payload;
-      state.chartData = [...action.payload].map((item) => [new Date(item.publication_date), item.percent]);
+      // state.chartData = [...action.payload].map((item) => [new Date(item.publication_date), item.percent]);
     },
     setPoliticianInfo(state: SliceState, action: PayloadAction<PoliticianInfoI>) {
       state.data = action.payload;

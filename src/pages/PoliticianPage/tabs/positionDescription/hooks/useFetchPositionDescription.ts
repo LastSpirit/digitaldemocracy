@@ -21,10 +21,10 @@ export const useFetchPositionDescription = () => {
         setStatus(APIStatus.Success);
       },
       payload: {
-        politician_id: Number(politicianId),
+        politician_id: politicianId,
       },
     });
-  }, []);
+  }, [politicianId]);
 
   return { fetch, status };
 };

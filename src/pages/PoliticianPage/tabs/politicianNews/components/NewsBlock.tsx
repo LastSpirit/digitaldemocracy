@@ -9,34 +9,25 @@ const NewsBlock = () => {
   const news = useSelector(politicianSelectors.getNews());
   return (
     <div className={styles.newsContainer}>
-      {news && news.length > 0 ? (
+      {news?.news && news?.news?.length > 0 ? (
         <Grid
           container
           spacing={2}
           sx={{
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
           }}
         >
-          {news?.map((item, index) => (
-            <Grid
-              key={index.toString()}
-              item
-              md={4}
-              sm={6}
-              xs={12}
-            >
-              <CardSmall
-                {...item}
-              />
+          {news?.news?.map((item, index) => (
+            <Grid key={index.toString()} item md={4} sm={6} xs={12}>
+              <CardSmall {...item} />
             </Grid>
           ))}
         </Grid>
-      )
-        : (
-          <div className={styles.noNewsBlock}>
-            <span>Здесь будут отображаться новости за выбранный период</span>
-          </div>
-        )}
+      ) : (
+        <div className={styles.noNewsBlock}>
+          <span>Здесь будут отображаться новости за выбранный период</span>
+        </div>
+      )}
     </div>
   );
 };
