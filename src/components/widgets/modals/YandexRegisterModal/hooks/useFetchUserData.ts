@@ -15,7 +15,6 @@ export const useFetchUserData = () => {
     if (yandexRegisterValue) {
       setStatus(APIStatus.Loading);
       const token = /access_token=([^&]+)/.exec(document.location.hash);
-      console.log(token);
       if (token) {
         getYandexUserInfo({
           onSuccess: (response) => {

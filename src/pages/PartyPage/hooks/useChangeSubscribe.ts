@@ -13,7 +13,6 @@ export const useChangeSubscribe = (id) => {
   const { subscribe, unsubscribe } = politicianAPI();
   const { politicians } = useSelector((s: RootState) => s.party.politiciansPartyInfo);
   const isSubscribe = politicians.filter((item) => item.id === id)[0].is_subscribed;
-  console.log(isSubscribe);
   const token = getItem('token');
   const api = isSubscribe ? unsubscribe : subscribe;
 

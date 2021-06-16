@@ -16,7 +16,7 @@ export const useFetchNews = () => {
   const { short_link }: { short_link: string } = useParams();
   const token = getItem('token');
   const fetch = useCallback(
-    (start_date: string, end_date: string) => {
+    () => {
       setStatus(APIStatus.Loading);
       fetchNews({
         onSuccess: (response) => {
@@ -26,10 +26,6 @@ export const useFetchNews = () => {
         onError: (errorResponse) => {
           setError(errorResponse);
           setStatus(APIStatus.Failure);
-        },
-        payload: {
-          end_date,
-          start_date,
         },
         variables: {
           token,

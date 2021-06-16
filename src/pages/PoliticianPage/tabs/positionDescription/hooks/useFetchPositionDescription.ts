@@ -11,7 +11,6 @@ export const useFetchPositionDescription = () => {
   const { setPositionsDescription } = politicianActionCreators();
   const { fetchPositionsDescription } = politicianAPI();
   const politicianId = useSelector((s: RootState) => s?.politician?.data?.id);
-  console.log(politicianId);
 
   const fetch = useCallback(() => {
     setStatus(APIStatus.Loading);
