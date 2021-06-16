@@ -22,14 +22,15 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
           <Grid item lg={6} md={12} sm={12}>
             {politicians && politicians?.length > 0 && (
               <>
-                {politicians.map((it) => {
-                  return (
-                    <Box sx={{ marginBottom: '20px' }}>
-                      <Box className={styles.headings}>
-                        <Typography className={styles.heading}>
-                          Доверяете ли вы {politicians?.length > 1 ? 'этим политикам' : 'этому политику'} ?
-                        </Typography>
-                      </Box>
+                return (
+                <Box sx={{ marginBottom: '20px' }}>
+                  <Box className={styles.headings}>
+                    <Typography className={styles.heading}>
+                      Доверяете ли вы {politicians?.length > 1 ? 'этим политикам' : 'этому политику'} ?
+                    </Typography>
+                  </Box>
+                  {politicians.map((it) => {
+                    return (
                       <StatisticsCard
                         name={it?.name}
                         photo={it?.photo}
@@ -41,9 +42,9 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
                         isLiked={it?.is_user_liked}
                         isDisliked={it?.is_user_disliked}
                       />
-                    </Box>
-                  );
-                })}
+                    );
+                  })}
+                </Box>
               </>
             )}
             {media && (
