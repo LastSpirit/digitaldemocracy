@@ -45,20 +45,21 @@
     }
 
     .submitButton {
-      background-color: #363557;
+      color: #363557;
+      background-color: white;
       border: 1px solid #363557;
-      color: white;
+      // color: white;
       align-self: flex-start;
       margin: 20px 0px;
-      width: 261px;
-      height: 78px;
+      width: 130px;
+      height: 39px;
       font-weight: 300;
-      font-size: 30px;
+      font-size: 20px;
       line-height: 30px;
 
       &:hover {
         color: #363557;
-        background: white;
+        background-color: white;
       }
 
       @media screen and (max-width: 1024px) {

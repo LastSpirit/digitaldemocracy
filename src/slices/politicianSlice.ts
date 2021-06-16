@@ -19,6 +19,7 @@ export interface PoliticianInfoI {
   trust?: string;
   link?: string;
   rating?: string;
+  short_link?: string;
 }
 
 export interface PartyI {
