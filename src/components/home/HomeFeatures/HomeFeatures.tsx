@@ -56,7 +56,7 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
             ) : null}
 
             <Box className={styles.news}>
-              <Typography fontSize="35px" textAlign="left" component="span" mb={2}>
+              <Typography fontSize="35px" textAlign="center" component="span" mb={2} style={{ width: '100%' }}>
                 Актуальные новости
               </Typography>
               <WrapperAsyncRequest status={loadMoreNews ? APIStatus.Success : fetchNewsStatus}>
@@ -67,7 +67,7 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                     justifyContent="center"
                     sx={{
                       maxWidth: '900px',
-                      justifyContent: 'flex-start',
+                      justifyContent: 'center',
                     }}
                   >
                     {news?.map((item, index) => (
@@ -88,8 +88,8 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                 </div>
               )}
               {fetchNewsStatus !== APIStatus.Loading && (
-                <Box className={styles.content}>
-                  <Link to="/news" component={RouterLink}>
+                <Box className={styles.content} sx={{ mt: 2 }}>
+                  <Link to="/news" component={RouterLink} style={{ textDecoration: 'none' }}>
                     <Typography className={styles.violetButtonText}>К разделу новостей</Typography>
                   </Link>
                   {isMorePages && (

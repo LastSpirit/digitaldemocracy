@@ -45,7 +45,7 @@ export const SuggestButton: FC<IProps> = ({ handleClickOpen }) => {
             color="primary"
           >
             <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
-              <span>Предложить изменения</span>
+              <span>Предложить новость / политика</span>
             </Tooltip>
           </Button>
         </Link>

@@ -116,11 +116,11 @@ const MainNavbar: FC = () => {
                 </Box>
                 <Box
                   sx={{
-                    marginLeft: 17,
+                    marginLeft: 2,
                   }}
                 >
                   {!isMobile && (
-                    <Box style={{ width: '210px' }}>
+                    <Box style={{ width: '322px' }}>
                       <InputTextField icon={<Search />} />
                     </Box>
                   )}
@@ -163,6 +163,7 @@ const MainNavbar: FC = () => {
                     paddingLeft: 2,
                     borderRadius: 100,
                     mr: 3,
+                    textDecoration: 'none',
                   }}
                   size="small"
                   variant="outlined"

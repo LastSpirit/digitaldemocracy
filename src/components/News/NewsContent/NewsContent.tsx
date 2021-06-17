@@ -31,58 +31,47 @@ const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages }) => {
   return (
     <Box className={styles.content}>
       <Box className={styles.contentContainer}>
-        {isMobile
-          ? (
-            <Box className={styles.topicsSlider}>
-              <TopicsSlider
-                newsTopics={newsTopics}
-                fetch={fetch}
-              />
-            </Box>
-          )
-          : (
-            <Box className={styles.listSidebar}>
-              <ListSidebar
-                newsTopics={newsTopics}
-                fetch={fetch}
-              />
-            </Box>
-          )}
+        {isMobile ? (
+          <Box className={styles.topicsSlider}>
+            <TopicsSlider newsTopics={newsTopics} fetch={fetch} />
+          </Box>
+        ) : (
+          <Box className={styles.listSidebar}>
+            <ListSidebar newsTopics={newsTopics} fetch={fetch} />
+          </Box>
+        )}
         <Box className={styles.news}>
           {!isMobile && (
-            <Typography
-              fontSize="35px"
-              textAlign="left"
-              component="span"
-              marginBottom="20px"
-            >
+            <Typography fontSize="35px" textAlign="left" component="span" marginBottom="20px">
               Актуальные новости
             </Typography>
           )}
-          <WrapperAsyncRequest
-            height={600}
-            status={loadMoreNews ? APIStatus.Success : fetchNewsStatus}
-          >
+          <WrapperAsyncRequest height={600} status={loadMoreNews ? APIStatus.Success : fetchNewsStatus}>
             <Grid
               container
               spacing={2}
               justifyContent="center"
               sx={{
                 maxWidth: '900px',
-                justifyContent: 'flex-start'
+                justifyContent: 'flex-start',
               }}
             >
-              {news && news.length > 0
-                && news.map((item, index) => (
+              {news &&
+                news.length > 0 &&
+                news.map((item, index) => (
                   <Grid
                     key={index.toString()}
                     item
                     md={4}
                     sm={6}
                     xs={12}
-                    style={item.type === 'widgetLink' ? {
-                      alignSelf: 'center'
-                    } : {}}
+                    style={
+                      item.type === 'widgetLink'
+                        ? {
+                            alignSelf: 'center',
+                          }
+                        : {}
+                    }
                   >
                     {item.type === 'widgetLink' ? <WidgetLink {...item.widgetLink} /> : <CardSmall {...item.news} />}
                   </Grid>
@@ -94,20 +83,16 @@ const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages }) => {
               </WrapperAsyncRequest>
             </div>
           </WrapperAsyncRequest>
-          <Box className={styles.content}>
+          <Box className={styles.content} sx={{ mt: 2 }}>
             {isMorePages && fetchNewsStatus !== APIStatus.Loading && (
-              <Button>
-                <Typography
-                  className={styles.transparentButtonText}
-                  onClick={handleGetMorePages}
-                >
+              <Button sx={{ mt: 4 }}>
+                <Typography className={styles.transparentButtonText} onClick={handleGetMorePages}>
                   Показать больше
                 </Typography>
               </Button>
             )}
           </Box>
         </Box>
-
       </Box>
     </Box>
   );
