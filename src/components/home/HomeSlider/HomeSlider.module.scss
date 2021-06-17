@@ -1,13 +1,13 @@
 .textBeforeCarousel {
   display: flex;
   justify-content: space-between;
-  margin: 50px auto;
+  margin-bottom: 40px;
 }
 .carouselTitle {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  alignitems: center;
+  align-items: center;
   width: 100%;
 }
 .carouselTitle p {
