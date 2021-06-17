@@ -176,7 +176,9 @@ const MainNavbar: FC = () => {
                   {isAuthenticated ? 'Предложить новость / политика' : 'Вход'}
                 </Button>
                 <Button
-                  className={classNames(['buttonsStyle', { register: true }])}
+                  className={
+                    !isAuthenticated ? classNames(['buttonsStyle', { register: true }]) : classNames(['buttonsStyleProfile'])
+                  }
                   sx={{
                     backgroundColor: 'white',
                     p: 1,

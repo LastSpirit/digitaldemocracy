@@ -62,6 +62,17 @@
   color: #363557 !important;
 }
 
+.buttonsStyleProfile {
+  background-color: #363557;
+  border: 1px solid #363557;
+  color: white !important;
+}
+
+.buttonsStyleProfile:hover {
+  background-color: white;
+  color: #363557 !important;
+}
+
 .comeIn {
   background: white;
   border: 1px solid #363557;
@@ -78,7 +89,7 @@
   color: white !important;
   border: 1px solid #248232 !important;
 }
-/* 
+/*
 .buttonsStyle.register span .person {
   stroke: white !important;
 } */
