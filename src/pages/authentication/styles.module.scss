@@ -1,17 +1,18 @@
 .registerButton {
-  background-color: transparent;
-  border: 1px solid #363557;
-  color: #363557 !important;
+  background-color: #248232 !important;
+  color: white !important;
+  border: 1px solid #248232 !important;
   &:hover {
-    color: #fff !important;
-    background-color: #363557;
+    color: #248232 !important;
+    background-color: white !important;
   }
 }
 .loginButton {
-  background-color: #363557;
+  background-color: white;
   border: 1px solid #363557;
-  color: white !important;
+  color: #363557 !important;
   &:hover {
-    color: #363557 !important;
+    color: white !important;
+    background-color: #363557 !important;
   }
 }

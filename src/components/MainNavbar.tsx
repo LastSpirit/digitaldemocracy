@@ -156,7 +156,7 @@ const MainNavbar: FC = () => {
                 }}
               >
                 <Button
-                  className={classNames(['buttonsStyle'])}
+                  className={classNames(['comeIn'])}
                   sx={{
                     p: 1,
                     paddingRight: 2,

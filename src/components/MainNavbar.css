@@ -57,15 +57,34 @@
 }
 
 .buttonsStyle {
-  background-color: #363557;
+  background-color: white;
   border: 1px solid #363557;
+  color: #363557 !important;
+}
+
+.comeIn {
+  background: white;
+  border: 1px solid #363557;
+  color: #363557 !important;
+}
+
+.comeIn:hover {
   color: white !important;
+  background: #363557 !important;
 }
 
 .buttonsStyle.register {
   background-color: #248232 !important;
   color: white !important;
   border: 1px solid #248232 !important;
+}
+/* 
+.buttonsStyle.register span .person {
+  stroke: white !important;
+} */
+
+.buttonsStyle.register:hover {
+  stroke: red !important;
 }
 
 .buttonsStyle.register:hover {
@@ -74,7 +93,8 @@
 }
 
 .buttonsStyle:hover {
-  color: #363557 !important;
+  color: white !important;
+  background-color: #363557 !important;
 }
 
 @keyframes edmibckomkog8_tr__tr {

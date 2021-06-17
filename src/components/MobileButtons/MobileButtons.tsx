@@ -43,7 +43,7 @@ export const MobileButtons: FC<IProps> = ({ handleClickOpen }) => {
           onClick={isAuthenticated ? handleClickOpen : null}
         >
           <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
-            <span style={{ textDecoration: 'none' }}>Предложить новость / политика</span>
+            <span style={{ textDecoration: 'none' }}>Предложить изменения</span>
           </Tooltip>
         </Button>
       </div>
