@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { Box, Typography, Container } from '@material-ui/core';
+import photo from 'src/icons/pictures/no_photo.svg';
 import styles from './HeroPicture.module.scss';
 // import heroImage from '../../../icons/pictures/HeroPictureBig.png';
 
@@ -16,7 +17,7 @@ const HomeHero: FC = () => (
           политического строя - &quot;Цифровую демократию&quot;. Добро пожаловать!
         </Typography>
         <div className={styles.imageContainer}>
-          <img src="" alt="not found" className={styles.image} />
+          <img src={photo} alt="not found" className={styles.image} />
         </div>
       </Box>
     </Container>
