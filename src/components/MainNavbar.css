@@ -12,80 +12,113 @@
 }
 
 #edmibckomkog5 {
-  animation: edmibckomkog5_c_o 4000ms linear infinite normal forwards
+  animation: edmibckomkog5_c_o 4000ms linear infinite normal forwards;
 }
 @keyframes edmibckomkog5_c_o {
   0% {
-    opacity: 1
+    opacity: 1;
   }
   25% {
-    opacity: 1
+    opacity: 1;
   }
   50% {
-    opacity: 0
+    opacity: 0;
   }
   75% {
-    opacity: 0
+    opacity: 0;
   }
   100% {
-    opacity: 1
+    opacity: 1;
   }
 }
 #edmibckomkog6_tr {
-  animation: edmibckomkog6_tr__tr 4000ms linear infinite normal forwards
+  animation: edmibckomkog6_tr__tr 4000ms linear infinite normal forwards;
 }
 @keyframes edmibckomkog6_tr__tr {
   0% {
-    transform: translate(205.018097px,290.857130px) rotate(-6.826305deg)
+    transform: translate(205.018097px, 290.85713px) rotate(-6.826305deg);
   }
   25% {
-    transform: translate(205.018097px,290.857130px) rotate(-5.617958deg)
+    transform: translate(205.018097px, 290.85713px) rotate(-5.617958deg);
   }
   50% {
-    transform: translate(205.018097px,290.857130px) rotate(0deg)
+    transform: translate(205.018097px, 290.85713px) rotate(0deg);
   }
   75% {
-    transform: translate(205.018097px,290.857130px) rotate(52.389110deg)
+    transform: translate(205.018097px, 290.85713px) rotate(52.38911deg);
   }
   100% {
-    transform: translate(205.018097px,290.857130px) rotate(-4.882984deg)}
+    transform: translate(205.018097px, 290.85713px) rotate(-4.882984deg);
+  }
 }
 
 #edmibckomkog8_tr {
-  animation: edmibckomkog8_tr__tr 4000ms linear infinite normal forwards
+  animation: edmibckomkog8_tr__tr 4000ms linear infinite normal forwards;
 }
 
 .buttonsStyle {
+  background-color: white;
+  border: 1px solid #363557;
+  color: #363557 !important;
+}
+
+.buttonsStyleProfile {
   background-color: #363557;
   border: 1px solid #363557;
-  color: white!important;
+  color: white !important;
+}
+
+.buttonsStyleProfile:hover {
+  background-color: white;
+  color: #363557 !important;
+}
+
+.comeIn {
+  background: white;
+  border: 1px solid #363557;
+  color: #363557 !important;
+}
+
+.comeIn:hover {
+  color: white !important;
+  background: #363557 !important;
 }
 
 .buttonsStyle.register {
-  background-color: white!important;
-  color: #363557!important;
+  background-color: #248232 !important;
+  color: white !important;
+  border: 1px solid #248232 !important;
+}
+/*
+.buttonsStyle.register span .person {
+  stroke: white !important;
+} */
+
+.buttonsStyle.register:hover {
+  stroke: red !important;
 }
 
 .buttonsStyle.register:hover {
-  background-color: #363557!important;
-  color: white!important;
+  background-color: white !important;
+  color: #248232 !important;
 }
 
 .buttonsStyle:hover {
-  color: #363557!important;
+  color: white !important;
+  background-color: #363557 !important;
 }
 
 @keyframes edmibckomkog8_tr__tr {
   0% {
-    transform: translate(209.018097px,213.502960px) rotate(0deg)
+    transform: translate(209.018097px, 213.50296px) rotate(0deg);
   }
   25% {
-    transform: translate(209.018097px,213.502960px) rotate(-77.745930deg)
+    transform: translate(209.018097px, 213.50296px) rotate(-77.74593deg);
   }
   50% {
-    transform: translate(209.018097px,213.502960px) rotate(0deg)
+    transform: translate(209.018097px, 213.50296px) rotate(0deg);
   }
   100% {
-    transform: translate(209.018097px,213.502960px) rotate(0deg)
+    transform: translate(209.018097px, 213.50296px) rotate(0deg);
   }
 }

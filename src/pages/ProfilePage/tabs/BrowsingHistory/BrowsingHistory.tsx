@@ -71,7 +71,6 @@ export const BrowsingHistory = () => {
       </div>
       {data?.isMorePages && (
         <Button
-          sx={{ mt: 2 }}
           onClick={handleLoadMore}
         >
           <Typography

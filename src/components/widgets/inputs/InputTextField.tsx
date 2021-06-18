@@ -4,27 +4,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 interface InputTextFieldProps extends BoxProps {
-  icon?: React.ReactNode
-  label?: string
+  icon?: React.ReactNode;
+  label?: string;
 }
 
 const InputTextField: FC<InputTextFieldProps> = ({ icon, label }, props) => (
   <Box {...props}>
     <TextField
       InputProps={{
-        startAdornment: (
-          icon
-        ),
+        startAdornment: icon,
       }}
       label={label}
       variant="outlined"
+      fullWidth
     />
   </Box>
 );
 
 InputTextField.propTypes = {
   icon: PropTypes.node,
-  label: PropTypes.string
+  label: PropTypes.string,
 };
 
 export default InputTextField;

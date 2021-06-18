@@ -44,6 +44,7 @@
 }
 .content a {
   margin-right: 20px;
+    text-decoration: none;
 }
 .violetButtonText {
   padding: 8px 30px;
@@ -56,7 +57,7 @@
   box-sizing: border-box;
   font-size: 14px;
   cursor: pointer;
-  text-decoration: none;
+  text-decoration: none !important;
   &:hover {
     color: #363557;
     background-color: transparent;

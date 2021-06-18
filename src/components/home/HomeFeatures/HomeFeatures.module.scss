@@ -24,14 +24,17 @@
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  text-decoration: none;
 }
 
 .content button {
   margin-right: 20px;
+  text-decoration: none;
 }
 
 .content a {
   margin-right: 20px;
+  text-decoration: none;
 }
 
 .violetButtonText {
@@ -49,6 +52,7 @@
   &:hover {
     color: #363557;
     background-color: transparent;
+    text-decoration: none;
   }
 }
 

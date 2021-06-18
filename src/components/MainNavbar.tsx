@@ -116,11 +116,11 @@ const MainNavbar: FC = () => {
                 </Box>
                 <Box
                   sx={{
-                    marginLeft: 17,
+                    marginLeft: 2,
                   }}
                 >
                   {!isMobile && (
-                    <Box style={{ width: '210px' }}>
+                    <Box style={{ width: '322px' }}>
                       <InputTextField icon={<Search />} />
                     </Box>
                   )}
@@ -156,13 +156,14 @@ const MainNavbar: FC = () => {
                 }}
               >
                 <Button
-                  className={classNames(['buttonsStyle'])}
+                  className={classNames(['comeIn'])}
                   sx={{
                     p: 1,
                     paddingRight: 2,
                     paddingLeft: 2,
                     borderRadius: 100,
                     mr: 3,
+                    textDecoration: 'none',
                   }}
                   size="small"
                   variant="outlined"
@@ -175,7 +176,9 @@ const MainNavbar: FC = () => {
                   {isAuthenticated ? 'Предложить новость / политика' : 'Вход'}
                 </Button>
                 <Button
-                  className={classNames(['buttonsStyle', { register: true }])}
+                  className={
+                    !isAuthenticated ? classNames(['buttonsStyle', { register: true }]) : classNames(['buttonsStyleProfile'])
+                  }
                   sx={{
                     backgroundColor: 'white',
                     p: 1,
