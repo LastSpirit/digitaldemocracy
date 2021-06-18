@@ -22,7 +22,6 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
           <Grid item lg={6} md={12} sm={12}>
             {politicians && politicians?.length > 0 && (
               <>
-                return (
                 <Box sx={{ marginBottom: '20px' }}>
                   <Box className={styles.headings}>
                     <Typography className={styles.heading}>

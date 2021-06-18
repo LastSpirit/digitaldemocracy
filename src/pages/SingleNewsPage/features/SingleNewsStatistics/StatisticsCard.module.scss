@@ -8,13 +8,14 @@
   padding: 0 20px 0 0;
   margin-bottom: 30px;
   align-items: center;
-
 }
 
 .image {
   position: relative;
   width: 88px;
   height: 88px;
+  min-width: 88px;
+  min-height: 88px;
   margin-right: 25px;
 }
 .frame {
@@ -27,14 +28,17 @@
   height: 88px;
 }
 .photo {
+  display: block;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  width: 88px;
-  height: 88px;
-  object-fit: cover;
+  max-height: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  object-fit: fill;
   z-index: 3;
   border-radius: 50%;
   background: white;
