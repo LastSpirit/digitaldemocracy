@@ -27,17 +27,23 @@ const columns: GridColumns = [
   {
     field: 'position',
     headerName: 'Должность',
-    width: 200,
+    width: 600,
     // eslint-disable-next-line react/destructuring-assignment
     renderCell: (params: any) => <TableTooltip value={params.value} />,
   },
-  // eslint-disable-next-line react/destructuring-assignment
-  { field: 'type', headerName: 'Тип', width: 250, renderCell: (params: any) => <TableTooltip value={params.value} /> },
+  {
+    field: 'type',
+    headerName: 'Тип',
+    width: 450,
+    // eslint-disable-next-line react/destructuring-assignment
+    renderCell: (params: any) => <TableTooltip value={params.value} />,
+  },
   {
     field: 'percent',
     headerName: 'С каким процентом выбран',
     align: 'center',
     width: 250,
+    resizable: true,
     renderCell: (params: any) => params.value || '-',
   },
   { field: 'years', headerName: 'Годы', width: 150 },
