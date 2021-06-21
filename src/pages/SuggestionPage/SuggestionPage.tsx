@@ -8,6 +8,7 @@ import { BackButton } from '../../components/BackButton/BackButton';
 import { MobileButtons } from '../../components/MobileButtons/MobileButtons';
 import { DialogSuggest } from './DialogSuggest/DialogSuggest';
 import { Loading } from '../../components/Loading/Loading';
+import { SuggestionNav } from './SuggestionNav/SuggestionNav';
 import styles from './SuggestionPage.module.scss';
 
 const NEWS = 'NEWS';
@@ -15,8 +16,8 @@ const POLITICIAN = 'POLITICIAN';
 
 const SuggestionPage = () => {
   const { isMobile } = useWindowSize();
-  const [suggest, setSuggest] = useState(POLITICIAN);
   const [open, setOpen] = useState(false);
+  const [suggest, setSuggest] = useState(POLITICIAN);
   const [infoPolitician, setInfoPolitician] = useState('');
   const [descriptionPoliticain, setDescriptionPolitician] = useState('');
   const [infoNews, setInfoNews] = useState('');
@@ -67,33 +68,12 @@ const SuggestionPage = () => {
     <Container maxWidth="lg" className={styles.container}>
       {/* <WrapperAsyncRequest status={status}> */}
       <BackButton />
-      <div className={styles.heading}>
-        <h2
-          className={suggest === POLITICIAN ? styles.passive : styles.active}
-          aria-hidden
-          onClick={() => {
-            setSuggest(POLITICIAN);
-            setError(false);
-            setIsRequiredInfo(false);
-            setIsRequiredNews(false);
-          }}
-        >
-          Добавить политика
-        </h2>{' '}
-        <h2>/</h2>{' '}
-        <h2
-          className={suggest === NEWS ? styles.passive : styles.active}
-          aria-hidden
-          onClick={() => {
-            setSuggest(NEWS);
-            setError(false);
-            setIsRequiredInfo(false);
-            setIsRequiredNews(false);
-          }}
-        >
-          Добавить новость
-        </h2>
-      </div>
+      <SuggestionNav
+        setSuggest={setSuggest}
+        setError={setError}
+        setIsRequiredInfo={setIsRequiredInfo}
+        setIsRequiredNews={setIsRequiredNews}
+      />
       <DialogSuggest open={open} handleClose={handleClose} />
       <form
         action=""
