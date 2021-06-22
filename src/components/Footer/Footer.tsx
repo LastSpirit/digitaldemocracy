@@ -128,7 +128,7 @@ const Footer: FC = (props) => {
     {
       title: 'Рейтинг',
       icon: <Rating />,
-      to: '',
+      to: '/rating/politicians',
     },
     {
       title: 'Новости',

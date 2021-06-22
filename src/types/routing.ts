@@ -94,7 +94,7 @@ export const ProfileTabs = [
     id: 'donation_history',
     title: 'История донатов',
     component: DonationHistory,
-  }
+  },
 ];
 
 export const MassMediaTabs = [
@@ -120,5 +120,28 @@ export const AuthorTabs = [
     id: 'statistic',
     title: 'Статистика влияния',
     component: InfluenceStatistic,
+  },
+];
+
+export const RatingTabs = [
+  {
+    id: 'politicians',
+    link: '/rating/politicians',
+    title: 'Политики',
+  },
+  {
+    id: 'massMedia',
+    link: '/rating/massMedia',
+    title: 'СМИ',
+  },
+  {
+    id: 'authors',
+    link: '/rating/authors',
+    title: 'Эксперты',
+  },
+  {
+    id: 'news',
+    link: '/rating/parties',
+    title: 'Партии',
   },
 ];

@@ -1,0 +1,50 @@
+@import '../../variables.scss';
+
+.container {
+  min-height: 80vh;
+
+  .backButton {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+
+    .arrow {
+      transform: rotate(180deg);
+    }
+
+    p {
+      margin: 0 !important;
+      padding-left: 10px;
+      padding-bottom: 0 !important;
+    }
+  }
+
+  .tabs {
+    width: 100%;
+    font-style: normal;
+    font-weight: 550;
+    font-size: 35px;
+    line-height: 35px;
+    color: #b0b0b0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 26px;
+
+    @media screen and (max-width: 1024px) {
+      flex-direction: column;
+      font-size: 24px;
+    }
+
+    a {
+      text-decoration: none !important;
+      color: inherit;
+    }
+
+    .tabsItem {
+      cursor: pointer;
+    }
+  }
+}
