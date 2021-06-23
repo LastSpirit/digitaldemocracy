@@ -279,4 +279,19 @@ export const sortParty = [
   },
 ];
 
+export const sortRating = [
+  {
+    id: 1,
+    full_title: 'По популярности',
+    short_title: 'Популярность',
+    field: 'number_of_views',
+  },
+  {
+    id: 2,
+    full_title: 'По рейтингу',
+    short_title: 'Рейтинг',
+    field: 'votes',
+  },
+];
+
 export const routesWithNotification = ['/singleNews/', '/politician/', '/mass-media/', '/author/', '/party/'];

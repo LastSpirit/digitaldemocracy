@@ -1,0 +1,112 @@
+@import '../../../variables.scss';
+
+.newsContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  .sortRow {
+    margin-top: 20px;
+    display: flex;
+    width: max-content;
+    margin-bottom: 30px;
+    overflow-x: hidden;
+    width: 100%;
+    .sortBadge {
+      border-color: #b0b0b0;
+      padding: 5px 20px;
+      margin: 0px;
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+      .icon {
+        height: 100%;
+        color: #7a7a7a;
+        font-family: HelveticaNeueCyr;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 200;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+      }
+      .text {
+        margin-right: 10px;
+        font-family: HelveticaNeueCyr;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 200;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: #7a7a7a;
+      }
+      .emptyIcon {
+        display: flex;
+        width: 18px;
+        height: 18px;
+      }
+    }
+    .sortBadge-active {
+      border-color: #b0b0b0;
+      padding: 5px 20px;
+      margin: 0px;
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+      background-color: #363557;
+      .icon {
+        height: 100%;
+        color: #fff;
+        font-family: HelveticaNeueCyr;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 200;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+      }
+      .text {
+        margin-right: 10px;
+        font-family: HelveticaNeueCyr;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 200;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: #fff;
+      }
+      .emptyIcon {
+        display: flex;
+        width: 18px;
+        height: 18px;
+      }
+    }
+    @media screen and (max-width: $mobileScreen) {
+      .sortBadge {
+        .text {
+          font-size: 14px;
+        }
+      }
+      .sortBadge-active {
+        .text {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  .news {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    // .outerCardContainer {
+    //   width: 324px;
+    //   // margin: 0px 16px 16px 0px;
+    // }
+    @media screen and (max-width: $mobileScreen) {
+      justify-content: center;
+    }
+  }
+}

@@ -28,6 +28,7 @@ import PartyPage from './pages/PartyPage/PartyPage';
 import WidgetLinkPage from './pages/WidgetLinkPage';
 import SuggestionPage from './pages/SuggestionPage/SuggestionPage';
 import { DonationPage } from './pages/ProfilePage/DonationPage/DonationPage';
+import RatingPage from './pages/RatingPage/RatingPage';
 
 const App: FC = () => {
   if (!firebase.apps.length) {
@@ -82,6 +83,7 @@ const App: FC = () => {
               <Route exact path="/author/:link/*" component={AuthorPage} />
               <Route exact path="/party/:short_link" component={PartyPage} />
               <Route exact path="/party/:short_link*" component={PartyPage} />
+              <Route exact path="/rating/*" component={RatingPage} />
               {isAuthenticated && <Route exact path="/suggestion" component={SuggestionPage} />}
               <Redirect to="/" />
             </Switch>

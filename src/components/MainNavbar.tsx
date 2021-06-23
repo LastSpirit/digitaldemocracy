@@ -16,7 +16,7 @@ import { userActionCreators, userSelectors } from '../slices/userSlice';
 
 const links = [
   {
-    to: '/rating',
+    to: '/rating/politicians',
     title: 'Рейтинг',
     mr: 4,
   },
