@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Container } from '@material-ui/core';
+import cn from 'classnames';
 import styles from './RatingPage.module.scss';
 import { BackButton } from '../../components/BackButton/BackButton';
 import { RatingTabs } from '../../types/routing';
@@ -33,10 +34,8 @@ const RatingPage = () => {
   const { pathname } = useLocation();
 
   const showTabs = ({ id, title, link }) => (
-    <Link to={link} key={id}>
-      <div className={styles.tabsItem} style={pathname === link ? { color: '#222222' } : { color: 'inherit' }}>
-        {title}
-      </div>
+    <Link to={link} key={id} className={cn(pathname === link ? styles.selectedItem : null)}>
+      <div className={cn(styles.tabsItem)}>{title}</div>
     </Link>
   );
 
