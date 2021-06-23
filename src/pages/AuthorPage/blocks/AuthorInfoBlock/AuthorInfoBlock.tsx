@@ -40,6 +40,13 @@ const AuthorInfoBlock: FC = () => {
       setAuthValue('/login');
     }
   };
+  const trust = data?.rating
+    ? parseInt(data?.rating, 10) > 50
+      ? 'Высокое доверие'
+      : 'Низкое доверие'
+    : 'Без рейтинга';
+  const badgeBackground = trust === 'Высокое доверие' ? 'green' : trust === 'Низкое доверие' ? 'red' : null;
+  const badgeColor = trust === 'Высокое доверие' ? '#fff' : '#222';
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
       <div className={styles.topItems}>
@@ -123,8 +130,14 @@ const AuthorInfoBlock: FC = () => {
           <div className={styles.card}>
             <div className={styles.secondCard}>
               <div className={styles.trustRow}>
-                <div className={styles.badge}>
-                  <div className={styles.text}>{data?.trust || 'Без рейтинга'}</div>
+                <div
+                  className={styles.badge}
+                  style={{
+                    backgroundColor: badgeBackground,
+                    color: badgeColor,
+                  }}
+                >
+                  <div className={styles.text}>{trust}</div>
                 </div>
                 <div className={styles.percent}>{`${data?.rating || '-'} %`}</div>
               </div>

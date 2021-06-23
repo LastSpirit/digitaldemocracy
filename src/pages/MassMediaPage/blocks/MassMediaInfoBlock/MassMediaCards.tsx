@@ -11,6 +11,9 @@ const MassMediaCards = ({ data }) => {
   // const hiddenText =
   //   data?.description?.length >= maxLength ? `${data?.description.slice(0, maxLength)} ...` : data?.description;
   const hiddenText = data?.description;
+  const trust = data?.rating ? (data?.rating > 50 ? 'Высокое доверие' : 'Низкое доверие') : 'Без рейтинга';
+  const badgeBackground = trust === 'Высокое доверие' ? 'green' : trust === 'Низкое доверие' ? 'red' : null;
+  const badgeColor = trust === 'Высокое доверие' ? '#fff' : '#222';
   return (
     <div className={styles.cardsBlock}>
       <div className={styles.card}>
@@ -22,8 +25,14 @@ const MassMediaCards = ({ data }) => {
         <div className={styles.card}>
           <div className={styles.secondCard}>
             <div className={styles.trustRow}>
-              <div className={styles.badge}>
-                <div className={styles.text}>{data?.trust || 'Без рейтинга'}</div>
+              <div
+                className={styles.badge}
+                style={{
+                  backgroundColor: badgeBackground,
+                  color: badgeColor,
+                }}
+              >
+                <div className={styles.text}>{trust}</div>
               </div>
               <div className={styles.percent}>{data?.rating || '-'} %</div>
             </div>
