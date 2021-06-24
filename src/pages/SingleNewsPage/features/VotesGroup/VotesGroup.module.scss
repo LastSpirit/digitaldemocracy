@@ -1,27 +1,4 @@
-// .likeButtons {
-//   display: flex;
-//   .buttonContainer {
-//     display: flex;
-//     flex-direction: column;
-//     .votes {
-//       display: flex;
-//       justify-content: center;
-//     }
-//   }
-// }
-// .likeButton {
-//   padding: 0;
-//   cursor: pointer;
-// }
-// .likeButtonIcon {
-//   width: 95px;
-//   height: 54px;
-// }
-
-// .likeButtonIconMobile {
-//   width: 53px;
-//   height: 30px;
-// }
+@import 'src/variables.scss';
 
 .likeButtons {
   width: 246px;
@@ -29,6 +6,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: $mobileScreen) {
+    width: 100%;
+  }
   .likeButton {
     background-color: #b0b0b0;
   }
@@ -49,6 +29,12 @@
     align-items: center;
     padding: 7px 12px;
     overflow: hidden;
+    @media screen and (max-width: $mobileScreen) {
+      width: 162px;
+    }
+    @media screen and (max-width: $mobileSEScreen) {
+      width: 135px;
+    }
     &:focus {
       border: none;
       outline: none;

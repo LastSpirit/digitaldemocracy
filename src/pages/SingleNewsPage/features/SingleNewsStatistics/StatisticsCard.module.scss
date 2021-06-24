@@ -1,150 +1,4 @@
-// .card {
-//   background-color: #ededed;
-//   display: flex;
-//   justify-content: flex-start;
-//   width: 100%;
-//   max-width: 555px;
-//   border-radius: 10px;
-//   padding: 0 20px 0 0;
-//   margin-bottom: 30px;
-//   align-items: center;
-// }
-
-// .image {
-//   position: relative;
-//   width: 88px;
-//   height: 88px;
-//   min-width: 88px;
-//   min-height: 88px;
-//   margin-right: 25px;
-// }
-// .frame {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   right: 0;
-//   bottom: 0;
-//   width: 88px;
-//   height: 88px;
-//   z-index: 1;
-// }
-// .photoContainer {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   right: 0;
-//   bottom: 0;
-//   height: 100%;
-//   width: 100%;
-//   z-index: 3;
-//   border-radius: 50%;
-//   background: white;
-//   overflow: hidden;
-// }
-// .photo {
-//   display: flex;
-//   max-height: 100%;
-//   max-width: 100%;
-//   object-fit: contain;
-//   z-index: 0;
-// }
-// .name {
-//   width: 170px;
-//   margin-right: 10px;
-//   overflow: hidden;
-// }
-// .title {
-//   width: 100%;
-//   white-space: nowrap;
-//   font-size: 14px;
-//   color: #222;
-//   font-family: 'Helvetica';
-//   font-weight: 400;
-//   padding: 0;
-//   margin-bottom: 0 !important;
-//   line-height: unset !important;
-// }
-// .percent {
-//   padding: 0;
-//   margin-left: 20px;
-//   width: 70px;
-//   overflow: hidden;
-//   display: flex;
-//   justify-content: flex-start;
-//   align-items: center;
-//   .downIcon {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     color: #be3b21;
-//   }
-//   .upIcon {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     color: #248232;
-//   }
-//   .text {
-//     font-family: 'Helvetica';
-//     font-size: 14px;
-//     font-weight: 400;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//   }
-// }
-
-// @media (max-width: 600px) {
-//   .card {
-//     max-width: 320px;
-//     padding-right: 5px;
-//   }
-//   .image {
-//     width: 55px;
-//     height: 55px;
-//     margin-right: 16px;
-//   }
-//   .frame {
-//     width: 55px;
-//     height: 55px;
-//   }
-//   .photo {
-//     width: 55px;
-//     height: 55px;
-//   }
-//   .name {
-//     max-width: 80px;
-//     margin-right: 10px;
-//   }
-//   .title {
-//     font-size: 12px;
-//   }
-//   .likeButtons {
-//     margin-right: 15px;
-//   }
-//   .likeButtonIcon {
-//     width: 25px;
-//     height: 25px;
-//   }
-//   .percent {
-//     width: 40px;
-//     margin-left: 5px;
-//     .downIcon {
-//       max-height: 12px;
-//       max-width: 12px;
-//     }
-//     .upIcon {
-//       max-height: 12px;
-//       max-width: 12px;
-//     }
-//     .text {
-//       font-size: 8px;
-//     }
-//   }
-// }
+@import 'src/variables.scss';
 
 .card {
   display: flex;
@@ -156,20 +10,22 @@
   border-radius: 6px;
   background-color: #ededed;
   .image {
-    width: 98px;
+    width: 88px;
     height: 88px;
+    min-width: 88px;
+    min-height: 88px;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     .frame {
-      width: 98px;
-      height: 88px;
       z-index: 1;
+      min-height: 100%;
+      min-width: 100%;
     }
     .photoContainer {
       position: absolute;
-      width: 86px;
+      width: 76px;
       height: 76px;
       z-index: 5;
       background-color: #fff;
@@ -248,5 +104,123 @@
         }
       }
     }
+  }
+}
+
+.card-mobile {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  height: 148px;
+  width: 360px;
+  margin-bottom: 30px;
+  border-radius: 6px;
+  background-color: #ededed;
+  padding: 8px 9px 11px 9px;
+  @media screen and (max-width: $mobileSEScreen) {
+    width: 300px;
+  }
+  .topItems {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    .image {
+      width: 80px;
+      height: 80px;
+      min-width: 80px;
+      min-height: 80px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .frame {
+        z-index: 1;
+        min-height: 100%;
+        min-width: 100%;
+      }
+      .photoContainer {
+        position: absolute;
+        width: 68px;
+        height: 68px;
+        z-index: 5;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        overflow: hidden;
+        .photo {
+          max-width: 100%;
+          max-height: 100%;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        .massmediaPhoto {
+          max-width: 100%;
+          max-height: 100%;
+          // width: 100%;
+          // height: 100%;
+          // object-fit: cover;
+        }
+      }
+    }
+    .cardContent {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      padding-left: 10px;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      .title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #222222;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        white-space: normal;
+        max-height: 54px;
+        line-height: 150%;
+      }
+      .percent {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        .downIcon {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #be3b21;
+        }
+        .upIcon {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #248232;
+        }
+        .text {
+          color: #222222;
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 18px;
+          line-height: 11px;
+        }
+      }
+    }
+  }
+  .bottomItems {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 40px;
   }
 }
