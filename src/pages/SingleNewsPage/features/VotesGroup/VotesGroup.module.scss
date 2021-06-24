@@ -25,7 +25,7 @@
 
 .likeButtons {
   width: 246px;
-  height: 43px;
+  height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -48,6 +48,7 @@
     justify-content: flex-start;
     align-items: center;
     padding: 7px 12px;
+    overflow: hidden;
     &:focus {
       border: none;
       outline: none;
@@ -58,23 +59,24 @@
     }
     .likeButtonIcon {
       margin-right: 10px;
-      color: #b0b0b0;
-    }
-    .likeButtonIcon-active {
-      margin-right: 10px;
-      color: #248232;
-    }
-    .dislikeButtonIcon-active {
-      margin-right: 10px;
-      color: #be3b21;
+      min-width: 30px;
+      min-height: 30px;
+      width: 30px;
+      height: 30px;
     }
     .votes {
+      display: flex;
+      justify-content: flex-start;
+      width: 50px;
+      overflow: hidden;
+      // text-overflow: ellipsis;
+      white-space: nowrap;
       color: #fff;
       font-family: Roboto;
       font-style: normal;
       font-weight: normal;
       font-size: 18px;
-      line-height: 11px;
+      line-height: 20px;
     }
   }
 }

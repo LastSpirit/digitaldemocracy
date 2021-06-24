@@ -4,7 +4,9 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Box, IconButton } from '@material-ui/core';
 import { ReactComponent as Like } from 'src/icons/pictures/smallActiveLike.svg';
-import { ReactComponent as DisabledDislike } from 'src/icons/pictures/smallDisabledDislike.svg';
+import { ReactComponent as LikeDisabled } from 'src/icons/pictures/smallDisabledLike.svg';
+import { ReactComponent as Dislike } from 'src/icons/pictures/smallActiveDislike.svg';
+import { ReactComponent as DislikeDisabled } from 'src/icons/pictures/smallDisabledDislike.svg';
 
 import { useSearchParams } from 'src/hooks/useSearchParams';
 import { useWindowSize } from 'src/hooks/useWindowSize';
@@ -55,7 +57,7 @@ export const PoliticianVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isD
           }
         }}
       >
-        <Like style={{ color: 'red' }} className={isLiked ? styles['likeButtonIcon-active'] : styles.likeButtonIcon} />
+        {isLiked ? <Like className={styles.likeButtonIcon} /> : <LikeDisabled className={styles.likeButtonIcon} />}
         <div className={styles.votes}>{likes}</div>
       </button>
 
@@ -72,7 +74,11 @@ export const PoliticianVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isD
           }
         }}
       >
-        <DisabledDislike className={isDisliked ? styles['dislikeButtonIcon-active'] : styles.likeButtonIcon} />
+        {isDisliked ? (
+          <Dislike className={styles.likeButtonIcon} />
+        ) : (
+          <DislikeDisabled className={styles.likeButtonIcon} />
+        )}
         <div className={styles.votes}>{dislikes}</div>
       </button>
     </div>

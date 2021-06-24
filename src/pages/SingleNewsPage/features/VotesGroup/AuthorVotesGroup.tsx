@@ -3,10 +3,10 @@ import React, { useState, FC } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Box, IconButton } from '@material-ui/core';
-import { ReactComponent as Like } from 'src/icons/pictures/Like.svg';
-import { ReactComponent as Dislike } from 'src/icons/pictures/Dislike.svg';
-import { ReactComponent as DislikeDisable } from 'src/icons/pictures/DislikeDisable.svg';
-import { ReactComponent as LikeDisable } from 'src/icons/pictures/LikeDisable.svg';
+import { ReactComponent as Like } from 'src/icons/pictures/smallActiveLike.svg';
+import { ReactComponent as LikeDisabled } from 'src/icons/pictures/smallDisabledLike.svg';
+import { ReactComponent as Dislike } from 'src/icons/pictures/smallActiveDislike.svg';
+import { ReactComponent as DislikeDisabled } from 'src/icons/pictures/smallDisabledDislike.svg';
 import { useSearchParams } from 'src/hooks/useSearchParams';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { ModalParams } from 'src/types/routing';
@@ -39,50 +39,89 @@ export const AuthorVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isDisli
   };
 
   return (
-    <Box className={styles.likeButtons}>
-      <div className={styles.buttonContainer}>
-        <IconButton
-          className={styles.likeButton}
-          sx={{ marginRight: '10px' }}
-          onClick={() => {
-            if (authorLikeStatus !== APIStatus.Loading && authorDislikeStatus !== APIStatus.Loading) {
-              if (isAuthenticated) {
-                setAuthorLike();
-              } else {
-                handleClickLogin();
-              }
+    <div className={styles.likeButtons}>
+      <button
+        type="button"
+        className={isLiked ? styles['likeButton-active'] : styles.likeButton}
+        onClick={() => {
+          if (authorLikeStatus !== APIStatus.Loading && authorDislikeStatus !== APIStatus.Loading) {
+            if (isAuthenticated) {
+              setAuthorLike();
+            } else {
+              handleClickLogin();
             }
-          }}
-        >
-          {isLiked ? (
-            <Like className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-          ) : (
-            <LikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-          )}
-        </IconButton>
+          }
+        }}
+      >
+        {isLiked ? <Like className={styles.likeButtonIcon} /> : <LikeDisabled className={styles.likeButtonIcon} />}
         <div className={styles.votes}>{likes}</div>
-      </div>
-      <div className={styles.buttonContainer}>
-        <IconButton
-          className={styles.likeButton}
-          onClick={() => {
-            if (authorLikeStatus !== APIStatus.Loading && authorDislikeStatus !== APIStatus.Loading) {
-              if (isAuthenticated) {
-                setAuthorDislike();
-              } else {
-                handleClickLogin();
-              }
+      </button>
+
+      <button
+        type="button"
+        className={isDisliked ? styles['dislikeButton-active'] : styles.likeButton}
+        onClick={() => {
+          if (authorLikeStatus !== APIStatus.Loading && authorDislikeStatus !== APIStatus.Loading) {
+            if (isAuthenticated) {
+              setAuthorDislike();
+            } else {
+              handleClickLogin();
             }
-          }}
-        >
-          {isDisliked ? (
-            <Dislike className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-          ) : (
-            <DislikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-          )}
-        </IconButton>
+          }
+        }}
+      >
+        {isDisliked ? (
+          <Dislike className={styles.likeButtonIcon} />
+        ) : (
+          <DislikeDisabled className={styles.likeButtonIcon} />
+        )}
         <div className={styles.votes}>{dislikes}</div>
-      </div>
-    </Box>
+      </button>
+    </div>
+    // <Box className={styles.likeButtons}>
+    //   <div className={styles.buttonContainer}>
+    //     <IconButton
+    //       className={styles.likeButton}
+    //       sx={{ marginRight: '10px' }}
+    // onClick={() => {
+    //   if (authorLikeStatus !== APIStatus.Loading && authorDislikeStatus !== APIStatus.Loading) {
+    //     if (isAuthenticated) {
+    //       setAuthorLike();
+    //     } else {
+    //       handleClickLogin();
+    //     }
+    //   }
+    // }}
+    //     >
+    //       {isLiked ? (
+    //         <Like className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
+    //       ) : (
+    //         <LikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
+    //       )}
+    //     </IconButton>
+    //     <div className={styles.votes}>{likes}</div>
+    //   </div>
+    //   <div className={styles.buttonContainer}>
+    //     <IconButton
+    //       className={styles.likeButton}
+    // onClick={() => {
+    //   if (authorLikeStatus !== APIStatus.Loading && authorDislikeStatus !== APIStatus.Loading) {
+    //     if (isAuthenticated) {
+    //       setAuthorDislike();
+    //     } else {
+    //       handleClickLogin();
+    //     }
+    //   }
+    // }}
+    //     >
+    //       {isDisliked ? (
+    //         <Dislike className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
+    //       ) : (
+    //         <DislikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
+    //       )}
+    //     </IconButton>
+    //     <div className={styles.votes}>{dislikes}</div>
+    //   </div>
+    // </Box>
   );
 };
