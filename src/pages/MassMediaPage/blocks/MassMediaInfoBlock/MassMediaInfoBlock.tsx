@@ -63,15 +63,29 @@ const MassMediaInfoBlock: FC = () => {
             <div className={styles.fioBlock}>
               <div className={styles.fio}>
                 <p>{data?.name}</p>
-                {data?.link && (
-                  <FacebookShare url={data?.link || 'facebook.com'}>
-                    <FacebookIcon
-                      fontSize={isMobile ? 'small' : 'large'}
-                      className={styles.facebook}
-                      // viewBox="3 3 18 18"
-                    />
-                  </FacebookShare>
-                )}
+                <Button
+                  variant="outlined"
+                  color={data?.is_subscribed ? 'secondary' : 'primary'}
+                  onClick={isAuthenticated ? setMassMediaSubscribe : handleClick}
+                  disabled={subscribeStatus === APIStatus.Loading}
+                  className={classNames([
+                    'MuiButton-containedPrimary',
+                    styles.subscriberButton,
+                    { '-disabled': !isAuthenticated },
+                  ])}
+                >
+                  <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
+                    <span>
+                      {subscribeStatus === APIStatus.Loading ? (
+                        <Loading />
+                      ) : data?.is_subscribed ? (
+                        'Отписаться'
+                      ) : (
+                        'Следить'
+                      )}
+                    </span>
+                  </Tooltip>
+                </Button>
                 {/* <div className={styles.subscribers}> */}
                 {/* {!isMobile && (
                   <Button
@@ -107,39 +121,27 @@ const MassMediaInfoBlock: FC = () => {
                 {/* </div> */}
               </div>
             </div>
-            <div className={styles.description}>{ data?.description ?? 'Описание отсутствует'}</div>
-          </div>
-          <div className={styles.bottom}>
-            <MassMediaCards data={data} />
-            <div className={styles.bottomRight}>
+            <div className={styles.description}>
+              <p>{data?.description ?? 'Описание отсутствует'}</p>
               {data?.number_of_subscribers && (
                 <div className={styles.subscribersBadge}>
                   {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, 'подписчик')}`}
                 </div>
               )}
-              <Button
-                variant="outlined"
-                color={data?.is_subscribed ? 'secondary' : 'primary'}
-                onClick={isAuthenticated ? setMassMediaSubscribe : handleClick}
-                disabled={subscribeStatus === APIStatus.Loading}
-                className={classNames([
-                  'MuiButton-containedPrimary',
-                  styles.subscriberButton,
-                  { '-disabled': !isAuthenticated },
-                ])}
-              >
-                <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
-                  <span>
-                    {subscribeStatus === APIStatus.Loading ? (
-                      <Loading />
-                    ) : data?.is_subscribed ? (
-                      'Отписаться'
-                    ) : (
-                      'Следить'
-                    )}
-                  </span>
-                </Tooltip>
-              </Button>
+            </div>
+          </div>
+          <div className={styles.bottom}>
+            <MassMediaCards data={data} />
+            <div className={styles.bottomRight}>
+              {data?.link && (
+                <FacebookShare url={data?.link || 'facebook.com'}>
+                  <FacebookIcon
+                    fontSize={isMobile ? 'small' : 'large'}
+                    className={styles.facebook}
+                    // viewBox="3 3 18 18"
+                  />
+                </FacebookShare>
+              )}
             </div>
           </div>
         </div>

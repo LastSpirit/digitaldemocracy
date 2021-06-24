@@ -3,8 +3,9 @@
 .container {
   width: 100%;
   position: relative;
-  height: 45%;
-  min-height: 42px;
+  height: 40px;
+  // min-height: 42px;
+  min-width: 534px;
 
   .line {
     position: absolute;
@@ -34,7 +35,7 @@
     }
     .tooltip {
       color: #fff;
-      padding-right: 20px;
+      // padding-right: 20px;
       cursor: pointer;
       @media screen and (max-width: preMobileScreen) {
         font-size: 10px;
