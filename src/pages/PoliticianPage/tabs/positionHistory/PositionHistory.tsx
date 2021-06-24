@@ -43,7 +43,6 @@ const columns: GridColumns = [
     headerName: 'С каким процентом выбран',
     align: 'center',
     width: 250,
-    resizable: true,
     renderCell: (params: any) => params.value || '-',
   },
   { field: 'years', headerName: 'Годы', width: 150 },

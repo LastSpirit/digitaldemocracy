@@ -1,6 +1,6 @@
 import {
   IncomeStatistics,
-  PoliticianActivity,
+  PoliticianBills,
   PoliticianNews,
   PositionDescription,
   PositionHistory,
@@ -35,7 +35,7 @@ export const PoliticianTabs = [
   {
     id: 'politician_activity',
     title: 'Законодательная деятельность',
-    component: PoliticianActivity,
+    component: PoliticianBills,
   },
   {
     id: 'position_history',

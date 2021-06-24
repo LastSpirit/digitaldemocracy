@@ -28,7 +28,7 @@ export default function Statistic() {
               </div>
             </div>
           </Card>
-          <iframe title="idPolitican" loading="lazy" src={data[0].link} />
+          <iframe title={`${data[0].id}`} loading="lazy" src={data[0].link} />
           <div className={styles.root}>
             <p>Ссылка на иcточник: </p>
             <IconButton className={styles.arrowButton} onClick={() => window.open(data[0].source_link)}>
