@@ -11,39 +11,28 @@ const PoliticianCards = () => {
   const data = useSelector(politicianSelectors.getPoliticianInfo());
   const { isMobile } = useWindowSize();
   const history = useHistory();
+  // const trust = data?.rating ? (data?.rating > 50 ? 'Высокое доверие' : 'Низкое доверие') : 'Без рейтинга';
+  // const badgeBackground = trust === 'Высокое доверие' ? 'green' : trust === 'Низкое доверие' ? 'red' : null;
+  // const badgeColor = trust === 'Высокое доверие' ? '#fff' : '#222';
   return (
     <div className={styles.cardsBlock}>
-      <div className={styles.card}>
-        <div className={styles.infoCard}>
-          <div
-            className={styles.party}
-            onClick={() => history.push(`/party/${data?.party?.short_link}`)}
-            aria-hidden="true"
-          >
-            {data?.party?.logo && (
-              <div className={styles['-img']}>
-                <img src={data?.party?.logo} alt="" />
-              </div>
-            )}
-            <div className={styles.title}>{data?.party?.name}</div>
-          </div>
-          <hr color="#B0B0B0" />
-          <div className={styles.positionAndAge}>
-            <div className={styles.position}>{data?.position}</div>
-            {(data?.age || data?.city) && (
-              <div className={styles.age}>
-                {data?.age ? `${data?.age} лет${data?.city ? `, ${data?.city}` : ''}` : data?.city}
-              </div>
-            )}
-          </div>
+      {/* <div className={styles.card}>
+        <div className={styles.description}>
+          <div className={styles.text}>{hiddenText || 'Описание отсутствует'}</div>
         </div>
-      </div>
+      </div> */}
       {!isMobile && (
         <div className={styles.card}>
           <div className={styles.secondCard}>
             <div className={styles.trustRow}>
-              <div className={styles.badge}>
-                <div className={styles.text}>{data?.trust || 'Без рейтинга'}</div>
+              <div
+                className={styles.badge}
+                // style={{
+                //   backgroundColor: badgeBackground,
+                //   color: badgeColor,
+                // }}
+              >
+                <div className={styles.text}>2-е место</div>
               </div>
               <div className={styles.percent}>{data?.rating || '-'} %</div>
             </div>

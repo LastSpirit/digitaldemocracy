@@ -32,6 +32,7 @@ export interface PartyI {
   percent?: number;
   position?: number;
   source_link?: string;
+  rating?: number;
 }
 
 export interface GraphicDataI {

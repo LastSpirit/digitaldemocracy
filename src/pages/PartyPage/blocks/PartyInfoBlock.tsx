@@ -8,6 +8,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import { useHistory, Link } from 'react-router-dom';
+import { avatarColorChanger } from 'src/utils/avatarColorChanger';
 import styles from '../PartyPage.module.scss';
 import { partySelectors } from '../../../slices/partySlice';
 import PartyCards from './PartyCards';
@@ -38,53 +39,121 @@ const PartyInfoBlock: FC = () => {
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
       <div className={styles.topItems}>
-        <div className={styles.avatarBlock}>
+        <div
+          className={styles.avatarBlock}
+          style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
+        >
           <div className={styles.avatar}>
             {!data?.logo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={data?.logo} alt="" />}
           </div>
         </div>
         <div className={styles.personBlock}>
-          <div className={styles.fioBlock}>
-            <div className={styles.fio}>
-              <p>{data?.name}</p>
-              <div className={styles.subscribers}>
-                {data?.source_link && (
-                  <a href={data?.source_link}>
-                    <IconButton className={styles.arrowButton}>
-                      <CallMadeIcon className={styles.arrowLink} />
-                    </IconButton>
-                  </a>
-                )}
-                {data?.link && (
-                  <FacebookShare url={data?.link || 'facebook.com'}>
-                    <FacebookIcon
-                      fontSize={isMobile ? 'small' : 'large'}
-                      className={styles.facebook}
-                      // viewBox="3 3 18 18"
-                    />
-                  </FacebookShare>
-                )}
+          <div>
+            <div className={styles.fioBlock}>
+              <div className={styles.fio}>
+                <p>{data?.name}</p>
+                {/* <div className={styles.subscribers}> */}
+                {/* {!isMobile && (
+                  <Button
+                    variant="outlined"
+                    color={data?.is_subscribed ? 'secondary' : 'primary'}
+                    onClick={isAuthenticated ? setMassMediaSubscribe : handleClick}
+                    disabled={subscribeStatus === APIStatus.Loading}
+                    className={classNames([
+                      'MuiButton-containedPrimary',
+                      styles.subscriberButton,
+                      { '-disabled': !isAuthenticated },
+                    ])}
+                  >
+                    <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
+                      <span>
+                        eslint-disable-next-line no-nested-ternary
+                        {subscribeStatus === APIStatus.Loading ? (
+                          <Loading />
+                        ) : data?.is_subscribed ? (
+                          'Отписаться'
+                        ) : (
+                          'Следить'
+                        )}
+                      </span>
+                    </Tooltip>
+                  </Button>
+                )} */}
+                {/* {data?.number_of_subscribers && (
+                  <div className={styles.subscribersBadge}>
+                    {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, 'подписчик')}`}
+                  </div>
+                )} */}
+                {/* </div> */}
               </div>
             </div>
+            <div className={styles.description}>
+              {/* <p>{data?.description ?? 'Описание отсутствует'}</p> */}
+              {data?.politicians_count && (
+                <div className={styles.subscribersBadge}>
+                  {`${data.politicians_count ?? 0} ${endOfWords(data?.politicians_count, 'член')} партии`}
+                </div>
+              )}
+            </div>
           </div>
-          <PartyCards data={data} />
+          <div className={styles.bottom}>
+            <PartyCards data={data} />
+            <div className={styles.bottomRight}>
+              {data?.source_link && (
+                <a href={data?.source_link}>
+                  <IconButton className={styles.arrowButton}>
+                    <CallMadeIcon className={styles.arrowLink} />
+                  </IconButton>
+                </a>
+              )}
+              {data?.link && (
+                <FacebookShare url={data?.link || 'facebook.com'}>
+                  <FacebookIcon
+                    fontSize={isMobile ? 'small' : 'large'}
+                    className={styles.facebook}
+                    // viewBox="3 3 18 18"
+                  />
+                </FacebookShare>
+              )}
+            </div>
+          </div>
         </div>
       </div>
-      {isMobile && (
+      {/* {isMobile && (
         <>
+          <Button
+            variant="outlined"
+            color={data?.is_subscribed ? 'secondary' : 'primary'}
+            onClick={isAuthenticated ? setMassMediaSubscribe : handleClick}
+            disabled={subscribeStatus === APIStatus.Loading}
+            className={classNames([styles['subscriberButton-mobile'], { '-disabled': !isAuthenticated }])}
+          >
+            <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
+              <span>
+                eslint-disable-next-line no-nested-ternary
+                {subscribeStatus === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? 'Отписаться' : 'Следить'}
+              </span>
+            </Tooltip>
+          </Button>
           <div className={styles.card}>
             <div className={styles.secondCard}>
               <div className={styles.trustRow}>
-                <div className={styles.badge}>
-                  <div className={styles.text}>2 место</div>
+                <div
+                  className={styles.badge}
+                  style={{
+                    backgroundColor: badgeBackground,
+                    color: badgeColor,
+                  }}
+                >
+                  <div className={styles.text}>{trust}</div>
                 </div>
-                <div className={styles.percent}>12 %</div>
+                <div className={styles.percent}>{`${data?.rating || '-'} %`}</div>
               </div>
-              <PercentsLinearGraphic />
+              <PercentsLinearGraphic vote_groups={data?.vote_groups} />
             </div>
           </div>
         </>
-      )}
+      )} */}
     </div>
   );
 };

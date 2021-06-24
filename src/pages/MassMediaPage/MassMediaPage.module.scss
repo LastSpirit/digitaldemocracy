@@ -660,7 +660,14 @@
       font-size: 18px;
       line-height: 21px;
       color: #585858;
-      max-width: 700px;
+      max-width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      p {
+        margin: 0px;
+      }
     }
     .cardsBlock {
       display: flex;
@@ -766,23 +773,6 @@
             line-height: 32px;
           }
         }
-
-        .facebook {
-          color: #363557;
-          background-color: transparent;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 40px;
-          width: 40px;
-
-          &:hover {
-            color: white;
-            background-color: #363557;
-            border-radius: 50%;
-          }
-        }
       }
       .subscribers {
         display: flex;
@@ -813,7 +803,7 @@
 .bottomRight {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: flex-end;
   font-weight: 500;
   font-size: 18px;
@@ -822,5 +812,26 @@
 }
 
 .subscribersBadge {
-  margin-top: 15px;
+  min-width: 207px;
+  text-align: end;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.facebook {
+  color: #363557;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+
+  &:hover {
+    color: white;
+    background-color: #363557;
+    border-radius: 50%;
+  }
 }
