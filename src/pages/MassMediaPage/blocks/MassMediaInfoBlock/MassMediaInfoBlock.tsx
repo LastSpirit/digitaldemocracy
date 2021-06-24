@@ -107,7 +107,7 @@ const MassMediaInfoBlock: FC = () => {
                 {/* </div> */}
               </div>
             </div>
-            <div className={styles.description}>{data?.description ?? 'Описание отсутствует'}</div>
+            <div className={styles.description}>{ data?.description ?? 'Описание отсутствует'}</div>
           </div>
           <div className={styles.bottom}>
             <MassMediaCards data={data} />

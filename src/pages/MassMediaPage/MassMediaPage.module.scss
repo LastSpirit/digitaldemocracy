@@ -511,13 +511,6 @@
           display: flex;
           align-items: center;
           height: 18px;
-          .subscribersBadge {
-            color: #7a7a7a;
-            font-size: 13px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
           .facebook {
             color: #363557;
             background-color: transparent;
@@ -579,11 +572,6 @@
           align-items: center;
           justify-content: center;
           box-sizing: border-box;
-          .text {
-            font-size: 11px;
-            white-space: nowrap;
-            overflow: hidden;
-          }
         }
         .percent {
           max-width: 40%;
@@ -733,7 +721,8 @@
                 height: 70%;
               }
               .text {
-                font-size: 18px;
+                font-size: 36px;
+                line-height: 42px;
                 white-space: nowrap;
                 overflow: hidden;
                 @media screen and (max-width: $preMobileScreen) {
@@ -812,6 +801,7 @@
     height: 40px;
     width: 207px;
     color: white;
+    border-radius: 21px !important;
     span {
       display: flex;
       align-items: center;
@@ -829,4 +819,8 @@
   font-size: 18px;
   line-height: 21px;
   color: #7a7a7a;
+}
+
+.subscribersBadge {
+  margin-top: 15px;
 }
