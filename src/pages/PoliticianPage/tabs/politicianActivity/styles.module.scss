@@ -1,3 +1,4 @@
+@import 'src/variables.scss';
 .container {
   height: 100%;
   border-radius: 5px;
@@ -77,24 +78,18 @@
     }
 
     .votes {
-      padding: 18px 26px;
       display: flex;
-      height: 91px;
+      flex-direction: column;
+      height: 73px;
       align-items: center;
       justify-content: space-between;
-      border: 1px solid #b0b0b0;
-      box-sizing: border-box;
-      border-radius: 20px;
-      margin-bottom: 18px;
-      width: 401px;
-
+      align-items: flex-start;
+      width: 237px;
       p {
-        margin-right: 10px;
+        margin: 0px;
       }
-
-      @media screen and (max-width: 1024px) {
+      @media screen and (max-width: $mobileScreen) {
         width: 100%;
-        padding: 9px 13px;
         margin-top: 9px;
         font-size: 14px;
       }

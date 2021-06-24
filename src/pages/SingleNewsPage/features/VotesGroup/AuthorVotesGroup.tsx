@@ -78,50 +78,5 @@ export const AuthorVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isDisli
         <div className={styles.votes}>{dislikes}</div>
       </button>
     </div>
-    // <Box className={styles.likeButtons}>
-    //   <div className={styles.buttonContainer}>
-    //     <IconButton
-    //       className={styles.likeButton}
-    //       sx={{ marginRight: '10px' }}
-    // onClick={() => {
-    //   if (authorLikeStatus !== APIStatus.Loading && authorDislikeStatus !== APIStatus.Loading) {
-    //     if (isAuthenticated) {
-    //       setAuthorLike();
-    //     } else {
-    //       handleClickLogin();
-    //     }
-    //   }
-    // }}
-    //     >
-    //       {isLiked ? (
-    //         <Like className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-    //       ) : (
-    //         <LikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-    //       )}
-    //     </IconButton>
-    //     <div className={styles.votes}>{likes}</div>
-    //   </div>
-    //   <div className={styles.buttonContainer}>
-    //     <IconButton
-    //       className={styles.likeButton}
-    // onClick={() => {
-    //   if (authorLikeStatus !== APIStatus.Loading && authorDislikeStatus !== APIStatus.Loading) {
-    //     if (isAuthenticated) {
-    //       setAuthorDislike();
-    //     } else {
-    //       handleClickLogin();
-    //     }
-    //   }
-    // }}
-    //     >
-    //       {isDisliked ? (
-    //         <Dislike className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-    //       ) : (
-    //         <DislikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-    //       )}
-    //     </IconButton>
-    //     <div className={styles.votes}>{dislikes}</div>
-    //   </div>
-    // </Box>
   );
 };
