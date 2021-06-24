@@ -42,6 +42,7 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
                         isDisliked={it?.is_user_disliked}
                         politicianIndex={index}
                         id={it?.id}
+                        rating={it?.rating}
                       />
                     );
                   })}
