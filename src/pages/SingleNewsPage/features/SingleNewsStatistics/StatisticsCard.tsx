@@ -55,7 +55,9 @@ const StatisticsCard: FC<StatisticsCardPropsI> = ({
               </div>
             </Link>
             <div className={styles.cardContent}>
-              <div className={styles.title}>{name}</div>
+              <Link to={`${field}/${short_link}`} className={styles.title}>
+                {name}
+              </Link>
               <div className={styles.percent}>
                 {percentIsPositive ? (
                   <ArrowUpwardIcon className={styles.upIcon} viewBox="3 0 24 24" />
@@ -84,40 +86,6 @@ const StatisticsCard: FC<StatisticsCardPropsI> = ({
               <></>
             )}
           </div>
-
-          {/* <div className={styles.cardContent}>
-            <div className={styles.title}>{name}</div>
-            <div className={styles.bottomItem}>
-              {percent ? (
-                <div className={styles.percent}>
-                  {percentIsPositive ? (
-                    <ArrowUpwardIcon className={styles.upIcon} />
-                  ) : (
-                    <ArrowDownwardIcon className={styles.downIcon} />
-                  )}
-                  <div className={styles.text}>{percent}</div>
-                </div>
-              ) : (
-                <></>
-              )}
-              {field === '/mass-media' ? (
-                <MassmediaVotesGroup likes={likes} dislikes={dislikes} isLiked={isLiked} isDisliked={isDisliked} />
-              ) : field === '/author' ? (
-                <AuthorVotesGroup likes={likes} dislikes={dislikes} isLiked={isLiked} isDisliked={isDisliked} />
-              ) : field === '/politician' ? (
-                <PoliticianVotesGroup
-                  likes={likes}
-                  dislikes={dislikes}
-                  isLiked={isLiked}
-                  isDisliked={isDisliked}
-                  index={politicianIndex}
-                  id={id}
-                />
-              ) : (
-                <></>
-              )}
-            </div>
-          </div> */}
         </div>
       ) : (
         <div className={styles.card}>
@@ -128,8 +96,9 @@ const StatisticsCard: FC<StatisticsCardPropsI> = ({
             </div>
           </Link>
           <div className={styles.cardContent}>
-            <div className={styles.title}>{name}</div>
-
+            <Link to={`${field}/${short_link}`} className={styles.title}>
+              {name}
+            </Link>
             <div className={styles.bottomItem}>
               {percent ? (
                 <div className={styles.percent}>
