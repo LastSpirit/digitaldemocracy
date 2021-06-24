@@ -3,29 +3,33 @@ import React, { useState, FC } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Box, IconButton } from '@material-ui/core';
-import { ReactComponent as Like } from 'src/icons/pictures/Like.svg';
-import { ReactComponent as Dislike } from 'src/icons/pictures/Dislike.svg';
-import { ReactComponent as DislikeDisable } from 'src/icons/pictures/DislikeDisable.svg';
-import { ReactComponent as LikeDisable } from 'src/icons/pictures/LikeDisable.svg';
+import { ReactComponent as Like } from 'src/icons/pictures/smallActiveLike.svg';
+import { ReactComponent as DisabledDislike } from 'src/icons/pictures/smallDisabledDislike.svg';
+
 import { useSearchParams } from 'src/hooks/useSearchParams';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { ModalParams } from 'src/types/routing';
 import { userSelectors } from 'src/slices/userSlice';
+import { RootState } from 'src/store';
+import { APIStatus } from 'src/lib/axiosAPI';
 import styles from './VotesGroup.module.scss';
+import { useSetLike } from '../../hooks/useSetLike';
 
 interface IProps {
   likes?: number;
   dislikes?: number;
   isLiked?: boolean;
   isDisliked?: boolean;
+  index?: number;
+  id?: number;
 }
 
-export const PoliticianVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isDisliked }) => {
+export const PoliticianVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isDisliked, index, id }) => {
   const { isMobile } = useWindowSize();
+  const politicianLikeStatus = useSelector((s: RootState) => s?.singleNews?.politicianLikeStatus[id]?.status);
+  const politicianDislikeStatus = useSelector((s: RootState) => s?.singleNews?.politicianDislikeStatus[id]?.status);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
-  const [like, setLike] = useState(false);
-  const [dislike, setDislike] = useState(false);
-  const { push } = useHistory();
+  const { setPoliticianLike, setPoliticianDislike } = useSetLike();
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
@@ -37,48 +41,40 @@ export const PoliticianVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isD
   };
 
   return (
-    <Box className={styles.likeButtons}>
-      <div className={styles.buttonContainer}>
-        <IconButton
-          className={styles.likeButton}
-          sx={{ marginRight: '10px' }}
-          onClick={
-            isAuthenticated
-              ? () => {
-                  setLike(!like);
-                  setDislike(false);
-                }
-              : handleClickLogin
+    <div className={styles.likeButtons}>
+      <button
+        type="button"
+        className={isLiked ? styles['likeButton-active'] : styles.likeButton}
+        onClick={() => {
+          if (politicianLikeStatus !== APIStatus.Loading && politicianDislikeStatus !== APIStatus.Loading) {
+            if (isAuthenticated) {
+              setPoliticianLike({ index, id, isLiked, isDisliked });
+            } else {
+              handleClickLogin();
+            }
           }
-        >
-          {like ? (
-            <Like className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-          ) : (
-            <LikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-          )}
-        </IconButton>
+        }}
+      >
+        <Like style={{ color: 'red' }} className={isLiked ? styles['likeButtonIcon-active'] : styles.likeButtonIcon} />
         <div className={styles.votes}>{likes}</div>
-      </div>
-      <div className={styles.buttonContainer}>
-        <IconButton
-          className={styles.likeButton}
-          onClick={
-            isAuthenticated
-              ? () => {
-                  setDislike(!dislike);
-                  setLike(false);
-                }
-              : handleClickLogin
+      </button>
+
+      <button
+        type="button"
+        className={isDisliked ? styles['dislikeButton-active'] : styles.likeButton}
+        onClick={() => {
+          if (politicianLikeStatus !== APIStatus.Loading && politicianDislikeStatus !== APIStatus.Loading) {
+            if (isAuthenticated) {
+              setPoliticianDislike({ index, id, isLiked, isDisliked });
+            } else {
+              handleClickLogin();
+            }
           }
-        >
-          {dislike ? (
-            <Dislike className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-          ) : (
-            <DislikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
-          )}
-        </IconButton>
+        }}
+      >
+        <DisabledDislike className={isDisliked ? styles['dislikeButtonIcon-active'] : styles.likeButtonIcon} />
         <div className={styles.votes}>{dislikes}</div>
-      </div>
-    </Box>
+      </button>
+    </div>
   );
 };

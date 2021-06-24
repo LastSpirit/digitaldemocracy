@@ -3,7 +3,7 @@ html {
 }
 
 * {
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 body {
@@ -123,4 +123,8 @@ MuiButtonBase-root-MuiIconButton-root-MuiSwitch-switchBase.Mui-checked + .MuiSwi
 
 .MuiDataGrid-footer {
   display: none !important;
+}
+
+div {
+  box-sizing: border-box;
 }

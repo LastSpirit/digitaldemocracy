@@ -12,7 +12,9 @@ import { useWindowSize } from 'src/hooks/useWindowSize';
 import { ModalParams } from 'src/types/routing';
 import { userSelectors } from 'src/slices/userSlice';
 import { RootState } from 'src/store';
+import { APIStatus } from 'src/lib/axiosAPI';
 import styles from './VotesGroup.module.scss';
+import { useSetLike } from '../../hooks/useSetLike';
 
 interface IProps {
   likes?: number;
@@ -23,10 +25,9 @@ interface IProps {
 
 export const AuthorVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isDisliked }) => {
   const { isMobile } = useWindowSize();
+  const { authorLikeStatus, authorDislikeStatus } = useSelector((s: RootState) => s?.singleNews);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
-  const [like, setLike] = useState(false);
-  const [dislike, setDislike] = useState(false);
-  const { push } = useHistory();
+  const { setAuthorLike, setAuthorDislike } = useSetLike();
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
@@ -43,16 +44,17 @@ export const AuthorVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isDisli
         <IconButton
           className={styles.likeButton}
           sx={{ marginRight: '10px' }}
-          onClick={
-            isAuthenticated
-              ? () => {
-                  setLike(!like);
-                  setDislike(false);
-                }
-              : handleClickLogin
-          }
+          onClick={() => {
+            if (authorLikeStatus !== APIStatus.Loading && authorDislikeStatus !== APIStatus.Loading) {
+              if (isAuthenticated) {
+                setAuthorLike();
+              } else {
+                handleClickLogin();
+              }
+            }
+          }}
         >
-          {like ? (
+          {isLiked ? (
             <Like className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
           ) : (
             <LikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
@@ -63,16 +65,17 @@ export const AuthorVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isDisli
       <div className={styles.buttonContainer}>
         <IconButton
           className={styles.likeButton}
-          onClick={
-            isAuthenticated
-              ? () => {
-                  setDislike(!dislike);
-                  setLike(false);
-                }
-              : handleClickLogin
-          }
+          onClick={() => {
+            if (authorLikeStatus !== APIStatus.Loading && authorDislikeStatus !== APIStatus.Loading) {
+              if (isAuthenticated) {
+                setAuthorDislike();
+              } else {
+                handleClickLogin();
+              }
+            }
+          }}
         >
-          {dislike ? (
+          {isDisliked ? (
             <Dislike className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />
           ) : (
             <DislikeDisable className={isMobile ? styles.likeButtonIconMobile : styles.likeButtonIcon} />

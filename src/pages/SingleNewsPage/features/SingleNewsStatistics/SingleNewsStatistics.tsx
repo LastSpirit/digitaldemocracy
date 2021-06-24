@@ -28,7 +28,7 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
                       Доверяете ли вы {politicians?.length > 1 ? 'этим политикам' : 'этому политику'} ?
                     </Typography>
                   </Box>
-                  {politicians.map((it) => {
+                  {politicians.map((it, index) => {
                     return (
                       <StatisticsCard
                         name={it?.name}
@@ -40,6 +40,8 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
                         dislikes={it?.number_of_dislikes}
                         isLiked={it?.is_user_liked}
                         isDisliked={it?.is_user_disliked}
+                        politicianIndex={index}
+                        id={it?.id}
                       />
                     );
                   })}
@@ -62,6 +64,7 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
                   dislikes={media?.number_of_dislikes}
                   isLiked={media?.is_user_liked}
                   isDisliked={media?.is_user_disliked}
+                  isMasmedia
                 />
               </Box>
             )}

@@ -20,6 +20,9 @@ interface StatisticsCardPropsI {
   dislikes?: number;
   isLiked?: boolean;
   isDisliked?: boolean;
+  politicianIndex?: number;
+  id?: number;
+  isMasmedia?: boolean;
 }
 
 const StatisticsCard: FC<StatisticsCardPropsI> = ({
@@ -33,44 +36,54 @@ const StatisticsCard: FC<StatisticsCardPropsI> = ({
   dislikes,
   isLiked,
   isDisliked,
+  politicianIndex,
+  id,
+  isMasmedia,
 }) => {
   const percentIsPositive = percent?.includes('+') && !percent?.includes('-');
   return (
-    <Card className={styles.card}>
+    <div className={styles.card}>
       <Link to={`${field}/${short_link}`} className={styles.image}>
         <img src={avatarColorChanger(rating)} alt="frame" className={styles.frame} />
         <div className={styles.photoContainer}>
-          <img src={photo} alt="avatar" className={styles.photo} />
+          <img src={photo} alt="avatar" className={isMasmedia ? styles.massmediaPhoto : styles.photo} />
         </div>
       </Link>
-      <Link to={`${field}/${short_link}`} className={styles.name}>
-        <Typography className={styles.title}>{name}</Typography>
-      </Link>
-      {field === '/mass-media' ? (
-        <MassmediaVotesGroup likes={likes} dislikes={dislikes} isLiked={isLiked} isDisliked={isDisliked} />
-      ) : field === '/author' ? (
-        <AuthorVotesGroup likes={likes} dislikes={dislikes} isLiked={isLiked} isDisliked={isDisliked} />
-      ) : field === '/politician' ? (
-        <PoliticianVotesGroup likes={likes} dislikes={dislikes} isLiked={isLiked} isDisliked={isDisliked} />
-      ) : (
-        <></>
-      )}
+      <div className={styles.cardContent}>
+        <div className={styles.title}>{name}</div>
 
-      {percent ? (
-        <Typography className={styles.percent}>
-          {percentIsPositive ? (
-            <ArrowUpwardIcon className={styles.upIcon} />
+        <div className={styles.bottomItem}>
+          {percent ? (
+            <div className={styles.percent}>
+              {percentIsPositive ? (
+                <ArrowUpwardIcon className={styles.upIcon} />
+              ) : (
+                <ArrowDownwardIcon className={styles.downIcon} />
+              )}
+              <div className={styles.text}>{percent}</div>
+            </div>
           ) : (
-            <ArrowDownwardIcon className={styles.downIcon} />
+            <></>
           )}
-          <div className={styles.text}>{percent}</div>
-        </Typography>
-      ) : (
-        <Typography className={styles.percent} style={{ justifyContent: 'center' }}>
-          <div className={styles.text}>-</div>
-        </Typography>
-      )}
-    </Card>
+          {field === '/mass-media' ? (
+            <MassmediaVotesGroup likes={likes} dislikes={dislikes} isLiked={isLiked} isDisliked={isDisliked} />
+          ) : field === '/author' ? (
+            <AuthorVotesGroup likes={likes} dislikes={dislikes} isLiked={isLiked} isDisliked={isDisliked} />
+          ) : field === '/politician' ? (
+            <PoliticianVotesGroup
+              likes={likes}
+              dislikes={dislikes}
+              isLiked={isLiked}
+              isDisliked={isDisliked}
+              index={politicianIndex}
+              id={id}
+            />
+          ) : (
+            <></>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 export default StatisticsCard;

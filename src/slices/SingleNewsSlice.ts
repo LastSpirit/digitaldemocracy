@@ -43,6 +43,7 @@ export interface PoliticiansI {
   is_user_disliked?: boolean;
   number_of_likes?: number;
   number_of_dislikes?: number;
+  id?: number;
 }
 
 interface NewTopicsI {
@@ -93,17 +94,33 @@ export interface SingleNewsI {
   isMorePages?: boolean;
 }
 
+export interface LikesI {
+  [U: number]: StatusI;
+}
+
+export interface StatusI {
+  status: APIStatus;
+}
+
 interface SliceState {
   data?: SingleNewsI;
   status?: APIStatus;
   likeStatus?: APIStatus;
   dislikeStatus?: APIStatus;
+  authorLikeStatus?: APIStatus;
+  authorDislikeStatus?: APIStatus;
+  politicianLikeStatus?: LikesI;
+  politicianDislikeStatus?: LikesI;
 }
 
 const initialState: SliceState = {
   status: 'Initial' as APIStatus,
   likeStatus: 'Initial' as APIStatus,
   dislikeStatus: 'Initial' as APIStatus,
+  authorLikeStatus: 'Initial' as APIStatus,
+  authorDislikeStatus: 'Initial' as APIStatus,
+  politicianLikeStatus: {},
+  politicianDislikeStatus: {},
 };
 
 export const singleNewsSlice = createSlice({
@@ -148,6 +165,59 @@ export const singleNewsSlice = createSlice({
     },
     failMassmediaDislike(state) {
       state.dislikeStatus = APIStatus.Failure;
+    },
+    startAuthorLike(state) {
+      state.authorLikeStatus = APIStatus.Loading;
+    },
+    successAuthorLike(state, action) {
+      state.authorLikeStatus = APIStatus.Success;
+      state.data.currentNews.author.is_user_liked = action.payload;
+      state.data.currentNews.author.number_of_likes = action.payload
+        ? state.data.currentNews.author.number_of_likes + 1
+        : state.data.currentNews.author.number_of_likes - 1;
+    },
+    failAuthorLike(state) {
+      state.authorLikeStatus = APIStatus.Failure;
+    },
+    startAuthorDislike(state) {
+      state.authorDislikeStatus = APIStatus.Loading;
+    },
+    successAuthorDislike(state, action) {
+      state.authorDislikeStatus = APIStatus.Success;
+      state.data.currentNews.author.is_user_disliked = action.payload;
+      state.data.currentNews.author.number_of_dislikes = action.payload
+        ? state.data.currentNews.author.number_of_dislikes + 1
+        : state.data.currentNews.author.number_of_dislikes - 1;
+    },
+    failAuthorDislike(state) {
+      state.authorDislikeStatus = APIStatus.Failure;
+    },
+    startPoliticianLike(state, action) {
+      state.politicianLikeStatus[action.payload.id] = { status: APIStatus.Loading };
+    },
+    successPoliticianLike(state, action) {
+      console.log('success like into', action.payload.index);
+      state.politicianLikeStatus[action.payload.id] = { status: APIStatus.Success };
+      state.data.politicians[action.payload.index].is_user_liked = action.payload.status;
+      state.data.politicians[action.payload.index].number_of_likes = action.payload.status
+        ? state.data.politicians[action.payload.index].number_of_likes + 1
+        : state.data.politicians[action.payload.index].number_of_likes - 1;
+    },
+    failPoliticianLike(state, action) {
+      state.politicianLikeStatus[action.payload.id] = { status: APIStatus.Failure };
+    },
+    startPoliticianDislike(state, action) {
+      state.politicianDislikeStatus[action.payload.id] = { status: APIStatus.Loading };
+    },
+    successPoliticianDislike(state, action) {
+      state.politicianDislikeStatus[action.payload.id] = { status: APIStatus.Success };
+      state.data.politicians[action.payload.index].is_user_disliked = action.payload.status;
+      state.data.politicians[action.payload.index].number_of_dislikes = action.payload.status
+        ? state.data.politicians[action.payload.index].number_of_dislikes + 1
+        : state.data.politicians[action.payload.index].number_of_dislikes - 1;
+    },
+    failPoliticianDislike(state, action) {
+      state.politicianDislikeStatus[action.payload.id] = { status: APIStatus.Failure };
     },
   },
 });

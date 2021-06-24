@@ -19,6 +19,9 @@ interface SingleNewsErrorResponse {
 interface LikeRequest {
   news_id?: number;
   media_id?: number;
+  author_id?: number;
+  politician_id?: number;
+  voting_place?: string;
 }
 
 interface LikeResponse {}
@@ -28,6 +31,10 @@ interface LikeVar {
   isMassmediaDisliked?: boolean;
   isMassmediaLiked?: boolean;
   token?: string;
+  isAuthorLiked?: boolean;
+  isAuthorDisliked?: boolean;
+  isPoliticianLiked?: boolean;
+  isPoliticianDisliked?: boolean;
 }
 
 const fetchSingleNews: APIRequest<SingleNewsRequest, SingleNewsResponse, SingleNewsErrorResponse> = (args) =>
@@ -72,10 +79,74 @@ const massmediaDislike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> 
   });
 };
 
+const authorLike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
+  const { isAuthorLiked, token } = args.variables;
+  return callAPI({
+    url: isAuthorLiked ? 'deleteLikeFromAuthor' : 'addLikeToAuthor',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.variables.token}`,
+      },
+    },
+    ...args,
+  });
+};
+
+const authorDislike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
+  const { isAuthorDisliked, token } = args.variables;
+  return callAPI({
+    url: isAuthorDisliked ? 'deleteDislikeFromAuthor' : 'addDislikeToAuthor',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.variables.token}`,
+      },
+    },
+    ...args,
+  });
+};
+
+const politicianLike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
+  const { isPoliticianLiked, token } = args.variables;
+  return callAPI({
+    url: isPoliticianLiked ? 'deleteLikeFromPolitician' : 'addLikeToPolitician',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.variables.token}`,
+      },
+    },
+    ...args,
+  });
+};
+
+const politicianDislike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
+  const { isPoliticianDisliked, token } = args.variables;
+  return callAPI({
+    url: isPoliticianDisliked ? 'deleteDislikeFromPolitician' : 'addDislikeToPolitician',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.variables.token}`,
+      },
+    },
+    ...args,
+  });
+};
+
 export const singleNewsAPI = {
   fetchSingleNews,
   massmediaLike,
   massmediaDislike,
+  authorLike,
+  authorDislike,
+  politicianLike,
+  politicianDislike,
 };
 
 export const singleNewsAPIActions = () => {

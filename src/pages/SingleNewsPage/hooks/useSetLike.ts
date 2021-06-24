@@ -10,6 +10,8 @@ import { getItem } from 'src/lib/localStorageManager';
 export const useSetLike = () => {
   const isMassmediaLiked = useSelector((s: RootState) => s?.singleNews?.data?.currentNews?.media?.is_user_liked);
   const isMassmediaDisliked = useSelector((s: RootState) => s?.singleNews?.data?.currentNews?.media?.is_user_disliked);
+  const isAuthorLiked = useSelector((s: RootState) => s?.singleNews?.data?.currentNews?.author?.is_user_liked);
+  const isAuthorDisliked = useSelector((s: RootState) => s?.singleNews?.data?.currentNews?.author?.is_user_disliked);
   const { data } = useSelector((s: RootState) => s?.singleNews);
   const {
     startMassmediaLike,
@@ -18,8 +20,21 @@ export const useSetLike = () => {
     startMassmediaDislike,
     successMassmediaDislike,
     failMassmediaDislike,
+    startAuthorLike,
+    successAuthorLike,
+    failAuthorLike,
+    startAuthorDislike,
+    successAuthorDislike,
+    failAuthorDislike,
+    startPoliticianLike,
+    successPoliticianLike,
+    failPoliticianLike,
+    startPoliticianDislike,
+    successPoliticianDislike,
+    failPoliticianDislike,
   } = singleNewsActionCreators();
-  const { massmediaLike, massmediaDislike } = singleNewsAPIActions();
+  const { massmediaLike, massmediaDislike, authorLike, authorDislike, politicianLike, politicianDislike } =
+    singleNewsAPIActions();
   const token = getItem('token');
   const setMassMediaLike = useCallback(() => {
     startMassmediaLike();
@@ -48,7 +63,6 @@ export const useSetLike = () => {
     });
   }, [isMassmediaLiked, isMassmediaDisliked]);
   const setMassMediaDislike = useCallback(() => {
-    console.log('dislike', isMassmediaDisliked, isMassmediaLiked);
     startMassmediaDislike();
     massmediaDislike({
       onSuccess: () => {
@@ -74,8 +88,128 @@ export const useSetLike = () => {
       },
     });
   }, [isMassmediaDisliked, isMassmediaLiked]);
+  const setAuthorLike = useCallback(() => {
+    startAuthorLike();
+    authorLike({
+      onSuccess: () => {
+        if (isAuthorLiked) {
+          successAuthorLike(false);
+        } else {
+          successAuthorLike(true);
+          if (isAuthorDisliked) {
+            successAuthorDislike(false);
+          }
+        }
+      },
+      onError: () => {
+        failAuthorLike();
+      },
+      payload: {
+        news_id: data?.currentNews?.id,
+        author_id: data?.currentNews?.author?.id,
+      },
+      variables: {
+        isAuthorLiked,
+        token,
+      },
+    });
+  }, [isAuthorLiked, isAuthorDisliked]);
+  const setAuthorDislike = useCallback(() => {
+    startAuthorDislike();
+    authorDislike({
+      onSuccess: () => {
+        if (isAuthorDisliked) {
+          successAuthorDislike(false);
+        } else {
+          successAuthorDislike(true);
+          if (isAuthorLiked) {
+            successAuthorLike(false);
+          }
+        }
+      },
+      onError: () => {
+        failAuthorDislike();
+      },
+      payload: {
+        news_id: data?.currentNews?.id,
+        author_id: data?.currentNews?.author?.id,
+      },
+      variables: {
+        isAuthorDisliked,
+        token,
+      },
+    });
+  }, [isAuthorLiked, isAuthorDisliked]);
+  const setPoliticianLike = useCallback(({ index, id, isLiked, isDisliked }) => {
+    const isPoliticianLiked = isLiked;
+    const isPoliticianDisliked = isDisliked;
+    startPoliticianLike({ id });
+    politicianLike({
+      onSuccess: () => {
+        console.log('success like', index);
+        if (isPoliticianLiked) {
+          successPoliticianLike({ index, id, status: false });
+        } else {
+          successPoliticianLike({ index, id, status: true });
+          if (isPoliticianDisliked) {
+            successPoliticianDislike({ index, id, status: false });
+          }
+        }
+      },
+      onError: () => {
+        failPoliticianLike({ id });
+      },
+      payload: {
+        politician_id: id,
+        voting_place: 'news',
+        news_id: data?.currentNews?.id,
+      },
+      variables: {
+        isPoliticianLiked,
+        token,
+      },
+    });
+  }, []);
 
-  return { setMassMediaLike, setMassMediaDislike };
+  const setPoliticianDislike = useCallback(({ index, id, isLiked, isDisliked }) => {
+    console.log(index, id, isLiked, isDisliked);
+    const isPoliticianLiked = isLiked;
+    const isPoliticianDisliked = isDisliked;
+    startPoliticianDislike({ id });
+    politicianDislike({
+      onSuccess: () => {
+        console.log('success dislike', index);
+        if (isPoliticianDisliked) {
+          successPoliticianDislike({ index, id, status: false });
+        } else {
+          successPoliticianDislike({ index, id, status: true });
+          if (isPoliticianLiked) {
+            successPoliticianLike({ index, id, status: false });
+          }
+        }
+      },
+      onError: () => {
+        failPoliticianDislike({ id });
+      },
+      payload: {
+        politician_id: id,
+        voting_place: 'news',
+        news_id: data?.currentNews?.id,
+      },
+      variables: {
+        isPoliticianDisliked,
+        token,
+      },
+    });
+  }, []);
+  return {
+    setMassMediaLike,
+    setMassMediaDislike,
+    setAuthorLike,
+    setAuthorDislike,
+    setPoliticianLike,
+    setPoliticianDislike,
+  };
 };
 
 export default useSetLike;
