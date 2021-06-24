@@ -1,5 +1,5 @@
 export * from './politicianNews/PoliticianNews';
-export * from './politicianActivity/PoliticianActivity';
+export * from './politicianActivity/PoliticianBills';
 export * from './positionHistory/PositionHistory';
 export * from './promises/Promises';
 export * from './incomeStatistics/IncomeStatistics';

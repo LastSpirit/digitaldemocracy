@@ -55,6 +55,13 @@ export interface PromiseI {
   promise_date: string;
 }
 
+export interface PoliticianBillsI {
+  title: string;
+  source_link: string;
+  publication_date: string;
+  id: number;
+}
+
 export interface MetricI {
   title: string;
   text: string;
@@ -100,6 +107,7 @@ interface SliceState {
   history?: Array<PositionHistoryI>;
   positionDescription?: Array<PositionsDescriptionI>;
   statistic?: Array<StatisticI>;
+  bills?: Array<PoliticianBillsI>;
 }
 
 export interface NewsWithPercentI extends NewsI {
@@ -127,6 +135,9 @@ export const politicianSlice = createSlice({
     },
     setPromises(state: SliceState, action: PayloadAction<Array<PromiseI>>) {
       state.promises = action.payload;
+    },
+    setBills(state: SliceState, action: PayloadAction<Array<PoliticianBillsI>>) {
+      state.bills = action.payload;
     },
     setIsSubscribe(state: SliceState, action: PayloadAction<boolean>) {
       state.data.is_subscribed = action.payload;
@@ -157,6 +168,7 @@ export const politicianSelectors = {
   getRatingStatistic: () => (state: Store) => state.politician.ratingStatistics,
   getPositionsDescription: () => (state: Store) => state.politician.positionDescription,
   getStatistic: () => (state: Store) => state.politician.statistic,
+  getBills: () => (state: Store) => state.politician.bills
 };
 
 export const politicianActionCreators = () => {

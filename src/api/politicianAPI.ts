@@ -9,6 +9,7 @@ import {
   RatingStatisticsI,
   PositionsDescriptionI,
   StatisticI,
+  PoliticianBillsI,
 } from '../slices/politicianSlice';
 
 interface NewsRequest {
@@ -80,6 +81,13 @@ const fetchPromises: APIRequest<DefaultRequest, Array<PromiseI>> = (args) =>
     ...args,
   });
 
+const fetchBills: APIRequest<DefaultRequest, Array<PoliticianBillsI>> = (args) =>
+  callAPI({
+    url: `getPoliticianBills?politician_id=${args.payload.politician_id}`,
+    config: { method: 'GET' },
+    ...args,
+  });
+
 const fetchPositionsDescription: APIRequest<DefaultRequest, Array<PositionsDescriptionI>> = (args) =>
   callAPI({
     url: `getPoliticianPositionsDescription?politician_id=${args.payload.politician_id}`,
@@ -87,15 +95,15 @@ const fetchPositionsDescription: APIRequest<DefaultRequest, Array<PositionsDescr
     ...args,
   });
 
-  interface PoliticianChangesRequest {
-    token?: string;
-    source_url?: string;
-    description?: string;
-  }
+interface PoliticianChangesRequest {
+  token?: string;
+  source_url?: string;
+  description?: string;
+}
 
-  interface PoliticianChangesI {
-    data?: string;
-  }
+interface PoliticianChangesI {
+  data?: string;
+}
 
 const fetchPoliticianChanges: APIRequest<PoliticianChangesRequest, Array<PoliticianChangesI>> = (args) => {
   return callAPI({
@@ -156,6 +164,7 @@ const APIs = {
   fetchPositionsDescription,
   fetchStatistic,
   fetchPoliticianChanges,
+  fetchBills,
 };
 
 export const politicianAPI = () => {
