@@ -59,17 +59,39 @@ const AuthorInfoBlock: FC = () => {
           </div>
         </div>
         <div className={styles.personBlock}>
-          <div className={styles.fioBlock}>
-            <div className={styles.fio}>
-              <div className={styles.name}>
-                <div>{data?.name}</div>
-              </div>
-              <div className={styles.subscribers}>
-                {!isMobile && (
+          <div>
+            <div className={styles.fioBlock}>
+              <div className={styles.fio}>
+                <p>{data?.name}</p>
+                <Button
+                  variant="outlined"
+                  color={data?.is_subscribed ? 'secondary' : 'primary'}
+                  onClick={isAuthenticated ? setAuthorSubscribe : handleClick}
+                  disabled={subscribeStatus === APIStatus.Loading}
+                  className={classNames([
+                    'MuiButton-containedPrimary',
+                    styles.subscriberButton,
+                    { '-disabled': !isAuthenticated },
+                  ])}
+                >
+                  <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
+                    <span>
+                      {subscribeStatus === APIStatus.Loading ? (
+                        <Loading />
+                      ) : data?.is_subscribed ? (
+                        'Отписаться'
+                      ) : (
+                        'Следить'
+                      )}
+                    </span>
+                  </Tooltip>
+                </Button>
+                {/* <div className={styles.subscribers}> */}
+                {/* {!isMobile && (
                   <Button
                     variant="outlined"
                     color={data?.is_subscribed ? 'secondary' : 'primary'}
-                    onClick={isAuthenticated ? setAuthorSubscribe : handleClick}
+                    onClick={isAuthenticated ? setMassMediaSubscribe : handleClick}
                     disabled={subscribeStatus === APIStatus.Loading}
                     className={classNames([
                       'MuiButton-containedPrimary',
@@ -79,7 +101,7 @@ const AuthorInfoBlock: FC = () => {
                   >
                     <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
                       <span>
-                        {/* eslint-disable-next-line no-nested-ternary */}
+                        eslint-disable-next-line no-nested-ternary
                         {subscribeStatus === APIStatus.Loading ? (
                           <Loading />
                         ) : data?.is_subscribed ? (
@@ -90,39 +112,52 @@ const AuthorInfoBlock: FC = () => {
                       </span>
                     </Tooltip>
                   </Button>
-                )}
-                {data?.number_of_subscribers && (
+                )} */}
+                {/* {data?.number_of_subscribers && (
                   <div className={styles.subscribersBadge}>
                     {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, 'подписчик')}`}
                   </div>
-                )}
-                {data?.link && (
-                  <FacebookShare url={data?.link || 'facebook.com'}>
-                    <FacebookIcon
-                      fontSize={isMobile ? 'small' : 'large'}
-                      className={styles.facebook}
-                      // viewBox="3 3 18 18"
-                    />
-                  </FacebookShare>
-                )}
+                )} */}
+                {/* </div> */}
               </div>
             </div>
+            <div className={styles.description}>
+              <p>{data?.description ?? 'Описание отсутствует'}</p>
+              {data?.number_of_subscribers && (
+                <div className={styles.subscribersBadge}>
+                  {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, 'подписчик')}`}
+                </div>
+              )}
+            </div>
           </div>
-          <AuthorCards data={data} />
+          <div className={styles.bottom}>
+            <AuthorCards data={data} />
+            <div className={styles.bottomRight}>
+              {data?.link && (
+                <FacebookShare url={data?.link || 'facebook.com'}>
+                  <FacebookIcon
+                    fontSize={isMobile ? 'small' : 'large'}
+                    className={styles.facebook}
+                    // viewBox="3 3 18 18"
+                  />
+                </FacebookShare>
+              )}
+            </div>
+          </div>
         </div>
       </div>
-      {isMobile && (
+      {/* {isMobile && (
         <>
           <Button
             variant="outlined"
             color={data?.is_subscribed ? 'secondary' : 'primary'}
-            onClick={isAuthenticated ? setAuthorSubscribe : handleClick}
+            onClick={isAuthenticated ? setMassMediaSubscribe : handleClick}
             disabled={subscribeStatus === APIStatus.Loading}
             className={classNames([styles['subscriberButton-mobile'], { '-disabled': !isAuthenticated }])}
           >
             <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
               <span>
-                {/* eslint-disable-next-line no-nested-ternary */}
+                eslint-disable-next-line no-nested-ternary
                 {subscribeStatus === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? 'Отписаться' : 'Следить'}
               </span>
             </Tooltip>
@@ -141,11 +176,11 @@ const AuthorInfoBlock: FC = () => {
                 </div>
                 <div className={styles.percent}>{`${data?.rating || '-'} %`}</div>
               </div>
-              <PercentsLinearGraphic />
+              <PercentsLinearGraphic vote_groups={data?.vote_groups} />
             </div>
           </div>
         </>
-      )}
+      )} */}
     </div>
   );
 };

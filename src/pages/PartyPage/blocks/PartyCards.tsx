@@ -6,24 +6,31 @@ import { useWindowSize } from '../../../hooks/useWindowSize';
 import InDevelop from '../../../components/InDevelop/InDevelop';
 
 const PartyCards = ({ data }) => {
+  const trust = data?.rating ? (data?.rating > 50 ? 'Высокое доверие' : 'Низкое доверие') : 'Без рейтинга';
+  const badgeBackground = trust === 'Высокое доверие' ? 'green' : trust === 'Низкое доверие' ? 'red' : null;
+  const badgeColor = trust === 'Высокое доверие' ? '#fff' : '#222';
   const { isMobile } = useWindowSize();
   return (
     <div className={styles.cardsBlock}>
-      <div className={styles.card}>
+      {/* <div className={styles.card}>
         <div className={styles.description}>
-          <div className={styles.text}>Партия</div>
-          <hr />
-          <p className={styles.sub}>{data.politicians_count ?? 0} членов партии</p>
+          <div className={styles.text}>{hiddenText || 'Описание отсутствует'}</div>
         </div>
-      </div>
+      </div> */}
       {!isMobile && (
         <div className={styles.card}>
           <div className={styles.secondCard}>
             <div className={styles.trustRow}>
-              <div className={styles.badge}>
-                <div className={styles.text}>2 место</div>
+              <div
+                className={styles.badge}
+                // style={{
+                //   backgroundColor: badgeBackground,
+                //   color: badgeColor,
+                // }}
+              >
+                <div className={styles.text}>2-е место</div>
               </div>
-              <div className={styles.percent}>12 %</div>
+              <div className={styles.percent}>{data?.rating || '-'} %</div>
             </div>
             <PercentsLinearGraphic />
           </div>

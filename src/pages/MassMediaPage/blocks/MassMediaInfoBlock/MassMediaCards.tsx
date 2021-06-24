@@ -16,11 +16,11 @@ const MassMediaCards = ({ data }) => {
   const badgeColor = trust === 'Высокое доверие' ? '#fff' : '#222';
   return (
     <div className={styles.cardsBlock}>
-      <div className={styles.card}>
+      {/* <div className={styles.card}>
         <div className={styles.description}>
           <div className={styles.text}>{hiddenText || 'Описание отсутствует'}</div>
         </div>
-      </div>
+      </div> */}
       {!isMobile && (
         <div className={styles.card}>
           <div className={styles.secondCard}>
@@ -32,7 +32,7 @@ const MassMediaCards = ({ data }) => {
                   color: badgeColor,
                 }}
               >
-                <div className={styles.text}>{trust}</div>
+                <div className={styles.text}>2-е место</div>
               </div>
               <div className={styles.percent}>{data?.rating || '-'} %</div>
             </div>
