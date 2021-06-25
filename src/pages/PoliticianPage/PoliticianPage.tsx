@@ -35,9 +35,8 @@ const PoliticianPage = () => {
     <Container maxWidth="lg" className={styles.cont}>
       <div className={styles.container}>
         <WrapperAsyncRequest status={status}>
-          {!isMobile && <BackButton />}
-          {isMobile && <MobileButtons handleClickOpen={handleClickOpen} />}
           <div className={styles.containerContent}>
+            <BackButton />
             <PoliticianInfoBlock handleClickOpen={handleClickOpen} />
             <PoliticianNavigation />
           </div>

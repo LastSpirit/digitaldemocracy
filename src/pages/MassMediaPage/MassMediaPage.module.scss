@@ -353,7 +353,7 @@
   .buttonRow {
     display: flex;
     width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     .backButton {
       border-color: #b0b0b0;
       padding: 5px 20px;
@@ -392,7 +392,7 @@
   .buttonRow {
     display: flex;
     width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     .backButton {
       border-color: #b0b0b0;
       padding: 5px 20px;
@@ -732,6 +732,9 @@
                 line-height: 42px;
                 white-space: nowrap;
                 overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 @media screen and (max-width: $preMobileScreen) {
                   font-size: 12px;
                 }
@@ -763,6 +766,7 @@
         width: 100%;
         display: flex;
         justify-content: space-between;
+        align-items: center;
         p {
           color: #222222;
           margin: 0 !important;
@@ -837,7 +841,8 @@
 }
 
 .mobileRoot {
-  min-height: 353px;
+  min-height: 100%;
+  margin-bottom: 20px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -846,6 +851,7 @@
     width: 100%;
     font-size: 20px;
     color: #222222;
+    margin: 0px;
   }
 
   .mobSubscribers {
@@ -854,6 +860,7 @@
     line-height: 13px;
     color: #7a7a7a;
     margin-bottom: 12px;
+    margin-top: 8px;
   }
 
   .mobInfoBlock {
