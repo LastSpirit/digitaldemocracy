@@ -49,49 +49,25 @@ const AuthorInfoBlock: FC = () => {
   const badgeColor = trust === 'Высокое доверие' ? '#fff' : '#222';
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
-      <div className={styles.topItems}>
-        <div
-          className={styles.avatarBlock}
-          style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
-        >
-          <div className={styles.avatar}>
-            {!data?.photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={data?.photo} alt="" />}
+      {!isMobile ? (
+        <div className={styles.topItems}>
+          <div
+            className={styles.avatarBlock}
+            style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
+          >
+            <div className={styles.avatar}>
+              {!data?.photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={data?.photo} alt="" />}
+            </div>
           </div>
-        </div>
-        <div className={styles.personBlock}>
-          <div>
-            <div className={styles.fioBlock}>
-              <div className={styles.fio}>
-                <p>{data?.name}</p>
-                <Button
-                  variant="outlined"
-                  color={data?.is_subscribed ? 'secondary' : 'primary'}
-                  onClick={isAuthenticated ? setAuthorSubscribe : handleClick}
-                  disabled={subscribeStatus === APIStatus.Loading}
-                  className={classNames([
-                    'MuiButton-containedPrimary',
-                    styles.subscriberButton,
-                    { '-disabled': !isAuthenticated },
-                  ])}
-                >
-                  <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
-                    <span>
-                      {subscribeStatus === APIStatus.Loading ? (
-                        <Loading />
-                      ) : data?.is_subscribed ? (
-                        'Отписаться'
-                      ) : (
-                        'Следить'
-                      )}
-                    </span>
-                  </Tooltip>
-                </Button>
-                {/* <div className={styles.subscribers}> */}
-                {/* {!isMobile && (
+          <div className={styles.personBlock}>
+            <div>
+              <div className={styles.fioBlock}>
+                <div className={styles.fio}>
+                  <p>{data?.name}</p>
                   <Button
                     variant="outlined"
                     color={data?.is_subscribed ? 'secondary' : 'primary'}
-                    onClick={isAuthenticated ? setMassMediaSubscribe : handleClick}
+                    onClick={isAuthenticated ? setAuthorSubscribe : handleClick}
                     disabled={subscribeStatus === APIStatus.Loading}
                     className={classNames([
                       'MuiButton-containedPrimary',
@@ -101,7 +77,6 @@ const AuthorInfoBlock: FC = () => {
                   >
                     <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
                       <span>
-                        eslint-disable-next-line no-nested-ternary
                         {subscribeStatus === APIStatus.Loading ? (
                           <Loading />
                         ) : data?.is_subscribed ? (
@@ -112,75 +87,77 @@ const AuthorInfoBlock: FC = () => {
                       </span>
                     </Tooltip>
                   </Button>
-                )} */}
-                {/* {data?.number_of_subscribers && (
+                </div>
+              </div>
+              <div className={styles.description}>
+                <p>{data?.description ?? 'Описание отсутствует'}</p>
+                {data?.number_of_subscribers && (
                   <div className={styles.subscribersBadge}>
                     {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, 'подписчик')}`}
                   </div>
-                )} */}
-                {/* </div> */}
+                )}
               </div>
             </div>
-            <div className={styles.description}>
-              <p>{data?.description ?? 'Описание отсутствует'}</p>
-              {data?.number_of_subscribers && (
-                <div className={styles.subscribersBadge}>
-                  {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, 'подписчик')}`}
-                </div>
-              )}
-            </div>
-          </div>
-          <div className={styles.bottom}>
-            <AuthorCards data={data} />
-            <div className={styles.bottomRight}>
-              {data?.link && (
-                <FacebookShare url={data?.link || 'facebook.com'}>
-                  <FacebookIcon
-                    fontSize={isMobile ? 'small' : 'large'}
-                    className={styles.facebook}
-                    // viewBox="3 3 18 18"
-                  />
-                </FacebookShare>
-              )}
+            <div className={styles.bottom}>
+              <AuthorCards data={data} />
+              <div className={styles.bottomRight}>
+                {data?.link && (
+                  <FacebookShare url={data?.link || 'facebook.com'}>
+                    <FacebookIcon fontSize={isMobile ? 'small' : 'large'} className={styles.facebook} />
+                  </FacebookShare>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      {/* {isMobile && (
-        <>
+      ) : (
+        <div className={styles.mobileRoot}>
+          <p>{data?.name}</p>
+          {data?.number_of_subscribers && (
+            <div className={styles.mobSubscribers}>
+              {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, 'подписчик')}`}
+            </div>
+          )}
+          <div className={styles.mobInfoBlock}>
+            <div
+              className={styles.mobAvatarBlock}
+              style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
+            >
+              <div className={styles.mobAvatar}>
+                {!data?.photo ? <PersonIcon className={styles.mobNoAvatarIcon} /> : <img src={data?.photo} alt="" />}
+              </div>
+            </div>
+            <div className={styles.mobRightBlock}>
+              <p>{data?.description ?? 'Описание отсутствует'}</p>
+            </div>
+          </div>
+          <AuthorCards data={data} />
           <Button
             variant="outlined"
             color={data?.is_subscribed ? 'secondary' : 'primary'}
-            onClick={isAuthenticated ? setMassMediaSubscribe : handleClick}
+            onClick={isAuthenticated ? setAuthorSubscribe : handleClick}
             disabled={subscribeStatus === APIStatus.Loading}
-            className={classNames([styles['subscriberButton-mobile'], { '-disabled': !isAuthenticated }])}
+            className={classNames([
+              'MuiButton-containedPrimary',
+              styles.mobSubscriberButton,
+              { '-disabled': !isAuthenticated },
+            ])}
           >
             <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
               <span>
-                eslint-disable-next-line no-nested-ternary
                 {subscribeStatus === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? 'Отписаться' : 'Следить'}
               </span>
             </Tooltip>
           </Button>
-          <div className={styles.card}>
-            <div className={styles.secondCard}>
-              <div className={styles.trustRow}>
-                <div
-                  className={styles.badge}
-                  style={{
-                    backgroundColor: badgeBackground,
-                    color: badgeColor,
-                  }}
-                >
-                  <div className={styles.text}>{trust}</div>
-                </div>
-                <div className={styles.percent}>{`${data?.rating || '-'} %`}</div>
-              </div>
-              <PercentsLinearGraphic vote_groups={data?.vote_groups} />
-            </div>
+          <div className={styles.MobBottom}>
+            {data?.link && (
+              <FacebookShare url={data?.link || 'facebook.com'}>
+                <FacebookIcon fontSize={isMobile ? 'small' : 'large'} className={styles.facebook} />
+              </FacebookShare>
+            )}
           </div>
-        </>
-      )} */}
+        </div>
+      )}
     </div>
   );
 };

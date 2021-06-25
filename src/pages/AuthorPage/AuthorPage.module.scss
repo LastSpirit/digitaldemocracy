@@ -1070,3 +1070,159 @@
     border-radius: 50%;
   }
 }
+
+.mobileRoot {
+  min-height: 353px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  p {
+    width: 100%;
+    font-size: 20px;
+    color: #222222;
+  }
+
+  .mobSubscribers {
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+    color: #7a7a7a;
+    margin-bottom: 12px;
+  }
+
+  .mobInfoBlock {
+    display: flex;
+
+    .mobAvatarBlock {
+      width: 105px;
+      height: 110px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      margin-right: 10px;
+
+      .mobAvatar {
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 93%;
+        height: 93%;
+        border-radius: 5%;
+        background-color: #fff;
+        &.mobNoAvatar {
+          background-color: #e5e5e5;
+        }
+
+        .mobNoAvatarIcon {
+          width: 99px;
+          height: 104px;
+        }
+
+        img {
+          min-width: 100%;
+          min-height: 100%;
+          object-fit: contain;
+        }
+      }
+    }
+  }
+
+  .mobRightBlock {
+    display: flex;
+    flex-direction: column;
+    font-size: 11px;
+    line-height: 13px;
+    color: #7a7a7a;
+
+    p {
+      font-size: 11px;
+      line-height: 13px;
+      color: #7a7a7a;
+      margin: 0px;
+    }
+
+    .mobEnglishName {
+      margin-bottom: 8px;
+    }
+
+    .mobAge {
+      margin-bottom: 8px;
+    }
+
+    .mobTitle {
+      margin-bottom: 8px;
+      text-decoration-line: underline;
+      cursor: pointer;
+      color: #363557;
+      width: max-content;
+    }
+  }
+}
+
+.mobCard {
+  width: 100%;
+  height: 64px;
+  display: flex;
+  margin-top: 12px;
+  justify-content: space-between;
+  .mobSecondCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    .mobTrustRow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 45%;
+      .mobBadge {
+        width: 112px;
+        height: 29px;
+        background: #d4f5dd;
+        border-radius: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #34a853;
+        .mobText {
+          font-size: 18px;
+          line-height: 21px;
+        }
+      }
+      .mobPercent {
+        max-width: 40%;
+        font-size: 18px;
+        line-height: 21px;
+        height: 100%;
+        color: #585858;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+.mobSubscriberButton {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.MobBottom {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  .mobChangeButton {
+    border: 1px solid #363557;
+    width: 75%;
+    height: 40px;
+    border-radius: 40px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 21px;
+  }
+}

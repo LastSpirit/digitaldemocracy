@@ -34,7 +34,7 @@ export const MobileButtons: FC<IProps> = ({ handleClickOpen }) => {
         >
           <div className={styles.icon}>←</div>
         </Button>
-        <Button
+        {/* <Button
           className={classNames('MuiButton-containedPrimary', styles.changeButton, {
             '-disabled': !isAuthenticated,
           })}
@@ -45,7 +45,7 @@ export const MobileButtons: FC<IProps> = ({ handleClickOpen }) => {
           <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
             <span style={{ textDecoration: 'none' }}>Предложить изменения</span>
           </Tooltip>
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

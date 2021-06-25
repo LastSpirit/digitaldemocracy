@@ -21,7 +21,7 @@ const PoliticianCards = () => {
           <div className={styles.text}>{hiddenText || 'Описание отсутствует'}</div>
         </div>
       </div> */}
-      {!isMobile && (
+      {!isMobile ? (
         <div className={styles.card}>
           <div className={styles.secondCard}>
             <div className={styles.trustRow}>
@@ -36,7 +36,25 @@ const PoliticianCards = () => {
               </div>
               <div className={styles.percent}>{data?.rating || '-'} %</div>
             </div>
-            <PercentsLinearGraphic vote_groups={data?.vote_groups} />
+            <PercentsLinearGraphic />
+          </div>
+        </div>
+      ) : (
+        <div className={styles.mobCard}>
+          <div className={styles.mobSecondCard}>
+            <div className={styles.mobTrustRow}>
+              <div
+                className={styles.mobBadge}
+                // style={{
+                //   backgroundColor: badgeBackground,
+                //   color: badgeColor,
+                // }}
+              >
+                <div className={styles.mobText}>2-е место</div>
+              </div>
+              <div className={styles.mobPercent}>{data?.rating || '-'} %</div>
+            </div>
+            <PercentsLinearGraphic />
           </div>
         </div>
       )}

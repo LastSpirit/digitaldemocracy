@@ -49,45 +49,26 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
 
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
-      <div className={styles.topItems}>
-        <div
-          className={styles.avatarBlock}
-          style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
-        >
-          <div className={styles.avatar}>
-            {!data?.photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={data?.photo} alt="" />}
+      {!isMobile ? (
+        <div className={styles.topItems}>
+          <div
+            className={styles.avatarBlock}
+            style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
+          >
+            <div className={styles.avatar}>
+              {!data?.photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={data?.photo} alt="" />}
+            </div>
           </div>
-        </div>
-        <div className={styles.personBlock}>
-          <div>
-            <div className={styles.fioBlock}>
-              <div className={styles.fio}>
-                <p>{data?.name}</p>
-                <Button
-                  variant="outlined"
-                  color={data?.is_subscribed ? 'secondary' : 'primary'}
-                  onClick={isAuthenticated ? change : handleClick}
-                  disabled={status === APIStatus.Loading}
-                  className={classNames([
-                    'MuiButton-containedPrimary',
-                    styles.subscriberButton,
-                    { '-disabled': !isAuthenticated },
-                  ])}
-                >
-                  <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
-                    <span>
-                      {/* eslint-disable-next-line no-nested-ternary */}
-                      {status === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? 'Отписаться' : 'Следить'}
-                    </span>
-                  </Tooltip>
-                </Button>
-                {/* <div className={styles.subscribers}> */}
-                {/* {!isMobile && (
+          <div className={styles.personBlock}>
+            <div>
+              <div className={styles.fioBlock}>
+                <div className={styles.fio}>
+                  <p>{data?.name}</p>
                   <Button
                     variant="outlined"
                     color={data?.is_subscribed ? 'secondary' : 'primary'}
-                    onClick={isAuthenticated ? setMassMediaSubscribe : handleClick}
-                    disabled={subscribeStatus === APIStatus.Loading}
+                    onClick={isAuthenticated ? change : handleClick}
+                    disabled={status === APIStatus.Loading}
                     className={classNames([
                       'MuiButton-containedPrimary',
                       styles.subscriberButton,
@@ -96,115 +77,133 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                   >
                     <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
                       <span>
-                        eslint-disable-next-line no-nested-ternary
-                        {subscribeStatus === APIStatus.Loading ? (
-                          <Loading />
-                        ) : data?.is_subscribed ? (
-                          'Отписаться'
-                        ) : (
-                          'Следить'
-                        )}
+                        {status === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? 'Отписаться' : 'Следить'}
                       </span>
                     </Tooltip>
                   </Button>
-                )} */}
-                {/* {data?.number_of_subscribers && (
-                  <div className={styles.subscribersBadge}>
+                </div>
+              </div>
+              <div className={styles.description}>
+                {/* <p>{data?.description ?? 'Описание отсутствует'}</p> */}
+                {data?.english_name && <div className={styles.englishName}>{data?.english_name}</div>}
+                {data?.number_of_subscribers && (
+                  <div
+                    className={styles.subscribersBadge}
+                    style={data?.english_name ? { textAlign: 'end' } : { textAlign: 'start' }}
+                  >
                     {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, 'подписчик')}`}
                   </div>
-                )} */}
-                {/* </div> */}
+                )}
               </div>
-            </div>
-            <div className={styles.description}>
-              {/* <p>{data?.description ?? 'Описание отсутствует'}</p> */}
-              {data?.english_name && <div className={styles.englishName}>{data?.english_name}</div>}
-              {data?.number_of_subscribers && (
-                <div
-                  className={styles.subscribersBadge}
-                  style={data?.english_name ? { textAlign: 'end' } : { textAlign: 'start' }}
-                >
-                  {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, 'подписчик')}`}
+              {(data?.age || data?.city) && (
+                <div className={styles.age}>
+                  {data?.age ? `${data?.age} лет${data?.city ? `, ${data?.city}` : ''}` : data?.city}
                 </div>
               )}
-            </div>
-            {(data?.age || data?.city) && (
-              <div className={styles.age}>
-                {data?.age ? `${data?.age} лет${data?.city ? `, ${data?.city}` : ''}` : data?.city}
-              </div>
-            )}
-            <div
-              onClick={() => push(`/party/${data?.party?.short_link}`)}
-              aria-hidden="true"
-              className={styles.title}
-            >
-              {data?.party?.name}
-            </div>
-          </div>
-          <div className={styles.bottom}>
-            <PoliticianCards />
-            <div className={styles.bottomRight}>
-              <Button
-                className={classNames('comeIn', styles.changeButton, {
-                  '-disabled': !isAuthenticated,
-                })}
-                variant="outlined"
-                color="primary"
-                onClick={isAuthenticated ? handleClickOpen : handleClick}
+              <div
+                onClick={() => push(`/party/${data?.party?.short_link}`)}
+                aria-hidden="true"
+                className={styles.title}
               >
-                <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
-                  <span>Предложить изменения в профиле</span>
-                </Tooltip>
-              </Button>
+                {data?.party?.name}
+              </div>
+            </div>
+            <div className={styles.bottom}>
+              <PoliticianCards />
+              <div className={styles.bottomRight}>
+                <Button
+                  className={classNames('comeIn', styles.changeButton, {
+                    '-disabled': !isAuthenticated,
+                  })}
+                  variant="outlined"
+                  color="primary"
+                  onClick={isAuthenticated ? handleClickOpen : handleClick}
+                >
+                  <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
+                    <span>Предложить изменения в профиле</span>
+                  </Tooltip>
+                </Button>
 
-              {data?.link && (
-                <FacebookShare url={data?.link || 'facebook.com'}>
-                  <FacebookIcon
-                    fontSize={isMobile ? 'small' : 'large'}
-                    className={styles.facebook}
-                    // viewBox="3 3 18 18"
-                  />
-                </FacebookShare>
-              )}
+                {data?.link && (
+                  <FacebookShare url={data?.link || 'facebook.com'}>
+                    <FacebookIcon fontSize={isMobile ? 'small' : 'large'} className={styles.facebook} />
+                  </FacebookShare>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      {/* {isMobile && (
-        <>
+      ) : (
+        <div className={styles.mobileRoot}>
+          <p>{data?.name}</p>
+          {data?.number_of_subscribers && (
+            <div className={styles.mobSubscribers}>
+              {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, 'подписчик')}`}
+            </div>
+          )}
+          <div className={styles.mobInfoBlock}>
+            <div
+              className={styles.mobAvatarBlock}
+              style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
+            >
+              <div className={styles.mobAvatar}>
+                {!data?.photo ? <PersonIcon className={styles.mobNoAvatarIcon} /> : <img src={data?.photo} alt="" />}
+              </div>
+            </div>
+            <div className={styles.mobRightBlock}>
+              {data?.english_name && <div className={styles.mobEnglishName}>{data?.english_name}</div>}
+              {(data?.age || data?.city) && (
+                <div className={styles.mobAge}>
+                  {data?.age ? `${data?.age} лет${data?.city ? `, ${data?.city}` : ''}` : data?.city}
+                </div>
+              )}
+              <div
+                onClick={() => push(`/party/${data?.party?.short_link}`)}
+                aria-hidden="true"
+                className={styles.mobTitle}
+              >
+                {data?.party?.name}
+              </div>
+            </div>
+          </div>
+          <PoliticianCards />
           <Button
             variant="outlined"
             color={data?.is_subscribed ? 'secondary' : 'primary'}
-            onClick={isAuthenticated ? setMassMediaSubscribe : handleClick}
-            disabled={subscribeStatus === APIStatus.Loading}
-            className={classNames([styles['subscriberButton-mobile'], { '-disabled': !isAuthenticated }])}
+            onClick={isAuthenticated ? change : handleClick}
+            disabled={status === APIStatus.Loading}
+            className={classNames([
+              'MuiButton-containedPrimary',
+              styles.mobSubscriberButton,
+              { '-disabled': !isAuthenticated },
+            ])}
           >
             <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
-              <span>
-                eslint-disable-next-line no-nested-ternary
-                {subscribeStatus === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? 'Отписаться' : 'Следить'}
-              </span>
+              <span>{status === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? 'Отписаться' : 'Следить'}</span>
             </Tooltip>
           </Button>
-          <div className={styles.card}>
-            <div className={styles.secondCard}>
-              <div className={styles.trustRow}>
-                <div
-                  className={styles.badge}
-                  style={{
-                    backgroundColor: badgeBackground,
-                    color: badgeColor,
-                  }}
-                >
-                  <div className={styles.text}>{trust}</div>
-                </div>
-                <div className={styles.percent}>{`${data?.rating || '-'} %`}</div>
-              </div>
-              <PercentsLinearGraphic vote_groups={data?.vote_groups} />
-            </div>
+          <div className={styles.MobBottom}>
+            <Button
+              className={classNames('comeIn', styles.mobChangeButton, {
+                '-disabled': !isAuthenticated,
+              })}
+              variant="outlined"
+              color="primary"
+              onClick={isAuthenticated ? handleClickOpen : handleClick}
+            >
+              <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
+                <span>Предложить изменения</span>
+              </Tooltip>
+            </Button>
+
+            {data?.link && (
+              <FacebookShare url={data?.link || 'facebook.com'}>
+                <FacebookIcon fontSize={isMobile ? 'small' : 'large'} className={styles.facebook} />
+              </FacebookShare>
+            )}
           </div>
-        </>
-      )} */}
+        </div>
+      )}
     </div>
   );
 };
