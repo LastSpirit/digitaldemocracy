@@ -7,13 +7,13 @@ import { RootState } from '../../../store/index';
 
 import styles from './Tabs.module.scss';
 import { useWindowSize } from '../../../hooks/useWindowSize';
-import { partyActionCreators } from '../../../slices/partySlice';
+import { ratingActionCreators } from '../../../slices/ratingSlice';
 
 export const SortBadge = ({ text, field }) => {
   const { isMobile } = useWindowSize();
-  const { setSortDirection, setSortField } = partyActionCreators();
-  const sortDirection = useSelector((s: RootState) => s.party.sort_direction);
-  const sortField = useSelector((s: RootState) => s.party.sort_field);
+  const { setSortDirection, setSortField } = ratingActionCreators();
+  const sortDirection = useSelector((s: RootState) => s.rating.sort_direction);
+  const sortField = useSelector((s: RootState) => s.rating.sort_field);
   const active = sortField === field;
   return (
     <Button

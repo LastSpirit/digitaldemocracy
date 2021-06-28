@@ -279,18 +279,48 @@ export const sortParty = [
   },
 ];
 
-export const sortRating = [
+export const sortRatingPoliticians = [
   {
     id: 1,
-    full_title: 'По популярности',
-    short_title: 'Популярность',
-    field: 'number_of_views',
+    full_title: 'По рейтингу',
+    short_title: 'Руйтинг',
+    field: 'rating',
   },
   {
     id: 2,
+    full_title: 'По имени',
+    short_title: 'Имя',
+    field: 'name',
+  },
+];
+
+export const sortRatingAuthors = [
+  {
+    id: 1,
     full_title: 'По рейтингу',
-    short_title: 'Рейтинг',
-    field: 'votes',
+    short_title: 'Руйтинг',
+    field: 'rating',
+  },
+  {
+    id: 2,
+    full_title: 'По имени',
+    short_title: 'Имя',
+    field: 'name',
+  },
+];
+
+export const sortRatingMedia = [
+  {
+    id: 1,
+    full_title: 'По рейтингу',
+    short_title: 'Руйтинг',
+    field: 'rating',
+  },
+  {
+    id: 2,
+    full_title: 'По имени',
+    short_title: 'Имя',
+    field: 'name',
   },
 ];
 

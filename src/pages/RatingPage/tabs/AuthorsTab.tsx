@@ -1,46 +1,45 @@
 import React, { useEffect } from 'react';
 import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
 import { useSelector } from 'react-redux';
-import { partySelectors } from '../../../slices/partySlice';
+import { ratingSelectors } from '../../../slices/ratingSlice';
 import { useWindowSize } from '../../../hooks/useWindowSize';
-import { useFetchPartyPoliticians } from '../hooks/useFetchPoliticians';
+import { useFetchAuthors } from '../hooks/useFetchAuthors';
 import { RootState } from '../../../store/index';
 import { SortBadge } from './SortBadge';
-import { sortParty } from '../../../static/static';
+import { sortRatingAuthors } from '../../../static/static';
 import { userSelectors } from '../../../slices/userSlice';
-import PartyCard from '../../../components/PartyCard/PartyCard';
+import AuthorCard from '../AuthorCard/AuthorCard';
 import styles from './Tabs.module.scss';
 import { APIStatus } from '../../../lib/axiosAPI';
 
-const AuthorsTab = () => {
+const AuthorTab = () => {
   const { isMobile } = useWindowSize();
-  const data = useSelector(partySelectors.getPartyPoliticians());
-  const partyInfo = useSelector(partySelectors.getPartyInfo());
-  const { fetch, status } = useFetchPartyPoliticians();
-  const sortDirection = useSelector((s: RootState) => s.party.sort_direction);
-  const sortField = useSelector((s: RootState) => s.party.sort_field);
+  const { authors } = useSelector((s: RootState) => s.rating?.authors);
+  const { fetch, status } = useFetchAuthors();
+  const sortDirection = useSelector((s: RootState) => s.rating.sort_direction);
+  const sortField = useSelector((s: RootState) => s.rating.sort_field);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
 
   useEffect(() => {
-    fetch(partyInfo.id);
+    fetch();
   }, [sortDirection, sortField, isAuthenticated]);
   return (
-    <WrapperAsyncRequest status={APIStatus.Success}>
+    <WrapperAsyncRequest status={status}>
       <div className={styles.newsContainer}>
         <div className={styles.sortRow}>
-          {sortParty.map(({ id, full_title, short_title, field }) => {
+          {sortRatingAuthors.map(({ id, full_title, short_title, field }) => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
         </div>
-        {data?.politicians && data?.politicians.length > 0 ? (
+        {authors && authors?.length > 0 ? (
           <div className={styles.news}>
-            {data?.politicians?.map((item, index) => (
-              <PartyCard {...item} />
+            {authors?.map((item, index) => (
+              <AuthorCard key={item.id} {...item} />
             ))}
           </div>
         ) : (
           <div className={styles.noNewsBlock}>
-            <span>Здесь будут отображаться политики</span>
+            <span>Здесь будут отображаться авторы</span>
           </div>
         )}
       </div>
@@ -48,4 +47,4 @@ const AuthorsTab = () => {
   );
 };
 
-export default AuthorsTab;
+export default AuthorTab;

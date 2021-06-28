@@ -16,6 +16,7 @@ export interface AuthorDataI {
   source_link?: string;
   trust?: string;
   rating?: string;
+  short_link?: string;
 }
 
 export interface GraphicDataI {

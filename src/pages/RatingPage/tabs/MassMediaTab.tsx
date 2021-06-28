@@ -1,46 +1,45 @@
 import React, { useEffect } from 'react';
 import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
 import { useSelector } from 'react-redux';
-import { partySelectors } from '../../../slices/partySlice';
+import { ratingSelectors } from '../../../slices/ratingSlice';
 import { useWindowSize } from '../../../hooks/useWindowSize';
-import { useFetchPartyPoliticians } from '../hooks/useFetchPoliticians';
+import { useFetchMedia } from '../hooks/useFetchMedia';
 import { RootState } from '../../../store/index';
 import { SortBadge } from './SortBadge';
-import { sortParty } from '../../../static/static';
+import { sortRatingMedia } from '../../../static/static';
 import { userSelectors } from '../../../slices/userSlice';
-import PartyCard from '../../../components/PartyCard/PartyCard';
+import MassMediaCard from '../MassMediaCard/MassMediaCard';
 import styles from './Tabs.module.scss';
 import { APIStatus } from '../../../lib/axiosAPI';
 
 const MassMediaTab = () => {
   const { isMobile } = useWindowSize();
-  const data = useSelector(partySelectors.getPartyPoliticians());
-  const partyInfo = useSelector(partySelectors.getPartyInfo());
-  const { fetch, status } = useFetchPartyPoliticians();
-  const sortDirection = useSelector((s: RootState) => s.party.sort_direction);
-  const sortField = useSelector((s: RootState) => s.party.sort_field);
+  const { media } = useSelector((s: RootState) => s.rating?.massMedia);
+  const { fetch, status } = useFetchMedia();
+  const sortDirection = useSelector((s: RootState) => s.rating.sort_direction);
+  const sortField = useSelector((s: RootState) => s.rating.sort_field);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
 
   useEffect(() => {
-    fetch(partyInfo.id);
+    fetch();
   }, [sortDirection, sortField, isAuthenticated]);
   return (
-    <WrapperAsyncRequest status={APIStatus.Success}>
+    <WrapperAsyncRequest status={status}>
       <div className={styles.newsContainer}>
         <div className={styles.sortRow}>
-          {sortParty.map(({ id, full_title, short_title, field }) => {
+          {sortRatingMedia.map(({ id, full_title, short_title, field }) => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
         </div>
-        {data?.politicians && data?.politicians.length > 0 ? (
+        {media && media?.length > 0 ? (
           <div className={styles.news}>
-            {data?.politicians?.map((item, index) => (
-              <PartyCard {...item} />
+            {media?.map((item, index) => (
+              <MassMediaCard key={item.id} {...item} />
             ))}
           </div>
         ) : (
           <div className={styles.noNewsBlock}>
-            <span>Здесь будут отображаться политики</span>
+            <span>Здесь будут отображаться авторы</span>
           </div>
         )}
       </div>

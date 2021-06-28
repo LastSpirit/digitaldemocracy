@@ -2,19 +2,19 @@ import { useSelector } from 'react-redux';
 import { useCallback, useState } from 'react';
 import { RootState } from 'src/store';
 import { useParams } from 'react-router-dom';
-import { partyActionCreators } from '../../../slices/partySlice';
+import { ratingActionCreators } from '../../../slices/ratingSlice';
 import { APIStatus } from '../../../lib/axiosAPI';
-import { politicianAPI } from '../../../api/politicianAPI';
+import { ratingAPI } from '../../../api/ratingAPI';
 import { getItem } from '../../../lib/localStorageManager';
 
-export const useChangeSubscribe = (id) => {
-  const { setIsSubscribe } = partyActionCreators();
+export const useChangeSubscribeMM = (id) => {
+  const { setIsSubscribeMedia } = ratingActionCreators();
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
-  const { subscribe, unsubscribe } = politicianAPI();
-  const { politicians } = useSelector((s: RootState) => s.party.politiciansPartyInfo);
-  const isSubscribe = politicians.filter((item) => item.id === id)[0].is_subscribed;
+  const { subscribeMedia, unsubscribeMedia } = ratingAPI();
+  const { media } = useSelector((s: RootState) => s.rating?.massMedia);
+  const isSubscribe = media?.filter((item) => item.id === id)[0].is_subscribed;
   const token = getItem('token');
-  const api = isSubscribe ? unsubscribe : subscribe;
+  const api = isSubscribe ? unsubscribeMedia : subscribeMedia;
 
   const change = useCallback(() => {
     setStatus(APIStatus.Loading);
@@ -23,11 +23,11 @@ export const useChangeSubscribe = (id) => {
         setStatus(APIStatus.Failure);
       },
       onSuccess: () => {
-        setIsSubscribe({ id, isSubscribe });
+        setIsSubscribeMedia({ id, isSubscribe });
         setStatus(APIStatus.Success);
       },
       payload: {
-        politician_id: Number(id),
+        media_id: Number(id),
         token,
       },
     });

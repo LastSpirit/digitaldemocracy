@@ -7,18 +7,18 @@ import { ratingAPI } from '../../../api/ratingAPI';
 import { ratingActionCreators } from '../../../slices/ratingSlice';
 import { getItem } from '../../../lib/localStorageManager';
 
-export const useFetchPoliticians = () => {
+export const useFetchMedia = () => {
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
-  const { fetchRatingPoliticians } = ratingAPI();
-  const { setPoliticians } = ratingActionCreators();
+  const { fetchRatingMassMedia } = ratingAPI();
+  const { setMedia } = ratingActionCreators();
   const { sort_direction, sort_field } = useSelector((s: RootState) => s.rating);
   const token = getItem('token');
 
   const fetch = useCallback(() => {
     setStatus(APIStatus.Loading);
-    fetchRatingPoliticians({
+    fetchRatingMassMedia({
       onSuccess: (response) => {
-        setPoliticians(response);
+        setMedia(response);
         setStatus(APIStatus.Success);
       },
       onError: () => setStatus(APIStatus.Failure),
