@@ -16,7 +16,7 @@ import { APIStatus } from '../../../lib/axiosAPI';
 
 interface IProps extends PoliticianInfoI {}
 
-const PoliticiansCard: FC<IProps> = ({ photo, percent, name, is_subscribed, id, short_link }) => {
+const PoliticiansCard: FC<IProps> = ({ photo, percent, name, is_subscribed, id, short_link, position }) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { status, change } = useChangeSubscribePolitician(id);
   const { push } = useHistory();
@@ -47,7 +47,7 @@ const PoliticiansCard: FC<IProps> = ({ photo, percent, name, is_subscribed, id, 
       </div>
       <hr />
       <div className={styles.name}>{name}</div>
-      <div className={styles.description}>Член Генерального совета Партии Единая Россия, мэр Томска</div>
+      <div className={styles.position}>{position}</div>
       <Button
         variant="outlined"
         color={is_subscribed ? 'secondary' : 'primary'}

@@ -1,3 +1,4 @@
+import { positions } from '@material-ui/system';
 import { bindActionCreators, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import { NewsI } from './homeSlice';
@@ -13,7 +14,7 @@ export interface PoliticianInfoI {
   number_of_subscribers?: number;
   party?: PartyI;
   party_logo?: string;
-  position?: string;
+  position?: string | null;
   age?: number;
   city?: string;
   trust?: string;

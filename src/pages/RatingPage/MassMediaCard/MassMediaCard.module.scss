@@ -104,12 +104,24 @@
   .name {
     font-style: normal;
     font-weight: normal;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 35px;
     display: flex;
     align-items: center;
     text-align: center;
-    color: #747373;
+    color: #222222;
+    min-height: 70px;
+  }
+
+
+  .position {
+    font-size: 14px;
+    line-height: 16px;
+    color: #7a7a7a;
+    text-align: center;
+    min-height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   .subscriberButton {

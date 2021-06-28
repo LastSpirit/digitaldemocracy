@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-right: 19px;
   margin-bottom: 20px;
   padding: 19px;
@@ -29,6 +29,8 @@
     height: 36px;
     justify-content: space-around;
     align-items: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
 
     .badge {
       width: 90px;
@@ -112,13 +114,17 @@
     // align-items: center;
     text-align: center;
     color: #222222;
+    min-height: 70px;
   }
 
-  .description {
+  .position {
     font-size: 14px;
     line-height: 16px;
     color: #7a7a7a;
     text-align: center;
+    min-height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   .subscriberButton {
