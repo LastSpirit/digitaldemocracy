@@ -1,5 +1,6 @@
 import { bindActionCreators, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
+import { APIStatus } from 'src/lib/axiosAPI';
 import { NewsI } from './homeSlice';
 
 export interface PoliticianInfoI {
@@ -51,9 +52,14 @@ export interface PositionHistoryI {
 }
 
 export interface PromiseI {
+  id?: number;
   text: string;
   link: string;
   promise_date: string;
+  is_user_liked?: boolean;
+  is_user_disliked?: boolean;
+  number_of_likes?: number;
+  number_of_dislikes?: number;
 }
 
 export interface PoliticianBillsI {
@@ -99,6 +105,14 @@ export interface StatisticI {
   source_link: string;
 }
 
+export interface LikesI {
+  [U: number]: StatusI;
+}
+
+export interface StatusI {
+  status: APIStatus;
+}
+
 interface SliceState {
   data?: PoliticianInfoI;
   news?: any;
@@ -109,6 +123,8 @@ interface SliceState {
   positionDescription?: Array<PositionsDescriptionI>;
   statistic?: Array<StatisticI>;
   bills?: Array<PoliticianBillsI>;
+  promiseLikeStatus?: LikesI;
+  promiseDislikeStatus?: LikesI;
 }
 
 export interface NewsWithPercentI extends NewsI {
@@ -118,6 +134,8 @@ export interface NewsWithPercentI extends NewsI {
 const initialState: SliceState = {
   news: [],
   chartData: [],
+  promiseLikeStatus: {},
+  promiseDislikeStatus: {},
 };
 
 export const politicianSlice = createSlice({
@@ -137,6 +155,9 @@ export const politicianSlice = createSlice({
     setPromises(state: SliceState, action: PayloadAction<Array<PromiseI>>) {
       state.promises = action.payload;
     },
+    resetPromises(state: SliceState, action: PayloadAction<Array<PromiseI>>) {
+      state.promises = initialState.promises;
+    },
     setBills(state: SliceState, action: PayloadAction<Array<PoliticianBillsI>>) {
       state.bills = action.payload;
     },
@@ -151,6 +172,32 @@ export const politicianSlice = createSlice({
     },
     setStatistic(state: SliceState, action: PayloadAction<Array<StatisticI>>) {
       state.statistic = action.payload;
+    },
+    startPromiseLike(state, action) {
+      state.promiseLikeStatus[action.payload.id] = { status: APIStatus.Loading };
+    },
+    successPromiseLike(state, action) {
+      state.promiseLikeStatus[action.payload.id] = { status: APIStatus.Success };
+      state.promises[action.payload.index].is_user_liked = action.payload.status;
+      state.promises[action.payload.index].number_of_likes = action.payload.status
+        ? state.promises[action.payload.index].number_of_likes + 1
+        : state.promises[action.payload.index].number_of_likes - 1;
+    },
+    failPromiseLike(state, action) {
+      state.promiseLikeStatus[action.payload.id] = { status: APIStatus.Failure };
+    },
+    startPromiseDislike(state, action) {
+      state.promiseDislikeStatus[action.payload.id] = { status: APIStatus.Loading };
+    },
+    successPromiseDislike(state, action) {
+      state.promiseDislikeStatus[action.payload.id] = { status: APIStatus.Success };
+      state.promises[action.payload.index].is_user_disliked = action.payload.status;
+      state.promises[action.payload.index].number_of_dislikes = action.payload.status
+        ? state.promises[action.payload.index].number_of_dislikes + 1
+        : state.promises[action.payload.index].number_of_dislikes - 1;
+    },
+    failPromiseDislike(state, action) {
+      state.promiseDislikeStatus[action.payload.id] = { status: APIStatus.Failure };
     },
   },
 });
@@ -169,7 +216,7 @@ export const politicianSelectors = {
   getRatingStatistic: () => (state: Store) => state.politician.ratingStatistics,
   getPositionsDescription: () => (state: Store) => state.politician.positionDescription,
   getStatistic: () => (state: Store) => state.politician.statistic,
-  getBills: () => (state: Store) => state.politician.bills
+  getBills: () => (state: Store) => state.politician.bills,
 };
 
 export const politicianActionCreators = () => {

@@ -146,7 +146,6 @@ export const useSetLike = () => {
     startPoliticianLike({ id });
     politicianLike({
       onSuccess: () => {
-        console.log('success like', index);
         if (isPoliticianLiked) {
           successPoliticianLike({ index, id, status: false });
         } else {
@@ -172,13 +171,11 @@ export const useSetLike = () => {
   }, []);
 
   const setPoliticianDislike = useCallback(({ index, id, isLiked, isDisliked }) => {
-    console.log(index, id, isLiked, isDisliked);
     const isPoliticianLiked = isLiked;
     const isPoliticianDisliked = isDisliked;
     startPoliticianDislike({ id });
     politicianDislike({
       onSuccess: () => {
-        console.log('success dislike', index);
         if (isPoliticianDisliked) {
           successPoliticianDislike({ index, id, status: false });
         } else {

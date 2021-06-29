@@ -222,7 +222,7 @@
   flex-shrink: 1;
 
   .tabList {
-    flex-basis: 24%;
+    width: 24%;
     scrollbar-width: none;
 
     .link {
@@ -248,14 +248,16 @@
 
   .tabContent {
     margin-left: 30px;
-    flex-basis: 76%;
+    width: 66%;
     min-height: 600px;
     @media screen and (max-width: $mobileScreen) {
       margin-left: 0 !important;
+      width: 100%;
     }
   }
 
   @media screen and (max-width: $mobileScreen) {
+    width: 100%;
     flex-direction: column;
     .tabListContainer {
       display: flex;
@@ -286,11 +288,6 @@
         border-radius: 100%;
         cursor: pointer;
         margin-left: 10px;
-      }
-
-      .tabContent {
-        width: 100%;
-        flex-basis: 100%;
       }
 
       .tabList {

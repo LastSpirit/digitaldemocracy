@@ -196,7 +196,6 @@ export const singleNewsSlice = createSlice({
       state.politicianLikeStatus[action.payload.id] = { status: APIStatus.Loading };
     },
     successPoliticianLike(state, action) {
-      console.log('success like into', action.payload.index);
       state.politicianLikeStatus[action.payload.id] = { status: APIStatus.Success };
       state.data.politicians[action.payload.index].is_user_liked = action.payload.status;
       state.data.politicians[action.payload.index].number_of_likes = action.payload.status

@@ -8,6 +8,7 @@ import {
   Quiz,
   RatingStatistics,
   Reception,
+  AdditionalInformation,
 } from '../pages/PoliticianPage/tabs';
 import { Subscriptions, BrowsingHistory, DonationHistory, VotingStatistics } from '../pages/ProfilePage/tabs';
 
@@ -61,6 +62,11 @@ export const PoliticianTabs = [
     id: 'position_description',
     title: 'Описание должности',
     component: PositionDescription,
+  },
+  {
+    id: 'additional_information',
+    title: 'Дополнительная информация',
+    component: AdditionalInformation,
   },
   {
     id: 'reception',

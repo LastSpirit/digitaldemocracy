@@ -153,6 +153,53 @@ const unsubscribe: APIRequest<RequestWithToken, Array<PromiseI>> = (args) =>
     ...args,
   });
 
+interface LikeRequest {
+  news_id?: number;
+  bill_id?: number;
+  politician_promise_id?: number;
+  politician_id?: number;
+  voting_place?: string;
+}
+
+interface LikeResponse {}
+interface LikeErr {}
+
+interface LikeVar {
+  token?: string;
+  isPromiseLiked?: boolean;
+  isPromiseDisliked?: boolean;
+}
+
+const politicianLike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
+  const { isPromiseLiked, token } = args.variables;
+  return callAPI({
+    url: isPromiseLiked ? 'deleteLikeFromPolitician' : 'addLikeToPolitician',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.variables.token}`,
+      },
+    },
+    ...args,
+  });
+};
+
+const politicianDislike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
+  const { isPromiseDisliked, token } = args.variables;
+  return callAPI({
+    url: isPromiseDisliked ? 'deleteDislikeFromPolitician' : 'addDislikeToPolitician',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.variables.token}`,
+      },
+    },
+    ...args,
+  });
+};
+
 const APIs = {
   fetchNews,
   fetchProfileInfo,
@@ -165,6 +212,8 @@ const APIs = {
   fetchStatistic,
   fetchPoliticianChanges,
   fetchBills,
+  politicianLike,
+  politicianDislike,
 };
 
 export const politicianAPI = () => {
