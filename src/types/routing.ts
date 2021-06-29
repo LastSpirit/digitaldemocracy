@@ -114,6 +114,11 @@ export const MassMediaTabs = [
     title: 'Статистика влияния',
     component: MassMediaInfluenceStatistic,
   },
+  {
+    id: 'additional_information',
+    title: 'Дополнительная информация',
+    component: AdditionalInformation,
+  },
 ];
 
 export const AuthorTabs = [
@@ -126,6 +131,11 @@ export const AuthorTabs = [
     id: 'statistic',
     title: 'Статистика влияния',
     component: InfluenceStatistic,
+  },
+  {
+    id: 'additional_information',
+    title: 'Дополнительная информация',
+    component: AdditionalInformation,
   },
 ];
 
