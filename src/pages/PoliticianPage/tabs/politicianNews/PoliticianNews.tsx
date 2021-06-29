@@ -5,7 +5,7 @@ import moment from 'moment';
 import { useFetchNews } from '../../hooks/useFetchNews';
 import ChartBlock from './components/ChartBlock';
 import NewsBlock from './components/NewsBlock';
-import ChartNews from './components/ChartNews.js';
+// import ChartNews from './components/ChartNews.js';
 import { Test } from './components/Test';
 
 export const PoliticianNews = () => {

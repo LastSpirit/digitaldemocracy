@@ -11,8 +11,8 @@ import { WrapperAsyncRequest } from '../../../../../components/Loading/WrapperAs
 import styles from '../../../PoliticianPage.module.scss';
 import { politicianSelectors } from '../../../../../slices/politicianSlice';
 import { APIStatus } from '../../../../../lib/axiosAPI';
-import Demo from './ChartNews.js';
-import { Test } from './Test.js';
+// import Demo from './ChartNews.js';
+// import { Test } from './Test.js';
 
 registerLocale('ru', ru);
 
@@ -126,7 +126,7 @@ const ChartBlock: React.FC<ChartBlockProps> = ({
               <span>За выбранный период новостей не было</span>
             </div>
           )} */}
-          <Test />
+          {/* <Test /> */}
         </WrapperAsyncRequest>
       </div>
     </div>
