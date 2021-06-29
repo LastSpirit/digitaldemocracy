@@ -12,6 +12,7 @@ import styles from '../../../PoliticianPage.module.scss';
 import { politicianSelectors } from '../../../../../slices/politicianSlice';
 import { APIStatus } from '../../../../../lib/axiosAPI';
 import Demo from './ChartNews.js';
+import { Test } from './Test.js';
 
 registerLocale('ru', ru);
 
@@ -110,7 +111,7 @@ const ChartBlock: React.FC<ChartBlockProps> = ({
       </div>
       <div className={styles.chartWrapper}>
         <WrapperAsyncRequest status={status} height={300}>
-          {chartData.length !== 0 ? (
+          {/* {chartData.length !== 0 ? (
             <Chart
               height="100%"
               options={options}
@@ -124,7 +125,8 @@ const ChartBlock: React.FC<ChartBlockProps> = ({
               <TimelineIcon style={{ color: '#747373' }} fontSize="large" />
               <span>За выбранный период новостей не было</span>
             </div>
-          )}
+          )} */}
+          <Test />
         </WrapperAsyncRequest>
       </div>
     </div>

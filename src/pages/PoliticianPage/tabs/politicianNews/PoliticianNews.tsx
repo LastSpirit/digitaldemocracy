@@ -6,6 +6,7 @@ import { useFetchNews } from '../../hooks/useFetchNews';
 import ChartBlock from './components/ChartBlock';
 import NewsBlock from './components/NewsBlock';
 import ChartNews from './components/ChartNews.js';
+import { Test } from './components/Test';
 
 export const PoliticianNews = () => {
   const { fetch, status } = useFetchNews();
@@ -48,7 +49,7 @@ export const PoliticianNews = () => {
         startDatePicker={startDatePicker}
         status={status}
       /> */}
-      <ChartNews />
+      <Test />
       <NewsBlock />
     </WrapperAsyncRequest>
   );
