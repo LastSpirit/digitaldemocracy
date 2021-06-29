@@ -7,7 +7,7 @@ import { BackButton } from '../../components/BackButton/BackButton';
 import { RatingTabs } from '../../types/routing';
 import AuthorsTab from './tabs/AuthorsTab';
 import MassMediaTab from './tabs/MassMediaTab';
-// import PartiesTab from './tabs/PartiesTab';
+import PartiesTab from './tabs/PartiesTab';
 import PoliticiansTab from './tabs/PoliticiansTab';
 
 const setTab = (location) => {
@@ -21,9 +21,9 @@ const setTab = (location) => {
     case '/rating/authors': {
       return <AuthorsTab />;
     }
-    // case '/rating/parties': {
-    //   return <PartiesTab />;
-    // }
+    case '/rating/parties': {
+      return <PartiesTab />;
+    }
     default: {
       return null;
     }

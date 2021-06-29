@@ -16,7 +16,7 @@ import { APIStatus } from '../../../lib/axiosAPI';
 
 interface IProps extends MassMediaDataI {}
 
-const PoliticiansCard: FC<IProps> = ({ photo, percent, name, is_subscribed, id, short_link }) => {
+const MassMediaCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_link }) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { status, change } = useChangeSubscribeMM(id);
   const { push } = useHistory();
@@ -32,7 +32,7 @@ const PoliticiansCard: FC<IProps> = ({ photo, percent, name, is_subscribed, id, 
 
   return (
     <div className={styles.root}>
-      <Link to={`/author/${short_link}/news`}>
+      <Link to={`/mass-media/${short_link}/news`}>
         <div className={styles.avatarBlock}>
           <div className={styles.avatar}>
             {!photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={photo} alt="" />}
@@ -43,7 +43,7 @@ const PoliticiansCard: FC<IProps> = ({ photo, percent, name, is_subscribed, id, 
         <div className={styles.badge}>
           <div className={styles.text}>Место 2</div>
         </div>
-        <div className={styles.percent}>{percent}</div>
+        <div className={styles.percent}>{`${rating}%`}</div>
       </div>
       <hr />
       <div className={styles.name}>{name}</div>
@@ -69,4 +69,4 @@ const PoliticiansCard: FC<IProps> = ({ photo, percent, name, is_subscribed, id, 
   );
 };
 
-export default PoliticiansCard;
+export default MassMediaCard;

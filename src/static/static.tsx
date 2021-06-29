@@ -324,4 +324,19 @@ export const sortRatingMedia = [
   },
 ];
 
+export const sortRatingParties = [
+  {
+    id: 1,
+    full_title: 'По рейтингу',
+    short_title: 'Руйтинг',
+    field: 'rating',
+  },
+  {
+    id: 2,
+    full_title: 'По имени',
+    short_title: 'Имя',
+    field: 'name',
+  },
+];
+
 export const routesWithNotification = ['/singleNews/', '/politician/', '/mass-media/', '/author/', '/party/'];

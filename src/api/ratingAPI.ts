@@ -47,6 +47,20 @@ const fetchRatingMassMedia = (args) => {
   });
 };
 
+const fetchRatingParties = (args) => {
+  return callAPI({
+    url: 'getRatingPage/parties',
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+      params: args.payload.params,
+    },
+    ...args,
+  });
+};
+
 const subscribeAuthor = (args) =>
   callAPI({
     url: 'subscribeToAuthor',
@@ -99,6 +113,7 @@ const APIs = {
   unsubscribeAuthor,
   subscribeMedia,
   unsubscribeMedia,
+  fetchRatingParties,
 };
 
 export const ratingAPI = () => {

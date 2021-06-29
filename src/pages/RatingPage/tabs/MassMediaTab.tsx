@@ -39,7 +39,7 @@ const MassMediaTab = () => {
           </div>
         ) : (
           <div className={styles.noNewsBlock}>
-            <span>Здесь будут отображаться авторы</span>
+            <span>Здесь будут отображаться СМИ</span>
           </div>
         )}
       </div>
