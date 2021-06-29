@@ -6,7 +6,7 @@ import { APIStatus } from '../../../../../lib/axiosAPI';
 import { politicianActionCreators } from '../../../../../slices/politicianSlice';
 import { politicianAPI } from '../../../../../api/politicianAPI';
 
-export const useFetchPromises = () => {
+export const useFetchAdditionalInformation = () => {
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
   const token = getItem('token');
   const {

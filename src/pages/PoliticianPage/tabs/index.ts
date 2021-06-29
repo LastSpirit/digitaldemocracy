@@ -7,3 +7,4 @@ export * from './ratingStatistics/RatingStatistics';
 export * from './positionDescription/PositionDescription';
 export * from './reception/Reception';
 export * from './quiz/Quiz';
+export * from './additionalInformation/AdditionalInformation';

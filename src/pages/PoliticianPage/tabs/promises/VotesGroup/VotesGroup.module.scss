@@ -1,0 +1,68 @@
+@import 'src/variables.scss';
+
+.likeButtons {
+  width: 246px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media screen and (max-width: $mobileScreen) {
+    width: 100%;
+  }
+  .likeButton {
+    background-color: #b0b0b0;
+  }
+  .likeButton-active {
+    background-color: #248232;
+  }
+  .dislikeButton-active {
+    background-color: #be3b21;
+  }
+  button {
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 117px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 7px 12px;
+    overflow: hidden;
+    @media screen and (max-width: $mobileScreen) {
+      width: 162px;
+    }
+    @media screen and (max-width: $mobileSEScreen) {
+      width: 135px;
+    }
+    &:focus {
+      border: none;
+      outline: none;
+    }
+    &:active {
+      border: none;
+      outline: none;
+    }
+    .likeButtonIcon {
+      margin-right: 10px;
+      min-width: 30px;
+      min-height: 30px;
+      width: 30px;
+      height: 30px;
+    }
+    .votes {
+      display: flex;
+      justify-content: flex-start;
+      width: 50px;
+      overflow: hidden;
+      // text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #fff;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 20px;
+    }
+  }
+}
