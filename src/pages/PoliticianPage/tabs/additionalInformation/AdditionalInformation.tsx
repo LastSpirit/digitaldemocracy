@@ -15,10 +15,13 @@ export const AdditionalInformation = () => {
   // const data = useSelector(politicianSelectors.getPositionPromises());
   const data = [
     { id: 1, link: 'https://www.google.com' },
-    { id: 2, link: 'https://www.blablabla.com' },
-    { id: 3, link: 'https://www.blablabla.com' },
-    { id: 4, link: 'https://www.blablabla.com' },
-    { id: 5, link: 'https://www.blablabla.com' },
+    {
+      id: 2,
+      link: 'https://www.vk.com',
+    },
+    { id: 3, link: 'https://www.yandex.ru' },
+    { id: 4, link: 'https://www.facebook.com' },
+    { id: 5, link: 'https://www.telegram.com' },
     { id: 6, link: 'https://github.com/' },
   ];
   return (

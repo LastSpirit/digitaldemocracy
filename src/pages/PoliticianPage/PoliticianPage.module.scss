@@ -220,12 +220,10 @@
 .navigation {
   margin: 20px 10px;
   display: flex;
-  flex-shrink: 1;
-
+  // flex-shrink: 1;
   .tabList {
     flex-basis: 24%;
     scrollbar-width: none;
-
     .link {
       height: 40px;
       display: flex;
