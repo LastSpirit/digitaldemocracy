@@ -13,7 +13,7 @@ const YandexRegisterModal: React.FC<{ open: boolean; onClose: () => void }> = ({
 
   return (
     <Modal
-      open={true}
+      open={open}
       onClose={onClose}
       sx={{
         display: 'flex',
