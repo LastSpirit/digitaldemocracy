@@ -15,7 +15,7 @@ import { userSelectors } from 'src/slices/userSlice';
 import { RootState } from 'src/store';
 import { APIStatus } from 'src/lib/axiosAPI';
 import styles from './VotesGroup.module.scss';
-import { useFetchPromises } from '../hooks/useFetchPromises';
+import { useFetchBills } from '../hooks/useFetchBills';
 
 interface IProps {
   likes?: number;
@@ -26,12 +26,12 @@ interface IProps {
   id?: number;
 }
 
-export const PromisesVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isDisliked, index, id }) => {
+export const BillsVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isDisliked, index, id }) => {
   const { isMobile } = useWindowSize();
-  const promisesLikeStatus = useSelector((s: RootState) => s?.politician?.promisesLikeStatus[id]?.status);
-  const promisesDislikeStatus = useSelector((s: RootState) => s?.politician?.promisesDislikeStatus[id]?.status);
+  const billsLikeStatus = useSelector((s: RootState) => s?.politician?.billsLikeStatus[id]?.status);
+  const billsDislikeStatus = useSelector((s: RootState) => s?.politician?.billsDislikeStatus[id]?.status);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
-  const { setPromisesLike, setPromisesDislike } = useFetchPromises();
+  const { setBillsLike, setBillsDislike } = useFetchBills();
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
@@ -48,9 +48,9 @@ export const PromisesVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isDis
         type="button"
         className={isLiked ? styles['likeButton-active'] : styles.likeButton}
         onClick={() => {
-          if (promisesLikeStatus !== APIStatus.Loading && promisesDislikeStatus !== APIStatus.Loading) {
+          if (billsLikeStatus !== APIStatus.Loading && billsDislikeStatus !== APIStatus.Loading) {
             if (isAuthenticated) {
-              setPromisesLike({ index, id, isLiked, isDisliked });
+              setBillsLike({ index, id, isLiked, isDisliked });
             } else {
               handleClickLogin();
             }
@@ -65,9 +65,9 @@ export const PromisesVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isDis
         type="button"
         className={isDisliked ? styles['dislikeButton-active'] : styles.likeButton}
         onClick={() => {
-          if (promisesLikeStatus !== APIStatus.Loading && promisesDislikeStatus !== APIStatus.Loading) {
+          if (billsLikeStatus !== APIStatus.Loading && billsDislikeStatus !== APIStatus.Loading) {
             if (isAuthenticated) {
-              setPromisesDislike({ index, id, isLiked, isDisliked });
+              setBillsDislike({ index, id, isLiked, isDisliked });
             } else {
               handleClickLogin();
             }
@@ -85,4 +85,4 @@ export const PromisesVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isDis
   );
 };
 
-export default PromisesVotesGroup;
+export default BillsVotesGroup;

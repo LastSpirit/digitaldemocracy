@@ -68,6 +68,10 @@ export interface PoliticianBillsI {
   source_link: string;
   publication_date: string;
   id: number;
+  is_user_liked?: boolean;
+  is_user_disliked?: boolean;
+  number_of_likes?: number;
+  number_of_dislikes?: number;
 }
 
 export interface MetricI {
@@ -104,6 +108,10 @@ export interface StatisticI {
   politician_id: number;
   link: string;
   source_link: string;
+  is_user_liked?: boolean;
+  is_user_disliked?: boolean;
+  number_of_likes?: number;
+  number_of_dislikes?: number;
 }
 
 export interface LikesI {
@@ -124,8 +132,12 @@ interface SliceState {
   positionDescription?: Array<PositionsDescriptionI>;
   statistic?: Array<StatisticI>;
   bills?: Array<PoliticianBillsI>;
-  promiseLikeStatus?: LikesI;
-  promiseDislikeStatus?: LikesI;
+  promisesLikeStatus?: LikesI;
+  promisesDislikeStatus?: LikesI;
+  billsLikeStatus?: LikesI;
+  billsDislikeStatus?: LikesI;
+  statisticLikeStatus?: LikesI;
+  statisticDislikeStatus?: LikesI;
 }
 
 export interface NewsWithPercentI extends NewsI {
@@ -135,8 +147,12 @@ export interface NewsWithPercentI extends NewsI {
 const initialState: SliceState = {
   news: [],
   chartData: [],
-  promiseLikeStatus: {},
-  promiseDislikeStatus: {},
+  promisesLikeStatus: {},
+  promisesDislikeStatus: {},
+  billsLikeStatus: {},
+  billsDislikeStatus: {},
+  statisticLikeStatus: {},
+  statisticDislikeStatus: {},
 };
 
 export const politicianSlice = createSlice({
@@ -159,6 +175,12 @@ export const politicianSlice = createSlice({
     resetPromises(state: SliceState, action: PayloadAction<Array<PromiseI>>) {
       state.promises = initialState.promises;
     },
+    resetBills(state: SliceState, action: PayloadAction<Array<PromiseI>>) {
+      state.bills = initialState.bills;
+    },
+    resetIncomeStatistic(state: SliceState, action: PayloadAction<Array<PromiseI>>) {
+      state.statistic = initialState.statistic;
+    },
     setBills(state: SliceState, action: PayloadAction<Array<PoliticianBillsI>>) {
       state.bills = action.payload;
     },
@@ -174,31 +196,33 @@ export const politicianSlice = createSlice({
     setStatistic(state: SliceState, action: PayloadAction<Array<StatisticI>>) {
       state.statistic = action.payload;
     },
-    startPromiseLike(state, action) {
-      state.promiseLikeStatus[action.payload.id] = { status: APIStatus.Loading };
+    startLike(state, action) {
+      state[`${action.payload.field}LikeStatus`][action.payload.id] = { status: APIStatus.Loading };
     },
-    successPromiseLike(state, action) {
-      state.promiseLikeStatus[action.payload.id] = { status: APIStatus.Success };
-      state.promises[action.payload.index].is_user_liked = action.payload.status;
-      state.promises[action.payload.index].number_of_likes = action.payload.status
-        ? state.promises[action.payload.index].number_of_likes + 1
-        : state.promises[action.payload.index].number_of_likes - 1;
+    successLike(state, action) {
+      const field = state[action.payload.field];
+      state[`${action.payload.field}LikeStatus`][action.payload.id] = { status: APIStatus.Success };
+      field[action.payload.index].is_user_liked = action.payload.status;
+      field[action.payload.index].number_of_likes = action.payload.status
+        ? field[action.payload.index].number_of_likes + 1
+        : field[action.payload.index].number_of_likes - 1;
     },
-    failPromiseLike(state, action) {
-      state.promiseLikeStatus[action.payload.id] = { status: APIStatus.Failure };
+    failLike(state, action) {
+      state[`${action.payload.field}LikeStatus`][action.payload.id] = { status: APIStatus.Failure };
     },
-    startPromiseDislike(state, action) {
-      state.promiseDislikeStatus[action.payload.id] = { status: APIStatus.Loading };
+    startDislike(state, action) {
+      state[`${action.payload.field}DislikeStatus`][action.payload.id] = { status: APIStatus.Loading };
     },
-    successPromiseDislike(state, action) {
-      state.promiseDislikeStatus[action.payload.id] = { status: APIStatus.Success };
-      state.promises[action.payload.index].is_user_disliked = action.payload.status;
-      state.promises[action.payload.index].number_of_dislikes = action.payload.status
-        ? state.promises[action.payload.index].number_of_dislikes + 1
-        : state.promises[action.payload.index].number_of_dislikes - 1;
+    successDislike(state, action) {
+      const field = state[action.payload.field];
+      state[`${action.payload.field}DislikeStatus`][action.payload.id] = { status: APIStatus.Success };
+      field[action.payload.index].is_user_disliked = action.payload.status;
+      field[action.payload.index].number_of_dislikes = action.payload.status
+        ? field[action.payload.index].number_of_dislikes + 1
+        : field[action.payload.index].number_of_dislikes - 1;
     },
-    failPromiseDislike(state, action) {
-      state.promiseDislikeStatus[action.payload.id] = { status: APIStatus.Failure };
+    failDislike(state, action) {
+      state[`${action.payload.field}DislikeStatus`][action.payload.id] = { status: APIStatus.Failure };
     },
   },
 });

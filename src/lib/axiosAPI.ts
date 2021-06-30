@@ -63,13 +63,16 @@ export const getCallAPI =
         response = await axios.post((customBaseUrl || baseURL) + url, payload, config);
       }
       const headers = includeHeaders ? pick(response.headers, includeHeaders) : undefined;
+
       if (!nestedResponseType && response.data && onSuccess) {
         onSuccess(response.data);
       }
       if (nestedResponseType && response.data.success && response.data.data && onSuccess) {
         onSuccess(response.data.data, headers);
+      } else if (!!nestedResponseType && !!response.data.success && onSuccess) {
+        onSuccess(response.data, headers);
       }
-      if (nestedResponseType && (!response.data.success || !response.data.data) && onError) {
+      if (nestedResponseType && !response.data.success && onError) {
         onError(response.data.message);
       }
     } catch (err) {

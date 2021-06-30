@@ -35,6 +35,9 @@ const fetchNews: APIRequest<NewsRequest, Array<NewsWithPercentI>, string, FetchP
 interface DefaultRequest {
   politician_id: number;
 }
+interface PromiseVarI {
+  token?: string;
+}
 interface RequestWithToken extends DefaultRequest {
   token: string;
 }
@@ -74,19 +77,33 @@ const fetchPositionHistory: APIRequest<DefaultRequest, Array<PositionHistoryI>> 
     ...args,
   });
 
-const fetchPromises: APIRequest<DefaultRequest, Array<PromiseI>> = (args) =>
-  callAPI({
+const fetchPromises: APIRequest<DefaultRequest, Array<PromiseI>, null, PromiseVarI> = (args) => {
+  const { token } = args?.variables;
+  return callAPI({
     url: `getPoliticianPromises?politician_id=${args.payload.politician_id}`,
-    config: { method: 'GET' },
+    config: {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
     ...args,
   });
+};
 
-const fetchBills: APIRequest<DefaultRequest, Array<PoliticianBillsI>> = (args) =>
-  callAPI({
+const fetchBills: APIRequest<DefaultRequest, Array<PoliticianBillsI>, null, PromiseVarI> = (args) => {
+  const { token } = args?.variables;
+  return callAPI({
     url: `getPoliticianBills?politician_id=${args.payload.politician_id}`,
-    config: { method: 'GET' },
+    config: {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${args.variables.token}`,
+      },
+    },
     ...args,
   });
+};
 
 const fetchPositionsDescription: APIRequest<DefaultRequest, Array<PositionsDescriptionI>> = (args) =>
   callAPI({
@@ -117,12 +134,19 @@ const fetchPoliticianChanges: APIRequest<PoliticianChangesRequest, Array<Politic
   });
 };
 
-const fetchStatistic: APIRequest<DefaultRequest, Array<StatisticI>> = (args) =>
-  callAPI({
+const fetchStatistic: APIRequest<DefaultRequest, Array<StatisticI>, null, PromiseVarI> = (args) => {
+  const { token } = args?.variables;
+  return callAPI({
     url: `getPoliticianStatisticsProfit?politician_id=${args.payload.politician_id}`,
-    config: { method: 'GET' },
+    config: {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
     ...args,
   });
+};
 
 const fetchRatingStatistics: APIRequest<DefaultRequest, RatingStatisticsI> = (args) =>
   callAPI({
@@ -166,14 +190,14 @@ interface LikeErr {}
 
 interface LikeVar {
   token?: string;
-  isPromiseLiked?: boolean;
-  isPromiseDisliked?: boolean;
+  isItemLiked?: boolean;
+  isItemDisliked?: boolean;
 }
 
 const politicianLike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
-  const { isPromiseLiked, token } = args.variables;
+  const { isItemLiked, token } = args.variables;
   return callAPI({
-    url: isPromiseLiked ? 'deleteLikeFromPolitician' : 'addLikeToPolitician',
+    url: isItemLiked ? 'deleteLikeFromPolitician' : 'addLikeToPolitician',
     config: {
       method: 'POST',
       headers: {
@@ -186,9 +210,9 @@ const politicianLike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = 
 };
 
 const politicianDislike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
-  const { isPromiseDisliked, token } = args.variables;
+  const { isItemDisliked, token } = args.variables;
   return callAPI({
-    url: isPromiseDisliked ? 'deleteDislikeFromPolitician' : 'addDislikeToPolitician',
+    url: isItemDisliked ? 'deleteDislikeFromPolitician' : 'addDislikeToPolitician',
     config: {
       method: 'POST',
       headers: {

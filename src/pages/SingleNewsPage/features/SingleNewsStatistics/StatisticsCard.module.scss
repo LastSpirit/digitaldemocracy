@@ -59,9 +59,11 @@
     width: 100%;
     overflow: hidden;
     .title {
+      white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      width: 420px;
+      width: max-content;
+      max-width: 420px;
       color: #222222;
       font-family: Roboto;
       font-style: normal;

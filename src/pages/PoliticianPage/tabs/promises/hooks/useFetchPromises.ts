@@ -9,18 +9,10 @@ import { politicianAPI } from '../../../../../api/politicianAPI';
 export const useFetchPromises = () => {
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
   const token = getItem('token');
-  const {
-    setPromises,
-    startPromiseLike,
-    successPromiseLike,
-    failPromiseLike,
-    startPromiseDislike,
-    successPromiseDislike,
-    failPromiseDislike,
-  } = politicianActionCreators();
+  const { setPromises, startLike, successLike, failLike, startDislike, successDislike, failDislike } =
+    politicianActionCreators();
   const { fetchPromises, politicianLike, politicianDislike } = politicianAPI();
   const politicianId = useSelector((s: RootState) => s?.politician?.data?.id);
-
   const fetch = useCallback(() => {
     setStatus(APIStatus.Loading);
     fetchPromises({
@@ -32,25 +24,28 @@ export const useFetchPromises = () => {
       payload: {
         politician_id: Number(politicianId),
       },
+      variables: {
+        token,
+      },
     });
-  }, []);
+  }, [politicianId, token]);
   const setPromisesLike = useCallback(({ index, id, isLiked, isDisliked }) => {
-    const isPromiseLiked = isLiked;
-    const isPromiseDisliked = isDisliked;
-    startPromiseLike({ id });
+    const isItemLiked = isLiked;
+    const isItemDisliked = isDisliked;
+    startLike({ id, field: 'promises' });
     politicianLike({
       onSuccess: () => {
-        if (isPromiseLiked) {
-          successPromiseLike({ index, id, status: false });
+        if (isItemLiked) {
+          successLike({ index, id, status: false, field: 'promises' });
         } else {
-          successPromiseLike({ index, id, status: true });
-          if (isPromiseDisliked) {
-            successPromiseDislike({ index, id, status: false });
+          successLike({ index, id, status: true, field: 'promises' });
+          if (isItemDisliked) {
+            successDislike({ index, id, status: false, field: 'promises' });
           }
         }
       },
       onError: () => {
-        failPromiseLike({ id });
+        failLike({ id, field: 'promises' });
       },
       payload: {
         politician_id: politicianId,
@@ -58,29 +53,29 @@ export const useFetchPromises = () => {
         politician_promise_id: id,
       },
       variables: {
-        isPromiseLiked,
+        isItemLiked,
         token,
       },
     });
   }, []);
 
   const setPromisesDislike = useCallback(({ index, id, isLiked, isDisliked }) => {
-    const isPromiseLiked = isLiked;
-    const isPromiseDisliked = isDisliked;
-    startPromiseDislike({ id });
+    const isItemLiked = isLiked;
+    const isItemDisliked = isDisliked;
+    startDislike({ id, field: 'promises' });
     politicianDislike({
       onSuccess: () => {
-        if (isPromiseDisliked) {
-          successPromiseDislike({ index, id, status: false });
+        if (isItemDisliked) {
+          successDislike({ index, id, status: false, field: 'promises' });
         } else {
-          successPromiseDislike({ index, id, status: true });
-          if (isPromiseLiked) {
-            successPromiseLike({ index, id, status: false });
+          successDislike({ index, id, status: true, field: 'promises' });
+          if (isItemLiked) {
+            successLike({ index, id, status: false, field: 'promises' });
           }
         }
       },
       onError: () => {
-        failPromiseDislike({ id });
+        failDislike({ id, field: 'promises' });
       },
       payload: {
         politician_id: politicianId,
@@ -88,7 +83,7 @@ export const useFetchPromises = () => {
         politician_promise_id: id,
       },
       variables: {
-        isPromiseDisliked,
+        isItemDisliked,
         token,
       },
     });

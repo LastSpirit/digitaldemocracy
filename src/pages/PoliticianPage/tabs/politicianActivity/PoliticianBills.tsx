@@ -6,11 +6,22 @@ import YouTubeIcon from '@material-ui/icons/YouTube';
 import { useSelector } from 'react-redux';
 import { useFetchBills } from './hooks/useFetchBills';
 import { WrapperAsyncRequest } from '../../../../components/Loading/WrapperAsyncRequest';
-import { politicianSelectors } from '../../../../slices/politicianSlice';
-import { VotesGroup } from '../../../../components/VotesGroup/VotesGroup';
+import { politicianSelectors, politicianActionCreators } from '../../../../slices/politicianSlice';
+import { BillsVotesGroup } from './VotesGroup/BillsVotesGroup';
 import styles from './styles.module.scss';
 
-const Bills = ({ title, source_link, publication_date, id }) => {
+const Bills = (props) => {
+  const {
+    title,
+    source_link,
+    publication_date,
+    id,
+    index,
+    number_of_likes,
+    number_of_dislikes,
+    is_user_liked,
+    is_user_disliked,
+  } = props;
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -27,7 +38,14 @@ const Bills = ({ title, source_link, publication_date, id }) => {
         </div>
         <div className={styles.votes}>
           <p>Как вы к этому относитесь?</p>
-          <VotesGroup />
+          <BillsVotesGroup
+            index={index}
+            id={id}
+            likes={number_of_likes}
+            dislikes={number_of_dislikes}
+            isLiked={is_user_liked}
+            isDisliked={is_user_disliked}
+          />
         </div>
       </div>
       {open ? (
@@ -45,17 +63,17 @@ const Bills = ({ title, source_link, publication_date, id }) => {
 export const PoliticianBills = () => {
   const { status, fetch } = useFetchBills();
   const data = useSelector(politicianSelectors.getBills());
+  const { resetBills } = politicianActionCreators() as any;
   useEffect(() => {
     fetch();
+    return () => resetBills();
   }, []);
 
   return (
     <div className={styles.container}>
       <WrapperAsyncRequest status={status}>
         {data?.length ? (
-          data?.map(({ title, source_link, publication_date, id }) => (
-            <Bills key={id} title={title} source_link={source_link} publication_date={publication_date} id={id} />
-          ))
+          data?.map((item, index) => <Bills key={item.id} {...item} index={index} />)
         ) : (
           <div className={styles.noPromises}>Раздел пока еще пуст</div>
         )}

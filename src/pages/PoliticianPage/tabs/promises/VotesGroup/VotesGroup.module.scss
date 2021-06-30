@@ -29,6 +29,7 @@
     align-items: center;
     padding: 7px 12px;
     overflow: hidden;
+    cursor: pointer;
     @media screen and (max-width: $mobileScreen) {
       width: 162px;
     }
