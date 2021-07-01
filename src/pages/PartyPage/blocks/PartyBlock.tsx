@@ -38,7 +38,7 @@ const PartyBlock = () => {
         {data?.politicians && data?.politicians.length > 0 ? (
           <div className={styles.news}>
             {data?.politicians?.map((item, index) => (
-              <PartyCard {...item} />
+              <PartyCard key={item.id} {...item} />
             ))}
           </div>
         ) : (

@@ -28,7 +28,7 @@ export const Test = () => {
   const [chartData, setChartData] = useState([]);
   useEffect(() => {
     axios('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json').then(({ data }) =>
-      setChartData(data?.map((item) => [...item, 'https://test.ru']))
+      setChartData(data)
     );
   }, []);
 
@@ -37,20 +37,14 @@ export const Test = () => {
       zoomType: 'x',
     },
     title: {
-      text: 'USD to EUR exchange rate over time',
-    },
-    subtitle: {
-      text:
-        document.ontouchstart === undefined
-          ? 'Click and drag in the plot area to zoom in'
-          : 'Pinch the chart to zoom in',
+      text: 'График новостей политика',
     },
     xAxis: {
       type: 'datetime',
     },
     yAxis: {
       title: {
-        text: 'Exchange rate',
+        text: 'Количество новости',
       },
     },
     legend: {
@@ -97,9 +91,9 @@ export const Test = () => {
     series: [
       {
         type: 'area',
-        name: 'USD to EUR',
+        name: 'Новостей',
         data: chartData,
-        link: 'https://dev.test.ru',
+        link: 'https://dev.digitaldemocracy.ru/singleNews/Twjy4sPZIdvE4KOKefLq',
       },
     ],
   };

@@ -29,7 +29,7 @@ const MassMediaCards = ({ data }) => {
               >
                 <div className={styles.text}>{`${trust || '-'}`}</div>
               </div>
-              <div className={styles.percent}>{data?.rating || '-'} %</div>
+              <div className={styles.percent}>{data?.rating ?? '-'} %</div>
             </div>
             <PercentsLinearGraphic vote_groups={data?.vote_groups} />
           </div>
@@ -47,7 +47,7 @@ const MassMediaCards = ({ data }) => {
               >
                 <div className={styles.mobText}>{`${trust || '-'}`}</div>
               </div>
-              <div className={styles.mobPercent}>{data?.rating || '-'} %</div>
+              <div className={styles.mobPercent}>{data?.rating ?? '-'} %</div>
             </div>
             <PercentsLinearGraphic vote_groups={data?.vote_groups} />
           </div>

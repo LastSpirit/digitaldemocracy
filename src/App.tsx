@@ -38,10 +38,23 @@ const App: FC = () => {
   }
   const location = useLocation();
   const { pathname } = useLocation();
+  const [path, setPath] = React.useState(pathname);
 
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, [location.pathname]);
+  const intersect = (prev, next) => {
+    return prev
+      .split('/')
+      .filter(Boolean)
+      .filter((item) => next.split('/').filter(Boolean).indexOf(item) !== -1);
+  };
+
+  // нуждается в тесте
+
+  useEffect(() => {
+    if (intersect(path, pathname).length < 1) {
+      window.scrollTo(0, 0);
+    }
+    setPath(pathname);
+  }, [pathname]);
 
   const { settings } = useSettings();
   useEffect(() => {
