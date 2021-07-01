@@ -25,7 +25,7 @@ const PartyCards = ({ data }) => {
               >
                 <div className={styles.text}>{`Место ${data?.place ?? '-'}`}</div>
               </div>
-              <div className={styles.percent}>{data?.rating || '-'} %</div>
+              <div className={styles.percent}>{data?.rating ?? '-'} %</div>
             </div>
             <PercentsLinearGraphic vote_groups={data?.vote_groups} />
           </div>
@@ -43,7 +43,7 @@ const PartyCards = ({ data }) => {
               >
                 <div className={styles.mobText}>{`Место ${data?.place ?? '-'}`}</div>
               </div>
-              <div className={styles.mobPercent}>{data?.rating || '-'} %</div>
+              <div className={styles.mobPercent}>{data?.rating ?? '-'} %</div>
             </div>
             <PercentsLinearGraphic vote_groups={data?.vote_groups} />
           </div>
