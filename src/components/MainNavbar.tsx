@@ -99,7 +99,10 @@ const MainNavbar: FC = () => {
                     height: 40,
                     cursor: 'pointer',
                   }}
-                  onClick={() => push('/')}
+                  onClick={() => {
+                    push('/');
+                    window.scrollTo(0, 0);
+                  }}
                 >
                   <div className="logo">
                     <Logo />
@@ -177,7 +180,9 @@ const MainNavbar: FC = () => {
                 </Button>
                 <Button
                   className={
-                    !isAuthenticated ? classNames(['buttonsStyle', { register: true }]) : classNames(['buttonsStyleProfile'])
+                    !isAuthenticated
+                      ? classNames(['buttonsStyle', { register: true }])
+                      : classNames(['buttonsStyleProfile'])
                   }
                   sx={{
                     backgroundColor: 'white',

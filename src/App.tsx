@@ -41,7 +41,6 @@ const App: FC = () => {
   const [path, setPath] = React.useState(pathname);
 
   const intersect = (prev, next) => {
-    console.log(prev);
     return prev
       .split('/')
       .filter(Boolean)

@@ -269,13 +269,13 @@ export const sortParty = [
     id: 1,
     full_title: 'По популярности',
     short_title: 'Популярность',
-    field: 'number_of_views',
+    field: 'news_count',
   },
   {
     id: 2,
     full_title: 'По рейтингу',
     short_title: 'Рейтинг',
-    field: 'votes',
+    field: 'rating',
   },
 ];
 
@@ -283,7 +283,7 @@ export const sortRatingPoliticians = [
   {
     id: 1,
     full_title: 'По рейтингу',
-    short_title: 'Руйтинг',
+    short_title: 'Рейтинг',
     field: 'rating',
   },
   {
@@ -333,7 +333,7 @@ export const sortRatingParties = [
   },
   {
     id: 2,
-    full_title: 'По имени',
+    full_title: 'По названию',
     short_title: 'Имя',
     field: 'name',
   },

@@ -153,7 +153,7 @@ export const RatingTabs = [
   {
     id: 'authors',
     link: '/rating/authors',
-    title: 'Эксперты',
+    title: 'Авторы',
   },
   {
     id: 'news',
