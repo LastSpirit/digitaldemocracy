@@ -188,6 +188,9 @@ export const politicianSlice = createSlice({
     },
     setIsSubscribe(state: SliceState, action: PayloadAction<boolean>) {
       state.data.is_subscribed = action.payload;
+      state.data.number_of_subscribers = action?.payload
+        ? state.data.number_of_subscribers + 1
+        : state.data.number_of_subscribers - 1;
     },
     setRatingStatistics(state: SliceState, action: PayloadAction<RatingStatisticsI>) {
       state.ratingStatistics = action.payload;
