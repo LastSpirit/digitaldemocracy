@@ -61,7 +61,7 @@ export const useSetLike = () => {
         token,
       },
     });
-  }, [isMassmediaLiked, isMassmediaDisliked]);
+  }, [isMassmediaLiked, isMassmediaDisliked, token]);
   const setMassMediaDislike = useCallback(() => {
     startMassmediaDislike();
     massmediaDislike({
@@ -87,7 +87,7 @@ export const useSetLike = () => {
         token,
       },
     });
-  }, [isMassmediaDisliked, isMassmediaLiked]);
+  }, [isMassmediaDisliked, isMassmediaLiked, token]);
   const setAuthorLike = useCallback(() => {
     startAuthorLike();
     authorLike({
@@ -113,7 +113,7 @@ export const useSetLike = () => {
         token,
       },
     });
-  }, [isAuthorLiked, isAuthorDisliked]);
+  }, [isAuthorLiked, isAuthorDisliked, token]);
   const setAuthorDislike = useCallback(() => {
     startAuthorDislike();
     authorDislike({
@@ -139,66 +139,72 @@ export const useSetLike = () => {
         token,
       },
     });
-  }, [isAuthorLiked, isAuthorDisliked]);
-  const setPoliticianLike = useCallback(({ index, id, isLiked, isDisliked }) => {
-    const isPoliticianLiked = isLiked;
-    const isPoliticianDisliked = isDisliked;
-    startPoliticianLike({ id });
-    politicianLike({
-      onSuccess: () => {
-        if (isPoliticianLiked) {
-          successPoliticianLike({ index, id, status: false });
-        } else {
-          successPoliticianLike({ index, id, status: true });
-          if (isPoliticianDisliked) {
-            successPoliticianDislike({ index, id, status: false });
-          }
-        }
-      },
-      onError: () => {
-        failPoliticianLike({ id });
-      },
-      payload: {
-        politician_id: id,
-        voting_place: 'news',
-        news_id: data?.currentNews?.id,
-      },
-      variables: {
-        isPoliticianLiked,
-        token,
-      },
-    });
-  }, []);
-
-  const setPoliticianDislike = useCallback(({ index, id, isLiked, isDisliked }) => {
-    const isPoliticianLiked = isLiked;
-    const isPoliticianDisliked = isDisliked;
-    startPoliticianDislike({ id });
-    politicianDislike({
-      onSuccess: () => {
-        if (isPoliticianDisliked) {
-          successPoliticianDislike({ index, id, status: false });
-        } else {
-          successPoliticianDislike({ index, id, status: true });
+  }, [isAuthorLiked, isAuthorDisliked, token]);
+  const setPoliticianLike = useCallback(
+    ({ index, id, isLiked, isDisliked }) => {
+      const isPoliticianLiked = isLiked;
+      const isPoliticianDisliked = isDisliked;
+      startPoliticianLike({ id });
+      politicianLike({
+        onSuccess: () => {
           if (isPoliticianLiked) {
             successPoliticianLike({ index, id, status: false });
+          } else {
+            successPoliticianLike({ index, id, status: true });
+            if (isPoliticianDisliked) {
+              successPoliticianDislike({ index, id, status: false });
+            }
           }
-        }
-      },
-      onError: () => {
-        failPoliticianDislike({ id });
-      },
-      payload: {
-        politician_id: id,
-        voting_place: 'news',
-        news_id: data?.currentNews?.id,
-      },
-      variables: {
-        isPoliticianDisliked,
-        token,
-      },
-    });
-  }, []);
+        },
+        onError: () => {
+          failPoliticianLike({ id });
+        },
+        payload: {
+          politician_id: id,
+          voting_place: 'news',
+          news_id: data?.currentNews?.id,
+        },
+        variables: {
+          isPoliticianLiked,
+          token,
+        },
+      });
+    },
+    [token]
+  );
+
+  const setPoliticianDislike = useCallback(
+    ({ index, id, isLiked, isDisliked }) => {
+      const isPoliticianLiked = isLiked;
+      const isPoliticianDisliked = isDisliked;
+      startPoliticianDislike({ id });
+      politicianDislike({
+        onSuccess: () => {
+          if (isPoliticianDisliked) {
+            successPoliticianDislike({ index, id, status: false });
+          } else {
+            successPoliticianDislike({ index, id, status: true });
+            if (isPoliticianLiked) {
+              successPoliticianLike({ index, id, status: false });
+            }
+          }
+        },
+        onError: () => {
+          failPoliticianDislike({ id });
+        },
+        payload: {
+          politician_id: id,
+          voting_place: 'news',
+          news_id: data?.currentNews?.id,
+        },
+        variables: {
+          isPoliticianDisliked,
+          token,
+        },
+      });
+    },
+    [token]
+  );
   return {
     setMassMediaLike,
     setMassMediaDislike,

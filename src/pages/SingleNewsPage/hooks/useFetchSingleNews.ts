@@ -25,6 +25,6 @@ export const useFetchSingleNews = () => {
         console.log(errorResponse);
       },
     });
-  }, []);
+  }, [token]);
   return { fetch };
 };
