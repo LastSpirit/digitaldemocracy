@@ -31,7 +31,7 @@ export const useChangeSubscribe = (id) => {
         token,
       },
     });
-  }, [isSubscribe]);
+  }, [isSubscribe, token]);
 
   return { change, status };
 };

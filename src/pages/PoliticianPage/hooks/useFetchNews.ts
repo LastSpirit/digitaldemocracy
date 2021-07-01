@@ -15,26 +15,23 @@ export const useFetchNews = () => {
   const [error, setError] = useState<string>();
   const { short_link }: { short_link: string } = useParams();
   const token = getItem('token');
-  const fetch = useCallback(
-    () => {
-      setStatus(APIStatus.Loading);
-      fetchNews({
-        onSuccess: (response) => {
-          setNews(response);
-          setStatus(APIStatus.Success);
-        },
-        onError: (errorResponse) => {
-          setError(errorResponse);
-          setStatus(APIStatus.Failure);
-        },
-        variables: {
-          token,
-          politician_id,
-        },
-      });
-    },
-    [politician_id]
-  );
+  const fetch = useCallback(() => {
+    setStatus(APIStatus.Loading);
+    fetchNews({
+      onSuccess: (response) => {
+        setNews(response);
+        setStatus(APIStatus.Success);
+      },
+      onError: (errorResponse) => {
+        setError(errorResponse);
+        setStatus(APIStatus.Failure);
+      },
+      variables: {
+        token,
+        politician_id,
+      },
+    });
+  }, [politician_id, token]);
 
   return { fetch, error, status };
 };

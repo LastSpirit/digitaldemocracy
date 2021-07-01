@@ -31,7 +31,7 @@ export const useChangeSubscribeMM = (id) => {
         token,
       },
     });
-  }, [isSubscribe]);
+  }, [isSubscribe, token]);
 
   return { change, status };
 };

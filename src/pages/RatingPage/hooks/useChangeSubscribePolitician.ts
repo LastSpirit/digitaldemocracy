@@ -31,7 +31,7 @@ export const useChangeSubscribePolitician = (id) => {
         token,
       },
     });
-  }, [isSubscribe]);
+  }, [isSubscribe, token]);
 
   return { change, status };
 };
