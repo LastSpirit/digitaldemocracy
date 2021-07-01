@@ -155,6 +155,7 @@ export const massMediaSlice = createSlice({
     successMassmediaSubscribe(state) {
       state.subscribeStatus = APIStatus.Success;
       state.data.is_subscribed = true;
+      state.data.number_of_subscribers += 1;
     },
     failMassmediaSubscribe(state) {
       state.subscribeStatus = APIStatus.Failure;
@@ -162,6 +163,7 @@ export const massMediaSlice = createSlice({
     successMassmediaUnsubscribe(state) {
       state.subscribeStatus = APIStatus.Success;
       state.data.is_subscribed = false;
+      state.data.number_of_subscribers -= 1;
     },
     startFetchMassMediaStatistic(state) {
       state.statisticStatus = APIStatus.Loading;

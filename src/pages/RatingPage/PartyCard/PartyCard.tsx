@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 import { Button, Tooltip } from '@material-ui/core';
+import { badgeColorChanger } from 'src/utils/badgeColorChanger';
+import { avatarColorChanger } from 'src/utils/avatarColorChanger';
 import styles from './PartyCard.module.scss';
 import { useSearchParams } from '../../../hooks/useSearchParams';
 import { ModalParams } from '../../../types/routing';
@@ -19,14 +21,22 @@ const PartyCard: FC<IProps> = ({ logo, rating, name, id, short_link, place }) =>
   return (
     <div className={styles.root}>
       <Link to={`/party/${short_link}`}>
-        <div className={styles.avatarBlock}>
+        <div
+          className={styles.avatarBlock}
+          style={{ backgroundImage: `url(${avatarColorChanger(rating)})`, backgroundSize: 'cover' }}
+        >
           <div className={styles.avatar}>
             {!logo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={logo} alt="" />}
           </div>
         </div>
       </Link>
       <div className={styles.second}>
-        <div className={styles.badge}>
+        <div
+          className={styles.badge}
+          style={{
+            backgroundColor: badgeColorChanger(rating),
+          }}
+        >
           <div className={styles.text}>{`Место ${place ?? '-'}`}</div>
         </div>
         <div className={styles.percent}>{`${rating}%`}</div>

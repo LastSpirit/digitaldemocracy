@@ -157,6 +157,7 @@ export const authorSlice = createSlice({
     successAuthorSubscribe(state) {
       state.subscribeStatus = APIStatus.Success;
       state.data.is_subscribed = true;
+      state.data.number_of_subscribers += 1;
     },
     failAuthorSubscribe(state) {
       state.subscribeStatus = APIStatus.Failure;
@@ -164,6 +165,7 @@ export const authorSlice = createSlice({
     successAuthorUnsubscribe(state) {
       state.subscribeStatus = APIStatus.Success;
       state.data.is_subscribed = false;
+      state.data.number_of_subscribers -= 1;
     },
     startFetchAuthorStatistic(state) {
       state.statisticStatus = APIStatus.Loading;

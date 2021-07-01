@@ -10,19 +10,19 @@ export const avatarColorChanger = (percent) => {
   //   .reduce((acc, rec, index, array) => {
   //     return acc * 10 + parseInt(rec, 10);
   //   }, 0);
-  if (percent >= 0 && percent <= 20) {
+  if (!!percent && percent >= 0 && percent <= 20) {
     return red;
   }
-  if (percent > 20 && percent <= 40) {
+  if (!!percent && percent > 20 && percent <= 40) {
     return second_red;
   }
-  if (percent > 40 && percent <= 60) {
+  if (!!percent && percent > 40 && percent <= 60) {
     return gray;
   }
-  if (percent > 60 && percent <= 80) {
+  if (!!percent && percent > 60 && percent <= 80) {
     return second_green;
   }
-  if (percent > 80 && percent <= 100) {
+  if (!!percent && percent > 80 && percent <= 100) {
     return green;
   }
   return gray;

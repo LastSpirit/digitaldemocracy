@@ -59,12 +59,16 @@ const StatisticsCard: FC<StatisticsCardPropsI> = ({
                 {name}
               </Link>
               <div className={styles.percent}>
-                {percentIsPositive ? (
-                  <ArrowUpwardIcon className={styles.upIcon} viewBox="3 0 24 24" />
-                ) : (
-                  <ArrowDownwardIcon className={styles.downIcon} viewBox="3 0 24 24" />
+                {percent && (
+                  <>
+                    {percentIsPositive ? (
+                      <ArrowUpwardIcon className={styles.upIcon} />
+                    ) : (
+                      <ArrowDownwardIcon className={styles.downIcon} />
+                    )}
+                  </>
                 )}
-                <div className={styles.text}>{percent}</div>
+                <div className={styles.text}>{percent || '- %'}</div>
               </div>
             </div>
           </div>
@@ -100,18 +104,19 @@ const StatisticsCard: FC<StatisticsCardPropsI> = ({
               {name}
             </Link>
             <div className={styles.bottomItem}>
-              {percent ? (
-                <div className={styles.percent}>
-                  {percentIsPositive ? (
-                    <ArrowUpwardIcon className={styles.upIcon} />
-                  ) : (
-                    <ArrowDownwardIcon className={styles.downIcon} />
-                  )}
-                  <div className={styles.text}>{percent}</div>
-                </div>
-              ) : (
-                <></>
-              )}
+              <div className={styles.percent}>
+                {percent && (
+                  <>
+                    {percentIsPositive ? (
+                      <ArrowUpwardIcon className={styles.upIcon} />
+                    ) : (
+                      <ArrowDownwardIcon className={styles.downIcon} />
+                    )}
+                  </>
+                )}
+                <div className={styles.text}>{percent || '- %'}</div>
+              </div>
+
               {field === '/mass-media' ? (
                 <MassmediaVotesGroup likes={likes} dislikes={dislikes} isLiked={isLiked} isDisliked={isDisliked} />
               ) : field === '/author' ? (

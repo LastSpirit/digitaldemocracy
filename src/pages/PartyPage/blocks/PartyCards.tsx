@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { badgeColorChanger } from 'src/utils/badgeColorChanger';
 import styles from '../PartyPage.module.scss';
 import { PercentsLinearGraphic } from './PercentsLinearGraphic';
 import { useWindowSize } from '../../../hooks/useWindowSize';
@@ -19,8 +20,7 @@ const PartyCards = ({ data }) => {
               <div
                 className={styles.badge}
                 style={{
-                  backgroundColor: badgeBackground,
-                  color: badgeColor,
+                  backgroundColor: badgeColorChanger(data?.rating),
                 }}
               >
                 <div className={styles.text}>{`Место ${data?.place ?? '-'}`}</div>
@@ -37,8 +37,7 @@ const PartyCards = ({ data }) => {
               <div
                 className={styles.mobBadge}
                 style={{
-                  backgroundColor: badgeBackground,
-                  color: badgeColor,
+                  backgroundColor: badgeColorChanger(data?.rating),
                 }}
               >
                 <div className={styles.mobText}>{`Место ${data?.place ?? '-'}`}</div>

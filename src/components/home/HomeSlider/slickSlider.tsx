@@ -5,6 +5,7 @@ import { useHistory } from 'react-router';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { avatarColorChanger } from 'src/utils/avatarColorChanger';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import classes from './HomeSlider.module.scss';
@@ -142,8 +143,10 @@ export default function CustomArrows({ data }) {
             >
               <CardActionArea>
                 <Box>
-                  <Box className={styles.imgContainer}>
-                    <img src={frames.greenFrame} alt="frame" className={styles.frame} />
+                  <Box
+                    className={styles.imgContainer}
+                    style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
+                  >
                     <img src={item.photo} alt="politics" className={styles.img} />
                   </Box>
                 </Box>

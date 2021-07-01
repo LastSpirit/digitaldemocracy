@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { badgeColorChanger } from 'src/utils/badgeColorChanger';
 import styles from '../../PoliticianPage.module.scss';
 import { politicianSelectors } from '../../../../slices/politicianSlice';
 import { PercentsLinearGraphic } from './PercentsLinearGraphic';
@@ -27,10 +28,9 @@ const PoliticianCards = () => {
             <div className={styles.trustRow}>
               <div
                 className={styles.badge}
-                // style={{
-                //   backgroundColor: badgeBackground,
-                //   color: badgeColor,
-                // }}
+                style={{
+                  backgroundColor: badgeColorChanger(data?.rating),
+                }}
               >
                 <div className={styles.text}>{`Место ${data?.place ?? '-'}`}</div>
               </div>
@@ -45,12 +45,11 @@ const PoliticianCards = () => {
             <div className={styles.mobTrustRow}>
               <div
                 className={styles.mobBadge}
-                // style={{
-                //   backgroundColor: badgeBackground,
-                //   color: badgeColor,
-                // }}
+                style={{
+                  backgroundColor: badgeColorChanger(data?.rating),
+                }}
               >
-                <div className={styles.mobText}>{`Место ${data?.place ?? '-'}`}</div>
+                <div className={styles.mobText}>{`Место ${data?.place || '-'}`}</div>
               </div>
               <div className={styles.mobPercent}>{data?.rating || '-'} %</div>
             </div>

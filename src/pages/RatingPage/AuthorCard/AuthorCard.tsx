@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 import { Button, Tooltip } from '@material-ui/core';
+import { badgeColorChanger } from 'src/utils/badgeColorChanger';
+import { avatarColorChanger } from 'src/utils/avatarColorChanger';
 import styles from './AuthorCard.module.scss';
 import { useSearchParams } from '../../../hooks/useSearchParams';
 import { ModalParams } from '../../../types/routing';
@@ -33,14 +35,22 @@ const AuthorCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_
   return (
     <div className={styles.root}>
       <Link to={`/author/${short_link}/news`}>
-        <div className={styles.avatarBlock}>
+        <div
+          className={styles.avatarBlock}
+          style={{ backgroundImage: `url(${avatarColorChanger(rating)})`, backgroundSize: 'cover' }}
+        >
           <div className={styles.avatar}>
             {!photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={photo} alt="" />}
           </div>
         </div>
       </Link>
       <div className={styles.second}>
-        <div className={styles.badge}>
+        <div
+          className={styles.badge}
+          style={{
+            backgroundColor: badgeColorChanger(rating),
+          }}
+        >
           <div className={styles.text}>{`Место ${place ?? '-'}`}</div>
         </div>
         <div className={styles.percent}>{`${rating}%`}</div>
