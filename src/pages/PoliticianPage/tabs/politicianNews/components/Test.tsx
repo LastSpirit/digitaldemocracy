@@ -93,7 +93,7 @@ export const Test = () => {
         type: 'area',
         name: 'Новостей',
         data: chartData,
-        link: 'https://dev.test.ru',
+        link: 'https://dev.digitaldemocracy.ru/singleNews/Twjy4sPZIdvE4KOKefLq',
       },
     ],
   };
