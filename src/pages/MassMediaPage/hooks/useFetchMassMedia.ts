@@ -37,7 +37,7 @@ export const useFetchMassMedia = () => {
         token,
       },
     });
-  }, [link]);
+  }, [link, token]);
   const fetchNews = useCallback(() => {
     startFetchMassMediaNews();
     fetchMassMediaNews({
@@ -54,7 +54,7 @@ export const useFetchMassMedia = () => {
         token,
       },
     });
-  }, [sort_direction, sort_field, page, id]);
+  }, [sort_direction, sort_field, page, id, token]);
 
   return { fetchData, fetchNews };
 };

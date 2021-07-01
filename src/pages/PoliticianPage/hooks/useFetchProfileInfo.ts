@@ -24,7 +24,7 @@ export const useFetchProfileInfo = () => {
         short_link,
       },
     });
-  }, []);
+  }, [token]);
 
   return { fetch, status };
 };

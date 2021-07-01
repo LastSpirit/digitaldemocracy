@@ -35,7 +35,7 @@ export const useChangeSubscribe = () => {
         token,
       },
     });
-  }, [isSubscribed]);
+  }, [isSubscribed, token]);
 
   return { setMassMediaSubscribe };
 };

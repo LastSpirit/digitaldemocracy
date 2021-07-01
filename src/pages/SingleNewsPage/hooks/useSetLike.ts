@@ -61,7 +61,7 @@ export const useSetLike = () => {
         token,
       },
     });
-  }, [isMassmediaLiked, isMassmediaDisliked, token]);
+  }, [isMassmediaLiked, isMassmediaDisliked, token, data?.currentNews?.id, data?.currentNews?.media?.id]);
   const setMassMediaDislike = useCallback(() => {
     startMassmediaDislike();
     massmediaDislike({
@@ -87,7 +87,7 @@ export const useSetLike = () => {
         token,
       },
     });
-  }, [isMassmediaDisliked, isMassmediaLiked, token]);
+  }, [isMassmediaDisliked, isMassmediaLiked, token, data?.currentNews?.id, data?.currentNews?.media?.id]);
   const setAuthorLike = useCallback(() => {
     startAuthorLike();
     authorLike({
@@ -113,7 +113,7 @@ export const useSetLike = () => {
         token,
       },
     });
-  }, [isAuthorLiked, isAuthorDisliked, token]);
+  }, [isAuthorLiked, isAuthorDisliked, token, data?.currentNews?.id, data?.currentNews?.author?.id]);
   const setAuthorDislike = useCallback(() => {
     startAuthorDislike();
     authorDislike({
@@ -139,7 +139,7 @@ export const useSetLike = () => {
         token,
       },
     });
-  }, [isAuthorLiked, isAuthorDisliked, token]);
+  }, [isAuthorLiked, isAuthorDisliked, token, data?.currentNews?.id, data?.currentNews?.author?.id]);
   const setPoliticianLike = useCallback(
     ({ index, id, isLiked, isDisliked }) => {
       const isPoliticianLiked = isLiked;
@@ -170,7 +170,7 @@ export const useSetLike = () => {
         },
       });
     },
-    [token]
+    [token, data?.currentNews?.id]
   );
 
   const setPoliticianDislike = useCallback(
@@ -203,7 +203,7 @@ export const useSetLike = () => {
         },
       });
     },
-    [token]
+    [token, data?.currentNews?.id]
   );
   return {
     setMassMediaLike,

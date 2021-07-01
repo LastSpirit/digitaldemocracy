@@ -37,7 +37,7 @@ export const useFetchAuthor = () => {
         token,
       },
     });
-  }, [link]);
+  }, [link, token]);
   const fetchNews = useCallback(() => {
     startFetchAuthorNews();
     fetchAuthorNews({
@@ -54,7 +54,7 @@ export const useFetchAuthor = () => {
         token,
       },
     });
-  }, [sort_direction, sort_field, page, id]);
+  }, [sort_direction, sort_field, page, id, token]);
 
   return { fetchData, fetchNews };
 };

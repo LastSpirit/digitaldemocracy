@@ -29,7 +29,7 @@ export const useFetchInfluenceStatistic = () => {
         token,
       },
     });
-  }, [id]);
+  }, [id, token]);
 
   return { fetchStatistic };
 };
