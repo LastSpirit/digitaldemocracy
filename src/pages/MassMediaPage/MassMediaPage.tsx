@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Container } from '@material-ui/core';
 import { BackButton } from 'src/components/BackButton/BackButton';
+import { getItem } from 'src/lib/localStorageManager';
 import styles from './MassMediaPage.module.scss';
 
 import MassMediaInfoBlock from './blocks/MassMediaInfoBlock/MassMediaInfoBlock';
@@ -16,10 +17,11 @@ const MassMediaPage = () => {
   const { status } = useSelector((s: RootState) => s.massmedia);
   const { fetchData } = useFetchMassMedia();
   const { resetData } = massmediaActionCreators();
+  const token = getItem('token');
   useEffect(() => {
     resetData();
     fetchData();
-  }, []);
+  }, [token]);
   return (
     <Container maxWidth="lg" className={styles.container}>
       <div className={styles.container}>

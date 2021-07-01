@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Container } from '@material-ui/core';
 import 'react-datepicker/dist/react-datepicker.css';
+import { getItem } from 'src/lib/localStorageManager';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import './datePickerStyles.scss';
 import styles from './PoliticianPage.module.scss';
@@ -17,7 +18,7 @@ const PoliticianPage = () => {
   const { status, fetch } = useFetchProfileInfo();
   const [open, setOpen] = useState(false);
   const [next, setNext] = useState(false);
-
+  const token = getItem('token');
   const handleClickOpen = useCallback(() => {
     setNext(false);
     setOpen(true);
@@ -29,7 +30,7 @@ const PoliticianPage = () => {
 
   useEffect(() => {
     fetch();
-  }, []);
+  }, [token]);
 
   return (
     <Container maxWidth="lg" className={styles.cont}>

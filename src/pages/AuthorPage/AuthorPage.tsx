@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Container } from '@material-ui/core';
 import { BackButton } from 'src/components/BackButton/BackButton';
+import { getItem } from 'src/lib/localStorageManager';
 import styles from './AuthorPage.module.scss';
 
 import AuthorInfoBlock from './blocks/AuthorInfoBlock/AuthorInfoBlock';
@@ -16,10 +17,11 @@ const AuthorPage = () => {
   const { status } = useSelector((s: RootState) => s.author);
   const { fetchData } = useFetchAuthor();
   const { resetData } = authorActionCreators();
+  const token = getItem('token');
   useEffect((): any => {
     fetchData();
     return () => resetData();
-  }, []);
+  }, [token]);
   return (
     <Container maxWidth="lg" className={styles.container}>
       <div className={styles.container}>
