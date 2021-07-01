@@ -319,7 +319,7 @@ export const sortRatingMedia = [
   {
     id: 2,
     full_title: 'По названию',
-    short_title: 'Имя',
+    short_title: 'Название',
     field: 'name',
   },
 ];
@@ -334,7 +334,7 @@ export const sortRatingParties = [
   {
     id: 2,
     full_title: 'По названию',
-    short_title: 'Имя',
+    short_title: 'Название',
     field: 'name',
   },
 ];
