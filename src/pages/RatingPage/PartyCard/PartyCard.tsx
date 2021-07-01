@@ -27,7 +27,7 @@ const PartyCard: FC<IProps> = ({ logo, rating, name, id, short_link, place }) =>
       </Link>
       <div className={styles.second}>
         <div className={styles.badge}>
-          <div className={styles.text}>Место {place}</div>
+          <div className={styles.text}>{`Место ${place ?? '-'}`}</div>
         </div>
         <div className={styles.percent}>{`${rating}%`}</div>
       </div>

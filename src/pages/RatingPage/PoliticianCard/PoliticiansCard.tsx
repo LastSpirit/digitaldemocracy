@@ -41,7 +41,7 @@ const PoliticiansCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, s
       </Link>
       <div className={styles.second}>
         <div className={styles.badge}>
-          <div className={styles.text}>Место {place}</div>
+          <div className={styles.text}>{`Место ${place ?? '-'}`}</div>
         </div>
         <div className={styles.percent}>{`${rating}%`}</div>
       </div>

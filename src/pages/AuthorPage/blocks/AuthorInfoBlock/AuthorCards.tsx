@@ -27,7 +27,7 @@ const AuthorCards = ({ data }) => {
                   color: badgeColor,
                 }}
               >
-                <div className={styles.text}>{data?.place} место</div>
+                <div className={styles.text}>{`Место ${data?.place ?? '-'}`}</div>
               </div>
               <div className={styles.percent}>{data?.rating || '-'} %</div>
             </div>
@@ -45,7 +45,7 @@ const AuthorCards = ({ data }) => {
                   color: badgeColor,
                 }}
               >
-                <div className={styles.mobText}>{data?.place} место</div>
+                <div className={styles.mobText}>{`Место ${data?.place ?? '-'}`}</div>
               </div>
               <div className={styles.mobPercent}>{data?.rating || '-'} %</div>
             </div>
