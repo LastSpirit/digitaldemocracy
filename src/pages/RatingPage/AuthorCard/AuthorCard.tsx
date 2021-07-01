@@ -16,7 +16,7 @@ import { APIStatus } from '../../../lib/axiosAPI';
 
 interface IProps extends AuthorDataI {}
 
-const AuthorCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_link }) => {
+const AuthorCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_link, place }) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { status, change } = useChangeSubscribeAuthor(id);
   const { push } = useHistory();
@@ -41,7 +41,7 @@ const AuthorCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_
       </Link>
       <div className={styles.second}>
         <div className={styles.badge}>
-          <div className={styles.text}>Место 2</div>
+          <div className={styles.text}>Место {place}</div>
         </div>
         <div className={styles.percent}>{`${rating}%`}</div>
       </div>

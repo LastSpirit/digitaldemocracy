@@ -15,7 +15,7 @@ import { APIStatus } from '../../../lib/axiosAPI';
 
 interface IProps extends PartyI {}
 
-const PartyCard: FC<IProps> = ({ logo, rating, name, id, short_link }) => {
+const PartyCard: FC<IProps> = ({ logo, rating, name, id, short_link, place }) => {
   return (
     <div className={styles.root}>
       <Link to={`/party/${short_link}`}>
@@ -27,7 +27,7 @@ const PartyCard: FC<IProps> = ({ logo, rating, name, id, short_link }) => {
       </Link>
       <div className={styles.second}>
         <div className={styles.badge}>
-          <div className={styles.text}>Место 2</div>
+          <div className={styles.text}>Место {place}</div>
         </div>
         <div className={styles.percent}>{`${rating}%`}</div>
       </div>

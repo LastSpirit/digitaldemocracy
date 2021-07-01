@@ -17,6 +17,7 @@ export interface MassMediaDataI {
   trust?: string;
   rating?: string;
   short_link?: string;
+  place?: number;
 }
 
 export interface GraphicDataI {

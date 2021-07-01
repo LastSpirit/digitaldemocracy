@@ -32,7 +32,7 @@ const PoliticianCards = () => {
                 //   color: badgeColor,
                 // }}
               >
-                <div className={styles.text}>2-е место</div>
+                <div className={styles.text}>{data?.place} место</div>
               </div>
               <div className={styles.percent}>{data?.rating || '-'} %</div>
             </div>
@@ -50,7 +50,7 @@ const PoliticianCards = () => {
                 //   color: badgeColor,
                 // }}
               >
-                <div className={styles.mobText}>2-е место</div>
+                <div className={styles.mobText}>{data?.place} место</div>
               </div>
               <div className={styles.mobPercent}>{data?.rating || '-'} %</div>
             </div>

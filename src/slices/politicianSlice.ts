@@ -22,6 +22,7 @@ export interface PoliticianInfoI {
   link?: string;
   rating?: string;
   short_link?: string;
+  place?: number;
 }
 
 export interface PartyI {
@@ -35,6 +36,7 @@ export interface PartyI {
   position?: number;
   source_link?: string;
   rating?: number;
+  place?: number;
 }
 
 export interface GraphicDataI {
