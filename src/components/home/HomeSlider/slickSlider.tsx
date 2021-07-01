@@ -151,7 +151,7 @@ export default function CustomArrows({ data }) {
                   <Typography className={styles.name}>{item.name}</Typography>
                 </Box>
                 <Box>
-                  <Typography className={styles.percent}>{item.rating}</Typography>
+                  <Typography className={styles.percent}>{item.rating}%</Typography>
                 </Box>
               </CardActionArea>
               <CardActions />
