@@ -106,6 +106,7 @@ export const InfluenceStatistic = () => {
   const { resetStatistic } = authorActionCreators();
   const { isMobile, isMobileSE } = useWindowSize();
   const { fetchStatistic } = useFetchInfluenceStatistic();
+  console.log(data);
   useEffect(() => {
     fetchStatistic();
     return (): any => resetStatistic();

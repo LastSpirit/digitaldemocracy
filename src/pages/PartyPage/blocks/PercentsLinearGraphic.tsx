@@ -45,9 +45,9 @@ export const PercentsLinearGraphic: FC<IProps> = ({ vote_groups }) => {
   const exist = vote_groups || mock;
   const nonEmpty = exist?.filter((it) => it.width !== 0);
   const hiddenValue = 15;
-  const widthWithoutCut = nonEmpty?.reduce((acc, rec) => (rec.width >= hiddenValue ? acc + rec.width : acc), 0);
+  const widthWithoutCut = nonEmpty?.reduce((acc, rec) => (rec.width > hiddenValue ? acc + rec.width : acc), 0);
   const count = exist?.reduce((acc, rec) => {
-    return rec.width < hiddenValue && rec.width !== 0 ? acc + 1 : acc;
+    return rec.width <= hiddenValue && rec.width !== 0 ? acc + 1 : acc;
   }, 0);
   const totalWidth = 100 - count * hiddenValue;
   const finalArray = exist?.map((it) =>
@@ -69,11 +69,7 @@ export const PercentsLinearGraphic: FC<IProps> = ({ vote_groups }) => {
                   <div
                     key={id.toString()}
                     style={{
-                      width: `${
-                        width < hiddenValue
-                          ? previosWidth + finalArray[index].width
-                          : previosWidth + finalArray[index].width
-                      }%`,
+                      width: `${previosWidth + finalArray[index].width}%`,
                       backgroundColor: color,
                       zIndex,
                     }}
