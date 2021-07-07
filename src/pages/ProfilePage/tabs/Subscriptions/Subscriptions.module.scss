@@ -1,0 +1,59 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  .buttons {
+    display: flex;
+    margin-bottom: 27px;
+    align-items: center;
+    justify-content: space-between;
+    width: 400px;
+
+    @media screen and (max-width: 1024px) {
+      width: 100%;
+    }
+    .buttonStyle {
+      background-color: #363557;
+      border: 1px solid #363557;
+      padding: 10px 30px;
+      font-size: 14px;
+      border-radius: 150px;
+      white-space: nowrap;
+      display: flex;
+      height: 40px;
+      color: white;
+      box-sizing: border-box;
+      text-align: center;
+
+      @media screen and (max-width: 1024px) {
+        width: 85px;
+      }
+    }
+
+    .buttonStyleActive {
+      background-color: white;
+      border: 1px solid #363557;
+      padding: 10px 30px;
+      font-size: 14px;
+      border-radius: 150px;
+      white-space: nowrap;
+      display: flex;
+      height: 40px;
+      color: #363557;
+      box-sizing: border-box;
+      text-align: center;
+
+      @media screen and (max-width: 1024px) {
+        width: 85px;
+      }
+    }
+  }
+
+  .party {
+    display: flex;
+    flex-wrap: wrap;
+
+    @media screen and (max-width: 1024px) {
+      justify-content: center;
+    }
+  }
+}
