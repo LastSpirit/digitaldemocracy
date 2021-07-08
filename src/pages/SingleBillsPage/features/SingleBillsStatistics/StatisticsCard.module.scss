@@ -1,0 +1,95 @@
+@import 'src/variables.scss';
+
+.card {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 88px;
+  width: 575px;
+  margin-bottom: 30px;
+  border-radius: 6px;
+  background-color: #ededed;
+  .cardContent {
+    display: flex;
+    justify-content: space-between;
+    // flex-direction: column;
+    align-items: center;
+    padding: 10px 16px 10px 10px;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    .title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: max-content;
+      max-width: 420px;
+      color: #222222;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 20px;
+    }
+    .bottomItem {
+      width: 50%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+      height: 40px;
+    }
+  }
+}
+
+.card-mobile {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  height: 148px;
+  width: 360px;
+  margin-bottom: 30px;
+  border-radius: 6px;
+  background-color: #ededed;
+  padding: 8px 9px 11px 9px;
+  @media screen and (max-width: $mobileSEScreen) {
+    width: 300px;
+  }
+  .topItems {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    .cardContent {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      padding-left: 10px;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      .title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #222222;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        white-space: normal;
+        max-height: 54px;
+        line-height: 150%;
+      }
+    }
+  }
+  .bottomItems {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 40px;
+  }
+}

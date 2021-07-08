@@ -29,6 +29,7 @@ import WidgetLinkPage from './pages/WidgetLinkPage';
 import SuggestionPage from './pages/SuggestionPage/SuggestionPage';
 import { DonationPage } from './pages/ProfilePage/DonationPage/DonationPage';
 import RatingPage from './pages/RatingPage/RatingPage';
+import SingleBills from './pages/SingleBillsPage/SingleBillsPage';
 
 const App: FC = () => {
   if (!firebase.apps.length) {
@@ -83,6 +84,7 @@ const App: FC = () => {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/singleNews/:link" component={SingleNewsPage} />
+              <Route path="/singleBills/:link" component={SingleBills} />
               <Route path="/donation" component={DonationPage} />
               <Route path="/news" component={News} />
               <Route path="/widgetLink/:id" component={WidgetLinkPage} />

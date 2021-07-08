@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
 import React, { useEffect, useState } from 'react';
 import { IconButton } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import { useSelector } from 'react-redux';
@@ -21,20 +22,23 @@ const Bills = (props) => {
     number_of_dislikes,
     is_user_liked,
     is_user_disliked,
+    link,
   } = props;
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   return (
     <>
       <div className={styles.promise}>
         <div className={styles.promises}>
           <div className={styles.date}>{publication_date}</div>
-          <span>{title}</span>
-          <div className={styles.link}>
+          <Link to={'/singleBills/1'}>
+            <span style={{ color: 'black' }}>{title}</span>
+          </Link>
+          {/* <div className={styles.link}>
             <p>Иcточник: </p>
             <IconButton className={styles.arrowButton} onClick={() => setOpen(!open)}>
               <CallMadeIcon className={styles.arrowLink} />
             </IconButton>
-          </div>
+          </div> */}
         </div>
         <div className={styles.votes}>
           <p>Как вы к этому относитесь?</p>
@@ -48,14 +52,14 @@ const Bills = (props) => {
           />
         </div>
       </div>
-      {open ? (
+      {/* {open ? (
         <iframe
           title={`${source_link}`}
           loading="lazy"
           src={source_link}
           style={{ marginBottom: '20px', borderBottom: '1px solid #b0b0b0', paddingBottom: '20px' }}
         />
-      ) : null}
+      ) : null} */}
     </>
   );
 };

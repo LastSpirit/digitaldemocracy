@@ -1,0 +1,42 @@
+.list {
+    margin-bottom: 30px;
+}
+.heading {
+    font-size: 25px;
+    line-height: 30px;
+    font-weight: 300;
+    font-family: 'Helvetica';
+    color: #7a7a7a;
+    padding: 0;
+}
+.headingContainer {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #E5E5E5;
+}
+.newsListContainer {
+    margin-bottom: 100px;
+    width: 100%;
+}
+.buttonText {
+    color: #363557;
+    font-size: 20px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .heading {
+        font-size: 16px;
+    }
+    .headingContainer {
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+    }
+    .newsListContainerContainer {
+        margin-bottom: 50px;
+    }
+    .buttonText {
+        margin-bottom: 12px;
+    }
+}
