@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Card, Typography, CardActionArea, CardActions, Button } from '@material-ui/core';
+import { withStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import { Box, Card, Typography, CardActionArea, CardActions, Button, Tooltip, fabClasses } from '@material-ui/core';
 import { milliseconds } from 'date-fns';
 import { useHistory } from 'react-router';
 import Slider from 'react-slick';
@@ -113,6 +114,19 @@ export default function CustomArrows({ data }) {
       },
     ],
   };
+
+  const LightTooltip = withStyles((theme: Theme) => ({
+    tooltip: {
+      backgroundColor: '#363557',
+      color: 'white',
+      boxShadow: theme.shadows[1],
+      fontSize: 11,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  }))(Tooltip);
+
   const { isMobile } = useWindowSize();
   const { push } = useHistory();
   const [date, setDate] = useState(null);
@@ -123,42 +137,44 @@ export default function CustomArrows({ data }) {
       {data ? (
         <Slider {...settings} style={{ display: 'flex', alignItems: 'center' }}>
           {data?.map((item) => (
-            <Card
-              // onClick={() => push(`/politician/${String(item?.short_link)}`)}
-              onMouseDown={() => {
-                setDate((new Date() as any) - initialDate);
-              }}
-              onMouseUp={() => {
-                setSecondDate((new Date() as any) - initialDate);
-              }}
-              onClick={() => {
-                if (secondDate - date < 200) {
-                  push(`/politician/${String(item?.short_link)}`);
-                }
-                setDate(null);
-                setSecondDate(null);
-              }}
-              key={item.name}
-              className={styles.custom}
-            >
-              <CardActionArea>
-                <Box>
-                  <Box
-                    className={styles.imgContainer}
-                    style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
-                  >
-                    <img src={item.photo} alt="politics" className={styles.img} />
+            <LightTooltip title={item.position ?? ''}>
+              <Card
+                // onClick={() => push(`/politician/${String(item?.short_link)}`)}
+                onMouseDown={() => {
+                  setDate((new Date() as any) - initialDate);
+                }}
+                onMouseUp={() => {
+                  setSecondDate((new Date() as any) - initialDate);
+                }}
+                onClick={() => {
+                  if (secondDate - date < 200) {
+                    push(`/politician/${String(item?.short_link)}`);
+                  }
+                  setDate(null);
+                  setSecondDate(null);
+                }}
+                key={item.name}
+                className={styles.custom}
+              >
+                <CardActionArea>
+                  <Box>
+                    <Box
+                      className={styles.imgContainer}
+                      style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
+                    >
+                      <img src={item.photo} alt="politics" className={styles.img} />
+                    </Box>
                   </Box>
-                </Box>
-                <Box className={styles.caption}>
-                  <Typography className={styles.name}>{item.name}</Typography>
-                </Box>
-                <Box>
-                  <Typography className={styles.percent}>{item.rating ?? '- '}%</Typography>
-                </Box>
-              </CardActionArea>
-              <CardActions />
-            </Card>
+                  <Box className={styles.caption}>
+                    <Typography className={styles.name}>{item.name}</Typography>
+                  </Box>
+                  <Box>
+                    <Typography className={styles.percent}>{item.rating ?? '- '}%</Typography>
+                  </Box>
+                </CardActionArea>
+                <CardActions />
+              </Card>
+            </LightTooltip>
           ))}
         </Slider>
       ) : null}

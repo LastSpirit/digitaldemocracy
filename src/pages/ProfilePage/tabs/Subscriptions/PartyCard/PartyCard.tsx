@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import PersonIcon from '@material-ui/icons/Person';
 import { useHistory, matchPath } from 'react-router';
+import { withStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
@@ -31,18 +32,33 @@ const PartyCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_l
     }
   };
 
+  const LightTooltip = withStyles((theme: Theme) => ({
+    tooltip: {
+      backgroundColor: '#363557',
+      color: 'white',
+      boxShadow: theme.shadows[1],
+      fontSize: 11,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      maxWidth: '270px',
+    },
+  }))(Tooltip);
+
   return (
     <div className={styles.root}>
-      <Link to={`/politician/${short_link}/politician_news`}>
-        <div
-          className={styles.avatarBlock}
-          style={{ backgroundImage: `url(${avatarColorChanger(rating)})`, backgroundSize: 'cover' }}
-        >
-          <div className={styles.avatar}>
-            {!photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={photo} alt="" />}
+      <LightTooltip title={position ?? ''}>
+        <Link to={`/politician/${short_link}/politician_news`}>
+          <div
+            className={styles.avatarBlock}
+            style={{ backgroundImage: `url(${avatarColorChanger(rating)})`, backgroundSize: 'cover' }}
+          >
+            <div className={styles.avatar}>
+              {!photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={photo} alt="" />}
+            </div>
           </div>
-        </div>
-      </Link>
+        </Link>
+      </LightTooltip>
       <div className={styles.second}>
         <div
           className={styles.badge}
@@ -54,12 +70,10 @@ const PartyCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_l
         </div>
         <div className={styles.percent}>{rating ?? '-'} %</div>
       </div>
-      <hr />
       <div className={styles.name}>{name}</div>
-      <div className={styles.position}>{position}</div>
       <Button
         variant="outlined"
-        color={is_subscribed ? 'secondary' : 'primary'}
+        color={'secondary'}
         onClick={isAuthenticated ? change : handleClick}
         disabled={status === APIStatus.Loading}
         className={classNames([
@@ -68,12 +82,7 @@ const PartyCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_l
           { '-disabled': !isAuthenticated },
         ])}
       >
-        <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
-          <span>
-            {/* eslint-disable-next-line no-nested-ternary */}
-            {status === APIStatus.Loading ? <Loading /> : is_subscribed ? 'Отписаться' : 'Следить'}
-          </span>
-        </Tooltip>
+        Отписаться
       </Button>
     </div>
   );

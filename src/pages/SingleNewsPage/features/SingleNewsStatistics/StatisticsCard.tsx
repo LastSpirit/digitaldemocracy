@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, IconButton, Card, Typography } from '@material-ui/core';
+import { Box, IconButton, Card, Typography, Tooltip } from '@material-ui/core';
+import { withStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { avatarColorChanger } from 'src/utils/avatarColorChanger';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
@@ -25,6 +26,18 @@ interface StatisticsCardPropsI {
   id?: number;
   isMasmedia?: boolean;
 }
+
+const LightTooltip = withStyles((theme: Theme) => ({
+  tooltip: {
+    backgroundColor: '#363557',
+    color: 'white',
+    boxShadow: theme.shadows[1],
+    fontSize: 11,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+}))(Tooltip);
 
 const StatisticsCard: FC<StatisticsCardPropsI> = ({
   name,
@@ -93,12 +106,14 @@ const StatisticsCard: FC<StatisticsCardPropsI> = ({
         </div>
       ) : (
         <div className={styles.card}>
-          <Link to={`${field}/${short_link}`} className={styles.image}>
-            <img src={avatarColorChanger(rating)} alt="frame" className={styles.frame} />
-            <div className={styles.photoContainer}>
-              <img src={photo} alt="avatar" className={isMasmedia ? styles.massmediaPhoto : styles.photo} />
-            </div>
-          </Link>
+          <LightTooltip title="Здесь будет должность" placement="right">
+            <Link to={`${field}/${short_link}`} className={styles.image}>
+              <img src={avatarColorChanger(rating)} alt="frame" className={styles.frame} />
+              <div className={styles.photoContainer}>
+                <img src={photo} alt="avatar" className={isMasmedia ? styles.massmediaPhoto : styles.photo} />
+              </div>
+            </Link>
+          </LightTooltip>
           <div className={styles.cardContent}>
             <Link to={`${field}/${short_link}`} className={styles.title}>
               {name}
