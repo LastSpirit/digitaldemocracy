@@ -11,6 +11,9 @@ const InfoBlock: FC<InfoBlockProps> = ({ fio }) => (
       <p>{fio}</p>
     </div>
     <div className={styles.hLine} />
+    <p>Российская федерация, Ханты-Мансийский автономный округ</p>
+    <p>30 лет</p>
+    <p>Мужской</p>
   </div>
 );
 
