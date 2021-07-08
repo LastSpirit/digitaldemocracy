@@ -69,7 +69,7 @@ const authUserSections = [
     links: [
       {
         title: 'info@digitaldemocracy.ru',
-        href: '/browse',
+        href: 'mailto:info@digitaldemocracy.ru',
       },
     ],
   },
@@ -277,18 +277,24 @@ const Footer: FC = (props) => {
                           paddingBottom: '0!important',
                         }}
                         primary={
-                          <Link
-                            sx={{
-                              cursor: 'pointer',
-                              paddingBottom: '0!important',
-                            }}
-                            onClick={() => push(link.href)}
-                            color="#747373"
-                            fontWeight="300"
-                            variant="subtitle2"
-                          >
-                            {link.title}
-                          </Link>
+                          link.href !== 'mailto:info@digitaldemocracy.ru' ? (
+                            <Link
+                              sx={{
+                                cursor: 'pointer',
+                                paddingBottom: '0!important',
+                              }}
+                              onClick={() => push(link.href)}
+                              color="#747373"
+                              fontWeight="300"
+                              variant="subtitle2"
+                            >
+                              {link.title}
+                            </Link>
+                          ) : (
+                            <a style={{ color: '#747373' }} href={link.href}>
+                              {link.title}
+                            </a>
+                          )
                         }
                       />
                     </ListItem>
