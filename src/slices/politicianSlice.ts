@@ -128,7 +128,7 @@ interface SliceState {
   data?: PoliticianInfoI;
   news?: any;
   promises?: Array<PromiseI>;
-  chartData?: Array<Array<Date | number>>;
+  chartData?: any;
   ratingStatistics?: RatingStatisticsI;
   history?: Array<PositionHistoryI>;
   positionDescription?: Array<PositionsDescriptionI>;
@@ -148,7 +148,7 @@ export interface NewsWithPercentI extends NewsI {
 
 const initialState: SliceState = {
   news: [],
-  chartData: [],
+  chartData: {},
   promisesLikeStatus: {},
   promisesDislikeStatus: {},
   billsLikeStatus: {},
@@ -228,6 +228,9 @@ export const politicianSlice = createSlice({
     },
     failDislike(state, action) {
       state[`${action.payload.field}DislikeStatus`][action.payload.id] = { status: APIStatus.Failure };
+    },
+    setChartData(state, action) {
+      state.chartData = action.payload;
     },
   },
 });

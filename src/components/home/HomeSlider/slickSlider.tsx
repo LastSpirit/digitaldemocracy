@@ -115,18 +115,6 @@ export default function CustomArrows({ data }) {
     ],
   };
 
-  const LightTooltip = withStyles((theme: Theme) => ({
-    tooltip: {
-      backgroundColor: '#363557',
-      color: 'white',
-      boxShadow: theme.shadows[1],
-      fontSize: 11,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  }))(Tooltip);
-
   const { isMobile } = useWindowSize();
   const { push } = useHistory();
   const [date, setDate] = useState(null);
@@ -137,7 +125,12 @@ export default function CustomArrows({ data }) {
       {data ? (
         <Slider {...settings} style={{ display: 'flex', alignItems: 'center' }}>
           {data?.map((item) => (
-            <LightTooltip title={item.position ?? ''}>
+            <Tooltip
+              title={item.position ?? ''}
+              classes={{
+                tooltip: styles.tooltip,
+              }}
+            >
               <Card
                 // onClick={() => push(`/politician/${String(item?.short_link)}`)}
                 onMouseDown={() => {
@@ -174,7 +167,7 @@ export default function CustomArrows({ data }) {
                 </CardActionArea>
                 <CardActions />
               </Card>
-            </LightTooltip>
+            </Tooltip>
           ))}
         </Slider>
       ) : null}

@@ -6,7 +6,7 @@ import { useFetchNews } from '../../hooks/useFetchNews';
 import ChartBlock from './components/ChartBlock';
 import NewsBlock from './components/NewsBlock';
 // import ChartNews from './components/ChartNews.js';
-import { Test } from './components/Test';
+import { Highchart } from './components/Highchart';
 
 export const PoliticianNews = () => {
   const { fetch, status } = useFetchNews();
@@ -49,7 +49,7 @@ export const PoliticianNews = () => {
         startDatePicker={startDatePicker}
         status={status}
       /> */}
-      <Test />
+      <Highchart />
       <NewsBlock />
     </WrapperAsyncRequest>
   );

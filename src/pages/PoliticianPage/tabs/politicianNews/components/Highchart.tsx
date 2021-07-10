@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import axios from 'axios';
+import { useFetchChart } from '../../../hooks/useFetchChart';
+import { politicianSelectors } from '../../../../../slices/politicianSlice';
 
 Highcharts.setOptions({
   lang: {
@@ -21,15 +24,22 @@ Highcharts.setOptions({
     ],
     weekdays: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Восресенье'],
     shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Ноябр', 'Дек'],
+    resetZoom: 'Сбрость зумирование',
   },
 });
 
-export const Test = () => {
-  const [chartData, setChartData] = useState([]);
+const afterSetExtremes = (zoomAxis) => {
+  const { min } = zoomAxis;
+  const { max } = zoomAxis;
+  console.log(min);
+  console.log(max);
+};
+
+export const Highchart = () => {
+  const { fetch, status } = useFetchChart();
+  const chartData = useSelector(politicianSelectors.getChartData());
   useEffect(() => {
-    axios('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json').then(({ data }) =>
-      setChartData(data)
-    );
+    fetch();
   }, []);
 
   const options = {
@@ -41,6 +51,9 @@ export const Test = () => {
     },
     xAxis: {
       type: 'datetime',
+      events: {
+        afterSetExtremes,
+      },
     },
     yAxis: {
       title: {
@@ -92,7 +105,14 @@ export const Test = () => {
       {
         type: 'area',
         name: 'Новостей',
-        data: chartData,
+        data: [...(chartData?.politicianRatingChange || [])],
+        link: 'https://dev.digitaldemocracy.ru/singleNews/Twjy4sPZIdvE4KOKefLq',
+      },
+      {
+        // type: 'area',
+        name: 'Новостей',
+        data: [...(chartData?.politicianVotingElectorateChange || [])],
+        lineColor: 'black',
         link: 'https://dev.digitaldemocracy.ru/singleNews/Twjy4sPZIdvE4KOKefLq',
       },
     ],
