@@ -5,7 +5,6 @@ COPY package.json package-lock.json ./
 
 RUN npm install
 COPY . ./
-COPY node/dx-react-chart-material-ui.es.js node_modules/@devexpress/dx-react-chart-material-ui/dist/dx-react-chart-material-ui.es.js
 RUN npm run build
 
 FROM nginx:1.19-alpine
