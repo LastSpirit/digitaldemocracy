@@ -6,7 +6,7 @@
   margin: 50px 0;
   display: flex;
   flex-shrink: 1;
-  border-top: 1px solid #B0B0B0;
+  border-top: 1px solid #b0b0b0;
   padding-top: 20px;
 
   .tabList {
@@ -17,7 +17,7 @@
       height: 40px;
       display: flex;
       align-items: center;
-      border-bottom: 1px solid #B0B0B0;
+      border-bottom: 1px solid #b0b0b0;
       padding: 5px 10px;
       transition: 0.3s all;
       color: #747373;
@@ -63,7 +63,7 @@
 
       .prevArrow {
         transform: rotate(180deg);
-        background-color: #F3F3F3;
+        background-color: #f3f3f3;
         padding: 10px;
         font-size: 10px;
         border-radius: 100%;
@@ -72,7 +72,7 @@
       }
 
       .nextArrow {
-        background-color: #F3F3F3;
+        background-color: #f3f3f3;
         padding: 10px;
         font-size: 10px;
         border-radius: 100%;
@@ -100,7 +100,7 @@
         .link {
           min-width: calc(50% - 10px);
           position: relative;
-          border: 1px solid #B0B0B0;
+          border: 1px solid #b0b0b0;
           border-radius: 30px;
           font-size: 70%;
           margin-right: 10px;
@@ -165,7 +165,7 @@
       justify-content: center;
 
       &.noAvatar {
-        background-color: #E5E5E5;
+        background-color: #e5e5e5;
       }
 
       .noAvatarIcon {
@@ -184,9 +184,18 @@
     .changeProfileButton {
       margin-top: 20px;
       width: 200px;
-      border: 1px solid #B0B0B0;
-      color: #B0B0B0;
-      padding: 2px 0 !important;
+      background: #ffffff;
+      border: 1px solid #363557;
+      box-sizing: border-box;
+      border-radius: 40px;
+      font-family: HelveticaNeueCyr;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 18px;
+      line-height: 18px;
+      text-align: center;
+      color: #363557;
+      padding: 10px 0px;
     }
   }
 
@@ -238,7 +247,6 @@
 p {
   margin: 4px 0;
 }
-
 
 .userActivityBlockContainer {
   margin-top: 80px;
