@@ -4,42 +4,34 @@ import { authAPI } from '../../../../api/authAPI';
 import { authActionCreators } from '../../../../slices/authSlice';
 
 export const useCheckAddress = (setRegisterStep: (value: number) => void) => {
-  const { checkValidateAddress } = authAPI();
-  const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
-  const [error, setError] = useState<string>();
   const { setAuthUserData } = authActionCreators();
-
-  const onError = (errorResponse: string) => {
-    setStatus(APIStatus.Failure);
-    setError(errorResponse);
-  };
-
-  const onSuccess = (address: string, country: number) => {
-    setAuthUserData({ key: 'address', value: address });
-    setAuthUserData({ key: 'countryId', value: String(country) });
-    setRegisterStep(2);
-    setStatus(APIStatus.Success);
-  };
-
-  const check = useCallback((address: string, country: string, withCountry: boolean, countries: Array<{ id: number, title: string }>) => {
-    let countryId;
-    if (withCountry) {
-      countryId = countries.find((item) => item.title === country).id;
-    }
-    setStatus(APIStatus.Loading);
-    checkValidateAddress({
-      onSuccess: () => onSuccess(address, countryId),
-      onError,
-      payload: {
-        address,
-        country_id: (withCountry && countryId) ? countryId : undefined
+  const check = useCallback(
+    ({ country_title, region_title, city_title, countries, regions, cities, withCountry, withRegion, withCity }) => {
+      console.log(withCountry);
+      if (withCountry) {
+        setRegisterStep(2);
+        setAuthUserData({
+          key: 'country_id',
+          value: countries.find((it) => it?.title?.toLowerCase() === country_title?.toLowerCase()).id,
+        });
+        if (withRegion) {
+          setAuthUserData({
+            key: 'region_id',
+            value: regions.find((it) => it?.title?.toLowerCase() === region_title?.toLowerCase()).id,
+          });
+        }
+        if (withCity) {
+          setAuthUserData({
+            key: 'city_id',
+            value: cities.find((it) => it?.title?.toLowerCase() === city_title?.toLowerCase()).id,
+          });
+        }
       }
-    });
-  }, []);
+    },
+    []
+  );
 
   return {
     check,
-    status,
-    error,
   };
 };

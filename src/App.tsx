@@ -19,6 +19,7 @@ import MainLayout from './components/MainLayout';
 import Home from './pages/Home';
 import SingleNewsPage from './pages/SingleNewsPage/SingleNewsPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
+import ChangeProfilePage from './pages/ChangeProfilePage/ChangeProfilePage';
 import { userSelectors } from './slices/userSlice';
 import News from './pages/News';
 import PoliticianPage from './pages/PoliticianPage/PoliticianPage';
@@ -88,6 +89,7 @@ const App: FC = () => {
               <Route path="/widgetLink/:id" component={WidgetLinkPage} />
               {isAuthenticated && <Route exact path="/profile" component={ProfilePage} />}
               {isAuthenticated && <Route exact path="/profile/*" component={ProfilePage} />}
+              {isAuthenticated && <Route exact path="/changeProfile" component={ChangeProfilePage} />}
               <Route exact path="/politician/:short_link" component={PoliticianPage} />
               <Route exact path="/politician/:short_link/*" component={PoliticianPage} />
               <Route exact path="/mass-media/:link" component={MassMediaPage} />

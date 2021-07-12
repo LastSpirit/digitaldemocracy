@@ -21,7 +21,7 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
   const [error, setError] = useState<string>('');
   const { sendCode, checkValidateEmail, checkValidatePhone } = authAPI();
   const { setAuthUserData } = authActionCreators();
-  const { address, countryId } = useSelector(authSelectors.getUserData());
+  const { address, country_id, region_id, city_id } = useSelector(authSelectors.getUserData());
   const { sendCode: firebaseSendCode } = useSendCodeFirebase(setRegisterStep, 3, setError);
 
   firebase.auth().useDeviceLanguage();
@@ -42,62 +42,68 @@ export const useSendCode = (setRegisterStep: (value: number) => void) => {
     setPhoneStatus(APIStatus.Failure);
   };
 
-  const send = useCallback(({ registerType, values }: UseSendCodeProps) => {
-    const validetedPhone = [...values.phone]
-      .filter((it) => parseInt(it, 10) || parseInt(it, 10) === 0 || it === '+')
-      .reduce((acc, rec) => acc + rec, '');
-    const appVerifier = window.recaptchaVerifier;
-    const registerThroughPhone = registerType === AuthType.Phone;
-    if (registerThroughPhone) {
-      setPhoneStatus(APIStatus.Loading);
-      checkValidatePhone({
-        onSuccess: () => {
-          sendCode({
-            onError,
-            onSuccess: () => {
-              setAuthUserData({ key: 'phone', value: validetedPhone });
-              firebaseSendCode(validetedPhone, appVerifier);
-              setPhoneStatus(APIStatus.Success);
-            },
-            payload: {
-              country_id: countryId ? Number(countryId) : undefined,
-              address,
-              phone: validetedPhone.replaceAll(' ', ''),
-            },
-          });
-        },
-        onError: (errorResponse) => {
-          setPhoneStatus(APIStatus.Failure);
-          setError(typeof errorResponse === 'string' ? errorResponse : errorResponse.phone[0]);
-        },
-        payload: {
-          phone: validetedPhone,
-        },
-      });
-    } else {
-      setEmailStatus(APIStatus.Loading);
-      checkValidateEmail({
-        onSuccess: () => {
-          sendCode({
-            onError,
-            onSuccess: () => onSuccess(values),
-            payload: {
-              country_id: countryId ? Number(countryId) : undefined,
-              address,
-              email: values.email,
-            },
-          });
-        },
-        onError: (errorResponse) => {
-          setError(typeof errorResponse === 'string' ? errorResponse : errorResponse.email[0]);
-          setEmailStatus(APIStatus.Failure);
-        },
-        payload: {
-          email: values.email,
-        },
-      });
-    }
-  }, []);
+  const send = useCallback(
+    ({ registerType, values }: UseSendCodeProps) => {
+      const validetedPhone = [...values.phone]
+        .filter((it) => parseInt(it, 10) || parseInt(it, 10) === 0 || it === '+')
+        .reduce((acc, rec) => acc + rec, '');
+      const appVerifier = window.recaptchaVerifier;
+      const registerThroughPhone = registerType === AuthType.Phone;
+      if (registerThroughPhone) {
+        setPhoneStatus(APIStatus.Loading);
+        checkValidatePhone({
+          onSuccess: () => {
+            sendCode({
+              onError,
+              onSuccess: () => {
+                setAuthUserData({ key: 'phone', value: validetedPhone });
+                firebaseSendCode(validetedPhone, appVerifier);
+                setPhoneStatus(APIStatus.Success);
+              },
+              payload: {
+                country_id,
+                region_id,
+                city_id,
+                phone: validetedPhone.replaceAll(' ', ''),
+              },
+            });
+          },
+          onError: (errorResponse) => {
+            setPhoneStatus(APIStatus.Failure);
+            setError(typeof errorResponse === 'string' ? errorResponse : errorResponse.phone[0]);
+          },
+          payload: {
+            phone: validetedPhone,
+          },
+        });
+      } else {
+        setEmailStatus(APIStatus.Loading);
+        checkValidateEmail({
+          onSuccess: () => {
+            console.log(country_id, region_id, city_id);
+            sendCode({
+              onError,
+              onSuccess: () => onSuccess(values),
+              payload: {
+                country_id,
+                region_id,
+                city_id,
+                email: values.email,
+              },
+            });
+          },
+          onError: (errorResponse) => {
+            setError(typeof errorResponse === 'string' ? errorResponse : errorResponse.email[0]);
+            setEmailStatus(APIStatus.Failure);
+          },
+          payload: {
+            email: values.email,
+          },
+        });
+      }
+    },
+    [country_id, region_id, city_id]
+  );
 
   return { send, status: { emailStatus, phoneStatus }, error, resetError };
 };
