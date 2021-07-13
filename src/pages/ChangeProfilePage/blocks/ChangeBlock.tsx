@@ -2,10 +2,12 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
+import { userActionCreators } from 'src/slices/userSlice';
 import { MainForm } from './forms/MainForm';
 import styles from '../ChangeProfilePage.module.scss';
 
 export const ChangeBlock = () => {
+  const { logout } = userActionCreators();
   return (
     <div className={styles.tabContent}>
       <div className={styles.titleRow}>
@@ -22,6 +24,7 @@ export const ChangeBlock = () => {
           }}
           size="small"
           variant="outlined"
+          onClick={logout}
         >
           Выйти из аккаунта
         </Button>
