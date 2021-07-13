@@ -23,11 +23,11 @@ interface IProps {
   isDisliked?: boolean;
 }
 
-export const AuthorVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isDisliked }) => {
+export const SingleBillsVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isDisliked }) => {
   const { isMobile } = useWindowSize();
-  const { authorLikeStatus, authorDislikeStatus } = useSelector((s: RootState) => s?.singleNews);
+  const { likeStatus, dislikeStatus } = useSelector((s: RootState) => s?.singleBills);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
-  const { setAuthorLike, setAuthorDislike } = useSetLike();
+  const { setBillLike, setBillDislike } = useSetLike();
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
@@ -44,9 +44,9 @@ export const AuthorVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isDisli
         type="button"
         className={isLiked ? styles['likeButton-active'] : styles.likeButton}
         onClick={() => {
-          if (authorLikeStatus !== APIStatus.Loading && authorDislikeStatus !== APIStatus.Loading) {
+          if (likeStatus !== APIStatus.Loading && dislikeStatus !== APIStatus.Loading) {
             if (isAuthenticated) {
-              setAuthorLike();
+              setBillLike();
             } else {
               handleClickLogin();
             }
@@ -61,9 +61,9 @@ export const AuthorVotesGroup: FC<IProps> = ({ likes, dislikes, isLiked, isDisli
         type="button"
         className={isDisliked ? styles['dislikeButton-active'] : styles.likeButton}
         onClick={() => {
-          if (authorLikeStatus !== APIStatus.Loading && authorDislikeStatus !== APIStatus.Loading) {
+          if (likeStatus !== APIStatus.Loading && dislikeStatus !== APIStatus.Loading) {
             if (isAuthenticated) {
-              setAuthorDislike();
+              setBillDislike();
             } else {
               handleClickLogin();
             }

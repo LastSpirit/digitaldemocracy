@@ -4,11 +4,7 @@ import { APIRequest, callAPI } from '../lib/axiosAPI';
 import { SingleNewsI } from '../slices/SingleNewsSlice';
 
 interface LikeRequest {
-  news_id?: number;
-  media_id?: number;
-  author_id?: number;
-  politician_id?: number;
-  voting_place?: string;
+  bill_id?: number;
 }
 
 interface LikeResponse {}
@@ -19,7 +15,9 @@ interface LikeVar {
   isMassmediaLiked?: boolean;
   token?: string;
   isAuthorLiked?: boolean;
+  isBillLiked?: boolean;
   isAuthorDisliked?: boolean;
+  isBillDisliked?: boolean;
   isPoliticianLiked?: boolean;
   isPoliticianDisliked?: boolean;
 }
@@ -35,6 +33,36 @@ const fetchSingleBills = (args) =>
     },
     ...args,
   });
+
+const billLike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
+  const { isBillLiked, token } = args.variables;
+  return callAPI({
+    url: isBillLiked ? 'deleteLikeFromPoliticianOnBill' : 'addLikeToPoliticianOnBill',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.variables.token}`,
+      },
+    },
+    ...args,
+  });
+};
+
+const billDislike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
+  const { isBillDisliked, token } = args.variables;
+  return callAPI({
+    url: isBillDisliked ? 'deleteDislikeFromPoliticianOnBill' : 'addDislikeToPoliticianOnBill',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.variables.token}`,
+      },
+    },
+    ...args,
+  });
+};
 
 // const massmediaLike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
 //   const { isMassmediaLiked, token } = args.variables;
@@ -55,36 +83,6 @@ const fetchSingleBills = (args) =>
 //   const { isMassmediaDisliked, token } = args.variables;
 //   return callAPI({
 //     url: isMassmediaDisliked ? 'deleteDislikeFromMedia   ' : 'addDislikeToMedia  ',
-//     config: {
-//       method: 'POST',
-//       headers: {
-//         Accept: 'application/json',
-//         Authorization: `Bearer ${args.variables.token}`,
-//       },
-//     },
-//     ...args,
-//   });
-// };
-
-// const authorLike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
-//   const { isAuthorLiked, token } = args.variables;
-//   return callAPI({
-//     url: isAuthorLiked ? 'deleteLikeFromAuthor' : 'addLikeToAuthor',
-//     config: {
-//       method: 'POST',
-//       headers: {
-//         Accept: 'application/json',
-//         Authorization: `Bearer ${args.variables.token}`,
-//       },
-//     },
-//     ...args,
-//   });
-// };
-
-// const authorDislike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
-//   const { isAuthorDisliked, token } = args.variables;
-//   return callAPI({
-//     url: isAuthorDisliked ? 'deleteDislikeFromAuthor' : 'addDislikeToAuthor',
 //     config: {
 //       method: 'POST',
 //       headers: {
@@ -130,8 +128,8 @@ export const singleBillsAPI = {
   fetchSingleBills,
   // massmediaLike,
   // massmediaDislike,
-  // authorLike,
-  // authorDislike,
+  billLike,
+  billDislike,
   // politicianLike,
   // politicianDislike,
 };

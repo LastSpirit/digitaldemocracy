@@ -10,7 +10,7 @@ import { Loading } from 'src/components/Loading/Loading';
 import { WrapperAsyncRequest } from './features/Loading/WrapperAsyncRequest';
 import SingleBillsList from './features/SingleBillsList/SingleBillsList';
 import SingleBillsHero from './features/SingleBillsHero/SingleBillsHero';
-import SingleBillsStatistics from './features/SingleBillsStatistics/SingleBillsStatistics';
+import { SingleBillsStatistics } from './features/SingleBillsStatistics/SingleBillsStatistics';
 import { useFetchSingleBills } from './hooks/useFetchSingleBills';
 
 import styles from '../MassMediaPage/MassMediaPage.module.scss';
@@ -23,14 +23,13 @@ const SingleBills = (props) => {
   useEffect((): any => {
     fetch();
   }, []);
-
   return (
     <Container maxWidth="lg" className={styles.container}>
       <div className={styles.container}>
         <WrapperAsyncRequest status={status}>
           <BackButton />
           <SingleBillsHero data={data} />
-          {/* <SingleBillsStatistics author={data?.currentNews?.author} /> */}
+          <SingleBillsStatistics {...data} />
           {/* {data?.news && data?.news.length > 0 ? (
             <SingleBillsList news={data?.news} isMorePages={data?.isMorePages} />
           ) : null} */}
