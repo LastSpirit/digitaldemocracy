@@ -48,7 +48,7 @@ export const useOAuthRegister = (isLogin?: boolean) => {
         ...response,
         country_id: countryId ? Number(countryId) : undefined,
         address,
-      }
+      },
     });
   };
 
@@ -56,14 +56,17 @@ export const useOAuthRegister = (isLogin?: boolean) => {
     fetch(`https://oauth.yandex.ru/authorize?response_type=token&client_id=${OAuthConfig.yandexSecretID}`, {
       method: 'GET',
       redirect: 'follow',
-    }).then((res) => {
-      console.log(res);
-      window.open(res.url);
-    }).catch((err) => {
-      setYandexError(err.toString());
-    }).then((res) => {
-      console.log(res);
-    });
+    })
+      .then((res) => {
+        console.log(res);
+        window.open(res.url);
+      })
+      .catch((err) => {
+        setYandexError(err.toString());
+      })
+      .then((res) => {
+        console.log(res);
+      });
   };
 
   return { googleOAuth, yandexOAuth, googleError, yandexError };
