@@ -244,8 +244,12 @@ export const politicianSlice = createSlice({
       state.news = { ...state.news, start_date: action.payload.min, end_date: action.payload.max };
     },
     setReset(state) {
-      state.news.page = 1;
-      state.news.news = [];
+      state.news = {
+        ...state.news,
+        news: [],
+        isMorePages: false,
+        page: 1,
+      };
     },
   },
 });

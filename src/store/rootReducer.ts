@@ -7,6 +7,7 @@ import { homeSlice } from '../slices/homeSlice';
 import { userSlice } from '../slices/userSlice';
 // eslint-disable-next-line import/no-cycle
 import { newsSlice } from '../slices/newsSlice';
+import { singleBillsSlice } from '../slices/SingleBillsSlice';
 // eslint-disable-next-line import/no-cycle
 import { singleNewsSlice } from '../slices/SingleNewsSlice';
 import { politicianSlice } from '../slices/politicianSlice';
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   home: homeSlice.reducer,
   news: newsSlice.reducer,
   singleNews: singleNewsSlice.reducer,
+  singleBills: singleBillsSlice.reducer,
   politician: politicianSlice.reducer,
   user: userSlice.reducer,
   massmedia: massMediaSlice.reducer,

@@ -4,15 +4,11 @@ import { Box, Container, Typography, IconButton, Grid } from '@material-ui/core'
 import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import FacebookIcon from '@material-ui/icons/Facebook';
-import { CurrentNewsI } from 'src/slices/SingleNewsSlice';
+import { SingleBillsI } from 'src/slices/SingleBillsSlice';
 import FacebookShare from 'src/components/FacebookShare/FacebookShare';
 import styles from './SingleBillsHero.module.scss';
 
-interface HeroPropsI {
-  data?: CurrentNewsI;
-}
-
-const SingleBillsHero: FC<HeroPropsI> = ({ data }) => {
+const SingleBillsHero = ({ data }) => {
   const [toggleIframe, setToggleIframe] = useState(true);
   const handleToggleIframe = () => {
     setToggleIframe(!toggleIframe);
@@ -44,16 +40,16 @@ const SingleBillsHero: FC<HeroPropsI> = ({ data }) => {
           </Grid>
           <Grid item lg={6} md={12} className={styles.newsInfo}>
             <Box className={styles.newsAuthor}>
-              <Box>
+              {/* <Box>
                 <Typography>{data?.media?.name}</Typography>
                 <Typography>{data?.author?.name}</Typography>
-              </Box>
+              </Box> */}
               <Box className={styles.date}>
                 <Typography>{data?.publication_date}</Typography>
               </Box>
             </Box>
 
-            <Box className={styles.newsSubject}>
+            {/* <Box className={styles.newsSubject}>
               {data?.newTopics.map((item) => (
                 <Typography
                   key={item.id}
@@ -64,7 +60,7 @@ const SingleBillsHero: FC<HeroPropsI> = ({ data }) => {
                   {item.title}
                 </Typography>
               ))}
-            </Box>
+            </Box> */}
           </Grid>
         </Grid>
         {toggleIframe ? (

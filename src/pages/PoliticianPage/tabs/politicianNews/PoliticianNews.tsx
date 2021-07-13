@@ -19,7 +19,7 @@ export const PoliticianNews = () => {
 
   useEffect(() => {
     if (start_date && end_date) {
-      fetch(start_date, end_date, page);
+      fetch();
     }
   }, [page, start_date, end_date]);
 
