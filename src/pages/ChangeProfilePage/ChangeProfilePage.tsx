@@ -13,7 +13,7 @@ const ChangeProfilePage = () => {
       <WrapperAsyncRequest status={APIStatus.Success}>
         <BackButton />
         <div className={styles.navigation}>
-          <Navigation />
+          {/* <Navigation /> */}
           <ChangeBlock />
         </div>
       </WrapperAsyncRequest>

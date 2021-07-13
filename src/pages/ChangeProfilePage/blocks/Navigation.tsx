@@ -26,7 +26,7 @@ export const Navigation = () => {
     <>
       {!isMobile ? (
         <div className={styles.tabList}>
-          {ProfileTabs.map(({ title, id }, index) => (
+          {/* {ProfileTabs.map(({ title, id }, index) => (
             <Link
               key={id}
               className={classNames(styles.link, {
@@ -37,12 +37,12 @@ export const Navigation = () => {
             >
               {title}
             </Link>
-          ))}
+          ))} */}
         </div>
       ) : (
         <div className={styles.tabListContainer}>
           <ArrowForwardIosIcon className={styles.prevArrow} onClick={handlePrevClick} />
-          <div className={styles.tabList} ref={scrollContainerRef}>
+          {/* <div className={styles.tabList} ref={scrollContainerRef}>
             {ProfileTabs.map(({ title, id }, index) => (
               <Link
                 ref={index === 0 ? listItemRef : undefined}
@@ -56,7 +56,7 @@ export const Navigation = () => {
                 {title}
               </Link>
             ))}
-          </div>
+          </div> */}
           <ArrowForwardIosIcon className={styles.nextArrow} onClick={handleNextClick} />
         </div>
       )}

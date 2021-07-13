@@ -55,7 +55,10 @@
 
   .tabContent {
     margin-left: 30px;
-    flex-basis: 76%;
+    flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     @media screen and (max-width: 570px) {
       margin-left: 0 !important;
     }
@@ -159,8 +162,12 @@
   width: 671px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 1024px) {
+    width: 90%;
+  }
   .helloMessage {
     margin-top: 27px;
     background: #f0fff2;
