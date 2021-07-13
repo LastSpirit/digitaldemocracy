@@ -5,7 +5,7 @@
 }
 
 .container {
-  min-height: 80vh;
+  min-height: 1440px;
   position: relative;
   .containerContent {
     width: 100%;
@@ -1321,5 +1321,40 @@
     font-weight: 500;
     font-size: 16px;
     line-height: 21px;
+  }
+}
+
+.newsButton {
+  background-color: white;
+  border: 1px solid #363557;
+  color: #363557;
+  padding: 10px;
+  line-height: 1rem;
+  margin-bottom: 20px;
+  min-width: 350px;
+  min-height: 45px;
+  border-radius: 25px;
+
+  &:hover {
+    background-color: #363557;
+    color: white;
+  }
+}
+
+.moreButton {
+  background-color: white;
+  border: 1px solid #363557;
+  color: #363557;
+  padding: 10px;
+  line-height: 1rem;
+  margin-bottom: 20px;
+  width: 150px;
+  height: 45px;
+  border-radius: 25px;
+  margin-top: 25px;
+
+  &:hover {
+    background-color: #363557;
+    color: white;
   }
 }

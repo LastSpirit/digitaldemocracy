@@ -9,29 +9,35 @@ import { APIStatus } from '../../../lib/axiosAPI';
 
 export const useFetchNews = () => {
   const { fetchNews } = politicianAPI();
-  const { setNews } = politicianActionCreators();
+  const { setNews, setMorePage } = politicianActionCreators();
   const politician_id = useSelector((s: RootState) => s?.politician?.data?.id);
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
   const [error, setError] = useState<string>();
   const { short_link }: { short_link: string } = useParams();
   const token = getItem('token');
-  const fetch = useCallback(() => {
-    setStatus(APIStatus.Loading);
-    fetchNews({
-      onSuccess: (response) => {
-        setNews(response);
-        setStatus(APIStatus.Success);
-      },
-      onError: (errorResponse) => {
-        setError(errorResponse);
-        setStatus(APIStatus.Failure);
-      },
-      variables: {
-        token,
-        politician_id,
-      },
-    });
-  }, [politician_id, token]);
+  const fetch = useCallback(
+    (start_date, end_date, page) => {
+      setStatus(APIStatus.Loading);
+      fetchNews({
+        onSuccess: (response) => {
+          setNews(response);
+          setStatus(APIStatus.Success);
+        },
+        onError: (errorResponse) => {
+          setError(errorResponse);
+          setStatus(APIStatus.Failure);
+        },
+        variables: {
+          token,
+          politician_id,
+          start_date,
+          end_date,
+          page,
+        },
+      });
+    },
+    [politician_id, token]
+  );
 
   return { fetch, error, status };
 };

@@ -12,10 +12,12 @@ import PoliticianNavigation from './blocks/PoliticianNavigation';
 import { MobileButtons } from '../../components/MobileButtons/MobileButtons';
 import { BackButton } from '../../components/BackButton/BackButton';
 import { CustomDialog } from './blocks/CustomDialog/CustomDialog';
+import { politicianActionCreators } from '../../slices/politicianSlice';
 
 const PoliticianPage = () => {
   const { isMobile } = useWindowSize();
   const { status, fetch } = useFetchProfileInfo();
+  const { setReset } = politicianActionCreators();
   const [open, setOpen] = useState(false);
   const [next, setNext] = useState(false);
   const token = getItem('token');
@@ -32,6 +34,11 @@ const PoliticianPage = () => {
     fetch();
   }, [token]);
 
+  useEffect(() => {
+    return () => {
+      setReset();
+    };
+  }, []);
   return (
     <Container maxWidth="lg" className={styles.cont}>
       <div className={styles.container}>

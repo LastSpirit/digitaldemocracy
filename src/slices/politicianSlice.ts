@@ -1,6 +1,7 @@
 import { positions } from '@material-ui/system';
 import { bindActionCreators, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
+import { newsAPI } from 'src/api/newsAPI';
 import { APIStatus } from 'src/lib/axiosAPI';
 import { NewsI } from './homeSlice';
 
@@ -147,7 +148,7 @@ export interface NewsWithPercentI extends NewsI {
 }
 
 const initialState: SliceState = {
-  news: [],
+  news: { page: 1, start_date: 0, end_date: 0 },
   chartData: {},
   promisesLikeStatus: {},
   promisesDislikeStatus: {},
@@ -161,8 +162,12 @@ export const politicianSlice = createSlice({
   name: 'politicianSlice',
   initialState,
   reducers: {
-    setNews(state: SliceState, action: PayloadAction<Array<NewsWithPercentI>>) {
-      state.news = action.payload;
+    setNews(state: SliceState, action) {
+      state.news = {
+        ...state.news,
+        news: [...(state.news.news || []), ...action.payload.news],
+        isMorePages: action.payload.isMorePages,
+      };
       // state.chartData = [...action.payload].map((item) => [new Date(item.publication_date), item.percent]);
     },
     setPoliticianInfo(state: SliceState, action: PayloadAction<PoliticianInfoI>) {
@@ -231,6 +236,16 @@ export const politicianSlice = createSlice({
     },
     setChartData(state, action) {
       state.chartData = action.payload;
+    },
+    setMorePage(state) {
+      state.news = { ...state.news, page: state.news.page + 1 };
+    },
+    setDate(state, action) {
+      state.news = { ...state.news, start_date: action.payload.min, end_date: action.payload.max };
+    },
+    setReset(state) {
+      state.news.page = 1;
+      state.news.news = [];
     },
   },
 });
