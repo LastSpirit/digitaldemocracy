@@ -1,4 +1,5 @@
 import React from 'react';
+import { RootState } from 'src/store';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
@@ -12,6 +13,8 @@ import styles from '../ChangeProfilePage.module.scss';
 
 export const ChangeBlock = () => {
   const { logout } = userActionCreators();
+  const data = useSelector((s: RootState) => s.profile.data);
+
   return (
     <div className={styles.tabContent}>
       <div className={styles.titleRow}>
@@ -41,7 +44,7 @@ export const ChangeBlock = () => {
         </div>
         <div className={styles.avatarBlock}>
           <div className={styles.avatarContainer}>
-            <img src="any" alt="not found" />
+            <img src={data.userProfile?.avatar} alt="img" />
           </div>
           <Button
             className={styles.uploadButton}

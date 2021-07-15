@@ -16,6 +16,7 @@ import { partySlice } from '../slices/partySlice';
 // eslint-disable-next-line import/no-cycle
 import { widgetLinkSlice } from '../slices/widgetLinkSlice';
 import { ratingSlice } from '../slices/ratingSlice';
+import { profileSlice } from '../slices/profileSlice';
 
 const rootReducer = combineReducers({
   auth: authSlice.reducer,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   party: partySlice.reducer,
   widgetLink: widgetLinkSlice.reducer,
   rating: ratingSlice.reducer,
+  profile: profileSlice.reducer,
 });
 
 export default rootReducer;

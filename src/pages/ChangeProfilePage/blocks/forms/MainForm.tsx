@@ -1,4 +1,5 @@
 import React from 'react';
+import { RootState } from 'src/store';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button, InputLabel } from '@material-ui/core';
@@ -8,12 +9,13 @@ import * as Yup from 'yup';
 import styles from '../../ChangeProfilePage.module.scss';
 
 export const MainForm = () => {
+  const data = useSelector((s: RootState) => s.profile.data);
   return (
     <Formik
       initialValues={{
-        name: '',
-        lastname: '',
-        day: '',
+        name: data?.userProfile?.first_name ?? '',
+        lastname: data?.userProfile?.last_name ?? '',
+        day: data?.userProfile?.birth_date?.split('-')?.reverse()?.join('-') ?? '',
         month: '',
         year: '',
         gender: '',
@@ -26,26 +28,25 @@ export const MainForm = () => {
       }}
       onSubmit={async (values) => console.log(values)}
       validationSchema={Yup.object().shape({
-        name: Yup.string(),
-        lastname: Yup.string(),
+        name: Yup.string().max(255),
+        lastname: Yup.string().max(255),
         day: Yup.date(),
-        month: Yup.string(),
-        year: Yup.string(),
         gender: Yup.string(),
-        country: Yup.string(),
+        country: Yup.string().required('Это обязательное поле'),
         region: Yup.string(),
         city: Yup.string(),
         religion: Yup.string(),
         education: Yup.string(),
         political_views: Yup.string(),
       })}
+      enableReinitialize={true}
     >
       {(props) => {
         const { values, touched, errors, dirty, isSubmitting, handleChange, handleBlur, handleSubmit, handleReset } =
           props;
         const disabled = !!Object.entries(errors).length || !dirty;
         return (
-          <form onSubmit={handleSubmit} className={styles.mainForm} onReset={handleReset}>
+          <form onSubmit={handleSubmit} className={styles.mainForm} onReset={handleReset} noValidate>
             <InputLabel htmlFor="name" className={styles.inputLabel}>
               Имя
             </InputLabel>
@@ -103,11 +104,14 @@ export const MainForm = () => {
             </InputLabel>
             <TextField
               type="text"
+              required
               id="country"
               value={values.country}
               onChange={handleChange}
               onBlur={handleBlur}
               variant={'outlined'}
+              helperText={errors.country}
+              error={!!errors.country}
             />
             <InputLabel htmlFor="region" className={styles.inputLabel}>
               Регион
