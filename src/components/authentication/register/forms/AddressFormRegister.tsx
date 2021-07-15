@@ -113,8 +113,8 @@ const AddressFormRegister: FC = (props) => {
                     }}
                     onInputChange={(value, newValue) => {
                       setFieldValue('country_title', newValue);
-                      // values.city_title = '';
-                      // values.region_title = '';
+                      setFieldValue('city_title', '');
+                      setFieldValue('region_title', '');
                       const isValidCountry = countries?.find(
                         (it) => it?.title?.toLowerCase() === newValue?.toLowerCase()
                       );
@@ -149,8 +149,8 @@ const AddressFormRegister: FC = (props) => {
                     options={regions.map((item) => item.title) || []}
                     noOptionsText={<>Нет доступных вариантов</>}
                     onInputChange={(value, newValue) => {
-                      handleChange(newValue);
-                      values.city_title = '';
+                      setFieldValue('region_title', newValue);
+                      setFieldValue('city_title', '');
                       const isValidRegion = regions?.find((it) => it?.title?.toLowerCase() === newValue?.toLowerCase());
                       if (isValidRegion) {
                         fetchCities(isValidRegion.id);
@@ -170,9 +170,6 @@ const AddressFormRegister: FC = (props) => {
                         name="region_title"
                         variant="outlined"
                         style={{ marginTop: '20px' }}
-                        onSelect={(value) => {
-                          handleChange(value);
-                        }}
                         value={values.region_title}
                       />
                     )}
@@ -186,13 +183,13 @@ const AddressFormRegister: FC = (props) => {
                     options={cities.map((item) => item.title) || []}
                     noOptionsText={<>Нет доступных вариантов</>}
                     onInputChange={(value, newValue) => {
+                      setFieldValue('city_title', newValue);
                       const isValidCity = cities?.find((it) => it?.title?.toLowerCase() === newValue?.toLowerCase());
                       if (isValidCity) {
                         setWithCity(true);
                       } else {
                         setWithCity(false);
                       }
-                      handleChange(newValue);
                     }}
                     disabled={cityStatus === APIStatus.Loading}
                     limitTags={15}
@@ -204,9 +201,6 @@ const AddressFormRegister: FC = (props) => {
                         name="city_title"
                         variant="outlined"
                         style={{ marginTop: '20px' }}
-                        onSelect={(value) => {
-                          handleChange(value);
-                        }}
                         value={values.city_title}
                       />
                     )}
