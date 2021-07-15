@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { userActionCreators } from 'src/slices/userSlice';
 import { MainForm } from './forms/MainForm';
+import { Accounts } from './Accounts';
+import { PhoneForm } from './forms/PhoneForm';
+import { EmailForm } from './forms/EmailForm';
+import { PasswordForm } from './forms/PasswordForm';
 import styles from '../ChangeProfilePage.module.scss';
 
 export const ChangeBlock = () => {
@@ -56,6 +60,10 @@ export const ChangeBlock = () => {
           </Button>
         </div>
         <MainForm />
+        <Accounts />
+        <PhoneForm />
+        <EmailForm />
+        <PasswordForm />
       </div>
     </div>
   );

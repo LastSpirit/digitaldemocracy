@@ -17,7 +17,7 @@
   }
 }
 
-.navigation {
+.root {
   margin: 50px 0;
   display: flex;
   flex-shrink: 1;
@@ -214,94 +214,20 @@
     display: flex;
     flex-direction: column;
     margin-top: 36px;
-    .inputTitle {
-      margin-top: 36px;
-      padding-left: 19px;
-      &:first-child {
-        margin-top: 0px;
-      }
-    }
-    .dateRow {
-      width: 100%;
+    margin-bottom: 80px;
+
+    .multiInputs {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      .day {
-        margin-top: 12px;
-        background: #ffffff;
-        border: 1px solid #000000;
-        box-sizing: border-box;
-        border-radius: 4px;
-        height: 48px;
-        width: 157px;
-        padding: 2px;
-        padding-right: 10px;
-        input {
-          padding: 12px;
-        }
-        &:hover {
-          border: 2px solid #000000;
-          padding: 1px;
-          padding-right: 10px;
-        }
-      }
-      .month {
-        margin-top: 12px;
-        background: #ffffff;
-        border: 1px solid #000000;
-        box-sizing: border-box;
-        border-radius: 4px;
-        height: 48px;
-        width: 245px;
-        padding: 2px;
-        padding-right: 10px;
-        input {
-          padding: 12px;
-        }
-        &:hover {
-          border: 2px solid #000000;
-          padding: 1px;
-          padding-right: 10px;
-        }
-      }
-      .year {
-        margin-top: 12px;
-        background: #ffffff;
-        border: 1px solid #000000;
-        box-sizing: border-box;
-        border-radius: 4px;
-        height: 48px;
-        width: 202px;
-        padding: 2px;
-        padding-right: 10px;
-        input {
-          padding: 12px;
-        }
-        &:hover {
-          border: 2px solid #000000;
-          padding: 1px;
-          padding-right: 10px;
-        }
+
+      .rowInput {
+        flex-basis: 40%;
       }
     }
-    .input {
-      margin-top: 12px;
-      background: #ffffff;
-      border: 1px solid #000000;
-      box-sizing: border-box;
-      border-radius: 4px;
-      height: 48px;
-      width: 100%;
-      padding: 2px;
-      padding-right: 10px;
-      input {
-        padding: 12px;
-      }
-      &:hover {
-        border: 2px solid #000000;
-        padding: 1px;
-        padding-right: 10px;
-      }
+
+    .inputLabel {
+      margin-bottom: 12px;
+      margin-top: 36px;
     }
     .buttons {
       width: 100%;
@@ -328,6 +254,218 @@
         &:hover {
           color: white !important;
           background: #363557 !important;
+        }
+      }
+    }
+  }
+}
+
+p {
+  font-size: 24px;
+  line-height: 28px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+.account {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 82px;
+
+  .border {
+    border: 1px solid #b0b0b0;
+    box-sizing: border-box;
+    border-radius: 20px;
+    height: 90px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 21px 27px;
+    margin-bottom: 18px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    img {
+      width: 114px;
+      height: 48px;
+    }
+
+    .accountButton {
+      color: white;
+      background: #363557;
+      border: 1px solid #363557;
+      height: 36px;
+      margin-right: 0px;
+      &:hover {
+        color: #363557;
+        background: white;
+      }
+    }
+  }
+}
+
+.phoneWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 82px;
+  p {
+    align-self: center;
+  }
+  .phone {
+    .row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      .input {
+        flex-basis: 65%;
+        width: 100%;
+
+        .inputLabel {
+          margin-bottom: 12px;
+          margin-top: 36px;
+        }
+      }
+
+      .buttons {
+        flex-basis: 30%;
+        .button {
+          color: white;
+          background: #363557;
+          border: 1px solid #363557;
+          height: 36px;
+          margin-right: 0px;
+          margin-bottom: 10px;
+          width: 100%;
+
+          &:hover {
+            color: #363557;
+            background: white;
+          }
+        }
+      }
+    }
+  }
+}
+
+.emailWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 82px;
+  p {
+    align-self: center;
+  }
+  .email {
+    .password {
+      display: flex;
+      justify-content: space-between;
+
+      .input {
+        flex-basis: 45%;
+        width: 100%;
+
+        .inputLabel {
+          margin-bottom: 12px;
+          margin-top: 36px;
+        }
+      }
+    }
+    .row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      .input {
+        flex-basis: 65%;
+        width: 100%;
+
+        .inputLabel {
+          margin-bottom: 12px;
+          margin-top: 36px;
+        }
+      }
+
+      .buttons {
+        flex-basis: 30%;
+        .button {
+          color: white;
+          background: #363557;
+          border: 1px solid #363557;
+          height: 36px;
+          margin-right: 0px;
+          margin-bottom: 10px;
+          width: 100%;
+
+          &:hover {
+            color: #363557;
+            background: white;
+          }
+        }
+      }
+    }
+  }
+}
+
+.passwordWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 82px;
+  p {
+    align-self: center;
+  }
+  .email {
+    .password {
+      display: flex;
+      justify-content: space-between;
+
+      .input {
+        flex-basis: 45%;
+        width: 100%;
+
+        .inputLabel {
+          margin-bottom: 12px;
+          margin-top: 36px;
+        }
+      }
+    }
+    .row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      .input {
+        flex-basis: 65%;
+        width: 100%;
+
+        .inputLabel {
+          margin-bottom: 12px;
+          margin-top: 36px;
+        }
+      }
+
+      .buttons {
+        flex-basis: 30%;
+        .button {
+          color: white;
+          background: #363557;
+          border: 1px solid #363557;
+          height: 36px;
+          margin-right: 0px;
+          margin-bottom: 10px;
+          width: 100%;
+
+          &:hover {
+            color: #363557;
+            background: white;
+          }
         }
       }
     }

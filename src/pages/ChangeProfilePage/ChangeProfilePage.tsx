@@ -4,7 +4,6 @@ import { APIStatus } from 'src/lib/axiosAPI';
 import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
 import { BackButton } from 'src/components/BackButton/BackButton';
 import styles from './ChangeProfilePage.module.scss';
-import { Navigation } from './blocks/Navigation';
 import { ChangeBlock } from './blocks/ChangeBlock';
 
 const ChangeProfilePage = () => {
@@ -12,8 +11,7 @@ const ChangeProfilePage = () => {
     <div className={styles.container}>
       <WrapperAsyncRequest status={APIStatus.Success}>
         <BackButton />
-        <div className={styles.navigation}>
-          {/* <Navigation /> */}
+        <div className={styles.root}>
           <ChangeBlock />
         </div>
       </WrapperAsyncRequest>

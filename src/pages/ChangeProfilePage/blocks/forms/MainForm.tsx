@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Button } from '@material-ui/core';
+import { Button, InputLabel } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -28,7 +28,7 @@ export const MainForm = () => {
       validationSchema={Yup.object().shape({
         name: Yup.string(),
         lastname: Yup.string(),
-        day: Yup.string(),
+        day: Yup.date(),
         month: Yup.string(),
         year: Yup.string(),
         gender: Yup.string(),
@@ -46,125 +46,123 @@ export const MainForm = () => {
         const disabled = !!Object.entries(errors).length || !dirty;
         return (
           <form onSubmit={handleSubmit} className={styles.mainForm} onReset={handleReset}>
-            <div className={styles.inputTitle}>Имя</div>
+            <InputLabel htmlFor="name" className={styles.inputLabel}>
+              Имя
+            </InputLabel>
             <TextField
               type="text"
               id="name"
               value={values.name}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={styles.input}
-              variant={'filled'}
+              variant="outlined"
             />
-            <div className={styles.inputTitle}>Фамилия</div>
+            <InputLabel htmlFor="lastname" className={styles.inputLabel}>
+              Фамилия
+            </InputLabel>
             <TextField
               type="text"
               id="lastname"
               value={values.lastname}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={styles.input}
-              variant={'filled'}
+              variant="outlined"
             />
-            <div className={styles.inputTitle}>Дата рождения</div>
-            <div className={styles.dateRow}>
-              <TextField
-                type="text"
-                id="day"
-                value={values.day}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className={styles.day}
-                variant={'filled'}
-              />
-              <TextField
-                type="text"
-                id="month"
-                value={values.month}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className={styles.month}
-                variant={'filled'}
-              />
-              <TextField
-                type="text"
-                id="year"
-                value={values.year}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className={styles.year}
-                variant={'filled'}
-              />
+            <div className={styles.multiInputs}>
+              <div className={styles.rowInput}>
+                <InputLabel htmlFor="day" className={styles.inputLabel}>
+                  Дата рождения
+                </InputLabel>
+                <TextField
+                  type="date"
+                  id="day"
+                  value={values.day}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              <div className={styles.rowInput}>
+                <InputLabel htmlFor="gender" className={styles.inputLabel}>
+                  Пол
+                </InputLabel>
+                <TextField
+                  type="text"
+                  id="gender"
+                  value={values.gender}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
             </div>
-            <div className={styles.inputTitle}>Пол</div>
-            <TextField
-              type="text"
-              id="gender"
-              value={values.gender}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className={styles.input}
-              variant={'filled'}
-            />
-            <div className={styles.inputTitle}>Страна</div>
+            <InputLabel htmlFor="country" className={styles.inputLabel}>
+              Страна
+            </InputLabel>
             <TextField
               type="text"
               id="country"
               value={values.country}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={styles.input}
-              variant={'filled'}
+              variant={'outlined'}
             />
-            <div className={styles.inputTitle}>Регион</div>
+            <InputLabel htmlFor="region" className={styles.inputLabel}>
+              Регион
+            </InputLabel>
             <TextField
               type="text"
               id="region"
               value={values.region}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={styles.input}
-              variant={'filled'}
+              variant={'outlined'}
             />
-            <div className={styles.inputTitle}>Город</div>
+            <InputLabel htmlFor="city" className={styles.inputLabel}>
+              Город
+            </InputLabel>
             <TextField
               type="text"
               id="city"
               value={values.city}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={styles.input}
-              variant={'filled'}
+              variant={'outlined'}
             />
-            <div className={styles.inputTitle}>Религия</div>
+            <InputLabel htmlFor="religion" className={styles.inputLabel}>
+              Религиозные взгляды
+            </InputLabel>
             <TextField
               type="text"
               id="religion"
               value={values.religion}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={styles.input}
-              variant={'filled'}
+              variant={'outlined'}
             />
-            <div className={styles.inputTitle}>Образование</div>
+            <InputLabel htmlFor="education" className={styles.inputLabel}>
+              Образование
+            </InputLabel>
             <TextField
               type="text"
               id="education"
               value={values.education}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={styles.input}
-              variant={'filled'}
+              variant={'outlined'}
             />
-            <div className={styles.inputTitle}>Политические взгляды</div>
+            <InputLabel htmlFor="political_views" className={styles.inputLabel}>
+              Политические взгляды
+            </InputLabel>
             <TextField
               type="text"
               id="political_views"
               value={values.political_views}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={styles.input}
-              variant={'filled'}
+              variant={'outlined'}
             />
 
             <div className={styles.buttons}>
