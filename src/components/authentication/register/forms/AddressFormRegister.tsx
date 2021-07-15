@@ -100,7 +100,7 @@ const AddressFormRegister: FC = (props) => {
             }
           }}
         >
-          {({ errors, handleBlur, handleChange, handleSubmit, touched, values }): JSX.Element => {
+          {({ errors, handleBlur, handleChange, handleSubmit, touched, values, setFieldValue }): JSX.Element => {
             return (
               <form noValidate onSubmit={handleSubmit} {...props}>
                 <Box sx={{ mt: 0.5 }}>
@@ -112,9 +112,9 @@ const AddressFormRegister: FC = (props) => {
                       handleChange(e);
                     }}
                     onInputChange={(value, newValue) => {
-                      handleChange(newValue);
-                      values.city_title = '';
-                      values.region_title = '';
+                      setFieldValue('country_title', newValue);
+                      // values.city_title = '';
+                      // values.region_title = '';
                       const isValidCountry = countries?.find(
                         (it) => it?.title?.toLowerCase() === newValue?.toLowerCase()
                       );
