@@ -86,7 +86,9 @@ export interface NewsI {
   news: Array<NewsListI>,
   newsTopics?: Array<NewTopicsI>,
   isMorePages: boolean,
-  country?: string
+  country?: string,
+  region?: string,
+  city?: string,
 }
 
 interface SliceState {

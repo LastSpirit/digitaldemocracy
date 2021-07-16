@@ -73,6 +73,7 @@ export const useFetchNewsData = (setLoadMoreNews?: (value: boolean) => void) => 
       },
       onError: (errorResponse) => {
         setStatus(fetchOnlyNews, APIStatus.Failure);
+        dispatch(action({}));
         console.log(errorResponse);
       }
     }));

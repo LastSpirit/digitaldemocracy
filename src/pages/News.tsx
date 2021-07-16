@@ -29,12 +29,13 @@ const News: FC = () => {
     }
   }, [selectedTab]);
   const data = useSelector(newsSelector.getData());
+  console.log(data);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   return (
     <Box>
       <Container maxWidth="lg">
         {isAuthenticated && <NewsNav navigation={navigation} selectedTab={selectedTab} onClick={setSelectedTab} />}
-        <NewsContent newsTopics={data?.newsTopics} news={data?.news} isMorePages={data?.isMorePages} />
+        <NewsContent newsTopics={data?.newsTopics} news={data?.news} isMorePages={data?.isMorePages} nameArea={data?.country || data?.region || data?.city} />
       </Container>
     </Box>
   );
