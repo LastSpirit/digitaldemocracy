@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { FC } from 'react';
 import { Box, Container } from '@material-ui/core';
 import { useSelector } from 'react-redux';
@@ -7,6 +7,8 @@ import NewsNav from '../components/News/NewsNav/NewsNav';
 import NewsContent from '../components/News/NewsContent/NewsContent';
 import { newsSelector } from '../slices/newsSlice';
 import { userSelectors } from '../slices/userSlice';
+import { APIStatus } from '../lib/axiosAPI';
+import { Loading } from '../components/Loading/Loading';
 
 const News: FC = () => {
   const navigation = [
@@ -17,7 +19,7 @@ const News: FC = () => {
     { title: 'Новости города', id: 4, type: 'city' },
   ];
   const [selectedTab, setSelectedTab] = useState('actual');
-  const { fetch, fetchAreaNews } = useFetchNewsData();
+  const { fetch, fetchAreaNews, fetchDataStatus } = useFetchNewsData();
   useEffect(() => {
     fetch();
   }, []);
@@ -34,7 +36,24 @@ const News: FC = () => {
     <Box>
       <Container maxWidth="lg">
         {isAuthenticated && <NewsNav navigation={navigation} selectedTab={selectedTab} onClick={setSelectedTab} />}
-        <NewsContent newsTopics={data?.newsTopics} news={data?.news} isMorePages={data?.isMorePages} nameArea={data?.country || data?.region || data?.city} />
+        {
+          fetchDataStatus === APIStatus.Loading ?
+            (
+              <Container
+                maxWidth="lg"
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '80vh',
+                }}
+              >
+                <Loading size={80} />
+              </Container>
+            ) : (
+              <NewsContent newsTopics={data?.newsTopics} news={data?.news} isMorePages={data?.isMorePages} nameArea={data?.country || data?.region || data?.city} />
+            )
+        }
       </Container>
     </Box>
   );

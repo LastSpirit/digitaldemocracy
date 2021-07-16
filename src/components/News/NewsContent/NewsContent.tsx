@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Box, Button, Grid, Typography } from '@material-ui/core';
+import { Box, Button, Container, Grid, Typography } from '@material-ui/core';
 import ListSidebar from '../../ListSidebar';
 import styles from './NewsContent.module.scss';
 import { NewsArrayI, NewsListI, newsSelector, NewTopicsI } from '../../../slices/newsSlice';
@@ -59,31 +59,33 @@ const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea }
               }}
             >
               {news &&
-              news.length > 0 &&
-              news.map((item, index) => (
-                <Grid
-                  key={index.toString()}
-                  item
-                  md={4}
-                  sm={6}
-                  xs={12}
-                  style={
-                    item.type === 'widgetLink'
-                      ? {
-                        alignSelf: 'center',
-                      }
-                      : {}
-                  }
-                >
-                  {
-                    item.type ?
-                      item.type === 'widgetLink' ?
-                        <WidgetLink {...item.widgetLink} />
-                        : <CardSmall {...item.news} />
-                      : <CardSmall {...item} />
-                  }
-                </Grid>
-              ))}
+                news.length > 0 ?
+                news.map((item, index) => (
+                  <Grid
+                    key={index.toString()}
+                    item
+                    md={4}
+                    sm={6}
+                    xs={12}
+                    style={
+                      item.type === 'widgetLink'
+                        ? {
+                          alignSelf: 'center',
+                        }
+                        : {}
+                    }
+                  >
+                    {
+                      item.type ?
+                        item.type === 'widgetLink' ?
+                          <WidgetLink {...item.widgetLink} />
+                          : <CardSmall {...item.news} />
+                        : <CardSmall {...item} />
+                    }
+                  </Grid>
+                )) : (
+                  <Box component={'span'} p={2}>На данный момент новостей нет</Box>
+                )}
             </Grid>
             <div className={styles.loadMore}>
               <WrapperAsyncRequest status={loadMoreNews ? fetchNewsStatus : APIStatus.Success}>
