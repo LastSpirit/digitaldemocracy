@@ -1,30 +1,55 @@
 import type { FC } from 'react';
-import { Box } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { Box, Tooltip } from '@material-ui/core';
 import classNames from 'classnames';
-import { useState } from 'react';
 import styles from './NewsNav.module.scss';
+import { userSelectors } from '../../../slices/userSlice';
 
-const NewsNav: FC = () => {
-  const navigation = [
-    { title: 'Актуальное', id: 0 },
-    { title: 'Подписки', id: 1 },
-    { title: 'Новости региона', id: 2 }
-  ];
-  const [selectedTab, setSelectedTab] = useState(0);
+interface Props {
+  navigation?: Array<{
+    title: string,
+    id: number,
+    type: string
+  }>,
+  selectedTab?: string,
+  onClick?: any
+}
+
+const NewsNav: FC<Props> = ({ navigation, selectedTab, onClick }) => {
+  const { country_id: country, region_id: region, city_id: city } = useSelector(userSelectors.getUser());
+  const tooltipTitles = {
+    country: country?.title || 'Страна не указана',
+    region: region?.title || 'Регион не указан',
+    city: city?.title || 'Город не указан'
+  };
 
   return (
     <Box className={styles.nav}>
       <div className={styles.list}>
-        {navigation.map((item) => (
-          // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-          <div
-            onClick={() => setSelectedTab(item.id)}
-            className={classNames(styles.listItem, { [styles.selectedItem]: item.id === selectedTab })}
-            key={item.id}
-          >
-            {item.title}
-          </div>
-        ))}
+        {navigation?.map((item, idx) => {
+          /* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */
+          if (idx > 1) {
+            return (
+              <Tooltip title={tooltipTitles[item.type]} key={item.id}>
+                <div
+                  onClick={() => onClick(item.type)}
+                  className={classNames(styles.listItem, { [styles.selectedItem]: item.type === selectedTab })}
+                >
+                  {item.title}
+                </div>
+              </Tooltip>
+            );
+          }
+          return (
+            <div
+              onClick={() => onClick(item.type)}
+              className={classNames(styles.listItem, { [styles.selectedItem]: item.type === selectedTab })}
+              key={item.id}
+            >
+              {item.title}
+            </div>
+          );
+        })}
       </div>
     </Box>
   );

@@ -3,13 +3,15 @@ import { useDispatch } from 'react-redux';
 import { newsAPI } from '../../../api/newsAPI';
 import { newsSlice } from '../../../slices/newsSlice';
 import { APIStatus } from '../../../lib/axiosAPI';
+import { getItem } from '../../../lib/localStorageManager';
 
 export const useFetchNewsData = (setLoadMoreNews?: (value: boolean) => void) => {
   const dispatch = useDispatch();
   const { setData, addNews, setNews } = newsSlice.actions;
-  const { fetchNews } = newsAPI;
+  const { fetchNews, fetchNewsArea } = newsAPI;
   const [fetchNewsStatus, setFetchNewsStatus] = useState<APIStatus>(APIStatus.Initial);
   const [fetchDataStatus, setFetchDataStatus] = useState<APIStatus>(APIStatus.Initial);
+  const token = getItem('token');
 
   const setStatus = (fetchOnlyNews: boolean, status: APIStatus) => {
     if (fetchOnlyNews) {
@@ -45,5 +47,37 @@ export const useFetchNewsData = (setLoadMoreNews?: (value: boolean) => void) => 
     }));
   }, [fetchNewsStatus, fetchDataStatus]);
 
-  return { fetch, fetchNewsStatus, fetchDataStatus };
+  // Country fetch data
+
+  const fetchAreaNews = useCallback((area?: string, page?: number, topicId?: any, fetchOnlyNews?: boolean) => {
+    let action;
+    if (topicId) {
+      action = setNews;
+    } else if (fetchOnlyNews) {
+      action = addNews;
+    } else {
+      action = setData;
+    }
+    setStatus(fetchOnlyNews, APIStatus.Loading);
+    dispatch(fetchNewsArea({
+      onSuccess: (response) => {
+        setStatus(fetchOnlyNews, APIStatus.Success);
+        dispatch(action({ ...response, page }));
+        setLoadMoreNews(false);
+      },
+      payload: {
+        area,
+        page,
+        topicId,
+        token,
+      },
+      onError: (errorResponse) => {
+        setStatus(fetchOnlyNews, APIStatus.Failure);
+        dispatch(action({}));
+        console.log(errorResponse);
+      }
+    }));
+  }, [fetchNewsStatus, fetchDataStatus]);
+
+  return { fetch, fetchAreaNews, fetchNewsStatus, fetchDataStatus };
 };

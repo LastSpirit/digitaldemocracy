@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Box, Button, Grid, Typography } from '@material-ui/core';
 import ListSidebar from '../../ListSidebar';
 import styles from './NewsContent.module.scss';
-import { NewsListI, newsSelector, NewTopicsI } from '../../../slices/newsSlice';
+import { NewsArrayI, NewsListI, newsSelector, NewTopicsI } from '../../../slices/newsSlice';
 import CardSmall from '../../CardSmall/CardSmall';
 import WidgetLink from '../../WidgetLink/WidgetLink';
 import { useWindowSize } from '../../../hooks/useWindowSize';
@@ -14,11 +14,12 @@ import { WrapperAsyncRequest } from '../../Loading/WrapperAsyncRequest';
 
 interface NewsPropsI {
   newsTopics?: Array<NewTopicsI>,
-  news?: Array<NewsListI>,
-  isMorePages?: boolean
+  news?: Array<NewsListI> | Array<NewsArrayI>,
+  isMorePages?: boolean,
+  nameArea?: string
 }
 
-const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages }) => {
+const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea }) => {
   const { isMobile } = useWindowSize();
   const [loadMoreNews, setLoadMoreNews] = useState(false);
   const { fetch, fetchNewsStatus } = useFetchNewsData(setLoadMoreNews);
@@ -28,6 +29,7 @@ const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages }) => {
     setLoadMoreNews(true);
     fetch(page + 1, undefined, true);
   };
+
   return (
     <Box className={styles.content}>
       <Box className={styles.contentContainer}>
@@ -43,7 +45,7 @@ const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages }) => {
         <Box className={styles.news}>
           {!isMobile && (
             <Typography fontSize="35px" textAlign="left" component="span" marginBottom="20px">
-              Актуальные новости
+              {nameArea || 'Актуальные новости'}
             </Typography>
           )}
           <WrapperAsyncRequest height={600} status={loadMoreNews ? APIStatus.Success : fetchNewsStatus}>
@@ -57,25 +59,31 @@ const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages }) => {
               }}
             >
               {news &&
-                news.length > 0 &&
-                news.map((item, index) => (
-                  <Grid
-                    key={index.toString()}
-                    item
-                    md={4}
-                    sm={6}
-                    xs={12}
-                    style={
-                      item.type === 'widgetLink'
-                        ? {
-                            alignSelf: 'center',
-                          }
-                        : {}
-                    }
-                  >
-                    {item.type === 'widgetLink' ? <WidgetLink {...item.widgetLink} /> : <CardSmall {...item.news} />}
-                  </Grid>
-                ))}
+              news.length > 0 &&
+              news.map((item, index) => (
+                <Grid
+                  key={index.toString()}
+                  item
+                  md={4}
+                  sm={6}
+                  xs={12}
+                  style={
+                    item.type === 'widgetLink'
+                      ? {
+                        alignSelf: 'center',
+                      }
+                      : {}
+                  }
+                >
+                  {
+                    item.type ?
+                      item.type === 'widgetLink' ?
+                        <WidgetLink {...item.widgetLink} />
+                        : <CardSmall {...item.news} />
+                      : <CardSmall {...item} />
+                  }
+                </Grid>
+              ))}
             </Grid>
             <div className={styles.loadMore}>
               <WrapperAsyncRequest status={loadMoreNews ? fetchNewsStatus : APIStatus.Success}>
