@@ -18,15 +18,22 @@ interface Props {
 const NewsNav: FC<Props> = ({ navigation, selectedTab, onClick }) => {
   const { country_id: country, region_id: region, city_id: city } = useSelector(userSelectors.getUser());
   const tooltipTitles = {
-    country: country?.title || 'Страна не указана',
-    region: region?.title || 'Регион не указан',
-    city: city?.title || 'Город не указан'
+    country: country?.title,
+    region: region?.title,
+    city: city?.title
   };
+
+  const navigationFiltered = navigation.filter((item, idx) => {
+    if (idx > 1) {
+      return tooltipTitles[item.type];
+    }
+    return true;
+  });
 
   return (
     <Box className={styles.nav}>
       <div className={styles.list}>
-        {navigation?.map((item, idx) => {
+        {navigationFiltered?.map((item, idx) => {
           /* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */
           if (idx > 1) {
             return (
