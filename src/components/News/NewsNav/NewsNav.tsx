@@ -30,11 +30,10 @@ const NewsNav: FC<Props> = ({ navigation, selectedTab, onClick }) => {
           /* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */
           if (idx > 1) {
             return (
-              <Tooltip title={tooltipTitles[item.type]}>
+              <Tooltip title={tooltipTitles[item.type]} key={item.id}>
                 <div
                   onClick={() => onClick(item.type)}
                   className={classNames(styles.listItem, { [styles.selectedItem]: item.type === selectedTab })}
-                  key={item.id}
                 >
                   {item.title}
                 </div>
