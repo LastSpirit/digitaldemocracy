@@ -57,7 +57,7 @@ interface WidgetLinkI {
   number_on_pages: number
 }
 
-interface NewsArrayI {
+export interface NewsArrayI {
   id: number,
   region?: RegionI,
   country?: CountryI,

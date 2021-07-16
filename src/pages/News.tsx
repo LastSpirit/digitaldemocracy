@@ -29,7 +29,6 @@ const News: FC = () => {
     }
   }, [selectedTab]);
   const data = useSelector(newsSelector.getData());
-  console.log(data);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   return (
     <Box>
