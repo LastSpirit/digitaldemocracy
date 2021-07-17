@@ -286,11 +286,8 @@
         background: #363557;
         border: 1px solid #363557;
         height: 36px;
+        width: 198px;
         margin-right: 0px;
-        &:hover {
-          color: #363557;
-          background: white;
-        }
 
         @media screen and (max-width: 1024px) {
           margin-bottom: 18px;
@@ -572,4 +569,11 @@ p {
       }
     }
   }
+}
+
+.message {
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
 }

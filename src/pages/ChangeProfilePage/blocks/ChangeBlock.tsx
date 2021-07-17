@@ -46,21 +46,26 @@ export const ChangeBlock = () => {
           <div className={styles.avatarContainer}>
             <img src={data.userProfile?.avatar} alt="img" />
           </div>
-          <Button
-            className={styles.uploadButton}
-            sx={{
-              p: 1,
-              paddingRight: 2,
-              paddingLeft: 2,
-              borderRadius: 100,
-              mr: 3,
-              textDecoration: 'none',
-            }}
-            size="small"
-            variant="outlined"
-          >
-            Загрузить фото
-          </Button>
+          <form action="" method="POST" onSubmit={(e) => e.preventDefault()} encType="multipart/form-data">
+            <input type="file" id="avatar" accept="image/*" hidden multiple />
+            <label htmlFor="avatar" className={styles.uploadButton}>
+              {/* <Button
+                className={styles.uploadButton}
+                sx={{
+                  p: 1,
+                  paddingRight: 2,
+                  paddingLeft: 2,
+                  borderRadius: 100,
+                  mr: 3,
+                  textDecoration: 'none',
+                }}
+                size="small"
+                variant="outlined"
+              > */}
+              Загрузить фото
+              {/* </Button> */}
+            </label>
+          </form>
         </div>
         <MainForm />
         <Accounts />

@@ -15,8 +15,128 @@ const fetchProfile = (args) => {
     ...args,
   });
 };
+
+const fetchGenders = (args) => {
+  return callAPI({
+    url: 'getGenders',
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    },
+    ...args,
+  });
+};
+
+const fetchReligions = (args) => {
+  return callAPI({
+    url: 'getReligions',
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    },
+    ...args,
+  });
+};
+
+const fetchEducations = (args) => {
+  return callAPI({
+    url: 'getEducations',
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    },
+    ...args,
+  });
+};
+
+const fetchPoliticalViews = (args) => {
+  return callAPI({
+    url: 'getPoliticalViews',
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    },
+    ...args,
+  });
+};
+
+const fetchCountries = (args) => {
+  return callAPI({
+    url: 'getCountries',
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    },
+    ...args,
+    nestedResponseType: false,
+  });
+};
+
+const fetchRegions = (args) => {
+  return callAPI({
+    url: 'getRegions',
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+      params: args.payload.params,
+    },
+    ...args,
+    nestedResponseType: false,
+  });
+};
+
+const fetchCities = (args) => {
+  return callAPI({
+    url: 'getCities',
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+      params: args.payload.params,
+    },
+    ...args,
+    nestedResponseType: false,
+  });
+};
+
+const fetchEditData = (args) => {
+  return callAPI({
+    url: 'editMainInfoUser',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+      params: args.payload.params,
+    },
+    ...args,
+  });
+};
+
 const APIs = {
   fetchProfile,
+  fetchGenders,
+  fetchReligions,
+  fetchEducations,
+  fetchPoliticalViews,
+  fetchCountries,
+  fetchRegions,
+  fetchCities,
+  fetchEditData,
 };
 
 export const profileAPI = () => {
