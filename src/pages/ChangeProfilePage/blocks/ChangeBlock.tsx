@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { RootState } from 'src/store';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
@@ -11,7 +12,18 @@ import { PasswordForm } from './forms/PasswordForm';
 import styles from '../ChangeProfilePage.module.scss';
 
 export const ChangeBlock = () => {
+  const [imageTest, setImageTest] = useState(false);
+  const onChange = (e) => {
+    const file = e.target.files[0];
+    if (!file.type.split('/').includes('image')) {
+      setImageTest(true);
+    }
+    console.log(file);
+  };
+
   const { logout } = userActionCreators();
+  const data = useSelector((s: RootState) => s.profile.data);
+
   return (
     <div className={styles.tabContent}>
       <div className={styles.titleRow}>
@@ -41,24 +53,20 @@ export const ChangeBlock = () => {
         </div>
         <div className={styles.avatarBlock}>
           <div className={styles.avatarContainer}>
-            <img src="any" alt="not found" />
+            <img src={data.userProfile?.avatar} alt="img" />
           </div>
-          <Button
-            className={styles.uploadButton}
-            sx={{
-              p: 1,
-              paddingRight: 2,
-              paddingLeft: 2,
-              borderRadius: 100,
-              mr: 3,
-              textDecoration: 'none',
-            }}
-            size="small"
-            variant="outlined"
-          >
-            Загрузить фото
-          </Button>
+          <form action="" method="POST" onSubmit={(e) => e.preventDefault()} encType="multipart/form-data">
+            <input type="file" id="avatar" accept="image/*" hidden multiple onChange={onChange} />
+            <label htmlFor="avatar" className={styles.uploadButton}>
+              Загрузить фото
+            </label>
+          </form>
         </div>
+        {imageTest ? (
+          <div className={styles.message} style={{ marginTop: '40px', color: 'red' }}>
+            Неверный формат файла!
+          </div>
+        ) : null}
         <MainForm />
         <Accounts />
         <PhoneForm />
