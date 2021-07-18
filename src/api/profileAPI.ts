@@ -127,6 +127,81 @@ const fetchEditData = (args) => {
   });
 };
 
+const checkAttachPhone = (args) => {
+  return callAPI({
+    url: 'checkAttachPhone',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+      params: args.payload.params,
+    },
+    ...args,
+  });
+};
+
+const attachPhone = (args) => {
+  return callAPI({
+    url: 'attachPhone',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+      params: args.payload.params,
+    },
+    ...args,
+  });
+};
+
+const checkAttachEmail = (args) => {
+  return callAPI({
+    url: 'checkAttachEmail',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+      params: args.payload.params,
+    },
+    ...args,
+  });
+};
+
+const attachEmail = (args) => {
+  return callAPI({
+    url: 'attachEmail',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+      params: args.payload.params,
+    },
+    ...args,
+  });
+};
+
+const attachEmailSetPassword = (args) => {
+  return callAPI({
+    url: 'attachEmailSetPassword',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+      params: args.payload.params,
+    },
+    ...args,
+  });
+};
+
 const APIs = {
   fetchProfile,
   fetchGenders,
@@ -137,6 +212,11 @@ const APIs = {
   fetchRegions,
   fetchCities,
   fetchEditData,
+  checkAttachPhone,
+  attachPhone,
+  checkAttachEmail,
+  attachEmail,
+  attachEmailSetPassword,
 };
 
 export const profileAPI = () => {

@@ -170,18 +170,6 @@ export const useFetchProfileInfo = () => {
     });
   };
 
-  // const fetchImage = (img) => {
-  //   const FORM = new FormData();
-  //   FORM.append('logo', 'data');
-  //   ({
-  //     onSuccess: (response) => {},
-  //     onError: (errorResponse) => {},
-  //     payload: {
-  //       data: FORM,
-  //     },
-  //   });
-  // };
-
   return {
     fetch,
     fetchCountryData,

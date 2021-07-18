@@ -226,9 +226,13 @@
     .uploadButton {
       background: white;
       border: 1px solid #363557;
+      border-radius: 40px;
+      cursor: pointer;
       color: #363557 !important;
       height: 36px;
+      width: 210px;
       margin-left: 32px;
+      padding: 10px;
       &:hover {
         color: white !important;
         background: #363557 !important;
@@ -381,8 +385,9 @@ p {
   .phone {
     .row {
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
       justify-content: space-between;
+      height: 149px;
 
       @media screen and (max-width: 1024px) {
         flex-direction: column;
@@ -393,6 +398,7 @@ p {
       .input {
         flex-basis: 65%;
         width: 100%;
+        margin-bottom: 20px;
 
         .inputLabel {
           margin-bottom: 12px;
@@ -402,19 +408,15 @@ p {
 
       .buttons {
         flex-basis: 30%;
+        align-self: flex-end;
         .button {
           color: white;
           background: #363557;
           border: 1px solid #363557;
           height: 36px;
           margin-right: 0px;
-          margin-bottom: 10px;
+          margin-bottom: 30px;
           width: 100%;
-
-          &:hover {
-            color: #363557;
-            background: white;
-          }
         }
       }
     }
@@ -427,6 +429,44 @@ p {
   width: 100%;
   margin-bottom: 82px;
 
+  .buttons {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    margin-top: 20px;
+    .button {
+      color: white;
+      background: #363557;
+      border: 1px solid #363557;
+      height: 36px;
+      margin-right: 0px;
+      margin-bottom: 30px;
+      width: 100%;
+      width: 230px;
+    }
+  }
+
+  .password {
+    display: flex;
+    justify-content: space-between;
+
+    @media screen and (max-width: 1024px) {
+      flex-direction: column;
+      height: 223px;
+      align-items: center;
+    }
+
+    .input {
+      flex-basis: 45%;
+      width: 100%;
+
+      .inputLabel {
+        margin-bottom: 12px;
+        margin-top: 36px;
+      }
+    }
+  }
+
   @media screen and (max-width: 1024px) {
     margin-bottom: 41px;
   }
@@ -434,30 +474,11 @@ p {
     align-self: center;
   }
   .email {
-    .password {
-      display: flex;
-      justify-content: space-between;
-
-      @media screen and (max-width: 1024px) {
-        flex-direction: column;
-        height: 223px;
-        align-items: center;
-      }
-
-      .input {
-        flex-basis: 45%;
-        width: 100%;
-
-        .inputLabel {
-          margin-bottom: 12px;
-          margin-top: 36px;
-        }
-      }
-    }
     .row {
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
       justify-content: space-between;
+      height: 149px;
 
       @media screen and (max-width: 1024px) {
         flex-direction: column;
@@ -468,6 +489,7 @@ p {
       .input {
         flex-basis: 65%;
         width: 100%;
+        margin-bottom: 20px;
 
         .inputLabel {
           margin-bottom: 12px;
@@ -477,19 +499,15 @@ p {
 
       .buttons {
         flex-basis: 30%;
+        align-self: flex-end;
         .button {
           color: white;
           background: #363557;
           border: 1px solid #363557;
           height: 36px;
           margin-right: 0px;
-          margin-bottom: 10px;
+          margin-bottom: 30px;
           width: 100%;
-
-          &:hover {
-            color: #363557;
-            background: white;
-          }
         }
       }
     }
@@ -531,8 +549,9 @@ p {
     }
     .row {
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
       justify-content: space-between;
+      height: 149px;
 
       @media screen and (max-width: 1024px) {
         flex-direction: column;
@@ -552,19 +571,15 @@ p {
 
       .buttons {
         flex-basis: 30%;
+        align-self: flex-end;
         .button {
           color: white;
           background: #363557;
           border: 1px solid #363557;
           height: 36px;
           margin-right: 0px;
-          margin-bottom: 10px;
           width: 100%;
-
-          &:hover {
-            color: #363557;
-            background: white;
-          }
+          margin-bottom: 30px;
         }
       }
     }
