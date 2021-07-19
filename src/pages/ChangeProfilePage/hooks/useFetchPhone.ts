@@ -1,7 +1,9 @@
 import { useState, useCallback } from 'react';
+import firebase from 'firebase';
 import { profileAPI } from 'src/api/profileAPI';
 import { APIStatus } from '../../../lib/axiosAPI';
 import { getItem } from '../../../lib/localStorageManager';
+import { useSendCodeFirebase } from './useSendCodeFirebase';
 
 export const useFetchPhone = () => {
   const [statusCheckPhone, setStatusCheckPhone] = useState<APIStatus>(APIStatus.Initial);
@@ -12,12 +14,24 @@ export const useFetchPhone = () => {
   const token = getItem('token');
   const { checkAttachPhone, attachPhone } = profileAPI();
 
+  const { sendCode: firebaseSendCode, status } = useSendCodeFirebase();
+
+  firebase.auth().useDeviceLanguage();
+
+  const appVerifier = window.recaptchaVerifier;
+
   const sendPhone = (phone) => {
     setStatusCheckPhone(APIStatus.Loading);
     checkAttachPhone({
       onSuccess: (response) => {
-        setStatusCheckPhone(APIStatus.Success);
         setTele(response);
+        firebaseSendCode(phone, appVerifier);
+        if (status === APIStatus.Success) {
+          setStatusCheckPhone(APIStatus.Success);
+        } else {
+          setStatusCheckPhone(APIStatus.Failure);
+          setStatusPhoneMessage('Слишком много запросов, попробуйте позднее');
+        }
       },
       onError: (errorResponse) => {
         setStatusCheckPhone(APIStatus.Failure);
