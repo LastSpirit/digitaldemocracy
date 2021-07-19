@@ -1,4 +1,5 @@
 import { bindActionCreators, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { number } from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 export enum AuthType {
@@ -20,9 +21,9 @@ interface SliceState {
     code?: string;
     verificationId?: string;
     countryId?: string;
-    country_id?: number;
-    region_id?: number;
-    city_id?: number;
+    country_id?: number | null;
+    region_id?: number | null;
+    city_id?: number | null;
   };
   attemptSingIn?: number;
 }
@@ -40,6 +41,9 @@ const initialState: SliceState = {
     code: '',
     verificationId: '',
     countryId: '',
+    country_id: null,
+    region_id: null,
+    city_id: null,
   },
   attemptSingIn: 0,
 };

@@ -18,8 +18,20 @@ export const EmailForm = () => {
     },
   });
 
-  const { sendCodeEmail, sendEmail, statusCheckEmail, statusCodeMessage, statusEmailCode, statusEmailMessage, mail } =
-    useFetchEmail();
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+  const {
+    sendCodeEmail,
+    sendEmail,
+    statusCheckEmail,
+    statusCodeMessage,
+    statusEmailCode,
+    statusEmailMessage,
+    mail,
+    statusPassword,
+    statusCheckPassword,
+    fetchSetNewPassword,
+  } = useFetchEmail();
   return (
     <div className={styles.emailWrapper}>
       <p>Привязать или изменить e-mail</p>
@@ -28,7 +40,7 @@ export const EmailForm = () => {
           email: '',
         }}
         onSubmit={async (values) => {
-           await sendEmail(values.email);
+          await sendEmail(values.email);
         }}
         validationSchema={Yup.object().shape({
           email: Yup.string().email('Введите корректный E-mail').required('Поле обязательно для заполнения'),
@@ -106,7 +118,7 @@ export const EmailForm = () => {
           codeEmail: '',
         }}
         onSubmit={async (values) => {
-          console.log(values);
+          sendCodeEmail(mail, values.codeEmail);
         }}
         validationSchema={Yup.object().shape({
           codeEmail: Yup.string().max(6).min(6).required('Поле обязательно для заполнения'),
@@ -163,102 +175,126 @@ export const EmailForm = () => {
                     type="submit"
                     disabled={statusCheckEmail !== APIStatus.Success}
                   >
-                    Ввести код
+                    {statusEmailCode === APIStatus.Loading ? <Loading color="white" /> : 'Ввести код'}
                   </Button>
                 </div>
               </div>
+              {statusEmailCode === APIStatus.Success ? (
+                <div className={styles.message} style={{ color: '#248232' }}>
+                  Ваши данные успешно обновлены!
+                </div>
+              ) : statusEmailCode === APIStatus.Failure ? (
+                <div className={styles.message} style={{ color: 'red' }}>
+                  {statusCodeMessage}
+                </div>
+              ) : null}
             </form>
           );
         }}
       </Formik>
-      <Formik
-        initialValues={{
-          password: '',
-          passwordRepeat: '',
-        }}
-        onSubmit={async (values) => {
-          console.log(values);
-        }}
-        validationSchema={Yup.object().shape({
-          password: Yup.string().max(255).min(8).required('Поле обязательно для заполнения'),
-          passwordRepeat: Yup.string()
-            .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать')
-            .max(255)
-            .min(8)
-            .required('Поле обязательно для заполнения'),
-        })}
-        enableReinitialize={true}
-      >
-        {(props) => {
-          const {
-            values,
-            touched,
-            errors,
-            dirty,
-            isSubmitting,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            handleReset,
-            setFieldValue,
-          } = props;
-          const disabled = !!Object.entries(errors).length || !dirty;
-          return (
-            <form onSubmit={handleSubmit} noValidate>
-              <div className={styles.password}>
-                <div className={styles.input}>
-                  <InputLabel htmlFor="password" className={styles.inputLabel}>
-                    Придумайте пароль
-                  </InputLabel>
-                  <TextField
-                    type="password"
-                    id="password"
-                    variant={'outlined'}
-                    fullWidth
-                    value={values.password}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
+      {statusPassword ? (
+        <Formik
+          initialValues={{
+            password: '',
+            passwordRepeat: '',
+          }}
+          onSubmit={async (values) => {
+            await fetchSetNewPassword(mail, values.passwordRepeat);
+          }}
+          validationSchema={Yup.object().shape({
+            password: Yup.string()
+              .max(255)
+              .min(8)
+              .matches(passwordRegex, 'Пароль должен содержать минимум одну латинскую букву и цифру')
+              .required('Поле обязательно для заполнения'),
+            passwordRepeat: Yup.string()
+              .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать')
+              .required('Поле обязательно для заполнения'),
+          })}
+          enableReinitialize={true}
+        >
+          {(props) => {
+            const {
+              values,
+              touched,
+              errors,
+              dirty,
+              isSubmitting,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              handleReset,
+              setFieldValue,
+            } = props;
+            const disabled = !!Object.entries(errors).length || !dirty;
+            return (
+              <form onSubmit={handleSubmit} noValidate>
+                <div className={styles.password}>
+                  <div className={styles.input}>
+                    <InputLabel htmlFor="password" className={styles.inputLabel}>
+                      Придумайте пароль
+                    </InputLabel>
+                    <TextField
+                      type="password"
+                      id="password"
+                      variant={'outlined'}
+                      fullWidth
+                      value={values.password}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      helperText={errors.password}
+                      error={!!errors.password}
+                    />
+                  </div>
+                  <div className={styles.input}>
+                    <InputLabel htmlFor="passwordRepeat" className={styles.inputLabel}>
+                      Повторите пароль
+                    </InputLabel>
+                    <TextField
+                      type="password"
+                      id="passwordRepeat"
+                      variant={'outlined'}
+                      fullWidth
+                      value={values.passwordRepeat}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      helperText={errors.passwordRepeat}
+                      error={!!errors.passwordRepeat}
+                    />
+                  </div>
                 </div>
-                <div className={styles.input}>
-                  <InputLabel htmlFor="passwordRepeat" className={styles.inputLabel}>
-                    Повторите пароль
-                  </InputLabel>
-                  <TextField
-                    type="password"
-                    id="passwordRepeat"
-                    variant={'outlined'}
-                    fullWidth
-                    value={values.passwordRepeat}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    helperText={errors.passwordRepeat}
-                    error={!!errors.passwordRepeat}
-                  />
+                <div className={styles.buttons}>
+                  <Button
+                    sx={{
+                      p: 1,
+                      paddingRight: 2,
+                      paddingLeft: 2,
+                      borderRadius: 100,
+                      mr: 3,
+                      textDecoration: 'none',
+                    }}
+                    size="small"
+                    variant="outlined"
+                    className={styles.button}
+                    type="submit"
+                  >
+                    {statusCheckPassword === APIStatus.Loading ? <Loading color="white" /> : 'Задать пароль'}
+                  </Button>
                 </div>
-              </div>
-              <div className={styles.buttons}>
-                <Button
-                  sx={{
-                    p: 1,
-                    paddingRight: 2,
-                    paddingLeft: 2,
-                    borderRadius: 100,
-                    mr: 3,
-                    textDecoration: 'none',
-                  }}
-                  size="small"
-                  variant="outlined"
-                  className={styles.button}
-                  type="submit"
-                >
-                  Задать пароль
-                </Button>
-              </div>
-            </form>
-          );
-        }}
-      </Formik>
+                {statusCheckPassword === APIStatus.Success ? (
+                  <div className={styles.message} style={{ color: '#248232' }}>
+                    Пароль успешно задан!
+                  </div>
+                ) : statusCheckPassword === APIStatus.Failure ? (
+                  <div className={styles.message} style={{ color: 'red' }}>
+                    При отправке данных произошла ошибка, возможно, ваш почтовый ящик уже привязан к другому аккаунту
+                  </div>
+                ) : null}
+              </form>
+            );
+          }}
+        </Formik>
+      ) : null}
     </div>
   );
 };

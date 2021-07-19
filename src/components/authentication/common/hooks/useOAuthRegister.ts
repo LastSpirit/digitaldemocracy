@@ -10,7 +10,7 @@ import { userActionCreators } from '../../../../slices/userSlice';
 
 export const useOAuthRegister = (isLogin?: boolean) => {
   const { registerViaGoogle, authViaGoogle } = authAPI();
-  const { address, countryId } = useSelector(authSelectors.getUserData());
+  const { address, countryId, city_id, country_id, region_id } = useSelector(authSelectors.getUserData());
   const { registerStep, loginStep } = useSelector(authSelectors.getSteps());
   const { setRegisterStep, setLoginStep } = authActionCreators();
   const { setIsAuthenticated, setUser } = userActionCreators();
@@ -46,8 +46,9 @@ export const useOAuthRegister = (isLogin?: boolean) => {
       },
       payload: {
         ...response,
-        country_id: countryId ? Number(countryId) : undefined,
-        address,
+        country_id,
+        region_id,
+        city_id,
       },
     });
   };

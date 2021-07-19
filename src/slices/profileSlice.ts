@@ -55,6 +55,9 @@ export const profileSlice = createSlice({
       state.data.userProfile.country_id.id = action.payload;
     },
     changeRegionId(state: SliceState, action) {
+      if (state.data.userProfile.region_id === null) {
+        state.data.userProfile.region_id = { id: action.payload };
+      }
       state.data.userProfile.region_id.id = action.payload;
     },
   },

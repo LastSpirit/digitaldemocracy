@@ -1,5 +1,7 @@
 /* eslint-disable no-unneeded-ternary */
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/store';
 import { Button, TextField, InputLabel } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -12,7 +14,13 @@ import styles from '../../ChangeProfilePage.module.scss';
 export const PasswordForm = () => {
   const { fetchSetNewPassword, statusCheckPassword, statusPasswordMessage } = useChangePassword();
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-  return (
+  const { data } = useSelector((s: RootState) => s.profile);
+
+  const checkEmailType = data?.userRegistrationTypes?.find(
+    ({ user_registration_type }) => user_registration_type === 'Email'
+  );
+
+  return checkEmailType ? (
     <div className={styles.passwordWrapper}>
       <p>Сменить пароль</p>
       <Formik
@@ -136,7 +144,7 @@ export const PasswordForm = () => {
         }}
       </Formik>
     </div>
-  );
+  ) : null;
 };
 
 export default PasswordForm;
