@@ -1,30 +1,49 @@
 import React, { useReducer, useEffect } from 'react';
 import { Button } from '@material-ui/core';
-// import InDevelop from '../../../../components/InDevelop/InDevelop';
 import { useSelector } from 'react-redux';
-import PartyCard from './PartyCard/PartyCard';
-import { useFetchPartyPoliticians } from '../../../PartyPage/hooks/useFetchPoliticians';
 import classes from './Subscriptions.module.scss';
 
-import { partySelectors } from '../../../../slices/partySlice';
 import { userSelectors } from '../../../../slices/userSlice';
+import { useFetchSubscriptionsData } from './hooks/useFetchSubscriptionsData';
+import SubscriptionCard from './SubscriptionCard/SubscriptionCard';
+import { Loading } from '../../../../components/Loading/Loading';
+import { APIStatus } from '../../../../lib/axiosAPI';
 
 interface IState {
+  activeType: string,
+  data: Array<IDataState>
+}
+
+export enum TypeSubscribe {
+  POLITICIANS = 'politicians',
+  MEDIAS = 'medias',
+  AUTHORS = 'authors'
+}
+
+interface IDataState {
   id: number;
   title: string;
   active: boolean;
+  type: TypeSubscribe;
 }
 
-const initialState: IState[] = [
-  { id: 1, title: 'Политики', active: true },
-  { id: 2, title: 'CМИ', active: false },
-  { id: 3, title: 'Авторы', active: false },
-];
+const initialState: IState = {
+  activeType: 'politicians',
+  data: [
+    { id: 1, title: 'Политики', active: true, type: TypeSubscribe.POLITICIANS },
+    { id: 2, title: 'CМИ', active: false, type: TypeSubscribe.MEDIAS },
+    { id: 3, title: 'Авторы', active: false, type: TypeSubscribe.AUTHORS },
+  ]
+};
 
 function reducer(state, action) {
   switch (action.type) {
     case 'setActive':
-      return [...state].map((item) => (item.id === action.id ? { ...item, active: true } : { ...item, active: false }));
+      return {
+        ...state,
+        activeType: action.payload.type,
+        data: [...state.data].map((item) => (item.id === action.payload.id ? { ...item, active: true } : { ...item, active: false }))
+      };
     default:
       return state;
   }
@@ -32,12 +51,12 @@ function reducer(state, action) {
 
 export const Subscriptions = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const data = useSelector(partySelectors.getPartyPoliticians());
-  const { fetch, status } = useFetchPartyPoliticians();
+  const { fetch, status } = useFetchSubscriptionsData();
+  const subscriptions = useSelector(userSelectors.getSubscriptions());
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
 
   useEffect(() => {
-    fetch(1);
+    fetch();
   }, [isAuthenticated]);
 
   const setCards = () => {
@@ -46,12 +65,12 @@ export const Subscriptions = () => {
   return (
     <div className={classes.root}>
       <div className={classes.buttons}>
-        {state.map(({ id, title, active }) => {
+        {state.data.map(({ id, title, active, type }) => {
           return (
             <Button
               key={id}
               className={active ? classes.buttonStyle : classes.buttonStyleActive}
-              onClick={() => dispatch({ type: 'setActive', id })}
+              onClick={() => dispatch({ type: 'setActive', payload: { id, type } })}
             >
               {title}
             </Button>
@@ -59,8 +78,8 @@ export const Subscriptions = () => {
         })}
       </div>
       <div className={classes.party}>
-        {data?.politicians?.map((item, index) => (
-          <PartyCard key={item.id} {...item} />
+        {status === APIStatus.Loading ? <Loading /> : subscriptions[state.activeType]?.map((item) => (
+          <SubscriptionCard key={item.id} type={state.activeType} {...item} />
         ))}
       </div>
     </div>
