@@ -5,6 +5,9 @@ import { removeItem } from '../lib/localStorageManager';
 import { NewsI } from './homeSlice';
 // eslint-disable-next-line import/no-cycle
 import { APIStatus } from '../lib/axiosAPI';
+import { AuthorDataI } from './authorSlice';
+import { PoliticianInfoI } from './politicianSlice';
+import { MassMediaDataI } from './massMediaSlice';
 
 export interface HistoryNewsI {
   views: Array<{ dateView: string; news: Array<NewsI> }>;
@@ -20,6 +23,12 @@ interface RoutesDataI {
   path: string;
 }
 
+export interface SubscriptionsI {
+  authors?: Array<AuthorDataI>;
+  politicians?: Array<PoliticianInfoI>;
+  medias?: Array<MassMediaDataI>;
+}
+
 interface SliceState {
   data: User;
   isAuthenticated?: boolean;
@@ -27,6 +36,7 @@ interface SliceState {
     data?: HistoryNewsI;
     page: number;
   };
+  subscriptions?: SubscriptionsI,
   routes: RoutesI;
   fetchUserDataStatus: APIStatus;
 }
@@ -42,6 +52,11 @@ const initialState: SliceState = {
   routes: {
     data: [{ number: 1, path: '/' }],
     length: 1,
+  },
+  subscriptions: {
+    authors: [],
+    politicians: [],
+    medias: [],
   },
   fetchUserDataStatus: 'Initial' as APIStatus,
 };
@@ -65,6 +80,9 @@ export const userSlice = createSlice({
     resetNews(state: SliceState) {
       state.browsingHistory.page = 1;
       state.browsingHistory.data.views = [];
+    },
+    setSubscriptions(state: SliceState, actions: PayloadAction<SubscriptionsI>) {
+      state.subscriptions = actions.payload;
     },
     logout(state: SliceState) {
       state.isAuthenticated = false;
@@ -101,6 +119,7 @@ export const userSelectors = {
   getStatus: () => (state: Store) => state.user.fetchUserDataStatus,
   getIsAuthenticated: () => (state: Store) => state.user.isAuthenticated,
   getBrowsingHistory: () => (state: Store) => state.user.browsingHistory,
+  getSubscriptions: () => (state: Store) => state.user.subscriptions,
 };
 
 export const userActionCreators = () => {
