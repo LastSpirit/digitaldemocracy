@@ -126,9 +126,12 @@ const registerViaPhone: APIRequest<
   RegisterViaPhoneErrorResponse | string
 > = (args) => callAPI({ url: 'checkPhoneConfirmationToken', ...args });
 
-const registerViaGoogle: APIRequest<RegisterViaGoogleRequest, LoginViaPhoneResponse, RegisterViaGoogleErrorResponse> = (
-  args
-) => callAPI({ url: 'registrationViaGoogle', ...args });
+const registerViaGoogle = (args) =>
+  callAPI({
+    url: 'registrationViaGoogle',
+    config: { params: args.payload },
+    ...args,
+  });
 
 const getCodeYandexOAuth: APIRequest<GetCodeYandexRequest, Response> = (args) =>
   callAPI({

@@ -14,10 +14,6 @@ import { APIStatus } from 'src/lib/axiosAPI';
 import { useFetchProfileInfo } from '../../hooks/useFetchProfileInfo';
 import styles from '../../ChangeProfilePage.module.scss';
 
-// null строкой для того, чтобы параметр в запросе был в принципе с (а ля ?params=null)
-// (это нужно для удаления значения на бекенде, если отправлять null, как null, то параметр заигнорится и не отправится)
-// если ты об этом знал(а), поздравляю, я лично нет ;)
-
 export const MainForm = () => {
   const { data, religions, genders, countries, political_views, educations, cities, regions } = useSelector(
     (s: RootState) => s.profile
@@ -31,13 +27,13 @@ export const MainForm = () => {
     name: data?.userProfile?.first_name ?? '',
     lastname: data?.userProfile?.last_name ?? '',
     day: data?.userProfile?.birth_date?.split('-')?.reverse()?.join('-') ?? '',
-    gender: data?.userProfile?.gender_id?.id ?? 'null',
-    country: data?.userProfile?.country_id?.id ?? 'null',
-    region: data?.userProfile?.region_id?.id ?? 'null',
-    city: data?.userProfile?.city_id?.id ?? 'null',
-    religion: data?.userProfile?.religion_id?.id ?? 'null',
-    education: data?.userProfile?.education_id?.id ?? 'null',
-    political_views: data?.userProfile?.political_views_id?.id ?? 'null',
+    gender: data?.userProfile?.gender_id?.id ?? null,
+    country: data?.userProfile?.country_id?.id ?? null,
+    region: data?.userProfile?.region_id?.id ?? null,
+    city: data?.userProfile?.city_id?.id ?? null,
+    religion: data?.userProfile?.religion_id?.id ?? null,
+    education: data?.userProfile?.education_id?.id ?? null,
+    political_views: data?.userProfile?.political_view_id?.id ?? null,
   });
 
   setLocale({
@@ -73,11 +69,12 @@ export const MainForm = () => {
         city: data?.userProfile?.city_id?.title ?? '',
         religion: data?.userProfile?.religion_id?.title ?? '',
         education: data?.userProfile?.education_id?.title ?? '',
-        political_views: data?.userProfile?.political_views_id?.title ?? '',
+        political_views: data?.userProfile?.political_view_id?.title ?? '',
       }}
       onSubmit={async (values) => {
         const { name, lastname, day } = values;
         setPostData({ ...postData, name, lastname, day });
+        console.log(postData);
         try {
           await sendEditData(postData, name, lastname, day);
         } catch (e) {
@@ -170,7 +167,7 @@ export const MainForm = () => {
                       setPostData({ ...postData, gender: newValue.id });
                     } else {
                       setFieldValue('gender', '');
-                      setPostData({ ...postData, gender: 'null' });
+                      setPostData({ ...postData, gender: null });
                     }
                   }}
                   renderInput={(params) => (
@@ -194,12 +191,12 @@ export const MainForm = () => {
                 if (newValue && newValue !== null) {
                   setFieldValue('country', newValue.title);
                   changeCountyId(newValue.id);
-                  setPostData({ ...postData, country: newValue.id });
+                  setPostData({ ...postData, country: newValue.id, region: null, city: null });
                   setFieldValue('region', '');
                 } else {
                   setFieldValue('country', '');
                   setFieldValue('region', '');
-                  setPostData({ ...postData, country: 'null', region: 'null' });
+                  setPostData({ ...postData, country: null, region: null, city: null });
                 }
               }}
               renderInput={(params) => (
@@ -230,12 +227,12 @@ export const MainForm = () => {
                 if (newValue && newValue !== null) {
                   setFieldValue('region', newValue.title);
                   changeRegionId(newValue.id);
-                  setPostData({ ...postData, region: newValue.id });
+                  setPostData({ ...postData, region: newValue.id, city: null });
                   setFieldValue('city', '');
                 } else {
                   setFieldValue('region', '');
                   setFieldValue('city', '');
-                  setPostData({ ...postData, region: 'null', city: 'null' });
+                  setPostData({ ...postData, region: null, city: null });
                 }
               }}
               renderInput={(params) => (
@@ -260,7 +257,7 @@ export const MainForm = () => {
                   setPostData({ ...postData, city: newValue.id });
                 } else {
                   setFieldValue('city', '');
-                  setPostData({ ...postData, city: 'null' });
+                  setPostData({ ...postData, city: null });
                 }
               }}
               renderInput={(params) => (
@@ -284,7 +281,7 @@ export const MainForm = () => {
                   setPostData({ ...postData, religion: newValue.id });
                 } else {
                   setFieldValue('religion', '');
-                  setPostData({ ...postData, religion: 'null' });
+                  setPostData({ ...postData, religion: null });
                 }
               }}
               renderInput={(params) => (
@@ -308,7 +305,7 @@ export const MainForm = () => {
                   setPostData({ ...postData, education: newValue.id });
                 } else {
                   setFieldValue('education', '');
-                  setPostData({ ...postData, education: 'null' });
+                  setPostData({ ...postData, education: null });
                 }
               }}
               renderInput={(params) => (
@@ -332,7 +329,7 @@ export const MainForm = () => {
                   setPostData({ ...postData, political_views: newValue.id });
                 } else {
                   setFieldValue('political_views', '');
-                  setPostData({ ...postData, political_views: 'null' });
+                  setPostData({ ...postData, political_views: null });
                 }
               }}
               renderInput={(params) => (

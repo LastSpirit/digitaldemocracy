@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { callAPI } from '../lib/axiosAPI';
+import { callOtherAPI } from '../lib/otherAxiosAPI';
 
 const fetchProfile = (args) => {
   return callAPI({
@@ -172,9 +173,9 @@ const checkAttachEmail = (args) => {
   });
 };
 
-const attachEmail = (args) => {
+const checkAttachEmailConfirmationCode = (args) => {
   return callAPI({
-    url: 'attachEmail',
+    url: 'checkAttachEmailConfirmationCode',
     config: {
       method: 'POST',
       headers: {
@@ -202,6 +203,21 @@ const attachEmailSetPassword = (args) => {
   });
 };
 
+const editUserAvatar = (args) => {
+  return callOtherAPI({
+    url: 'editUserAvatar',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-type': 'multipart/form-data',
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+    },
+    ...args,
+  });
+};
+
 const APIs = {
   fetchProfile,
   fetchGenders,
@@ -215,8 +231,9 @@ const APIs = {
   checkAttachPhone,
   attachPhone,
   checkAttachEmail,
-  attachEmail,
+  checkAttachEmailConfirmationCode,
   attachEmailSetPassword,
+  editUserAvatar,
 };
 
 export const profileAPI = () => {

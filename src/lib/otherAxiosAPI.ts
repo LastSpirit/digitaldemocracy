@@ -60,13 +60,13 @@ export const getCallAPI =
       if (method && method.toLowerCase() === 'get') {
         response = await axios.get((customBaseUrl || baseURL) + url, config);
       } else {
-        response = await axios.post((customBaseUrl || baseURL) + url, payload, config);
-        // response = await axios({
-        //   method: 'post',
-        //   url: (customBaseUrl || baseURL) + url,
-        //   ...payload,
-        //   ...config,
-        // });
+        // response = await axios.post((customBaseUrl || baseURL) + url, payload, config);
+        response = await axios({
+          method: 'post',
+          url: (customBaseUrl || baseURL) + url,
+          ...payload,
+          ...config,
+        });
       }
       const headers = includeHeaders ? pick(response.headers, includeHeaders) : undefined;
 
@@ -96,7 +96,7 @@ export const getCallAPI =
     }
   };
 
-export const callAPI = getCallAPI<RootState>();
+export const callOtherAPI = getCallAPI<RootState>();
 
 export interface APIRequestParams<Req, Res, ErrorType, Var> {
   payload?: Req;

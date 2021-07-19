@@ -295,6 +295,7 @@
 
         @media screen and (max-width: 1024px) {
           margin-bottom: 18px;
+          width: 100%;
         }
       }
       .clearButton {
@@ -409,6 +410,10 @@ p {
       .buttons {
         flex-basis: 30%;
         align-self: flex-end;
+
+        @media screen and (max-width: 1024px) {
+          align-self: center;
+        }
         .button {
           color: white;
           background: #363557;
@@ -434,6 +439,11 @@ p {
     align-self: center;
     justify-content: center;
     margin-top: 20px;
+
+    @media screen and (max-width: 1024px) {
+      align-self: center;
+      margin-top: 60px;
+    }
     .button {
       color: white;
       background: #363557;
@@ -500,6 +510,11 @@ p {
       .buttons {
         flex-basis: 30%;
         align-self: flex-end;
+
+        @media screen and (max-width: 1024px) {
+          align-self: center;
+          margin-top: 40px;
+        }
         .button {
           color: white;
           background: #363557;
@@ -572,6 +587,11 @@ p {
       .buttons {
         flex-basis: 30%;
         align-self: flex-end;
+
+        @media screen and (max-width: 1024px) {
+          align-self: center;
+          margin-top: 40px;
+        }
         .button {
           color: white;
           background: #363557;
