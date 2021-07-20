@@ -22,7 +22,7 @@ export const PasswordForm = () => {
 
   return checkEmailType ? (
     <div className={styles.passwordWrapper}>
-      <p>Сменить пароль</p>
+      <h4>Сменить пароль</h4>
       <Formik
         initialValues={{
           oldPassword: '',

@@ -60,6 +60,16 @@ export const profileSlice = createSlice({
       }
       state.data.userProfile.region_id.id = action.payload;
     },
+    addGoogle(state: SliceState) {
+      state.data?.userRegistrationTypes?.push({
+        user_registration_type: 'Гугл аккаунт',
+      });
+    },
+    removeGoogle(state: SliceState) {
+      state.data.userRegistrationTypes = state.data?.userRegistrationTypes?.filter(
+        (item) => item?.user_registration_type !== 'Гугл аккаунт'
+      );
+    },
   },
 });
 

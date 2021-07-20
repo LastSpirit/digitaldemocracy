@@ -2,6 +2,8 @@
 /* eslint-disable no-template-curly-in-string */
 import React from 'react';
 import { Button, TextField, InputLabel } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/store';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { setLocale } from 'yup';
@@ -18,6 +20,12 @@ export const EmailForm = () => {
     },
   });
 
+  const { data } = useSelector((s: RootState) => s.profile);
+
+  const checkEmailType = data?.userRegistrationTypes?.find(
+    ({ user_registration_type }) => user_registration_type === ('Гугл аккаунт' || 'Яндекс аккаунт')
+  );
+
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
   const {
@@ -32,9 +40,10 @@ export const EmailForm = () => {
     statusCheckPassword,
     fetchSetNewPassword,
   } = useFetchEmail();
-  return (
+
+  return !checkEmailType ? (
     <div className={styles.emailWrapper}>
-      <p>Привязать или изменить e-mail</p>
+      <h4>Привязать или изменить e-mail</h4>
       <Formik
         initialValues={{
           email: '',
@@ -296,7 +305,7 @@ export const EmailForm = () => {
         </Formik>
       ) : null}
     </div>
-  );
+  ) : null;
 };
 
 export default EmailForm;

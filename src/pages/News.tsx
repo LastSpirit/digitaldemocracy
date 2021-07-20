@@ -28,6 +28,8 @@ const News: FC = () => {
   ];
   const [selectedTab, setSelectedTab] = useState(TypeNavigationMenu.ACTUAL);
   const { fetch, fetchAreaNews, fetchDataStatus, fetchSubscriptionsNews } = useFetchNewsData();
+  const data = useSelector(newsSelector.getData());
+  const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   useEffect(() => {
     fetch();
   }, []);
@@ -44,22 +46,7 @@ const News: FC = () => {
       default:
         fetch();
     }
-
-    /*
-    if (selectedTab === 'country' || selectedTab === 'region' || selectedTab === 'city') {
-      fetchAreaNews(selectedTab);
-    } else {
-      fetch();
-    }
-    */
   }, [selectedTab]);
-  const data = useSelector(newsSelector.getData());
-  const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   return (
     <Box>
       <Container maxWidth="lg">
