@@ -14,20 +14,20 @@ const PartyCards = ({ data }) => {
   return (
     <div className={styles.cardsBlock}>
       {!isMobile ? (
-        <div className={styles.card}>
+        <div className={data?.place ? styles.card : `${styles.card} ${styles.card__nonRaiting}`}>
           <div className={styles.secondCard}>
             <div className={styles.trustRow}>
               <div
-                className={styles.badge}
+                className={data?.place ? styles.badge : `${styles.badge} ${styles.badge__nonRaiting}`}
                 style={{
                   backgroundColor: badgeColorChanger(data?.rating),
                 }}
               >
-                <div className={styles.text}>{`Место ${data?.place ?? '-'}`}</div>
+                <div className={styles.text}>{data?.place ? `Место ${data?.place}` : 'Без рейтинга'}</div>
               </div>
-              <div className={styles.percent}>{data?.rating ?? '-'} %</div>
+              { data?.rating && (<div className={styles.percent}>{data?.rating} %</div>) }
             </div>
-            <PercentsLinearGraphic vote_groups={data?.vote_groups} />
+            { data?.vote_groups && (<PercentsLinearGraphic vote_groups={data?.vote_groups} />) }
           </div>
         </div>
       ) : (
@@ -35,16 +35,16 @@ const PartyCards = ({ data }) => {
           <div className={styles.mobSecondCard}>
             <div className={styles.mobTrustRow}>
               <div
-                className={styles.mobBadge}
+                className={data?.place ? styles.mobBadge : `${styles.mobBadge} ${styles.mobBadge__nonRaiting}`}
                 style={{
                   backgroundColor: badgeColorChanger(data?.rating),
                 }}
               >
                 <div className={styles.mobText}>{`Место ${data?.place ?? '-'}`}</div>
               </div>
-              <div className={styles.mobPercent}>{data?.rating ?? '-'} %</div>
+              { data?.rating && (<div className={styles.mobPercent}>{data?.rating} %</div>) }
             </div>
-            <PercentsLinearGraphic vote_groups={data?.vote_groups} />
+            { data?.vote_groups && (<PercentsLinearGraphic vote_groups={data?.vote_groups} />) }
           </div>
         </div>
       )}
