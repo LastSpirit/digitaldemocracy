@@ -20,6 +20,7 @@ const News: FC = () => {
   ];
   const [selectedTab, setSelectedTab] = useState('actual');
   const { fetch, fetchAreaNews, fetchDataStatus } = useFetchNewsData();
+  const data = useSelector(newsSelector.getData());
   useEffect(() => {
     fetch();
   }, []);
@@ -30,30 +31,31 @@ const News: FC = () => {
       fetch();
     }
   }, [selectedTab]);
-  const data = useSelector(newsSelector.getData());
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   return (
     <Box>
       <Container maxWidth="lg">
         {isAuthenticated && <NewsNav navigation={navigation} selectedTab={selectedTab} onClick={setSelectedTab} />}
-        {
-          fetchDataStatus === APIStatus.Loading ?
-            (
-              <Container
-                maxWidth="lg"
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '80vh',
-                }}
-              >
-                <Loading size={80} />
-              </Container>
-            ) : (
-              <NewsContent newsTopics={data?.newsTopics} news={data?.news} isMorePages={data?.isMorePages} nameArea={data?.country || data?.region || data?.city} />
-            )
-        }
+        {fetchDataStatus === APIStatus.Loading ? (
+          <Container
+            maxWidth="lg"
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '80vh',
+            }}
+          >
+            <Loading size={80} />
+          </Container>
+        ) : (
+          <NewsContent
+            newsTopics={data?.newsTopics}
+            news={data?.news}
+            isMorePages={data?.isMorePages}
+            nameArea={data?.country || data?.region || data?.city}
+          />
+        )}
       </Container>
     </Box>
   );

@@ -26,7 +26,7 @@ export const PhoneForm = () => {
 
   return (
     <div className={styles.phoneWrapper}>
-      <p>Привязать или изменить номер телефона</p>
+      <h4>Привязать или изменить номер телефона</h4>
 
       <Formik
         initialValues={{

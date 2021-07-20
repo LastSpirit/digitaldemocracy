@@ -65,25 +65,17 @@ export const PercentsLinearGraphic: FC<IProps> = ({ vote_groups }) => {
               .reduce((acc, rec) => acc + rec.width, 0);
             return (
               <>
-                {width > 0 && (
-                  <div
-                    key={id.toString()}
-                    style={{
-                      width: `${previosWidth + finalArray[index].width}%`,
-                      backgroundColor: color,
-                      zIndex,
-                    }}
-                    className={styles.line}
-                  >
-                    {width < hiddenValue ? (
-                      <Tooltip title={`${Math.round(width)} %`} className={styles.tooltip} placement="bottom-end">
-                        <span>{'...%'}</span>
-                      </Tooltip>
-                    ) : (
-                      <span>{`${Math.round(width)} %`}</span>
-                    )}
-                  </div>
-                )}
+                <div
+                  key={id.toString()}
+                  style={{
+                    width: `${previosWidth + finalArray[index].width}%`,
+                    backgroundColor: color,
+                    zIndex,
+                  }}
+                  className={styles.line}
+                >
+                  <span>{`${Math.round(width)} %`}</span>
+                </div>
               </>
             );
           })}

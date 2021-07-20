@@ -52,7 +52,11 @@ export const useFetchEmail = () => {
         setStatusEmailCode(APIStatus.Failure);
         if (Array.isArray(errorResponse)) {
           setStatusCodeMessage('Введеный код неверен');
-        } else setStatusCodeMessage('При отправке данных произошла ошибка');
+        } else {
+          setStatusCodeMessage(
+            'При отправке данных произошла ошибка, ваш почтовый ящик возможно уже зарегестрирован в системе'
+          );
+        }
       },
       payload: {
         params: {

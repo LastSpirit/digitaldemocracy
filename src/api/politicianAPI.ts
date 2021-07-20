@@ -200,7 +200,7 @@ interface LikeVar {
 const politicianLike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
   const { isItemLiked, token } = args.variables;
   return callAPI({
-    url: isItemLiked ? 'deleteLikeFromPolitician' : 'addLikeToPolitician',
+    url: isItemLiked ? 'deleteLikeFromPoliticianOnBill' : 'addLikeToPoliticianOnBill',
     config: {
       method: 'POST',
       headers: {
@@ -215,7 +215,7 @@ const politicianLike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = 
 const politicianDislike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
   const { isItemDisliked, token } = args.variables;
   return callAPI({
-    url: isItemDisliked ? 'deleteDislikeFromPolitician' : 'addDislikeToPolitician',
+    url: isItemDisliked ? 'deleteDislikeFromPoliticianOnBill' : 'addDislikeToPoliticianOnBill',
     config: {
       method: 'POST',
       headers: {

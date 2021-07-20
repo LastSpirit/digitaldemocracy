@@ -218,6 +218,36 @@ const editUserAvatar = (args) => {
   });
 };
 
+const attachGoogle = (args) => {
+  return callAPI({
+    url: 'attachGoogle',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+      params: args.payload.params,
+    },
+    ...args,
+  });
+};
+
+const detachGoogle = (args) => {
+  return callAPI({
+    url: 'detachGoogle',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+      params: args.payload.params,
+    },
+    ...args,
+  });
+};
+
 const APIs = {
   fetchProfile,
   fetchGenders,
@@ -234,6 +264,8 @@ const APIs = {
   checkAttachEmailConfirmationCode,
   attachEmailSetPassword,
   editUserAvatar,
+  attachGoogle,
+  detachGoogle,
 };
 
 export const profileAPI = () => {
