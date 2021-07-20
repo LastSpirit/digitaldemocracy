@@ -25,6 +25,7 @@ interface StatisticsCardPropsI {
   politicianIndex?: number;
   id?: number;
   isMasmedia?: boolean;
+  position?: string;
 }
 
 const LightTooltip = withStyles((theme: Theme) => ({
@@ -53,9 +54,11 @@ const StatisticsCard: FC<StatisticsCardPropsI> = ({
   politicianIndex,
   id,
   isMasmedia,
+  position
 }) => {
   const percentIsPositive = percent?.includes('+') && !percent?.includes('-');
   const { isMobile } = useWindowSize();
+  const getTip = () => position || '';
   return (
     <>
       {isMobile ? (
@@ -106,7 +109,7 @@ const StatisticsCard: FC<StatisticsCardPropsI> = ({
         </div>
       ) : (
         <div className={styles.card}>
-          <LightTooltip title="Здесь будет должность" placement="right">
+          <LightTooltip title={getTip()} placement="right">
             <Link to={`${field}/${short_link}`} className={styles.image}>
               <img src={avatarColorChanger(rating)} alt="frame" className={styles.frame} />
               <div className={styles.photoContainer}>

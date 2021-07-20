@@ -44,6 +44,7 @@ export interface PoliticiansI {
   number_of_likes?: number;
   number_of_dislikes?: number;
   id?: number;
+  position?: string;
 }
 
 interface NewTopicsI {
