@@ -27,7 +27,7 @@ const PartyCards = ({ data }) => {
               </div>
               { data?.rating && (<div className={styles.percent}>{data?.rating} %</div>) }
             </div>
-            { data?.vote_groups && (<PercentsLinearGraphic vote_groups={data?.vote_groups} />) }
+            { data?.rating && (<PercentsLinearGraphic vote_groups={data?.vote_groups} />) }
           </div>
         </div>
       ) : (
