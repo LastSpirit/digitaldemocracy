@@ -12,6 +12,7 @@ interface StatisticsPropsI {
 }
 
 const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians }) => {
+  console.log(politicians);
   return (
     <Box className={styles.statistics}>
       <Container maxWidth="lg">
@@ -43,6 +44,7 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
                         politicianIndex={index}
                         id={it?.id}
                         rating={it?.rating}
+                        position={it?.position}
                       />
                     );
                   })}

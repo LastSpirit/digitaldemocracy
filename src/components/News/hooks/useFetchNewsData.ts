@@ -8,7 +8,7 @@ import { getItem } from '../../../lib/localStorageManager';
 export const useFetchNewsData = (setLoadMoreNews?: (value: boolean) => void) => {
   const dispatch = useDispatch();
   const { setData, addNews, setNews } = newsSlice.actions;
-  const { fetchNews, fetchNewsArea } = newsAPI;
+  const { fetchNews, fetchNewsArea, fetchNewsSubscriptions } = newsAPI;
   const [fetchNewsStatus, setFetchNewsStatus] = useState<APIStatus>(APIStatus.Initial);
   const [fetchDataStatus, setFetchDataStatus] = useState<APIStatus>(APIStatus.Initial);
   const token = getItem('token');
@@ -79,5 +79,34 @@ export const useFetchNewsData = (setLoadMoreNews?: (value: boolean) => void) => 
     }));
   }, [fetchNewsStatus, fetchDataStatus]);
 
-  return { fetch, fetchAreaNews, fetchNewsStatus, fetchDataStatus };
+  const fetchSubscriptionsNews = useCallback((page?: number, topic_id?: any, fetchOnlyNews?: boolean) => {
+    let action;
+    if (topic_id) {
+      action = setNews;
+    } else if (fetchOnlyNews) {
+      action = addNews;
+    } else {
+      action = setData;
+    }
+    setStatus(fetchOnlyNews, APIStatus.Loading);
+    dispatch(fetchNewsSubscriptions({
+      onSuccess: (response) => {
+        setStatus(fetchOnlyNews, APIStatus.Success);
+        dispatch(action({ ...response, page }));
+        setLoadMoreNews(false);
+      },
+      payload: {
+        topicId: topic_id === -1 ? undefined : topic_id,
+        page,
+        token,
+      },
+      onError: (errorResponse) => {
+        setStatus(fetchOnlyNews, APIStatus.Failure);
+        console.log(errorResponse);
+      }
+
+    }));
+  }, [fetchNewsStatus, fetchDataStatus]);
+
+  return { fetch, fetchAreaNews, fetchSubscriptionsNews, fetchNewsStatus, fetchDataStatus };
 };
