@@ -73,10 +73,10 @@ const SubscriptionCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, 
       <LightTooltip title={position ?? ''}>
         <Link to={getLink()}>
           <div
-            className={styles.avatarBlock}
-            style={{ backgroundImage: `url(${avatarColorChanger(rating)})`, backgroundSize: 'cover' }}
+            className={rating ? styles.avatarBlock : `${styles.avatarBlock} ${styles.avatarBlock__nonRaiting}`}
+            style={rating ? { backgroundImage: `url(${avatarColorChanger(rating)})`, backgroundSize: 'cover' } : {}}
           >
-            <div className={styles.avatar}>
+            <div className={rating ? styles.avatar : `${styles.avatar} ${styles.avatar__nonRaiting}`}>
               {!photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={photo} alt="" />}
             </div>
           </div>
@@ -89,9 +89,9 @@ const SubscriptionCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, 
             backgroundColor: badgeColorChanger(rating),
           }}
         >
-          <div className={styles.text}>{`Место ${place ?? '-'}`}</div>
+          <div className={styles.text}>{place ? `Место ${place}` : 'Без рейтинга'}</div>
         </div>
-        <div className={styles.percent}>{rating ?? '-'} %</div>
+        { rating && (<div className={styles.percent}>{rating} %</div>) }
       </div>
       <div className={styles.name}>{name}</div>
       <Button
