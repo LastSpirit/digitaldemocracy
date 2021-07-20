@@ -12,6 +12,7 @@ const InfoBlock: FC<InfoBlockProps> = ({ fio }) => {
   const county = data?.country_id?.title ? `${data?.country_id?.title}, ` : '';
   const region = data?.region_id?.title ? `${data?.region_id?.title}, ` : '';
   const city = data?.city_id?.title ? `${data?.city_id?.title}` : '';
+  const gender = data?.gender_id?.title ? `${data?.gender_id?.title}` : '';
   return (
     <div className={styles.personBlock}>
       <div className={styles.fio}>
@@ -24,7 +25,7 @@ const InfoBlock: FC<InfoBlockProps> = ({ fio }) => {
         {city}
       </p>
       <p>{data?.age ? `${data.age} лет` : null}</p>
-      <p>Мужской</p>
+      <p>{gender}</p>
     </div>
   );
 };
