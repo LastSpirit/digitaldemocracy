@@ -916,6 +916,9 @@
     width: 327px;
     // min-height: 100%;
     min-width: 298px;
+    &__nonRaiting {
+      border: 1px solid #000000;
+    }
     .avatar {
       overflow: hidden;
       display: flex;
@@ -925,6 +928,9 @@
       height: 93%;
       border-radius: 5%;
       background-color: #fff;
+      &__nonRaiting {
+        border: 1px solid #000000;
+      }
       &.noAvatar {
         background-color: #e5e5e5;
       }
@@ -1213,6 +1219,9 @@
       align-items: center;
       border-radius: 10px;
       margin-right: 10px;
+      &__nonRaiting {
+        border: 1px solid #000000;
+      }
 
       .mobAvatar {
         overflow: hidden;
@@ -1223,6 +1232,9 @@
         height: 93%;
         border-radius: 5%;
         background-color: #fff;
+        &__nonRaiting {
+          border: 1px solid #000000;
+        }
         &.mobNoAvatar {
           background-color: #e5e5e5;
         }
