@@ -35,6 +35,7 @@
   margin-bottom: 20px;
   border-radius: 10px;
   &__nonRaiting {
+    margin-top: 4px;
     border: 1px solid #000;
   }
 }
@@ -55,8 +56,8 @@
   transform: translate(-50%, -50%);
   border-radius: 5%;
   z-index: 3;
-  width: 93%;
-  height: 93%;
+  width: 91%;
+  height: 91%;
   object-fit: cover;
   &__nonRaiting {
     border: 1px solid #000;
