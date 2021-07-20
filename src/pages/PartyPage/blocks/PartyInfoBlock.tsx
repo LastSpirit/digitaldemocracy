@@ -36,15 +36,16 @@ const PartyInfoBlock: FC = () => {
       setAuthValue('/login');
     }
   };
+  console.log(data);
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
       {!isMobile ? (
         <div className={styles.topItems}>
           <div
-            className={data?.rating ? styles.avatarBlock : classNames(styles.avatarBlock, styles.avatarBlock__nonRaiting)}
-            style={data?.rating ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' } : {}}
+            className={data?.rating && data?.place ? styles.avatarBlock : classNames(styles.avatarBlock, styles.avatarBlock__nonRaiting)}
+            style={data?.rating && data?.place ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' } : {}}
           >
-            <div className={data?.rating ? styles.avatar : classNames(styles.avatar, styles.avatar__nonRaiting)}>
+            <div className={data?.rating && data?.place ? styles.avatar : classNames(styles.avatar, styles.avatar__nonRaiting)}>
               {!data?.logo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={data?.logo} alt="" />}
             </div>
           </div>
@@ -93,10 +94,10 @@ const PartyInfoBlock: FC = () => {
           )}
           <div className={styles.mobInfoBlock}>
             <div
-              className={data?.rating ? styles.mobAvatarBlock : classNames(styles.mobAvatarBlock, styles.mobAvatarBlock__nonRaiting)}
-              style={data?.rating ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' } : {}}
+              className={data?.rating && data?.place ? styles.mobAvatarBlock : classNames(styles.mobAvatarBlock, styles.mobAvatarBlock__nonRaiting)}
+              style={data?.rating && data?.place ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' } : {}}
             >
-              <div className={data?.rating ? styles.mobAvatar : classNames(styles.mobAvatar, styles.mobAvatar__nonRaiting)}>
+              <div className={data?.rating && data?.place ? styles.mobAvatar : classNames(styles.mobAvatar, styles.mobAvatar__nonRaiting)}>
                 {!data?.logo ? <PersonIcon className={styles.mobNoAvatarIcon} /> : <img src={data?.logo} alt="" />}
               </div>
             </div>
