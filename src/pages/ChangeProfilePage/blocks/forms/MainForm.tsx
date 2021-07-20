@@ -13,6 +13,7 @@ import { setLocale } from 'yup';
 import { APIStatus } from 'src/lib/axiosAPI';
 import { useFetchProfileInfo } from '../../hooks/useFetchProfileInfo';
 import styles from '../../ChangeProfilePage.module.scss';
+import { useFetchUserData } from '../../../ProfilePage/hooks/useFetchUserData';
 
 export const MainForm = () => {
   const { data, religions, genders, countries, political_views, educations, cities, regions } = useSelector(
@@ -22,6 +23,8 @@ export const MainForm = () => {
   const { changeCountyId, changeRegionId } = profileActionCreators();
 
   const { statusCity, statusRegion, fetchRegionData, fetchCityData, sendEditData, statusPOST } = useFetchProfileInfo();
+  // TODO: исправляет данные
+  const { status, fetch: fetchUserData } = useFetchUserData();
 
   const [postData, setPostData] = useState({
     name: data?.userProfile?.first_name ?? '',
@@ -77,6 +80,7 @@ export const MainForm = () => {
         console.log(postData);
         try {
           await sendEditData(postData, name, lastname, day);
+          fetchUserData();
         } catch (e) {
           console.log(e);
         }
