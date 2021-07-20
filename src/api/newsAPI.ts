@@ -44,7 +44,30 @@ const fetchNewsArea: APIRequest<NewsRequest, NewsResponse> = (args) => {
   });
 };
 
+const fetchNewsSubscriptions: APIRequest<NewsRequest, NewsResponse> = (args) => {
+  const { page, topicId } = args.payload;
+  return callAPI({
+    url: `getNewsBySubscriptions${
+      topicId && page
+        ? `?page=${page}&topic_id=${topicId}`
+        : !topicId && page
+        ? `?page=${page}`
+        : topicId && !page
+          ? `?topic_id=${topicId}`
+          : ''
+    }`,
+    config: {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+    },
+    ...args
+  });
+};
+
 export const newsAPI = {
   fetchNews,
-  fetchNewsArea
+  fetchNewsArea,
+  fetchNewsSubscriptions
 };

@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Box, Button, Container, Grid, Typography } from '@material-ui/core';
+import { Box, Button, Grid, Typography } from '@material-ui/core';
 import ListSidebar from '../../ListSidebar';
 import styles from './NewsContent.module.scss';
 import { NewsArrayI, NewsListI, newsSelector, NewTopicsI } from '../../../slices/newsSlice';
@@ -11,23 +11,45 @@ import TopicsSlider from '../../TopicsSlider';
 import { useFetchNewsData } from '../hooks/useFetchNewsData';
 import { APIStatus } from '../../../lib/axiosAPI';
 import { WrapperAsyncRequest } from '../../Loading/WrapperAsyncRequest';
+import { TypeNavigationMenu } from '../../../pages/News';
 
 interface NewsPropsI {
   newsTopics?: Array<NewTopicsI>,
   news?: Array<NewsListI> | Array<NewsArrayI>,
   isMorePages?: boolean,
-  nameArea?: string
+  nameArea?: string,
+  selectedTab?: TypeNavigationMenu,
 }
 
-const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea }) => {
+const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea, selectedTab }) => {
   const { isMobile } = useWindowSize();
   const [loadMoreNews, setLoadMoreNews] = useState(false);
-  const { fetch, fetchNewsStatus } = useFetchNewsData(setLoadMoreNews);
+  const { fetch, fetchSubscriptionsNews, fetchAreaNews, fetchNewsStatus } = useFetchNewsData(setLoadMoreNews);
   const page = useSelector(newsSelector.getPage());
 
   const handleGetMorePages = () => {
-    setLoadMoreNews(true);
-    fetch(page + 1, undefined, true);
+    switch (selectedTab) {
+      case TypeNavigationMenu.COUNTRY:
+      case TypeNavigationMenu.REGION:
+      case TypeNavigationMenu.CITY:
+        setLoadMoreNews(true);
+        fetchAreaNews(selectedTab, page + 1, undefined, true);
+        return;
+      case TypeNavigationMenu.SUBSCRIPTIONS:
+        setLoadMoreNews(true);
+        fetchSubscriptionsNews(page + 1, undefined, true);
+        return;
+      default:
+        setLoadMoreNews(true);
+        fetch(page + 1, undefined, true);
+    }
+  };
+
+  const getHeaderContent = () => {
+    if (selectedTab === TypeNavigationMenu.SUBSCRIPTIONS) {
+      return 'Актуальные новости по подпискам';
+    }
+    return nameArea || 'Актуальные новости';
   };
 
   return (
@@ -45,7 +67,7 @@ const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea }
         <Box className={styles.news}>
           {!isMobile && (
             <Typography fontSize="35px" textAlign="left" component="span" marginBottom="20px">
-              {nameArea || 'Актуальные новости'}
+              {getHeaderContent()}
             </Typography>
           )}
           <WrapperAsyncRequest height={600} status={loadMoreNews ? APIStatus.Success : fetchNewsStatus}>
