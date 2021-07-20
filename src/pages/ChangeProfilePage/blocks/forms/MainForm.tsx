@@ -77,7 +77,6 @@ export const MainForm = () => {
       onSubmit={async (values) => {
         const { name, lastname, day } = values;
         setPostData({ ...postData, name, lastname, day });
-        console.log(postData);
         try {
           await sendEditData(postData, name, lastname, day);
           fetchUserData();
