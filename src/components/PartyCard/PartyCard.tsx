@@ -35,10 +35,10 @@ const PartyCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_l
     <div className={styles.root}>
       <Link to={`/politician/${short_link}/politician_news`}>
         <div
-          className={styles.avatarBlock}
-          style={{ backgroundImage: `url(${avatarColorChanger(rating)})`, backgroundSize: 'cover' }}
+          className={rating && place ? styles.avatarBlock : classNames(styles.avatarBlock, styles.avatarBlock__nonRaiting)}
+          style={rating && place ? { backgroundImage: `url(${avatarColorChanger(rating)})`, backgroundSize: 'cover' } : {}}
         >
-          <div className={styles.avatar}>
+          <div className={rating && place ? styles.avatar : classNames(styles.avatar, styles.avatar__nonRaiting)}>
             {!photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={photo} alt="" />}
           </div>
         </div>
@@ -47,12 +47,12 @@ const PartyCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_l
         <div
           className={styles.badge}
           style={{
-            backgroundColor: badgeColorChanger(rating),
+            backgroundColor: rating && place ? badgeColorChanger(rating) : '#C4C4C4',
           }}
         >
-          <div className={styles.text}>{`Место ${place ?? '-'}`}</div>
+          <div className={styles.text}>{rating && place ? `Место ${place}` : 'Без рейтинга'}</div>
         </div>
-        <div className={styles.percent}>{rating ?? '-'} %</div>
+        {rating && place && (<div className={styles.percent}>{rating} %</div>)}
       </div>
       <hr />
       <div className={styles.name}>{name}</div>
