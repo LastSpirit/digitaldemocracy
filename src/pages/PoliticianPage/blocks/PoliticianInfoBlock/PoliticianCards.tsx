@@ -15,6 +15,7 @@ const PoliticianCards = () => {
   // const trust = data?.rating ? (data?.rating > 50 ? 'Высокое доверие' : 'Низкое доверие') : 'Без рейтинга';
   // const badgeBackground = trust === 'Высокое доверие' ? 'green' : trust === 'Низкое доверие' ? 'red' : null;
   // const badgeColor = trust === 'Высокое доверие' ? '#fff' : '#222';
+  console.log(data);
   return (
     <div className={styles.cardsBlock}>
       {/* <div className={styles.card}>
@@ -23,20 +24,20 @@ const PoliticianCards = () => {
         </div>
       </div> */}
       {!isMobile ? (
-        <div className={styles.card}>
+        <div className={data?.place ? styles.card : `${styles.card} ${styles.card__nonRaiting}`}>
           <div className={styles.secondCard}>
             <div className={styles.trustRow}>
               <div
-                className={styles.badge}
+                className={data?.place ? styles.badge : `${styles.badge} ${styles.badge__nonRaiting}`}
                 style={{
                   backgroundColor: badgeColorChanger(data?.rating),
                 }}
               >
-                <div className={styles.text}>{`Место ${data?.place ?? '-'}`}</div>
+                <div className={styles.text}>{data?.place ? `Место ${data?.place}` : 'Без рейтинга'}</div>
               </div>
-              <div className={styles.percent}>{data?.rating ?? '-'} %</div>
+              { data?.rating && (<div className={styles.percent}>{data?.rating} %</div>) }
             </div>
-            <PercentsLinearGraphic vote_groups={data?.vote_groups} />
+            { data?.rating && (<PercentsLinearGraphic vote_groups={data?.vote_groups} />) }
           </div>
         </div>
       ) : (
@@ -44,16 +45,16 @@ const PoliticianCards = () => {
           <div className={styles.mobSecondCard}>
             <div className={styles.mobTrustRow}>
               <div
-                className={styles.mobBadge}
+                className={data?.place ? styles.mobBadge : `${styles.mobBadge} ${styles.mobBadge__nonRaiting}`}
                 style={{
                   backgroundColor: badgeColorChanger(data?.rating),
                 }}
               >
-                <div className={styles.mobText}>{`Место ${data?.place || '-'}`}</div>
+                <div className={styles.mobText}>{data?.place ? `Место ${data?.place}` : 'Без рейтинга'}</div>
               </div>
-              <div className={styles.mobPercent}>{data?.rating ?? '-'} %</div>
+              {data?.rating && (<div className={styles.mobPercent}>{data?.rating} %</div>)}
             </div>
-            <PercentsLinearGraphic vote_groups={data?.vote_groups} />
+            {data?.rating && (<PercentsLinearGraphic vote_groups={data?.vote_groups} />) }
           </div>
         </div>
       )}

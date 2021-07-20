@@ -52,10 +52,10 @@ const MassMediaInfoBlock: FC = () => {
       {!isMobile ? (
         <div className={styles.topItems}>
           <div
-            className={styles.avatarBlock}
-            style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
+            className={data?.rating ? styles.avatarBlock : classNames(styles.avatarBlock, styles.avatarBlock__nonRaiting)}
+            style={data?.rating ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' } : {}}
           >
-            <div className={styles.avatar}>
+            <div className={data?.rating ? styles.avatar : classNames(styles.avatar, styles.avatar__nonRaiting)}>
               {!data?.photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={data?.photo} alt="" />}
             </div>
           </div>
@@ -120,10 +120,10 @@ const MassMediaInfoBlock: FC = () => {
           )}
           <div className={styles.mobInfoBlock}>
             <div
-              className={styles.mobAvatarBlock}
-              style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
+              className={data?.rating ? styles.mobAvatarBlock : classNames(styles.mobAvatarBlock, styles.mobAvatarBlock__nonRaiting)}
+              style={data?.rating ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' } : {}}
             >
-              <div className={styles.mobAvatar}>
+              <div className={data?.rating ? styles.mobAvatar : classNames(styles.mobAvatar, styles.mobAvatar__nonRaiting)}>
                 {!data?.photo ? <PersonIcon className={styles.mobNoAvatarIcon} /> : <img src={data?.photo} alt="" />}
               </div>
             </div>

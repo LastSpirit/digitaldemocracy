@@ -33,6 +33,10 @@
   position: relative;
   height: 210px;
   margin-bottom: 20px;
+  border-radius: 10px;
+  &__nonRaiting {
+    border: 1px solid #000;
+  }
 }
 
 .frame {
@@ -54,6 +58,9 @@
   width: 93%;
   height: 93%;
   object-fit: cover;
+  &__nonRaiting {
+    border: 1px solid #000;
+  }
 }
 .caption {
   margin-bottom: 15px;
