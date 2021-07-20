@@ -3,6 +3,7 @@ import { withStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { Box, Card, Typography, CardActionArea, CardActions, Button, Tooltip, fabClasses } from '@material-ui/core';
 import { milliseconds } from 'date-fns';
 import { useHistory } from 'react-router';
+import classNames from 'classnames';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -152,17 +153,17 @@ export default function CustomArrows({ data }) {
                 <CardActionArea>
                   <Box>
                     <Box
-                      className={styles.imgContainer}
-                      style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
+                      className={data?.rating && data?.place ? styles.imgContainer : classNames(styles.imgContainer, styles.imgContainer__nonRaiting)}
+                      style={data?.rating && data?.place ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' } : {}}
                     >
-                      <img src={item.photo} alt="politics" className={styles.img} />
+                      <img src={item.photo} alt="politics" className={data?.rating && data?.place ? styles.img : classNames(styles.img, styles.img__nonRaiting)} />
                     </Box>
                   </Box>
                   <Box className={styles.caption}>
                     <Typography className={styles.name}>{item.name}</Typography>
                   </Box>
                   <Box>
-                    <Typography className={styles.percent}>{item.rating ?? '- '}%</Typography>
+                    <Typography className={styles.percent}>{item.rating ? `${item.rating} %` : 'Без рейтинга'}</Typography>
                   </Box>
                 </CardActionArea>
                 <CardActions />
