@@ -12,11 +12,11 @@ import { useVerifyFirebaseCode } from '../../hooks/useVerifyFireBaseCode';
 import styles from '../../ChangeProfilePage.module.scss';
 
 export const PhoneForm = () => {
-  const { sendPhone, sendCodePhone, statusCheckPhone, statusPhoneCode, statusPhoneMessage, statusCodeMessage, tele } =
+  const { sendPhone, statusCheckPhone, statusPhoneCode, statusPhoneMessage, statusCodeMessage, tele } =
     useFetchPhone();
 
   setLocale({
-    string: {
+    number: {
       max: 'Указанное количество символов превышает ${max}',
       min: 'Указанное количество символов меньше ${min}',
     },
@@ -96,7 +96,9 @@ export const PhoneForm = () => {
               </div>
               {statusCheckPhone === APIStatus.Success ? (
                 <div className={styles.message} style={{ color: '#248232' }}>
-                  СМС с кодом отправлен!
+                  {
+                    'СМС с кодом отправлен! (смс может не приходить в течении двух часов, если отправлено слишком много запросов)'
+                  }
                 </div>
               ) : statusCheckPhone === APIStatus.Failure ? (
                 <div className={styles.message} style={{ color: 'red' }}>
@@ -118,9 +120,6 @@ export const PhoneForm = () => {
         validationSchema={Yup.object().shape({
           codeForPhone: Yup.number()
             .typeError('Поле должно содержать только цифры')
-            .integer('Только целые числа')
-            .max(6)
-            .min(6)
             .required('Поле обязательно для заполнения'),
         })}
         enableReinitialize={true}

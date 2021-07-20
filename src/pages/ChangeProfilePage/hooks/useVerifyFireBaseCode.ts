@@ -8,6 +8,7 @@ export const useVerifyFirebaseCode = () => {
   const [error, setError] = useState('');
   const [statusVerify, setStatus] = useState<APIStatus>(APIStatus.Initial);
   const { attachPhone } = profileAPI();
+  const token = getItem('token');
 
   const verify = (verificationCode, phone) => {
     setStatus(APIStatus.Loading);
@@ -17,6 +18,7 @@ export const useVerifyFirebaseCode = () => {
         attachPhone({
           onSuccess: (response) => {
             setStatus(APIStatus.Success);
+            console.log(result.user.za);
           },
           onError: (errorResponse) => {
             if (typeof errorResponse === 'string') {
@@ -26,8 +28,8 @@ export const useVerifyFirebaseCode = () => {
             setStatus(APIStatus.Failure);
           },
           payload: {
-            phone,
-            FirebaseToken: result.user.za, // idToken
+            params: { phone, FirebaseToken: result.user.za },
+            token,
           },
         });
         console.log('RES: ', result);

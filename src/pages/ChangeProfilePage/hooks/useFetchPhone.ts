@@ -26,12 +26,7 @@ export const useFetchPhone = () => {
       onSuccess: (response) => {
         setTele(response);
         firebaseSendCode(phone, appVerifier);
-        if (status === APIStatus.Success) {
-          setStatusCheckPhone(APIStatus.Success);
-        } else {
-          setStatusCheckPhone(APIStatus.Failure);
-          setStatusPhoneMessage('Слишком много запросов, попробуйте позднее');
-        }
+        setStatusCheckPhone(APIStatus.Success);
       },
       onError: (errorResponse) => {
         setStatusCheckPhone(APIStatus.Failure);
@@ -50,28 +45,27 @@ export const useFetchPhone = () => {
     });
   };
 
-  const sendCodePhone = (phone, FirebaseToken) => {
-    setStatusPhoneCode(APIStatus.Loading);
-    attachPhone({
-      onSuccess: (response) => {
-        setStatusPhoneCode(APIStatus.Success);
-      },
-      onError: (errorResponse) => {
-        setStatusPhoneCode(APIStatus.Failure);
-      },
-      payload: {
-        params: {
-          phone,
-          FirebaseToken,
-        },
-        token,
-      },
-    });
-  };
+  // const sendCodePhone = (phone, FirebaseToken) => {
+  //   setStatusPhoneCode(APIStatus.Loading);
+  //   attachPhone({
+  //     onSuccess: (response) => {
+  //       setStatusPhoneCode(APIStatus.Success);
+  //     },
+  //     onError: (errorResponse) => {
+  //       setStatusPhoneCode(APIStatus.Failure);
+  //     },
+  //     payload: {
+  //       params: {
+  //         phone,
+  //         FirebaseToken,
+  //       },
+  //       token,
+  //     },
+  //   });
+  // };
 
   return {
     sendPhone,
-    sendCodePhone,
     tele,
     statusPhoneCode,
     statusCheckPhone,
