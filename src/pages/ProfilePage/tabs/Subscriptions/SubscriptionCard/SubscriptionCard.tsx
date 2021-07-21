@@ -35,7 +35,17 @@ interface IProps {
   type?: TypeSubscribe;
 }
 
-const SubscriptionCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_link, position, place, type }) => {
+const SubscriptionCard: FC<IProps> = ({
+  photo,
+  rating,
+  name,
+  is_subscribed,
+  id,
+  short_link,
+  position,
+  place,
+  type,
+}) => {
   const { unsubscribe } = useUnsubscribe(type, id);
   const { push } = useHistory();
   const {
@@ -77,7 +87,15 @@ const SubscriptionCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, 
             style={rating ? { backgroundImage: `url(${avatarColorChanger(rating)})`, backgroundSize: 'cover' } : {}}
           >
             <div className={rating ? styles.avatar : `${styles.avatar} ${styles.avatar__nonRaiting}`}>
-              {!photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={photo} alt="" />}
+              {!photo ? (
+                <PersonIcon className={styles.noAvatarIcon} />
+              ) : (
+                <img
+                  src={photo}
+                  alt=""
+                  style={type === TypeSubscribe.MEDIAS ? { objectFit: 'contain' } : { objectFit: 'cover' }}
+                />
+              )}
             </div>
           </div>
         </Link>
@@ -91,7 +109,7 @@ const SubscriptionCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, 
         >
           <div className={styles.text}>{place ? `Место ${place}` : 'Без рейтинга'}</div>
         </div>
-        { rating && (<div className={styles.percent}>{rating} %</div>) }
+        {rating && <div className={styles.percent}>{rating} %</div>}
       </div>
       <div className={styles.name}>{name}</div>
       <Button
