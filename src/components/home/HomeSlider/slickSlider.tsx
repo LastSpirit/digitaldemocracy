@@ -153,10 +153,10 @@ export default function CustomArrows({ data }) {
                 <CardActionArea>
                   <Box>
                     <Box
-                      className={data?.rating && data?.place ? styles.imgContainer : classNames(styles.imgContainer, styles.imgContainer__nonRaiting)}
-                      style={data?.rating && data?.place ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' } : {}}
+                      className={item?.rating ? styles.imgContainer : classNames(styles.imgContainer, styles.imgContainer__nonRaiting)}
+                      style={item?.rating ? { backgroundImage: `url(${avatarColorChanger(item?.rating)})`, backgroundSize: 'cover' } : {}}
                     >
-                      <img src={item.photo} alt="politics" className={data?.rating && data?.place ? styles.img : classNames(styles.img, styles.img__nonRaiting)} />
+                      <img src={item.photo} alt="politics" className={item?.rating ? styles.img : classNames(styles.img, styles.img__nonRaiting)} />
                     </Box>
                   </Box>
                   <Box className={styles.caption}>
