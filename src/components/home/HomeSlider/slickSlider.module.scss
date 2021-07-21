@@ -32,10 +32,10 @@
 .imgContainer {
   position: relative;
   height: 210px;
+  margin-top: 4px;
   margin-bottom: 20px;
   border-radius: 10px;
   &__nonRaiting {
-    margin-top: 4px;
     border: 1px solid #000;
   }
 }

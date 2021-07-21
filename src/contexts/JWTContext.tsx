@@ -5,6 +5,7 @@ import axios from '../lib/axios';
 import type { User } from '../types/user';
 import { userActionCreators } from '../slices/userSlice';
 import { getItem } from '../lib/localStorageManager';
+import { useFetchUserData } from '../pages/ProfilePage/hooks/useFetchUserData';
 
 interface State {
   isInitialized: boolean;
@@ -121,6 +122,7 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
   const { children } = props;
   const [state, dispatch] = useReducer(reducer, initialState);
   const { setIsAuthenticated } = userActionCreators();
+  const { fetch: fetchUserData } = useFetchUserData();
 
   useEffect(() => {
     const initialize = async (): Promise<void> => {
@@ -130,6 +132,7 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
         if (accessToken) {
           setSession(accessToken);
           setIsAuthenticated(true);
+          fetchUserData();
         } else {
           setIsAuthenticated(false);
         }
