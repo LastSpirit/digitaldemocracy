@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import type { FC } from 'react';
+import { useLocation } from 'react-router';
 import { Box, Container } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { useFetchNewsData } from '../components/News/hooks/useFetchNewsData';
@@ -15,7 +16,7 @@ export enum TypeNavigationMenu {
   SUBSCRIPTIONS = 'subscriptions',
   COUNTRY = 'country',
   REGION = 'region',
-  CITY = 'city'
+  CITY = 'city',
 }
 
 const News: FC = () => {
@@ -30,9 +31,11 @@ const News: FC = () => {
   const { fetch, fetchAreaNews, fetchDataStatus, fetchSubscriptionsNews } = useFetchNewsData();
   const data = useSelector(newsSelector.getData());
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
+  const location = useLocation();
   useEffect(() => {
     fetch();
-  }, []);
+  }, [location]);
+  console.log(location);
   useEffect(() => {
     switch (selectedTab) {
       case TypeNavigationMenu.COUNTRY:
@@ -46,29 +49,32 @@ const News: FC = () => {
       default:
         fetch();
     }
-  }, [selectedTab]);
+  }, [selectedTab, location]);
   return (
     <Box>
       <Container maxWidth="lg">
         {isAuthenticated && <NewsNav navigation={navigation} selectedTab={selectedTab} onClick={setSelectedTab} />}
-        {
-          fetchDataStatus === APIStatus.Loading ?
-            (
-              <Container
-                maxWidth="lg"
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '80vh',
-                }}
-              >
-                <Loading size={80} />
-              </Container>
-            ) : (
-              <NewsContent selectedTab={selectedTab} newsTopics={data?.newsTopics} news={data?.news} isMorePages={data?.isMorePages} nameArea={data?.country || data?.region || data?.city} />
-            )
-        }
+        {fetchDataStatus === APIStatus.Loading ? (
+          <Container
+            maxWidth="lg"
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '80vh',
+            }}
+          >
+            <Loading size={80} />
+          </Container>
+        ) : (
+          <NewsContent
+            selectedTab={selectedTab}
+            newsTopics={data?.newsTopics}
+            news={data?.news}
+            isMorePages={data?.isMorePages}
+            nameArea={data?.country || data?.region || data?.city}
+          />
+        )}
       </Container>
     </Box>
   );

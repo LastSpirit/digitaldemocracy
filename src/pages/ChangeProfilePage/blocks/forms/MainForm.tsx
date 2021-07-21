@@ -20,11 +20,13 @@ export const MainForm = () => {
     (s: RootState) => s.profile
   );
 
+  const [update, setUpdate] = useState(true);
+
   const { changeCountyId, changeRegionId } = profileActionCreators();
 
   const { statusCity, statusRegion, fetchRegionData, fetchCityData, sendEditData, statusPOST } = useFetchProfileInfo();
   // TODO: исправляет данные
-  const { status, fetch: fetchUserData } = useFetchUserData();
+  const { status, fetch } = useFetchUserData();
 
   const [postData, setPostData] = useState({
     name: data?.userProfile?.first_name ?? '',
@@ -57,6 +59,10 @@ export const MainForm = () => {
     }
   }, [data?.userProfile?.region_id?.id]);
 
+  useEffect(() => {
+    fetch();
+  }, [update]);
+
   return (
     <Formik
       initialValues={{
@@ -79,7 +85,8 @@ export const MainForm = () => {
         setPostData({ ...postData, name, lastname, day });
         try {
           await sendEditData(postData, name, lastname, day);
-          fetchUserData();
+          // await fetchUserData();
+          await setUpdate(!update);
         } catch (e) {
           console.log(e);
         }
