@@ -58,8 +58,25 @@ interface RegisterViaPhoneErrorResponse {
 
 interface GetYandexUserInfoRequest {
   format: 'json' | 'xml';
-  with_openid_identity: boolean;
+  with_openid_identity?: boolean;
   oauth_token: string;
+}
+
+interface GetYandexUserInfoResponse {
+  id?: string,
+  login?: string,
+  client_id?: string,
+  display_name?: string,
+  real_name?: string,
+  first_name?: string,
+  last_name?: string,
+  sex?: string | null,
+  default_email?: string,
+  emails?: Array<string>,
+  birthday?: string,
+  default_avatar_id?: string,
+  is_avatar_empty?: boolean,
+  psuid?: string
 }
 
 interface RegisterViaGoogleRequest {
@@ -72,6 +89,10 @@ interface RegisterViaGoogleRequest {
   };
   googleId: string;
   address?: string;
+}
+
+interface RegisterViaYandexRequest {
+
 }
 
 interface RegisterViaGoogleErrorResponse {
@@ -141,17 +162,29 @@ const getCodeYandexOAuth: APIRequest<GetCodeYandexRequest, Response> = (args) =>
     ...args,
   });
 
-const getYandexUserInfo: APIRequest<GetYandexUserInfoRequest> = (args) =>
+// TODO Яндекс рекомендует использовать токен в заголовке при запросе, но в таком случае возникает исключение
+const getYandexUserInfo: APIRequest<GetYandexUserInfoRequest, GetYandexUserInfoResponse> = (args) =>
   callAPI({
+    // &with_openid_identity=${args.payload.with_openid_identity}
     customBaseUrl: 'https://login.yandex.ru/',
-    url: `/info?format=${args.payload.format}&with_openid_identity=${args.payload.with_openid_identity}&oauth_token=${args.payload.oauth_token}`,
+    url: `info?format=${args.payload.format}&oauth_token=${args.payload.oauth_token}`,
     nestedResponseType: false,
+    config: {
+      method: 'GET',
+      // headers: {
+      //  Authorization: `OAuth ${args.payload.oauth_token}`,
+      // },
+    },
     ...args,
   });
 
 const authViaGoogle: APIRequest<RegisterViaGoogleRequest, LoginViaPhoneResponse, RegisterViaGoogleErrorResponse> = (
   args
 ) => callAPI({ url: 'login/google', ...args });
+
+const authViaYandex: APIRequest<any, any> = (
+  args
+) => callAPI({ url: 'login/yandex', ...args });
 
 const authViaEmailConfirmPassword: APIRequest<
   { password: string; email: string },
@@ -195,6 +228,7 @@ const APIs = {
   getYandexUserInfo,
   registerViaGoogle,
   authViaGoogle,
+  authViaYandex,
   authViaEmailConfirmPassword,
   loginViaPhone,
   checkValidateEmail,

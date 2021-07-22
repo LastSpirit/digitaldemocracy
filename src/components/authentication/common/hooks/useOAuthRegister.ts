@@ -54,6 +54,20 @@ export const useOAuthRegister = (isLogin?: boolean) => {
   };
 
   const yandexOAuth = () => {
+    return `https://oauth.yandex.ru/authorize?response_type=token&client_id=${OAuthConfig.yandexSecretID}&redirect_uri=${window.location.href}`;
+    /*
+    const mainWindowWidth = window.screen.width;
+    const mainWindowHeight = window.screen.height;
+
+    const newWindowWidth = 400;
+    const newWindowHeight = 500;
+    const newWindowLeft = (mainWindowWidth - newWindowWidth) / 2;
+    const newWindowTop = (mainWindowHeight - newWindowHeight) / 2;
+
+    const link = `https://oauth.yandex.ru/authorize?response_type=token&client_id=${OAuthConfig.yandexSecretID}&redirect_uri=${window.location.href}`;
+    return window.open(link, 'yandexAuth', `width=${newWindowWidth},height=${newWindowHeight},left=${newWindowLeft},top=${newWindowTop}`);
+    */
+    /*
     fetch(`https://oauth.yandex.ru/authorize?response_type=token&client_id=${OAuthConfig.yandexSecretID}`, {
       method: 'GET',
       redirect: 'follow',
@@ -68,6 +82,7 @@ export const useOAuthRegister = (isLogin?: boolean) => {
       .then((res) => {
         console.log(res);
       });
+     */
   };
 
   return { googleOAuth, yandexOAuth, googleError, yandexError };

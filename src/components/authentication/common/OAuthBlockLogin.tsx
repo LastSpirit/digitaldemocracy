@@ -29,7 +29,14 @@ const OAuthBlockLogin:FC<OAuthBlockLoginProps> = ({ isLogin }) => {
         </Box>
         <Box className={styles.item}>
           <Box
-            onClick={() => yandexOAuth()}
+            onClick={() => {
+              window.location.href = yandexOAuth();
+              /*
+              const yaWindow = yandexOAuth();
+              yaWindow.onload = (e) => {
+                console.log(yaWindow.location.hash);
+              }; */
+            }}
             sx={{
               display: 'flex',
               alignItems: 'center',
