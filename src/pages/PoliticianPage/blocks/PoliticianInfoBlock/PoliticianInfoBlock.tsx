@@ -52,8 +52,14 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
       {!isMobile ? (
         <div className={styles.topItems}>
           <div
-            className={data?.rating ? styles.avatarBlock : classNames(styles.avatarBlock, styles.avatarBlock__nonRaiting)}
-            style={data?.rating ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' } : {}}
+            className={
+              data?.rating ? styles.avatarBlock : classNames(styles.avatarBlock, styles.avatarBlock__nonRaiting)
+            }
+            style={
+              data?.rating
+                ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }
+                : {}
+            }
           >
             <div className={data?.rating ? styles.avatar : classNames(styles.avatar, styles.avatar__nonRaiting)}>
               {!data?.photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={data?.photo} alt="" />}
@@ -95,6 +101,7 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                   </div>
                 )}
               </div>
+              {data?.position && <div className={styles.age}>{data?.position}</div>}
               {(data?.age || data?.city) && (
                 <div className={styles.age}>
                   {data?.age ? `${data?.age} лет${data?.city ? `, ${data?.city}` : ''}` : data?.city}
@@ -143,10 +150,20 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
           )}
           <div className={styles.mobInfoBlock}>
             <div
-              className={data?.rating ? styles.mobAvatarBlock : classNames(styles.mobAvatarBlock, styles.mobAvatarBlock__nonRaiting)}
-              style={data?.rating ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' } : {}}
+              className={
+                data?.rating
+                  ? styles.mobAvatarBlock
+                  : classNames(styles.mobAvatarBlock, styles.mobAvatarBlock__nonRaiting)
+              }
+              style={
+                data?.rating
+                  ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }
+                  : {}
+              }
             >
-              <div className={data?.rating ? styles.mobAvatar : classNames(styles.mobAvatar, styles.mobAvatar__nonRaiting)}>
+              <div
+                className={data?.rating ? styles.mobAvatar : classNames(styles.mobAvatar, styles.mobAvatar__nonRaiting)}
+              >
                 {!data?.photo ? <PersonIcon className={styles.mobNoAvatarIcon} /> : <img src={data?.photo} alt="" />}
               </div>
             </div>
