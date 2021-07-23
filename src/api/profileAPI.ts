@@ -248,6 +248,36 @@ const detachGoogle = (args) => {
   });
 };
 
+const attachYandex = (args) => {
+  return callAPI({
+    url: 'attachYandex',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+      params: args.payload.params,
+    },
+    ...args,
+  });
+};
+
+const detachYandex = (args) => {
+  return callAPI({
+    url: 'detachYandex',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+      params: args.payload.params,
+    },
+    ...args,
+  });
+};
+
 const APIs = {
   fetchProfile,
   fetchGenders,
@@ -266,6 +296,8 @@ const APIs = {
   editUserAvatar,
   attachGoogle,
   detachGoogle,
+  attachYandex,
+  detachYandex
 };
 
 export const profileAPI = () => {
