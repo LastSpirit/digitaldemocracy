@@ -70,6 +70,16 @@ export const profileSlice = createSlice({
         (item) => item?.user_registration_type !== 'Гугл аккаунт'
       );
     },
+    addYandex(state: SliceState) {
+      state.data?.userRegistrationTypes?.push({
+        user_registration_type: 'Яндекс аккаунт',
+      });
+    },
+    removeYandex(state: SliceState) {
+      state.data.userRegistrationTypes = state.data?.userRegistrationTypes?.filter(
+        (item) => item?.user_registration_type !== 'Яндекс аккаунт'
+      );
+    },
   },
 });
 

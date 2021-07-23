@@ -9,7 +9,7 @@ import { ModalParams } from 'src/types/routing';
 import { useSearchParams } from 'src/hooks/useSearchParams';
 import { profileActionCreators } from 'src/slices/profileSlice';
 
-export const useGoogleRegister = (isLogin?: boolean) => {
+export const useGoogleRegister = () => {
   const { attachGoogle, detachGoogle } = profileAPI();
   const { registerViaGoogle } = authAPI();
   const token = getItem('token');
