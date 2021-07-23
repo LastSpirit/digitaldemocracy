@@ -1,10 +1,13 @@
 import React, { FC } from 'react';
 import GoogleLogin from 'react-google-login';
+// import { YandexLogin } from 'react-yandex-login';
 import { Box, Typography } from '@material-ui/core';
 import styles from './OAuthBlockLogin.module.scss';
 import { OAuthConfig } from '../../../config';
+import YandexLogin from './YandexAuth/YandexLogin';
 import { useOAuthRegister } from './hooks/useOAuthRegister';
 import Yandex from '../../../icons/Yandex';
+import { useSearchParams } from '../../../hooks/useSearchParams';
 
 interface OAuthBlockLoginProps {
   isLogin?: boolean
@@ -12,6 +15,15 @@ interface OAuthBlockLoginProps {
 
 const OAuthBlockLogin:FC<OAuthBlockLoginProps> = ({ isLogin }) => {
   const { yandexOAuth, googleOAuth, yandexError, googleError } = useOAuthRegister(isLogin);
+  /*
+   onClick={() => {
+              window.location.href = yandexOAuth();
+              const yaWindow = yandexOAuth();
+              yaWindow.onload = (e) => {
+                console.log(yaWindow.location.hash);
+              };
+    }}
+  */
 
   return (
     <Box>
@@ -28,22 +40,27 @@ const OAuthBlockLogin:FC<OAuthBlockLoginProps> = ({ isLogin }) => {
           />
         </Box>
         <Box className={styles.item}>
-          <Box
-            onClick={() => yandexOAuth()}
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              cursor: 'pointer'
-            }}
+          <YandexLogin
+            onSuccess={yandexOAuth}
+            clientID={OAuthConfig.yandexSecretID}
+            redirectUri={`${window.location.origin}/?auth_modal=login`}
           >
-            <Yandex />
-            <Typography
-              color="black"
-              sx={{ ml: 2, paddingBottom: '0px!important', fontFamily: 'unset!important' }}
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                cursor: 'pointer'
+              }}
             >
-              Вход с аккаунтом Yandex
-            </Typography>
-          </Box>
+              <Yandex />
+              <Typography
+                color="black"
+                sx={{ ml: 2, paddingBottom: '0px!important', fontFamily: 'unset!important' }}
+              >
+                Вход с аккаунтом Yandex
+              </Typography>
+            </Box>
+          </YandexLogin>
         </Box>
       </Box>
       {(googleError || yandexError) && (

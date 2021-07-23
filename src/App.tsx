@@ -6,8 +6,6 @@ import './i18n';
 import firebase from 'firebase';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
-import { setRoutes } from 'src/hooks/setRoutes';
-import { userActionCreators } from 'src/slices/userSlice';
 import { firebaseConfig, gtmConfig } from './config';
 import useSettings from './hooks/useSettings';
 import gtm from './lib/gtm';
