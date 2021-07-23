@@ -31,6 +31,7 @@ import SuggestionPage from './pages/SuggestionPage/SuggestionPage';
 import { DonationPage } from './pages/ProfilePage/DonationPage/DonationPage';
 import RatingPage from './pages/RatingPage/RatingPage';
 import SingleBills from './pages/SingleBillsPage/SingleBillsPage';
+import SearchPage from './pages/SearchPage/SearchPage';
 
 const App: FC = () => {
   if (!firebase.apps.length) {
@@ -101,6 +102,7 @@ const App: FC = () => {
               <Route exact path="/party/:short_link" component={PartyPage} />
               <Route exact path="/party/:short_link*" component={PartyPage} />
               <Route exact path="/rating/*" component={RatingPage} />
+              <Route exact path="/search" component={SearchPage} />
               {isAuthenticated && <Route exact path="/suggestion" component={SuggestionPage} />}
               <Redirect to="/" />
             </Switch>
