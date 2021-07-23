@@ -1,6 +1,8 @@
 import type { FC } from 'react';
-import { Box, Container, Typography, Grid } from '@material-ui/core';
+import { useState } from 'react';
+import { Box, Container, Typography, Grid, IconButton } from '@material-ui/core';
 import { AuthorI, MediaI, PoliticiansI } from 'src/slices/SingleNewsSlice';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import StatisticsCard from './StatisticsCard';
 
 import styles from './SingleNewsStatistics.module.scss';
@@ -12,7 +14,12 @@ interface StatisticsPropsI {
 }
 
 const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians }) => {
-  console.log(politicians);
+  const [show, setShow] = useState(false);
+
+  const setShowMore = (arg) => {
+    return arg === false ? 4 : undefined;
+  };
+
   return (
     <Box className={styles.statistics}>
       <Container maxWidth="lg">
@@ -29,7 +36,7 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
                       Доверяете ли вы {politicians?.length > 1 ? 'этим политикам' : 'этому политику'} ?
                     </Typography>
                   </Box>
-                  {politicians.map((it, index) => {
+                  {politicians.slice(0, setShowMore(show)).map((it, index) => {
                     return (
                       <StatisticsCard
                         name={it?.name}
@@ -48,6 +55,17 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
                       />
                     );
                   })}
+                  <div>
+                    <div style={{ fontSize: '15px', fontFamily: 'Helvetica', color: '#7a7a7a' }}>
+                      {show ? 'Cвернуть' : 'Показать больше'}
+                      <IconButton
+                        onClick={() => setShow(!show)}
+                        className={show ? styles.showMoreButtonOpen : styles.showMoreButton}
+                      >
+                        <ArrowDownwardIcon />
+                      </IconButton>
+                    </div>
+                  </div>
                 </Box>
               </>
             )}
