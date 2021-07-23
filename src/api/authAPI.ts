@@ -91,10 +91,6 @@ interface RegisterViaGoogleRequest {
   address?: string;
 }
 
-interface RegisterViaYandexRequest {
-
-}
-
 interface RegisterViaGoogleErrorResponse {
   address: Array<string>;
   googleId: Array<string>;
@@ -150,6 +146,13 @@ const registerViaPhone: APIRequest<
 const registerViaGoogle = (args) =>
   callAPI({
     url: 'registrationViaGoogle',
+    config: { params: args.payload },
+    ...args,
+  });
+
+const registerViaYandex = (args) =>
+  callAPI({
+    url: 'registrationViaYandex',
     config: { params: args.payload },
     ...args,
   });
@@ -227,6 +230,7 @@ const APIs = {
   registerViaPhone,
   getYandexUserInfo,
   registerViaGoogle,
+  registerViaYandex,
   authViaGoogle,
   authViaYandex,
   authViaEmailConfirmPassword,

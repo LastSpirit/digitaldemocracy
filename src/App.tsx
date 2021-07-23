@@ -6,8 +6,6 @@ import './i18n';
 import firebase from 'firebase';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
-import { setRoutes } from 'src/hooks/setRoutes';
-import { userActionCreators } from 'src/slices/userSlice';
 import { firebaseConfig, gtmConfig } from './config';
 import useSettings from './hooks/useSettings';
 import gtm from './lib/gtm';
@@ -31,7 +29,6 @@ import SuggestionPage from './pages/SuggestionPage/SuggestionPage';
 import { DonationPage } from './pages/ProfilePage/DonationPage/DonationPage';
 import RatingPage from './pages/RatingPage/RatingPage';
 import SingleBills from './pages/SingleBillsPage/SingleBillsPage';
-import { authAPI } from './api/authAPI';
 
 const App: FC = () => {
   if (!firebase.apps.length) {
@@ -42,36 +39,6 @@ const App: FC = () => {
   const location = useLocation();
   const { pathname } = useLocation();
   const [path, setPath] = React.useState(pathname);
-  const { getYandexUserInfo, authViaYandex } = authAPI();
-
-  // TODO вынести в отдельный компонент
-  useEffect(() => {
-    if (location.hash) {
-      const yaToken = /access_token=([^&]+)/.exec(location.hash)[1];
-      console.log(yaToken);
-      getYandexUserInfo({
-        onSuccess: (res) => {
-          console.log(res);
-          authViaYandex({
-            onSuccess: (response) => {
-              console.log(response);
-            },
-            onError: (errorResponse) => {
-              console.log(errorResponse);
-            },
-            payload: {
-              accessToken: yaToken,
-              ...res
-            }
-          });
-        },
-        onError: (errorResponse) => {
-          console.log(errorResponse);
-        },
-        payload: { format: 'json', oauth_token: yaToken }
-      });
-    }
-  }, []);
 
   const intersect = (prev, next) => {
     return prev

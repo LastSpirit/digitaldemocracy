@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { OAuthConfig } from '../../../../config';
 import { authAPI } from '../../../../api/authAPI';
 import { authActionCreators, authSelectors } from '../../../../slices/authSlice';
 import { setItem } from '../../../../lib/localStorageManager';
@@ -9,7 +8,7 @@ import { useSearchParams } from '../../../../hooks/useSearchParams';
 import { userActionCreators } from '../../../../slices/userSlice';
 
 export const useOAuthRegister = (isLogin?: boolean) => {
-  const { registerViaGoogle, authViaGoogle } = authAPI();
+  const { registerViaGoogle, authViaGoogle, authViaYandex, registerViaYandex } = authAPI();
   const { address, countryId, city_id, country_id, region_id } = useSelector(authSelectors.getUserData());
   const { registerStep, loginStep } = useSelector(authSelectors.getSteps());
   const { setRegisterStep, setLoginStep } = authActionCreators();
@@ -26,10 +25,11 @@ export const useOAuthRegister = (isLogin?: boolean) => {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
 
-  const api = isLogin ? authViaGoogle : registerViaGoogle;
+  const apiGoogle = isLogin ? authViaGoogle : registerViaGoogle;
+  const apiYandex = isLogin ? authViaYandex : registerViaYandex;
 
   const googleOAuth = (response) => {
-    api({
+    apiGoogle({
       onSuccess: (res) => {
         setItem('token', res.token);
         setUser(res.user);
@@ -53,36 +53,31 @@ export const useOAuthRegister = (isLogin?: boolean) => {
     });
   };
 
-  const yandexOAuth = () => {
-    return `https://oauth.yandex.ru/authorize?response_type=token&client_id=${OAuthConfig.yandexSecretID}&redirect_uri=${window.location.href}`;
-    /*
-    const mainWindowWidth = window.screen.width;
-    const mainWindowHeight = window.screen.height;
-
-    const newWindowWidth = 400;
-    const newWindowHeight = 500;
-    const newWindowLeft = (mainWindowWidth - newWindowWidth) / 2;
-    const newWindowTop = (mainWindowHeight - newWindowHeight) / 2;
-
-    const link = `https://oauth.yandex.ru/authorize?response_type=token&client_id=${OAuthConfig.yandexSecretID}&redirect_uri=${window.location.href}`;
-    return window.open(link, 'yandexAuth', `width=${newWindowWidth},height=${newWindowHeight},left=${newWindowLeft},top=${newWindowTop}`);
-    */
-    /*
-    fetch(`https://oauth.yandex.ru/authorize?response_type=token&client_id=${OAuthConfig.yandexSecretID}`, {
-      method: 'GET',
-      redirect: 'follow',
-    })
-      .then((res) => {
-        console.log(res);
-        window.open(res.url);
-      })
-      .catch((err) => {
-        setYandexError(err.toString());
-      })
-      .then((res) => {
-        console.log(res);
-      });
-     */
+  const yandexOAuth = (response) => {
+    apiYandex({
+      onSuccess: (res) => {
+        setItem('token', res.token);
+        setUser(res.user);
+        setIsAuthenticated(true);
+        if (isLogin) {
+          setLoginStep(1);
+          setAuthValue(undefined);
+        } else {
+          setRegisterStep(5);
+        }
+      },
+      onError: (errorResponse) => {
+        console.log(errorResponse);
+        // @ts-ignore
+        setYandexError(errorResponse && errorResponse.id);
+      },
+      payload: {
+        ...response,
+        country_id,
+        region_id,
+        city_id,
+      }
+    });
   };
 
   return { googleOAuth, yandexOAuth, googleError, yandexError };
