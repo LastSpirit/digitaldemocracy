@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 // import YandexHiddenFrame from './YandexHiddenFrame';
 import { authAPI } from '../../../../api/authAPI';
 
@@ -36,28 +36,26 @@ function getCurrentUrl(redirectUri) {
 function YandexLogin({ onSuccess, clientID, children, redirectUri }) {
   const [userYaData, setUserYaData] = useState(null);
   const { getYandexUserInfo } = authAPI();
-  const handleMessageFromPopup = (event) => {
+
+  function cancelEventListener(listener) {
+    window.removeEventListener('storage', listener);
+  }
+
+  const handleMessageFromPopup = () => {
+    const yaData = window.localStorage.getItem('yandexUser');
+    if (yaData) {
+      onSuccess(JSON.parse(yaData));
+      cancelEventListener(handleMessageFromPopup);
+    }
+    /*
     if (event.data.source === 'yandex-login') {
       onSuccess(event.data.payload);
     }
+    */
   };
 
-  const getUser = (yaToken) => getYandexUserInfo({
-    onSuccess: (res) => {
-      console.log(res);
-      setUserYaData({ ...res, accessToken: yaToken });
-    },
-    onError: (errorResponse) => {
-      console.log(errorResponse);
-    },
-    payload: { format: 'json', oauth_token: yaToken }
-  });
-
-  const onClick = (e) => {
-    if (e) {
-      e.preventDefault();
-    }
-    sessionStorage.setItem('yandexAutoLoginDisabled', 'false');
+  const onClick = () => {
+    // sessionStorage.setItem('yandexAutoLoginDisabled', 'false');
     const currentUrl = getCurrentUrl(redirectUri);
     const requestUrl = getYandexAuthUrl(clientID, currentUrl);
 
@@ -67,7 +65,8 @@ function YandexLogin({ onSuccess, clientID, children, redirectUri }) {
     const x = window.top.outerWidth / 2 + window.top.screenX - (w / 2);
     window.open(requestUrl, 'popup', `width=${w},height=${h},top=${y},left=${x}`);
 
-    window.addEventListener('message', handleMessageFromPopup, { once: true });
+    // window.addEventListener('message', handleMessageFromPopup, { once: true });
+    window.addEventListener('storage', handleMessageFromPopup);
   };
 
   // let frameRedirectTo = null;
@@ -77,21 +76,34 @@ function YandexLogin({ onSuccess, clientID, children, redirectUri }) {
     ? window.parent
     : window.opener;
 
-  if (aki && !userYaData) {
-    // @ts-ignore
-    getUser(aki.access_token);
-  }
+  const getUser = useCallback((yaToken) => getYandexUserInfo({
+    onSuccess: (res) => {
+      console.log(res);
+      setUserYaData({ ...res, accessToken: yaToken });
+    },
+    onError: (errorResponse) => {
+      console.log(errorResponse);
+    },
+    payload: { format: 'json', oauth_token: yaToken }
+  }), [receiver]);
 
   useEffect(() => {
-    console.log(aki);
-    console.log(userYaData);
+    if (aki && !userYaData) {
+      // @ts-ignore
+      getUser(aki.access_token);
+    }
+  }, []);
+
+  useEffect(() => {
     if (aki && receiver && userYaData) {
+      /*
       receiver.postMessage({
         source: 'yandex-login',
         // payload: aki
         payload: userYaData
       }, window.location.origin);
-
+      */
+      window.localStorage.setItem('yandexUser', JSON.stringify(userYaData));
       window.close();
     }
 
@@ -105,13 +117,13 @@ function YandexLogin({ onSuccess, clientID, children, redirectUri }) {
 
       window.addEventListener('message', handleMessageFromPopup, { once: false });
     } */
-  }, [aki, userYaData]);
+  }, [userYaData]);
 
   // {frameRedirectTo && <YandexHiddenFrame redirectTo={frameRedirectTo} />}
   return (
-    <div>
+    <>
       { React.cloneElement(children, { onClick }) }
-    </div>
+    </>
   );
 }
 

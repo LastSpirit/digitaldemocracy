@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { authAPI } from '../../../../api/authAPI';
 import { authActionCreators, authSelectors } from '../../../../slices/authSlice';
-import { setItem } from '../../../../lib/localStorageManager';
+import { setItem, removeItem } from '../../../../lib/localStorageManager';
 import { ModalParams } from '../../../../types/routing';
 import { useSearchParams } from '../../../../hooks/useSearchParams';
 import { userActionCreators } from '../../../../slices/userSlice';
@@ -57,6 +57,7 @@ export const useOAuthRegister = (isLogin?: boolean) => {
     apiYandex({
       onSuccess: (res) => {
         setItem('token', res.token);
+        removeItem('yandexUser');
         setUser(res.user);
         setIsAuthenticated(true);
         if (isLogin) {
@@ -68,6 +69,7 @@ export const useOAuthRegister = (isLogin?: boolean) => {
       },
       onError: (errorResponse) => {
         console.log(errorResponse);
+        removeItem('yandexUser');
         // @ts-ignore
         setYandexError(errorResponse && errorResponse.id);
       },
