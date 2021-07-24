@@ -127,6 +127,7 @@ export default function CustomArrows({ data }) {
         <Slider {...settings} style={{ display: 'flex', alignItems: 'center' }}>
           {data?.map((item) => (
             <Tooltip
+              key={item.id}
               title={item.position ?? ''}
               classes={{
                 tooltip: styles.tooltip,
