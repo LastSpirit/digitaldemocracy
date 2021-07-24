@@ -67,14 +67,14 @@ const SubscriptionCard: FC<IProps> = ({
 
   const getLink = () => {
     switch (type) {
-      case TypeSubscribe.POLITICIANS:
-        return `/politician/${short_link}/politician_news`;
-      case TypeSubscribe.AUTHORS:
-        return `/author/${short_link}/news`;
-      case TypeSubscribe.MEDIAS:
-        return `/mass-media/${short_link}/news`;
-      default:
-        return '#';
+    case TypeSubscribe.POLITICIANS:
+      return `/politician/${short_link}/politician_news`;
+    case TypeSubscribe.AUTHORS:
+      return `/author/${short_link}/news`;
+    case TypeSubscribe.MEDIAS:
+      return `/mass-media/${short_link}/news`;
+    default:
+      return '#';
     }
   };
 

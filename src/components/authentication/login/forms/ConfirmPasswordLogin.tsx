@@ -107,32 +107,32 @@ const ConfirmPasswordLogin = () => {
             )}
             <Box>
               {false && (
-              <ReCAPTCHA
-                sitekey={recaptchaConfig.siteKey}
-                onChange={onChangeRecaptcha}
-              />
+                <ReCAPTCHA
+                  sitekey={recaptchaConfig.siteKey}
+                  onChange={onChangeRecaptcha}
+                />
               )}
               {loginThroughEmail && (
-              <Box sx={{
-                mt: 2,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}
-              >
-                <Typography sx={{
-                  paddingBottom: '0!important'
+                <Box sx={{
+                  mt: 2,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
                 }}
                 >
-                  Запомнить меня
-                </Typography>
-                <Switch
-                  color="primary"
-                  value={values.rememberMe}
-                  name="rememberMe"
-                  onChange={handleChange}
-                />
-              </Box>
+                  <Typography sx={{
+                    paddingBottom: '0!important'
+                  }}
+                  >
+                    Запомнить меня
+                  </Typography>
+                  <Switch
+                    color="primary"
+                    value={values.rememberMe}
+                    name="rememberMe"
+                    onChange={handleChange}
+                  />
+                </Box>
               )}
             </Box>
             <Box sx={{ mt: 3 }}>

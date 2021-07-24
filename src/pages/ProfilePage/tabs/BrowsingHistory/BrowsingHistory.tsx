@@ -64,9 +64,7 @@ export const BrowsingHistory = () => {
             </div>
           ))
           : (
-            <Box>
-              На данный момент новостей нет
-            </Box>
+            <Box>На данный момент новостей нет</Box>
           )}
       </div>
       {data?.isMorePages && (

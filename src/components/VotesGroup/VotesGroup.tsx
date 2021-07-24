@@ -42,9 +42,9 @@ export const VotesGroup: FC<IProps> = ({ likes, dislikes }) => {
         onClick={
           isAuthenticated
             ? () => {
-                setLike(!like);
-                setDislike(false);
-              }
+              setLike(!like);
+              setDislike(false);
+            }
             : handleClickLogin
         }
       >
@@ -58,9 +58,9 @@ export const VotesGroup: FC<IProps> = ({ likes, dislikes }) => {
         onClick={
           isAuthenticated
             ? () => {
-                setDislike(!dislike);
-                setLike(false);
-              }
+              setDislike(!dislike);
+              setLike(false);
+            }
             : handleClickLogin
         }
       >

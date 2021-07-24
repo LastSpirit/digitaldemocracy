@@ -40,61 +40,61 @@ const baseURL = 'https://dev-backoffice.digitaldemocracy.ru/api/';
 
 export const getCallAPI =
   <RootState>(): CallAPI<GenericAppThunk<RootState>> =>
-  (props) =>
-  async () => {
-    const {
-      url,
-      payload,
-      onSuccess,
-      onError,
-      config,
-      includeHeaders,
-      customBaseUrl,
-      nestedResponseType = true,
-    } = props;
-    let response;
+    (props) =>
+      async () => {
+        const {
+          url,
+          payload,
+          onSuccess,
+          onError,
+          config,
+          includeHeaders,
+          customBaseUrl,
+          nestedResponseType = true,
+        } = props;
+        let response;
 
-    try {
-      const method = config?.method;
+        try {
+          const method = config?.method;
 
-      if (method && method.toLowerCase() === 'get') {
-        response = await axios.get((customBaseUrl || baseURL) + url, config);
-      } else {
-        // response = await axios.post((customBaseUrl || baseURL) + url, payload, config);
-        response = await axios({
-          method: 'post',
-          url: (customBaseUrl || baseURL) + url,
-          ...payload,
-          ...config,
-        });
-      }
-      const headers = includeHeaders ? pick(response.headers, includeHeaders) : undefined;
+          if (method && method.toLowerCase() === 'get') {
+            response = await axios.get((customBaseUrl || baseURL) + url, config);
+          } else {
+            // response = await axios.post((customBaseUrl || baseURL) + url, payload, config);
+            response = await axios({
+              method: 'post',
+              url: (customBaseUrl || baseURL) + url,
+              ...payload,
+              ...config,
+            });
+          }
+          const headers = includeHeaders ? pick(response.headers, includeHeaders) : undefined;
 
-      if (!nestedResponseType && response.data && onSuccess) {
-        onSuccess(response.data);
-      }
-      if (nestedResponseType && response.data.success && response.data.data && onSuccess) {
-        onSuccess(response.data.data, headers);
-      } else if (!!nestedResponseType && !!response.data.success && onSuccess) {
-        onSuccess(response.data, headers);
-      }
-      if (nestedResponseType && !response.data.success && onError) {
-        onError(response.data.message);
-      }
-    } catch (err) {
-      console.log(err);
-      console.log(err.response);
-      if (err && err.response && err.response.status === 401) {
-        removeItem('token');
-        store.dispatch(userSlice.actions.logout);
-        document.location.assign('/');
-      }
-      if (onError && err && err.response && err.response.data) {
-        if (err.response.data.errors) onError(err.response.data.errors);
-        else onError(err.response.data.message);
-      }
-    }
-  };
+          if (!nestedResponseType && response.data && onSuccess) {
+            onSuccess(response.data);
+          }
+          if (nestedResponseType && response.data.success && response.data.data && onSuccess) {
+            onSuccess(response.data.data, headers);
+          } else if (!!nestedResponseType && !!response.data.success && onSuccess) {
+            onSuccess(response.data, headers);
+          }
+          if (nestedResponseType && !response.data.success && onError) {
+            onError(response.data.message);
+          }
+        } catch (err) {
+          console.log(err);
+          console.log(err.response);
+          if (err && err.response && err.response.status === 401) {
+            removeItem('token');
+            store.dispatch(userSlice.actions.logout);
+            document.location.assign('/');
+          }
+          if (onError && err && err.response && err.response.data) {
+            if (err.response.data.errors) onError(err.response.data.errors);
+            else onError(err.response.data.message);
+          }
+        }
+      };
 
 export const callOtherAPI = getCallAPI<RootState>();
 

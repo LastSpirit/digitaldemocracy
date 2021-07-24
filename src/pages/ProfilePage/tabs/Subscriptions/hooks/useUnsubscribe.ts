@@ -23,53 +23,53 @@ export const useUnsubscribe = (type, id) => {
   const unsubscribe = () => {
     setStatus(APIStatus.Loading);
     switch (type) {
-      case TypeSubscribe.POLITICIANS:
-        unsubscribePolitician({
-          onError: () => {
-            setStatus(APIStatus.Failure);
-          },
-          onSuccess: () => {
-            setSubscriptions(filterSubscriptions());
-            setStatus(APIStatus.Success);
-          },
-          payload: {
-            politician_id: Number(id),
-            token,
-          },
-        });
-        return;
-      case TypeSubscribe.MEDIAS:
-        unsubscribeMedia({
-          onError: () => {
-            setStatus(APIStatus.Failure);
-          },
-          onSuccess: () => {
-            setSubscriptions(filterSubscriptions());
-            setStatus(APIStatus.Success);
-          },
-          payload: {
-            media_id: Number(id),
-            token,
-          },
-        });
-        return;
-      case TypeSubscribe.AUTHORS:
-        unsubscribeAuthor({
-          onError: () => {
-            setStatus(APIStatus.Failure);
-          },
-          onSuccess: () => {
-            setSubscriptions(filterSubscriptions());
-            setStatus(APIStatus.Success);
-          },
-          payload: {
-            author_id: Number(id),
-            token,
-          },
-        });
-        return;
-      default:
-        setStatus(APIStatus.Success);
+    case TypeSubscribe.POLITICIANS:
+      unsubscribePolitician({
+        onError: () => {
+          setStatus(APIStatus.Failure);
+        },
+        onSuccess: () => {
+          setSubscriptions(filterSubscriptions());
+          setStatus(APIStatus.Success);
+        },
+        payload: {
+          politician_id: Number(id),
+          token,
+        },
+      });
+      return;
+    case TypeSubscribe.MEDIAS:
+      unsubscribeMedia({
+        onError: () => {
+          setStatus(APIStatus.Failure);
+        },
+        onSuccess: () => {
+          setSubscriptions(filterSubscriptions());
+          setStatus(APIStatus.Success);
+        },
+        payload: {
+          media_id: Number(id),
+          token,
+        },
+      });
+      return;
+    case TypeSubscribe.AUTHORS:
+      unsubscribeAuthor({
+        onError: () => {
+          setStatus(APIStatus.Failure);
+        },
+        onSuccess: () => {
+          setSubscriptions(filterSubscriptions());
+          setStatus(APIStatus.Success);
+        },
+        payload: {
+          author_id: Number(id),
+          token,
+        },
+      });
+      return;
+    default:
+      setStatus(APIStatus.Success);
     }
   };
 

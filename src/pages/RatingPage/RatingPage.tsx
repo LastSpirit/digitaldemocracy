@@ -12,21 +12,21 @@ import PoliticiansTab from './tabs/PoliticiansTab';
 
 const setTab = (location) => {
   switch (location) {
-    case '/rating/politicians': {
-      return <PoliticiansTab />;
-    }
-    case '/rating/massMedia': {
-      return <MassMediaTab />;
-    }
-    case '/rating/authors': {
-      return <AuthorsTab />;
-    }
-    case '/rating/parties': {
-      return <PartiesTab />;
-    }
-    default: {
-      return null;
-    }
+  case '/rating/politicians': {
+    return <PoliticiansTab />;
+  }
+  case '/rating/massMedia': {
+    return <MassMediaTab />;
+  }
+  case '/rating/authors': {
+    return <AuthorsTab />;
+  }
+  case '/rating/parties': {
+    return <PartiesTab />;
+  }
+  default: {
+    return null;
+  }
   }
 };
 

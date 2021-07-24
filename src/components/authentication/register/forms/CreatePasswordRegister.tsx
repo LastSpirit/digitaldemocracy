@@ -28,15 +28,15 @@ const CreatePasswordRegister = () => {
             submit: null
           }}
           validationSchema={
-                        Yup
-                          .object()
-                          .shape({
-                            password: Yup
-                              .string().required('Введите пароль').min(8, 'Минимальная длина пароля 8 символов'),
-                            confirmPassword: Yup
-                              .string().oneOf([Yup.ref('password'), null], 'Пароли не совпадают'),
-                          })
-                    }
+            Yup
+              .object()
+              .shape({
+                password: Yup
+                  .string().required('Введите пароль').min(8, 'Минимальная длина пароля 8 символов'),
+                confirmPassword: Yup
+                  .string().oneOf([Yup.ref('password'), null], 'Пароли не совпадают'),
+              })
+          }
           onSubmit={async (values, {
             setErrors,
             setStatus,

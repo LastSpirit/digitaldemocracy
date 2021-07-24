@@ -19,14 +19,14 @@ const InfoBlockResetPassword = () => (
 
 const getCurrentStepComponent = (step: number) => {
   switch (step) {
-    case 1:
-      return <PasswordResetSendEmail />;
-    case 2:
-      return <InfoBlockResetPassword />;
-    case 3:
-      return <CreateNewPassword />;
-    default:
-      return <TypeSelectLogin />;
+  case 1:
+    return <PasswordResetSendEmail />;
+  case 2:
+    return <InfoBlockResetPassword />;
+  case 3:
+    return <CreateNewPassword />;
+  default:
+    return <TypeSelectLogin />;
   }
 };
 
