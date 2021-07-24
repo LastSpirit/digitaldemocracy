@@ -1,43 +1,51 @@
 .nav {
-  margin-top: 70px;
-
   width: 100%;
+  margin-top: 70px;
 }
 
 .list {
   display: flex;
-  justify-content: center;
   align-items: flex-start;
+  justify-content: center;
+
   width: 100%;
 }
 
 .selectedItem {
-  color: white !important;
-  background-color: #363557;
   padding: 10px;
-  border-bottom: 0px solid #b0b0b0;
+
+  color: white !important;
+  border-bottom: 0 solid #B0B0B0;
+  background-color: #363557;
 }
 
 .listItem {
-  text-align: center !important;
   padding: 10px 20px;
-  font-size: 18px;
+
   cursor: pointer;
-  color: #b0b0b0;
-  font-weight: 300;
-  white-space: nowrap;
   transition: 0.3s;
-  border-bottom: 1px solid #b0b0b0;
+  text-align: center !important;
+  white-space: nowrap;
+
+  color: #B0B0B0;
+  border-bottom: 1px solid #B0B0B0;
+
+  font-size: 18px;
+  font-weight: 300;
+
   li {
     text-align: center;
   }
+
   &:hover {
-    color: #222222;
+    color: #222;
   }
+
   &:last-of-type {
     margin-right: 0;
   }
 }
+
 @media (max-width: 600px) {
   .nav {
     margin-top: 20px;

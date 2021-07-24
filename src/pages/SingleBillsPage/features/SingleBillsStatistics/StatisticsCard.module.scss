@@ -2,41 +2,52 @@
 
 .card {
   display: flex;
-  justify-content: flex-start;
   align-items: flex-start;
-  height: 88px;
+  justify-content: flex-start;
+
   width: 575px;
+  height: 88px;
   margin-bottom: 30px;
+
   border-radius: 6px;
-  background-color: #ededed;
+  background-color: #EDEDED;
+
   .cardContent {
     display: flex;
-    justify-content: space-between;
+    overflow: hidden;
     // flex-direction: column;
     align-items: center;
-    padding: 10px 16px 10px 10px;
-    height: 100%;
+    justify-content: space-between;
+
     width: 100%;
-    overflow: hidden;
+    height: 100%;
+    padding: 10px 16px 10px 10px;
+
     .title {
-      white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis;
+
       width: max-content;
       max-width: 420px;
-      color: #222222;
+
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+      color: #222;
+
       font-family: Roboto;
-      font-style: normal;
-      font-weight: 500;
       font-size: 18px;
+      font-weight: 500;
+      font-style: normal;
       line-height: 20px;
     }
+
     .bottomItem {
-      width: 50%;
       display: flex;
+      align-items: flex-end;
       flex-direction: row;
       justify-content: space-between;
-      align-items: flex-end;
+
+      width: 50%;
       height: 40px;
     }
   }
@@ -44,52 +55,66 @@
 
 .card-mobile {
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
   flex-direction: column;
-  height: 148px;
+  justify-content: space-between;
+
   width: 360px;
+  height: 148px;
   margin-bottom: 30px;
-  border-radius: 6px;
-  background-color: #ededed;
   padding: 8px 9px 11px 9px;
-  @media screen and (max-width: $mobileSEScreen) {
-    width: 300px;
-  }
+
+  border-radius: 6px;
+  background-color: #EDEDED;
+
   .topItems {
-    height: 80px;
-    width: 100%;
     display: flex;
-    justify-content: flex-start;
     align-items: flex-start;
+    justify-content: flex-start;
+
+    width: 100%;
+    height: 80px;
+
     .cardContent {
       display: flex;
-      justify-content: space-between;
-      flex-direction: column;
-      padding-left: 10px;
-      height: 100%;
-      width: 100%;
       overflow: hidden;
+      flex-direction: column;
+      justify-content: space-between;
+
+      width: 100%;
+      height: 100%;
+      padding-left: 10px;
+
       .title {
         overflow: hidden;
-        text-overflow: ellipsis;
-        color: #222222;
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        white-space: normal;
+
         max-height: 54px;
+
+        white-space: normal;
+        text-overflow: ellipsis;
+
+        color: #222;
+
+        font-family: Roboto;
+        font-size: 18px;
+        font-weight: 500;
+        font-style: normal;
         line-height: 150%;
       }
     }
   }
+
   .bottomItems {
-    width: 100%;
     display: flex;
+    align-items: flex-end;
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-end;
+
+    width: 100%;
     height: 40px;
+  }
+
+  @media screen and (max-width: $mobileSEScreen) {
+    width: 300px;
   }
 }

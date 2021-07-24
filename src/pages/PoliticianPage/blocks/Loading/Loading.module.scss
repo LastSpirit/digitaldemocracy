@@ -1,69 +1,86 @@
 .loadingCont {
   position: relative;
-  width: 100%;
-  height: 100%;
+  z-index: 100;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
   background-color: #00000080;
-  z-index: 100;
 }
 
 .loadingWrapper {
+  position: absolute;
+  z-index: 100;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 100;
+
   width: 100%;
   height: 100%;
-  position: absolute;
 }
 
 .container {
+  position: relative;
+  z-index: 100;
+
   width: 100%;
   height: 100%;
-  z-index: 100;
-  position: relative;
 }
 
 .loaderWrapper {
-  width: 100%;
-  height: 40vh;
-  flex: 1;
   display: flex;
   align-items: center;
+  flex: 1;
   justify-content: center;
+
+  width: 100%;
+  height: 40vh;
 }
 
 .buttonRow {
   display: flex;
+
   width: 100%;
   margin-bottom: 20px;
+
   .backButton {
-    border-color: #b0b0b0;
+    margin: 0 !important;
     padding: 5px 20px;
-    margin: 0px !important;
+
+    border-color: #B0B0B0;
+
     .icon {
-      margin-right: 7px;
       height: 100%;
-      color: #7a7a7a;
+      margin-right: 7px;
+
+      text-align: left;
+      letter-spacing: 0;
+
+      color: #7A7A7A;
+
       font-family: HelveticaNeueCyr;
       font-size: 18px;
-      font-style: normal;
       font-weight: 200;
+      font-style: normal;
       line-height: 18px;
-      letter-spacing: 0em;
-      text-align: left;
     }
+
     .text {
+      text-align: left;
+      letter-spacing: 0;
+
+      color: #7A7A7A;
+
       font-family: HelveticaNeueCyr;
       font-size: 18px;
-      font-style: normal;
       font-weight: 200;
+      font-style: normal;
       line-height: 18px;
-      letter-spacing: 0em;
-      text-align: left;
-      color: #7a7a7a;
     }
   }
 }

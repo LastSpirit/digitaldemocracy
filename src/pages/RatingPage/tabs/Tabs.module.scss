@@ -1,93 +1,124 @@
 @import '../../../variables.scss';
 
 .newsContainer {
-  width: 100%;
   display: flex;
   flex-direction: column;
+
+  width: 100%;
+
   .sortRow {
-    margin-top: 20px;
     display: flex;
-    width: max-content;
-    margin-bottom: 30px;
     overflow-x: hidden;
+
+    width: max-content;
     width: 100%;
+    margin-top: 20px;
+    margin-bottom: 30px;
+
     .sortBadge {
-      border-color: #b0b0b0;
-      padding: 5px 20px;
-      margin: 0px;
-      margin-right: 15px;
       display: flex;
       align-items: center;
+
+      margin: 0;
+      margin-right: 15px;
+      padding: 5px 20px;
+
+      border-color: #B0B0B0;
+
       .icon {
         height: 100%;
-        color: #7a7a7a;
+
+        text-align: left;
+        letter-spacing: 0;
+
+        color: #7A7A7A;
+
         font-family: HelveticaNeueCyr;
         font-size: 18px;
-        font-style: normal;
         font-weight: 200;
+        font-style: normal;
         line-height: 18px;
-        letter-spacing: 0em;
-        text-align: left;
       }
+
       .text {
         margin-right: 10px;
+
+        text-align: left;
+        letter-spacing: 0;
+
+        color: #7A7A7A;
+
         font-family: HelveticaNeueCyr;
         font-size: 18px;
-        font-style: normal;
         font-weight: 200;
+        font-style: normal;
         line-height: 18px;
-        letter-spacing: 0em;
-        text-align: left;
-        color: #7a7a7a;
       }
+
       .emptyIcon {
         display: flex;
+
         width: 18px;
         height: 18px;
       }
     }
+
     .sortBadge-active {
-      border-color: #b0b0b0;
-      padding: 5px 20px;
-      margin: 0px;
-      margin-right: 15px;
       display: flex;
       align-items: center;
+
+      margin: 0;
+      margin-right: 15px;
+      padding: 5px 20px;
+
+      border-color: #B0B0B0;
       background-color: #363557;
+
       .icon {
         height: 100%;
-        color: #fff;
+
+        text-align: left;
+        letter-spacing: 0;
+
+        color: #FFF;
+
         font-family: HelveticaNeueCyr;
         font-size: 18px;
-        font-style: normal;
         font-weight: 200;
+        font-style: normal;
         line-height: 18px;
-        letter-spacing: 0em;
-        text-align: left;
       }
+
       .text {
         margin-right: 10px;
+
+        text-align: left;
+        letter-spacing: 0;
+
+        color: #FFF;
+
         font-family: HelveticaNeueCyr;
         font-size: 18px;
-        font-style: normal;
         font-weight: 200;
+        font-style: normal;
         line-height: 18px;
-        letter-spacing: 0em;
-        text-align: left;
-        color: #fff;
       }
+
       .emptyIcon {
         display: flex;
+
         width: 18px;
         height: 18px;
       }
     }
+
     @media screen and (max-width: $mobileScreen) {
       .sortBadge {
         .text {
           font-size: 14px;
         }
       }
+
       .sortBadge-active {
         .text {
           font-size: 14px;
@@ -95,11 +126,13 @@
       }
     }
   }
+
   .news {
-    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+
+    width: 100%;
     margin-bottom: 40px;
     // .outerCardContainer {
     //   width: 324px;

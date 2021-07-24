@@ -4,6 +4,7 @@
   "version": "4.0.0",
   "private": true,
   "scripts": {
+    "stylelint-fix":  "stylelint --fix ./src",
     "lint": "eslint ./src",
     "lint-fix": "eslint --fix ./src",
     "start": "react-scripts start",
@@ -111,6 +112,10 @@
     "yup": "^0.32.8"
   },
   "devDependencies": {
-    "eslint-config-airbnb-typescript": "^12.3.1"
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
+    "stylelint-order": "^4.1.0",
+    "stylelint-order-config-standard": "^0.1.3"
   }
 }

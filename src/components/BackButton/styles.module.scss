@@ -1,18 +1,24 @@
 .buttonRow {
   display: flex;
+
   width: 100%;
   margin-bottom: 20px;
+
   .backButton {
-    background-color: #363557;
-    border: 1px solid #363557;
-    padding: 10px 30px;
-    font-size: 14px;
-    border-radius: 150px;
-    white-space: nowrap;
     display: flex;
-    height: 40px;
-    color: white;
+
     box-sizing: border-box;
+    height: 40px;
+    padding: 10px 30px;
+
+    white-space: nowrap;
+
+    color: white;
+    border: 1px solid #363557;
+    border-radius: 150px;
+    background-color: #363557;
+
+    font-size: 14px;
 
     &:hover {
       color: #363557;
@@ -20,26 +26,32 @@
     }
 
     .icon {
-      margin-right: 7px;
       height: 100%;
+      margin-right: 7px;
+
+      text-align: left;
+      letter-spacing: 0;
+
+      color: inherit;
+
       font-family: HelveticaNeueCyr;
       font-size: 18px;
-      font-style: normal;
       font-weight: 200;
+      font-style: normal;
       line-height: 18px;
-      letter-spacing: 0em;
-      text-align: left;
-      color: inherit;
     }
+
     .text {
+      text-align: left;
+      letter-spacing: 0;
+
+      color: inherit;
+
       font-family: HelveticaNeueCyr;
       font-size: 18px;
-      font-style: normal;
       font-weight: 200;
+      font-style: normal;
       line-height: 18px;
-      letter-spacing: 0em;
-      text-align: left;
-      color: inherit;
     }
   }
 }
