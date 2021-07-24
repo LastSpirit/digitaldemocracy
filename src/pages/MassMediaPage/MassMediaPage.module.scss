@@ -8,11 +8,13 @@
   min-height: 80vh;
 
   .backButton {
-    cursor: pointer;
     display: flex;
     align-items: center;
-    margin-bottom: 30px;
+
     margin-top: 30px;
+    margin-bottom: 30px;
+
+    cursor: pointer;
 
     .arrow {
       transform: rotate(180deg);
@@ -20,23 +22,25 @@
 
     p {
       margin: 0 !important;
-      padding-left: 10px;
       padding-bottom: 0 !important;
+      padding-left: 10px;
     }
   }
 
   .chartContainer {
-    border: 1px solid #b0b0b0;
+    border: 1px solid #B0B0B0;
     border-radius: 5px;
 
     .chartWrapper {
       position: relative;
+
       width: 100%;
       height: 300px;
       padding: 10px;
 
       .chart {
         position: relative;
+
         width: calc(100% - 20px);
 
         * {
@@ -46,10 +50,12 @@
     }
 
     .pickersContainer {
-      border-bottom: 1px solid #b0b0b0;
-      padding: 10px;
       display: flex;
       align-items: center;
+
+      padding: 10px;
+
+      border-bottom: 1px solid #B0B0B0;
 
       .picker {
         display: flex;
@@ -62,13 +68,14 @@
         &.error {
           input {
             transition: 0.3s all !important;
-            border-bottom-color: red !important;
+
             color: red !important;
+            border-bottom-color: red !important;
           }
         }
 
         span {
-          color: #444444;
+          color: #444;
         }
       }
     }
@@ -80,6 +87,7 @@
 
       .pickersContainer {
         flex-direction: column;
+
         span {
           font-size: 12px;
         }
@@ -101,115 +109,156 @@
 }
 
 .newsContainer {
-  width: 100%;
   display: flex;
   flex-direction: column;
+
+  width: 100%;
+
   .sortRow {
     display: flex;
-    width: max-content;
-    margin-bottom: 30px;
     overflow-x: hidden;
+
+    width: max-content;
     width: 100%;
+    margin-bottom: 30px;
+
     .sortBadge {
-      border-color: #b0b0b0;
-      padding: 5px 20px;
-      margin: 0px;
-      margin-right: 15px;
       display: flex;
       align-items: center;
+
+      margin: 0;
+      margin-right: 15px;
+      padding: 5px 20px;
+
+      border-color: #B0B0B0;
+
       .icon {
         height: 100%;
-        color: #7a7a7a;
+
+        text-align: left;
+        letter-spacing: 0;
+
+        color: #7A7A7A;
+
         font-family: HelveticaNeueCyr;
         font-size: 18px;
-        font-style: normal;
         font-weight: 200;
+        font-style: normal;
         line-height: 18px;
-        letter-spacing: 0em;
-        text-align: left;
       }
+
       .text {
         margin-right: 10px;
+
+        text-align: left;
+        letter-spacing: 0;
+
+        color: #7A7A7A;
+
         font-family: HelveticaNeueCyr;
         font-size: 18px;
-        font-style: normal;
         font-weight: 200;
+        font-style: normal;
         line-height: 18px;
-        letter-spacing: 0em;
-        text-align: left;
-        color: #7a7a7a;
       }
+
       .emptyIcon {
         display: flex;
+
         width: 18px;
         height: 18px;
       }
     }
+
     .sortBadge-active {
-      border-color: #b0b0b0;
-      padding: 5px 20px;
-      margin: 0px;
-      margin-right: 15px;
       display: flex;
       align-items: center;
+
+      margin: 0;
+      margin-right: 15px;
+      padding: 5px 20px;
+
+      border-color: #B0B0B0;
       background-color: #363557;
+
       .icon {
         height: 100%;
-        color: #fff;
+
+        text-align: left;
+        letter-spacing: 0;
+
+        color: #FFF;
+
         font-family: HelveticaNeueCyr;
         font-size: 18px;
-        font-style: normal;
         font-weight: 200;
+        font-style: normal;
         line-height: 18px;
-        letter-spacing: 0em;
-        text-align: left;
       }
+
       .text {
         margin-right: 10px;
+
+        text-align: left;
+        letter-spacing: 0;
+
+        color: #FFF;
+
         font-family: HelveticaNeueCyr;
         font-size: 18px;
-        font-style: normal;
         font-weight: 200;
+        font-style: normal;
         line-height: 18px;
-        letter-spacing: 0em;
-        text-align: left;
-        color: #fff;
       }
+
       .emptyIcon {
         display: flex;
+
         width: 18px;
         height: 18px;
       }
     }
+
     @media screen and (max-width: $mobileScreen) {
       overflow-x: scroll;
-      padding: 10px 0px;
+
+      padding: 10px 0;
+
       .sortBadge {
-        padding: 5px 10px;
         min-width: max-content;
+        padding: 5px 10px;
+
         .text {
-          font-size: 14px;
           margin-right: 5px;
+
+          font-size: 14px;
         }
       }
+
       .sortBadge-active {
-        padding: 5px 10px;
         min-width: max-content;
+        padding: 5px 10px;
+
         .text {
-          font-size: 14px;
           margin-right: 5px;
+
+          font-size: 14px;
         }
       }
     }
   }
+
   .news {
-    width: 100%;
     display: flex;
     flex-wrap: wrap;
+
+    width: 100%;
+
     .outerCardContainer {
       width: 266px;
-      margin: 0px 16px 16px 0px;
+      margin: 0 16px 16px 0;
     }
+
     @media screen and (max-width: $mobileScreen) {
       justify-content: center;
     }
@@ -217,18 +266,21 @@
 }
 
 .noNewsBlock {
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 
+  width: 100%;
+  height: 100%;
+
   span {
     padding: 10px 0;
-    font-weight: 600;
-    color: #747373;
-    font-size: 16px;
     padding-left: 10px;
+
+    color: #747373;
+
+    font-size: 16px;
+    font-weight: 600;
   }
 
   @media screen and (max-width: $mobileScreen) {
@@ -239,39 +291,45 @@
 }
 
 .navigation {
-  margin: 20px 10px;
   display: flex;
   flex-shrink: 1;
+
+  margin: 20px 10px;
 
   .tabList {
     flex-basis: 24%;
     scrollbar-width: none;
 
     .link {
-      height: 40px;
       display: flex;
       align-items: center;
-      border-bottom: 1px solid #b0b0b0;
+
+      height: 40px;
       padding: 5px 10px;
+
       transition: 0.3s all;
-      color: #747373;
       text-decoration: none;
+
+      color: #747373;
+      border-bottom: 1px solid #B0B0B0;
 
       &:hover {
         background-color: #36355720;
       }
 
       &.-active {
-        background-color: #363557;
         color: white;
+        background-color: #363557;
       }
     }
   }
 
   .tabContent {
-    margin-left: 30px;
     flex-basis: 76%;
+
     min-height: 600px;
+    margin-left: 30px;
+
     @media screen and (max-width: $mobileScreen) {
       margin-left: 0 !important;
     }
@@ -279,65 +337,84 @@
 
   @media screen and (max-width: $mobileScreen) {
     flex-direction: column;
+
     .tabListContainer {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin-bottom: 16px;
       position: relative;
-      width: 100%;
+
+      display: flex;
       overflow-x: scroll;
+      align-items: center;
+      flex-direction: row;
+
+      width: 100%;
+      margin-bottom: 16px;
+
       &::-webkit-scrollbar {
         display: none;
       }
 
       .prevArrow {
-        transform: rotate(180deg);
-        background-color: #f3f3f3;
-        padding: 10px;
-        font-size: 10px;
-        border-radius: 100%;
-        cursor: pointer;
         margin-right: 10px;
+        padding: 10px;
+
+        cursor: pointer;
+        transform: rotate(180deg);
+
+        border-radius: 100%;
+        background-color: #F3F3F3;
+
+        font-size: 10px;
       }
 
       .nextArrow {
-        background-color: #f3f3f3;
-        padding: 10px;
-        font-size: 10px;
-        border-radius: 100%;
-        cursor: pointer;
         margin-left: 10px;
+        padding: 10px;
+
+        cursor: pointer;
+
+        border-radius: 100%;
+        background-color: #F3F3F3;
+
+        font-size: 10px;
       }
 
       .tabContent {
-        width: 100%;
         flex-basis: 100%;
+
+        width: 100%;
       }
 
       .tabList {
-        flex-basis: 100%;
-        display: flex;
-        flex-direction: row;
-        overflow-x: scroll;
         position: relative;
-        scroll-behavior: smooth;
+
+        display: flex;
+        overflow-x: scroll;
+        flex-basis: 100%;
+        flex-direction: row;
+
         box-sizing: border-box;
+        scroll-behavior: smooth;
+
         &::-webkit-scrollbar {
           display: none;
         }
 
         .link {
-          min-width: calc(50% - 10px);
           position: relative;
-          border: 1px solid #b0b0b0;
-          border-radius: 30px;
-          font-size: 70%;
-          margin-right: 10px;
+
           justify-content: center;
-          text-align: center;
-          line-height: 15px;
+
           box-sizing: border-box;
+          min-width: calc(50% - 10px);
+          margin-right: 10px;
+
+          text-align: center;
+
+          border: 1px solid #B0B0B0;
+          border-radius: 30px;
+
+          font-size: 70%;
+          line-height: 15px;
         }
       }
     }
@@ -346,241 +423,319 @@
 
 .profileInfoContainer {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  border-bottom: 1px solid #b0b0b0;
+  justify-content: space-between;
+
+  border-bottom: 1px solid #B0B0B0;
+
   .buttonRow {
     display: flex;
+
     width: 100%;
     margin-bottom: 20px;
+
     .backButton {
-      border-color: #b0b0b0;
+      margin: 0;
       padding: 5px 20px;
-      margin: 0px;
+
+      border-color: #B0B0B0;
+
       .icon {
-        margin-right: 7px;
         height: 100%;
-        color: #7a7a7a;
+        margin-right: 7px;
+
+        text-align: left;
+        letter-spacing: 0;
+
+        color: #7A7A7A;
+
         font-family: HelveticaNeueCyr;
         font-size: 18px;
-        font-style: normal;
         font-weight: 200;
+        font-style: normal;
         line-height: 18px;
-        letter-spacing: 0em;
-        text-align: left;
       }
+
       .text {
+        text-align: left;
+        letter-spacing: 0;
+
+        color: #7A7A7A;
+
         font-family: HelveticaNeueCyr;
         font-size: 18px;
-        font-style: normal;
         font-weight: 200;
+        font-style: normal;
         line-height: 18px;
-        letter-spacing: 0em;
-        text-align: left;
-        color: #7a7a7a;
       }
     }
   }
 }
 
 .profileInfoContainer-mobile {
-  width: 100%;
   display: flex;
   flex-direction: column;
+
+  width: 100%;
   height: 100%;
+
   .buttonRow {
     display: flex;
+
     width: 100%;
     margin-bottom: 20px;
+
     .backButton {
-      border-color: #b0b0b0;
+      margin: 0 !important;
       padding: 5px 20px;
-      margin: 0px !important;
+
+      border-color: #B0B0B0;
+
       .icon {
-        margin-right: 7px;
         height: 100%;
-        color: #7a7a7a;
+        margin-right: 7px;
+
+        text-align: left;
+        letter-spacing: 0;
+
+        color: #7A7A7A;
+
         font-family: HelveticaNeueCyr;
         font-size: 18px;
-        font-style: normal;
         font-weight: 200;
+        font-style: normal;
         line-height: 18px;
-        letter-spacing: 0em;
-        text-align: left;
       }
+
       .text {
+        text-align: left;
+        letter-spacing: 0;
+
+        color: #7A7A7A;
+
         font-family: HelveticaNeueCyr;
         font-size: 18px;
-        font-style: normal;
         font-weight: 200;
+        font-style: normal;
         line-height: 18px;
-        letter-spacing: 0em;
-        text-align: left;
-        color: #7a7a7a;
       }
     }
   }
+
   .topItems {
     display: flex;
+
     height: 100%;
+
     .avatarBlock {
       position: relative;
+
       display: flex;
-      border-radius: 20px;
       align-items: center;
       justify-content: center;
-      background-color: #248232;
-      height: 117px;
+
       width: 117px;
-      min-height: 117px;
       min-width: 117px;
+      height: 117px;
+      min-height: 117px;
+
+      border-radius: 20px;
+      background-color: #248232;
+
       .avatar {
-        overflow: hidden;
         display: flex;
+        overflow: hidden;
         align-items: center;
         justify-content: center;
+
         width: 100%;
         height: 100%;
+
         border-radius: 100%;
-        background-color: #fff;
+        background-color: #FFF;
+
         &.noAvatar {
-          background-color: #e5e5e5;
+          background-color: #E5E5E5;
         }
+
         .noAvatarIcon {
           width: 100px;
           height: 100px;
         }
+
         img {
           max-width: 100%;
           max-height: 100%;
         }
       }
     }
+
     .personBlock {
-      margin-left: 5px;
-      height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+
       width: 100%;
+      height: 100%;
+      margin-left: 5px;
+
       .cardsBlock {
         display: flex;
         align-items: center;
         justify-content: space-between;
+
         box-sizing: border-box;
         height: 61px;
+
         .card {
-          width: 100%;
-          border-radius: 20px;
-          border: 1px solid #b0b0b0;
-          padding: 10px 20px;
-          height: 100%;
-          overflow: hidden;
-          box-sizing: border-box;
           display: flex;
+          overflow: hidden;
           justify-content: space-between;
+
+          box-sizing: border-box;
+          width: 100%;
+          height: 100%;
+          padding: 10px 20px;
+
+          border: 1px solid #B0B0B0;
+          border-radius: 20px;
+
           .description {
-            height: 90%;
-            width: 100%;
             overflow-y: scroll;
+
+            width: 100%;
+            height: 90%;
+
             .text {
+              max-height: 100%;
+
+              text-overflow: ellipsis;
+
               color: #585858;
+
               font-size: 8px;
               font-weight: 300;
-              text-overflow: ellipsis;
-              max-height: 100%;
             }
           }
         }
       }
+
       .fioBlock {
         display: flex;
         align-items: flex-end;
-        justify-content: space-between;
         flex-direction: row;
+        justify-content: space-between;
+
         margin-bottom: 5px;
+
         .fio {
           p {
-            color: #222222;
             margin: 0 !important;
+
+            color: #222;
+
             font-size: 24px;
           }
         }
+
         .subscribers {
           display: flex;
           align-items: center;
+
           height: 18px;
+
           .facebook {
-            color: #363557;
-            background-color: transparent;
-            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 40px;
+
             width: 40px;
+            height: 40px;
+
+            cursor: pointer;
+
+            color: #363557;
+            background-color: transparent;
 
             &:hover {
               color: white;
-              background-color: #363557;
               border-radius: 50%;
+              background-color: #363557;
             }
           }
         }
       }
     }
   }
+
   .subscriberButton-mobile {
     width: 100%;
-    margin-top: 10px !important;
     height: 40px;
-    background-color: #ededed !important;
-    border: 1px solid #b0b0b0;
+    margin-top: 10px !important;
+
+    color: #222;
+    border: 1px solid #B0B0B0;
+    background-color: #EDEDED !important;
+
     font-size: 14px;
-    color: #222222;
   }
+
   .card {
-    width: 100%;
-    border-radius: 20px;
-    border: 1px solid #b0b0b0;
-    padding: 10px 20px;
-    height: 122px;
-    overflow: hidden;
-    box-sizing: border-box;
     display: flex;
+    overflow: hidden;
     justify-content: space-between;
+
+    box-sizing: border-box;
+    width: 100%;
+    height: 122px;
     margin-top: 5px;
+    padding: 10px 20px;
+
+    border: 1px solid #B0B0B0;
+    border-radius: 20px;
+
     .secondCard {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+
       width: 100%;
+
       .trustRow {
         display: flex;
         align-items: center;
         justify-content: space-between;
+
         width: 100%;
         height: 45%;
+
         .badge {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          box-sizing: border-box;
           max-width: 55%;
           height: 100%;
-          background: #ededed;
-          border-radius: 150px;
           padding: 20px 15px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-sizing: border-box;
+
+          border-radius: 150px;
+          background: #EDEDED;
         }
+
         .percent {
-          max-width: 40%;
-          font-size: 36px;
-          height: 100%;
-          color: #585858;
           display: flex;
           align-items: center;
           justify-content: center;
+
+          max-width: 40%;
+          height: 100%;
+
+          color: #585858;
+
+          font-size: 36px;
+
           @media screen and (max-width: $mobileScreen) {
             font-size: 25px;
           }
@@ -591,47 +746,59 @@
 }
 
 .loaderWrapper {
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
 }
 
 .topItems {
   display: flex;
+
+  width: 100%;
   height: 295px;
   margin-bottom: 60px;
-  width: 100%;
+
   .avatarBlock {
     position: relative;
+
     display: flex;
-    border-radius: 20px;
     align-items: center;
     justify-content: center;
+
+    width: 298px;
+    min-width: 298px;
     // background-color: #248232;
     height: 100%;
-    width: 298px;
     min-height: 100%;
-    min-width: 298px;
+
+    border-radius: 20px;
+
     &__nonRaiting {
-      border: 1px solid #000000;
+      border: 1px solid #000;
     }
+
     .avatar {
-      overflow: hidden;
       display: flex;
+      overflow: hidden;
       align-items: center;
       justify-content: center;
+
       width: 93%;
       height: 93%;
+
       border-radius: 5%;
-      background-color: #fff;
+      background-color: #FFF;
+
       &__nonRaiting {
-        border: 1px solid #000000;
+        border: 1px solid #000;
       }
+
       &.noAvatar {
-        background-color: #e5e5e5;
+        background-color: #E5E5E5;
       }
 
       .noAvatarIcon {
@@ -647,34 +814,41 @@
     }
 
     .changeProfileButton {
-      margin-top: 20px;
       width: 200px;
-      border: 1px solid #b0b0b0;
-      color: #b0b0b0;
+      margin-top: 20px;
       padding: 2px 0 !important;
+
+      color: #B0B0B0;
+      border: 1px solid #B0B0B0;
     }
   }
 
   .personBlock {
-    margin-left: 30px;
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
     width: 100%;
+    height: 100%;
+    margin-left: 30px;
+
     .description {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      max-width: 100%;
+
+      color: #585858;
+
       font-size: 18px;
       line-height: 21px;
-      color: #585858;
-      max-width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
 
       p {
-        margin: 0px;
+        margin: 0;
       }
     }
+
     .cardsBlock {
       display: flex;
       // align-items: center;
@@ -683,13 +857,15 @@
       // box-sizing: border-box;
       // justify-self: end;
       .card {
-        width: 577px;
+        display: flex;
         // height: 100%;
         overflow: hidden;
-        height: 102px;
-        box-sizing: border-box;
-        display: flex;
         justify-content: space-between;
+
+        box-sizing: border-box;
+        width: 577px;
+        height: 102px;
+
         &__nonRaiting {
           height: auto;
         }
@@ -715,55 +891,74 @@
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+
           width: 100%;
+
           .trustRow {
             display: flex;
             align-items: center;
             // justify-content: space-between;
             justify-content: flex-end;
+
             width: 100%;
             height: 50px;
+
             &__nonRaiting {
               justify-content: flex-start;
             }
+
             .badge {
-              width: 192px;
-              height: 100%;
-              background: #ededed;
-              border-radius: 48px;
-              padding: 20px 15px;
               display: flex;
               align-items: center;
               justify-content: center;
+
               box-sizing: border-box;
+              width: 192px;
+              height: 100%;
+              padding: 20px 15px;
+
+              border-radius: 48px;
+              background: #EDEDED;
+
               &__nonRaiting {
-                background-color: #C4C4C4;
                 width: auto;
+
+                background-color: #C4C4C4;
               }
+
               @media screen and (max-width: $preMobileScreen) {
                 height: 70%;
               }
+
               .text {
-                font-size: 16px;
-                line-height: 42px;
-                white-space: nowrap;
-                overflow: hidden;
                 display: flex;
+                overflow: hidden;
                 align-items: center;
                 justify-content: center;
+
+                white-space: nowrap;
+
+                font-size: 16px;
+                line-height: 42px;
+
                 @media screen and (max-width: $preMobileScreen) {
                   font-size: 12px;
                 }
               }
             }
+
             .percent {
-              max-width: 40%;
-              font-size: 36px;
-              height: 100%;
-              color: #585858;
               display: flex;
               align-items: center;
               justify-content: center;
+
+              max-width: 40%;
+              height: 100%;
+
+              color: #585858;
+
+              font-size: 36px;
+
               @media screen and (max-width: $preMobileScreen) {
                 font-size: 22px;
               }
@@ -772,31 +967,41 @@
         }
       }
     }
+
     .fioBlock {
       display: flex;
       align-items: flex-end;
-      justify-content: space-between;
       flex-direction: row;
+      justify-content: space-between;
+
       margin-bottom: 16px;
+
       .fio {
-        width: 100%;
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
+
+        width: 100%;
+
         p {
-          color: #222222;
           margin: 0 !important;
+
+          color: #222;
+
           font-size: 48px;
           line-height: 56px;
+
           @media screen and (max-width: $mobileScreen) {
             font-size: 24px;
             line-height: 32px;
           }
         }
       }
+
       .subscribers {
         display: flex;
         align-items: center;
+
         margin-top: 20px;
       }
     }
@@ -808,10 +1013,12 @@
   }
 
   .subscriberButton {
-    height: 40px;
     width: 207px;
+    height: 40px;
+
     color: white;
     border-radius: 21px !important;
+
     span {
       display: flex;
       align-items: center;
@@ -822,92 +1029,111 @@
 
 .bottomRight {
   display: flex;
+  align-items: flex-end;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: flex-end;
-  font-weight: 500;
+
+  color: #7A7A7A;
+
   font-size: 18px;
+  font-weight: 500;
   line-height: 21px;
-  color: #7a7a7a;
 }
 
 .subscribersBadge {
   min-width: 207px;
+
   text-align: end;
-  font-weight: 500;
+
   font-size: 18px;
+  font-weight: 500;
   line-height: 21px;
 }
 
 .facebook {
-  color: #363557;
-  background-color: transparent;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
+
   width: 40px;
+  height: 40px;
+
+  cursor: pointer;
+
+  color: #363557;
+  background-color: transparent;
 
   &:hover {
     color: white;
-    background-color: #363557;
     border-radius: 50%;
+    background-color: #363557;
   }
 }
 
 .mobileRoot {
-  min-height: 100%;
-  margin-bottom: 20px;
-  width: 100%;
   display: flex;
   flex-direction: column;
 
+  width: 100%;
+  min-height: 100%;
+  margin-bottom: 20px;
+
   p {
     width: 100%;
+    margin: 0;
+
+    color: #222;
+
     font-size: 20px;
-    color: #222222;
-    margin: 0px;
   }
 
   .mobSubscribers {
-    font-weight: 500;
-    font-size: 11px;
-    line-height: 13px;
-    color: #7a7a7a;
-    margin-bottom: 12px;
     margin-top: 8px;
+    margin-bottom: 12px;
+
+    color: #7A7A7A;
+
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 13px;
   }
 
   .mobInfoBlock {
     display: flex;
 
     .mobAvatarBlock {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
       width: 105px;
       height: 110px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 10px;
       margin-right: 10px;
+
+      border-radius: 10px;
+
       &__nonRaiting {
-        border: 1px solid #000000;
+        border: 1px solid #000;
       }
 
       .mobAvatar {
-        overflow: hidden;
         display: flex;
+        overflow: hidden;
         align-items: center;
         justify-content: center;
+
         width: 93%;
         height: 93%;
+
         border-radius: 5%;
-        background-color: #fff;
+        background-color: #FFF;
+
         &__nonRaiting {
-          border: 1px solid #000000;
+          border: 1px solid #000;
         }
+
         &.mobNoAvatar {
-          background-color: #e5e5e5;
+          background-color: #E5E5E5;
         }
 
         .mobNoAvatarIcon {
@@ -927,15 +1153,19 @@
   .mobRightBlock {
     display: flex;
     flex-direction: column;
+
+    color: #7A7A7A;
+
     font-size: 11px;
     line-height: 13px;
-    color: #7a7a7a;
 
     p {
+      margin: 0;
+
+      color: #7A7A7A;
+
       font-size: 11px;
       line-height: 13px;
-      color: #7a7a7a;
-      margin: 0px;
     }
 
     .mobEnglishName {
@@ -947,60 +1177,77 @@
     }
 
     .mobTitle {
-      margin-bottom: 8px;
-      text-decoration-line: underline;
-      cursor: pointer;
-      color: #363557;
       width: max-content;
+      margin-bottom: 8px;
+
+      cursor: pointer;
+
+      color: #363557;
+      text-decoration-line: underline;
     }
   }
 }
 
 .mobCard {
+  display: flex;
+  justify-content: space-between;
+
   width: 100%;
   height: 64px;
-  display: flex;
   margin-top: 12px;
-  justify-content: space-between;
+
   .mobSecondCard {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
     width: 100%;
+
     .mobTrustRow {
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       width: 100%;
       height: 45%;
+
       .mobBadge {
-        width: 112px;
-        height: 29px;
-        background: #d4f5dd;
-        border-radius: 150px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #34a853;
+
+        width: 112px;
+        height: 29px;
+
+        color: #34A853;
+        border-radius: 150px;
+        background: #D4F5DD;
+
         &__nonRaiting {
-          background-color: #C4C4C4;
-          padding: 5px;
           width: auto;
+          padding: 5px;
+
+          background-color: #C4C4C4;
         }
+
         .mobText {
           font-size: 11px;
           line-height: 21px;
         }
       }
+
       .mobPercent {
-        max-width: 40%;
-        font-size: 18px;
-        line-height: 21px;
-        height: 100%;
-        color: #585858;
         display: flex;
         align-items: center;
         justify-content: center;
+
+        max-width: 40%;
+        height: 100%;
+
+        color: #585858;
+
+        font-size: 18px;
+        line-height: 21px;
       }
     }
   }
@@ -1013,15 +1260,18 @@
 
 .MobBottom {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: flex-end;
+
   .mobChangeButton {
-    border: 1px solid #363557;
     width: 75%;
     height: 40px;
+
+    border: 1px solid #363557;
     border-radius: 40px;
-    font-weight: 500;
+
     font-size: 16px;
+    font-weight: 500;
     line-height: 21px;
   }
 }

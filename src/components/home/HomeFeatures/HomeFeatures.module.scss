@@ -2,9 +2,10 @@
 
 .news {
   display: flex;
-  flex-direction: column;
-  width: 76%;
   align-items: flex-start;
+  flex-direction: column;
+
+  width: 76%;
   padding-top: 5px;
 }
 
@@ -19,71 +20,87 @@
 
 .content {
   display: flex;
-  flex-wrap: wrap;
-  margin: 38px 0;
-  justify-content: flex-start;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
   width: 100%;
+  margin: 38px 0;
+
   text-decoration: none;
 }
 
 .content button {
   margin-right: 20px;
+
   text-decoration: none;
 }
 
 .content a {
   margin-right: 20px;
+
   text-decoration: none;
 }
 
 .violetButtonText {
+  box-sizing: border-box;
+  height: 40px;
   padding: 8px 30px;
+
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+
+  color: #FFF;
   border: 1px solid #363557;
   border-radius: 50px;
   background: #363557;
-  color: #fff;
-  text-align: center;
-  height: 40px;
-  box-sizing: border-box;
+
   font-size: 14px;
-  cursor: pointer;
-  text-decoration: none;
+
   &:hover {
+    text-decoration: none;
+
     color: #363557;
     background-color: transparent;
-    text-decoration: none;
   }
 }
 
 .loadMore {
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  width: 100%;
 }
 
 .transparentButtonText {
-  font-size: 14px;
   cursor: pointer;
   text-decoration: underline;
+
   color: #363557;
+
+  font-size: 14px;
 }
 
 @media (max-width: $mobileScreen) {
   .news {
     width: 100%;
   }
+
   .content {
     flex-direction: column;
     justify-content: center;
+
     button {
-      margin-right: 0px;
+      margin-right: 0;
     }
+
     a {
-      margin-right: 0px;
+      margin-right: 0;
     }
   }
+
   .content button {
     margin-right: 0;
   }

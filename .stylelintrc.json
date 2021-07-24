@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-order-config-standard"
+  ],
+  "plugins": [
+    "stylelint-order"
+  ],
+  "rules": {
+    "indentation": [2],
+    "color-hex-case": "upper",
+    "font-family-no-missing-generic-family-keyword": false,
+    "no-descending-specificity": null
+  },
+  "ignoreFiles": ["**/*.png", "**/*.svg", "**/*.map", "**/*.tsx"]
+}

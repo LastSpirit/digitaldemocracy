@@ -1,42 +1,54 @@
 .list {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
+
 .heading {
-    font-size: 25px;
-    line-height: 30px;
-    font-weight: 300;
-    font-family: 'Helvetica';
-    color: #7a7a7a;
-    padding: 0;
+  padding: 0;
+
+  color: #7A7A7A;
+
+  font-family: 'Helvetica';
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 30px;
 }
+
 .headingContainer {
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #E5E5E5;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+
+  border-bottom: 1px solid #E5E5E5;
 }
+
 .newsListContainer {
-    margin-bottom: 100px;
-    width: 100%;
+  width: 100%;
+  margin-bottom: 100px;
 }
+
 .buttonText {
-    color: #363557;
-    font-size: 20px;
-    text-decoration: underline;
-    cursor: pointer;
+  cursor: pointer;
+  text-decoration: underline;
+
+  color: #363557;
+
+  font-size: 20px;
 }
 
 @media (max-width: 600px) {
-    .heading {
-        font-size: 16px;
-    }
-    .headingContainer {
-        margin-bottom: 20px;
-        paddibg-bottom: 15px;
-    }
-    .newsListContainerContainer {
-        margin-bottom: 50px;
-    }
-    .buttonText {
-        margin-bottom: 12px;
-    }
+  .heading {
+    font-size: 16px;
+  }
+
+  .headingContainer {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+  }
+
+  .newsListContainerContainer {
+    margin-bottom: 50px;
+  }
+
+  .buttonText {
+    margin-bottom: 12px;
+  }
 }

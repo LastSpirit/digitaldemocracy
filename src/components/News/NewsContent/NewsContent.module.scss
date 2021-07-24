@@ -1,81 +1,102 @@
 .contentContainer {
   display: flex;
   flex-wrap: wrap;
-  margin: 38px 0;
   justify-content: space-between;
+
   width: 100%;
   min-height: 600px;
+  margin: 38px 0;
 }
 
 .loadMore {
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  width: 100%;
 }
 
 .news {
   display: flex;
-  flex-direction: column;
-  width: 75%;
   align-items: flex-start;
+  flex-direction: column;
+
+  width: 75%;
   padding-top: 5px;
 }
+
 .listSidebar {
-  margin-right: 30px;
   width: 20%;
   min-width: 220px;
+  margin-right: 30px;
 }
+
 .topicsSlider {
   max-width: 80%;
   margin: 35px auto;
 }
+
 .content {
   display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 38px;
-  justify-content: flex-start;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
   width: 100%;
+  margin-bottom: 38px;
 }
+
 .content button {
   margin-right: 20px;
 }
+
 .content a {
   margin-right: 20px;
-  text-decoration: none;
-}
-.violetButtonText {
-  padding: 8px 30px;
-  border: 1px solid #363557;
-  border-radius: 50px;
-  background: #363557;
-  color: #fff;
-  text-align: center;
-  height: 40px;
-  box-sizing: border-box;
-  font-size: 14px;
-  cursor: pointer;
+
   text-decoration: none;
 }
 
-.transparentButtonText {
+.violetButtonText {
+  box-sizing: border-box;
+  height: 40px;
+  padding: 8px 30px;
+
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+
+  color: #FFF;
+  border: 1px solid #363557;
+  border-radius: 50px;
+  background: #363557;
+
   font-size: 14px;
+}
+
+.transparentButtonText {
   cursor: pointer;
   text-decoration: underline;
+
   color: #363557;
+
+  font-size: 14px;
 }
+
 @media (max-width: 600px) {
   .contentContainer {
     margin-top: 5px;
   }
+
   .news {
     width: 100%;
   }
+
   .content {
     justify-content: center;
+
     margin-top: 10px;
   }
+
   .content button {
     margin-right: 0;
   }

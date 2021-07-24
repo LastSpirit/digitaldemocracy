@@ -1,83 +1,111 @@
 .bigCardContainer {
-  min-width: 270px;
-  background: #f3f3f3;
-  border-radius: 20px;
-  margin-top: 16px;
-  font-family: 'Helvetica';
-  padding: 14px 18px;
-  box-sizing: border-box;
-  margin: 0 auto;
   overflow: visible;
+
+  box-sizing: border-box;
+  min-width: 270px;
+  margin: 0 auto;
+  margin-top: 16px;
+  padding: 14px 18px;
+
+  border-radius: 20px;
+  background: #F3F3F3;
+
+  font-family: 'Helvetica';
 }
+
 .bigHeader {
   display: flex;
   flex-flow: column;
+
   margin-bottom: 10px;
 }
+
 .cardContent {
-  font-size: 14px;
+  height: 90px;
   margin-bottom: 5px;
+
+  cursor: pointer;
+
+  font-family: Helvetica;
+  font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  font-family: Helvetica;
-  height: 90px;
-  cursor: pointer;
 }
 
 .cardNames {
-  font-size: 14px;
-  color: #747373;
-  justify-content: space-between;
   display: flex;
-  text-decoration: underline;
+  justify-content: space-between;
+
   margin-bottom: 15px;
+
+  text-decoration: underline;
+
+  color: #747373;
+
+  font-size: 14px;
 }
+
 .imgSize {
   width: 14px;
   height: 14px;
 }
+
 .mainHeader {
   display: flex;
   justify-content: space-between;
+
   color: #747373;
 }
+
 .content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   margin-bottom: 15px;
 }
+
 .imageContainer {
   width: 100%;
-  text-align: center;
-  cursor: pointer;
   height: 160px;
+
+  cursor: pointer;
+  text-align: center;
 }
+
 .image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border-radius: 14px;
   margin: 0 auto;
+
+  border-radius: 14px;
+  object-fit: cover;
 }
+
 .bigTitle {
+  display: -webkit-box;
+  overflow: hidden;
+
+  height: 100%;
+
+  letter-spacing: 0;
+
   font-family: HelveticaNeueCyr;
   font-size: 25px;
-  font-style: normal;
   font-weight: 300;
+  font-style: normal;
   line-height: 29px;
-  letter-spacing: 0em;
-  display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  overflow: hidden;
-  height: 100%;
 }
+
 .text {
   font-size: 14px;
 }
+
 .clickableText {
   cursor: pointer;
+
   font-size: 14px;
 }
 
@@ -93,23 +121,31 @@
     min-height: 150px;
     max-height: 370px;
   }
+
   .bigHeader {
     margin-bottom: 15px;
   }
+
   .cardContent {
-    font-size: 12px;
     cursor: pointer;
+
+    font-size: 12px;
   }
+
   .cardNames {
     font-size: 12px;
   }
+
   .content {
     min-height: unset;
   }
+
   .bigTitle {
-    font-size: 12px;
     height: unset;
+
+    font-size: 12px;
   }
+
   .text {
     font-size: 12px;
   }

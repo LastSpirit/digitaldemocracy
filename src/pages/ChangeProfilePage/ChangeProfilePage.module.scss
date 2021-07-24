@@ -3,48 +3,57 @@
 .container {
   width: 1440px;
   margin: auto;
+
   @media screen and (max-width: $desktopScreen) {
     width: 1200px;
   }
+
   @media screen and (max-width: $laptopScreen) {
     width: 1100px;
   }
+
   @media screen and (max-width: $preMobileScreen) {
     width: 100%;
   }
+
   @media screen and (max-width: $mobileScreen) {
     width: 100%;
   }
 }
 
 .root {
-  margin: 50px 0;
   display: flex;
   flex-shrink: 1;
-  border-top: 1px solid #b0b0b0;
+
+  margin: 50px 0;
   padding-top: 20px;
+
+  border-top: 1px solid #B0B0B0;
 
   .tabList {
     flex-basis: 24%;
     scrollbar-width: none;
 
     .link {
-      height: 40px;
       display: flex;
       align-items: center;
-      border-bottom: 1px solid #b0b0b0;
+
+      height: 40px;
       padding: 5px 10px;
+
       transition: 0.3s all;
-      color: #747373;
       text-decoration: none;
+
+      color: #747373;
+      border-bottom: 1px solid #B0B0B0;
 
       &:hover {
         background-color: #36355720;
       }
 
       &.-active {
-        background-color: #363557;
         color: white;
+        background-color: #363557;
       }
 
       &.withOutBorder {
@@ -54,11 +63,13 @@
   }
 
   .tabContent {
-    margin-left: 30px;
-    flex-basis: 100%;
     display: flex;
     align-items: center;
+    flex-basis: 100%;
     flex-direction: column;
+
+    margin-left: 30px;
+
     @media screen and (max-width: 570px) {
       margin-left: 0 !important;
     }
@@ -66,49 +77,60 @@
 
   @media screen and (max-width: 570px) {
     flex-direction: column;
+
     .tabListContainer {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin-bottom: 16px;
       position: relative;
-      width: 100%;
+
+      display: flex;
       overflow-x: scroll;
+      align-items: center;
+      flex-direction: row;
+
+      width: 100%;
+      margin-bottom: 16px;
 
       &::-webkit-scrollbar {
         display: none;
       }
 
       .prevArrow {
-        transform: rotate(180deg);
-        background-color: #f3f3f3;
-        padding: 10px;
-        font-size: 10px;
-        border-radius: 100%;
-        cursor: pointer;
         margin-right: 10px;
+        padding: 10px;
+
+        cursor: pointer;
+        transform: rotate(180deg);
+
+        border-radius: 100%;
+        background-color: #F3F3F3;
+
+        font-size: 10px;
       }
 
       .nextArrow {
-        background-color: #f3f3f3;
-        padding: 10px;
-        font-size: 10px;
-        border-radius: 100%;
-        cursor: pointer;
         margin-left: 10px;
+        padding: 10px;
+
+        cursor: pointer;
+
+        border-radius: 100%;
+        background-color: #F3F3F3;
+
+        font-size: 10px;
       }
 
       .tabContent {
-        width: 100%;
         flex-basis: 100%;
+
+        width: 100%;
       }
 
       .tabList {
-        flex-basis: 100%;
-        display: flex;
-        flex-direction: row;
-        overflow-x: scroll;
         position: relative;
+
+        display: flex;
+        overflow-x: scroll;
+        flex-basis: 100%;
+        flex-direction: row;
         scroll-behavior: smooth;
 
         &::-webkit-scrollbar {
@@ -116,16 +138,21 @@
         }
 
         .link {
-          min-width: calc(50% - 10px);
           position: relative;
-          border: 1px solid #b0b0b0;
-          border-radius: 30px;
-          font-size: 70%;
-          margin-right: 10px;
+
           justify-content: center;
-          text-align: center;
-          line-height: 15px;
+
+          min-width: calc(50% - 10px);
           height: auto;
+          margin-right: 10px;
+
+          text-align: center;
+
+          border: 1px solid #B0B0B0;
+          border-radius: 30px;
+
+          font-size: 70%;
+          line-height: 15px;
         }
       }
     }
@@ -134,33 +161,40 @@
 
 .titleRow {
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
+  justify-content: space-between;
+
   width: 100%;
 
   @media screen and (max-width: 1024px) {
-    flex-direction: column;
     align-items: center;
+    flex-direction: column;
   }
+
   .title {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 36px;
-    line-height: 42px;
     display: flex;
     align-items: center;
+
     text-align: center;
+
+    font-family: Roboto;
+    font-size: 36px;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 42px;
 
     @media screen and (max-width: 1024px) {
       flex-direction: column;
+
       margin-bottom: 15px;
     }
   }
+
   .logoutButton {
-    background: white;
-    border: 1px solid #363557;
     color: #363557 !important;
+    border: 1px solid #363557;
+    background: white;
+
     &:hover {
       color: white !important;
       background: #363557 !important;
@@ -168,87 +202,105 @@
 
     @media screen and (max-width: 1024px) {
       flex-direction: column;
-      margin-right: 0px;
+
+      margin-right: 0;
     }
   }
 }
 
 .longVerticalBlock {
-  width: 671px;
   display: flex;
+  align-items: center;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+
+  width: 671px;
 
   @media screen and (max-width: 1024px) {
     width: 90%;
   }
+
   .helloMessage {
-    margin-top: 27px;
-    background: #f0fff2;
-    border: 1px solid #248232;
     box-sizing: border-box;
-    border-radius: 20px;
+    margin-top: 27px;
     padding: 54px 38px;
+
+    border: 1px solid #248232;
+    border-radius: 20px;
+    background: #F0FFF2;
   }
+
   .avatarBlock {
-    margin-top: 82px;
-    width: 100%;
-    height: 200px;
     display: flex;
     align-items: flex-end;
     justify-content: flex-start;
+
+    width: 100%;
+    height: 200px;
+    margin-top: 82px;
+
     @media screen and (max-width: 1024px) {
-      flex-direction: column;
       align-items: center;
-      margin-top: 40px;
+      flex-direction: column;
+
       height: 250px;
+      margin-top: 40px;
     }
+
     .avatarContainer {
+      display: flex;
+      overflow: hidden;
+      align-items: center;
+      justify-content: center;
+
       width: 200px;
       height: 200px;
-      background-color: #e5e5e5;
+
       border-radius: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
+      background-color: #E5E5E5;
 
       @media screen and (max-width: 1024px) {
         margin-bottom: 20px;
       }
+
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
       }
     }
+
     .uploadButton {
-      background: white;
-      border: 1px solid #363557;
-      border-radius: 40px;
-      cursor: pointer;
-      color: #363557 !important;
-      height: 36px;
       width: 210px;
+      height: 36px;
       margin-left: 32px;
       padding: 10px;
+
+      cursor: pointer;
+
+      color: #363557 !important;
+      border: 1px solid #363557;
+      border-radius: 40px;
+      background: white;
+
       &:hover {
         color: white !important;
         background: #363557 !important;
       }
     }
   }
+
   .mainForm {
-    width: 100%;
     display: flex;
     flex-direction: column;
+
+    width: 100%;
     margin-top: 36px;
     margin-bottom: 80px;
 
     @media screen and (max-width: 1024px) {
-      margin-bottom: 20px;
       margin-top: 18px;
+      margin-bottom: 20px;
     }
 
     .multiInputs {
@@ -269,41 +321,48 @@
     }
 
     .inputLabel {
-      margin-bottom: 12px;
       margin-top: 36px;
+      margin-bottom: 12px;
 
       @media screen and (max-width: 1024px) {
         margin-bottom: 18px;
       }
     }
+
     .buttons {
-      width: 100%;
       display: flex;
       justify-content: space-between;
+
+      width: 100%;
       margin-top: 36px;
 
       @media screen and (max-width: 1024px) {
         flex-direction: column;
       }
+
       .submitButton {
-        color: white;
-        background: #363557;
-        border: 1px solid #363557;
-        height: 36px;
         width: 198px;
-        margin-right: 0px;
+        height: 36px;
+        margin-right: 0;
+
+        color: white;
+        border: 1px solid #363557;
+        background: #363557;
 
         @media screen and (max-width: 1024px) {
-          margin-bottom: 18px;
           width: 100%;
+          margin-bottom: 18px;
         }
       }
+
       .clearButton {
-        background: white;
-        border: 1px solid #363557;
-        color: #363557 !important;
         height: 36px;
-        margin-right: 0px;
+        margin-right: 0;
+
+        color: #363557 !important;
+        border: 1px solid #363557;
+        background: white;
+
         &:hover {
           color: white !important;
           background: #363557 !important;
@@ -314,19 +373,23 @@
 }
 
 .account {
-  width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
+
+  width: 100%;
   margin-bottom: 82px;
 
   h4 {
-    font-size: 24px;
-    line-height: 28px;
     display: flex;
     align-items: center;
-    color: #000000;
+
     margin-bottom: 20px;
+
+    color: #000;
+
+    font-size: 24px;
+    line-height: 28px;
   }
 
   @media screen and (max-width: 1024px) {
@@ -334,18 +397,19 @@
   }
 
   .border {
-    border: 1px solid #b0b0b0;
-    box-sizing: border-box;
-    border-radius: 20px;
-    height: 90px;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 21px 27px;
-    margin-bottom: 18px;
-
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+
+    box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: 90px;
+    margin-bottom: 18px;
+    padding: 21px 27px;
+
+    border: 1px solid #B0B0B0;
+    border-radius: 20px;
 
     img {
       width: 114px;
@@ -358,12 +422,13 @@
     }
 
     .accountButton {
-      color: white;
-      background: #363557;
-      border: 1px solid #363557;
-      height: 36px;
-      margin-right: 0px;
       min-width: 102px;
+      height: 36px;
+      margin-right: 0;
+
+      color: white;
+      border: 1px solid #363557;
+      background: #363557;
     }
   }
 }
@@ -371,63 +436,74 @@
 .phoneWrapper {
   display: flex;
   flex-direction: column;
+
   width: 100%;
   margin-bottom: 82px;
 
   h4 {
-    font-size: 24px;
-    line-height: 28px;
     display: flex;
     align-items: center;
-    color: #000000;
+
     margin-bottom: 20px;
+
+    color: #000;
+
+    font-size: 24px;
+    line-height: 28px;
   }
 
   @media screen and (max-width: 1024px) {
     margin-bottom: 41px;
   }
+
   h4 {
     align-self: center;
   }
+
   .phone {
     .row {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
+
       height: 149px;
 
       @media screen and (max-width: 1024px) {
-        flex-direction: column;
-        height: 223px;
         align-items: center;
+        flex-direction: column;
+
+        height: 223px;
       }
 
       .input {
         flex-basis: 65%;
+
         width: 100%;
         margin-bottom: 20px;
 
         .inputLabel {
-          margin-bottom: 12px;
           margin-top: 36px;
+          margin-bottom: 12px;
         }
       }
 
       .buttons {
-        flex-basis: 30%;
         align-self: flex-end;
+        flex-basis: 30%;
 
         @media screen and (max-width: 1024px) {
           align-self: center;
         }
+
         .button {
-          color: white;
-          background: #363557;
-          border: 1px solid #363557;
-          height: 36px;
-          margin-right: 0px;
-          margin-bottom: 30px;
           width: 100%;
+          height: 36px;
+          margin-right: 0;
+          margin-bottom: 30px;
+
+          color: white;
+          border: 1px solid #363557;
+          background: #363557;
         }
       }
     }
@@ -437,37 +513,45 @@
 .emailWrapper {
   display: flex;
   flex-direction: column;
+
   width: 100%;
   margin-bottom: 82px;
 
   h4 {
-    font-size: 24px;
-    line-height: 28px;
     display: flex;
     align-items: center;
-    color: #000000;
+
     margin-bottom: 20px;
+
+    color: #000;
+
+    font-size: 24px;
+    line-height: 28px;
   }
 
   .buttons {
     display: flex;
     align-self: center;
     justify-content: center;
+
     margin-top: 20px;
 
     @media screen and (max-width: 1024px) {
       align-self: center;
+
       margin-top: 60px;
     }
+
     .button {
-      color: white;
-      background: #363557;
-      border: 1px solid #363557;
-      height: 36px;
-      margin-right: 0px;
-      margin-bottom: 30px;
       width: 100%;
       width: 230px;
+      height: 36px;
+      margin-right: 0;
+      margin-bottom: 30px;
+
+      color: white;
+      border: 1px solid #363557;
+      background: #363557;
     }
   }
 
@@ -476,18 +560,20 @@
     justify-content: space-between;
 
     @media screen and (max-width: 1024px) {
-      flex-direction: column;
-      height: 223px;
       align-items: center;
+      flex-direction: column;
+
+      height: 223px;
     }
 
     .input {
       flex-basis: 45%;
+
       width: 100%;
 
       .inputLabel {
-        margin-bottom: 12px;
         margin-top: 36px;
+        margin-bottom: 12px;
       }
     }
   }
@@ -495,49 +581,57 @@
   @media screen and (max-width: 1024px) {
     margin-bottom: 41px;
   }
+
   h4 {
     align-self: center;
   }
+
   .email {
     .row {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
+
       height: 149px;
 
       @media screen and (max-width: 1024px) {
-        flex-direction: column;
-        height: 223px;
         align-items: center;
+        flex-direction: column;
+
+        height: 223px;
       }
 
       .input {
         flex-basis: 65%;
+
         width: 100%;
         margin-bottom: 20px;
 
         .inputLabel {
-          margin-bottom: 12px;
           margin-top: 36px;
+          margin-bottom: 12px;
         }
       }
 
       .buttons {
-        flex-basis: 30%;
         align-self: flex-end;
+        flex-basis: 30%;
 
         @media screen and (max-width: 1024px) {
           align-self: center;
+
           margin-top: 40px;
         }
+
         .button {
-          color: white;
-          background: #363557;
-          border: 1px solid #363557;
-          height: 36px;
-          margin-right: 0px;
-          margin-bottom: 30px;
           width: 100%;
+          height: 36px;
+          margin-right: 0;
+          margin-bottom: 30px;
+
+          color: white;
+          border: 1px solid #363557;
+          background: #363557;
         }
       }
     }
@@ -546,83 +640,98 @@
 
 .passwordWrapper {
   h4 {
-    font-size: 24px;
-    line-height: 28px;
     display: flex;
     align-items: center;
-    color: #000000;
+
     margin-bottom: 20px;
+
+    color: #000;
+
+    font-size: 24px;
+    line-height: 28px;
   }
   display: flex;
   flex-direction: column;
+
   width: 100%;
   margin-bottom: 82px;
 
   @media screen and (max-width: 1024px) {
     margin-bottom: 41px;
   }
+
   h4 {
     align-self: center;
   }
+
   .email {
     .password {
       display: flex;
       justify-content: space-between;
 
       @media screen and (max-width: 1024px) {
-        flex-direction: column;
-        height: 223px;
         align-items: center;
+        flex-direction: column;
+
+        height: 223px;
       }
 
       .input {
         flex-basis: 45%;
+
         width: 100%;
 
         .inputLabel {
-          margin-bottom: 12px;
           margin-top: 36px;
+          margin-bottom: 12px;
         }
       }
     }
+
     .row {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
+
       height: 149px;
 
       @media screen and (max-width: 1024px) {
-        flex-direction: column;
-        height: 223px;
         align-items: center;
+        flex-direction: column;
+
+        height: 223px;
       }
 
       .input {
         flex-basis: 65%;
+
         width: 100%;
 
         .inputLabel {
-          margin-bottom: 12px;
           margin-top: 36px;
+          margin-bottom: 12px;
         }
       }
 
       .buttons {
-        flex-basis: 30%;
         align-self: flex-end;
+        flex-basis: 30%;
 
         @media screen and (max-width: 1024px) {
           align-self: center;
+
           margin-top: 40px;
         }
+
         .button {
-          color: white;
-          background: #363557;
-          border: 1px solid #363557;
-          height: 36px;
-          margin-right: 0px;
           width: 100%;
+          height: 36px;
+          margin-right: 0;
           margin-bottom: 30px;
+
+          color: white;
+          border: 1px solid #363557;
+          background: #363557;
         }
       }
     }
@@ -631,9 +740,10 @@
 
 .message {
   display: flex;
-  margin-top: 20px;
   align-items: center;
   justify-content: center;
+
+  margin-top: 20px;
 }
 
 .google {
