@@ -64,12 +64,12 @@ const OAuthBlockLogin:FC<OAuthBlockLoginProps> = ({ isLogin }) => {
         </Box>
       </Box>
       {(googleError || yandexError) && (
-      <Box
-        className={styles.error}
+        <Box
+          className={styles.error}
         // style={{ textAlign: googleError ? 'left' : 'right' }}
-      >
-        {googleError || yandexError}
-      </Box>
+        >
+          {googleError || yandexError}
+        </Box>
       )}
     </Box>
   );

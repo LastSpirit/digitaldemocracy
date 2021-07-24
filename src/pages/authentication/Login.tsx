@@ -13,12 +13,12 @@ import OAuthBlockLogin from '../../components/authentication/common/OAuthBlockLo
 
 const getCurrentStepComponent = (step: number) => {
   switch (step) {
-    case 1:
-      return <TypeSelectLogin />;
-    case 2:
-      return <ConfirmPasswordLogin />;
-    default:
-      return <TypeSelectLogin />;
+  case 1:
+    return <TypeSelectLogin />;
+  case 2:
+    return <ConfirmPasswordLogin />;
+  default:
+    return <TypeSelectLogin />;
   }
 };
 

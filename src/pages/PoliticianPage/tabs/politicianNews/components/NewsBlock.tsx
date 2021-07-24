@@ -18,47 +18,47 @@ const NewsBlock = () => {
   const { start_date, end_date, page } = useSelector((s: RootState) => s.politician.news);
 
   return (
-      <div className={styles.newsContainer}>
-        {news?.news && news?.news?.length > 0 ? (
-          <Grid
-            container
-            spacing={2}
-            sx={{
-              justifyContent: 'flex-start',
+    <div className={styles.newsContainer}>
+      {news?.news && news?.news?.length > 0 ? (
+        <Grid
+          container
+          spacing={2}
+          sx={{
+            justifyContent: 'flex-start',
+          }}
+        >
+          {news?.news?.map((item, index) => (
+            <Grid key={index.toString()} item md={4} sm={6} xs={12}>
+              <CardSmall {...item} />
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <div className={styles.noNewsBlock}>
+          <span>Новостей за выбранный период нет</span>
+        </div>
+      )}
+      {isMorePages ? (
+        <div
+          style={{
+            display: 'flex',
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'cetner',
+            marginTop: '20px',
+          }}
+        >
+          <Button
+            onClick={() => {
+              setMorePage();
             }}
+            className={styles.moreButton}
           >
-            {news?.news?.map((item, index) => (
-              <Grid key={index.toString()} item md={4} sm={6} xs={12}>
-                <CardSmall {...item} />
-              </Grid>
-            ))}
-          </Grid>
-        ) : (
-          <div className={styles.noNewsBlock}>
-            <span>Новостей за выбранный период нет</span>
-          </div>
-        )}
-        {isMorePages ? (
-          <div
-            style={{
-              display: 'flex',
-              width: '100%',
-              justifyContent: 'center',
-              alignItems: 'cetner',
-              marginTop: '20px',
-            }}
-          >
-            <Button
-              onClick={() => {
-                setMorePage();
-              }}
-              className={styles.moreButton}
-            >
-              Показать больше
-            </Button>
-          </div>
-        ) : null}
-      </div>
+            Показать больше
+          </Button>
+        </div>
+      ) : null}
+    </div>
   );
 };
 

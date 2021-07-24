@@ -52,15 +52,15 @@ const VerifyCodeRegister = () => {
             submit: null
           }}
           validationSchema={
-                        Yup
-                          .object()
-                          .shape({
-                            code: Yup
-                              .number()
-                              .typeError('Код подтверждения не может содержать буквы')
-                              .required('Код не введен'),
-                          })
-                    }
+            Yup
+              .object()
+              .shape({
+                code: Yup
+                  .number()
+                  .typeError('Код подтверждения не может содержать буквы')
+                  .required('Код не введен'),
+              })
+          }
           onSubmit={async (values, {
             setErrors,
             setStatus,

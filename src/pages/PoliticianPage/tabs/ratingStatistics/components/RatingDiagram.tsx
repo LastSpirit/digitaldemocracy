@@ -13,28 +13,28 @@ export const RatingDiagram = () => {
   return (
     <div className={styles.diagramContainer}>
       {chartData && chartData.length !== 0 && (
-      <div className={styles.wrapper}>
-        <Chart
-          width={isMobile ? '300px' : '500px'}
-          height="300px"
-          chartType="PieChart"
-          className={styles.chart}
-          loader={<Loading />}
-          data={[
-            ['Task', 'Hours per Day'],
-            ...chartData
-          ]}
-          options={{
-            title: 'Статистика голосования по регионам',
-            is3D: true,
-            animation: {
-              duration: 1000,
-              easing: 'out',
-              startup: true,
-            },
-          }}
-        />
-      </div>
+        <div className={styles.wrapper}>
+          <Chart
+            width={isMobile ? '300px' : '500px'}
+            height="300px"
+            chartType="PieChart"
+            className={styles.chart}
+            loader={<Loading />}
+            data={[
+              ['Task', 'Hours per Day'],
+              ...chartData
+            ]}
+            options={{
+              title: 'Статистика голосования по регионам',
+              is3D: true,
+              animation: {
+                duration: 1000,
+                easing: 'out',
+                startup: true,
+              },
+            }}
+          />
+        </div>
       )}
     </div>
   );

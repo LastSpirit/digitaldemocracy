@@ -28,15 +28,15 @@ const TypeSelectLogin = () => {
           submit: null
         }}
         validationSchema={
-                  Yup
-                    .object()
-                    .shape({
-                      email: Yup
-                        .string().email('Неправильный e-mail'),
-                      phone: Yup
-                        .number().typeError('Номер не может содержать буквы'),
-                    })
-              }
+          Yup
+            .object()
+            .shape({
+              email: Yup
+                .string().email('Неправильный e-mail'),
+              phone: Yup
+                .number().typeError('Номер не может содержать буквы'),
+            })
+        }
         onSubmit={async (values, {
           setErrors,
           setStatus,

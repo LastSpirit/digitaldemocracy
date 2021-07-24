@@ -38,14 +38,14 @@ const initialState: IState = {
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'setActive':
-      return {
-        ...state,
-        activeType: action.payload.type,
-        data: [...state.data].map((item) => (item.id === action.payload.id ? { ...item, active: true } : { ...item, active: false }))
-      };
-    default:
-      return state;
+  case 'setActive':
+    return {
+      ...state,
+      activeType: action.payload.type,
+      data: [...state.data].map((item) => (item.id === action.payload.id ? { ...item, active: true } : { ...item, active: false }))
+    };
+  default:
+    return state;
   }
 }
 

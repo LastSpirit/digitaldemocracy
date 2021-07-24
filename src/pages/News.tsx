@@ -38,16 +38,16 @@ const News: FC = () => {
   console.log(location);
   useEffect(() => {
     switch (selectedTab) {
-      case TypeNavigationMenu.COUNTRY:
-      case TypeNavigationMenu.REGION:
-      case TypeNavigationMenu.CITY:
-        fetchAreaNews(selectedTab);
-        return;
-      case TypeNavigationMenu.SUBSCRIPTIONS:
-        fetchSubscriptionsNews();
-        return;
-      default:
-        fetch();
+    case TypeNavigationMenu.COUNTRY:
+    case TypeNavigationMenu.REGION:
+    case TypeNavigationMenu.CITY:
+      fetchAreaNews(selectedTab);
+      return;
+    case TypeNavigationMenu.SUBSCRIPTIONS:
+      fetchSubscriptionsNews();
+      return;
+    default:
+      fetch();
     }
   }, [selectedTab, location]);
   return (

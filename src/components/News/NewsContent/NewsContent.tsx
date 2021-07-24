@@ -29,19 +29,19 @@ const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea, 
 
   const handleGetMorePages = () => {
     switch (selectedTab) {
-      case TypeNavigationMenu.COUNTRY:
-      case TypeNavigationMenu.REGION:
-      case TypeNavigationMenu.CITY:
-        setLoadMoreNews(true);
-        fetchAreaNews(selectedTab, page + 1, undefined, true);
-        return;
-      case TypeNavigationMenu.SUBSCRIPTIONS:
-        setLoadMoreNews(true);
-        fetchSubscriptionsNews(page + 1, undefined, true);
-        return;
-      default:
-        setLoadMoreNews(true);
-        fetch(page + 1, undefined, true);
+    case TypeNavigationMenu.COUNTRY:
+    case TypeNavigationMenu.REGION:
+    case TypeNavigationMenu.CITY:
+      setLoadMoreNews(true);
+      fetchAreaNews(selectedTab, page + 1, undefined, true);
+      return;
+    case TypeNavigationMenu.SUBSCRIPTIONS:
+      setLoadMoreNews(true);
+      fetchSubscriptionsNews(page + 1, undefined, true);
+      return;
+    default:
+      setLoadMoreNews(true);
+      fetch(page + 1, undefined, true);
     }
   };
 

@@ -105,10 +105,10 @@ const SuggestionPage = () => {
               isRequiredNews
                 ? 'Поле обязательно для заполнения'
                 : isRequiredInfo
-                ? 'Поле обязательно для заполнения'
-                : error
-                ? 'Ссылка неверна'
-                : false
+                  ? 'Поле обязательно для заполнения'
+                  : error
+                    ? 'Ссылка неверна'
+                    : false
             }
             error={error || isRequiredNews || isRequiredInfo}
           />
