@@ -26,7 +26,7 @@ const links = [
     mr: 4,
   },
   {
-    to: '/about_site',
+    to: '/about',
     title: 'О площадке',
     mr: 0,
   },
