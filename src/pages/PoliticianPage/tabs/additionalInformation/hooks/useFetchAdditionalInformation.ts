@@ -9,6 +9,23 @@ import { politicianAPI } from '../../../../../api/politicianAPI';
 export const useFetchAdditionalInformation = () => {
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
   const token = getItem('token');
+  const { setPoliticianAdditionalInformation } = politicianActionCreators();
+  const { getAdditionalInformation } = politicianAPI();
+  const politicianId = useSelector((s: RootState) => s?.politician?.data?.id);
 
-  return { status };
+  const fetch = useCallback(() => {
+    setStatus(APIStatus.Loading);
+    getAdditionalInformation({
+      onError: () => setStatus(APIStatus.Failure),
+      onSuccess: (response) => {
+        setPoliticianAdditionalInformation(response);
+        setStatus(APIStatus.Success);
+      },
+      payload: {
+        request_location: 'politician', politicianId,
+      },
+    });
+  }, [politicianId]);
+
+  return { fetch, status };
 };

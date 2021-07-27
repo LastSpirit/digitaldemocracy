@@ -4,7 +4,7 @@
   "version": "4.0.0",
   "private": true,
   "scripts": {
-    "stylelint-fix":  "stylelint --fix ./src",
+    "stylelint-fix": "stylelint --fix ./src",
     "lint": "eslint ./src",
     "lint-fix": "eslint --fix ./src",
     "start": "react-scripts start",

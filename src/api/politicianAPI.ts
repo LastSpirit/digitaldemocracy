@@ -241,6 +241,21 @@ const getGraphPoliticianRatingChange = (args) => {
   });
 };
 
+const getAdditionalInformation = (args) => {
+  console.log(args, 'sssssssssssssss');
+  return callAPI({
+    url: 'getAdditionalInformation',
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+      params: args.payload,
+    },
+    ...args,
+  });
+};
+
 const APIs = {
   fetchNews,
   fetchProfileInfo,
@@ -256,6 +271,7 @@ const APIs = {
   politicianLike,
   politicianDislike,
   getGraphPoliticianRatingChange,
+  getAdditionalInformation
 };
 
 export const politicianAPI = () => {
