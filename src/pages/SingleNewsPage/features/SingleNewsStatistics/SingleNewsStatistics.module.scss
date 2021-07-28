@@ -9,8 +9,11 @@
   border-bottom: 1px solid #B0B0B0;
 }
 
-.politicians {
-  padding-right: 100px;
+.wrapperPoliticians {
+  // padding-right: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .headings {

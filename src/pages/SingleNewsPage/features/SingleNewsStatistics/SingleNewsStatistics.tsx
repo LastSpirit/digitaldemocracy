@@ -27,15 +27,15 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
           Ваше мнение по поводу новости
         </Typography>
         <Grid container className={styles.statisticsContainer}>
-          <Grid item lg={6} md={12} sm={12}>
+          <Grid item lg={12} md={12} sm={12}>
             {politicians && politicians?.length > 0 && (
-              <>
-                <Box sx={{ marginBottom: '20px' }}>
-                  <Box className={styles.headings}>
-                    <Typography className={styles.heading}>
-                      Доверяете ли вы {politicians?.length > 1 ? 'этим политикам' : 'этому политику'} ?
-                    </Typography>
-                  </Box>
+              <Box sx={{ marginBottom: '20px' }}>
+                <Box className={styles.headings}>
+                  <Typography className={styles.heading}>
+                    Доверяете ли вы {politicians?.length > 1 ? 'этим политикам' : 'этому политику'} ?
+                  </Typography>
+                </Box>
+                <Box className={styles.wrapperPoliticians}>
                   {politicians.slice(0, setShowMore(show)).map((it, index) => {
                     return (
                       <StatisticsCard
@@ -55,19 +55,19 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
                       />
                     );
                   })}
-                  <div>
-                    <div style={{ fontSize: '15px', fontFamily: 'Helvetica', color: '#7a7a7a' }}>
-                      {show ? 'Cвернуть' : 'Показать больше'}
-                      <IconButton
-                        onClick={() => setShow(!show)}
-                        className={show ? styles.showMoreButtonOpen : styles.showMoreButton}
-                      >
-                        <ArrowDownwardIcon />
-                      </IconButton>
-                    </div>
-                  </div>
                 </Box>
-              </>
+                <div>
+                  <div style={{ fontSize: '15px', fontFamily: 'Helvetica', color: '#7a7a7a' }}>
+                    {show ? 'Cвернуть' : 'Показать больше'}
+                    <IconButton
+                      onClick={() => setShow(!show)}
+                      className={show ? styles.showMoreButtonOpen : styles.showMoreButton}
+                    >
+                      <ArrowDownwardIcon />
+                    </IconButton>
+                  </div>
+                </div>
+              </Box>
             )}
             {media && (
               <Box sx={{ marginBottom: '20px' }}>
