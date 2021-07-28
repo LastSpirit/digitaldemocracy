@@ -1,0 +1,97 @@
+.root {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  min-width: 100%;
+  padding: 10px 20px;
+
+  border: 1px solid #b0b0b0;
+  border-radius: 30px;
+  margin: 10px 0px;
+
+  .retingWrapper {
+    width: 75%;
+    display: flex;
+    margin-top: 40px;
+    justify-content: space-between;
+    align-items: center;
+
+    @media screen and (max-width: 1024px) {
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .percent {
+      color: #585858;
+      font-size: 25px;
+      font-weight: 300;
+      line-height: 21px;
+
+      @media screen and (max-width: 1024px) {
+        margin-bottom: 40px;
+      }
+    }
+  }
+
+  .mainForm {
+    width: 100%;
+    .inputLabel {
+      margin-top: 36px;
+      margin-bottom: 12px;
+
+      @media screen and (max-width: 1024px) {
+        margin-bottom: 18px;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 100%;
+      margin-top: 36px;
+
+      @media screen and (max-width: 1024px) {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+      }
+
+      .submitButton {
+        width: 198px;
+        height: 36px;
+        margin-right: 20px;
+
+        color: white;
+        border: 1px solid #363557;
+        background: #363557;
+
+        @media screen and (max-width: 1024px) {
+          width: 100%;
+          margin-bottom: 18px;
+          margin-right: 00px;
+        }
+      }
+
+      .clearButton {
+        height: 36px;
+        margin-right: 0;
+
+        color: #363557 !important;
+        border: 1px solid #363557;
+        background: white;
+
+        @media screen and (max-width: 1024px) {
+          width: 100%;
+        }
+
+        &:hover {
+          color: white !important;
+          background: #363557 !important;
+        }
+      }
+    }
+  }
+}

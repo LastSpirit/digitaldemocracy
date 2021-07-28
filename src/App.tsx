@@ -31,6 +31,8 @@ import RatingPage from './pages/RatingPage/RatingPage';
 import SingleBills from './pages/SingleBillsPage/SingleBillsPage';
 import SearchPage from './pages/SearchPage/SearchPage';
 import AboutPage from './pages/AboutPage/AboutPage';
+import ModalCookie from './components/ModalCookie/ModalCookie';
+import { getItem } from './lib/localStorageManager';
 
 const App: FC = () => {
   if (!firebase.apps.length) {
@@ -41,6 +43,7 @@ const App: FC = () => {
   const location = useLocation();
   const { pathname } = useLocation();
   const [path, setPath] = React.useState(pathname);
+  const [visibleCookie, setVisibleCookie] = React.useState(!JSON.parse(getItem('user_cookie_confirm')));
 
   const intersect = (prev, next) => {
     return prev
@@ -107,11 +110,12 @@ const App: FC = () => {
               <Redirect to="/" />
             </Switch>
           </MainLayout>
+          {visibleCookie && <ModalCookie onClick={setVisibleCookie} />}
           <YandexRegisterModal open={!!yandexRegisterValue} onClose={() => setYandexRegisterValue(undefined)} />
           <div id="sign-in-button" />
         </ThemeProvider>
       ) : null,
-    [isAuthenticated, location]
+    [isAuthenticated, location, visibleCookie]
   );
 };
 

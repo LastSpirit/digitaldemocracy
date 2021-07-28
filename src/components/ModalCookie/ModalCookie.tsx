@@ -1,0 +1,34 @@
+import React from 'react';
+import { Button } from '@material-ui/core';
+
+import { setItem } from '../../lib/localStorageManager';
+import styles from './ModalCookie.module.scss';
+
+const ModalCookie = ({ onClick }) => {
+  const confirmCookie = () => {
+    onClick(false);
+    setItem('user_cookie_confirm', true);
+  };
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.message}>
+        <h4 className={styles.message__title}>Наш сайт использует cookies</h4>
+        <p className={styles.message__discription}>
+          Этот сайт использует файлы cookie для аналитики, персонализации.
+          Продолжая просматривать его, вы соглашаетесь на использование нами файлов cookie.
+          Чтобы узнать больше, <a href="#">нажмите здесь</a>.
+        </p>
+        <Button
+          color="primary"
+          className={styles.buttonStyle}
+          onClick={confirmCookie}
+        >
+          Принять и закрыть
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default ModalCookie;
