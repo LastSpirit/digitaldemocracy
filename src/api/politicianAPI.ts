@@ -242,7 +242,6 @@ const getGraphPoliticianRatingChange = (args) => {
 };
 
 const getAdditionalInformation = (args) => {
-  console.log(args, 'sssssssssssssss');
   return callAPI({
     url: 'getAdditionalInformation',
     config: {
