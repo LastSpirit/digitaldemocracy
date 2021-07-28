@@ -13,7 +13,7 @@ interface HeroPropsI {
 }
 
 const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
-  const [toggleIframe, setToggleIframe] = useState(true);
+  const [toggleIframe, setToggleIframe] = useState(data.is_display);
   const handleToggleIframe = () => {
     setToggleIframe(!toggleIframe);
   };
@@ -26,9 +26,18 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
             <Box className={styles.newsLinks}>
               <Box className={styles.arrows}>
                 <SubdirectoryArrowRightIcon className={styles.arrowGrey} />
-                <IconButton className={styles.arrowButton} onClick={handleToggleIframe}>
-                  <CallMadeIcon className={styles.arrowLink} />
-                </IconButton>
+                {data.is_display
+                  ? (
+                    <IconButton className={styles.arrowButton} onClick={handleToggleIframe}>
+                      <CallMadeIcon className={styles.arrowLink} />
+                    </IconButton>
+                  ) : (
+                    <a href={data.source_link}>
+                      <IconButton className={styles.arrowButton}>
+                        <CallMadeIcon className={styles.arrowLink} />
+                      </IconButton>
+                    </a>
+                  )}
                 <FacebookShare url={data?.source_link}>
                   <FacebookIcon fontSize="large" className={styles.facebook} />
                 </FacebookShare>
@@ -67,14 +76,24 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
             </Box>
           </Grid>
         </Grid>
-        <Box className={styles.warningMessage}>
-          <Typography className={styles.warningMessage__title}>{'Просмотр нижеизложенных материалов производится во внутреннем браузере на сайте источника. Администрация Digital Democracy не несет ответственности за их содержание.'}</Typography>
-        </Box>
         {toggleIframe ? (
-          <Box>
-            <iframe src={data?.source_link} title="link" className={styles.iframe} width="80vw" />
+          <>
+            <Box className={styles.warningMessage}>
+              <Typography className={styles.warningMessage__title}>
+                {'Просмотр нижеизложенных материалов производится во внутреннем браузере на сайте источника. Администрация Digital Democracy не несет ответственности за их содержание.'}
+              </Typography>
+            </Box>
+            <Box>
+              <iframe src={data?.source_link} title="link" className={styles.iframe} width="80vw" />
+            </Box>
+          </>
+        ) : (
+          <Box className={styles.warningMessage}>
+            <Typography className={styles.warningMessage__title}>
+              {'Нажмите на кнопку, чтобы перейти на сайт источника для просмотра новости'}
+            </Typography>
           </Box>
-        ) : null}
+        )}
       </Container>
     </Box>
   );

@@ -70,6 +70,7 @@ export interface CurrentNewsI {
   link: string;
   source_link: string;
   number_of_views: number;
+  is_display: boolean;
 }
 
 export interface NewsI {
