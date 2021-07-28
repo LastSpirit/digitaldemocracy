@@ -15,6 +15,7 @@ export const useFetchAdditionalInformation = () => {
 
   const fetch = useCallback(() => {
     setStatus(APIStatus.Loading);
+
     getAdditionalInformation({
       onError: () => setStatus(APIStatus.Failure),
       onSuccess: (response) => {
