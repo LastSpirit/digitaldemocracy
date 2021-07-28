@@ -101,11 +101,26 @@ const massmediaStatistic: APIRequest<StatisticRequest, StatisticResponse, NewsEr
   });
 };
 
+const getAdditionalInformation = (args) => {
+  return callAPI({
+    url: 'getAdditionalInformation',
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+      params: args.payload,
+    },
+    ...args,
+  });
+};
+
 export const massmediaAPIs = {
   fetchMassMediaData,
   fetchMassMediaNews,
   massmediaSubscribe,
   massmediaStatistic,
+  getAdditionalInformation
 };
 
 export const massmediaAPIActions = () => {

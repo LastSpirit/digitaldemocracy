@@ -242,6 +242,20 @@ const getGraphPoliticianRatingChange = (args) => {
   });
 };
 
+const getAdditionalInformation = (args) => {
+  return callAPI({
+    url: 'getAdditionalInformation',
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+      params: args.payload,
+    },
+    ...args,
+  });
+};
+
 const fetchCountries = (args) => {
   return callAPI({
     url: 'getCountries',
@@ -312,6 +326,7 @@ const APIs = {
   politicianLike,
   politicianDislike,
   getGraphPoliticianRatingChange,
+  getAdditionalInformation,
   fetchCountries,
   fetchRegions,
   fetchCities,
