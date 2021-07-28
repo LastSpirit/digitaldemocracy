@@ -32,7 +32,7 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
                       <CallMadeIcon className={styles.arrowLink} />
                     </IconButton>
                   ) : (
-                    <a href={data.source_link}>
+                    <a href={data.source_link} target="_blank" rel="noreferrer">
                       <IconButton className={styles.arrowButton}>
                         <CallMadeIcon className={styles.arrowLink} />
                       </IconButton>
