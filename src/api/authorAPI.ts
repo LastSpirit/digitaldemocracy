@@ -101,11 +101,27 @@ const authorStatistic: APIRequest<StatisticRequest, StatisticResponse, NewsErr, 
     ...args,
   });
 };
+
+const getAdditionalInformation = (args) => {
+  return callAPI({
+    url: 'getAdditionalInformation',
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+      params: args.payload,
+    },
+    ...args,
+  });
+};
+
 export const authorAPIs = {
   fetchAuthorData,
   fetchAuthorNews,
   authorSubscribe,
   authorStatistic,
+  getAdditionalInformation
 };
 
 export const authorAPIActions = () => {

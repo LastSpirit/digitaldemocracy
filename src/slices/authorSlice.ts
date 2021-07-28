@@ -82,6 +82,11 @@ interface SubscriptionI {
   status?: APIStatus;
   isSubscribed?: boolean;
 }
+export interface AdditionalInformation {
+  id: number;
+  link: string;
+  title: string;
+}
 
 interface SliceState {
   status?: APIStatus;
@@ -94,6 +99,7 @@ interface SliceState {
   sort_field?: string;
   page?: number;
   statistic?: Array<StatisticI>;
+  additionalInformation?: Array<AdditionalInformation>;
 }
 
 const initialState: SliceState = {
@@ -181,6 +187,9 @@ export const authorSlice = createSlice({
       state.statistic = initialState.statistic;
       state.statisticStatus = APIStatus.Initial;
     },
+    setAdditionalInformation(state: SliceState, action: PayloadAction<Array<AdditionalInformation>>) {
+      state.additionalInformation = action.payload;
+    },
   },
 });
 
@@ -191,6 +200,7 @@ interface Store {
 export const authorSelectors = {
   getAuthorInfo: () => (state: Store) => state.author.data,
   getNews: () => (state: Store) => state.author.news,
+  getAdditionalInformation: () => (state: Store) => state.author.additionalInformation,
 };
 
 export const authorActionCreators = () => {

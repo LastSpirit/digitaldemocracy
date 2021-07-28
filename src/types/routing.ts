@@ -1,3 +1,6 @@
+import { AdditionalInformationMassMedia } from '../pages/MassMediaPage/tabs/additionalInformation/AdditionalInformation';
+import { AdditionalInformationAuthor } from '../pages/AuthorPage/tabs/additionalInformation/AdditionalInformation';
+
 import {
   IncomeStatistics,
   PoliticianBills,
@@ -117,7 +120,7 @@ export const MassMediaTabs = [
   {
     id: 'additional_information',
     title: 'Дополнительная информация',
-    component: AdditionalInformation,
+    component: AdditionalInformationMassMedia,
   },
 ];
 
@@ -135,7 +138,7 @@ export const AuthorTabs = [
   {
     id: 'additional_information',
     title: 'Дополнительная информация',
-    component: AdditionalInformation,
+    component: AdditionalInformationAuthor,
   },
 ];
 
