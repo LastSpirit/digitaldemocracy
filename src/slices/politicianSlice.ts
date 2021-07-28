@@ -141,6 +141,11 @@ interface SliceState {
   billsDislikeStatus?: LikesI;
   statisticLikeStatus?: LikesI;
   statisticDislikeStatus?: LikesI;
+  infoGrapghicData: {
+    countries: any;
+    regions: any;
+    cities: any;
+  };
 }
 
 export interface NewsWithPercentI extends NewsI {
@@ -156,6 +161,11 @@ const initialState: SliceState = {
   billsDislikeStatus: {},
   statisticLikeStatus: {},
   statisticDislikeStatus: {},
+  infoGrapghicData: {
+    countries: [],
+    regions: [],
+    cities: [],
+  },
 };
 
 export const politicianSlice = createSlice({
@@ -250,6 +260,15 @@ export const politicianSlice = createSlice({
         isMorePages: false,
         page: 1,
       };
+    },
+    setCountries(state, action) {
+      state.infoGrapghicData.countries = action.payload;
+    },
+    setRegions(state, action) {
+      state.infoGrapghicData.regions = action.payload;
+    },
+    setCities(state, action) {
+      state.infoGrapghicData.cities = action.payload;
     },
   },
 });

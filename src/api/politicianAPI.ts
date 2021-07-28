@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { callOtherAPI } from 'src/lib/otherAxiosAPI';
 import { APIRequest, callAPI } from '../lib/axiosAPI';
 import {
   NewsWithPercentI,
@@ -241,6 +242,48 @@ const getGraphPoliticianRatingChange = (args) => {
   });
 };
 
+const fetchCountries = (args) => {
+  return callAPI({
+    url: 'getCountries',
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    },
+    ...args,
+    nestedResponseType: false,
+  });
+};
+
+const fetchRegions = (args) => {
+  return callOtherAPI({
+    url: 'getRegionsByArray',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+      },
+    },
+    ...args,
+    nestedResponseType: false,
+  });
+};
+
+const fetchCities = (args) => {
+  return callOtherAPI({
+    url: 'getCitiesByArray',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+      },
+    },
+    ...args,
+    nestedResponseType: false,
+  });
+};
+
 const APIs = {
   fetchNews,
   fetchProfileInfo,
@@ -256,6 +299,9 @@ const APIs = {
   politicianLike,
   politicianDislike,
   getGraphPoliticianRatingChange,
+  fetchCountries,
+  fetchRegions,
+  fetchCities,
 };
 
 export const politicianAPI = () => {

@@ -58,7 +58,13 @@ export const getCallAPI =
           const method = config?.method;
 
           if (method && method.toLowerCase() === 'get') {
-            response = await axios.get((customBaseUrl || baseURL) + url, config);
+            // response = await axios.get((customBaseUrl || baseURL) + url, config);
+            response = await axios({
+              method: 'get',
+              url: (customBaseUrl || baseURL) + url,
+              ...payload,
+              ...config,
+            });
           } else {
             // response = await axios.post((customBaseUrl || baseURL) + url, payload, config);
             response = await axios({
