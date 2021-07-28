@@ -152,6 +152,8 @@ interface SliceState {
     countries: any;
     regions: any;
     cities: any;
+    rating: any;
+    vote_groups: any;
   };
 }
 
@@ -172,6 +174,8 @@ const initialState: SliceState = {
     countries: [],
     regions: [],
     cities: [],
+    rating: null,
+    vote_groups: [],
   },
 };
 
@@ -279,6 +283,12 @@ export const politicianSlice = createSlice({
     },
     setCities(state, action) {
       state.infoGrapghicData.cities = action.payload;
+    },
+    setRating(state, action) {
+      state.infoGrapghicData.rating = action.payload;
+    },
+    setVotesGroup(state, action) {
+      state.infoGrapghicData.vote_groups = action.payload;
     },
   },
 });

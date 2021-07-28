@@ -10,8 +10,9 @@ export const useFetchInfoGrapchicData = () => {
   const [statusCountries, setStatusCountries] = useState<APIStatus>(APIStatus.Initial);
   const [statusRegions, setStatusRegions] = useState<APIStatus>(APIStatus.Initial);
   const [statusCities, setStatusCities] = useState<APIStatus>(APIStatus.Initial);
-  const { fetchCountries, fetchRegions, fetchCities } = politicianAPI();
-  const { setCountries, setCities, setRegions } = politicianActionCreators();
+  const [statusGrapchic, setStatusGraphic] = useState<APIStatus>(APIStatus.Initial);
+  const { fetchCountries, fetchRegions, fetchCities, getPoliticianCustomRating } = politicianAPI();
+  const { setCountries, setCities, setRegions, setRating, setVotesGroup } = politicianActionCreators();
 
   const fetchCountry = useCallback(() => {
     setStatusCountries(APIStatus.Loading);
@@ -56,5 +57,35 @@ export const useFetchInfoGrapchicData = () => {
     });
   }, []);
 
-  return { fetchCountry, fetchRegion, fetchCity, statusCountries, statusRegions, statusCities };
+  const fetchGraphic = useCallback((politician_id, obj) => {
+    const { countries, regions, cities } = obj;
+    setStatusGraphic(APIStatus.Loading);
+    getPoliticianCustomRating({
+      onError: () => setStatusGraphic(APIStatus.Failure),
+      onSuccess: (response) => {
+        setRating(response?.rating);
+        setVotesGroup(response?.vote_groups);
+        setStatusGraphic(APIStatus.Success);
+      },
+      payload: {
+        data: {
+          politician_id,
+          countries,
+          regions,
+          cities,
+        },
+      },
+    });
+  }, []);
+
+  return {
+    fetchCountry,
+    fetchRegion,
+    fetchCity,
+    fetchGraphic,
+    statusCountries,
+    statusRegions,
+    statusCities,
+    statusGrapchic,
+  };
 };
