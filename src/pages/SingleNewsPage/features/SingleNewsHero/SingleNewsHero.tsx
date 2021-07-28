@@ -67,6 +67,9 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
             </Box>
           </Grid>
         </Grid>
+        <Box className={styles.warningMessage}>
+          <Typography className={styles.warningMessage__title}>{'Просмотр нижеизложенных материалов производится во внутреннем браузере на сайте источника. Администрация Digital Democracy не несет ответственности за их содержание.'}</Typography>
+        </Box>
         {toggleIframe ? (
           <Box>
             <iframe src={data?.source_link} title="link" className={styles.iframe} width="80vw" />

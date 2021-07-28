@@ -12,6 +12,23 @@
   background-color: #E5E5E5;
 }
 
+.warningMessage {
+  margin-bottom: 20px;
+
+  text-align: center;
+
+  &__title {
+    padding: 0;
+
+    color: #7A7A7A;
+
+    font-family: 'Helvetica', sans-serif;
+    font-size: 25px;
+    font-weight: 300;
+    line-height: 30px;
+  }
+}
+
 .newsTitle {
   display: flex;
   flex-direction: column;
