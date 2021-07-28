@@ -1,10 +1,12 @@
 /* eslint-disable no-unneeded-ternary */
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { APIStatus } from 'src/lib/axiosAPI';
 import { Loading } from 'src/components/Loading/Loading';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
 import { Button, InputLabel, Autocomplete, TextField } from '@material-ui/core';
 import { RootState } from 'src/store';
 import { politicianSelectors } from 'src/slices/politicianSlice';
@@ -14,7 +16,8 @@ import styles from './InfoGraphic.module.scss';
 
 export const InfoGraphic = () => {
   const { isMobile } = useWindowSize();
-  const { statusCities, statusRegions, fetchCity, fetchRegion } = useFetchInfoGrapchicData();
+  const { statusCities, statusRegions, fetchCity, fetchRegion, fetchGraphic, statusGrapchic } =
+    useFetchInfoGrapchicData();
 
   const { infoGrapghicData } = useSelector((s: RootState) => s.politician);
   const data = useSelector(politicianSelectors.getPoliticianInfo());
@@ -24,6 +27,8 @@ export const InfoGraphic = () => {
     region: null,
     city: null,
   });
+
+  console.log(infoGrapghicData?.vote_groups.length > 0);
 
   useEffect(() => {
     if (postData.country) {
@@ -45,11 +50,13 @@ export const InfoGraphic = () => {
           region: [],
           city: [],
         }}
+        validationSchema={Yup.object().shape({
+          country: Yup.array().required('Это поле обязательно для заполнения'),
+        })}
         onSubmit={async (values) => {
-          // const { name, lastname, day } = values;
-          // setPostData({ ...postData, name, lastname, day });
           try {
             console.log(values);
+            fetchGraphic(data?.id, postData);
           } catch (e) {
             console.log(e);
           }
@@ -121,7 +128,7 @@ export const InfoGraphic = () => {
                 limitTags={isMobile ? 2 : 5}
                 filterSelectedOptions
                 options={infoGrapghicData?.regions || []}
-                disabled={!values.country || statusRegions !== APIStatus.Success ? true : false}
+                disabled={values.country.length === 0 || statusRegions !== APIStatus.Success ? true : false}
                 value={values.region}
                 getOptionLabel={(option) => option?.title || values.region}
                 noOptionsText={<>Нет доступных вариантов</>}
@@ -184,10 +191,15 @@ export const InfoGraphic = () => {
                   size="small"
                   variant="outlined"
                   type="submit"
-                  disabled={!values.country ? true : false}
+                  disabled={values.country.length === 0 ? true : false}
                 >
-                  {/* {statusPOST === APIStatus.Loading ? <Loading color="white" /> : 'Подтвердить изменения'} */}
-                  {isMobile ? 'Подтвердить' : 'Подтвердить изменения'}
+                  {statusGrapchic === APIStatus.Loading ? (
+                    <Loading color="white" />
+                  ) : isMobile ? (
+                    'Подтвердить'
+                  ) : (
+                    'Подтвердить изменения'
+                  )}
                 </Button>
                 <Button
                   className={styles.clearButton}
@@ -210,10 +222,18 @@ export const InfoGraphic = () => {
           );
         }}
       </Formik>
-      <div className={styles.retingWrapper}>
-        {data?.rating && <div className={styles.percent}>{data?.rating} %</div>}
-        <div className={styles.linear}>{data?.rating && <PercentsLinearGraphic vote_groups={data?.vote_groups} />}</div>
-      </div>
+      <WrapperAsyncRequest status={statusGrapchic}>
+        {infoGrapghicData?.rating ? (
+          <div className={styles.retingWrapper}>
+            <div className={styles.percent}>{infoGrapghicData?.rating} %</div>
+            <div className={styles.linear}>
+              <PercentsLinearGraphic vote_groups={infoGrapghicData?.vote_groups} />
+            </div>
+          </div>
+        ) : (
+          <div className={styles.notData}>Данных пока нет</div>
+        )}
+      </WrapperAsyncRequest>
     </div>
   );
 };

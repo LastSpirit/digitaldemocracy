@@ -284,6 +284,19 @@ const fetchCities = (args) => {
   });
 };
 
+const getPoliticianCustomRating = (args) => {
+  return callOtherAPI({
+    url: 'getPoliticianCustomRating',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+      },
+    },
+    ...args,
+  });
+};
+
 const APIs = {
   fetchNews,
   fetchProfileInfo,
@@ -302,6 +315,7 @@ const APIs = {
   fetchCountries,
   fetchRegions,
   fetchCities,
+  getPoliticianCustomRating,
 };
 
 export const politicianAPI = () => {
