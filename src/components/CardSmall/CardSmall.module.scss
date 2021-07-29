@@ -8,7 +8,7 @@
   min-width: 270px;
   height: 100%;
   margin: 16px auto 0;
-  padding: 14px 18px;
+  padding: 14px 18px 20px;
 
   border-radius: 20px;
   background: #F3F3F3;
@@ -25,22 +25,23 @@
 
 .cardContent {
   height: 100%;
-  max-height: 90px;
+  // max-height: 90px;
   margin-bottom: 5px;
 
   cursor: pointer;
 
-  font-family: Helvetica, serif;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 18px;
+  // font-family: Helvetica, serif;
+  // font-size: 14px;
+  // font-weight: 500;
+  // line-height: 18px;
 }
 
 .cardNames {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 
-  margin-bottom: 15px;
+  // margin-bottom: 15px;
 
   text-decoration: underline;
 
@@ -67,7 +68,7 @@
   flex-direction: column;
   justify-content: space-between;
 
-  margin-bottom: 15px;
+  // margin-bottom: 15px;
 }
 
 .imageContainer {
@@ -100,7 +101,7 @@
   font-weight: 300;
   font-style: normal;
   line-height: 29px;
-  // -webkit-line-clamp: 3;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
 
@@ -109,6 +110,8 @@
 }
 
 .clickableText {
+  margin-bottom: 10px;
+
   cursor: pointer;
 
   font-size: 14px;
@@ -148,7 +151,7 @@
   .bigTitle {
     height: unset;
 
-    font-size: 12px;
+    font-size: 18px;
   }
 
   .text {
