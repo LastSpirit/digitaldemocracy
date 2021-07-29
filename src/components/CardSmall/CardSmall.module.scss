@@ -1,17 +1,19 @@
 .bigCardContainer {
+  display: flex;
   overflow: visible;
+  flex-direction: column;
+  justify-content: space-between;
 
   box-sizing: border-box;
   min-width: 270px;
-  margin: 0 auto;
-  margin-top: 16px;
+  height: 100%;
+  margin: 16px auto 0;
   padding: 14px 18px;
 
   border-radius: 20px;
   background: #F3F3F3;
-  height: 100%;
 
-  font-family: 'Helvetica';
+  font-family: Helvetica, serif;
 }
 
 .bigHeader {
@@ -22,12 +24,13 @@
 }
 
 .cardContent {
-  height: 90px;
+  height: 100%;
+  max-height: 90px;
   margin-bottom: 5px;
 
   cursor: pointer;
 
-  font-family: Helvetica;
+  font-family: Helvetica, serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
@@ -60,6 +63,7 @@
 
 .content {
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: space-between;
 
@@ -91,12 +95,12 @@
 
   letter-spacing: 0;
 
-  font-family: HelveticaNeueCyr;
+  font-family: HelveticaNeueCyr, serif;
   font-size: 25px;
   font-weight: 300;
   font-style: normal;
   line-height: 29px;
-  -webkit-line-clamp: 3;
+  // -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
 
@@ -120,7 +124,7 @@
   .bigCardContainer {
     max-width: 100%;
     min-height: 150px;
-    max-height: 370px;
+    // max-height: 370px;
   }
 
   .bigHeader {
