@@ -77,12 +77,20 @@ const CardSmall: FC<CardSmallProps> = ({
             <Typography className={classes.bigTitle}>{title}</Typography>
           </Box>
           <Box className={classes.cardNames}>
-            <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleMedia}>
-              {media?.name}
-            </Typography>
-            <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleAuthor}>
-              {author?.name}
-            </Typography>
+            {
+              media?.name && (
+                <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleMedia}>
+                  {media?.name}
+                </Typography>
+              )
+            }
+            {
+              author?.name && (
+                <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleAuthor}>
+                  {author?.name}
+                </Typography>
+              )
+            }
           </Box>
         </Box>
         <Box className={classes.imageContainer} onClick={handleNews}>
