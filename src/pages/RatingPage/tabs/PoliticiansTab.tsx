@@ -6,7 +6,8 @@ import { useWindowSize } from '../../../hooks/useWindowSize';
 import { useFetchPoliticians } from '../hooks/useFetchPoliticians';
 import { RootState } from '../../../store/index';
 import { SortBadge } from './SortBadge';
-import { sortRatingPoliticians } from '../../../static/static';
+import { SortDropdown } from './SortDropdown';
+import { sortRatingPoliticians, sortDropdownPoliticians } from '../../../static/static';
 import { userSelectors } from '../../../slices/userSlice';
 import PoliticiansCard from '../PoliticianCard/PoliticiansCard';
 import styles from './Tabs.module.scss';
@@ -29,6 +30,9 @@ const PoliticiansTab = () => {
         <div className={styles.sortRow}>
           {sortRatingPoliticians.map(({ id, full_title, short_title, field }) => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
+          })}
+          {sortDropdownPoliticians.map(({ id, full_title, short_title, field }) => {
+            return <SortDropdown key={id} text={!isMobile ? full_title : short_title} />;
           })}
         </div>
         {politicians && politicians?.length > 0 ? (
