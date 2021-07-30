@@ -51,4 +51,4 @@ const PoliticiansTab = () => {
   );
 };
 
-export default PoliticiansTab;
+export default React.memo(PoliticiansTab);

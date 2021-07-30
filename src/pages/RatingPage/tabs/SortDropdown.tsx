@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { List, ListItem, ListItemText, MenuItem, Menu } from '@material-ui/core';
+import { List, ListItem, ListItemText, MenuItem, Menu, Button, Grow, Paper, Popper, MenuList, ClickAwayListener } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,33 +25,79 @@ const useStyles = makeStyles((theme: Theme) =>
       fontStyle: 'normal',
       lineHeight: '18px',
       padding: '10px',
+    },
+    secondRoot: {
+      display: 'flex',
+    },
+    paper: {
+      marginRight: theme.spacing(2),
+    },
+    content: {
+      top: '0px',
+      right: '250px'
     }
   }),
 );
 
-const options = [
+const options: string[] = [
   'Выбрать страну',
   'Выбрать регион',
   'Выбрать город',
 ];
 
+const data: string[] = [
+  '1111',
+  '2222',
+  '3333',
+];
+
 export const SortDropdown = ({ text }) => {
   const classes: any = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [selectedIndex, setSelectedIndex] = React.useState<string | number>('Выбрать страну');
 
   const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMenuItemClick = (event: React.MouseEvent<HTMLElement>, index: number) => {
-    setSelectedIndex(index);
-    setAnchorEl(null);
-  };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
+    // dasssssnew
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef<HTMLButtonElement>(null);
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const onClose = (event, index) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
+      return;
+    }
+    setSelectedIndex(index);
+    setAnchorEl(null);
+    setOpen(false);
+    const currentElement = event.target.outerText;
+    setSelectedIndex(currentElement);
+  };
+
+  function handleListKeyDown(event: React.KeyboardEvent) {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      setOpen(false);
+    }
+  }
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = React.useRef(open);
+  React.useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current!.focus();
+    }
+
+    prevOpen.current = open;
+  }, [open]);
 
   return (
     <div className={classes.root}>
@@ -63,7 +109,7 @@ export const SortDropdown = ({ text }) => {
           aria-label="when device is locked"
           onClick={handleClickListItem}
         >
-          <ListItemText primary={text} secondary={options[selectedIndex]} className={classes.text} />
+          <ListItemText primary={text} secondary={selectedIndex} className={classes.text} />
         </ListItem>
       </List>
       <Menu
@@ -77,10 +123,40 @@ export const SortDropdown = ({ text }) => {
           <MenuItem
             key={option}
             selected={index === selectedIndex}
-            onClick={(event) => handleMenuItemClick(event, index)}
             className={classes.text}
           >
-            {option}
+            <>
+              <Button
+                ref={anchorRef}
+                aria-controls={open ? 'menu-list-grow' : undefined}
+                aria-haspopup="true"
+                onClick={handleToggle}
+              >
+                {option}
+              </Button>
+              <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal className={classes.content}>
+                {({ TransitionProps, placement }) => (
+                  <Grow
+                    {...TransitionProps}
+                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom', }}
+                  >
+                    <Paper>
+                      {data.map((element) => {
+                        return (
+                          <div key={element}>
+                            <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                              <MenuItem onClick={(event) => onClose(event, index)} selected={index === selectedIndex}>
+                                {element}
+                              </MenuItem>
+                            </MenuList>
+                          </div>
+                        );
+                      })}
+                    </Paper>
+                  </Grow>
+                )}
+              </Popper>
+            </>
           </MenuItem>
         ))}
       </Menu>
