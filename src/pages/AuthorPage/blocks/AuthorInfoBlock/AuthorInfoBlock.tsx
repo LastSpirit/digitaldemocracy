@@ -1,6 +1,7 @@
 import React from 'react';
 import type { FC } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import PersonIcon from '@material-ui/icons/Person';
 import { Button, Tooltip } from '@material-ui/core';
 import classNames from 'classnames';
@@ -25,6 +26,7 @@ import { useSearchParams } from '../../../../hooks/useSearchParams';
 import { ModalParams } from '../../../../types/routing';
 
 const AuthorInfoBlock: FC = () => {
+  const { t } = useTranslation();
   const data = useSelector(authorSelectors.getAuthorInfo());
   const { subscribeStatus } = useSelector((s: RootState) => s.author);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
@@ -42,11 +44,11 @@ const AuthorInfoBlock: FC = () => {
   };
   const trust = data?.rating
     ? parseInt(data?.rating, 10) > 50
-      ? 'Высокое доверие'
-      : 'Низкое доверие'
-    : 'Без рейтинга';
-  const badgeBackground = trust === 'Высокое доверие' ? 'green' : trust === 'Низкое доверие' ? 'red' : null;
-  const badgeColor = trust === 'Высокое доверие' ? '#fff' : '#222';
+      ? t('info.highTrust')
+      : t('info.lowTrust')
+    : t('info.withoutRating');
+  const badgeBackground = trust === t('info.highTrust') ? 'green' : trust === t('info.lowTrust') ? 'red' : null;
+  const badgeColor = trust === t('info.highTrust') ? '#fff' : '#222';
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
       {!isMobile ? (
@@ -75,14 +77,14 @@ const AuthorInfoBlock: FC = () => {
                       { '-disabled': !isAuthenticated },
                     ])}
                   >
-                    <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
+                    <Tooltip title={isAuthenticated ? '' : t('errors.notAuth')}>
                       <span>
                         {subscribeStatus === APIStatus.Loading ? (
                           <Loading />
                         ) : data?.is_subscribed ? (
-                          'Отписаться'
+                          t('buttons.unsubscribe')
                         ) : (
-                          'Следить'
+                          t('buttons.subscribe')
                         )}
                       </span>
                     </Tooltip>
@@ -90,10 +92,10 @@ const AuthorInfoBlock: FC = () => {
                 </div>
               </div>
               <div className={styles.description}>
-                <p>{data?.description ?? 'Описание отсутствует'}</p>
+                <p>{data?.description ?? t('info.descriptionMissing')}</p>
                 {data?.number_of_subscribers && (
                   <div className={styles.subscribersBadge}>
-                    {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, 'подписчик')}`}
+                    {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, t('info.subscriber'))}`}
                   </div>
                 )}
               </div>
@@ -115,7 +117,7 @@ const AuthorInfoBlock: FC = () => {
           <p>{data?.name}</p>
           {data?.number_of_subscribers && (
             <div className={styles.mobSubscribers}>
-              {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, 'подписчик')}`}
+              {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, t('info.subscriber'))}`}
             </div>
           )}
           <div className={styles.mobInfoBlock}>
@@ -128,7 +130,7 @@ const AuthorInfoBlock: FC = () => {
               </div>
             </div>
             <div className={styles.mobRightBlock}>
-              <p>{data?.description ?? 'Описание отсутствует'}</p>
+              <p>{data?.description ?? t('info.descriptionMissing')}</p>
             </div>
           </div>
           <AuthorCards data={data} />
@@ -143,9 +145,9 @@ const AuthorInfoBlock: FC = () => {
               { '-disabled': !isAuthenticated },
             ])}
           >
-            <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
+            <Tooltip title={isAuthenticated ? '' : t('errors.notAuth')}>
               <span>
-                {subscribeStatus === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? 'Отписаться' : 'Следить'}
+                {subscribeStatus === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? t('buttons.unsubscribe') : t('buttons.subscribe')}
               </span>
             </Tooltip>
           </Button>

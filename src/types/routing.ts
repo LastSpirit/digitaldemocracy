@@ -31,8 +31,7 @@ export enum AuthParam {
   reset_password = 'reset_password',
 }
 
-export const PoliticianTabs = () => {
-  const { t } = useTranslation();
+export const PoliticianTabs = (t) => {
   return [
     {
       id: 'politician_news',
@@ -110,8 +109,7 @@ export const ProfileTabs = [
   },
 ];
 
-export const MassMediaTabs = () => {
-  const { t } = useTranslation();
+export const MassMediaTabs = (t) => {
   return [
     {
       id: 'news',
@@ -131,26 +129,27 @@ export const MassMediaTabs = () => {
   ];
 };
 
-export const AuthorTabs = [
-  {
-    id: 'news',
-    title: 'Новости',
-    component: AuthorNewsBlock,
-  },
-  {
-    id: 'statistic',
-    title: 'Статистика влияния',
-    component: InfluenceStatistic,
-  },
-  {
-    id: 'additional_information',
-    title: 'Дополнительная информация',
-    component: AdditionalInformationAuthor,
-  },
-];
+export const AuthorTabs = (t) => {
+  return [
+    {
+      id: 'news',
+      title: t('tabs.news') || 'Новости',
+      component: AuthorNewsBlock,
+    },
+    {
+      id: 'statistic',
+      title: t('tabs.statisticsInfluence') || 'Статистика влияния',
+      component: InfluenceStatistic,
+    },
+    {
+      id: 'additional_information',
+      title: t('tabs.additionalInformation') || 'Дополнительная информация',
+      component: AdditionalInformationAuthor,
+    },
+  ];
+};
 
-export const RatingTabs = () => {
-  const { t } = useTranslation();
+export const RatingTabs = (t) => {
   return [
     {
       id: 'politicians',

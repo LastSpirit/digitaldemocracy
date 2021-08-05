@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Container } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 import styles from './RatingPage.module.scss';
 import { BackButton } from '../../components/BackButton/BackButton';
@@ -31,6 +32,7 @@ const setTab = (location) => {
 };
 
 const RatingPage = () => {
+  const { t } = useTranslation();
   const { pathname } = useLocation();
 
   const showTabs = ({ id, title, link }) => (
@@ -43,7 +45,7 @@ const RatingPage = () => {
     <Container maxWidth="lg" className={styles.container}>
       <div className={styles.container}>
         <BackButton />
-        <div className={styles.tabs}>{RatingTabs().map(showTabs)}</div>
+        <div className={styles.tabs}>{RatingTabs(t).map(showTabs)}</div>
         {setTab(pathname)}
       </div>
     </Container>
