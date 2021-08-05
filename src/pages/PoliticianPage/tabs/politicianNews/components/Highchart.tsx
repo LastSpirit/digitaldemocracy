@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import Highcharts from 'highcharts';
 import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
@@ -7,32 +8,20 @@ import HighchartsReact from 'highcharts-react-official';
 import { useFetchChart } from '../../../hooks/useFetchChart';
 import { politicianActionCreators, politicianSelectors } from '../../../../../slices/politicianSlice';
 
-Highcharts.setOptions({
-  lang: {
-    months: [
-      'Январь',
-      'Февраль',
-      'Март',
-      'Апрель',
-      'Май',
-      'Июнь',
-      'Июль',
-      'Август',
-      'Сентрябрь',
-      'Октябрь',
-      'Новябрь',
-      'Декабрь',
-    ],
-    weekdays: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Восресенье'],
-    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Ноябр', 'Дек'],
-    resetZoom: 'Сбросить зумирование',
-  },
-});
-
 export const Highchart = () => {
+  const { t } = useTranslation();
   const { fetch, status } = useFetchChart();
   const { setDate, setReset } = politicianActionCreators();
   const chartData = useSelector(politicianSelectors.getChartData());
+
+  Highcharts.setOptions({
+    lang: {
+      months: Object.values(t('mountsFullName')),
+      weekdays: Object.values(t('days')),
+      shortMonths: Object.values(t('mountsShortName')),
+      resetZoom: t('info.resetZoom'),
+    },
+  });
 
   const afterSetExtremes = (zoomAxis) => {
     const { min } = zoomAxis;

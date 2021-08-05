@@ -3,7 +3,7 @@ import { Redirect, Route, Switch, useHistory, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import { PoliticianTabs } from '../../../types/routing';
+import { PoliticianTabs as PoliticianTabsData } from '../../../types/routing';
 import styles from '../PoliticianPage.module.scss';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 
@@ -15,6 +15,7 @@ const PoliticianNavigation = () => {
   const { isMobile } = useWindowSize();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const listItemRef = useRef<HTMLAnchorElement>(null);
+  const PoliticianTabs = PoliticianTabsData();
 
   const handlePrevClick = () => {
     scrollContainerRef.current.scrollLeft -= listItemRef.current.getBoundingClientRect().width + 10;

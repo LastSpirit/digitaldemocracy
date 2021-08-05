@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Grid, Button } from '@material-ui/core';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { APIStatus } from 'src/lib/axiosAPI';
 import { Loading } from 'src/components/Loading/Loading';
 import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
@@ -11,6 +12,7 @@ import CardSmall from '../../../../../components/CardSmall/CardSmall';
 import styles from '../../../PoliticianPage.module.scss';
 
 const NewsBlock = () => {
+  const { t } = useTranslation();
   const news = useSelector(politicianSelectors.getNews());
   const { fetch, status } = useFetchNews();
   const { setMorePage } = politicianActionCreators();
@@ -35,7 +37,7 @@ const NewsBlock = () => {
         </Grid>
       ) : (
         <div className={styles.noNewsBlock}>
-          <span>Новостей за выбранный период нет</span>
+          <span>{t('info.notNewsPeriod')}</span>
         </div>
       )}
       {isMorePages ? (
@@ -54,7 +56,7 @@ const NewsBlock = () => {
             }}
             className={styles.moreButton}
           >
-            Показать больше
+            {t('buttons.showMore')}
           </Button>
         </div>
       ) : null}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { badgeColorChanger } from 'src/utils/badgeColorChanger';
 import styles from '../../PoliticianPage.module.scss';
 import { politicianSelectors } from '../../../../slices/politicianSlice';
@@ -9,6 +10,7 @@ import { useWindowSize } from '../../../../hooks/useWindowSize';
 import InDevelop from '../../../../components/InDevelop/InDevelop';
 
 const PoliticianCards = () => {
+  const { t } = useTranslation();
   const data = useSelector(politicianSelectors.getPoliticianInfo());
   const { isMobile } = useWindowSize();
   const history = useHistory();
@@ -32,7 +34,7 @@ const PoliticianCards = () => {
                   backgroundColor: badgeColorChanger(data?.rating),
                 }}
               >
-                <div className={styles.text}>{data?.place ? `Место ${data?.place}` : 'Без рейтинга'}</div>
+                <div className={styles.text}>{data?.place ? `${t('info.place')} ${data?.place}` : t('info.withoutRating')}</div>
               </div>
               { data?.rating && (<div className={styles.percent}>{data?.rating} %</div>) }
             </div>
@@ -49,7 +51,7 @@ const PoliticianCards = () => {
                   backgroundColor: badgeColorChanger(data?.rating),
                 }}
               >
-                <div className={styles.mobText}>{data?.place ? `Место ${data?.place}` : 'Без рейтинга'}</div>
+                <div className={styles.mobText}>{data?.place ? `${t('info.place')} ${data?.place}` : t('info.withoutRating')}</div>
               </div>
               {data?.rating && (<div className={styles.mobPercent}>{data?.rating} %</div>)}
             </div>

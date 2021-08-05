@@ -33,6 +33,7 @@ i18n
       escapeValue: false
     },
     debug: true,
+    returnObjects: true
     /*
     detection: {
       order: ['queryString', 'cookie'],

@@ -166,7 +166,7 @@ export default function CustomArrows({ data }) {
                     <Typography className={styles.name}>{item.name}</Typography>
                   </Box>
                   <Box>
-                    <Typography className={styles.percent}>{item.rating ? `${item.rating} %` : t('home.withoutRating')}</Typography>
+                    <Typography className={styles.percent}>{item.rating ? `${item.rating} %` : t('info.withoutRating')}</Typography>
                   </Box>
                 </CardActionArea>
                 <CardActions />

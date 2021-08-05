@@ -97,7 +97,7 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                   {isMorePages && (
                     <Button>
                       <Typography className={styles.transparentButtonText} onClick={handleGetMorePages}>
-                        {t('buttons.viewMore')}
+                        {t('buttons.showMore')}
                       </Typography>
                     </Button>
                   )}

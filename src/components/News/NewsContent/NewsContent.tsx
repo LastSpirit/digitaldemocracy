@@ -121,7 +121,7 @@ const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea, 
             {isMorePages && fetchNewsStatus !== APIStatus.Loading && (
               <Button sx={{ mt: 4 }}>
                 <Typography className={styles.transparentButtonText} onClick={handleGetMorePages}>
-                  {t('buttons.viewMore')}
+                  {t('buttons.showMore')}
                 </Typography>
               </Button>
             )}

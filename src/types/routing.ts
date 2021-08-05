@@ -31,58 +31,61 @@ export enum AuthParam {
   reset_password = 'reset_password',
 }
 
-export const PoliticianTabs = [
-  {
-    id: 'politician_news',
-    title: 'Новости политика',
-    component: PoliticianNews,
-  },
-  {
-    id: 'politician_activity',
-    title: 'Законодательная деятельность',
-    component: PoliticianBills,
-  },
-  {
-    id: 'position_history',
-    title: 'История должностей',
-    component: PositionHistory,
-  },
-  {
-    id: 'promises',
-    title: 'Обещания и цитаты',
-    component: Promises,
-  },
-  {
-    id: 'income_statistics',
-    title: 'Статистика дохода',
-    component: IncomeStatistics,
-  },
-  {
-    id: 'rating_statistics',
-    title: 'Статистика рейтинга',
-    component: RatingStatistics,
-  },
-  {
-    id: 'position_description',
-    title: 'Описание должности',
-    component: PositionDescription,
-  },
-  {
-    id: 'additional_information',
-    title: 'Дополнительная информация',
-    component: AdditionalInformation,
-  },
-  {
-    id: 'reception',
-    title: 'Виртуальная приёмная',
-    component: Reception,
-  },
-  {
-    id: 'quiz',
-    title: 'Опросы',
-    component: Quiz,
-  },
-];
+export const PoliticianTabs = () => {
+  const { t } = useTranslation();
+  return [
+    {
+      id: 'politician_news',
+      title: t('tabs.politicianNews') || 'Новости политика',
+      component: PoliticianNews,
+    },
+    {
+      id: 'politician_activity',
+      title: t('tabs.politicianActivity') || 'Законодательная деятельность',
+      component: PoliticianBills,
+    },
+    {
+      id: 'position_history',
+      title: t('tabs.positionHistory') || 'История должностей',
+      component: PositionHistory,
+    },
+    {
+      id: 'promises',
+      title: t('tabs.promises') || 'Обещания и цитаты',
+      component: Promises,
+    },
+    {
+      id: 'income_statistics',
+      title: t('tabs.statisticsIncome') || 'Статистика дохода',
+      component: IncomeStatistics,
+    },
+    {
+      id: 'rating_statistics',
+      title: t('tabs.statisticsRating') || 'Статистика рейтинга',
+      component: RatingStatistics,
+    },
+    {
+      id: 'position_description',
+      title: t('tabs.descriptionPosition') || 'Описание должности',
+      component: PositionDescription,
+    },
+    {
+      id: 'additional_information',
+      title: t('tabs.additionalInformation') || 'Дополнительная информация',
+      component: AdditionalInformation,
+    },
+    {
+      id: 'reception',
+      title: t('tabs.reception') || 'Виртуальная приёмная',
+      component: Reception,
+    },
+    {
+      id: 'quiz',
+      title: t('tabs.quiz') || 'Опросы',
+      component: Quiz,
+    },
+  ];
+};
 
 export const ProfileTabs = [
   {
