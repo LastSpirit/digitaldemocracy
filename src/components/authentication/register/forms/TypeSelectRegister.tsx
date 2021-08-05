@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, TextField, Typography } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import '../RegisterStyles.css';
@@ -12,6 +13,7 @@ import OAuthBlockLogin from '../../common/OAuthBlockLogin';
 
 const TypeSelectRegister = () => {
   const isMountedRef = useIsMountedRef();
+  const { t } = useTranslation();
   const { setRegisterStep, setAuthType } = authActionCreators();
   const {
     send,
@@ -36,7 +38,7 @@ const TypeSelectRegister = () => {
             submit: null,
           }}
           validationSchema={Yup.object().shape({
-            email: Yup.string().email('Неправильный e-mail'),
+            email: Yup.string().email(t('errors.email') || 'Неправильный e-mail'),
             phone: Yup.string(),
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }): Promise<void> => {
@@ -56,7 +58,7 @@ const TypeSelectRegister = () => {
           {({ errors, handleChange, handleSubmit, values }): JSX.Element => (
             <form noValidate={false} onSubmit={handleSubmit}>
               <Typography color="#747373" mb={2}>
-                Регистрация через e-mail
+                {t('registration.step2.titleFieldEmail') || 'Регистрация через e-mail'}
               </Typography>
               <TextField
                 fullWidth
@@ -84,7 +86,7 @@ const TypeSelectRegister = () => {
               />
               <Box sx={{ mt: 2.5 }} />
               <Typography color="#747373" gutterBottom mb={2}>
-                Регистрация через смс
+                {t('registration.step2.titleFieldPhone') || 'Регистрация через смс'}
               </Typography>
               <TextField
                 fullWidth

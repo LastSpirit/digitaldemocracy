@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 import { Box, TextField, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { useFirstStepLogin } from '../hooks/useFirstStepLogin';
@@ -9,6 +10,7 @@ import { ArrowInputIcon } from '../../common/ArrowInputIcon';
 import { authActionCreators, authSelectors, AuthType } from '../../../../slices/authSlice';
 
 const TypeSelectLogin = () => {
+  const { t } = useTranslation();
   const isMountedRef = useIsMountedRef();
   const { setAuthType, setLoginStep } = authActionCreators();
   const { sendCode, verifyEmail, emailError, phoneError, status: { phoneStatus, emailStatus }, setEmailError, setPhoneError } = useFirstStepLogin(setLoginStep);
@@ -32,9 +34,9 @@ const TypeSelectLogin = () => {
             .object()
             .shape({
               email: Yup
-                .string().email('Неправильный e-mail'),
+                .string().email(t('errors.email')),
               phone: Yup
-                .number().typeError('Номер не может содержать буквы'),
+                .number().typeError(t('errors.checkPhone')),
             })
         }
         onSubmit={async (values, {
@@ -73,7 +75,7 @@ const TypeSelectLogin = () => {
               color="#747373"
               mb={1}
             >
-              Вход через e-mail
+              {t('signIn.titleSignInEmail')}
             </Typography>
             <TextField
               fullWidth
@@ -103,7 +105,7 @@ const TypeSelectLogin = () => {
               gutterBottom
               mb={1}
             >
-              Вход через смс
+              {t('signIn.titleSignInPhone')}
             </Typography>
             <TextField
               fullWidth

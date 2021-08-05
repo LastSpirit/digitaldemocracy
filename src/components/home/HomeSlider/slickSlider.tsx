@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 import { Box, Card, Typography, CardActionArea, CardActions, Button, Tooltip, fabClasses } from '@material-ui/core';
 import { milliseconds } from 'date-fns';
 import { useHistory } from 'react-router';
@@ -116,6 +117,7 @@ export default function CustomArrows({ data }) {
     ],
   };
 
+  const { t } = useTranslation();
   const { isMobile } = useWindowSize();
   const { push } = useHistory();
   const [date, setDate] = useState(null);
@@ -164,7 +166,7 @@ export default function CustomArrows({ data }) {
                     <Typography className={styles.name}>{item.name}</Typography>
                   </Box>
                   <Box>
-                    <Typography className={styles.percent}>{item.rating ? `${item.rating} %` : 'Без рейтинга'}</Typography>
+                    <Typography className={styles.percent}>{item.rating ? `${item.rating} %` : t('home.withoutRating')}</Typography>
                   </Box>
                 </CardActionArea>
                 <CardActions />
@@ -176,7 +178,7 @@ export default function CustomArrows({ data }) {
       {isMobile && (
         // eslint-disable-next-line react/button-has-type
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Button className={classes.buttonStyle}>Весь рейтинг</Button>
+          <Button className={classes.buttonStyle}>{t('buttons.allRating')}</Button>
         </Box>
       )}
     </div>

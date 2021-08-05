@@ -109,12 +109,9 @@
 } */
 
 .buttonsStyle.register:hover {
-  stroke: red !important;
-}
-
-.buttonsStyle.register:hover {
   color: #248232 !important;
   background-color: white !important;
+  stroke: red !important;
 }
 
 .buttonsStyle:hover {
@@ -138,4 +135,10 @@
   100% {
     transform: translate(209.018097px, 213.50296px) rotate(0deg);
   }
+}
+
+.language__item {
+  justify-content: center;
+
+  line-height: 2;
 }

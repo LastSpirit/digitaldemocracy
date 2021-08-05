@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { AdditionalInformationMassMedia } from '../pages/MassMediaPage/tabs/additionalInformation/AdditionalInformation';
 import { AdditionalInformationAuthor } from '../pages/AuthorPage/tabs/additionalInformation/AdditionalInformation';
 
@@ -142,25 +143,28 @@ export const AuthorTabs = [
   },
 ];
 
-export const RatingTabs = [
-  {
-    id: 'politicians',
-    link: '/rating/politicians',
-    title: 'Политики',
-  },
-  {
-    id: 'massMedia',
-    link: '/rating/massMedia',
-    title: 'СМИ',
-  },
-  {
-    id: 'authors',
-    link: '/rating/authors',
-    title: 'Авторы',
-  },
-  {
-    id: 'news',
-    link: '/rating/parties',
-    title: 'Партии',
-  },
-];
+export const RatingTabs = () => {
+  const { t } = useTranslation();
+  return [
+    {
+      id: 'politicians',
+      link: '/rating/politicians',
+      title: t('tabs.politicians') || 'Политики',
+    },
+    {
+      id: 'massMedia',
+      link: '/rating/massMedia',
+      title: t('tabs.massMedia') || 'СМИ',
+    },
+    {
+      id: 'authors',
+      link: '/rating/authors',
+      title: t('tabs.authors') || 'Авторы',
+    },
+    {
+      id: 'news',
+      link: '/rating/parties',
+      title: t('tabs.parties') || 'Партии',
+    },
+  ];
+};

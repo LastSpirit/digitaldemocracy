@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import GoogleLogin from 'react-google-login';
-// import { YandexLogin } from 'react-yandex-login';
+import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@material-ui/core';
 import styles from './OAuthBlockLogin.module.scss';
 import { OAuthConfig } from '../../../config';
@@ -14,6 +14,7 @@ interface OAuthBlockLoginProps {
 }
 
 const OAuthBlockLogin:FC<OAuthBlockLoginProps> = ({ isLogin }) => {
+  const { t } = useTranslation();
   const { yandexOAuth, googleOAuth, yandexError, googleError } = useOAuthRegister(isLogin);
   /*
    onClick={() => {
@@ -32,7 +33,7 @@ const OAuthBlockLogin:FC<OAuthBlockLoginProps> = ({ isLogin }) => {
           <GoogleLogin
             className={styles.google}
             clientId={OAuthConfig.googleClientID}
-            buttonText="Вход с аккаунтом Google"
+            buttonText={t('buttons.google.signIn') || 'Вход с аккаунтом Google'}
             onSuccess={googleOAuth}
             onFailure={(error) => {
               console.log(error);
@@ -57,7 +58,7 @@ const OAuthBlockLogin:FC<OAuthBlockLoginProps> = ({ isLogin }) => {
                 color="black"
                 sx={{ ml: 2, paddingBottom: '0px!important', fontFamily: 'unset!important' }}
               >
-                Вход с аккаунтом Yandex
+                {t('buttons.yandex.signIn') || 'Вход с аккаунтом Yandex'}
               </Typography>
             </Box>
           </YandexLogin>

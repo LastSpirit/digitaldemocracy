@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { ratingSelectors } from '../../../slices/ratingSlice';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import { useFetchAuthors } from '../hooks/useFetchAuthors';
-import { RootState } from '../../../store/index';
+import { RootState } from '../../../store';
 import { SortBadge } from './SortBadge';
 import { sortRatingAuthors } from '../../../static/static';
 import { userSelectors } from '../../../slices/userSlice';
@@ -13,6 +14,7 @@ import styles from './Tabs.module.scss';
 import { APIStatus } from '../../../lib/axiosAPI';
 
 const AuthorTab = () => {
+  const { t } = useTranslation();
   const { isMobile } = useWindowSize();
   const { authors } = useSelector((s: RootState) => s.rating?.authors);
   const { fetch, status } = useFetchAuthors();
@@ -27,7 +29,7 @@ const AuthorTab = () => {
     <WrapperAsyncRequest status={status}>
       <div className={styles.newsContainer}>
         <div className={styles.sortRow}>
-          {sortRatingAuthors.map(({ id, full_title, short_title, field }) => {
+          {sortRatingAuthors().map(({ id, full_title, short_title, field }) => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
         </div>
@@ -39,7 +41,7 @@ const AuthorTab = () => {
           </div>
         ) : (
           <div className={styles.noNewsBlock}>
-            <span>Здесь будут отображаться авторы</span>
+            <span>{t('tabs.warningMessageAuthors')}</span>
           </div>
         )}
       </div>

@@ -43,7 +43,7 @@ const RatingPage = () => {
     <Container maxWidth="lg" className={styles.container}>
       <div className={styles.container}>
         <BackButton />
-        <div className={styles.tabs}>{RatingTabs.map(showTabs)}</div>
+        <div className={styles.tabs}>{RatingTabs().map(showTabs)}</div>
         {setTab(pathname)}
       </div>
     </Container>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Divider, List, ListItem, ListItemText, makeStyles, Typography } from '@material-ui/core';
 import { NewsTopicsI } from '../slices/homeSlice';
 // import { useFetchHomePageData } from './home/hooks/useFetchHomePageData';
@@ -23,6 +24,7 @@ interface SidebarPropsI {
 
 const ListSidebar: FC<SidebarPropsI> = ({ newsTopics, fetch }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
   const [resultNewsTopics, setResultNewsTopics] = useState([]);
   const { news_topic_id: { value: topicId, setValue: setTopicId } } = useSearchParams('news_topic_id');
 
@@ -33,13 +35,13 @@ const ListSidebar: FC<SidebarPropsI> = ({ newsTopics, fetch }) => {
 
   useEffect(() => {
     if (newsTopics && newsTopics.length !== 0) {
-      setResultNewsTopics([{ id: -1, title: 'Все новости' }, ...newsTopics]);
+      setResultNewsTopics([{ id: -1, title: t('news.mainTitleList') }, ...newsTopics]);
     }
   }, [newsTopics]);
 
   return (
     <Box sx={{ maxWidth: '270px' }}>
-      <Typography className={classes.listTitle}>Темы</Typography>
+      <Typography className={classes.listTitle}>{t('news.titleList')}</Typography>
       <List
         className={classes.lineStyle}
         sx={{ maxWidth: '270px' }}

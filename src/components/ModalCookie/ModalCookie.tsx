@@ -1,10 +1,12 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 import { setItem } from '../../lib/localStorageManager';
 import styles from './ModalCookie.module.scss';
 
 const ModalCookie = ({ onClick }) => {
+  const { t } = useTranslation();
   const confirmCookie = () => {
     onClick(false);
     setItem('user_cookie_confirm', true);
@@ -13,17 +15,17 @@ const ModalCookie = ({ onClick }) => {
   return (
     <div className={styles.container}>
       <div className={styles.message}>
-        <h4 className={styles.message__title}>Наш сайт использует cookies</h4>
+        <h4 className={styles.message__title}>{ t('cookies.title') || 'Наш сайт использует cookies' }</h4>
         <p className={styles.message__discription}>
-          Этот сайт использует файлы cookie для аналитики и персонализации.
-          Продолжая просматривать его, вы соглашаетесь на использование нами файлов cookie.
+          { t('cookies.description') || `Этот сайт использует файлы cookie для аналитики и персонализации.
+          Продолжая просматривать его, вы соглашаетесь на использование нами файлов cookie.`}
         </p>
         <Button
           color="primary"
           className={styles.buttonStyle}
           onClick={confirmCookie}
         >
-          Принять и закрыть
+          { t('cookies.button') || 'Принять и закрыть' }
         </Button>
       </div>
     </div>

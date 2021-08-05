@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { ratingSelectors } from '../../../slices/ratingSlice';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import { useFetchParties } from '../hooks/useFetchParties';
-import { RootState } from '../../../store/index';
+import { RootState } from '../../../store';
 import { SortBadge } from './SortBadge';
 import { sortRatingParties } from '../../../static/static';
 import { userSelectors } from '../../../slices/userSlice';
@@ -13,6 +14,7 @@ import styles from './Tabs.module.scss';
 import { APIStatus } from '../../../lib/axiosAPI';
 
 const PartiesTab = () => {
+  const { t } = useTranslation();
   const { isMobile } = useWindowSize();
   const { parties } = useSelector((s: RootState) => s.rating?.parties);
   const { fetch, status } = useFetchParties();
@@ -27,7 +29,7 @@ const PartiesTab = () => {
     <WrapperAsyncRequest status={status}>
       <div className={styles.newsContainer}>
         <div className={styles.sortRow}>
-          {sortRatingParties.map(({ id, full_title, short_title, field }) => {
+          {sortRatingParties().map(({ id, full_title, short_title, field }) => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
         </div>
@@ -39,7 +41,7 @@ const PartiesTab = () => {
           </div>
         ) : (
           <div className={styles.noNewsBlock}>
-            <span>Здесь будут отображаться партии</span>
+            <span>{t('tabs.warningMessageParties')}</span>
           </div>
         )}
       </div>

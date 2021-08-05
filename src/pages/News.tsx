@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import type { FC } from 'react';
 import { useLocation } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { Box, Container } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { useFetchNewsData } from '../components/News/hooks/useFetchNewsData';
@@ -20,12 +21,13 @@ export enum TypeNavigationMenu {
 }
 
 const News: FC = () => {
+  const { t } = useTranslation();
   const navigation = [
-    { title: 'Актуальное', id: 0, type: TypeNavigationMenu.ACTUAL },
-    { title: 'Подписки', id: 1, type: TypeNavigationMenu.SUBSCRIPTIONS },
-    { title: 'Новости страны', id: 2, type: TypeNavigationMenu.COUNTRY },
-    { title: 'Новости региона', id: 3, type: TypeNavigationMenu.REGION },
-    { title: 'Новости города', id: 4, type: TypeNavigationMenu.CITY },
+    { title: t('news.tabTitleActual'), id: 0, type: TypeNavigationMenu.ACTUAL },
+    { title: t('news.tabTitleSubscription'), id: 1, type: TypeNavigationMenu.SUBSCRIPTIONS },
+    { title: t('news.tabTitleCountry'), id: 2, type: TypeNavigationMenu.COUNTRY },
+    { title: t('news.tabTitleRegion'), id: 3, type: TypeNavigationMenu.REGION },
+    { title: t('news.tabTitleCity'), id: 4, type: TypeNavigationMenu.CITY },
   ];
   const [selectedTab, setSelectedTab] = useState(TypeNavigationMenu.ACTUAL);
   const { fetch, fetchAreaNews, fetchDataStatus, fetchSubscriptionsNews } = useFetchNewsData();
@@ -35,7 +37,6 @@ const News: FC = () => {
   useEffect(() => {
     fetch();
   }, [location]);
-  console.log(location);
   useEffect(() => {
     switch (selectedTab) {
     case TypeNavigationMenu.COUNTRY:

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
 import { ratingSelectors } from '../../../slices/ratingSlice';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import { useFetchPoliticians } from '../hooks/useFetchPoliticians';
@@ -13,6 +14,7 @@ import styles from './Tabs.module.scss';
 import { APIStatus } from '../../../lib/axiosAPI';
 
 const PoliticiansTab = () => {
+  const { t } = useTranslation();
   const { isMobile } = useWindowSize();
   const { politicians } = useSelector((s: RootState) => s.rating?.politicians);
   const { fetch, status } = useFetchPoliticians();
@@ -27,7 +29,7 @@ const PoliticiansTab = () => {
     <WrapperAsyncRequest status={status}>
       <div className={styles.newsContainer}>
         <div className={styles.sortRow}>
-          {sortRatingPoliticians.map(({ id, full_title, short_title, field }) => {
+          {sortRatingPoliticians().map(({ id, full_title, short_title, field }) => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
         </div>
@@ -39,7 +41,7 @@ const PoliticiansTab = () => {
           </div>
         ) : (
           <div className={styles.noNewsBlock}>
-            <span>Здесь будут отображаться политики</span>
+            <span>{t('tabs.warningMessagePoliticians')}</span>
           </div>
         )}
       </div>

@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import PersonIcon from '@material-ui/icons/Person';
 import { useHistory, matchPath } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -19,6 +20,7 @@ import { APIStatus } from '../../../lib/axiosAPI';
 interface IProps extends MassMediaDataI {}
 
 const MassMediaCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_link, place }) => {
+  const { t } = useTranslation();
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { status, change } = useChangeSubscribeMM(id);
   const { push } = useHistory();
@@ -51,7 +53,7 @@ const MassMediaCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, sho
             backgroundColor: badgeColorChanger(rating),
           }}
         >
-          <div className={styles.text}>{`Место ${place ?? '-'}`}</div>
+          <div className={styles.text}>{`${t('info.place')} ${place ?? '-'}`}</div>
         </div>
         <div className={styles.percent}>{`${rating ?? '-'} %`}</div>
       </div>
@@ -68,10 +70,10 @@ const MassMediaCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, sho
           { '-disabled': !isAuthenticated },
         ])}
       >
-        <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
+        <Tooltip title={isAuthenticated ? '' : t('error.notAuth')}>
           <span>
             {/* eslint-disable-next-line no-nested-ternary */}
-            {status === APIStatus.Loading ? <Loading /> : is_subscribed ? 'Отписаться' : 'Следить'}
+            {status === APIStatus.Loading ? <Loading /> : is_subscribed ? t('buttons.unsubscribe') : t('buttons.subscribe')}
           </span>
         </Tooltip>
       </Button>

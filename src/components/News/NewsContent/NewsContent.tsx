@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Box, Button, Grid, Typography } from '@material-ui/core';
 import ListSidebar from '../../ListSidebar';
 import styles from './NewsContent.module.scss';
@@ -22,6 +23,7 @@ interface NewsPropsI {
 }
 
 const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea, selectedTab }) => {
+  const { t } = useTranslation();
   const { isMobile } = useWindowSize();
   const [loadMoreNews, setLoadMoreNews] = useState(false);
   const { fetch, fetchSubscriptionsNews, fetchAreaNews, fetchNewsStatus } = useFetchNewsData(setLoadMoreNews);
@@ -47,9 +49,9 @@ const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea, 
 
   const getHeaderContent = () => {
     if (selectedTab === TypeNavigationMenu.SUBSCRIPTIONS) {
-      return 'Актуальные новости по подпискам';
+      return t('news.actualNewsSubscriptions');
     }
-    return nameArea || 'Актуальные новости';
+    return nameArea || t('news.actualNews');
   };
 
   return (
@@ -106,7 +108,7 @@ const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea, 
                     }
                   </Grid>
                 )) : (
-                  <Box component={'span'} p={2}>На данный момент новостей нет</Box>
+                  <Box component={'span'} p={2}>{t('news.warningMissNews')}</Box>
                 )}
             </Grid>
             <div className={styles.loadMore}>
@@ -119,7 +121,7 @@ const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea, 
             {isMorePages && fetchNewsStatus !== APIStatus.Loading && (
               <Button sx={{ mt: 4 }}>
                 <Typography className={styles.transparentButtonText} onClick={handleGetMorePages}>
-                  Показать больше
+                  {t('buttons.viewMore')}
                 </Typography>
               </Button>
             )}

@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
-import { AppBar, Box, Button, Link, Toolbar, Typography, Container } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import { AppBar, Box, Button, Link, Toolbar, Typography, Container, Select, MenuItem, FormControl } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 import Search from '../icons/Search';
@@ -14,23 +15,7 @@ import './MainNavbar.css';
 import Logo from './Logo';
 import { userActionCreators, userSelectors } from '../slices/userSlice';
 
-const links = [
-  {
-    to: '/rating/politicians',
-    title: 'Рейтинг',
-    mr: 4,
-  },
-  {
-    to: '/news',
-    title: 'Новости',
-    mr: 4,
-  },
-  {
-    to: '/about',
-    title: 'О площадке',
-    mr: 0,
-  },
-];
+const languageOptions = ['ru', 'en'];
 
 const MainNavbar: FC = () => {
   const { push, length } = useHistory() as any;
@@ -41,6 +26,26 @@ const MainNavbar: FC = () => {
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
+
+  const { t, i18n } = useTranslation();
+
+  const links = [
+    {
+      to: '/rating/politicians',
+      title: t('header.menu.rating') || 'Рейтинг',
+      mr: 4,
+    },
+    {
+      to: '/news',
+      title: t('header.menu.news') || 'Новости',
+      mr: 4,
+    },
+    {
+      to: '/about',
+      title: t('header.menu.about') || 'О площадке',
+      mr: 0,
+    },
+  ];
 
   const handleClick = (to: string) => {
     if (isAuthenticated) {
@@ -176,7 +181,7 @@ const MainNavbar: FC = () => {
                     }
                   }}
                 >
-                  {isAuthenticated ? 'Предложить новость / политика' : 'Вход'}
+                  {isAuthenticated ? t('header.buttons.suggestion') || 'Предложить новость / политика' : t('header.buttons.signIn') || 'Вход'}
                 </Button>
                 <Button
                   className={
@@ -200,8 +205,26 @@ const MainNavbar: FC = () => {
                     }
                   }}
                 >
-                  {isAuthenticated ? <Person /> : 'Регистрация'}
+                  {isAuthenticated ? <Person /> : t('header.buttons.registration') || 'Регистрация'}
                 </Button>
+              </Box>
+              <Box>
+                <FormControl sx={{ minWidth: '60px' }}>
+                  <Select
+                    variant="outlined"
+                    defaultValue="ru"
+                    sx={{ height: '30px' }}
+                    onChange={(event: React.ChangeEvent<{ value: string }>) => {
+                      i18n.changeLanguage(event.target.value);
+                    }}
+                  >
+                    {languageOptions.map((item) => (
+                      <MenuItem key={item} value={item} className={classNames(['language__item'])}>
+                        {item.toUpperCase()}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </Box>
             </>
           )}

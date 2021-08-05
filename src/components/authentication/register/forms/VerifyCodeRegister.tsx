@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Button, TextField, Typography } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -12,6 +13,7 @@ import { Loading } from '../../../Loading/Loading';
 import { useLogin } from '../../login/hooks/useLogin';
 
 const VerifyCodeRegister = () => {
+  const { t } = useTranslation();
   const isMountedRef = useIsMountedRef();
   const { setRegisterStep } = authActionCreators();
   const { send, status, error } = useVerifyCodeSend(setRegisterStep);
@@ -57,8 +59,8 @@ const VerifyCodeRegister = () => {
               .shape({
                 code: Yup
                   .number()
-                  .typeError('Код подтверждения не может содержать буквы')
-                  .required('Код не введен'),
+                  .typeError(t('errors.confirmCode') || 'Код подтверждения не может содержать буквы')
+                  .required(t('errors.codeNotEntered') || 'Код не введен'),
               })
           }
           onSubmit={async (values, {
@@ -98,16 +100,14 @@ const VerifyCodeRegister = () => {
                 variant="h5"
                 fontWeight="300"
               >
-                Для подтверждения регистрации на
-                {' '}
-                {registerType === AuthType.Email ? 'вашу почту отправлено письмо!' : 'ваш телефон отправлен код!'}
+                {registerType === AuthType.Email ? t('registration.step3.descriptionConfirmEmail') : t('registration.step3.descriptionConfirmPhone')}
               </Typography>
               <Box sx={{ mt: 2 }} />
               <TextField
                 fullWidth
                 helperText={errors.code || error || firebaseError}
                 error={!!errors.code || !!error || !!firebaseError}
-                label={`Введите код из ${registerType === AuthType.Phone ? 'СМС' : 'письма'}`}
+                label={registerType === AuthType.Phone ? t('registration.step3.enterPhone') : t('registration.step3.enterEmail')}
                 margin="normal"
                 name="code"
                 variant="outlined"
@@ -122,7 +122,11 @@ const VerifyCodeRegister = () => {
                     onClick={resendCode}
                     id="sign-in-button"
                   >
-                    {resend !== 0 ? `Отправить код повторно можно через ${resend} секунд` : 'Отправить код повторно'}
+                    {
+                      resend !== 0
+                        ? `${t('registration.step3.codeWithSeconds')} ${resend} ${t('registration.step3.seconds')}`
+                        : t('registration.step3.codeWithSeconds') || 'Отправить код повторно'
+                    }
                   </Button>
                 )}
               </Box>
@@ -136,7 +140,7 @@ const VerifyCodeRegister = () => {
                   type="submit"
                   variant="contained"
                 >
-                  {isLoading ? <Loading /> : 'ЗАРЕГИСТРИРОВАТЬСЯ'}
+                  {isLoading ? <Loading /> : t('buttons.confirmRegistration').toUpperCase() || 'ЗАРЕГИСТРИРОВАТЬСЯ'}
                 </Button>
               </Box>
             </form>

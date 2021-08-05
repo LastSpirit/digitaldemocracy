@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import PersonIcon from '@material-ui/icons/Person';
 import { useHistory, matchPath } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -19,6 +20,7 @@ import { APIStatus } from '../../../lib/axiosAPI';
 interface IProps extends PoliticianInfoI {}
 
 const PoliticiansCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_link, position, place }) => {
+  const { t } = useTranslation();
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { status, change } = useChangeSubscribePolitician(id);
   const { push } = useHistory();
@@ -51,7 +53,7 @@ const PoliticiansCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, s
             backgroundColor: badgeColorChanger(rating),
           }}
         >
-          <div className={styles.text}>{`Место ${place ?? '-'}`}</div>
+          <div className={styles.text}>{`${t('info.place')} ${place ?? '-'}`}</div>
         </div>
         <div className={styles.percent}>{`${rating ?? '-'} %`}</div>
       </div>
@@ -69,10 +71,10 @@ const PoliticiansCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, s
           { '-disabled': !isAuthenticated },
         ])}
       >
-        <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
+        <Tooltip title={isAuthenticated ? '' : t('errors.notAuth')}>
           <span>
             {/* eslint-disable-next-line no-nested-ternary */}
-            {status === APIStatus.Loading ? <Loading /> : is_subscribed ? 'Отписаться' : 'Следить'}
+            {status === APIStatus.Loading ? <Loading /> : is_subscribed ? t('buttons.unsubscribe') : t('buttons.subscribe')}
           </span>
         </Tooltip>
       </Button>

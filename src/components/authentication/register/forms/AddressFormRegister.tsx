@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import {
   Autocomplete,
   Box,
@@ -22,6 +23,7 @@ import { Loading } from '../../../Loading/Loading';
 
 const AddressFormRegister: FC = (props) => {
   const isMountedRef = useIsMountedRef();
+  const { t } = useTranslation();
   const {
     fetchAddresses,
     addresses: options,
@@ -58,7 +60,7 @@ const AddressFormRegister: FC = (props) => {
   return (
     <>
       <Typography color="#747373" gutterBottom>
-        Где вы имеете право голоса?
+        { t('registration.questions.first') || 'Где вы имеете право голоса?' }
       </Typography>
       <Box
         sx={{
@@ -107,7 +109,7 @@ const AddressFormRegister: FC = (props) => {
                   <Autocomplete
                     fullWidth
                     options={countries.map((it) => it.title) || []}
-                    noOptionsText={<>Нет доступных вариантов</>}
+                    noOptionsText={t('registration.placeholdersForFields.noVariants') || 'Нет доступных вариантов'}
                     onSelect={(e) => {
                       handleChange(e);
                     }}
@@ -132,7 +134,7 @@ const AddressFormRegister: FC = (props) => {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label="Начните вводить страну"
+                        label={t('registration.placeholdersForFields.country') || 'Начните вводить страну'}
                         margin="normal"
                         name="country_title"
                         variant="outlined"
@@ -147,7 +149,7 @@ const AddressFormRegister: FC = (props) => {
                   <Autocomplete
                     fullWidth
                     options={regions.map((item) => item.title) || []}
-                    noOptionsText={<>Нет доступных вариантов</>}
+                    noOptionsText={t('registration.placeholdersForFields.noVariants') || 'Нет доступных вариантов'}
                     onInputChange={(value, newValue) => {
                       setFieldValue('region_title', newValue);
                       setFieldValue('city_title', '');
@@ -165,7 +167,7 @@ const AddressFormRegister: FC = (props) => {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label="Начните вводить регион"
+                        label={t('registration.placeholdersForFields.region') || 'Начните вводить регион'}
                         margin="normal"
                         name="region_title"
                         variant="outlined"
@@ -181,7 +183,7 @@ const AddressFormRegister: FC = (props) => {
                   <Autocomplete
                     fullWidth
                     options={cities.map((item) => item.title) || []}
-                    noOptionsText={<>Нет доступных вариантов</>}
+                    noOptionsText={t('registration.placeholdersForFields.noVariants') || 'Нет доступных вариантов'}
                     onInputChange={(value, newValue) => {
                       setFieldValue('city_title', newValue);
                       const isValidCity = cities?.find((it) => it?.title?.toLowerCase() === newValue?.toLowerCase());
@@ -196,7 +198,7 @@ const AddressFormRegister: FC = (props) => {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label="Начните вводить город"
+                        label={t('registration.placeholdersForFields.city') || 'Начните вводить город'}
                         margin="normal"
                         name="city_title"
                         variant="outlined"
@@ -218,7 +220,7 @@ const AddressFormRegister: FC = (props) => {
                     type="submit"
                     variant="contained"
                   >
-                    {isLoading ? <Loading /> : 'Продолжить'}
+                    {isLoading ? <Loading /> : t('buttons.continue') || 'Продолжить'}
                   </Button>
                 </Box>
               </form>

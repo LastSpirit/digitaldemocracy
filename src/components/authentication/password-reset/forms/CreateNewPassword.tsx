@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 import { Box, Button, TextField } from '@material-ui/core';
 import { Formik } from 'formik';
 import { APIStatus } from '../../../../lib/axiosAPI';
@@ -8,6 +9,7 @@ import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import { useCreateNewPassword } from '../hooks/useCreateNewPassword';
 
 const CreateNewPassword = () => {
+  const { t } = useTranslation();
   const isMountedRef = useIsMountedRef();
   const { status, error, create } = useCreateNewPassword();
   return (
@@ -21,9 +23,9 @@ const CreateNewPassword = () => {
           .object()
           .shape({
             password: Yup
-              .string().required('Введите пароль').min(8, 'Минимальная длина пароля 8 символов'),
+              .string().required(t('errors.passwordRequired')).min(8, t('errors.checkLengthPassword')),
             confirmPassword: Yup
-              .string().oneOf([Yup.ref('password'), null], 'Пароли не совпадают'),
+              .string().oneOf([Yup.ref('password'), null], t('errors.checkPasswords')),
           })
       }
       onSubmit={async (values, {
@@ -60,7 +62,7 @@ const CreateNewPassword = () => {
             error={!!errors.password || !!error}
             value={values.password}
             onChange={handleChange}
-            label="Придумайте пароль"
+            label={t('registration.step4.enterPassword')}
             variant="outlined"
             name="password"
             sx={{
@@ -74,7 +76,7 @@ const CreateNewPassword = () => {
             error={!!error || !!errors.confirmPassword}
             value={values.confirmPassword}
             onChange={handleChange}
-            label="Введите пароль повторно"
+            label={t('registration.step4.enterPasswordAgain')}
             variant="outlined"
             name="confirmPassword"
             sx={{
@@ -90,7 +92,7 @@ const CreateNewPassword = () => {
               type="submit"
               variant="contained"
             >
-              {status === APIStatus.Loading ? <Loading /> : 'Продолжить'}
+              {status === APIStatus.Loading ? <Loading /> : t('buttons.continue')}
             </Button>
           </Box>
         </form>

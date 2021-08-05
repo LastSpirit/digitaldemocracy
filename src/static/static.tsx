@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 export const sortMassMedia = [
   {
     id: 1,
@@ -279,64 +281,76 @@ export const sortParty = [
   },
 ];
 
-export const sortRatingPoliticians = [
-  {
-    id: 1,
-    full_title: 'По рейтингу',
-    short_title: 'Рейтинг',
-    field: 'rating',
-  },
-  {
-    id: 2,
-    full_title: 'По имени',
-    short_title: 'Имя',
-    field: 'name',
-  },
-];
+export const sortRatingPoliticians = () => {
+  const { t } = useTranslation();
+  return [
+    {
+      id: 1,
+      full_title: t('buttons.sort.ratingFullTitle') || 'По рейтингу',
+      short_title: t('buttons.sort.ratingShortTitle') || 'Рейтинг',
+      field: 'rating',
+    },
+    {
+      id: 2,
+      full_title: t('buttons.sort.nameFullTitle') || 'По имени',
+      short_title: t('buttons.sort.nameShortTitle') || 'Имя',
+      field: 'name',
+    },
+  ];
+};
 
-export const sortRatingAuthors = [
-  {
-    id: 1,
-    full_title: 'По рейтингу',
-    short_title: 'Рейтинг',
-    field: 'rating',
-  },
-  {
-    id: 2,
-    full_title: 'По имени',
-    short_title: 'Имя',
-    field: 'name',
-  },
-];
+export const sortRatingAuthors = () => {
+  const { t } = useTranslation();
+  return [
+    {
+      id: 1,
+      full_title: 'По рейтингу',
+      short_title: 'Рейтинг',
+      field: 'rating',
+    },
+    {
+      id: 2,
+      full_title: 'По имени',
+      short_title: 'Имя',
+      field: 'name',
+    },
+  ];
+};
 
-export const sortRatingMedia = [
-  {
-    id: 1,
-    full_title: 'По рейтингу',
-    short_title: 'Рейтинг',
-    field: 'rating',
-  },
-  {
-    id: 2,
-    full_title: 'По названию',
-    short_title: 'Название',
-    field: 'name',
-  },
-];
+export const sortRatingMedia = () => {
+  const { t } = useTranslation();
+  return [
+    {
+      id: 1,
+      full_title: t('buttons.sort.ratingFullTitle') || 'По рейтингу',
+      short_title: t('buttons.sort.ratingShortTitle') || 'Рейтинг',
+      field: 'rating',
+    },
+    {
+      id: 2,
+      full_title: t('buttons.sort.nameFullTitle') || 'По названию',
+      short_title: t('buttons.sort.nameShortTitle') || 'Название',
+      field: 'name',
+    },
+  ];
+};
 
-export const sortRatingParties = [
-  {
-    id: 1,
-    full_title: 'По рейтингу',
-    short_title: 'Рейтинг',
-    field: 'rating',
-  },
-  {
-    id: 2,
-    full_title: 'По названию',
-    short_title: 'Название',
-    field: 'name',
-  },
-];
+export const sortRatingParties = () => {
+  const { t } = useTranslation();
+  return [
+    {
+      id: 1,
+      full_title: t('buttons.sort.ratingFullTitle') || 'По рейтингу',
+      short_title: t('buttons.sort.ratingShortTitle') || 'Рейтинг',
+      field: 'rating',
+    },
+    {
+      id: 2,
+      full_title: t('buttons.sort.nameFullTitle') || 'По названию',
+      short_title: t('buttons.sort.nameShortTitle') || 'Название',
+      field: 'name',
+    },
+  ];
+};
 
 export const routesWithNotification = ['/singleNews/', '/politician/', '/mass-media/', '/author/', '/party/'];
