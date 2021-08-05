@@ -1,25 +1,27 @@
 import { useTranslation } from 'react-i18next';
 
-export const sortMassMedia = [
-  {
-    id: 1,
-    full_title: 'По дате',
-    short_title: 'Дата',
-    field: 'publication_date',
-  },
-  {
-    id: 2,
-    full_title: 'По популярности',
-    short_title: 'Популярность',
-    field: 'number_of_views',
-  },
-  {
-    id: 3,
-    full_title: 'По проголосовавшим',
-    short_title: 'Голоса',
-    field: 'votes',
-  },
-];
+export const sortMassMedia = (t) => {
+  return [
+    {
+      id: 1,
+      full_title: t('buttons.sort.dateFullTitle') || 'По дате',
+      short_title: t('buttons.sort.dateShortTitle') || 'Дата',
+      field: 'publication_date',
+    },
+    {
+      id: 2,
+      full_title: t('buttons.sort.popularityFullTitle') || 'По популярности',
+      short_title: t('buttons.sort.popularityShortTitle') || 'Популярность',
+      field: 'number_of_views',
+    },
+    {
+      id: 3,
+      full_title: t('buttons.sort.votesFullTitle') || 'По проголосовавшим',
+      short_title: t('buttons.sort.votesShortTitle') || 'Голоса',
+      field: 'votes',
+    },
+  ];
+};
 
 export const mockNews = [
   {
@@ -304,14 +306,14 @@ export const sortRatingAuthors = () => {
   return [
     {
       id: 1,
-      full_title: 'По рейтингу',
-      short_title: 'Рейтинг',
+      full_title: t('buttons.sort.ratingFullTitle') || 'По рейтингу',
+      short_title: t('buttons.sort.ratingShortTitle') || 'Рейтинг',
       field: 'rating',
     },
     {
       id: 2,
-      full_title: 'По имени',
-      short_title: 'Имя',
+      full_title: t('buttons.sort.nameFullTitle') || 'По имени',
+      short_title: t('buttons.sort.nameShortTitle') || 'Имя',
       field: 'name',
     },
   ];
@@ -328,8 +330,8 @@ export const sortRatingMedia = () => {
     },
     {
       id: 2,
-      full_title: t('buttons.sort.nameFullTitle') || 'По названию',
-      short_title: t('buttons.sort.nameShortTitle') || 'Название',
+      full_title: t('buttons.sort.namedFullTitle') || 'По названию',
+      short_title: t('buttons.sort.namedShortTitle') || 'Название',
       field: 'name',
     },
   ];
@@ -346,8 +348,8 @@ export const sortRatingParties = () => {
     },
     {
       id: 2,
-      full_title: t('buttons.sort.nameFullTitle') || 'По названию',
-      short_title: t('buttons.sort.nameShortTitle') || 'Название',
+      full_title: t('buttons.sort.namedFullTitle') || 'По названию',
+      short_title: t('buttons.sort.namedShortTitle') || 'Название',
       field: 'name',
     },
   ];

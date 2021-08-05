@@ -110,23 +110,26 @@ export const ProfileTabs = [
   },
 ];
 
-export const MassMediaTabs = [
-  {
-    id: 'news',
-    title: 'Новости',
-    component: NewsBlock,
-  },
-  {
-    id: 'statistic',
-    title: 'Статистика влияния',
-    component: MassMediaInfluenceStatistic,
-  },
-  {
-    id: 'additional_information',
-    title: 'Дополнительная информация',
-    component: AdditionalInformationMassMedia,
-  },
-];
+export const MassMediaTabs = () => {
+  const { t } = useTranslation();
+  return [
+    {
+      id: 'news',
+      title: t('tabs.news') || 'Новости',
+      component: NewsBlock,
+    },
+    {
+      id: 'statistic',
+      title: t('tabs.statisticsInfluence') || 'Статистика влияния',
+      component: MassMediaInfluenceStatistic,
+    },
+    {
+      id: 'additional_information',
+      title: t('tabs.additionalInformation') || 'Дополнительная информация',
+      component: AdditionalInformationMassMedia,
+    },
+  ];
+};
 
 export const AuthorTabs = [
   {
