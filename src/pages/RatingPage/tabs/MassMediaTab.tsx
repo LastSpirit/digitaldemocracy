@@ -29,7 +29,7 @@ const MassMediaTab = () => {
     <WrapperAsyncRequest status={status}>
       <div className={styles.newsContainer}>
         <div className={styles.sortRow}>
-          {sortRatingMedia().map(({ id, full_title, short_title, field }) => {
+          {sortRatingMedia(t).map(({ id, full_title, short_title, field }) => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
         </div>

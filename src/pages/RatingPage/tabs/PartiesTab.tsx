@@ -29,7 +29,7 @@ const PartiesTab = () => {
     <WrapperAsyncRequest status={status}>
       <div className={styles.newsContainer}>
         <div className={styles.sortRow}>
-          {sortRatingParties().map(({ id, full_title, short_title, field }) => {
+          {sortRatingParties(t).map(({ id, full_title, short_title, field }) => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
         </div>

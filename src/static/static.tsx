@@ -283,8 +283,7 @@ export const sortParty = [
   },
 ];
 
-export const sortRatingPoliticians = () => {
-  const { t } = useTranslation();
+export const sortRatingPoliticians = (t) => {
   return [
     {
       id: 1,
@@ -301,8 +300,7 @@ export const sortRatingPoliticians = () => {
   ];
 };
 
-export const sortRatingAuthors = () => {
-  const { t } = useTranslation();
+export const sortRatingAuthors = (t) => {
   return [
     {
       id: 1,
@@ -319,8 +317,7 @@ export const sortRatingAuthors = () => {
   ];
 };
 
-export const sortRatingMedia = () => {
-  const { t } = useTranslation();
+export const sortRatingMedia = (t) => {
   return [
     {
       id: 1,
@@ -337,8 +334,7 @@ export const sortRatingMedia = () => {
   ];
 };
 
-export const sortRatingParties = () => {
-  const { t } = useTranslation();
+export const sortRatingParties = (t) => {
   return [
     {
       id: 1,

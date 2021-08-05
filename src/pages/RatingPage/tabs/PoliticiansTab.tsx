@@ -29,7 +29,7 @@ const PoliticiansTab = () => {
     <WrapperAsyncRequest status={status}>
       <div className={styles.newsContainer}>
         <div className={styles.sortRow}>
-          {sortRatingPoliticians().map(({ id, full_title, short_title, field }) => {
+          {sortRatingPoliticians(t).map(({ id, full_title, short_title, field }) => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
         </div>
