@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { badgeColorChanger } from 'src/utils/badgeColorChanger';
 import styles from '../PartyPage.module.scss';
 import { PercentsLinearGraphic } from './PercentsLinearGraphic';
@@ -7,9 +8,10 @@ import { useWindowSize } from '../../../hooks/useWindowSize';
 import InDevelop from '../../../components/InDevelop/InDevelop';
 
 const PartyCards = ({ data }) => {
-  const trust = data?.rating ? (data?.rating > 50 ? 'Высокое доверие' : 'Низкое доверие') : 'Без рейтинга';
-  const badgeBackground = trust === 'Высокое доверие' ? 'green' : trust === 'Низкое доверие' ? 'red' : null;
-  const badgeColor = trust === 'Высокое доверие' ? '#fff' : '#222';
+  const { t } = useTranslation();
+  const trust = data?.rating ? (data?.rating > 50 ? t('info.highTrust') : t('info.lowTrust')) : t('info.withoutRating');
+  const badgeBackground = trust === t('info.highTrust') ? 'green' : trust === t('info.lowTrust') ? 'red' : null;
+  const badgeColor = trust === t('info.highTrust') ? '#fff' : '#222';
   const { isMobile } = useWindowSize();
   return (
     <div className={styles.cardsBlock}>
@@ -23,7 +25,7 @@ const PartyCards = ({ data }) => {
                   backgroundColor: data?.place && data?.rating ? badgeColorChanger(data?.rating) : '#C4C4C4',
                 }}
               >
-                <div className={styles.text}>{data?.place && data?.rating ? `Место ${data?.place}` : 'Без рейтинга'}</div>
+                <div className={styles.text}>{data?.place && data?.rating ? `${t('info.place')} ${data?.place}` : t('info.withoutRating')}</div>
               </div>
               { data?.place && data?.rating && (<div className={styles.percent}>{data?.rating} %</div>) }
             </div>
@@ -40,7 +42,7 @@ const PartyCards = ({ data }) => {
                   backgroundColor: data?.place && data?.rating ? badgeColorChanger(data?.rating) : '#C4C4C4',
                 }}
               >
-                <div className={styles.mobText}>{`Место ${data?.place}`}</div>
+                <div className={styles.mobText}>{`${t('info.place')} ${data?.place}`}</div>
               </div>
               { data?.place && data?.rating && (<div className={styles.mobPercent}>{data?.rating} %</div>) }
             </div>

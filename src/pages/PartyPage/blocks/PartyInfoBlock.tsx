@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import { useSelector } from 'react-redux';
 import PersonIcon from '@material-ui/icons/Person';
 import { Button, Tooltip, IconButton } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import CallMadeIcon from '@material-ui/icons/CallMade';
@@ -23,6 +24,7 @@ import { useSearchParams } from '../../../hooks/useSearchParams';
 import { ModalParams } from '../../../types/routing';
 
 const PartyInfoBlock: FC = () => {
+  const { t } = useTranslation();
   const data = useSelector(partySelectors.getPartyInfo());
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { isMobile } = useWindowSize();
@@ -36,7 +38,6 @@ const PartyInfoBlock: FC = () => {
       setAuthValue('/login');
     }
   };
-  console.log(data);
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
       {!isMobile ? (
@@ -60,7 +61,7 @@ const PartyInfoBlock: FC = () => {
                 {/* <p>{data?.description ?? 'Описание отсутствует'}</p> */}
                 {data?.politicians_count && (
                   <div className={styles.subscribersBadge}>
-                    {`${data.politicians_count ?? 0} ${endOfWords(data?.politicians_count, 'член')} партии`}
+                    {`${data.politicians_count ?? 0} ${endOfWords(data?.politicians_count, t('info.members'))} ${t('info.parties')}`}
                   </div>
                 )}
               </div>
@@ -89,7 +90,7 @@ const PartyInfoBlock: FC = () => {
           <p>{data?.name}</p>
           {data?.politicians_count && (
             <div className={styles.mobSubscribers}>
-              {`${data?.politicians_count} ${endOfWords(data?.politicians_count, 'член')} партии`}
+              {`${data?.politicians_count} ${endOfWords(data?.politicians_count, t('info.members'))} ${t('info.parties')}`}
             </div>
           )}
           <div className={styles.mobInfoBlock}>

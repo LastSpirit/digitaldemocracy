@@ -268,20 +268,22 @@ export const mockNews = [
   },
 ];
 
-export const sortParty = [
-  {
-    id: 1,
-    full_title: 'По популярности',
-    short_title: 'Популярность',
-    field: 'news_count',
-  },
-  {
-    id: 2,
-    full_title: 'По рейтингу',
-    short_title: 'Рейтинг',
-    field: 'rating',
-  },
-];
+export const sortParty = (t) => {
+  return [
+    {
+      id: 1,
+      full_title: t('buttons.sort.popularityFullTitle') || 'По популярности',
+      short_title: t('buttons.sort.popularityShortTitle') || 'Популярность',
+      field: 'news_count',
+    },
+    {
+      id: 2,
+      full_title: t('buttons.sort.ratingFullTitle') || 'По рейтингу',
+      short_title: t('buttons.sort.ratingShortTitle') || 'Рейтинг',
+      field: 'rating',
+    },
+  ];
+};
 
 export const sortRatingPoliticians = (t) => {
   return [

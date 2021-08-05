@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Button } from '@material-ui/core';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { homeSelector } from '../../../slices/homeSlice';
 import PartyCard from '../../../components/PartyCard/PartyCard';
 import styles from '../PartyPage.module.scss';
@@ -15,6 +16,7 @@ import { WrapperAsyncRequest } from '../../../components/Loading/WrapperAsyncReq
 import { userSelectors } from '../../../slices/userSlice';
 
 const PartyBlock = () => {
+  const { t } = useTranslation();
   const { isMobile } = useWindowSize();
   const data = useSelector(partySelectors.getPartyPoliticians());
   const partyInfo = useSelector(partySelectors.getPartyInfo());
@@ -31,7 +33,7 @@ const PartyBlock = () => {
     <WrapperAsyncRequest status={status}>
       <div className={styles.newsContainer}>
         <div className={styles.sortRow}>
-          {sortParty.map(({ id, full_title, short_title, field }) => {
+          {sortParty(t).map(({ id, full_title, short_title, field }) => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
         </div>
@@ -43,7 +45,7 @@ const PartyBlock = () => {
           </div>
         ) : (
           <div className={styles.noNewsBlock}>
-            <span>Здесь будут отображаться политики</span>
+            <span>{t('tabs.warningMessagePoliticians')}</span>
           </div>
         )}
       </div>
