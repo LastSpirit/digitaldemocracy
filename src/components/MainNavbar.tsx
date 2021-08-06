@@ -11,13 +11,19 @@ import { useWindowSize } from '../hooks/useWindowSize';
 import Person from '../icons/Person';
 import { ModalParams } from '../types/routing';
 import { useSearchParams } from '../hooks/useSearchParams';
-import './MainNavbar.css';
 import Logo from './Logo';
 import { userActionCreators, userSelectors } from '../slices/userSlice';
+import { langSelectors } from '../slices/langSlice';
+import { useLangData } from '../hooks/useLangData';
+
+import './MainNavbar.css';
 
 const languageOptions = ['ru', 'en'];
 
 const MainNavbar: FC = () => {
+  const { t, i18n } = useTranslation();
+  const langData = useSelector(langSelectors.getLang());
+  const { fetch: fetchLang } = useLangData();
   const { push, length } = useHistory() as any;
   const { pathname } = useLocation();
   const { isMobile } = useWindowSize();
@@ -26,8 +32,6 @@ const MainNavbar: FC = () => {
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
-
-  const { t, i18n } = useTranslation();
 
   const links = [
     {
@@ -46,6 +50,10 @@ const MainNavbar: FC = () => {
       mr: 0,
     },
   ];
+
+  useEffect(() => {
+    fetchLang();
+  }, []);
 
   const handleClick = (to: string) => {
     if (isAuthenticated) {
@@ -218,9 +226,9 @@ const MainNavbar: FC = () => {
                       i18n.changeLanguage(event.target.value);
                     }}
                   >
-                    {languageOptions.map((item) => (
-                      <MenuItem key={item} value={item} className={classNames(['language__item'])}>
-                        {item.toUpperCase()}
+                    {langData.map((item) => (
+                      <MenuItem key={item.id} value={item.key_lang} className={classNames(['language__item'])}>
+                        {item.title}
                       </MenuItem>
                     ))}
                   </Select>
