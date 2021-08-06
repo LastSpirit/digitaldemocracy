@@ -1,6 +1,7 @@
 import React, { useReducer, useEffect } from 'react';
 import { Button } from '@material-ui/core';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import classes from './Subscriptions.module.scss';
 
 import { userSelectors } from '../../../../slices/userSlice';
@@ -27,13 +28,15 @@ interface IDataState {
   type: TypeSubscribe;
 }
 
-const initialState: IState = {
-  activeType: 'politicians',
-  data: [
-    { id: 1, title: 'Политики', active: true, type: TypeSubscribe.POLITICIANS },
-    { id: 2, title: 'CМИ', active: false, type: TypeSubscribe.MEDIAS },
-    { id: 3, title: 'Авторы', active: false, type: TypeSubscribe.AUTHORS },
-  ]
+const initialState = (t): IState => {
+  return {
+    activeType: 'politicians',
+    data: [
+      { id: 1, title: t('tabs.politicians'), active: true, type: TypeSubscribe.POLITICIANS },
+      { id: 2, title: t('tabs.massMedia'), active: false, type: TypeSubscribe.MEDIAS },
+      { id: 3, title: t('tabs.authors'), active: false, type: TypeSubscribe.AUTHORS },
+    ]
+  };
 };
 
 function reducer(state, action) {
@@ -50,7 +53,8 @@ function reducer(state, action) {
 }
 
 export const Subscriptions = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const { t } = useTranslation();
+  const [state, dispatch] = useReducer(reducer, initialState(t));
   const { fetch, status } = useFetchSubscriptionsData();
   const subscriptions = useSelector(userSelectors.getSubscriptions());
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());

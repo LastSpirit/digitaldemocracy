@@ -86,28 +86,30 @@ export const PoliticianTabs = (t) => {
   ];
 };
 
-export const ProfileTabs = [
-  {
-    id: 'subscriptions',
-    title: 'Подписки',
-    component: Subscriptions,
-  },
-  {
-    id: 'voting_statistics',
-    title: 'Ваше досье на политиков',
-    component: VotingStatistics,
-  },
-  {
-    id: 'browsing_history',
-    title: 'История просмотров',
-    component: BrowsingHistory,
-  },
-  {
-    id: 'donation_history',
-    title: 'История донатов',
-    component: DonationHistory,
-  },
-];
+export const ProfileTabs = (t) => {
+  return [
+    {
+      id: 'subscriptions',
+      title: t('tabs.subscriptions') || 'Подписки',
+      component: Subscriptions,
+    },
+    {
+      id: 'voting_statistics',
+      title: t('tabs.statisticsVoting') || 'Ваше досье на политиков',
+      component: VotingStatistics,
+    },
+    {
+      id: 'browsing_history',
+      title: t('tabs.historyBrowsing') || 'История просмотров',
+      component: BrowsingHistory,
+    },
+    {
+      id: 'donation_history',
+      title: t('tabs.historyDonation') || 'История донатов',
+      component: DonationHistory,
+    },
+  ];
+};
 
 export const MassMediaTabs = (t) => {
   return [

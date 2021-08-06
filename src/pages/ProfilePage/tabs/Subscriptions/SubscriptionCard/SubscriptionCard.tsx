@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import PersonIcon from '@material-ui/icons/Person';
 import { useHistory } from 'react-router';
 import { Theme, withStyles } from '@material-ui/core/styles';
@@ -46,6 +47,7 @@ const SubscriptionCard: FC<IProps> = ({
   place,
   type,
 }) => {
+  const { t } = useTranslation();
   const { unsubscribe } = useUnsubscribe(type, id);
   const { push } = useHistory();
   const {
@@ -107,7 +109,7 @@ const SubscriptionCard: FC<IProps> = ({
             backgroundColor: badgeColorChanger(rating),
           }}
         >
-          <div className={styles.text}>{place ? `Место ${place}` : 'Без рейтинга'}</div>
+          <div className={styles.text}>{place ? `${t('info.place')} ${place}` : t('info.withoutRating')}</div>
         </div>
         {rating && <div className={styles.percent}>{rating} %</div>}
       </div>
@@ -123,7 +125,7 @@ const SubscriptionCard: FC<IProps> = ({
           // { '-disabled': !isAuthenticated },
         ])}
       >
-        Отписаться
+        {t('buttons.unsubscribe')}
       </Button>
     </div>
   );
