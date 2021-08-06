@@ -20,7 +20,7 @@ export const WelcomeTextRegister = () => {
   return (
     <>
       <Typography align="justify">
-        {t('registration.step5.description')}
+        {t('registration.step5.descriptionStep5')}
         {/* eslint-disable-next-line react/no-unescaped-entities */}
         {/* Дорогой Друг! Демократия - это &quot;власть народа&quot;, народ является источником власти. Но это ещё и
         ответственность реализовывать это право, делать свой выбор, голосовать за тех, кого народ этой властью наделяет.
@@ -103,7 +103,7 @@ const Register: FC = () => {
           fontWeight="300"
           align={endRegistration ? 'center' : 'left'}
         >
-          {endRegistration ? t('registration.step5.title') || 'Вы успешно зарегистрировались!' : t('registration.title') || 'Регистрация'}
+          {endRegistration ? t('registration.step5.titleStep5') || 'Вы успешно зарегистрировались!' : t('registration.titleRegistration') || 'Регистрация'}
         </Typography>
         <Box
           sx={{

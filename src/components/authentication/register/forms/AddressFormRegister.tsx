@@ -134,7 +134,7 @@ const AddressFormRegister: FC = (props) => {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={t('registration.placeholdersForFields.country') || 'Начните вводить страну'}
+                        label={t('registration.placeholdersForFields.countryField') || 'Начните вводить страну'}
                         margin="normal"
                         name="country_title"
                         variant="outlined"
@@ -167,7 +167,7 @@ const AddressFormRegister: FC = (props) => {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={t('registration.placeholdersForFields.region') || 'Начните вводить регион'}
+                        label={t('registration.placeholdersForFields.regionField') || 'Начните вводить регион'}
                         margin="normal"
                         name="region_title"
                         variant="outlined"
@@ -198,7 +198,7 @@ const AddressFormRegister: FC = (props) => {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={t('registration.placeholdersForFields.city') || 'Начните вводить город'}
+                        label={t('registration.placeholdersForFields.cityField') || 'Начните вводить город'}
                         margin="normal"
                         name="city_title"
                         variant="outlined"

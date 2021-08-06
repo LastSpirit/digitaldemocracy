@@ -69,7 +69,7 @@ const ResetPassword = () => {
           mb="0"
           fontWeight="300"
         >
-          {t('resetPassword.title')}
+          {t('resetPassword.titleResetPassword')}
         </Typography>
       </Box>
       {getCurrentStepComponent(resetStep)}

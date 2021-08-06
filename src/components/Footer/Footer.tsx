@@ -47,15 +47,15 @@ const sectionsData = () => {
       title: t('footer.menu.mapSite') || 'Карта сайта',
       links: [
         {
-          title: t('footer.menu.news') || 'Новости',
+          title: t('footer.menu.newsMenu') || 'Новости',
           href: '/news',
         },
         {
-          title: t('footer.menu.rating') || 'Рейтинг',
+          title: t('footer.menu.ratingMenu') || 'Рейтинг',
           href: '/rating',
         },
         {
-          title: t('footer.menu.about') || 'О площадке',
+          title: t('footer.menu.aboutMenu') || 'О площадке',
           href: '/help_site',
         },
         {
@@ -83,15 +83,15 @@ const authUserSectionsData = () => {
       title: t('footer.menu.mapSite') || 'Карта сайта',
       links: [
         {
-          title: t('footer.menu.news') || 'Новости',
+          title: t('footer.menu.newsMenu') || 'Новости',
           href: '/news',
         },
         {
-          title: t('footer.menu.rating') || 'Рейтинг',
+          title: t('footer.menu.ratingMenu') || 'Рейтинг',
           href: '/rating',
         },
         {
-          title: t('footer.menu.about') || 'О площадке',
+          title: t('footer.menu.aboutMenu') || 'О площадке',
           href: '/help_site',
         },
         {
@@ -120,17 +120,17 @@ const iconsData = (isAuthenticated) => {
       to: '',
     },
     {
-      title: t('footer.menu.rating') || 'Рейтинг',
+      title: t('footer.menu.ratingMenu') || 'Рейтинг',
       icon: <Rating />,
       to: '/rating/politicians',
     },
     {
-      title: t('footer.menu.news') || 'Новости',
+      title: t('footer.menu.newsMenu') || 'Новости',
       icon: <News />,
       to: '/news',
     },
     {
-      title: isAuthenticated ? t('footer.menu.profile') : t('footer.menu.signInUp'),
+      title: isAuthenticated ? t('footer.menu.profileMenu') : t('footer.menu.signInUp'),
       icon: isAuthenticated ? <Person /> : <Register />,
       to: isAuthenticated ? '/profile' : AuthParam.register,
     },
@@ -355,8 +355,8 @@ const Footer: FC = (props) => {
               <Typography color="textSecondary" variant="caption">
                 {`* ${
                   pathname === '/'
-                    ? t('footer.descriptions.variant1') || 'отображает только мнение пользователей данного сайта'
-                    : t('footer.descriptions.variant2') || 'рейтинг отображает мнение пользователей Digital Democracy'
+                    ? t('footer.descriptionsFooter.variant1') || 'отображает только мнение пользователей данного сайта'
+                    : t('footer.descriptionsFooter.variant2') || 'рейтинг отображает мнение пользователей Digital Democracy'
                 }`}
               </Typography>
             </>

@@ -33,7 +33,7 @@ const OAuthBlockLogin:FC<OAuthBlockLoginProps> = ({ isLogin }) => {
           <GoogleLogin
             className={styles.google}
             clientId={OAuthConfig.googleClientID}
-            buttonText={t('buttons.google.signIn') || 'Вход с аккаунтом Google'}
+            buttonText={t('buttons.google') || 'Вход с аккаунтом Google'}
             onSuccess={googleOAuth}
             onFailure={(error) => {
               console.log(error);
@@ -58,7 +58,7 @@ const OAuthBlockLogin:FC<OAuthBlockLoginProps> = ({ isLogin }) => {
                 color="black"
                 sx={{ ml: 2, paddingBottom: '0px!important', fontFamily: 'unset!important' }}
               >
-                {t('buttons.yandex.signIn') || 'Вход с аккаунтом Yandex'}
+                {t('buttons.yandex') || 'Вход с аккаунтом Yandex'}
               </Typography>
             </Box>
           </YandexLogin>

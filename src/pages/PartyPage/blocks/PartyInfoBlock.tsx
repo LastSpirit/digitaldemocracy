@@ -61,7 +61,7 @@ const PartyInfoBlock: FC = () => {
                 {/* <p>{data?.description ?? 'Описание отсутствует'}</p> */}
                 {data?.politicians_count && (
                   <div className={styles.subscribersBadge}>
-                    {`${data.politicians_count ?? 0} ${endOfWords(data?.politicians_count, t('info.members'))} ${t('info.parties')}`}
+                    {`${data.politicians_count ?? 0} ${endOfWords(data?.politicians_count, t('info.members'))} ${t('info.partiesInfo')}`}
                   </div>
                 )}
               </div>
@@ -90,7 +90,7 @@ const PartyInfoBlock: FC = () => {
           <p>{data?.name}</p>
           {data?.politicians_count && (
             <div className={styles.mobSubscribers}>
-              {`${data?.politicians_count} ${endOfWords(data?.politicians_count, t('info.members'))} ${t('info.parties')}`}
+              {`${data?.politicians_count} ${endOfWords(data?.politicians_count, t('info.members'))} ${t('info.partiesInfo')}`}
             </div>
           )}
           <div className={styles.mobInfoBlock}>

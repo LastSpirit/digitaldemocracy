@@ -54,7 +54,7 @@ const Login: FC = () => {
         }}
       >
         <Typography color="textPrimary" gutterBottom variant="h3" mb="0" fontWeight="300">
-          {t('signIn.title')}
+          {t('signIn.titleSignIn')}
         </Typography>
       </Box>
       {getCurrentStepComponent(loginStep)}
@@ -92,7 +92,7 @@ const Login: FC = () => {
           variant="outlined"
           onClick={() => setAuthValue('register')}
         >
-          {t('buttons.registration')}
+          {t('buttons.registrationButtons')}
         </Button>
       </Box>
     </ModalWrapper>

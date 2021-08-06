@@ -189,7 +189,7 @@ const MainNavbar: FC = () => {
                     }
                   }}
                 >
-                  {isAuthenticated ? t('buttons.suggestion') || 'Предложить новость / политика' : t('buttons.signIn') || 'Вход'}
+                  {isAuthenticated ? t('buttons.suggestion') || 'Предложить новость / политика' : t('buttons.signInButtons') || 'Вход'}
                 </Button>
                 <Button
                   className={
@@ -213,7 +213,7 @@ const MainNavbar: FC = () => {
                     }
                   }}
                 >
-                  {isAuthenticated ? <Person /> : t('buttons.registration') || 'Регистрация'}
+                  {isAuthenticated ? <Person /> : t('buttons.registrationButtons') || 'Регистрация'}
                 </Button>
               </Box>
               <Box>
