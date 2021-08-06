@@ -2,6 +2,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/store';
+import { useTranslation } from 'react-i18next';
 import { Button, TextField, InputLabel } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -12,6 +13,7 @@ import { useChangePassword } from '../../hooks/useChangePassword';
 import styles from '../../ChangeProfilePage.module.scss';
 
 export const PasswordForm = () => {
+  const { t } = useTranslation();
   const { fetchSetNewPassword, statusCheckPassword, statusPasswordMessage } = useChangePassword();
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
   const { data } = useSelector((s: RootState) => s.profile);
@@ -22,7 +24,7 @@ export const PasswordForm = () => {
 
   return checkEmailType ? (
     <div className={styles.passwordWrapper}>
-      <h4>Сменить пароль</h4>
+      <h4>{t('profile.changePassword')}</h4>
       <Formik
         initialValues={{
           oldPassword: '',
@@ -33,15 +35,15 @@ export const PasswordForm = () => {
           await fetchSetNewPassword(values.newPasswordRepeat, values.oldPassword);
         }}
         validationSchema={Yup.object().shape({
-          oldPassword: Yup.string().max(255).min(8).required('Поле обязательно для заполнения'),
+          oldPassword: Yup.string().max(255).min(8).required(t('errors.requiredField')),
           newPassword: Yup.string()
             .max(255)
             .min(8)
-            .matches(passwordRegex, 'Пароль должен содержать минимум одну латинскую букву и цифру')
-            .required('Поле обязательно для заполнения'),
+            .matches(passwordRegex, t('errors.ruleForPassword'))
+            .required(t('errors.requiredField')),
           newPasswordRepeat: Yup.string()
-            .oneOf([Yup.ref('newPassword'), null], 'Пароли должны совпадать')
-            .required('Поле обязательно для заполнения'),
+            .oneOf([Yup.ref('newPassword'), null], t('errors.checkPasswords'))
+            .required(t('errors.requiredField')),
         })}
         enableReinitialize={true}
       >
@@ -64,7 +66,7 @@ export const PasswordForm = () => {
               <div className={styles.password}>
                 <div className={styles.input}>
                   <InputLabel htmlFor="oldPassword" className={styles.inputLabel}>
-                    Введите старый пароль
+                    {t('profile.enterOldPassword')}
                   </InputLabel>
                   <TextField
                     type="password"
@@ -78,7 +80,7 @@ export const PasswordForm = () => {
                 </div>
                 <div className={styles.input}>
                   <InputLabel htmlFor="newPassword" className={styles.inputLabel}>
-                    Введите новый пароль
+                    {t('profile.enterNewPassword')}
                   </InputLabel>
                   <TextField
                     type="password"
@@ -96,7 +98,7 @@ export const PasswordForm = () => {
               <div className={styles.row}>
                 <div className={styles.input}>
                   <InputLabel htmlFor="newPasswordRepeat" className={styles.inputLabel}>
-                    Повторите новый пароль
+                    {t('profile.repeatNewPassword')}
                   </InputLabel>
                   <TextField
                     type="password"
@@ -126,13 +128,13 @@ export const PasswordForm = () => {
                     type="submit"
                     disabled={!values.newPasswordRepeat ? true : false}
                   >
-                    {statusCheckPassword === APIStatus.Loading ? <Loading color="white" /> : 'Подтвердить изменения'}
+                    {statusCheckPassword === APIStatus.Loading ? <Loading color="white" /> : t('buttons.confirmChange')}
                   </Button>
                 </div>
               </div>
               {statusCheckPassword === APIStatus.Success ? (
                 <div className={styles.message} style={{ color: '#248232' }}>
-                  Пароль успешно изменен!
+                  {t('info.successChangePassword')}
                 </div>
               ) : statusCheckPassword === APIStatus.Failure ? (
                 <div className={styles.message} style={{ color: 'red' }}>

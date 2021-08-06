@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/store';
+import { useTranslation } from 'react-i18next';
 import { APIStatus } from 'src/lib/axiosAPI';
 import { Button, Box } from '@material-ui/core';
 import { Loading } from 'src/components/Loading/Loading';
@@ -14,6 +15,7 @@ import { useYandexRegiser } from '../hooks/useYandexRegiser';
 import styles from '../ChangeProfilePage.module.scss';
 
 export const Accounts = () => {
+  const { t } = useTranslation();
   const { googleOAuth, googleExit, googleError, status } = useGoogleRegister();
   const { yandexExit, yandexOAuth, statusY, yandexError } = useYandexRegiser();
   const { data } = useSelector((s: RootState) => s.profile);
@@ -23,7 +25,7 @@ export const Accounts = () => {
   );
   return (
     <div className={styles.account}>
-      <h4>Привязать учетную запись</h4>
+      <h4>{t('profile.linkAccount')}</h4>
       <div className={styles.border}>
         <img src={Yandex} alt="yandex" />
         <YandexLogin
@@ -51,7 +53,7 @@ export const Accounts = () => {
               variant="outlined"
               className={styles.accountButton}
             >
-              {statusY === APIStatus.Loading ? <Loading color="white" /> : checkYandexType ? 'Отвязать' : 'Привязать'}
+              {statusY === APIStatus.Loading ? <Loading color="white" /> : checkYandexType ? t('buttons.unlink') : t('buttons.link')}
             </Button>
           </Box>
         </YandexLogin>
@@ -83,7 +85,7 @@ export const Accounts = () => {
               onClick={renderProps.onClick}
               disabled={renderProps.disabled}
             >
-              {status === APIStatus.Loading ? <Loading color="white" /> : checkGoogleType ? 'Отвязать' : 'Привязать'}
+              {status === APIStatus.Loading ? <Loading color="white" /> : checkGoogleType ? t('buttons.unlink') : t('buttons.link')}
             </Button>
           )}
           onSuccess={checkGoogleType ? googleExit : googleOAuth}

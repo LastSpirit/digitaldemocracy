@@ -3,6 +3,7 @@
 import React from 'react';
 import { Button, TextField, InputLabel } from '@material-ui/core';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { RootState } from 'src/store';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -13,12 +14,15 @@ import { useFetchEmail } from '../../hooks/useFetchEmail';
 import styles from '../../ChangeProfilePage.module.scss';
 
 export const EmailForm = () => {
+  const { t } = useTranslation();
+  /* eslint-disable prefer-template */
   setLocale({
     string: {
-      max: 'Указанное количество символов превышает ${max}',
-      min: 'Указанное количество символов меньше ${min}',
+      max: t('errors.maxLength') + ' ${max}',
+      min: t('errors.minLength') + ' ${min}',
     },
   });
+  /* eslint-enable prefer-template */
 
   const { data } = useSelector((s: RootState) => s.profile);
 
@@ -43,7 +47,7 @@ export const EmailForm = () => {
 
   return !checkEmailType ? (
     <div className={styles.emailWrapper}>
-      <h4>Привязать или изменить e-mail</h4>
+      <h4>{t('profile.linkOrChangeEmail')}</h4>
       <Formik
         initialValues={{
           email: '',
@@ -52,7 +56,7 @@ export const EmailForm = () => {
           await sendEmail(values.email);
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string().email('Введите корректный E-mail').required('Поле обязательно для заполнения'),
+          email: Yup.string().email(t('errors.enterValidEmail')).required(t('errors.requiredField')),
         })}
         enableReinitialize={true}
       >
@@ -105,13 +109,13 @@ export const EmailForm = () => {
                     type="submit"
                     disabled={!values.email ? true : false}
                   >
-                    {statusCheckEmail === APIStatus.Loading ? <Loading color="white" /> : 'Подтвердить почту'}
+                    {statusCheckEmail === APIStatus.Loading ? <Loading color="white" /> : t('buttons.confirmEmail')}
                   </Button>
                 </div>
               </div>
               {statusCheckEmail === APIStatus.Success ? (
                 <div className={styles.message} style={{ color: '#248232' }}>
-                  Код отправлен на вашу почту!
+                  {t('info.sendCodeEmail')}
                 </div>
               ) : statusCheckEmail === APIStatus.Failure ? (
                 <div className={styles.message} style={{ color: 'red' }}>
@@ -130,7 +134,7 @@ export const EmailForm = () => {
           sendCodeEmail(mail, values.codeEmail);
         }}
         validationSchema={Yup.object().shape({
-          codeEmail: Yup.string().max(6).min(6).required('Поле обязательно для заполнения'),
+          codeEmail: Yup.string().max(6).min(6).required(t('errors.requiredField')),
         })}
         enableReinitialize={true}
       >
@@ -153,7 +157,7 @@ export const EmailForm = () => {
               <div className={styles.row}>
                 <div className={styles.input}>
                   <InputLabel htmlFor="codeEmail" className={styles.inputLabel}>
-                    Введите код
+                    {t('profile.inputCodeEmail')}
                   </InputLabel>
                   <TextField
                     type="text"
@@ -184,13 +188,13 @@ export const EmailForm = () => {
                     type="submit"
                     disabled={statusCheckEmail !== APIStatus.Success}
                   >
-                    {statusEmailCode === APIStatus.Loading ? <Loading color="white" /> : 'Ввести код'}
+                    {statusEmailCode === APIStatus.Loading ? <Loading color="white" /> : t('buttons.inputCode')}
                   </Button>
                 </div>
               </div>
               {statusEmailCode === APIStatus.Success ? (
                 <div className={styles.message} style={{ color: '#248232' }}>
-                  Ваши данные успешно обновлены!
+                  {t('info.successUpdateData')}
                 </div>
               ) : statusEmailCode === APIStatus.Failure ? (
                 <div className={styles.message} style={{ color: 'red' }}>
@@ -214,11 +218,11 @@ export const EmailForm = () => {
             password: Yup.string()
               .max(255)
               .min(8)
-              .matches(passwordRegex, 'Пароль должен содержать минимум одну латинскую букву и цифру')
-              .required('Поле обязательно для заполнения'),
+              .matches(passwordRegex, t('errors.ruleForPassword'))
+              .required(t('errors.requiredField')),
             passwordRepeat: Yup.string()
-              .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать')
-              .required('Поле обязательно для заполнения'),
+              .oneOf([Yup.ref('password'), null], t('errors.checkPasswords'))
+              .required(t('errors.requiredField')),
           })}
           enableReinitialize={true}
         >
@@ -241,7 +245,7 @@ export const EmailForm = () => {
                 <div className={styles.password}>
                   <div className={styles.input}>
                     <InputLabel htmlFor="password" className={styles.inputLabel}>
-                      Придумайте пароль
+                      {t('profile.enterPassword')}
                     </InputLabel>
                     <TextField
                       type="password"
@@ -257,7 +261,7 @@ export const EmailForm = () => {
                   </div>
                   <div className={styles.input}>
                     <InputLabel htmlFor="passwordRepeat" className={styles.inputLabel}>
-                      Повторите пароль
+                      {t('profile.enterPasswordAgain')}
                     </InputLabel>
                     <TextField
                       type="password"
@@ -287,16 +291,16 @@ export const EmailForm = () => {
                     className={styles.button}
                     type="submit"
                   >
-                    {statusCheckPassword === APIStatus.Loading ? <Loading color="white" /> : 'Задать пароль'}
+                    {statusCheckPassword === APIStatus.Loading ? <Loading color="white" /> : t('buttons.setPassword')}
                   </Button>
                 </div>
                 {statusCheckPassword === APIStatus.Success ? (
                   <div className={styles.message} style={{ color: '#248232' }}>
-                    Пароль успешно задан!
+                    {t('info.successSetPassword')}
                   </div>
                 ) : statusCheckPassword === APIStatus.Failure ? (
                   <div className={styles.message} style={{ color: 'red' }}>
-                    При отправке данных произошла ошибка, возможно, ваш почтовый ящик уже привязан к другому аккаунту
+                    {t('info.failSetPassword')}
                   </div>
                 ) : null}
               </form>

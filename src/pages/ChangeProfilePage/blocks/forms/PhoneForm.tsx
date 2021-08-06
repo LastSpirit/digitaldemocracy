@@ -1,6 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 /* eslint-disable no-unneeded-ternary */
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, TextField, InputLabel } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -12,21 +13,24 @@ import { useVerifyFirebaseCode } from '../../hooks/useVerifyFireBaseCode';
 import styles from '../../ChangeProfilePage.module.scss';
 
 export const PhoneForm = () => {
+  const { t } = useTranslation();
   const { sendPhone, statusCheckPhone, statusPhoneCode, statusPhoneMessage, statusCodeMessage, tele } =
     useFetchPhone();
 
+  /* eslint-disable prefer-template */
   setLocale({
     number: {
-      max: 'Указанное количество символов превышает ${max}',
-      min: 'Указанное количество символов меньше ${min}',
+      max: t('errors.maxLength') + ' ${max}',
+      min: t('errors.minLength') + ' ${min}',
     },
   });
+  /* eslint-enable prefer-template */
 
   const { verify, statusVerify } = useVerifyFirebaseCode();
 
   return (
     <div className={styles.phoneWrapper}>
-      <h4>Привязать или изменить номер телефона</h4>
+      <h4>{t('profile.linkPhone')}</h4>
 
       <Formik
         initialValues={{
@@ -36,7 +40,7 @@ export const PhoneForm = () => {
           await sendPhone(values.phone.split(' ').join(''));
         }}
         validationSchema={Yup.object().shape({
-          phone: Yup.string().required('Поле обязательно для заполнения'),
+          phone: Yup.string().required(t('errors.requiredField')),
         })}
         enableReinitialize={true}
       >
@@ -59,7 +63,7 @@ export const PhoneForm = () => {
               <div className={styles.row}>
                 <div className={styles.input}>
                   <InputLabel htmlFor="phone" className={styles.inputLabel}>
-                    Введите телефон
+                    {t('profile.inputPhone')}
                   </InputLabel>
                   <TextField
                     type="tel"
@@ -90,15 +94,13 @@ export const PhoneForm = () => {
                     className={styles.button}
                     disabled={!values.phone ? true : false}
                   >
-                    {statusCheckPhone === APIStatus.Loading ? <Loading color="white" /> : 'Подтвердить телефон'}
+                    {statusCheckPhone === APIStatus.Loading ? <Loading color="white" /> : t('buttons.confirmPhone')}
                   </Button>
                 </div>
               </div>
               {statusCheckPhone === APIStatus.Success ? (
                 <div className={styles.message} style={{ color: '#248232' }}>
-                  {
-                    'СМС с кодом отправлен! (смс может не приходить в течении двух часов, если отправлено слишком много запросов)'
-                  }
+                  {t('info.warningPhoneCode')}
                 </div>
               ) : statusCheckPhone === APIStatus.Failure ? (
                 <div className={styles.message} style={{ color: 'red' }}>
@@ -119,8 +121,8 @@ export const PhoneForm = () => {
         }}
         validationSchema={Yup.object().shape({
           codeForPhone: Yup.number()
-            .typeError('Поле должно содержать только цифры')
-            .required('Поле обязательно для заполнения'),
+            .typeError(t('errors.onlyNumbers'))
+            .required(t('errors.requiredField')),
         })}
         enableReinitialize={true}
       >
@@ -143,7 +145,7 @@ export const PhoneForm = () => {
               <div className={styles.row}>
                 <div className={styles.input}>
                   <InputLabel htmlFor="codeForPhone" className={styles.inputLabel}>
-                    Введите код из смс
+                    {t('profile.inputCodeSms')}
                   </InputLabel>
                   <TextField
                     type="text"
@@ -172,17 +174,17 @@ export const PhoneForm = () => {
                     className={styles.button}
                     disabled={statusCheckPhone !== APIStatus.Success}
                   >
-                    {statusVerify === APIStatus.Loading ? <Loading color="white" /> : 'Ввести код'}
+                    {statusVerify === APIStatus.Loading ? <Loading color="white" /> : t('buttons.inputCode')}
                   </Button>
                 </div>
               </div>
               {statusVerify === APIStatus.Success ? (
                 <div className={styles.message} style={{ color: '#248232' }}>
-                  Номер телефона успешно привязан!
+                  {t('info.successLinkPhone')}
                 </div>
               ) : statusVerify === APIStatus.Failure ? (
                 <div className={styles.message} style={{ color: 'red' }}>
-                  Неверный код!
+                  {t('info.failLinkPhone')}
                 </div>
               ) : null}
             </form>
