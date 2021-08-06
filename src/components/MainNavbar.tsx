@@ -32,17 +32,17 @@ const MainNavbar: FC = () => {
   const links = [
     {
       to: '/rating/politicians',
-      title: t('header.menu.rating') || 'Рейтинг',
+      title: t('tabs.rating') || 'Рейтинг',
       mr: 4,
     },
     {
       to: '/news',
-      title: t('header.menu.news') || 'Новости',
+      title: t('tabs.news') || 'Новости',
       mr: 4,
     },
     {
       to: '/about',
-      title: t('header.menu.about') || 'О площадке',
+      title: t('tabs.about') || 'О площадке',
       mr: 0,
     },
   ];
@@ -181,7 +181,7 @@ const MainNavbar: FC = () => {
                     }
                   }}
                 >
-                  {isAuthenticated ? t('header.buttons.suggestion') || 'Предложить новость / политика' : t('header.buttons.signIn') || 'Вход'}
+                  {isAuthenticated ? t('buttons.suggestion') || 'Предложить новость / политика' : t('buttons.signIn') || 'Вход'}
                 </Button>
                 <Button
                   className={
@@ -205,7 +205,7 @@ const MainNavbar: FC = () => {
                     }
                   }}
                 >
-                  {isAuthenticated ? <Person /> : t('header.buttons.registration') || 'Регистрация'}
+                  {isAuthenticated ? <Person /> : t('buttons.registration') || 'Регистрация'}
                 </Button>
               </Box>
               <Box>
