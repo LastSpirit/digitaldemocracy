@@ -1,18 +1,14 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { List, ListItem, ListItemText, MenuItem, Menu, Button, Grow, Paper, Popper, MenuList, ClickAwayListener } from '@material-ui/core';
+import { InputLabel, MenuItem, FormControl, Select } from '@material-ui/core';
+import { useFetchSort } from '../hooks/useFetchSort';
+import { ratingActionCreators } from '../../../slices/ratingSlice';
+import { useFetchPoliticians } from '../hooks/useFetchPoliticians';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      backgroundColor: theme.palette.background.paper,
+    wrapper: {
       display: 'flex',
-      alignItems: 'center',
-      margin: '0',
-      marginRight: '15px',
-      padding: '5px 20px',
-      border: '1px solid  #B0B0B0',
-      borderRadius: '16px',
     },
     text: {
       marginRight: '10px',
@@ -26,140 +22,207 @@ const useStyles = makeStyles((theme: Theme) =>
       lineHeight: '18px',
       padding: '10px',
     },
-    secondRoot: {
-      display: 'flex',
+    button: {
+      display: 'block',
+      marginTop: theme.spacing(1),
     },
-    paper: {
-      marginRight: theme.spacing(2),
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 130,
+      minHeight: 20,
     },
-    content: {
-      top: '0px',
-      right: '250px'
-    }
-  }),
+    list: {
+      padding: theme.spacing(1),
+    },
+    label: {
+      paddingRight: '15px',
+    },
+  })
 );
 
-const options: string[] = [
-  'Выбрать страну',
-  'Выбрать регион',
-  'Выбрать город',
-];
-
-const data: string[] = [
-  '1111',
-  '2222',
-  '3333',
-];
-
-export const SortDropdown = ({ text }) => {
+export const SortDropdown = ({ text, field }) => {
+  const { fetch } = useFetchPoliticians();
   const classes: any = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState<string | number>('Выбрать страну');
+  const [currentCountryId, setCurrentCountryId] = React.useState<string | number>('');
+  const [currentRegionId, setCurrentRegionId] = React.useState<string | number>('');
+  const [currentCityId, setCurrentCityId] = React.useState<string | number>('');
+  const [openCountry, setOpenCountry] = React.useState(false);
+  const [openRegion, setOpenRegion] = React.useState(false);
+  const [openCity, setOpenCity] = React.useState(false);
+  const [sortParams, setSortParams] = React.useState({});
+  const [values, setValues] = React.useState({
+    country: '',
+    region: '',
+    city: '',
+  });
 
-  const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const { countries, fetchCounties, fetchRegions, fetchCities, regions, cities } = useFetchSort();
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-    // dasssssnew
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef<HTMLButtonElement>(null);
+  const { setSortGeography, setSortVote } = ratingActionCreators();
 
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
-
-  const onClose = (event, index) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
-      return;
+  useEffect(() => {
+    fetchCounties();
+    if (currentCountryId) {
+      fetchRegions(+currentCountryId);
     }
-    setSelectedIndex(index);
-    setAnchorEl(null);
-    setOpen(false);
-    const currentElement = event.target.outerText;
-    setSelectedIndex(currentElement);
+    if (currentRegionId) {
+      fetchCities(+currentRegionId);
+    }
+  }, [currentCountryId, currentRegionId, currentCityId]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setValues((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  function handleListKeyDown(event: React.KeyboardEvent) {
-    if (event.key === 'Tab') {
-      event.preventDefault();
-      setOpen(false);
-    }
-  }
+  const handleCloseCountry = () => {
+    setOpenCountry(false);
+  };
 
-  // return focus to the button when we transitioned from !open -> open
-  const prevOpen = React.useRef(open);
-  React.useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef.current!.focus();
-    }
+  const handleOpenCountry = () => {
+    setOpenCountry(true);
+  };
 
-    prevOpen.current = open;
-  }, [open]);
+  const handleCloseRegion = () => {
+    setOpenRegion(false);
+  };
+
+  const handleOpenRegion = () => {
+    setOpenRegion(true);
+  };
+  const handleCloseCity = () => {
+    setOpenCity(false);
+  };
+
+  const handleOpenCity = () => {
+    setOpenCity(true);
+  };
+
+  const onChangeCountry = (event) => {
+    setCurrentCountryId(event.target.id);
+  };
+
+  const onChangeRegion = (event) => {
+    setCurrentRegionId(event.target.id);
+  };
+
+  const onChangeCity = useCallback(
+    (event) => {
+      setCurrentCityId(event.target.id);
+      if (field === 'geography') {
+        setSortParams({
+          city_politician_id: +currentCityId,
+          country_politician_id: +currentCountryId,
+          region_politician_id: +currentRegionId,
+        });
+        setSortGeography(sortParams);
+        console.log(currentCountryId, 'currentCountryId');
+        fetch();
+      } else if (field === 'vote') {
+        setSortParams((prevState) => ({
+          ...prevState,
+          country_user_id: +currentCountryId,
+          region_user_id: +currentRegionId,
+          city_user_id: +currentCityId,
+        }));
+        setSortVote(sortParams);
+      }
+      console.log(sortParams, 'sort');
+    },
+    [currentCityId, currentRegionId, currentCountryId, sortParams]
+  );
 
   return (
-    <div className={classes.root}>
-      <List component="nav" aria-label="Device settings">
-        <ListItem
-          button
-          aria-haspopup="true"
-          aria-controls="lock-menu"
-          aria-label="when device is locked"
-          onClick={handleClickListItem}
+    <div className={classes.wrapper}>
+      <FormControl className={classes.formControl}>
+        <InputLabel id="demo-controlled-open-select-label">{text}</InputLabel>
+        <Select
+          labelId="demo-controlled-open-select-label"
+          id="countrySelect"
+          open={openCountry}
+          name={'country'}
+          onClose={handleCloseCountry}
+          onOpen={handleOpenCountry}
+          value={values.country}
+          onChange={handleChange}
         >
-          <ListItemText primary={text} secondary={selectedIndex} className={classes.text} />
-        </ListItem>
-      </List>
-      <Menu
-        id="lock-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        {options.map((option, index) => (
-          <MenuItem
-            key={option}
-            selected={index === selectedIndex}
-            className={classes.text}
-          >
-            <>
-              <Button
-                ref={anchorRef}
-                aria-controls={open ? 'menu-list-grow' : undefined}
-                aria-haspopup="true"
-                onClick={handleToggle}
-              >
-                {option}
-              </Button>
-              <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal className={classes.content}>
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom', }}
-                  >
-                    <Paper>
-                      {data.map((element) => {
-                        return (
-                          <div key={element}>
-                            <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                              <MenuItem onClick={(event) => onClose(event, index)} selected={index === selectedIndex}>
-                                {element}
-                              </MenuItem>
-                            </MenuList>
-                          </div>
-                        );
-                      })}
-                    </Paper>
-                  </Grow>
-                )}
-              </Popper>
-            </>
+          <MenuItem value="">
+            <em>выберите страну</em>
           </MenuItem>
-        ))}
-      </Menu>
+          {countries.map((country) => (
+            <MenuItem
+              id={country.id}
+              key={country.id}
+              value={country.title}
+              onClick={onChangeCountry}
+              className={classes.list}
+            >
+              {country.title}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      {currentCountryId && regions.length ? (
+        <FormControl className={classes.formControl}>
+          <InputLabel id="demo-controlled-open-select-label" className={classes.label}>
+            По регионам
+          </InputLabel>
+          <Select
+            labelId="select-label"
+            id="regionSelect"
+            open={openRegion}
+            name={'region'}
+            onClose={handleCloseRegion}
+            onOpen={handleOpenRegion}
+            value={values.region}
+            onChange={handleChange}
+          >
+            <MenuItem value="">
+              <em>выберите регион</em>
+            </MenuItem>
+            {regions.map((region) => (
+              <MenuItem
+                id={region.id}
+                key={region.id}
+                value={region.title}
+                onClick={onChangeRegion}
+                className={classes.list}
+              >
+                {region.title}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      ) : null}
+      {currentCountryId && regions.length && currentRegionId && cities.length ? (
+        <FormControl className={classes.formControl}>
+          <InputLabel id="demo-controlled-open-select-label" className={classes.label}>
+            По городам
+          </InputLabel>
+          <Select
+            labelId="select-label"
+            id="regionSelect"
+            open={openCity}
+            name={'city'}
+            onClose={handleCloseCity}
+            onOpen={handleOpenCity}
+            value={values.city}
+            onChange={handleChange}
+          >
+            <MenuItem value="">
+              <em>выберите город</em>
+            </MenuItem>
+            {cities.map((city) => (
+              <MenuItem id={city.id} key={city.id} value={city.title} onClick={onChangeCity} className={classes.list}>
+                {city.title}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      ) : null}
     </div>
   );
 };

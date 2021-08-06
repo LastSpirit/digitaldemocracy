@@ -143,32 +143,3 @@
     }
   }
 }
-
-
-.SortDropdown {
-  display: flex;
-  align-items: center;
-
-  margin: 0;
-  margin-right: 15px;
-  padding: 5px 20px;
-
-  border: 1px solid  #B0B0B0;
-  border-radius: 16px;
-
-  .text {
-    margin-right: 10px;
-  
-    text-align: left;
-    letter-spacing: 0;
-  
-    color: #7A7A7A;
-  
-    font-family: HelveticaNeueCyr;
-    font-size: 18px;
-    font-weight: 200;
-    font-style: normal;
-    line-height: 18px;
-  }
-
-}

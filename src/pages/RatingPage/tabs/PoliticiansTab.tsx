@@ -32,7 +32,7 @@ const PoliticiansTab = () => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
           {sortDropdownPoliticians.map(({ id, full_title, short_title, field }) => {
-            return <SortDropdown key={id} text={!isMobile ? full_title : short_title} />;
+            return <SortDropdown key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
         </div>
         {politicians && politicians?.length > 0 ? (

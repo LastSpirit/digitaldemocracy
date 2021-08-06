@@ -23,9 +23,21 @@ interface MediaI {
   media?: Array<MassMediaDataI>;
   isMorePages?: boolean;
 }
+interface SortGeography {
+  country_politician_id: number,
+  region_politician_id: number,
+  city_politician_id: number,
+}
+interface SortVote {
+  country_user_id: number,
+  region_user_id: number,
+  city_user_id: number,
+}
 interface SliceState {
   sort_direction?: string;
   sort_field?: string;
+  sort_geography?: SortGeography;
+  sort_vote?: SortVote;
   politicians?: PoliticiansI;
   massMedia?: MediaI;
   authors?: AuthorsI;
@@ -35,6 +47,8 @@ interface SliceState {
 const initialState: SliceState = {
   sort_direction: '',
   sort_field: '',
+  sort_geography: {} as SortGeography,
+  sort_vote: {} as SortVote,
   politicians: {} as PoliticiansI,
   massMedia: {} as MediaI,
   authors: {} as AuthorsI,
@@ -63,6 +77,12 @@ export const ratingSlice = createSlice({
     setSortField(state, action) {
       state.sort_field = action.payload;
     },
+    setSortGeography(state, action) {
+      state.sort_geography = action.payload;
+    },
+    setSortVote(state, action) {
+      state.sort_vote = action.payload;
+    },
     setIsSubscribePoliticians(state: SliceState, action) {
       const { id, isSubscribe } = action.payload;
       state.politicians.politicians.find((item) => item.id === id).is_subscribed = !isSubscribe;
@@ -84,6 +104,8 @@ interface Store {
 
 export const ratingSelectors = {
   getPoliticians: () => (state: Store) => state.rating.politicians,
+  getSortGeography: () => (state: Store) => state.rating.politicians,
+  getSortVote: () => (state: Store) => state.rating.politicians,
 };
 
 export const ratingActionCreators = () => {
