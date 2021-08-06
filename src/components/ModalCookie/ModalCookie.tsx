@@ -15,9 +15,9 @@ const ModalCookie = ({ onClick }) => {
   return (
     <div className={styles.container}>
       <div className={styles.message}>
-        <h4 className={styles.message__title}>{ t('cookies.title') || 'Наш сайт использует cookies' }</h4>
+        <h4 className={styles.message__title}>{ t('cookies.titleCookies') || 'Наш сайт использует cookies' }</h4>
         <p className={styles.message__discription}>
-          { t('cookies.description') || `Этот сайт использует файлы cookie для аналитики и персонализации.
+          { t('cookies.descriptionCookies') || `Этот сайт использует файлы cookie для аналитики и персонализации.
           Продолжая просматривать его, вы соглашаетесь на использование нами файлов cookie.`}
         </p>
         <Button
@@ -25,7 +25,7 @@ const ModalCookie = ({ onClick }) => {
           className={styles.buttonStyle}
           onClick={confirmCookie}
         >
-          { t('cookies.button') || 'Принять и закрыть' }
+          { t('buttons.acceptAndClose') || 'Принять и закрыть' }
         </Button>
       </div>
     </div>
