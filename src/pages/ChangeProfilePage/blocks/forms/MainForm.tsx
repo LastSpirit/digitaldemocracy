@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { RootState } from 'src/store';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button, InputLabel, Autocomplete } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
@@ -16,6 +17,7 @@ import styles from '../../ChangeProfilePage.module.scss';
 import { useFetchUserData } from '../../../ProfilePage/hooks/useFetchUserData';
 
 export const MainForm = () => {
+  const { t } = useTranslation();
   const { data, religions, genders, countries, political_views, educations, cities, regions } = useSelector(
     (s: RootState) => s.profile
   );
@@ -25,7 +27,6 @@ export const MainForm = () => {
   const { changeCountyId, changeRegionId } = profileActionCreators();
 
   const { statusCity, statusRegion, fetchRegionData, fetchCityData, sendEditData, statusPOST } = useFetchProfileInfo();
-  // TODO: исправляет данные
   const { status, fetch } = useFetchUserData();
 
   const [postData, setPostData] = useState({
@@ -43,7 +44,7 @@ export const MainForm = () => {
 
   setLocale({
     string: {
-      max: 'Указанное количество символов превышает 255',
+      max: t('errors.maxLength'),
     },
   });
 
@@ -96,7 +97,7 @@ export const MainForm = () => {
         lastname: Yup.string().max(255),
         day: Yup.date(),
         gender: Yup.string(),
-        country: Yup.string().required('Это обязательное поле'),
+        country: Yup.string().required(t('errors.requiredField') || 'Это обязательное поле'),
         region: Yup.string(),
         city: Yup.string(),
         religion: Yup.string(),
@@ -123,7 +124,7 @@ export const MainForm = () => {
         return (
           <form onSubmit={handleSubmit} className={styles.mainForm} onReset={handleReset} noValidate>
             <InputLabel htmlFor="name" className={styles.inputLabel}>
-              Имя
+              {t('profile.name')}
             </InputLabel>
             <TextField
               type="text"
@@ -134,7 +135,7 @@ export const MainForm = () => {
               variant="outlined"
             />
             <InputLabel htmlFor="lastname" className={styles.inputLabel}>
-              Фамилия
+              {t('profile.lastName')}
             </InputLabel>
             <TextField
               type="text"
@@ -147,7 +148,7 @@ export const MainForm = () => {
             <div className={styles.multiInputs}>
               <div className={styles.rowInput}>
                 <InputLabel htmlFor="day" className={styles.inputLabel}>
-                  Дата рождения
+                  {t('profile.birthday')}
                 </InputLabel>
                 <TextField
                   type="date"
@@ -161,7 +162,7 @@ export const MainForm = () => {
               </div>
               <div className={styles.rowInput}>
                 <InputLabel htmlFor="gender" className={styles.inputLabel}>
-                  Пол
+                  {t('profile.gender')}
                 </InputLabel>
                 <Autocomplete
                   id="gender"
@@ -170,7 +171,7 @@ export const MainForm = () => {
                   value={values.gender}
                   getOptionLabel={(option) => option?.title || values.gender}
                   isOptionEqualToValue={(option, value) => option.title === value}
-                  noOptionsText={<>Нет доступных вариантов</>}
+                  noOptionsText={<>{t('info.noVariants')}</>}
                   onChange={(_, newValue) => {
                     if (newValue && newValue !== null) {
                       setFieldValue('gender', newValue.title);
@@ -187,7 +188,7 @@ export const MainForm = () => {
               </div>
             </div>
             <InputLabel htmlFor="country" className={styles.inputLabel}>
-              Страна
+              {t('profile.country')}
             </InputLabel>
             <Autocomplete
               id="country"
@@ -196,7 +197,7 @@ export const MainForm = () => {
               value={values.country}
               getOptionLabel={(option) => option?.title || values.country}
               isOptionEqualToValue={(option, value) => option.title === value}
-              noOptionsText={<>Нет доступных вариантов</>}
+              noOptionsText={<>{t('info.noVariants')}</>}
               onChange={(_, newValue) => {
                 if (newValue && newValue !== null) {
                   setFieldValue('country', newValue.title);
@@ -222,7 +223,7 @@ export const MainForm = () => {
               )}
             />
             <InputLabel htmlFor="region" className={styles.inputLabel}>
-              Регион
+              {t('profile.region')}
             </InputLabel>
             <Autocomplete
               id="region"
@@ -232,7 +233,7 @@ export const MainForm = () => {
               value={values.region}
               getOptionLabel={(option) => option?.title || values.region}
               isOptionEqualToValue={(option, value) => option.title === value}
-              noOptionsText={<>Нет доступных вариантов</>}
+              noOptionsText={<>{t('info.noVariants')}</>}
               onChange={(_, newValue) => {
                 if (newValue && newValue !== null) {
                   setFieldValue('region', newValue.title);
@@ -250,7 +251,7 @@ export const MainForm = () => {
               )}
             />
             <InputLabel htmlFor="city" className={styles.inputLabel}>
-              Город
+              {t('profile.city')}
             </InputLabel>
             <Autocomplete
               id="city"
@@ -260,7 +261,7 @@ export const MainForm = () => {
               disabled={!values.region || statusCity !== APIStatus.Success ? true : false}
               getOptionLabel={(option) => option?.title || values.city}
               isOptionEqualToValue={(option, value) => option.title === value}
-              noOptionsText={<>Нет доступных вариантов</>}
+              noOptionsText={<>{t('info.noVariants')}</>}
               onChange={(_, newValue) => {
                 if (newValue && newValue !== null) {
                   setFieldValue('city', newValue.title);
@@ -275,7 +276,7 @@ export const MainForm = () => {
               )}
             />
             <InputLabel htmlFor="religion" className={styles.inputLabel}>
-              Религиозные взгляды
+              {t('profile.religiousViews')}
             </InputLabel>
             <Autocomplete
               id="religion"
@@ -284,7 +285,7 @@ export const MainForm = () => {
               value={values.religion}
               getOptionLabel={(option) => option?.title || values.religion}
               isOptionEqualToValue={(option, value) => option.title === value}
-              noOptionsText={<>Нет доступных вариантов</>}
+              noOptionsText={<>{t('info.noVariants')}</>}
               onChange={(_, newValue) => {
                 if (newValue && newValue !== null) {
                   setFieldValue('religion', newValue.title);
@@ -299,7 +300,7 @@ export const MainForm = () => {
               )}
             />
             <InputLabel htmlFor="education" className={styles.inputLabel}>
-              Образование
+              {t('profile.education')}
             </InputLabel>
             <Autocomplete
               id="education"
@@ -308,7 +309,7 @@ export const MainForm = () => {
               value={values.education}
               getOptionLabel={(option) => option?.title || values.education}
               isOptionEqualToValue={(option, value) => option.title === value}
-              noOptionsText={<>Нет доступных вариантов</>}
+              noOptionsText={<>{t('info.noVariants')}</>}
               onChange={(_, newValue) => {
                 if (newValue && newValue !== null) {
                   setFieldValue('education', newValue.title);
@@ -323,7 +324,7 @@ export const MainForm = () => {
               )}
             />
             <InputLabel htmlFor="political_views" className={styles.inputLabel}>
-              Политические взгляды
+              {t('profile.politicianViews')}
             </InputLabel>
             <Autocomplete
               id="political_views"
@@ -332,7 +333,7 @@ export const MainForm = () => {
               value={values.political_views}
               getOptionLabel={(option) => option?.title || values.political_views}
               isOptionEqualToValue={(option, value) => option.title === value}
-              noOptionsText={<>Нет доступных вариантов</>}
+              noOptionsText={<>{t('info.noVariants')}</>}
               onChange={(_, newValue) => {
                 if (newValue && newValue !== null) {
                   setFieldValue('political_views', newValue.title);
@@ -362,7 +363,7 @@ export const MainForm = () => {
                 type="submit"
                 disabled={!values.country ? true : false}
               >
-                {statusPOST === APIStatus.Loading ? <Loading color="white" /> : 'Подтвердить изменения'}
+                {statusPOST === APIStatus.Loading ? <Loading color="white" /> : t('buttons.confirmChange')}
               </Button>
               <Button
                 className={styles.clearButton}
@@ -378,16 +379,16 @@ export const MainForm = () => {
                 variant="outlined"
                 type="reset"
               >
-                Сбросить введенные данныe
+                {t('buttons.resetInputData')}
               </Button>
             </div>
             {statusPOST === APIStatus.Success ? (
               <div className={styles.message} style={{ color: '#248232' }}>
-                Данные были успешно обновлены!
+                {t('info.successUpdateData')}
               </div>
             ) : statusPOST === APIStatus.Failure ? (
               <div className={styles.message} style={{ color: 'red' }}>
-                При отправке данных произошла ошибка!
+                {t('info.failUpdateData')}
               </div>
             ) : null}
           </form>

@@ -109,7 +109,7 @@ const AddressFormRegister: FC = (props) => {
                   <Autocomplete
                     fullWidth
                     options={countries.map((it) => it.title) || []}
-                    noOptionsText={t('registration.placeholdersForFields.noVariants') || 'Нет доступных вариантов'}
+                    noOptionsText={t('info.noVariants') || 'Нет доступных вариантов'}
                     onSelect={(e) => {
                       handleChange(e);
                     }}
@@ -149,7 +149,7 @@ const AddressFormRegister: FC = (props) => {
                   <Autocomplete
                     fullWidth
                     options={regions.map((item) => item.title) || []}
-                    noOptionsText={t('registration.placeholdersForFields.noVariants') || 'Нет доступных вариантов'}
+                    noOptionsText={t('info.noVariants') || 'Нет доступных вариантов'}
                     onInputChange={(value, newValue) => {
                       setFieldValue('region_title', newValue);
                       setFieldValue('city_title', '');
@@ -183,7 +183,7 @@ const AddressFormRegister: FC = (props) => {
                   <Autocomplete
                     fullWidth
                     options={cities.map((item) => item.title) || []}
-                    noOptionsText={t('registration.placeholdersForFields.noVariants') || 'Нет доступных вариантов'}
+                    noOptionsText={t('info.noVariants') || 'Нет доступных вариантов'}
                     onInputChange={(value, newValue) => {
                       setFieldValue('city_title', newValue);
                       const isValidCity = cities?.find((it) => it?.title?.toLowerCase() === newValue?.toLowerCase());

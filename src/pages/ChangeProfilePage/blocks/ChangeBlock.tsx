@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { RootState } from 'src/store';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { userActionCreators } from 'src/slices/userSlice';
@@ -16,6 +17,7 @@ import { useFetchProfileInfo } from '../hooks/useFetchProfileInfo';
 import styles from '../ChangeProfilePage.module.scss';
 
 export const ChangeBlock = () => {
+  const { t } = useTranslation();
   const { fetchAvatar, statusAvatar } = useFetchAvatar();
   const { fetch, status } = useFetchProfileInfo();
   const [imageTest, setImageTest] = useState(false);
@@ -40,7 +42,7 @@ export const ChangeBlock = () => {
   return (
     <div className={styles.tabContent}>
       <div className={styles.titleRow}>
-        <div className={styles.title}>Личная информация</div>
+        <div className={styles.title}>{t('profile.personInfo')}</div>
         <Button
           className={styles.logoutButton}
           sx={{
@@ -55,14 +57,12 @@ export const ChangeBlock = () => {
           variant="outlined"
           onClick={logout}
         >
-          Выйти из аккаунта
+          {t('buttons.exit')}
         </Button>
       </div>
       <div className={styles.longVerticalBlock}>
         <div className={styles.helloMessage}>
-          Все данные вашего профиля могут быть использованы только для верификации вашего профиля и для обезличенной
-          статистики на данном ресурсе. Эти данные не будут использованы никаким другим образом, а также переданы
-          кому-либо
+          {t('profile.warningMessage')}
         </div>
         <div className={styles.avatarBlock}>
           <div className={styles.avatarContainer}>
@@ -75,13 +75,13 @@ export const ChangeBlock = () => {
           <form action="" method="POST" onSubmit={(e) => e.preventDefault()} encType="multipart/form-data">
             <input type="file" id="avatar" accept="image/*" hidden multiple onChange={onChange} />
             <label htmlFor="avatar" className={styles.uploadButton}>
-              Загрузить фото
+              {t('buttons.loadPhoto')}
             </label>
           </form>
         </div>
         {imageTest ? (
           <div className={styles.message} style={{ marginTop: '40px', color: 'red' }}>
-            Неверный формат файла!
+            {t('errors.formatFile')}
           </div>
         ) : null}
         <MainForm />
