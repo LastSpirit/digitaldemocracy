@@ -1,9 +1,11 @@
 import React, { useEffect, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { InputLabel, MenuItem, FormControl, Select } from '@material-ui/core';
 import { useFetchSort } from '../hooks/useFetchSort';
 import { ratingActionCreators } from '../../../slices/ratingSlice';
 import { useFetchPoliticians } from '../hooks/useFetchPoliticians';
+import { RootState } from '../../../store/index';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -59,6 +61,7 @@ export const SortDropdown = ({ text, field }) => {
   const { countries, fetchCounties, fetchRegions, fetchCities, regions, cities } = useFetchSort();
 
   const { setSortGeography, setSortVote } = ratingActionCreators();
+  const sortGeograohy = useSelector((s: RootState) => s.rating.sort_geography);
 
   useEffect(() => {
     fetchCounties();
@@ -108,32 +111,45 @@ export const SortDropdown = ({ text, field }) => {
   const onChangeRegion = (event) => {
     setCurrentRegionId(event.target.id);
   };
+  console.log(currentCountryId, 'currentCountryId');
+  console.log(currentRegionId, 'currentRegionId');
 
   const onChangeCity = useCallback(
     (event) => {
       setCurrentCityId(event.target.id);
-      if (field === 'geography') {
-        setSortParams({
-          city_politician_id: +currentCityId,
-          country_politician_id: +currentCountryId,
-          region_politician_id: +currentRegionId,
-        });
-        setSortGeography(sortParams);
-        console.log(currentCountryId, 'currentCountryId');
-        fetch();
-      } else if (field === 'vote') {
-        setSortParams((prevState) => ({
-          ...prevState,
-          country_user_id: +currentCountryId,
-          region_user_id: +currentRegionId,
-          city_user_id: +currentCityId,
-        }));
-        setSortVote(sortParams);
-      }
-      console.log(sortParams, 'sort');
     },
-    [currentCityId, currentRegionId, currentCountryId, sortParams]
+    [currentRegionId]
   );
+
+  useEffect(() => {
+    if (field === 'geography') {
+      setSortParams({
+        city_politician_id: +currentCityId,
+        country_politician_id: +currentCountryId,
+        region_politician_id: +currentRegionId,
+      });
+    } else if (field === 'vote') {
+      setSortParams((prevState) => ({
+        ...prevState,
+        country_user_id: +currentCountryId,
+        region_user_id: +currentRegionId,
+        city_user_id: +currentCityId,
+      }));
+    }
+  }, [currentCityId]);
+
+  useEffect(() => {
+    if (field === 'geography') {
+      console.log(sortParams);
+      setSortGeography(sortParams);
+    } else if (field === 'vote') {
+      setSortVote(sortParams);
+    }
+  }, [sortParams]);
+
+  useEffect(() => {
+    fetch();
+  }, [currentCityId]);
 
   return (
     <div className={classes.wrapper}>

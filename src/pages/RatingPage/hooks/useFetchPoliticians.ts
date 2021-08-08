@@ -18,6 +18,7 @@ export const useFetchPoliticians = () => {
   const { country_politician_id, region_politician_id, city_politician_id } = sort_geography;
 
   const fetch = useCallback(() => {
+    console.log(sort_geography, 'sort_geography');
     setStatus(APIStatus.Loading);
     fetchRatingPoliticians({
       onSuccess: (response) => {
@@ -39,7 +40,7 @@ export const useFetchPoliticians = () => {
         },
       },
     });
-  }, [sort_direction, sort_field, token, city_politician_id]);
+  }, [sort_direction, sort_field, token, city_politician_id, sort_geography, city_user_id]);
 
   return { fetch, status };
 };
