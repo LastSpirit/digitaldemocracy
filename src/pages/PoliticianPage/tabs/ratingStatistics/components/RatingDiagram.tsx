@@ -1,12 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Chart } from 'react-google-charts';
+import { useTranslation } from 'react-i18next';
 import styles from '../styles.module.scss';
 import { politicianSelectors } from '../../../../../slices/politicianSlice';
 import { Loading } from '../../../../../components/Loading/Loading';
 import { useWindowSize } from '../../../../../hooks/useWindowSize';
 
 export const RatingDiagram = () => {
+  const { t } = useTranslation();
   const data = useSelector(politicianSelectors.getRatingStatistic());
   const chartData = data?.voicesByRegion?.map(({ region_with_type, total }) => ([region_with_type, total]));
   const { isMobile } = useWindowSize();
@@ -25,7 +27,7 @@ export const RatingDiagram = () => {
               ...chartData
             ]}
             options={{
-              title: 'Статистика голосования по регионам',
+              title: t('info.titleStatisticRegion'),
               is3D: true,
               animation: {
                 duration: 1000,

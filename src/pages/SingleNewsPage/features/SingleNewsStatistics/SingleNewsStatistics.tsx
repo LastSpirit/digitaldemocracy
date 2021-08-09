@@ -34,7 +34,7 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
               <Box sx={{ marginBottom: '20px' }}>
                 <Box className={styles.headings}>
                   <Typography className={styles.heading}>
-                    {t('info.titleTrust')} {politicians?.length > 1 ? t('info.thisPoliticians') : t('info.thisPolitician')} ?
+                    {politicians?.length > 1 ? t('info.titleTrustPoliticians') : t('info.titleTrustPolitician')}?
                   </Typography>
                 </Box>
                 <Box className={styles.wrapperPoliticians}>
