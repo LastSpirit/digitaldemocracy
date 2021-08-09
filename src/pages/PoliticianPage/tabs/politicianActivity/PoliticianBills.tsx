@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { IconButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import { useSelector } from 'react-redux';
@@ -25,6 +26,7 @@ const Bills = (props) => {
     link,
     short_link
   } = props;
+  const { t } = useTranslation();
   return (
     <>
       <div className={styles.promise}>
@@ -41,7 +43,7 @@ const Bills = (props) => {
           </div> */}
         </div>
         <div className={styles.votes}>
-          <p>Как вы к этому относитесь?</p>
+          <p>{t('info.titleRelations')}</p>
           <BillsVotesGroup
             index={index}
             id={id}
@@ -57,6 +59,7 @@ const Bills = (props) => {
 };
 
 export const PoliticianBills = () => {
+  const { t } = useTranslation();
   const { status, fetch } = useFetchBills();
   const data = useSelector(politicianSelectors.getBills());
   const { resetBills } = politicianActionCreators() as any;
@@ -71,7 +74,7 @@ export const PoliticianBills = () => {
         {data?.length ? (
           data?.map((item, index) => <Bills key={item.id} {...item} index={index} />)
         ) : (
-          <div className={styles.noPromises}>Раздел пока еще пуст</div>
+          <div className={styles.noPromises}>{t('info.emptySection')}</div>
         )}
       </WrapperAsyncRequest>
     </div>

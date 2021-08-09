@@ -1,5 +1,6 @@
 import React from 'react';
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Dialog, IconButton, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import styles from './DialogSuggest.module.scss';
@@ -11,6 +12,7 @@ interface IProps {
 }
 
 export const DialogSuggest: FC<IProps> = ({ open, handleClose }) => {
+  const { t } = useTranslation();
   return (
     <Dialog
       open={open}
@@ -27,9 +29,9 @@ export const DialogSuggest: FC<IProps> = ({ open, handleClose }) => {
         </IconButton>
       </div>
       <div className={styles.textWrapper}>
-        <div>Дорогой друг!</div>
-        <div>Спасибо за ваше активное участие в политической жизни страны.</div>
-        <div>Наши модераторы проверят новость на достоверность, а затем обязательно ее опубликуют ;)</div>
+        <div>{t('info.titleDialogSuggest1')}</div>
+        <div>{t('info.titleDialogSuggest2')}</div>
+        <div>{t('info.titleDialogSuggest3')}</div>
       </div>
       <div className={styles.logo}>
         <Logo />

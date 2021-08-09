@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { DataGrid, ruRU, GridColumns } from '@material-ui/data-grid';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { Tooltip } from '@material-ui/core';
@@ -23,32 +24,33 @@ const TableTooltip: React.FC<{ value: string }> = ({ value }) => (
   </Tooltip>
 );
 
-const columns: GridColumns = [
+const columns = (t): GridColumns => [
   {
     field: 'position',
-    headerName: 'Должность',
+    headerName: t('info.titleTablePosition') || 'Должность',
     width: 600,
     // eslint-disable-next-line react/destructuring-assignment
     renderCell: (params: any) => <TableTooltip value={params.value} />,
   },
   {
     field: 'type',
-    headerName: 'Тип',
+    headerName: t('info.titleTableType') || 'Тип',
     width: 450,
     // eslint-disable-next-line react/destructuring-assignment
     renderCell: (params: any) => <TableTooltip value={params.value} />,
   },
   {
     field: 'percent',
-    headerName: 'С каким процентом выбран',
+    headerName: t('info.titleTablePercent') || 'С каким процентом выбран',
     align: 'center',
     width: 250,
     renderCell: (params: any) => params.value || '-',
   },
-  { field: 'years', headerName: 'Годы', width: 150 },
+  { field: 'years', headerName: t('info.titleTableYears') || 'Годы', width: 150 },
 ];
 
 export const PositionHistory = () => {
+  const { t } = useTranslation();
   const { status, fetch } = useFetchHistory();
   const data = useSelector(politicianSelectors.getPositionHistory());
   useEffect(() => {
@@ -61,7 +63,7 @@ export const PositionHistory = () => {
         <ThemeProvider theme={theme}>
           <DataGrid
             rows={data || []}
-            columns={columns}
+            columns={columns(t)}
             // pageSize={5}
             // checkboxSelection={false}
             // pageSize={0}

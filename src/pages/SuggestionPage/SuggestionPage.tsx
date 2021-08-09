@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Container, TextField, Button } from '@material-ui/core';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { APIStatus } from '../../lib/axiosAPI';
@@ -15,6 +16,7 @@ const NEWS = 'NEWS';
 const POLITICIAN = 'POLITICIAN';
 
 const SuggestionPage = () => {
+  const { t } = useTranslation();
   const { isMobile } = useWindowSize();
   const [open, setOpen] = useState(false);
   const [suggest, setSuggest] = useState(POLITICIAN);
@@ -91,10 +93,10 @@ const SuggestionPage = () => {
         <div className={styles.fieldWrapper}>
           <TextField
             id="info"
-            label={`Ссылка на ${suggest === POLITICIAN ? 'политика' : 'новость'}`}
+            label={suggest === POLITICIAN ? t('info.linkOnPolitician') : t('info.linkOnNews')}
             className={styles.textField}
             fullWidth
-            placeholder={`Ссылка на ${suggest === POLITICIAN ? 'политика' : 'новость'}`}
+            placeholder={suggest === POLITICIAN ? t('info.linkOnPolitician') : t('info.linkOnNews')}
             required
             value={suggest === POLITICIAN ? infoPolitician : infoNews}
             onChange={
@@ -103,21 +105,21 @@ const SuggestionPage = () => {
             // helperText={error ? 'Ссылка неверна' : false}
             helperText={
               isRequiredNews
-                ? 'Поле обязательно для заполнения'
+                ? t('errors.requiredField')
                 : isRequiredInfo
-                  ? 'Поле обязательно для заполнения'
+                  ? t('errors.requiredField')
                   : error
-                    ? 'Ссылка неверна'
+                    ? t('errors.linkBroken')
                     : false
             }
             error={error || isRequiredNews || isRequiredInfo}
           />
           <TextField
             id="description"
-            label="Описание"
+            label={t('info.labelFieldDescription')}
             className={styles.textField}
             fullWidth
-            placeholder="Описание"
+            placeholder={t('info.labelFieldDescription')}
             value={suggest === POLITICIAN ? descriptionPoliticain : descriptionNews}
             onChange={
               suggest === POLITICIAN
@@ -136,7 +138,7 @@ const SuggestionPage = () => {
           }}
           onClick={handeClick}
         >
-          {status === 'Loading' ? <Loading /> : 'Добавить'}
+          {status === 'Loading' ? <Loading /> : t('buttons.add')}
         </Button>
       </form>
       {/* </WrapperAsyncRequest> */}

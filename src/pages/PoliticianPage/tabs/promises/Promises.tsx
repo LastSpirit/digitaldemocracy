@@ -1,5 +1,6 @@
 /* eslint-disable import/no-cycle */
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { IconButton } from '@material-ui/core';
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import YouTubeIcon from '@material-ui/icons/YouTube';
@@ -11,6 +12,7 @@ import { PromisesVotesGroup } from './VotesGroup/PromisesVotesGroup';
 import styles from './styles.module.scss';
 
 export const Promises = () => {
+  const { t } = useTranslation();
   const { status, fetch } = useFetchPromises();
   const data = useSelector(politicianSelectors.getPositionPromises());
   const { resetPromises } = politicianActionCreators() as any;
@@ -34,7 +36,7 @@ export const Promises = () => {
                   <div className={styles.date}>{promise_date}</div>
                   <span>{text}</span>
                   <div className={styles.link}>
-                    <p>Ссылка на иcточник: </p>
+                    <p>{t('info.linkOnSource')}:</p>
                     <IconButton className={styles.arrowButton} onClick={() => window.open('https://google.com')}>
                       <CallMadeIcon className={styles.arrowLink} />
                     </IconButton>
@@ -44,7 +46,7 @@ export const Promises = () => {
                   </div>
                 </div>
                 <div className={styles.votes}>
-                  <p>Как вы к этому относитесь?</p>
+                  <p>{t('info.titleRelations')}</p>
                   <PromisesVotesGroup
                     likes={number_of_likes}
                     dislikes={number_of_dislikes}
@@ -58,7 +60,7 @@ export const Promises = () => {
             )
           )
         ) : (
-          <div className={styles.noPromises}>Не было обещаний</div>
+          <div className={styles.noPromises}>{t('info.noPromises')}</div>
         )}
       </WrapperAsyncRequest>
     </div>

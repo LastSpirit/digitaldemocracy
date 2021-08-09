@@ -1,6 +1,7 @@
 /* eslint-disable no-unneeded-ternary */
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { APIStatus } from 'src/lib/axiosAPI';
@@ -15,6 +16,7 @@ import { useFetchInfoGrapchicData } from '../../hooks/useFetchInfoGrapchicData';
 import styles from './InfoGraphic.module.scss';
 
 export const InfoGraphic = () => {
+  const { t } = useTranslation();
   const { isMobile } = useWindowSize();
   const { statusCities, statusRegions, fetchCity, fetchRegion, fetchGraphic, statusGrapchic } =
     useFetchInfoGrapchicData();
@@ -28,7 +30,7 @@ export const InfoGraphic = () => {
     city: null,
   });
 
-  console.log(infoGrapghicData?.vote_groups.length > 0);
+  // console.log(infoGrapghicData?.vote_groups.length > 0);
 
   useEffect(() => {
     if (postData.country) {
@@ -51,7 +53,7 @@ export const InfoGraphic = () => {
           city: [],
         }}
         validationSchema={Yup.object().shape({
-          country: Yup.array().required('Это поле обязательно для заполнения'),
+          country: Yup.array().required(t('errors.requiredField')),
         })}
         onSubmit={async (values) => {
           try {
@@ -81,7 +83,7 @@ export const InfoGraphic = () => {
           return (
             <form onSubmit={handleSubmit} className={styles.mainForm} onReset={handleReset} noValidate>
               <InputLabel htmlFor="country" className={styles.inputLabel}>
-                Страна
+                {t('profile.country')}
               </InputLabel>
               <Autocomplete
                 id="country"
@@ -91,7 +93,7 @@ export const InfoGraphic = () => {
                 options={infoGrapghicData?.countries || []}
                 value={values.country}
                 getOptionLabel={(option) => option?.title || values.country}
-                noOptionsText={<>Нет доступных вариантов</>}
+                noOptionsText={<>{t('info.noVariants')}</>}
                 onChange={(_, newValue) => {
                   if (newValue.length > 0 && newValue !== (null && undefined)) {
                     const items = [];
@@ -120,7 +122,7 @@ export const InfoGraphic = () => {
                 )}
               />
               <InputLabel htmlFor="region" className={styles.inputLabel}>
-                Регион
+                {t('profile.region')}
               </InputLabel>
               <Autocomplete
                 id="region"
@@ -131,7 +133,7 @@ export const InfoGraphic = () => {
                 disabled={values.country.length === 0 || statusRegions !== APIStatus.Success ? true : false}
                 value={values.region}
                 getOptionLabel={(option) => option?.title || values.region}
-                noOptionsText={<>Нет доступных вариантов</>}
+                noOptionsText={<>{t('info.noVariants')}</>}
                 onChange={(_, newValue) => {
                   if (newValue.length > 0 && newValue !== (null && undefined)) {
                     const items = [];
@@ -150,7 +152,7 @@ export const InfoGraphic = () => {
                 )}
               />
               <InputLabel htmlFor="city" className={styles.inputLabel}>
-                Город
+                {t('profile.city')}
               </InputLabel>
               <Autocomplete
                 id="city"
@@ -161,7 +163,7 @@ export const InfoGraphic = () => {
                 value={values.city}
                 disabled={!values.region || statusCities !== APIStatus.Success ? true : false}
                 getOptionLabel={(option) => option?.title || values.city}
-                noOptionsText={<>Нет доступных вариантов</>}
+                noOptionsText={<>{t('info.noVariants')}</>}
                 onChange={(_, newValue) => {
                   if (newValue.length > 0 && newValue !== (null && undefined)) {
                     const items = [];
@@ -196,9 +198,9 @@ export const InfoGraphic = () => {
                   {statusGrapchic === APIStatus.Loading ? (
                     <Loading color="white" />
                   ) : isMobile ? (
-                    'Подтвердить'
+                    t('buttons.confirmChangeMobile')
                   ) : (
-                    'Подтвердить изменения'
+                    t('buttons.confirmChange')
                   )}
                 </Button>
                 <Button
@@ -215,7 +217,7 @@ export const InfoGraphic = () => {
                   variant="outlined"
                   type="reset"
                 >
-                  {isMobile ? 'Сбросить' : 'Сбросить введенные данныe'}
+                  {isMobile ? t('buttons.resetInputDataMobile') : t('buttons.resetInputData')}
                 </Button>
               </div>
             </form>
@@ -231,7 +233,7 @@ export const InfoGraphic = () => {
             </div>
           </div>
         ) : (
-          <div className={styles.notData}>Данных пока нет</div>
+          <div className={styles.notData}>{t('info.noData')}</div>
         )}
       </WrapperAsyncRequest>
     </div>

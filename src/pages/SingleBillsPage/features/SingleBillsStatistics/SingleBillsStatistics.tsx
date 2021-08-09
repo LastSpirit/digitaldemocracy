@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Container, Typography, Grid } from '@material-ui/core';
 import { AuthorI, MediaI, PoliticiansI } from 'src/slices/SingleNewsSlice';
 import { SingleBillsI } from 'src/slices/SingleBillsSlice';
@@ -27,17 +28,18 @@ export const SingleBillsStatistics: FC<any> = ({
   is_user_disliked,
   number_of_views,
 }) => {
+  const { t } = useTranslation();
   return (
     <Box className={styles.statistics}>
       <Container maxWidth="lg">
         <Typography className={styles.heading} sx={{ marginBottom: '15px' }}>
-          Ваше мнение по поводу законопроекта?
+          {t('info.titleOpinionBill')}
         </Typography>
         <Grid container className={styles.statisticsContainer}>
           <Grid item lg={6} md={12} sm={12}>
             <Box>
               <StatisticsCard
-                name={title || 'Законопроект'}
+                name={title || t('info.titleBill')}
                 photo={image}
                 short_link={short_link}
                 likes={number_of_likes}

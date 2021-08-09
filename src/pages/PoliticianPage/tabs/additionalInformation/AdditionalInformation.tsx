@@ -5,12 +5,14 @@ import { IconButton } from '@material-ui/core';
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { useFetchAdditionalInformation } from './hooks/useFetchAdditionalInformation';
 import { WrapperAsyncRequest } from '../../../../components/Loading/WrapperAsyncRequest';
 import { politicianActionCreators, politicianSelectors } from '../../../../slices/politicianSlice';
 import styles from './styles.module.scss';
 
 export const AdditionalInformation = () => {
+  const { t } = useTranslation();
   const { fetch, status } = useFetchAdditionalInformation();
   const data = useSelector(politicianSelectors.getPoliticianAdditionalInformation());
 
@@ -25,7 +27,7 @@ export const AdditionalInformation = () => {
           return (
             <div key={item.id} className={styles.informationBlock}>
               <div className={styles.link}>
-                <p>Ссылка на иcточник: </p>
+                <p>{t('info.linkOnSource')}:</p>
                 <a href={item.link} className={styles.linkContent}>
                   {item.title}
                 </a>

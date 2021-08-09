@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Button, StylesProvider, Box, IconButton, Card, Typography } from '@material-ui/core';
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import { politicianSelectors, politicianActionCreators } from '../../../../slices/politicianSlice';
@@ -9,6 +10,7 @@ import { useFetchStatistic } from './hooks/useFetchStatistic';
 import { WrapperAsyncRequest } from '../../../../components/Loading/WrapperAsyncRequest';
 
 export default function Statistic() {
+  const { t } = useTranslation();
   const data = useSelector(politicianSelectors.getStatistic());
   const { status, fetch } = useFetchStatistic();
   const { resetIncomeStatistic } = politicianActionCreators() as any;
@@ -24,10 +26,10 @@ export default function Statistic() {
             return (
               <>
                 <Card className={styles.card}>
-                  <h4>Статистика дохода</h4>
+                  <h4>{t('tabs.statisticsIncome')}</h4>
                   <div className={styles.votesWrapper}>
                     <div className={styles.votes}>
-                      <p>Как вы к этому относитесь?</p>
+                      <p>{t('info.titleRelations')}</p>
                       <IncomeVotesGroup
                         index={index}
                         id={id}
@@ -41,7 +43,7 @@ export default function Statistic() {
                 </Card>
                 <iframe title={`${id}`} loading="lazy" src={link} />
                 <div className={styles.root}>
-                  <p>Ссылка на иcточник: </p>
+                  <p>{t('info.linkOnSource')}:</p>
                   <IconButton className={styles.arrowButton} onClick={() => window.open(source_link)}>
                     <CallMadeIcon className={styles.arrowLink} />
                   </IconButton>
@@ -52,7 +54,7 @@ export default function Statistic() {
         )
       ) : (
         <div className={styles.empty}>
-          <h3> Данных пока нет</h3>
+          <h3>{t('info.noData')}</h3>
         </div>
       )}
     </WrapperAsyncRequest>

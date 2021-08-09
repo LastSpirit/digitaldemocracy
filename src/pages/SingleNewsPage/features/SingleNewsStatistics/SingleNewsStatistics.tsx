@@ -26,7 +26,7 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
     <Box className={styles.statistics}>
       <Container maxWidth="lg">
         <Typography className={styles.heading} sx={{ marginBottom: '15px' }}>
-          {t('info.titleOpinion')}
+          {t('info.titleOpinionNews')}
         </Typography>
         <Grid container className={styles.statisticsContainer}>
           <Grid item lg={12} md={12} sm={12}>
