@@ -33,12 +33,23 @@ i18n
       escapeValue: false
     },
     debug: true,
-    returnObjects: true
+    returnObjects: true,
     /*
     detection: {
       order: ['queryString', 'cookie'],
       cache: ['cookie']
     },
+    */
+    /*
+    backend: {
+      // loadPath: 'https://dev-backoffice.digitaldemocracy.ru/storage/lang/{{lng}}/{{ns}}.json',
+      loadPath: 'https://dev-backoffice.digitaldemocracy.ru/api/getLangContent/{{lng}}',
+      // requestOptions: {
+      //   mode: 'no-cors',
+      //   credentials: 'omit',
+      //   cache: 'default'
+      // }
+    }
     */
   });
 

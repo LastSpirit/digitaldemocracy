@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { ThunkAction } from 'redux-thunk';
 import { Action } from '@reduxjs/toolkit';
 import { pick } from 'lodash';
+import { apiSetting } from '../config';
 // eslint-disable-next-line import/no-cycle
 import { RootState, store } from '../store';
 import { removeItem } from './localStorageManager';
@@ -36,7 +37,7 @@ export enum APIStatus {
 
 export type CallAPI<AppThunk> = (params: CallAPIParams) => AppThunk;
 
-const baseURL = 'https://dev-backoffice.digitaldemocracy.ru/api/';
+const baseURL = apiSetting.url_api;
 
 export const getCallAPI =
   <RootState>(): CallAPI<GenericAppThunk<RootState>> =>

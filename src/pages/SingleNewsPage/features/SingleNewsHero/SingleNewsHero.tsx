@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Container, Typography, IconButton, Grid } from '@material-ui/core';
 import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 import CallMadeIcon from '@material-ui/icons/CallMade';
@@ -13,6 +14,7 @@ interface HeroPropsI {
 }
 
 const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
+  const { t } = useTranslation();
   const [toggleIframe, setToggleIframe] = useState(data.is_display);
   const handleToggleIframe = () => {
     setToggleIframe(!toggleIframe);
@@ -80,7 +82,7 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
           <>
             <Box className={styles.warningMessage}>
               <Typography className={styles.warningMessage__title}>
-                {'Просмотр нижеизложенных материалов производится во внутреннем браузере на сайте источника. Администрация Digital Democracy не несет ответственности за их содержание.'}
+                {t('info.warningWatchNews')}
               </Typography>
             </Box>
             <Box>
@@ -90,7 +92,7 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
         ) : (
           <Box className={styles.warningMessage}>
             <Typography className={styles.warningMessage__title}>
-              {'Нажмите на кнопку, чтобы перейти на сайт источника для просмотра новости'}
+              {t('info.clickForWatch')}
             </Typography>
           </Box>
         )}

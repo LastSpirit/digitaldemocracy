@@ -1,3 +1,8 @@
+export const apiSetting = {
+  // url_api: process.env.REACT_APP_BACKEND_API,
+  url_api: 'https://dev-backoffice.digitaldemocracy.ru/api/',
+};
+
 export const amplifyConfig = {
   aws_project_region: process.env.REACT_APP_AWS_PROJECT_REGION,
   aws_cognito_identity_pool_id: process.env.REACT_APP_AWS_COGNITO_IDENTITY_POOL_ID,

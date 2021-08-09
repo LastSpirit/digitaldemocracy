@@ -15,6 +15,7 @@ import Logo from './Logo';
 import { userActionCreators, userSelectors } from '../slices/userSlice';
 import { langSelectors } from '../slices/langSlice';
 import { useLangData } from '../hooks/useLangData';
+import { getItem } from '../lib/localStorageManager';
 
 import './MainNavbar.css';
 
@@ -220,7 +221,7 @@ const MainNavbar: FC = () => {
                 <FormControl sx={{ minWidth: '60px' }}>
                   <Select
                     variant="outlined"
-                    defaultValue="ru"
+                    defaultValue={getItem('i18nextLng') || 'ru'}
                     sx={{ height: '30px' }}
                     onChange={(event: React.ChangeEvent<{ value: string }>) => {
                       i18n.changeLanguage(event.target.value);

@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Container, Typography, Grid, IconButton } from '@material-ui/core';
 import { AuthorI, MediaI, PoliticiansI } from 'src/slices/SingleNewsSlice';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
@@ -14,6 +15,7 @@ interface StatisticsPropsI {
 }
 
 const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians }) => {
+  const { t } = useTranslation();
   const [show, setShow] = useState(false);
 
   const setShowMore = (arg) => {
@@ -24,7 +26,7 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
     <Box className={styles.statistics}>
       <Container maxWidth="lg">
         <Typography className={styles.heading} sx={{ marginBottom: '15px' }}>
-          Ваше мнение по поводу новости
+          {t('info.titleOpinion')}
         </Typography>
         <Grid container className={styles.statisticsContainer}>
           <Grid item lg={12} md={12} sm={12}>
@@ -32,7 +34,7 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
               <Box sx={{ marginBottom: '20px' }}>
                 <Box className={styles.headings}>
                   <Typography className={styles.heading}>
-                    Доверяете ли вы {politicians?.length > 1 ? 'этим политикам' : 'этому политику'} ?
+                    {t('info.titleTrust')} {politicians?.length > 1 ? t('info.thisPoliticians') : t('info.thisPolitician')} ?
                   </Typography>
                 </Box>
                 <Box className={styles.wrapperPoliticians}>
@@ -58,7 +60,7 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
                 </Box>
                 <div>
                   <div style={{ fontSize: '15px', fontFamily: 'Helvetica', color: '#7a7a7a' }}>
-                    {show ? 'Cвернуть' : 'Показать больше'}
+                    {show ? t('buttons.collapse') : t('buttons.showMore')}
                     <IconButton
                       onClick={() => setShow(!show)}
                       className={show ? styles.showMoreButtonOpen : styles.showMoreButton}
@@ -72,7 +74,7 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
             {media && (
               <Box sx={{ marginBottom: '20px' }}>
                 <Box className={styles.headings}>
-                  <Typography className={styles.heading}>Доверяете ли вы СМИ как источнику новости?</Typography>
+                  <Typography className={styles.heading}>{t('info.titleTrustMassMedia')}</Typography>
                 </Box>
                 <StatisticsCard
                   name={media?.name}
@@ -92,10 +94,10 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
             {author && (
               <Box>
                 <Box className={styles.headings}>
-                  <Typography className={styles.heading}>Доверяете ли вы автору новости?</Typography>
+                  <Typography className={styles.heading}>{t('info.titleTrustAuthor')}</Typography>
                 </Box>
                 <StatisticsCard
-                  name={author?.name ? author?.name : 'Автор'}
+                  name={author?.name ? author?.name : t('info.author')}
                   photo={author?.photo}
                   percent={author?.percent}
                   short_link={author?.short_link}
