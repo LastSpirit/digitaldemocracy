@@ -24,14 +24,14 @@ interface MediaI {
   isMorePages?: boolean;
 }
 interface SortGeography {
-  country_politician_id: number,
-  region_politician_id: number,
-  city_politician_id: number,
+  country_politician_id: number;
+  region_politician_id: number;
+  city_politician_id: number;
 }
 interface SortVote {
-  country_user_id: number,
-  region_user_id: number,
-  city_user_id: number,
+  country_user_id: number;
+  region_user_id: number;
+  city_user_id: number;
 }
 interface SliceState {
   sort_direction?: string;
@@ -42,6 +42,9 @@ interface SliceState {
   massMedia?: MediaI;
   authors?: AuthorsI;
   parties?: PartiesI;
+  countries?: any;
+  regions?: any;
+  cities?: any;
 }
 
 const initialState: SliceState = {
@@ -53,6 +56,9 @@ const initialState: SliceState = {
   massMedia: {} as MediaI,
   authors: {} as AuthorsI,
   parties: {} as PartiesI,
+  countries: [],
+  regions: [],
+  cities: [],
 };
 
 export const ratingSlice = createSlice({
@@ -83,6 +89,15 @@ export const ratingSlice = createSlice({
     setSortVote(state, action) {
       state.sort_vote = action.payload;
     },
+    setCountry(state: SliceState, action) {
+      state.countries = action.payload;
+    },
+    setRegions(state: SliceState, action) {
+      state.regions = action.payload;
+    },
+    setCities(state: SliceState, action) {
+      state.cities = action.payload;
+    },
     setIsSubscribePoliticians(state: SliceState, action) {
       const { id, isSubscribe } = action.payload;
       state.politicians.politicians.find((item) => item.id === id).is_subscribed = !isSubscribe;
@@ -104,8 +119,8 @@ interface Store {
 
 export const ratingSelectors = {
   getPoliticians: () => (state: Store) => state.rating.politicians,
-  getSortGeography: () => (state: Store) => state.rating.politicians,
-  getSortVote: () => (state: Store) => state.rating.politicians,
+  getCountries: () => (state: Store) => state.rating.countries,
+  // getSortVote: () => (state: Store) => state.rating.politicians,
 };
 
 export const ratingActionCreators = () => {

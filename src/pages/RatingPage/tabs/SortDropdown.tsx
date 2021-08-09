@@ -1,246 +1,248 @@
-import React, { useEffect, useCallback } from 'react';
+/* eslint-disable no-unneeded-ternary */
+import React, { useState, useEffect } from 'react';
+import { RootState } from 'src/store';
 import { useSelector } from 'react-redux';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { InputLabel, MenuItem, FormControl, Select } from '@material-ui/core';
+import { InputLabel, Autocomplete } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import { Formik } from 'formik';
+import styles from '../../ChangeProfilePage/ChangeProfilePage.module.scss';
+import { useFetchPoliticians } from '../hooks/useFetchPoliticians';
 import { useFetchSort } from '../hooks/useFetchSort';
 import { ratingActionCreators } from '../../../slices/ratingSlice';
-import { useFetchPoliticians } from '../hooks/useFetchPoliticians';
-import { RootState } from '../../../store/index';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    wrapper: {
-      display: 'flex',
-    },
-    text: {
-      marginRight: '10px',
-      textAlign: 'left',
-      letterSpacing: '0',
-      color: '#7A7A7A',
-      fontFamily: 'HelveticaNeueCyr',
-      fontSize: '18px',
-      fontWeight: '200',
-      fontStyle: 'normal',
-      lineHeight: '18px',
-      padding: '10px',
-    },
-    button: {
-      display: 'block',
-      marginTop: theme.spacing(1),
-    },
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 130,
-      minHeight: 20,
-    },
-    list: {
-      padding: theme.spacing(1),
-    },
-    label: {
-      paddingRight: '15px',
-    },
-  })
-);
 
 export const SortDropdown = ({ text, field }) => {
+  const { countries, cities, regions } = useSelector((s: RootState) => s.rating);
+
+  const [update, setUpdate] = useState(true);
+  const { fetchCounties, fetchRegions, fetchCities } = useFetchSort();
+  const { setSortGeography, setSortVote, setCountry, setCities, setRegions } = ratingActionCreators();
+  // TODO: исправляет данные
   const { fetch } = useFetchPoliticians();
-  const classes: any = useStyles();
-  const [currentCountryId, setCurrentCountryId] = React.useState<string | number>('');
-  const [currentRegionId, setCurrentRegionId] = React.useState<string | number>('');
-  const [currentCityId, setCurrentCityId] = React.useState<string | number>('');
-  const [openCountry, setOpenCountry] = React.useState(false);
-  const [openRegion, setOpenRegion] = React.useState(false);
-  const [openCity, setOpenCity] = React.useState(false);
-  const [sortParams, setSortParams] = React.useState({});
-  const [values, setValues] = React.useState({
-    country: '',
-    region: '',
-    city: '',
+  const [postData, setPostData] = useState({
+    country_politician_id: null,
+    region_politician_id: null,
+    city_politician_id: null,
   });
-
-  const { countries, fetchCounties, fetchRegions, fetchCities, regions, cities } = useFetchSort();
-
-  const { setSortGeography, setSortVote } = ratingActionCreators();
-  const sortGeograohy = useSelector((s: RootState) => s.rating.sort_geography);
+  const [postData2, setPostData2] = useState({
+    country_user_id: null,
+    region_user_id: null,
+    city_user_id: null,
+  });
 
   useEffect(() => {
     fetchCounties();
-    if (currentCountryId) {
-      fetchRegions(+currentCountryId);
-    }
-    if (currentRegionId) {
-      fetchCities(+currentRegionId);
-    }
-  }, [currentCountryId, currentRegionId, currentCityId]);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setValues((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleCloseCountry = () => {
-    setOpenCountry(false);
-  };
-
-  const handleOpenCountry = () => {
-    setOpenCountry(true);
-  };
-
-  const handleCloseRegion = () => {
-    setOpenRegion(false);
-  };
-
-  const handleOpenRegion = () => {
-    setOpenRegion(true);
-  };
-  const handleCloseCity = () => {
-    setOpenCity(false);
-  };
-
-  const handleOpenCity = () => {
-    setOpenCity(true);
-  };
-
-  const onChangeCountry = (event) => {
-    setCurrentCountryId(event.target.id);
-  };
-
-  const onChangeRegion = (event) => {
-    setCurrentRegionId(event.target.id);
-  };
-  console.log(currentCountryId, 'currentCountryId');
-  console.log(currentRegionId, 'currentRegionId');
-
-  const onChangeCity = useCallback(
-    (event) => {
-      setCurrentCityId(event.target.id);
-    },
-    [currentRegionId]
-  );
-
-  useEffect(() => {
     if (field === 'geography') {
-      setSortParams({
-        city_politician_id: +currentCityId,
-        country_politician_id: +currentCountryId,
-        region_politician_id: +currentRegionId,
-      });
-    } else if (field === 'vote') {
-      setSortParams((prevState) => ({
-        ...prevState,
-        country_user_id: +currentCountryId,
-        region_user_id: +currentRegionId,
-        city_user_id: +currentCityId,
-      }));
+      if (postData.country_politician_id) {
+        fetchRegions(postData.country_politician_id);
+      }
+      if (postData.region_politician_id) {
+        fetchCities(postData.region_politician_id);
+      }
     }
-  }, [currentCityId]);
-
-  useEffect(() => {
-    if (field === 'geography') {
-      console.log(sortParams);
-      setSortGeography(sortParams);
-    } else if (field === 'vote') {
-      setSortVote(sortParams);
+    if (field === 'vote') {
+      if (postData2.country_user_id) {
+        fetchRegions(postData2.country_user_id);
+      }
+      if (postData2.region_user_id) {
+        fetchCities(postData2.region_user_id);
+      }
     }
-  }, [sortParams]);
+  }, [
+    postData.country_politician_id,
+    postData.region_politician_id,
+    postData2.region_user_id,
+    postData2.country_user_id,
+  ]);
 
   useEffect(() => {
     fetch();
-  }, [currentCityId]);
+  }, [update]);
 
   return (
-    <div className={classes.wrapper}>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label">{text}</InputLabel>
-        <Select
-          labelId="demo-controlled-open-select-label"
-          id="countrySelect"
-          open={openCountry}
-          name={'country'}
-          onClose={handleCloseCountry}
-          onOpen={handleOpenCountry}
-          value={values.country}
-          onChange={handleChange}
-        >
-          <MenuItem value="">
-            <em>выберите страну</em>
-          </MenuItem>
-          {countries.map((country) => (
-            <MenuItem
-              id={country.id}
-              key={country.id}
-              value={country.title}
-              onClick={onChangeCountry}
-              className={classes.list}
-            >
-              {country.title}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      {currentCountryId && regions.length ? (
-        <FormControl className={classes.formControl}>
-          <InputLabel id="demo-controlled-open-select-label" className={classes.label}>
-            По регионам
-          </InputLabel>
-          <Select
-            labelId="select-label"
-            id="regionSelect"
-            open={openRegion}
-            name={'region'}
-            onClose={handleCloseRegion}
-            onOpen={handleOpenRegion}
-            value={values.region}
-            onChange={handleChange}
+    <Formik
+      initialValues={{
+        country: '',
+        region: '',
+        city: '',
+      }}
+      onSubmit={async () => {
+        setPostData({ ...postData });
+        try {
+          await setUpdate(!update);
+        } catch (e) {
+          console.log(e);
+        }
+      }}
+      enableReinitialize={true}
+    >
+      {(props) => {
+        const { values, errors, handleChange, handleBlur, handleSubmit, handleReset, setFieldValue } = props;
+
+        return (
+          <form
+            onSubmit={handleSubmit}
+            style={{ width: '180px' }}
+            className={styles.mainForm}
+            onReset={handleReset}
+            noValidate
           >
-            <MenuItem value="">
-              <em>выберите регион</em>
-            </MenuItem>
-            {regions.map((region) => (
-              <MenuItem
-                id={region.id}
-                key={region.id}
-                value={region.title}
-                onClick={onChangeRegion}
-                className={classes.list}
-              >
-                {region.title}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      ) : null}
-      {currentCountryId && regions.length && currentRegionId && cities.length ? (
-        <FormControl className={classes.formControl}>
-          <InputLabel id="demo-controlled-open-select-label" className={classes.label}>
-            По городам
-          </InputLabel>
-          <Select
-            labelId="select-label"
-            id="regionSelect"
-            open={openCity}
-            name={'city'}
-            onClose={handleCloseCity}
-            onOpen={handleOpenCity}
-            value={values.city}
-            onChange={handleChange}
-          >
-            <MenuItem value="">
-              <em>выберите город</em>
-            </MenuItem>
-            {cities.map((city) => (
-              <MenuItem id={city.id} key={city.id} value={city.title} onClick={onChangeCity} className={classes.list}>
-                {city.title}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      ) : null}
-    </div>
+            <InputLabel htmlFor="country" className={styles.inputLabel}>
+              Страна
+            </InputLabel>
+            <Autocomplete
+              id="country"
+              options={countries}
+              value={values.country}
+              getOptionLabel={(option: any) => option?.title?.ru || values.country}
+              noOptionsText={<>Нет доступных вариантов</>}
+              onChange={(_, newValue) => {
+                if (newValue && newValue !== null) {
+                  setFieldValue('country', newValue.title.ru);
+                  if (field === 'geography') {
+                    setPostData({
+                      ...postData,
+                      country_politician_id: newValue.id,
+                      region_politician_id: null,
+                      city_politician_id: null,
+                    });
+                    setSortGeography(postData);
+                    setUpdate(!update);
+                    console.log(postData, 'postData');
+                  }
+                  if (field === 'vote') {
+                    setPostData2({
+                      ...postData2,
+                      country_user_id: newValue.id,
+                      region_user_id: null,
+                      city_user_id: null,
+                    });
+                    setSortVote(postData2);
+                    setUpdate(!update);
+                  }
+                  setFieldValue('region', '');
+                } else {
+                  if (field === 'geography') {
+                    setPostData({
+                      ...postData,
+                      country_politician_id: null,
+                      region_politician_id: null,
+                      city_politician_id: null,
+                    });
+                    setSortGeography({
+                      country_politician_id: null,
+                      region_politician_id: null,
+                      city_politician_id: null,
+                    });
+                    setUpdate(!update);
+                  }
+                  if (field === 'vote') {
+                    setPostData2({
+                      ...postData2,
+                      country_user_id: null,
+                      region_user_id: null,
+                      city_user_id: null,
+                    });
+                    setSortVote({
+                      country_user_id: null,
+                      region_user_id: null,
+                      city_user_id: null,
+                    });
+                    setUpdate(!update);
+                  }
+                  setFieldValue('country', '');
+                  setFieldValue('region', '');
+                  setFieldValue('city', '');
+                  setRegions([]);
+                  setCities([]);
+                }
+              }}
+              renderInput={(params) => (
+                <TextField {...params} type="text" onBlur={handleBlur} fullWidth helperText={errors.country} />
+              )}
+            />
+            {regions[0] ? (
+              <>
+                <InputLabel htmlFor="region" className={styles.inputLabel}>
+                  Регион
+                </InputLabel>
+                <Autocomplete
+                  id="region"
+                  options={regions}
+                  value={values.region}
+                  getOptionLabel={(option: any) => option?.title?.ru || values.region}
+                  noOptionsText={<>Нет доступных вариантов</>}
+                  onChange={(_, newValue) => {
+                    if (newValue && newValue !== null) {
+                      setFieldValue('region', newValue.title.ru);
+                      if (field === 'geography') {
+                        setPostData({ ...postData, region_politician_id: newValue.id, city_politician_id: null });
+                        setUpdate(!update);
+                      }
+                      if (field === 'vote') {
+                        setPostData2({ ...postData2, region_user_id: newValue.id });
+                        setUpdate(!update);
+                      }
+                      setFieldValue('city', '');
+                    } else {
+                      setFieldValue('region', '');
+                      setFieldValue('city', '');
+                      if (field === 'geography') {
+                        setPostData({ ...postData, region_politician_id: null, city_politician_id: null });
+                      }
+                      if (field === 'vote') {
+                        setPostData2({ ...postData2, region_user_id: null, city_user_id: null });
+                      }
+                      // if (values.region === '') {
+                      //   setRegions([]);
+                      // }
+                    }
+                  }}
+                  renderInput={(params) => (
+                    <TextField {...params} type="text" onBlur={handleBlur} variant="outlined" fullWidth />
+                  )}
+                />
+              </>
+            ) : null}
+            {cities[0] ? (
+              <>
+                <InputLabel htmlFor="city" className={styles.inputLabel}>
+                  Город
+                </InputLabel>
+                <Autocomplete
+                  id="city"
+                  limitTags={5}
+                  options={cities}
+                  value={values.city}
+                  getOptionLabel={(option: any) => option?.title?.ru || values.city}
+                  noOptionsText={<>Нет доступных вариантов</>}
+                  onChange={(_, newValue) => {
+                    if (newValue && newValue !== null) {
+                      setFieldValue('city', newValue.title.ru);
+                      if (field === 'geography') {
+                        setPostData({ ...postData, city_politician_id: newValue.id });
+                        setSortGeography(postData);
+                        setUpdate(!update);
+                      }
+                      if (field === 'vote') {
+                        setPostData2({ ...postData2, city_user_id: newValue.id });
+                        setSortVote(postData2);
+                        setUpdate(!update);
+                      }
+                    } else {
+                      setFieldValue('city', '');
+                    }
+                  }}
+                  renderInput={(params) => (
+                    <TextField {...params} type="text" onBlur={handleBlur} variant="outlined" fullWidth />
+                  )}
+                />
+              </>
+            ) : null}
+          </form>
+        );
+      }}
+    </Formik>
   );
 };
 
-export default React.memo(SortDropdown);
+export default SortDropdown;

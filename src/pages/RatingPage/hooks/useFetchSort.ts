@@ -1,20 +1,21 @@
 import { useCallback, useState } from 'react';
 import { APIStatus } from 'src/lib/axiosAPI';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/store';
 import { ratingAPI } from '../../../api/ratingAPI';
+import { ratingActionCreators } from '../../../slices/ratingSlice';
 
 export const useFetchSort = () => {
-  const [countries, setCountries] = useState([]);
-  const [regions, setRegions] = useState([]);
-  const [cities, setCities] = useState([]);
   const [regionStatus, setRegionStatus] = useState(APIStatus.Initial);
   const [cityStatus, setCityStatus] = useState(APIStatus.Initial);
 
-  const { getCountries, getRegions, getCities, } = ratingAPI();
+  const { getCountries, getRegions, getCities } = ratingAPI();
+  const { setCountry, setCities, setRegions } = ratingActionCreators();
 
   const fetchCounties = useCallback(() => {
     getCountries({
       onSuccess: (response) => {
-        setCountries(response);
+        setCountry(response);
       },
       onError: (errorResponse) => console.log(errorResponse),
     });
@@ -58,10 +59,7 @@ export const useFetchSort = () => {
     fetchCounties,
     fetchRegions,
     fetchCities,
-    countries,
-    regions,
     regionStatus,
-    cities,
     cityStatus,
   };
 };
