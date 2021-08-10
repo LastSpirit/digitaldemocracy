@@ -5,30 +5,32 @@
 
 .list {
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
-
+  align-items: center;
+  justify-content: flex-start;
   width: 100%;
 }
 
 .selectedItem {
-  padding: 10px;
-
-  color: white !important;
-  border-bottom: 0 solid #B0B0B0;
-  background-color: #363557;
+  height: 100%;
+  padding: 10px 20px;
+  font-weight: 800 !important;
+  font-size: 18px !important;
+  line-height: 25px !important;
+  color: #248232 !important;
+  border-bottom: 3px solid #248232 !important;
+  margin: 5px;
 }
 
 .listItem {
+  margin: 5px;
+  min-height: max-content;
   padding: 10px 20px;
-
   cursor: pointer;
   transition: 0.3s;
   text-align: center !important;
   white-space: nowrap;
-
-  color: #B0B0B0;
-  border-bottom: 1px solid #B0B0B0;
+  color: #363557;
+  border-bottom: 3px solid #363557;
 
   font-size: 18px;
   font-weight: 300;

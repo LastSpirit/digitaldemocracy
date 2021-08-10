@@ -18,9 +18,9 @@ interface Props {
 const NewsNav: FC<Props> = ({ navigation, selectedTab, onClick }) => {
   const { country_id: country, region_id: region, city_id: city } = useSelector(userSelectors.getUser());
   const tooltipTitles = {
-    country: country?.title,
-    region: region?.title,
-    city: city?.title
+    country: country?.title?.ru,
+    region: region?.title?.ru,
+    city: city?.title?.ru,
   };
 
   const navigationFiltered = navigation.filter((item, idx) => {
