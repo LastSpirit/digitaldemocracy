@@ -51,6 +51,7 @@ export const Highchart = () => {
       title: {
         text: '0% - 100%',
       },
+      max: 100,
     },
     area: {
       fillColor: {

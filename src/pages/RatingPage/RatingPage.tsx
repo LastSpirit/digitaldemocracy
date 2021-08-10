@@ -36,8 +36,9 @@ const RatingPage = () => {
   const { pathname } = useLocation();
 
   const showTabs = ({ id, title, link }) => (
-    <Link to={link} key={id} className={cn(pathname === link ? styles.selectedItem : null)}>
-      <div className={cn(styles.tabsItem)}>{title}</div>
+    <Link to={link} key={id} className={cn(pathname === link ? styles.selectedItem : styles.tabsItem)}>
+      {/* <div className={cn(styles.tabsItem)}>{title}</div> */}
+      <div className={styles.title}>{title}</div>
     </Link>
   );
 

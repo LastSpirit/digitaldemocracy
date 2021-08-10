@@ -10,7 +10,10 @@ import { useWindowSize } from '../../../../../hooks/useWindowSize';
 export const RatingDiagram = () => {
   const { t } = useTranslation();
   const data = useSelector(politicianSelectors.getRatingStatistic());
-  const chartData = data?.voicesByRegion?.map(({ region_with_type, total }) => ([region_with_type, total]));
+  const chartData = data?.voicesByRegion?.map(({ region_with_type, total }) => {
+    const { ru } = JSON.parse(region_with_type);
+    return [ru, total];
+  });
   const { isMobile } = useWindowSize();
   return (
     <div className={styles.diagramContainer}>
@@ -22,10 +25,7 @@ export const RatingDiagram = () => {
             chartType="PieChart"
             className={styles.chart}
             loader={<Loading />}
-            data={[
-              ['Task', 'Hours per Day'],
-              ...chartData
-            ]}
+            data={[['Task', 'Hours per Day'], ...chartData]}
             options={{
               title: t('info.titleStatisticRegion'),
               is3D: true,

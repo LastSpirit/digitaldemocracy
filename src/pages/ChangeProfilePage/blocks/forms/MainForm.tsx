@@ -17,7 +17,8 @@ import styles from '../../ChangeProfilePage.module.scss';
 import { useFetchUserData } from '../../../ProfilePage/hooks/useFetchUserData';
 
 export const MainForm = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const { data, religions, genders, countries, political_views, educations, cities, regions } = useSelector(
     (s: RootState) => s.profile
   );
@@ -73,13 +74,13 @@ export const MainForm = () => {
           data?.userProfile?.birth_date?.split('-')[0].length !== 4
             ? data?.userProfile?.birth_date?.split('-')?.reverse()?.join('-')
             : data?.userProfile?.birth_date ?? '',
-        gender: data?.userProfile?.gender_id?.title ?? '',
-        country: data?.userProfile?.country_id?.title ?? '',
-        region: data?.userProfile?.region_id?.title ?? '',
-        city: data?.userProfile?.city_id?.title ?? '',
-        religion: data?.userProfile?.religion_id?.title ?? '',
-        education: data?.userProfile?.education_id?.title ?? '',
-        political_views: data?.userProfile?.political_view_id?.title ?? '',
+        gender: data?.userProfile?.gender_id?.title[currentLang] ?? data?.userProfile?.gender_id?.title?.ru ?? '',
+        country: data?.userProfile?.country_id?.title[currentLang] ?? data?.userProfile?.country_id?.title?.ru ?? '',
+        region: data?.userProfile?.region_id?.title[currentLang] ?? data?.userProfile?.region_id?.title?.ru ?? '',
+        city: data?.userProfile?.city_id?.title[currentLang] ?? data?.userProfile?.city_id?.title?.ru ?? '',
+        religion: data?.userProfile?.religion_id?.title[currentLang] ?? data?.userProfile?.religion_id?.title?.ru ?? '',
+        education: data?.userProfile?.education_id?.title[currentLang] ?? data?.userProfile?.education_id?.title?.ru ?? '',
+        political_views: data?.userProfile?.political_view_id?.title[currentLang] ?? data?.userProfile?.political_view_id?.title?.ru ?? '',
       }}
       onSubmit={async (values) => {
         const { name, lastname, day } = values;
@@ -97,7 +98,7 @@ export const MainForm = () => {
         lastname: Yup.string().max(255),
         day: Yup.date(),
         gender: Yup.string(),
-        country: Yup.string().required(t('errors.requiredField') || 'Это обязательное поле'),
+        country: Yup.string().required(t('errors.requiredField')),
         region: Yup.string(),
         city: Yup.string(),
         religion: Yup.string(),
@@ -169,12 +170,12 @@ export const MainForm = () => {
                   limitTags={10}
                   options={genders}
                   value={values.gender}
-                  getOptionLabel={(option) => option?.title || values.gender}
-                  isOptionEqualToValue={(option, value) => option.title === value}
+                  getOptionLabel={(option) => option?.title[currentLang] || option?.title?.ru || values.gender}
+                  isOptionEqualToValue={(option, value) => option.title[currentLang] === value || option.title?.ru === value}
                   noOptionsText={<>{t('info.noVariants')}</>}
                   onChange={(_, newValue) => {
                     if (newValue && newValue !== null) {
-                      setFieldValue('gender', newValue.title);
+                      setFieldValue('gender', newValue.title[currentLang] || newValue.title?.ru);
                       setPostData({ ...postData, gender: newValue.id });
                     } else {
                       setFieldValue('gender', '');
@@ -195,12 +196,12 @@ export const MainForm = () => {
               limitTags={5}
               options={countries}
               value={values.country}
-              getOptionLabel={(option) => option?.title || values.country}
-              isOptionEqualToValue={(option, value) => option.title === value}
+              getOptionLabel={(option) => option?.title[currentLang] || option?.title?.ru || values.country}
+              isOptionEqualToValue={(option, value) => option.title[currentLang] === value || option.title?.ru === value}
               noOptionsText={<>{t('info.noVariants')}</>}
               onChange={(_, newValue) => {
                 if (newValue && newValue !== null) {
-                  setFieldValue('country', newValue.title);
+                  setFieldValue('country', newValue.title[currentLang] || newValue.title?.ru);
                   changeCountyId(newValue.id);
                   setPostData({ ...postData, country: newValue.id, region: null, city: null });
                   setFieldValue('region', '');
@@ -231,12 +232,12 @@ export const MainForm = () => {
               options={regions}
               disabled={!values.country || statusRegion !== APIStatus.Success ? true : false}
               value={values.region}
-              getOptionLabel={(option) => option?.title || values.region}
-              isOptionEqualToValue={(option, value) => option.title === value}
+              getOptionLabel={(option) => option?.title[currentLang] || option?.title?.ru || values.region}
+              isOptionEqualToValue={(option, value) => option.title[currentLang] === value || option.title?.ru === value}
               noOptionsText={<>{t('info.noVariants')}</>}
               onChange={(_, newValue) => {
                 if (newValue && newValue !== null) {
-                  setFieldValue('region', newValue.title);
+                  setFieldValue('region', newValue.title[currentLang] || newValue.title?.ru);
                   changeRegionId(newValue.id);
                   setPostData({ ...postData, region: newValue.id, city: null });
                   setFieldValue('city', '');
@@ -259,12 +260,12 @@ export const MainForm = () => {
               options={cities}
               value={values.city}
               disabled={!values.region || statusCity !== APIStatus.Success ? true : false}
-              getOptionLabel={(option) => option?.title || values.city}
-              isOptionEqualToValue={(option, value) => option.title === value}
+              getOptionLabel={(option) => option?.title[currentLang] || option?.title?.ru || values.city}
+              isOptionEqualToValue={(option, value) => option.title[currentLang] === value || option.title?.ru === value}
               noOptionsText={<>{t('info.noVariants')}</>}
               onChange={(_, newValue) => {
                 if (newValue && newValue !== null) {
-                  setFieldValue('city', newValue.title);
+                  setFieldValue('city', newValue.title[currentLang] || newValue.title?.ru);
                   setPostData({ ...postData, city: newValue.id });
                 } else {
                   setFieldValue('city', '');
@@ -285,10 +286,10 @@ export const MainForm = () => {
               value={values.religion}
               getOptionLabel={(option) => option?.title || values.religion}
               isOptionEqualToValue={(option, value) => option.title === value}
-              noOptionsText={<>{t('info.noVariants')}</>}
+              noOptionsText={<>Нет доступных вариантов</>}
               onChange={(_, newValue) => {
                 if (newValue && newValue !== null) {
-                  setFieldValue('religion', newValue.title);
+                  setFieldValue('religion', newValue.title[currentLang] || newValue.title?.ru);
                   setPostData({ ...postData, religion: newValue.id });
                 } else {
                   setFieldValue('religion', '');
@@ -307,12 +308,12 @@ export const MainForm = () => {
               limitTags={10}
               options={educations}
               value={values.education}
-              getOptionLabel={(option) => option?.title || values.education}
-              isOptionEqualToValue={(option, value) => option.title === value}
+              getOptionLabel={(option) => option?.title[currentLang] || option?.title?.ru || values.education}
+              isOptionEqualToValue={(option, value) => option.title[currentLang] === value || option.title?.ru === value}
               noOptionsText={<>{t('info.noVariants')}</>}
               onChange={(_, newValue) => {
                 if (newValue && newValue !== null) {
-                  setFieldValue('education', newValue.title);
+                  setFieldValue('education', newValue.title[currentLang] || newValue.title?.ru);
                   setPostData({ ...postData, education: newValue.id });
                 } else {
                   setFieldValue('education', '');
@@ -331,12 +332,12 @@ export const MainForm = () => {
               limitTags={10}
               options={political_views}
               value={values.political_views}
-              getOptionLabel={(option) => option?.title || values.political_views}
-              isOptionEqualToValue={(option, value) => option.title === value}
+              getOptionLabel={(option) => option?.title[currentLang] || option?.title?.ru || values.political_views}
+              isOptionEqualToValue={(option, value) => option.title[currentLang] === value || option.title?.ru === value}
               noOptionsText={<>{t('info.noVariants')}</>}
               onChange={(_, newValue) => {
                 if (newValue && newValue !== null) {
-                  setFieldValue('political_views', newValue.title);
+                  setFieldValue('political_views', newValue.title[currentLang] || newValue.title?.ru);
                   setPostData({ ...postData, political_views: newValue.id });
                 } else {
                   setFieldValue('political_views', '');
@@ -361,7 +362,7 @@ export const MainForm = () => {
                 size="small"
                 variant="outlined"
                 type="submit"
-                disabled={!values.country ? true : false}
+                disabled={!values.country}
               >
                 {statusPOST === APIStatus.Loading ? <Loading color="white" /> : t('buttons.confirmChange')}
               </Button>
