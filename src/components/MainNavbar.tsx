@@ -198,7 +198,8 @@ const MainNavbar: FC = () => {
               <Box
                 sx={{
                   backgroundColor: 'background.paper',
-                  p: 3,
+                  p: '5px',
+                  display: 'flex',
                 }}
               >
                 <Button
@@ -208,7 +209,7 @@ const MainNavbar: FC = () => {
                     paddingRight: 2,
                     paddingLeft: 2,
                     borderRadius: 100,
-                    mr: 3,
+                    mr: '10px',
                     textDecoration: 'none',
                   }}
                   size="small"
