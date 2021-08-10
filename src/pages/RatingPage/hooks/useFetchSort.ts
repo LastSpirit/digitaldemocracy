@@ -1,7 +1,5 @@
 import { useCallback, useState } from 'react';
 import { APIStatus } from 'src/lib/axiosAPI';
-import { useSelector } from 'react-redux';
-import { RootState } from 'src/store';
 import { ratingAPI } from '../../../api/ratingAPI';
 import { ratingActionCreators } from '../../../slices/ratingSlice';
 
@@ -10,23 +8,29 @@ export const useFetchSort = () => {
   const [cityStatus, setCityStatus] = useState(APIStatus.Initial);
 
   const { getCountries, getRegions, getCities } = ratingAPI();
-  const { setCountry, setCities, setRegions } = ratingActionCreators();
-
-  const fetchCounties = useCallback(() => {
+  const { setCountryGeography, setCitiesGeography, setRegionsGeography, setCountryVote, setCitiesVote, setRegionsVote } = ratingActionCreators();
+  const fetchCounties = useCallback((field) => {
     getCountries({
       onSuccess: (response) => {
-        setCountry(response);
+        if (field === 'geography') {
+          setCountryGeography(response);
+        } else if (field === 'vote') {
+          setCountryVote(response);
+        }
       },
       onError: (errorResponse) => console.log(errorResponse),
     });
   }, []);
 
-  const fetchRegions = useCallback((id: number) => {
+  const fetchRegions = useCallback((id: number, field: string) => {
     setRegionStatus(APIStatus.Loading);
     getRegions({
       onSuccess: (response) => {
-        setRegionStatus(APIStatus.Success);
-        setRegions(response);
+        if (field === 'geography') {
+          setRegionsGeography(response);
+        } else if (field === 'vote') {
+          setRegionsVote(response);
+        }
       },
       onError: (errorResponse) => {
         setRegionStatus(APIStatus.Failure);
@@ -38,12 +42,15 @@ export const useFetchSort = () => {
     });
   }, []);
 
-  const fetchCities = useCallback((id) => {
+  const fetchCities = useCallback((id, field) => {
     setCityStatus(APIStatus.Loading);
     getCities({
       onSuccess: (response) => {
-        setCityStatus(APIStatus.Success);
-        setCities(response);
+        if (field === 'geography') {
+          setCitiesGeography(response);
+        } else if (field === 'vote') {
+          setCitiesVote(response);
+        }
       },
       onError: (errorResponse) => {
         setCityStatus(APIStatus.Failure);

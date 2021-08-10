@@ -42,23 +42,33 @@ interface SliceState {
   massMedia?: MediaI;
   authors?: AuthorsI;
   parties?: PartiesI;
-  countries?: any;
-  regions?: any;
-  cities?: any;
+  countries_geography?: any;
+  regions_geography?: any;
+  cities_geography?: any;
+  countries_vote?: any;
+  regions_vote?: any;
+  cities_vote?: any;
+  geography: any;
+  vote: any;
 }
 
 const initialState: SliceState = {
   sort_direction: '',
   sort_field: '',
   sort_geography: {} as SortGeography,
+  geography: {},
+  vote: {},
   sort_vote: {} as SortVote,
   politicians: {} as PoliticiansI,
   massMedia: {} as MediaI,
   authors: {} as AuthorsI,
   parties: {} as PartiesI,
-  countries: [],
-  regions: [],
-  cities: [],
+  countries_geography: [],
+  regions_geography: [],
+  cities_geography: [],
+  countries_vote: [],
+  regions_vote: [],
+  cities_vote: [],
 };
 
 export const ratingSlice = createSlice({
@@ -89,14 +99,23 @@ export const ratingSlice = createSlice({
     setSortVote(state, action) {
       state.sort_vote = action.payload;
     },
-    setCountry(state: SliceState, action) {
-      state.countries = action.payload;
+    setCountryGeography(state: SliceState, action) {
+      state.geography.countries = action.payload;
     },
-    setRegions(state: SliceState, action) {
-      state.regions = action.payload;
+    setRegionsGeography(state: SliceState, action) {
+      state.geography.regions = action.payload;
     },
-    setCities(state: SliceState, action) {
-      state.cities = action.payload;
+    setCitiesGeography(state: SliceState, action) {
+      state.geography.cities = action.payload;
+    },
+    setCountryVote(state: SliceState, action) {
+      state.vote.countries = action.payload;
+    },
+    setRegionsVote(state: SliceState, action) {
+      state.vote.regions = action.payload;
+    },
+    setCitiesVote(state: SliceState, action) {
+      state.vote.cities = action.payload;
     },
     setIsSubscribePoliticians(state: SliceState, action) {
       const { id, isSubscribe } = action.payload;
@@ -119,8 +138,6 @@ interface Store {
 
 export const ratingSelectors = {
   getPoliticians: () => (state: Store) => state.rating.politicians,
-  getCountries: () => (state: Store) => state.rating.countries,
-  // getSortVote: () => (state: Store) => state.rating.politicians,
 };
 
 export const ratingActionCreators = () => {
