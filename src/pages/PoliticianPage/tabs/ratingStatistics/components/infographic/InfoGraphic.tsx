@@ -17,23 +17,19 @@ import styles from './InfoGraphic.module.scss';
 
 export const InfoGraphic = () => {
   const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const { isMobile } = useWindowSize();
   const { statusCities, statusRegions, fetchCity, fetchRegion, fetchGraphic, statusGrapchic } =
     useFetchInfoGrapchicData();
 
   const { infoGrapghicData } = useSelector((s: RootState) => s.politician);
   const data = useSelector(politicianSelectors.getPoliticianInfo());
-  const currentLang = i18n.language;
 
   const [postData, setPostData] = useState({
     country: null,
     region: null,
     city: null,
   });
-
-  useEffect(() => {
-    console.log(currentLang);
-  }, [currentLang]);
 
   useEffect(() => {
     if (postData.country) {
@@ -94,7 +90,7 @@ export const InfoGraphic = () => {
                 filterSelectedOptions
                 options={infoGrapghicData?.countries || []}
                 value={values.country}
-                getOptionLabel={(option) => (option?.title && option?.title[currentLang]) || values.country}
+                getOptionLabel={(option) => option?.title?.[currentLang] || values.country}
                 noOptionsText={<>{t('info.noVariants')}</>}
                 onChange={(_, newValue) => {
                   if (newValue.length > 0 && newValue !== (null && undefined)) {
@@ -134,7 +130,7 @@ export const InfoGraphic = () => {
                 options={infoGrapghicData?.regions || []}
                 disabled={values.country.length === 0 || statusRegions !== APIStatus.Success ? true : false}
                 value={values.region}
-                getOptionLabel={(option) => (option?.title && option?.title[currentLang]) || values.region}
+                getOptionLabel={(option) => option?.title?.[currentLang] || values.region}
                 noOptionsText={<>{t('info.noVariants')}</>}
                 onChange={(_, newValue) => {
                   if (newValue.length > 0 && newValue !== (null && undefined)) {
@@ -164,7 +160,7 @@ export const InfoGraphic = () => {
                 options={infoGrapghicData?.cities || []}
                 value={values.city}
                 disabled={!values.region || statusCities !== APIStatus.Success ? true : false}
-                getOptionLabel={(option) => (option?.title && option?.title[currentLang]) || values.city}
+                getOptionLabel={(option) => option?.title?.[currentLang] || values.city}
                 noOptionsText={<>{t('info.noVariants')}</>}
                 onChange={(_, newValue) => {
                   if (newValue.length > 0 && newValue !== (null && undefined)) {
