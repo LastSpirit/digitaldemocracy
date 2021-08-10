@@ -85,17 +85,46 @@ const MainNavbar: FC = () => {
           }}
         >
           {isMobile ? (
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: 40,
-                cursor: 'pointer',
-              }}
-              onClick={() => push('/')}
+            <Box sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
             >
-              <Brand />
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: 40,
+                  cursor: 'pointer',
+                }}
+                onClick={() => push('/')}
+              >
+                <Brand />
+              </Box>
+              <Box sx={{
+                marginTop: '5px'
+              }}
+              >
+                <FormControl sx={{ minWidth: '60px' }}>
+                  <Select
+                    variant="outlined"
+                    defaultValue={getItem('i18nextLng').slice(0, 2) || 'ru'}
+                    sx={{ height: '30px' }}
+                    onChange={(event: React.ChangeEvent<{ value: string }>) => {
+                      i18n.changeLanguage(event.target.value);
+                    }}
+                  >
+                    {langData.map((item) => (
+                      <MenuItem key={item.id} value={item.key_lang} className={classNames(['language__item'])}>
+                        {item.title}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
             </Box>
           ) : (
             <>

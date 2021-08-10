@@ -20,7 +20,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
 
   return (
     <MainLayoutRoot
-      style={{ background: 'white', paddingBottom: isMobile ? 80 : 0, paddingTop: isMobile ? '64px' : '90px' }}
+      style={{ background: 'white', paddingBottom: isMobile ? 80 : 0, paddingTop: isMobile ? '88px' : '90px' }}
     >
       <MainNavbar />
       <AuthModal />
