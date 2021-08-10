@@ -305,14 +305,14 @@ export const sortRatingPoliticians = (t) => {
 export const sortDropdownPoliticians = (t) => [
   {
     id: 1,
-    full_title: 'По географии',
-    short_title: 'География',
+    full_title: t('buttons.sort.geographyFullTitle') || 'По географии',
+    short_title: t('buttons.sort.geographyShortTitle') || 'География',
     field: 'geography',
   },
   {
     id: 2,
-    full_title: 'По проголосовавшим',
-    short_title: 'Проголосовавшие',
+    full_title: t('buttons.sort.votesFullTitle') || 'По проголосовавшим',
+    short_title: t('buttons.sort.votesShortTitle') || 'Проголосовавшие',
     field: 'vote',
   }
 ];

@@ -2,7 +2,9 @@ import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
 import { initReactI18next } from 'react-i18next';
+import { apiSetting } from './config';
 
+/*
 const resources = {
   en: {
     translation: {
@@ -20,6 +22,7 @@ const resources = {
     }
   },
 };
+*/
 
 i18n
   .use(LanguageDetector)
@@ -34,23 +37,10 @@ i18n
     },
     debug: true,
     returnObjects: true,
-    /*
-    detection: {
-      order: ['queryString', 'cookie'],
-      cache: ['cookie']
-    },
-    */
-    /*
     backend: {
       // loadPath: 'https://dev-backoffice.digitaldemocracy.ru/storage/lang/{{lng}}/{{ns}}.json',
-      loadPath: 'https://dev-backoffice.digitaldemocracy.ru/api/getLangContent/{{lng}}',
-      // requestOptions: {
-      //   mode: 'no-cors',
-      //   credentials: 'omit',
-      //   cache: 'default'
-      // }
+      loadPath: `${apiSetting.url_api}getLangContent/{{lng}}`,
     }
-    */
   });
 
 export default i18n;
