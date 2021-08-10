@@ -73,15 +73,25 @@ const CardSmall: FC<CardSmallProps> = ({
       </Box>
       <Box className={classes.content}>
         <Box className={classes.cardContent} onClick={handleNews}>
-          <Typography className={classes.bigTitle}>{title}</Typography>
-        </Box>
-        <Box className={classes.cardNames}>
-          <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleAuthor}>
-            {author?.name}
-          </Typography>
-          <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleMedia}>
-            {media?.name}
-          </Typography>
+          <Box sx={{ marginBottom: '10px' }}>
+            <Typography className={classes.bigTitle}>{title}</Typography>
+          </Box>
+          <Box className={classes.cardNames}>
+            {
+              media?.name && (
+                <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleMedia}>
+                  {media?.name}
+                </Typography>
+              )
+            }
+            {
+              author?.name && (
+                <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleAuthor}>
+                  {author?.name}
+                </Typography>
+              )
+            }
+          </Box>
         </Box>
         <Box className={classes.imageContainer} onClick={handleNews}>
           <img src={image} alt="news" className={classes.image} />

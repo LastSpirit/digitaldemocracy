@@ -28,8 +28,6 @@ export const InfoGraphic = () => {
     city: null,
   });
 
-  console.log(infoGrapghicData?.vote_groups.length > 0);
-
   useEffect(() => {
     if (postData.country) {
       fetchRegion(postData.country);
@@ -55,7 +53,6 @@ export const InfoGraphic = () => {
         })}
         onSubmit={async (values) => {
           try {
-            console.log(values);
             fetchGraphic(data?.id, postData);
           } catch (e) {
             console.log(e);
@@ -90,7 +87,7 @@ export const InfoGraphic = () => {
                 filterSelectedOptions
                 options={infoGrapghicData?.countries || []}
                 value={values.country}
-                getOptionLabel={(option) => option?.title || values.country}
+                getOptionLabel={(option) => option?.title?.ru || values.country}
                 noOptionsText={<>Нет доступных вариантов</>}
                 onChange={(_, newValue) => {
                   if (newValue.length > 0 && newValue !== (null && undefined)) {
@@ -130,7 +127,7 @@ export const InfoGraphic = () => {
                 options={infoGrapghicData?.regions || []}
                 disabled={values.country.length === 0 || statusRegions !== APIStatus.Success ? true : false}
                 value={values.region}
-                getOptionLabel={(option) => option?.title || values.region}
+                getOptionLabel={(option) => option?.title?.ru || values.region}
                 noOptionsText={<>Нет доступных вариантов</>}
                 onChange={(_, newValue) => {
                   if (newValue.length > 0 && newValue !== (null && undefined)) {
@@ -160,7 +157,7 @@ export const InfoGraphic = () => {
                 options={infoGrapghicData?.cities || []}
                 value={values.city}
                 disabled={!values.region || statusCities !== APIStatus.Success ? true : false}
-                getOptionLabel={(option) => option?.title || values.city}
+                getOptionLabel={(option) => option?.title?.ru || values.city}
                 noOptionsText={<>Нет доступных вариантов</>}
                 onChange={(_, newValue) => {
                   if (newValue.length > 0 && newValue !== (null && undefined)) {

@@ -15,9 +15,8 @@ const ModalCookie = ({ onClick }) => {
       <div className={styles.message}>
         <h4 className={styles.message__title}>Наш сайт использует cookies</h4>
         <p className={styles.message__discription}>
-          Этот сайт использует файлы cookie для аналитики, персонализации.
+          Этот сайт использует файлы cookie для аналитики и персонализации.
           Продолжая просматривать его, вы соглашаетесь на использование нами файлов cookie.
-          Чтобы узнать больше, <a href="#">нажмите здесь</a>.
         </p>
         <Button
           color="primary"

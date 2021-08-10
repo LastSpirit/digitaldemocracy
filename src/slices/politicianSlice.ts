@@ -85,7 +85,7 @@ export interface MetricI {
 }
 
 export interface VoicesRegionI {
-  region_with_type: string;
+  region_with_type: any;
   total: number;
 }
 
