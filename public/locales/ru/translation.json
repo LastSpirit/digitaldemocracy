@@ -134,7 +134,11 @@
       "popularityFullTitle": "По популярности",
       "popularityShortTitle": "Популярность",
       "votesFullTitle": "По проголосовавшим",
-      "votesShortTitle": "Голоса"
+      "votesShortTitle": "Проголосовавшие",
+      "geographyFullTitle": "По географии",
+      "geographyShortTitle": "География",
+      "regionFullTitle": "По Регионам",
+      "citiesFullTitle": "По Городам"
     }
   },
   "errors": {

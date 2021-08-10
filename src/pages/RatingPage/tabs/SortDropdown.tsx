@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { RootState } from 'src/store';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { InputLabel, Autocomplete } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { Formik } from 'formik';
@@ -11,6 +12,8 @@ import { useFetchSort } from '../hooks/useFetchSort';
 import { ratingActionCreators } from '../../../slices/ratingSlice';
 
 export const SortDropdown = ({ text, field }) => {
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const [update, setUpdate] = useState(true);
   const { fetchCounties, fetchRegions, fetchCities } = useFetchSort();
   const {
@@ -104,12 +107,12 @@ export const SortDropdown = ({ text, field }) => {
                 options={countries ?? []}
                 value={values.country}
                 style={{ width: '170px' }}
-                getOptionLabel={(option: any) => option?.title?.ru || values.country}
-                isOptionEqualToValue={(option, value) => option.title?.ru === value}
-                noOptionsText={<>Нет доступных вариантов</>}
+                getOptionLabel={(option: any) => option?.title?.[currentLang] || option?.title?.ru || values.country}
+                isOptionEqualToValue={(option, value) => option.title?.[currentLang] === value || option.title?.ru === value}
+                noOptionsText={<>{t('info.noVariants')}</>}
                 onChange={(_, newValue) => {
                   if (newValue && newValue !== null) {
-                    setFieldValue('country', newValue.title.ru);
+                    setFieldValue('country', newValue.title?.[currentLang] || newValue.title?.ru);
                     if (field === 'geography') {
                       setPostData({
                         ...postData,
@@ -177,19 +180,19 @@ export const SortDropdown = ({ text, field }) => {
             {regions ? (
               <div style={{ marginRight: '5px' }}>
                 <InputLabel htmlFor="region" className={styles.inputLabel}>
-                  По Регионам
+                  {t('buttons.sort.regionFullTitle')}
                 </InputLabel>
                 <Autocomplete
                   id="region"
                   options={regions}
                   value={values.region}
                   style={{ width: '170px' }}
-                  getOptionLabel={(option: any) => option?.title?.ru || values.region}
-                  isOptionEqualToValue={(option, value) => option.title?.ru === value}
-                  noOptionsText={<>Нет доступных вариантов</>}
+                  getOptionLabel={(option: any) => option?.title?.[currentLang] || option?.title?.ru || values.region}
+                  isOptionEqualToValue={(option, value) => option.title?.[currentLang] === value || option.title?.ru === value}
+                  noOptionsText={<>{t('info.noVariants')}</>}
                   onChange={(_, newValue) => {
                     if (newValue && newValue !== null) {
-                      setFieldValue('region', newValue.title.ru);
+                      setFieldValue('region', newValue.title?.[currentLang] || newValue.title?.ru);
                       if (field === 'geography') {
                         setPostData({ ...postData, region_politician_id: newValue.id, city_politician_id: null });
                       }
@@ -219,19 +222,19 @@ export const SortDropdown = ({ text, field }) => {
             {cities ? (
               <div style={{ marginRight: '5px' }}>
                 <InputLabel htmlFor="city" className={styles.inputLabel}>
-                  По Городам
+                  {t('buttons.sort.citiesFullTitle')}
                 </InputLabel>
                 <Autocomplete
                   id="city"
                   options={cities}
                   value={values.city}
                   style={{ width: '170px' }}
-                  getOptionLabel={(option: any) => option?.title?.ru || values.city}
-                  isOptionEqualToValue={(option, value) => option.title?.ru === value}
-                  noOptionsText={<>Нет доступных вариантов</>}
+                  getOptionLabel={(option: any) => option?.title?.[currentLang] || option?.title?.ru || values.city}
+                  isOptionEqualToValue={(option, value) => option.title?.[currentLang] === value || option.title?.ru === value}
+                  noOptionsText={<>{t('info.noVariants')}</>}
                   onChange={(_, newValue) => {
                     if (newValue && newValue !== null) {
-                      setFieldValue('city', newValue.title.ru);
+                      setFieldValue('city', newValue.title?.[currentLang] || newValue.title?.ru);
                       if (field === 'geography') {
                         setPostData((prevState) => {
                           const newState = { ...prevState, city_politician_id: newValue.id };

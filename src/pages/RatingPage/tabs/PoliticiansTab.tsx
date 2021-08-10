@@ -35,7 +35,7 @@ const PoliticiansTab = () => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
           <div className={styles.sortDrop}>
-            {sortDropdownPoliticians.map(({ id, full_title, short_title, field }) => {
+            {sortDropdownPoliticians(t).map(({ id, full_title, short_title, field }) => {
               return <SortDropdown key={id} text={!isMobile ? full_title : short_title} field={field} />;
             })}
           </div>

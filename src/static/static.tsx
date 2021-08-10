@@ -302,7 +302,7 @@ export const sortRatingPoliticians = (t) => {
   ];
 };
 
-export const sortDropdownPoliticians = [
+export const sortDropdownPoliticians = (t) => [
   {
     id: 1,
     full_title: 'По географии',
