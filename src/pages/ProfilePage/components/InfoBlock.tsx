@@ -9,12 +9,13 @@ interface InfoBlockProps {
 }
 
 const InfoBlock: FC<InfoBlockProps> = ({ fio }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const data = useSelector(userSelectors.getUser());
-  const county = data?.country_id?.title?.ru ? `${data?.country_id?.title?.ru}, ` : '';
-  const region = data?.region_id?.title?.ru ? `${data?.region_id?.title?.ru}, ` : '';
-  const city = data?.city_id?.title?.ru ? `${data?.city_id?.title?.ru}` : '';
-  const gender = data?.gender_id?.title?.ru ? `${data?.gender_id?.title?.ru}` : '';
+  const county = data?.country_id?.title?.[currentLang] ? `${data?.country_id?.title?.[currentLang]}, ` : '';
+  const region = data?.region_id?.title?.[currentLang] ? `${data?.region_id?.title?.[currentLang]}, ` : '';
+  const city = data?.city_id?.title?.[currentLang] ? `${data?.city_id?.title?.[currentLang]}` : '';
+  const gender = data?.gender_id?.title?.[currentLang] ? `${data?.gender_id?.title?.[currentLang]}` : '';
   return (
     <div className={styles.personBlock}>
       <div className={styles.fio}>

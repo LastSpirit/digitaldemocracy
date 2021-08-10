@@ -90,7 +90,7 @@ export const InfoGraphic = () => {
                 filterSelectedOptions
                 options={infoGrapghicData?.countries || []}
                 value={values.country}
-                getOptionLabel={(option) => option?.title?.[currentLang] || values.country}
+                getOptionLabel={(option) => option?.title?.[currentLang] || option?.title?.ru || values.country}
                 noOptionsText={<>{t('info.noVariants')}</>}
                 onChange={(_, newValue) => {
                   if (newValue.length > 0 && newValue !== (null && undefined)) {
@@ -130,7 +130,7 @@ export const InfoGraphic = () => {
                 options={infoGrapghicData?.regions || []}
                 disabled={values.country.length === 0 || statusRegions !== APIStatus.Success ? true : false}
                 value={values.region}
-                getOptionLabel={(option) => option?.title?.[currentLang] || values.region}
+                getOptionLabel={(option) => option?.title?.[currentLang] || option?.title?.ru || values.region}
                 noOptionsText={<>{t('info.noVariants')}</>}
                 onChange={(_, newValue) => {
                   if (newValue.length > 0 && newValue !== (null && undefined)) {
@@ -160,7 +160,7 @@ export const InfoGraphic = () => {
                 options={infoGrapghicData?.cities || []}
                 value={values.city}
                 disabled={!values.region || statusCities !== APIStatus.Success ? true : false}
-                getOptionLabel={(option) => option?.title?.[currentLang] || values.city}
+                getOptionLabel={(option) => option?.title?.[currentLang] || option?.title?.ru || values.city}
                 noOptionsText={<>{t('info.noVariants')}</>}
                 onChange={(_, newValue) => {
                   if (newValue.length > 0 && newValue !== (null && undefined)) {

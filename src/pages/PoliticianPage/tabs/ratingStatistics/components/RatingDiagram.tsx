@@ -8,11 +8,13 @@ import { Loading } from '../../../../../components/Loading/Loading';
 import { useWindowSize } from '../../../../../hooks/useWindowSize';
 
 export const RatingDiagram = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const data = useSelector(politicianSelectors.getRatingStatistic());
   const chartData = data?.voicesByRegion?.map(({ region_with_type, total }) => {
-    const { ru } = JSON.parse(region_with_type);
-    return [ru, total];
+    console.log(region_with_type);
+    const { [currentLang]: lang } = JSON.parse(region_with_type);
+    return [lang, total];
   });
   const { isMobile } = useWindowSize();
   return (

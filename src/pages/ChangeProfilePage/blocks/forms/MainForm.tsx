@@ -171,7 +171,8 @@ export const MainForm = () => {
                   options={genders}
                   value={values.gender}
                   getOptionLabel={(option) => option?.title?.[currentLang] || option?.title?.ru || values.gender}
-                  isOptionEqualToValue={(option, value) => option.title?.[currentLang] === value || option.title?.ru === value}
+                  isOptionEqualToValue={(option, value) =>
+                    option.title?.[currentLang] === value || option.title?.ru === value}
                   noOptionsText={<>{t('info.noVariants')}</>}
                   onChange={(_, newValue) => {
                     if (newValue && newValue !== null) {
@@ -197,7 +198,8 @@ export const MainForm = () => {
               options={countries}
               value={values.country}
               getOptionLabel={(option) => option?.title?.[currentLang] || option?.title?.ru || values.country}
-              isOptionEqualToValue={(option, value) => option.title?.[currentLang] === value || option.title?.ru === value}
+              isOptionEqualToValue={(option, value) =>
+                option.title?.[currentLang] === value || option.title?.ru === value}
               noOptionsText={<>{t('info.noVariants')}</>}
               onChange={(_, newValue) => {
                 if (newValue && newValue !== null) {
@@ -233,7 +235,8 @@ export const MainForm = () => {
               disabled={!values.country || statusRegion !== APIStatus.Success ? true : false}
               value={values.region}
               getOptionLabel={(option) => option?.title?.[currentLang] || option?.title?.ru || values.region}
-              isOptionEqualToValue={(option, value) => option.title?.[currentLang] === value || option.title?.ru === value}
+              isOptionEqualToValue={(option, value) =>
+                option.title?.[currentLang] === value || option.title?.ru === value}
               noOptionsText={<>{t('info.noVariants')}</>}
               onChange={(_, newValue) => {
                 if (newValue && newValue !== null) {
@@ -261,7 +264,8 @@ export const MainForm = () => {
               value={values.city}
               disabled={!values.region || statusCity !== APIStatus.Success ? true : false}
               getOptionLabel={(option) => option?.title?.[currentLang] || option?.title?.ru || values.city}
-              isOptionEqualToValue={(option, value) => option.title?.[currentLang] === value || option.title?.ru === value}
+              isOptionEqualToValue={(option, value) =>
+                option.title?.[currentLang] === value || option.title?.ru === value}
               noOptionsText={<>{t('info.noVariants')}</>}
               onChange={(_, newValue) => {
                 if (newValue && newValue !== null) {
@@ -284,7 +288,7 @@ export const MainForm = () => {
               limitTags={10}
               options={religions}
               value={values.religion}
-              getOptionLabel={(option) => option?.title || values.religion}
+              getOptionLabel={(option) => option?.title?.[currentLang] || values.religion}
               isOptionEqualToValue={(option, value) => option.title === value}
               noOptionsText={<>Нет доступных вариантов</>}
               onChange={(_, newValue) => {
@@ -309,7 +313,8 @@ export const MainForm = () => {
               options={educations}
               value={values.education}
               getOptionLabel={(option) => option?.title?.[currentLang] || option?.title?.ru || values.education}
-              isOptionEqualToValue={(option, value) => option.title?.[currentLang] === value || option.title?.ru === value}
+              isOptionEqualToValue={(option, value) =>
+                option.title?.[currentLang] === value || option.title?.ru === value}
               noOptionsText={<>{t('info.noVariants')}</>}
               onChange={(_, newValue) => {
                 if (newValue && newValue !== null) {
@@ -333,7 +338,8 @@ export const MainForm = () => {
               options={political_views}
               value={values.political_views}
               getOptionLabel={(option) => option?.title?.[currentLang] || option?.title?.ru || values.political_views}
-              isOptionEqualToValue={(option, value) => option.title?.[currentLang] === value || option.title?.ru === value}
+              isOptionEqualToValue={(option, value) =>
+                option.title?.[currentLang] === value || option.title?.ru === value}
               noOptionsText={<>{t('info.noVariants')}</>}
               onChange={(_, newValue) => {
                 if (newValue && newValue !== null) {
