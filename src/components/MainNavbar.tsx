@@ -221,7 +221,7 @@ const MainNavbar: FC = () => {
                 <FormControl sx={{ minWidth: '60px' }}>
                   <Select
                     variant="outlined"
-                    defaultValue={getItem('i18nextLng') || 'ru'}
+                    defaultValue={getItem('i18nextLng').slice(0, 2) || 'ru'}
                     sx={{ height: '30px' }}
                     onChange={(event: React.ChangeEvent<{ value: string }>) => {
                       i18n.changeLanguage(event.target.value);
