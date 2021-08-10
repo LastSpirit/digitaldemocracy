@@ -111,24 +111,30 @@ export const SortDropdown = ({ text, field }) => {
                   if (newValue && newValue !== null) {
                     setFieldValue('country', newValue.title.ru);
                     if (field === 'geography') {
-                      setPostData({
-                        ...postData,
-                        country_politician_id: newValue.id,
-                        region_politician_id: null,
-                        city_politician_id: null,
+                      setPostData((prevState) => {
+                        const newState = {
+                          ...prevState,
+                          country_politician_id: newValue.id,
+                          region_politician_id: null,
+                          city_politician_id: null,
+                        };
+                        setSortGeography(newState);
+                        setUpdate(!update);
+                        return newState;
                       });
-                      setSortGeography(postData);
-                      setUpdate(!update);
                     }
                     if (field === 'vote') {
-                      setPostData2({
-                        ...postData2,
-                        country_user_id: newValue.id,
-                        region_user_id: null,
-                        city_user_id: null,
+                      setPostData2((prevState) => {
+                        const newState = {
+                          ...prevState,
+                          country_user_id: newValue.id,
+                          region_user_id: null,
+                          city_user_id: null,
+                        };
+                        setSortVote(newState);
+                        setUpdate(!update);
+                        return newState;
                       });
-                      setSortVote(postData2);
-                      setUpdate(!update);
                     }
                     setFieldValue('region', '');
                   } else {
@@ -191,10 +197,24 @@ export const SortDropdown = ({ text, field }) => {
                     if (newValue && newValue !== null) {
                       setFieldValue('region', newValue.title.ru);
                       if (field === 'geography') {
-                        setPostData({ ...postData, region_politician_id: newValue.id, city_politician_id: null });
+                        setPostData((prevState) => {
+                          const newState = {
+                            ...prevState,
+                            region_politician_id: newValue.id,
+                            city_politician_id: null,
+                          };
+                          setSortGeography(newState);
+                          setUpdate(!update);
+                          return newState;
+                        });
                       }
                       if (field === 'vote') {
-                        setPostData2({ ...postData2, region_user_id: newValue.id });
+                        setPostData2((prevState) => {
+                          const newState = { ...prevState, region_user_id: newValue.id, city_user_id: null };
+                          setSortVote(newState);
+                          setUpdate(!update);
+                          return newState;
+                        });
                       }
                       setFieldValue('city', '');
                     } else {
@@ -203,10 +223,12 @@ export const SortDropdown = ({ text, field }) => {
                       if (field === 'geography') {
                         setPostData({ ...postData, region_politician_id: null, city_politician_id: null });
                         setCitiesGeography(false);
+                        setUpdate(!update);
                       }
                       if (field === 'vote') {
                         setPostData2({ ...postData2, region_user_id: null, city_user_id: null });
                         setCitiesVote(false);
+                        setUpdate(!update);
                       }
                     }
                   }}
