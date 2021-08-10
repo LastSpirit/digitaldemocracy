@@ -1,26 +1,18 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { DataGrid, ruRU, GridColumns } from '@material-ui/data-grid';
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
-import { Tooltip } from '@material-ui/core';
+import { DataGrid, GridColumns } from '@material-ui/data-grid';
+import { ThemeProvider } from '@material-ui/core/styles';
+// import { Tooltip } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { RootState } from 'src/store';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { massmediaActionCreators } from 'src/slices/massMediaSlice';
 import styles from './styles.module.scss';
-import { useFetchHistory } from './hooks/useFetchHistory';
+// import { useFetchHistory } from './hooks/useFetchHistory';
 import { WrapperAsyncRequest } from '../../../../components/Loading/WrapperAsyncRequest';
 import { useFetchInfluenceStatistic } from '../../hooks/useFetchInfluenceStatistic';
-
-const theme = createTheme(
-  {
-    palette: {
-      primary: { main: '#1976d2' },
-    },
-  },
-  ruRU
-);
+import { useLocalesThemeMaterial } from '../../../../hooks/useLocalesThemeMaterial';
 
 interface ILink {
   to?: string;
@@ -111,6 +103,7 @@ const mobileSEColumns = (t): GridColumns => {
 
 export const MassMediaInfluenceStatistic = () => {
   const { t } = useTranslation();
+  const theme = useLocalesThemeMaterial();
   const { statisticStatus } = useSelector((s: RootState) => s.massmedia);
   const { fetchStatistic } = useFetchInfluenceStatistic();
   const { resetStatistic } = massmediaActionCreators();

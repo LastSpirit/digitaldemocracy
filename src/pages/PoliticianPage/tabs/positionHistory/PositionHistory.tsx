@@ -1,35 +1,14 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DataGrid, ruRU, GridColumns, enUS, frFR, deDE, itIT, esES, ukUA } from '@material-ui/data-grid';
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { DataGrid, GridColumns } from '@material-ui/data-grid';
+import { ThemeProvider } from '@material-ui/core/styles';
 import { Tooltip } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import styles from './styles.module.scss';
 import { useFetchHistory } from './hooks/useFetchHistory';
 import { WrapperAsyncRequest } from '../../../../components/Loading/WrapperAsyncRequest';
 import { politicianSelectors } from '../../../../slices/politicianSlice';
-
-const locale = (currentLang: string) => {
-  const localeList = [
-    { type: 'ru', lang: ruRU },
-    { type: 'en', lang: enUS },
-    { type: 'fr', lang: frFR },
-    { type: 'it', lang: itIT },
-    { type: 'de', lang: deDE },
-    { type: 'es', lang: esES },
-    { type: 'uk', lang: ukUA }
-  ];
-  return localeList.find((item) => item.type === currentLang);
-};
-
-const theme = (lang: string) => createTheme(
-  {
-    palette: {
-      primary: { main: '#1976d2' },
-    },
-  },
-  locale(lang).lang || enUS
-);
+import { useLocalesThemeMaterial } from '../../../../hooks/useLocalesThemeMaterial';
 
 const TableTooltip: React.FC<{ value: string }> = ({ value }) => (
   <Tooltip title={value}>
@@ -63,9 +42,10 @@ const columns = (t): GridColumns => [
 ];
 
 export const PositionHistory = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { status, fetch } = useFetchHistory();
   const data = useSelector(politicianSelectors.getPositionHistory());
+  const theme = useLocalesThemeMaterial();
   useEffect(() => {
     fetch();
   }, []);
@@ -73,7 +53,7 @@ export const PositionHistory = () => {
   return (
     <div className={styles.container}>
       <WrapperAsyncRequest status={status}>
-        <ThemeProvider theme={theme(i18n.language)}>
+        <ThemeProvider theme={theme}>
           <DataGrid
             rows={data || []}
             columns={columns(t)}
