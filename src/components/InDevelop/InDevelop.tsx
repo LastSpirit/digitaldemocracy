@@ -14,7 +14,7 @@ const InDevelop = () => {
           style={{ color: '#747373' }}
         />
         <span>{t('info.serviceDevelop')}</span>
-        <Link to="/donation">{t('Нажмите, чтобы пожертвовать сервису')}</Link>
+        <Link to="/donation">{t('info.pushDonation')}</Link>
       </div>
     </div>
   );

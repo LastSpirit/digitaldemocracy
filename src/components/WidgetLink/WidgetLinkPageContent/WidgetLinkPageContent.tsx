@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import { Box, Button, Grid, Link, Typography } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import styles from './WidgetLinkPageContent.module.scss';
 import { NewsArrayI, NewTopicsI, widgetLinkSelector } from '../../../slices/widgetLinkSlice';
 import CardSmall from '../../CardSmall/CardSmall';
@@ -17,6 +18,7 @@ interface NewsPropsI {
 }
 
 const WidgetLinkPageContent: FC<NewsPropsI> = ({ news, isMorePages, widgetTitle }) => {
+  const { t } = useTranslation();
   const [loadMoreNews, setLoadMoreNews] = useState(false);
   const { fetch, fetchNewsStatus } = useFetchWidgetLinkData(setLoadMoreNews);
   const page = useSelector(widgetLinkSelector.getPage());
@@ -67,12 +69,12 @@ const WidgetLinkPageContent: FC<NewsPropsI> = ({ news, isMorePages, widgetTitle 
           {fetchNewsStatus !== APIStatus.Loading && (
             <Box className={styles.content} sx={{ mt: 2 }}>
               <Link to="/news" component={RouterLink} style={{ textDecoration: 'none' }}>
-                <Typography className={styles.violetButtonText}>К разделу новостей</Typography>
+                <Typography className={styles.violetButtonText}>{t('buttons.inNewsSection')}</Typography>
               </Link>
               {isMorePages && (
                 <Button>
                   <Typography className={styles.transparentButtonText} onClick={handleGetMorePages}>
-                    Показать больше
+                    {t('buttons.showMore')}
                   </Typography>
                 </Button>
               )}

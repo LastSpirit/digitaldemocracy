@@ -26,7 +26,7 @@ import { useSearchParams } from '../../../../hooks/useSearchParams';
 import { ModalParams } from '../../../../types/routing';
 
 const AuthorInfoBlock: FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const data = useSelector(authorSelectors.getAuthorInfo());
   const { subscribeStatus } = useSelector((s: RootState) => s.author);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
@@ -94,7 +94,7 @@ const AuthorInfoBlock: FC = () => {
                 <p>{data?.description ?? t('info.descriptionMissing')}</p>
                 {data?.number_of_subscribers && (
                   <div className={styles.subscribersBadge}>
-                    {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, t('info.subscriber'))}`}
+                    {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, { one: t('info.subscriber'), many: t('info.subscribers') }, i18n.language)}`}
                   </div>
                 )}
               </div>
@@ -116,7 +116,7 @@ const AuthorInfoBlock: FC = () => {
           <p>{data?.name}</p>
           {data?.number_of_subscribers && (
             <div className={styles.mobSubscribers}>
-              {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, t('info.subscriber'))}`}
+              {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, { one: t('info.subscriber'), many: t('info.subscribers') }, i18n.language)}`}
             </div>
           )}
           <div className={styles.mobInfoBlock}>

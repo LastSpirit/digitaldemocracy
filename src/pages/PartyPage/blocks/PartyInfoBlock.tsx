@@ -24,7 +24,7 @@ import { useSearchParams } from '../../../hooks/useSearchParams';
 import { ModalParams } from '../../../types/routing';
 
 const PartyInfoBlock: FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const data = useSelector(partySelectors.getPartyInfo());
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { isMobile } = useWindowSize();
@@ -61,7 +61,7 @@ const PartyInfoBlock: FC = () => {
                 {/* <p>{data?.description ?? 'Описание отсутствует'}</p> */}
                 {data?.politicians_count && (
                   <div className={styles.subscribersBadge}>
-                    {`${data.politicians_count ?? 0} ${endOfWords(data?.politicians_count, t('info.members'))} ${t('info.partiesInfo')}`}
+                    {`${data.politicians_count ?? 0} ${endOfWords(data?.politicians_count, { one: t('info.member'), many: t('info.members') }, i18n.language)} ${t('info.partiesInfo')}`}
                   </div>
                 )}
               </div>
@@ -90,7 +90,7 @@ const PartyInfoBlock: FC = () => {
           <p>{data?.name}</p>
           {data?.politicians_count && (
             <div className={styles.mobSubscribers}>
-              {`${data?.politicians_count} ${endOfWords(data?.politicians_count, t('info.members'))} ${t('info.partiesInfo')}`}
+              {`${data?.politicians_count} ${endOfWords(data?.politicians_count, { one: t('info.member'), many: t('info.members') }, i18n.language)} ${t('info.partiesInfo')}`}
             </div>
           )}
           <div className={styles.mobInfoBlock}>

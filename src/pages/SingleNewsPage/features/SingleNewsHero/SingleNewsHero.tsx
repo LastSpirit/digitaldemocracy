@@ -19,6 +19,7 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
   const handleToggleIframe = () => {
     setToggleIframe(!toggleIframe);
   };
+
   return (
     <Box className={styles.hero}>
       <Container maxWidth="lg">
@@ -28,7 +29,7 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
             <Box className={styles.newsLinks}>
               <Box className={styles.arrows}>
                 <SubdirectoryArrowRightIcon className={styles.arrowGrey} />
-                {data.is_display
+                {data?.is_display
                   ? (
                     <IconButton className={styles.arrowButton} onClick={handleToggleIframe}>
                       <CallMadeIcon className={styles.arrowLink} />
@@ -91,9 +92,12 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
           </>
         ) : (
           <Box className={styles.warningMessage}>
-            <Typography className={styles.warningMessage__title}>
-              {t('info.clickForWatch')}
-            </Typography>
+            {
+              !data?.is_display &&
+              <Typography className={styles.warningMessage__title}>
+                {t('info.clickForWatch')}
+              </Typography>
+            }
           </Box>
         )}
       </Container>
