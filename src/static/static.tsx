@@ -302,6 +302,21 @@ export const sortRatingPoliticians = (t) => {
   ];
 };
 
+export const sortDropdownPoliticians = [
+  {
+    id: 1,
+    full_title: 'По географии',
+    short_title: 'География',
+    field: 'geography',
+  },
+  {
+    id: 2,
+    full_title: 'По проголосовавшим',
+    short_title: 'Проголосовавшие',
+    field: 'vote',
+  }
+];
+
 export const sortRatingAuthors = (t) => {
   return [
     {

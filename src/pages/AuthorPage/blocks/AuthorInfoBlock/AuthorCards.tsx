@@ -14,6 +14,7 @@ const AuthorCards = ({ data }) => {
   // const trust = data?.rating ? (data?.rating > 50 ? 'Высокое доверие' : 'Низкое доверие') : 'Без рейтинга';
   // const badgeBackground = trust === 'Высокое доверие' ? 'green' : trust === 'Низкое доверие' ? 'red' : null;
   // const badgeColor = trust === 'Высокое доверие' ? '#fff' : '#222';
+  console.log(data?.vote_groups);
   return (
     <div className={styles.cardsBlock}>
       {!isMobile ? (

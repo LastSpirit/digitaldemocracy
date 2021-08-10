@@ -308,7 +308,8 @@ export const politicianSelectors = {
   getPositionsDescription: () => (state: Store) => state.politician.positionDescription,
   getStatistic: () => (state: Store) => state.politician.statistic,
   getBills: () => (state: Store) => state.politician.bills,
-  getPoliticianAdditionalInformation: () => (state: Store) => state.politician.additionalInformation
+  getPoliticianAdditionalInformation: () => (state: Store) => state.politician.additionalInformation,
+  getInfoGrapghicDatas: () => (state: Store) => state.politician.infoGrapghicData,
 };
 
 export const politicianActionCreators = () => {

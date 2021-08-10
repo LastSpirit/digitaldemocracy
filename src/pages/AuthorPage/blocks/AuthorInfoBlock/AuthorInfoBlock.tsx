@@ -36,7 +36,6 @@ const AuthorInfoBlock: FC = () => {
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
-
   const handleClick = () => {
     if (!isAuthenticated) {
       setAuthValue('/login');

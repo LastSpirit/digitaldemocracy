@@ -7,7 +7,8 @@ import { useWindowSize } from '../../../hooks/useWindowSize';
 import { useFetchPoliticians } from '../hooks/useFetchPoliticians';
 import { RootState } from '../../../store/index';
 import { SortBadge } from './SortBadge';
-import { sortRatingPoliticians } from '../../../static/static';
+import { SortDropdown } from './SortDropdown';
+import { sortRatingPoliticians, sortDropdownPoliticians } from '../../../static/static';
 import { userSelectors } from '../../../slices/userSlice';
 import PoliticiansCard from '../PoliticianCard/PoliticiansCard';
 import styles from './Tabs.module.scss';
@@ -25,6 +26,7 @@ const PoliticiansTab = () => {
   useEffect(() => {
     fetch();
   }, [sortDirection, sortField, isAuthenticated]);
+
   return (
     <WrapperAsyncRequest status={status}>
       <div className={styles.newsContainer}>
@@ -32,6 +34,11 @@ const PoliticiansTab = () => {
           {sortRatingPoliticians(t).map(({ id, full_title, short_title, field }) => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
+          <div className={styles.sortDrop}>
+            {sortDropdownPoliticians.map(({ id, full_title, short_title, field }) => {
+              return <SortDropdown key={id} text={!isMobile ? full_title : short_title} field={field} />;
+            })}
+          </div>
         </div>
         {politicians && politicians?.length > 0 ? (
           <div className={styles.news}>
@@ -49,4 +56,4 @@ const PoliticiansTab = () => {
   );
 };
 
-export default PoliticiansTab;
+export default React.memo(PoliticiansTab);

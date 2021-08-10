@@ -14,19 +14,19 @@ const mock = [
   {
     id: 2,
     width: 0,
-    color: '#C9988E',
+    color: '#EB4335',
     zIndex: 4,
   },
   {
     id: 3,
     width: 100,
-    color: '#C4C4C4',
+    color: '#747373',
     zIndex: 3,
   },
   {
     id: 4,
     width: 0,
-    color: '#749C7E',
+    color: '#34A853',
     zIndex: 2,
   },
   {
@@ -43,6 +43,7 @@ interface IProps {
 
 export const PercentsLinearGraphic: FC<IProps> = ({ vote_groups }) => {
   const exist = vote_groups || mock;
+  console.log(exist, 'asdasd');
   const nonEmpty = exist?.filter((it) => it.width !== 0);
   const hiddenValue = 15;
   const widthWithoutCut = nonEmpty?.reduce((acc, rec) => (rec.width > hiddenValue ? acc + rec.width : acc), 0);
