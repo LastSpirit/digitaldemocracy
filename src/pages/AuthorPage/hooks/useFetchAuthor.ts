@@ -26,6 +26,7 @@ export const useFetchAuthor = () => {
     fetchAuthorData({
       onSuccess: (response) => {
         successFetchAuthorData(response);
+        console.log(response, 'response');
       },
       onError: (err) => {
         failFetchAuthorData();
