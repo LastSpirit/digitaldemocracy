@@ -14,7 +14,8 @@ export const RatingDiagram = () => {
   const chartData = data?.voicesByRegion?.map(({ region_with_type, total }) => {
     console.log(region_with_type);
     const { [currentLang]: lang } = JSON.parse(region_with_type);
-    return [lang, total];
+    const { ru } = JSON.parse(region_with_type);
+    return [lang || ru, total];
   });
   const { isMobile } = useWindowSize();
   return (
