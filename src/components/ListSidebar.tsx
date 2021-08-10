@@ -24,7 +24,7 @@ interface SidebarPropsI {
 
 const ListSidebar: FC<SidebarPropsI> = ({ newsTopics, fetch }) => {
   const classes = useStyles();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [resultNewsTopics, setResultNewsTopics] = useState([]);
   const { news_topic_id: { value: topicId, setValue: setTopicId } } = useSearchParams('news_topic_id');
 
@@ -37,7 +37,7 @@ const ListSidebar: FC<SidebarPropsI> = ({ newsTopics, fetch }) => {
     if (newsTopics && newsTopics.length !== 0) {
       setResultNewsTopics([{ id: -1, title: t('news.mainTitleList') }, ...newsTopics]);
     }
-  }, [newsTopics]);
+  }, [newsTopics, i18n.language]);
 
   return (
     <Box sx={{ maxWidth: '270px' }}>
