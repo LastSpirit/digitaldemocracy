@@ -9,10 +9,10 @@ interface InfoBlockProps {
 
 const InfoBlock: FC<InfoBlockProps> = ({ fio }) => {
   const data = useSelector(userSelectors.getUser());
-  const county = data?.country_id?.title ? `${data?.country_id?.title}, ` : '';
-  const region = data?.region_id?.title ? `${data?.region_id?.title}, ` : '';
-  const city = data?.city_id?.title ? `${data?.city_id?.title}` : '';
-  const gender = data?.gender_id?.title ? `${data?.gender_id?.title}` : '';
+  const county = data?.country_id?.title?.ru ? `${data?.country_id?.title?.ru}, ` : '';
+  const region = data?.region_id?.title?.ru ? `${data?.region_id?.title?.ru}, ` : '';
+  const city = data?.city_id?.title?.ru ? `${data?.city_id?.title?.ru}` : '';
+  const gender = data?.gender_id?.title?.ru ? `${data?.gender_id?.title?.ru}` : '';
   return (
     <div className={styles.personBlock}>
       <div className={styles.fio}>
