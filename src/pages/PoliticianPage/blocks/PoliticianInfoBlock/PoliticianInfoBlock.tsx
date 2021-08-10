@@ -32,7 +32,7 @@ interface IProps {
 }
 
 const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const data = useSelector(politicianSelectors.getPoliticianInfo());
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { isMobile } = useWindowSize();
@@ -99,7 +99,7 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                     className={styles.subscribersBadge}
                     style={data?.english_name ? { textAlign: 'end' } : { textAlign: 'start' }}
                   >
-                    {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, t('info.subscriber'))}`}
+                    {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, { one: t('info.subscriber'), many: t('info.subscribers') }, i18n.language)}`}
                   </div>
                 )}
               </div>
@@ -147,7 +147,7 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
           <p>{data?.name}</p>
           {data?.number_of_subscribers && (
             <div className={styles.mobSubscribers}>
-              {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, t('info.subscriber'))}`}
+              {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, { one: t('info.subscriber'), many: t('info.subscribers') }, i18n.language)}`}
             </div>
           )}
           {data?.position && <div className={styles.age}>{data?.position}</div>}
