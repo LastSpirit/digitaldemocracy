@@ -28,7 +28,7 @@ const theme = (lang: string) => createTheme(
       primary: { main: '#1976d2' },
     },
   },
-  locale(lang).lang || ruRU
+  locale(lang).lang || enUS
 );
 
 const TableTooltip: React.FC<{ value: string }> = ({ value }) => (
