@@ -30,15 +30,17 @@ const CardSmall: FC<CardSmallProps> = ({
   image,
 }) => {
   const history = useHistory();
-  const handleNews = () => {
+  const handleNews = (e) => {
     const newPath = matchPath(`/singleNews/${short_link}`, { path: '/singleNews/:link' });
     history.push(newPath.url);
   };
-  const handleMedia = () => {
+  const handleMedia = (e) => {
+    e.stopPropagation();
     const newPath = matchPath(`/mass-media/${media.short_link}`, { path: '/mass-media/:link' });
     history.push(newPath.url);
   };
-  const handleAuthor = () => {
+  const handleAuthor = (e) => {
+    e.stopPropagation();
     const newPath = matchPath(`/author/${author.short_link}`, { path: '/author/:link' });
     history.push(newPath.url);
   };
@@ -77,20 +79,16 @@ const CardSmall: FC<CardSmallProps> = ({
             <Typography className={classes.bigTitle}>{title}</Typography>
           </Box>
           <Box className={classes.cardNames}>
-            {
-              media?.name && (
-                <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleMedia}>
-                  {media?.name}
-                </Typography>
-              )
-            }
-            {
-              author?.name && (
-                <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleAuthor}>
-                  {author?.name}
-                </Typography>
-              )
-            }
+            {media?.name && (
+              <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleMedia}>
+                {media?.name}
+              </Typography>
+            )}
+            {author?.name && (
+              <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleAuthor}>
+                {author?.name}
+              </Typography>
+            )}
           </Box>
         </Box>
         <Box className={classes.imageContainer} onClick={handleNews}>
