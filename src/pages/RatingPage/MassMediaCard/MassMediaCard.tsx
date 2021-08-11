@@ -70,7 +70,7 @@ const MassMediaCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, sho
           { '-disabled': !isAuthenticated },
         ])}
       >
-        <Tooltip title={isAuthenticated ? '' : t('error.notAuth')}>
+        <Tooltip title={isAuthenticated ? '' : t('errors.notAuth')}>
           <span>
             {/* eslint-disable-next-line no-nested-ternary */}
             {status === APIStatus.Loading ? <Loading /> : is_subscribed ? t('buttons.unsubscribe') : t('buttons.subscribe')}

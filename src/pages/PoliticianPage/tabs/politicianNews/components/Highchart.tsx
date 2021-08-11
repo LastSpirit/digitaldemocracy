@@ -87,7 +87,7 @@ export const Highchart = () => {
       },
       {
         type: 'area',
-        name: 'Всего электората',
+        name: t('info.totalElectorate') || 'Всего электората',
         data: [
           ...(chartData?.politicianVotingElectorateChange?.map((item) => ({
             x: item[0],
@@ -97,7 +97,7 @@ export const Highchart = () => {
         ],
         lineColor: 'rgb(128, 127, 127)',
         tooltip: {
-          pointFormat: '{series.name}: {point.y}<br/>Проголосовало: {point.votes}',
+          pointFormat: `{series.name}: {point.y}<br/>${t('info.voted')}: {point.votes}`,
         },
       },
     ],

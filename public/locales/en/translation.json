@@ -20,7 +20,7 @@
   },
   "cookies": {
     "titleCookies": "Our web-site uses cookie.",
-    "descriptionCookies": "This web-site uses cookie for analytics, personalization and advertising. Continuing to view it you agree with the use of cookie. For more information press here."
+    "descriptionCookies": "This web-site uses cookie for analytics, personalization and advertising. Continuing to view it you agree with the use of cookie."
   },
   "news": {
     "titleList": "Subjects",
@@ -190,8 +190,8 @@
   "info": {
     "resetZoom": "Reset zoom",
     "place": "Place",
-    "subscriber": "follower",
-    "subscribers": "followers",
+    "subscriber": "subscriber",
+    "subscribers": "subscribers",
     "member": "member",
     "members": "members",
     "partiesInfo": "of party",
@@ -207,8 +207,10 @@
     "newsNotFoundAuthor": "No news available",
     "newsSelectPeriod": "The news for the indicated period will be displayed here",
     "linkOnSource": "Source link",
+    "linkOnPolitician": "Politician link",
+    "linkOnNews": "News link",
     "politicianFIO": "Politician name",
-    "influences": "Influence",
+    "influences": "influence",
     "references": "Total mentions",
     "dateView": "View date",
     "serviceDevelop": "We are sorry, that service part is under development",
@@ -226,8 +228,8 @@
     "warningWatchNews": "Review of the materials mentioned below is performed in the internal browser at the source site. Digital Democracy administration bears no responsibility for their contents.",
     "clickForWatch": "Click to shift to the source site for the news review",
     "titleOpinionNews": "Your opinion on the news",
-    "titleTrustPolitician": "Do you trust this politician? ",
-    "titleTrustPoliticians": "Do you trust these politicians?",
+    "titleTrustPolitician": "Do you trust this politician",
+    "titleTrustPoliticians": "Do you trust these politicians",
     "titleTrustMassMedia": "Do you trust the media as the news source?",
     "titleTrustAuthor": "Do you trust the news author?",
     "author": "Author",
@@ -253,7 +255,7 @@
     "titleSuggestInfo": "Suggested information",
     "linkForSubmit": "Confirmation link",
     "titleSendSuggest": "Your suggestion has been sent for consideration",
-    "titleStatisticRegion": "СRating statistics by regions"
+    "titleStatisticRegion": "Rating statistics by regions"
   },
   "profile": {
     "warningMessage": "All your profile personal date may be used only for verification of your profile and for impersonal statistics at the present source. This data will not be used otherwise or passed to anybody.",
