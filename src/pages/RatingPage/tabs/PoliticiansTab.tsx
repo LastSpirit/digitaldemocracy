@@ -30,15 +30,15 @@ const PoliticiansTab = () => {
   return (
     <WrapperAsyncRequest status={status}>
       <div className={styles.newsContainer}>
+        <div className={styles.sortDrop}>
+          {sortDropdownPoliticians(t).map(({ id, full_title, short_title, field }) => {
+            return <SortDropdown key={id} text={!isMobile ? full_title : short_title} field={field} />;
+          })}
+        </div>
         <div className={styles.sortRow}>
           {sortRatingPoliticians(t).map(({ id, full_title, short_title, field }) => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
-          <div className={styles.sortDrop}>
-            {sortDropdownPoliticians(t).map(({ id, full_title, short_title, field }) => {
-              return <SortDropdown key={id} text={!isMobile ? full_title : short_title} field={field} />;
-            })}
-          </div>
         </div>
         {politicians && politicians?.length > 0 ? (
           <div className={styles.news}>
