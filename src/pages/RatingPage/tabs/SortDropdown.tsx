@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { InputLabel, Autocomplete } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { Formik } from 'formik';
-import styles from '../../ChangeProfilePage/ChangeProfilePage.module.scss';
+import styles from './Tabs.module.scss';
 import { useFetchPoliticians } from '../hooks/useFetchPoliticians';
 import { useFetchSort } from '../hooks/useFetchSort';
 import { ratingActionCreators } from '../../../slices/ratingSlice';
