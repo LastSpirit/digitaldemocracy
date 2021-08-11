@@ -51,7 +51,7 @@ const PoliticianCards = () => {
                   backgroundColor: badgeColorChanger(data?.rating),
                 }}
               >
-                <div className={styles.mobText}>{data?.place ? `${t('info.place')} ${data?.place}` : t('info.withoutRating')}</div>
+                <div className={styles.text}>{data?.place ? `${t('info.place')} ${data?.place}` : t('info.withoutRating')}</div>
               </div>
               {data?.rating && (<div className={styles.mobPercent}>{data?.rating} %</div>)}
             </div>
