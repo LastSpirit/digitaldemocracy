@@ -206,7 +206,8 @@ const Footer: FC = (props) => {
                     alignItems: 'center',
                     cursor: 'pointer',
                   }}
-                  onClick={() => (!isAuthenticated && title === t('footer.menu.signInUp') ? setAuthValue(to) : push(to))}
+                  onClick={() =>
+                    !isAuthenticated && title === t('footer.menu.signInUp') ? setAuthValue(to) : push(to)}
                 >
                   {icon}
                   <span style={{ marginTop: '10px', fontSize: '12px' }}>{title}</span>
@@ -328,19 +329,27 @@ const Footer: FC = (props) => {
               }}
               xs={12}
             >
-              <Button
+              <Link
+                href={'/donation'}
                 sx={{
                   border: '1px solid #B0B0B0',
                   borderRadius: 100,
                   paddingTop: 3,
                   paddingBottom: 3,
+                  padding: '30px !important',
                   fontSize: '20px',
                   width: 400,
                   color: '#222222',
+                  textAlign: 'center',
+                  textDecoration: 'none !important',
+                  whiteSpace: 'nowrap',
+                  '&:hover': {
+                    backgroundColor: 'rgba(86, 100, 210, 0.04)'
+                  }
                 }}
               >
                 {t('buttons.helpSite')}
-              </Button>
+              </Link>
             </Grid>
           </Grid>
           {withNotification && (
@@ -356,7 +365,8 @@ const Footer: FC = (props) => {
                 {`* ${
                   pathname === '/'
                     ? t('footer.descriptionsFooter.variant1') || 'отображает только мнение пользователей данного сайта'
-                    : t('footer.descriptionsFooter.variant2') || 'рейтинг отображает мнение пользователей Digital Democracy'
+                    : t('footer.descriptionsFooter.variant2') ||
+                      'рейтинг отображает мнение пользователей Digital Democracy'
                 }`}
               </Typography>
             </>
