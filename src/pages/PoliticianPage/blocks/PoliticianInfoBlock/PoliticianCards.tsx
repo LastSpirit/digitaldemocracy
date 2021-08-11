@@ -15,10 +15,10 @@ const PoliticianCards = () => {
   const history = useHistory();
   const badgeColorChanger = (percent, type) => {
     if (type === 'ground') {
-      if (!!percent && percent >= 0 && percent <= 20) {
+      if (!!percent && percent >= 0 && percent <= 40) {
         return '#FFBFBA';
       }
-      if (!!percent && percent > 20 && percent <= 60) {
+      if (!!percent && percent > 40 && percent <= 60) {
         return '#BDBDBD';
       }
       if (!!percent && percent > 60 && percent <= 100) {
@@ -28,13 +28,19 @@ const PoliticianCards = () => {
     }
     if (type === 'text') {
       if (!!percent && percent >= 0 && percent <= 20) {
+        return '#BF381B';
+      }
+      if (!!percent && percent > 20 && percent <= 40) {
         return '#EC4132';
       }
-      if (!!percent && percent > 20 && percent <= 60) {
+      if (!!percent && percent > 40 && percent <= 60) {
         return '#757474';
       }
-      if (!!percent && percent > 60 && percent <= 100) {
+      if (!!percent && percent > 60 && percent <= 80) {
         return '#31AA52';
+      }
+      if (!!percent && percent > 80 && percent <= 100) {
+        return '#1F832E';
       }
       return '#757474';
     }
