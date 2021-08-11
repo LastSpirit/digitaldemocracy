@@ -93,7 +93,7 @@ export const SortDropdown = ({ text, field }) => {
         return (
           <form
             onSubmit={handleSubmit}
-            style={{ width: '180px', marginRight: '15px', display: 'flex' }}
+            style={{ width: '180px', marginRight: '15px', display: 'flex', flexDirection: 'column' }}
             className={styles.mainForm}
             onReset={handleReset}
             noValidate
