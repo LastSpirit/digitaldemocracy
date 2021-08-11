@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { badgeColorChanger } from 'src/utils/badgeColorChanger';
+// import { badgeColorChanger } from 'src/utils/badgeColorChanger';
 import styles from '../PartyPage.module.scss';
 import { PercentsLinearGraphic } from './PercentsLinearGraphic';
 import { useWindowSize } from '../../../hooks/useWindowSize';
@@ -13,6 +13,39 @@ const PartyCards = ({ data }) => {
   const badgeBackground = trust === t('info.highTrust') ? 'green' : trust === t('info.lowTrust') ? 'red' : null;
   const badgeColor = trust === t('info.highTrust') ? '#fff' : '#222';
   const { isMobile } = useWindowSize();
+  const badgeColorChanger = (percent, type) => {
+    if (type === 'ground') {
+      if (!!percent && percent >= 0 && percent <= 40) {
+        return '#FFBFBA';
+      }
+      if (!!percent && percent > 40 && percent <= 60) {
+        return '#BDBDBD';
+      }
+      if (!!percent && percent > 60 && percent <= 100) {
+        return '#D4F5DD';
+      }
+      return '#BDBDBD';
+    }
+    if (type === 'text') {
+      if (!!percent && percent >= 0 && percent <= 20) {
+        return '#BF381B';
+      }
+      if (!!percent && percent > 20 && percent <= 40) {
+        return '#EC4132';
+      }
+      if (!!percent && percent > 40 && percent <= 60) {
+        return '#757474';
+      }
+      if (!!percent && percent > 60 && percent <= 80) {
+        return '#31AA52';
+      }
+      if (!!percent && percent > 80 && percent <= 100) {
+        return '#1F832E';
+      }
+      return '#757474';
+    }
+    return '#757474';
+  };
   return (
     <div className={styles.cardsBlock}>
       {!isMobile ? (
@@ -22,14 +55,21 @@ const PartyCards = ({ data }) => {
               <div
                 className={data?.place && data?.rating ? styles.badge : `${styles.badge} ${styles.badge__nonRaiting}`}
                 style={{
-                  backgroundColor: data?.place && data?.rating ? badgeColorChanger(data?.rating) : '#C4C4C4',
+                  backgroundColor: data?.place && data?.rating ? badgeColorChanger(data?.rating, 'ground') : '#C4C4C4',
                 }}
               >
-                <div className={styles.text}>{data?.place && data?.rating ? `${t('info.place')} ${data?.place}` : t('info.withoutRating')}</div>
+                <div
+                  className={styles.text}
+                  style={{
+                    color: data?.place && data?.rating ? badgeColorChanger(data?.rating, 'text') : '#C4C4C4',
+                  }}
+                >
+                  {data?.place && data?.rating ? `${t('info.place')} ${data?.place}` : t('info.withoutRating')}
+                </div>
               </div>
-              { data?.place && data?.rating && (<div className={styles.percent}>{data?.rating} %</div>) }
+              {data?.place && data?.rating && <div className={styles.percent}>{data?.rating} %</div>}
             </div>
-            { data?.place && data?.rating && (<PercentsLinearGraphic vote_groups={data?.vote_groups} />) }
+            {data?.place && data?.rating && <PercentsLinearGraphic vote_groups={data?.vote_groups} />}
           </div>
         </div>
       ) : (
@@ -37,16 +77,25 @@ const PartyCards = ({ data }) => {
           <div className={styles.mobSecondCard}>
             <div className={styles.mobTrustRow}>
               <div
-                className={data?.place && data?.rating ? styles.mobBadge : `${styles.mobBadge} ${styles.mobBadge__nonRaiting}`}
+                className={
+                  data?.place && data?.rating ? styles.mobBadge : `${styles.mobBadge} ${styles.mobBadge__nonRaiting}`
+                }
                 style={{
-                  backgroundColor: data?.place && data?.rating ? badgeColorChanger(data?.rating) : '#C4C4C4',
+                  backgroundColor: data?.place && data?.rating ? badgeColorChanger(data?.rating, 'ground') : '#C4C4C4',
                 }}
               >
-                <div className={styles.mobText}>{`${t('info.place')} ${data?.place}`}</div>
+                <div
+                  className={styles.mobText}
+                  style={{
+                    color: data?.place && data?.rating ? badgeColorChanger(data?.rating, 'text') : '#C4C4C4',
+                  }}
+                >
+                  {`${t('info.place')} ${data?.place}`}
+                </div>
               </div>
-              { data?.place && data?.rating && (<div className={styles.mobPercent}>{data?.rating} %</div>) }
+              {data?.place && data?.rating && <div className={styles.mobPercent}>{data?.rating} %</div>}
             </div>
-            { data?.place && data?.rating && (<PercentsLinearGraphic vote_groups={data?.vote_groups} />) }
+            {data?.place && data?.rating && <PercentsLinearGraphic vote_groups={data?.vote_groups} />}
           </div>
         </div>
       )}
