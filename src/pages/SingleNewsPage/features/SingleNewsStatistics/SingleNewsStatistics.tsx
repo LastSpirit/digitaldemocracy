@@ -58,17 +58,19 @@ const SingleNewsStatistics: FC<StatisticsPropsI> = ({ author, media, politicians
                     );
                   })}
                 </Box>
-                <div>
-                  <div style={{ fontSize: '15px', fontFamily: 'Helvetica', color: '#7a7a7a' }}>
-                    {show ? t('buttons.collapse') : t('buttons.showMore')}
-                    <IconButton
-                      onClick={() => setShow(!show)}
-                      className={show ? styles.showMoreButtonOpen : styles.showMoreButton}
-                    >
-                      <ArrowDownwardIcon />
-                    </IconButton>
+                {politicians?.length >= 4 ? (
+                  <div>
+                    <div style={{ fontSize: '15px', fontFamily: 'Helvetica', color: '#7a7a7a' }}>
+                      {show ? t('buttons.collapse') : t('buttons.showMore')}
+                      <IconButton
+                        onClick={() => setShow(!show)}
+                        className={show ? styles.showMoreButtonOpen : styles.showMoreButton}
+                      >
+                        <ArrowDownwardIcon />
+                      </IconButton>
+                    </div>
                   </div>
-                </div>
+                ) : null}
               </Box>
             )}
             {media && (

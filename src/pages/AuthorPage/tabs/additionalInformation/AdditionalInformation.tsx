@@ -18,23 +18,29 @@ export const AdditionalInformationAuthor = () => {
 
   useEffect(() => {
     fetch();
-  }, [data?.[0].id]);
+  }, [data?.[0]?.id]);
 
   return (
     <div className={styles.container}>
       <WrapperAsyncRequest status={status}>
-        {data?.map((item) => {
-          return (
-            <div key={item.id} className={styles.informationBlock}>
-              <div className={styles.link}>
-                <p>{t('info.linkOnSource')}:</p>
-                <a href={item.link} className={styles.linkContent}>
-                  {item.title}
-                </a>
+        {data?.length > 0 ? (
+          data?.map((item) => {
+            return (
+              <div key={item.id} className={styles.informationBlock}>
+                <div className={styles.link}>
+                  <p>{t('info.linkOnSource')}:</p>
+                  <a href={item.link} className={styles.linkContent}>
+                    {item.title}
+                  </a>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        ) : (
+          <div className={styles.empty}>
+            <h3>{t('info.noData')}</h3>
+          </div>
+        )}
       </WrapperAsyncRequest>
     </div>
   );
