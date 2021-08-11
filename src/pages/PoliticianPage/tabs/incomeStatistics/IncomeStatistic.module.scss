@@ -103,7 +103,6 @@ iframe {
       justify-content: space-between;
 
       width: 237px;
-      height: 73px;
 
       p {
         margin: 0;
@@ -112,7 +111,6 @@ iframe {
       @media screen and (max-width: $mobileScreen) {
         width: 100%;
         margin-top: 9px;
-
         font-size: 14px;
       }
     }

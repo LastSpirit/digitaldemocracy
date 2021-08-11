@@ -37,12 +37,14 @@ export const Promises = () => {
                   <span>{text}</span>
                   <div className={styles.link}>
                     <p>{t('info.linkOnSource')}:</p>
-                    <IconButton className={styles.arrowButton} onClick={() => window.open('https://google.com')}>
-                      <CallMadeIcon className={styles.arrowLink} />
-                    </IconButton>
-                    <IconButton className={styles.arrowButton} onClick={() => window.open('https://google.com')}>
-                      <YouTubeIcon className={styles.youtube} />
-                    </IconButton>
+                    <div className={styles.buttons}>
+                      <IconButton className={styles.arrowButton} onClick={() => window.open('https://google.com')}>
+                        <CallMadeIcon className={styles.arrowLink} />
+                      </IconButton>
+                      <IconButton className={styles.arrowButton} onClick={() => window.open('https://google.com')}>
+                        <YouTubeIcon className={styles.youtube} />
+                      </IconButton>
+                    </div>
                   </div>
                 </div>
                 <div className={styles.votes}>
