@@ -30,7 +30,7 @@ const columns = (t): GridColumns => [
   // eslint-disable-next-line react/destructuring-assignment
   {
     field: 'influence',
-    headerName: t('info.influences') || '% Влияния',
+    headerName: `% ${t('info.influences')}` || '% Влияния',
     width: 200,
     renderCell: (params: any) => params.value || '-',
   },
@@ -55,7 +55,7 @@ const mobileColumns = (t): GridColumns => [
   // eslint-disable-next-line react/destructuring-assignment
   {
     field: 'influence',
-    headerName: t('info.influences') || '% Влияния',
+    headerName: `% ${t('info.influences')}` || '% Влияния',
     width: 180,
     renderCell: (params: any) => params.value || '-',
   },

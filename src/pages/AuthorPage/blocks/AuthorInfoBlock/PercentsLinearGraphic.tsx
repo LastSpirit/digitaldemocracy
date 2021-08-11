@@ -43,7 +43,6 @@ interface IProps {
 
 export const PercentsLinearGraphic: FC<IProps> = ({ vote_groups }) => {
   const exist = vote_groups || mock;
-  console.log(exist, 'asdasd');
   const nonEmpty = exist?.filter((it) => it.width !== 0);
   const hiddenValue = 15;
   const widthWithoutCut = nonEmpty?.reduce((acc, rec) => (rec.width > hiddenValue ? acc + rec.width : acc), 0);
