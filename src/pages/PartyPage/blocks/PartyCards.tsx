@@ -24,7 +24,7 @@ const PartyCards = ({ data }) => {
       if (!!percent && percent > 60 && percent <= 100) {
         return '#D4F5DD';
       }
-      return '#BDBDBD';
+      return 'white';
     }
     if (type === 'text') {
       if (!!percent && percent >= 0 && percent <= 20) {
@@ -61,7 +61,7 @@ const PartyCards = ({ data }) => {
                 <div
                   className={styles.text}
                   style={{
-                    color: data?.place && data?.rating ? badgeColorChanger(data?.rating, 'text') : '#C4C4C4',
+                    color: data?.place && data?.rating ? badgeColorChanger(data?.rating, 'text') : 'white',
                   }}
                 >
                   {data?.place && data?.rating ? `${t('info.place')} ${data?.place}` : t('info.withoutRating')}
