@@ -12,7 +12,6 @@ export const RatingDiagram = () => {
   const currentLang = i18n.language;
   const data = useSelector(politicianSelectors.getRatingStatistic());
   const chartData = data?.voicesByRegion?.map(({ region_with_type, total }) => {
-    console.log(region_with_type);
     const { [currentLang]: lang } = JSON.parse(region_with_type);
     const { ru } = JSON.parse(region_with_type);
     return [lang || ru, total];

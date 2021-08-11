@@ -23,7 +23,8 @@ import { Loading } from '../../../Loading/Loading';
 
 const AddressFormRegister: FC = (props) => {
   const isMountedRef = useIsMountedRef();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const {
     fetchAddresses,
     addresses: options,
@@ -60,7 +61,7 @@ const AddressFormRegister: FC = (props) => {
   return (
     <>
       <Typography color="#747373" gutterBottom>
-        { t('registration.questions.first') || 'Где вы имеете право голоса?' }
+        {t('registration.questions.first') || 'Где вы имеете право голоса?'}
       </Typography>
       <Box
         sx={{
@@ -108,7 +109,7 @@ const AddressFormRegister: FC = (props) => {
                 <Box sx={{ mt: 0.5 }}>
                   <Autocomplete
                     fullWidth
-                    options={countries.map((it) => it.title) || []}
+                    options={countries.map((it) => it.title?.[currentLang] || it.title?.ru) || []}
                     noOptionsText={t('info.noVariants') || 'Нет доступных вариантов'}
                     onSelect={(e) => {
                       handleChange(e);
@@ -118,7 +119,9 @@ const AddressFormRegister: FC = (props) => {
                       setFieldValue('city_title', '');
                       setFieldValue('region_title', '');
                       const isValidCountry = countries?.find(
-                        (it) => it?.title?.toLowerCase() === newValue?.toLowerCase()
+                        (it) =>
+                          (it?.title?.[currentLang]?.toLowerCase() || it.title?.ru?.toLowerCase()) ===
+                          newValue?.toLowerCase()
                       );
                       if (isValidCountry) {
                         fetchRegions(isValidCountry?.id);
@@ -148,12 +151,16 @@ const AddressFormRegister: FC = (props) => {
                 {withCountry && regions.length !== 0 && (
                   <Autocomplete
                     fullWidth
-                    options={regions.map((item) => item.title) || []}
+                    options={regions.map((item) => item.title?.[currentLang] || item.title?.ru) || []}
                     noOptionsText={t('info.noVariants') || 'Нет доступных вариантов'}
                     onInputChange={(value, newValue) => {
                       setFieldValue('region_title', newValue);
                       setFieldValue('city_title', '');
-                      const isValidRegion = regions?.find((it) => it?.title?.toLowerCase() === newValue?.toLowerCase());
+                      const isValidRegion = regions?.find(
+                        (it) =>
+                          (it?.title?.[currentLang]?.toLowerCase() || it.title?.ru?.toLowerCase()) ===
+                          newValue?.toLowerCase()
+                      );
                       if (isValidRegion) {
                         fetchCities(isValidRegion.id);
                         setWithRegion(true);
@@ -182,11 +189,15 @@ const AddressFormRegister: FC = (props) => {
                 {withRegion && cities.length !== 0 && regions.length !== 0 && (
                   <Autocomplete
                     fullWidth
-                    options={cities.map((item) => item.title) || []}
+                    options={cities.map((item) => item.title?.[currentLang] || item.title?.ru) || []}
                     noOptionsText={t('info.noVariants') || 'Нет доступных вариантов'}
                     onInputChange={(value, newValue) => {
                       setFieldValue('city_title', newValue);
-                      const isValidCity = cities?.find((it) => it?.title?.toLowerCase() === newValue?.toLowerCase());
+                      const isValidCity = cities?.find(
+                        (it) =>
+                          (it?.title?.[currentLang]?.toLowerCase() || it.title?.ru?.toLowerCase()) ===
+                          newValue?.toLowerCase()
+                      );
                       if (isValidCity) {
                         setWithCity(true);
                       } else {
