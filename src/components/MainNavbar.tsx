@@ -45,6 +45,7 @@ const linksData = (t) => [
 ];
 
 const linksToLink = (isAuth, pathname) => ({ title, mr, to, showIsAuth = false }, index) => {
+  const activeLink = pathname.split('/')[1] === to.split('/')[1];
   if (showIsAuth) {
     if (isAuth) {
       return (
@@ -58,11 +59,13 @@ const linksToLink = (isAuth, pathname) => ({ title, mr, to, showIsAuth = false }
           sx={{
             whiteSpace: 'nowrap',
             marginRight: mr,
-            fontSize: 14,
+            fontFamily: 'HelveticaNeueCyr, sans-serif',
+            fontSize: 18,
             sm: {
               fontSize: 12,
             },
-            color: pathname.startsWith(to) ? '#363557' : ''
+            color: activeLink ? '#363557' : '',
+            // fontWeight: activeLink ? 'bold' : 'normal',
           }}
         >
           {title}
@@ -83,11 +86,13 @@ const linksToLink = (isAuth, pathname) => ({ title, mr, to, showIsAuth = false }
       sx={{
         whiteSpace: 'nowrap',
         marginRight: mr,
-        fontSize: 14,
+        fontFamily: 'HelveticaNeueCyr, sans-serif',
+        fontSize: 18,
         sm: {
           fontSize: 12,
         },
-        color: pathname.startsWith(to) ? '#363557' : ''
+        color: activeLink ? '#363557' : '',
+        // fontWeight: activeLink ? 'bold' : 'normal',
       }}
     >
       {title}

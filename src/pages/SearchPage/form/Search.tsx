@@ -62,7 +62,6 @@ export const Search = () => {
                       ),
                       sx: {
                         borderRadius: '70px 0 0 70px',
-                        paddingLeft: '10px',
                       },
                       className: styles.searchInput
                     }}
