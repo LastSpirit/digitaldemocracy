@@ -1,11 +1,11 @@
 import React, { FC, useEffect } from 'react';
-import { Link as RouterLink, useHistory, useLocation, Redirect } from 'react-router-dom';
+import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { AppBar, Box, Button, Link, Toolbar, Typography, Container, Select, MenuItem, FormControl, TextField, InputAdornment } from '@material-ui/core';
+import { AppBar, Box, Button, Link, Toolbar, Typography, Container, Select, MenuItem, FormControl } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
-import Search from '../icons/Search';
-import InputTextField from './widgets/inputs/InputTextField';
+// import Search from '../icons/Search';
+// import InputTextField from './widgets/inputs/InputTextField';
 import Brand from '../icons/Brand';
 import { useWindowSize } from '../hooks/useWindowSize';
 import { NewPerson } from '../icons/Person';
@@ -38,7 +38,7 @@ const linksData = (t) => [
   {
     to: '/suggestion',
     title: t('buttons.suggestion'),
-    mr: 0,
+    mr: 3,
     showIsAuth: true,
   },
 ];
@@ -127,13 +127,13 @@ const MainNavbar: FC = () => {
     }
   };
 
-  const handleSearchEnter = (event) => {
-    // event.preventDefault();
-    if (event.charCode === 13) {
-      push('/search');
-    }
-    return null;
-  };
+  // const handleSearchEnter = (event) => {
+  //   // event.preventDefault();
+  //   if (event.charCode === 13) {
+  //     push('/search');
+  //   }
+  //   return null;
+  // };
 
   useEffect(() => {
     setRout({ path: pathname, length });
@@ -256,7 +256,12 @@ const MainNavbar: FC = () => {
                   </Box>
                 */}
               </Box>
-              <Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
                 {!isMobile && (
                   <Box>
                     {links.map(linksToLink(isAuthenticated, pathname))}
@@ -267,6 +272,7 @@ const MainNavbar: FC = () => {
                     backgroundColor: 'background.paper',
                     p: '5px',
                     display: 'flex',
+                    mr: 3,
                   }}
                 >
                   {
@@ -279,18 +285,14 @@ const MainNavbar: FC = () => {
                         paddingRight: 2,
                         paddingLeft: 2,
                         borderRadius: 100,
-                        mr: '10px',
+                        mr: 2,
                         textDecoration: 'none',
                       }}
                       size="small"
                       variant="outlined"
-                      onClick={() => {
-                        if (pathname !== '/suggestion') {
-                          handleClick(isAuthenticated ? '/suggestion' : 'login');
-                        }
-                      }}
+                      onClick={() => handleClick('login')}
                     >
-                      {isAuthenticated ? t('buttons.suggestion') || 'Предложить новость / политика' : t('buttons.signInButtons') || 'Вход'}
+                      {t('buttons.signInButtons')}
                     </Button>
                   }
                   <Button
@@ -301,9 +303,9 @@ const MainNavbar: FC = () => {
                     }
                     sx={{
                       backgroundColor: 'white',
-                      p: 1,
-                      paddingRight: 2,
-                      paddingLeft: 2,
+                      p: isAuthenticated ? 0 : 1,
+                      paddingRight: isAuthenticated ? 0 : 2,
+                      paddingLeft: isAuthenticated ? 0 : 2,
                       borderRadius: 100,
                       mr: 0,
                     }}
