@@ -16,6 +16,7 @@ import { userActionCreators, userSelectors } from '../slices/userSlice';
 import { langSelectors } from '../slices/langSlice';
 import { useLangData } from '../hooks/useLangData';
 import { getItem } from '../lib/localStorageManager';
+// import { Search } from '../pages/SearchPage/form/Search';
 
 import './MainNavbar.scss';
 
@@ -61,7 +62,7 @@ const linksToLink = (isAuth, pathname) => ({ title, mr, to, showIsAuth = false }
             sm: {
               fontSize: 12,
             },
-            color: pathname === to ? '#363557' : ''
+            color: pathname.startsWith(to) ? '#363557' : ''
           }}
         >
           {title}
@@ -86,7 +87,7 @@ const linksToLink = (isAuth, pathname) => ({ title, mr, to, showIsAuth = false }
         sm: {
           fontSize: 12,
         },
-        color: pathname === to ? '#363557' : ''
+        color: pathname.startsWith(to) ? '#363557' : ''
       }}
     >
       {title}

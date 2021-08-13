@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Button, TextField, InputLabel, InputAdornment, IconButton, Container } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import { Formik } from 'formik';
@@ -7,9 +8,11 @@ import { BackButton } from '../../../components/BackButton/BackButton';
 import styles from '../SearchPage.module.scss';
 
 export const Search = () => {
+  const { pathname } = useLocation();
+
   return (
     <Container className={styles.container}>
-      <BackButton />
+      { pathname !== '/' && <BackButton /> }
       <div className={styles.search}>
         <Formik
           initialValues={{
@@ -42,9 +45,10 @@ export const Search = () => {
                   <TextField
                     type="text"
                     id="search"
-                    variant={'outlined'}
+                    variant="outlined"
                     fullWidth
-                    label="Поиск"
+                    // label="Поиск"
+                    placeholder="Поиск"
                     value={values.search}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -56,6 +60,11 @@ export const Search = () => {
                           </IconButton>
                         </InputAdornment>
                       ),
+                      sx: {
+                        borderRadius: '70px 0 0 70px',
+                        paddingLeft: '10px',
+                      },
+                      className: styles.searchInput
                     }}
                   />
                 </div>
@@ -63,6 +72,17 @@ export const Search = () => {
             );
           }}
         </Formik>
+        <Button
+          variant="outlined"
+          className={styles.searchButton}
+          sx={{
+            backgroundColor: '#363557',
+            borderRadius: '0 70px 70px 0',
+            width: '15%',
+          }}
+        >
+          {'Поиск'}
+        </Button>
       </div>
     </Container>
   );
