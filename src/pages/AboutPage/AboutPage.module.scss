@@ -9,7 +9,7 @@
     padding: 148px 270px;
 
     @media screen and (max-width: 1024px) {
-      padding: 20px 20px;
+      padding: 20px 80px;
       width: 100%;
     }
 
@@ -24,7 +24,7 @@
     }
 
     @media screen and (max-width: 1024px) {
-      padding: 20px 20px;
+      padding: 20px 80px;
       width: 100%;
     }
     p {
@@ -44,7 +44,14 @@
     font-size: 18px;
     line-height: 21px;
     text-transform: uppercase;
-
+    .text_link {
+      text-decoration: none;
+      color: white;
+    }
     color: #ffffff;
+    @media screen and (max-width: 430px) {
+      width: 250px;
+      height: 50px;
+    }
   }
 }

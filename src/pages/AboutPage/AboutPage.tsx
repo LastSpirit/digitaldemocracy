@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { Container, Button } from '@material-ui/core';
 import { useWindowSize } from 'src/hooks/useWindowSize';
+import { Link } from 'react-router-dom';
+import Pdf from '../../theme/DD.pdf';
 import styles from './AboutPage.module.scss';
 
 const AboutPage = () => {
@@ -37,7 +39,11 @@ const AboutPage = () => {
           <a href="mailto:info@digitaldemocracy.ru"> info@digitaldemocracy.ru</a>
         </p>
         <a download href="/">
-          <Button className={styles.button}>Узнать подробнее</Button>
+          <Button className={styles.button}>
+            <a className={styles.text_link} href={Pdf} download>
+              Узнать подробнее
+            </a>
+          </Button>
         </a>
       </div>
     </div>

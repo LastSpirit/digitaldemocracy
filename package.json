@@ -54,6 +54,7 @@
     "@react-firebase/auth": "^0.2.10",
     "@react-pdf/renderer": "^1.6.13",
     "@reduxjs/toolkit": "^1.5.0",
+    "@types/pdf": "0.0.31",
     "apexcharts": "^3.26.2",
     "axios": "^0.21.1",
     "axios-mock-adapter": "^1.19.0",
