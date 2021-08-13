@@ -1,14 +1,14 @@
 import React, { FC, useEffect } from 'react';
-import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
+import { Link as RouterLink, useHistory, useLocation, Redirect } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { AppBar, Box, Button, Link, Toolbar, Typography, Container, Select, MenuItem, FormControl } from '@material-ui/core';
+import { AppBar, Box, Button, Link, Toolbar, Typography, Container, Select, MenuItem, FormControl, TextField, InputAdornment } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 import Search from '../icons/Search';
 import InputTextField from './widgets/inputs/InputTextField';
 import Brand from '../icons/Brand';
 import { useWindowSize } from '../hooks/useWindowSize';
-import Person from '../icons/Person';
+import { NewPerson } from '../icons/Person';
 import { ModalParams } from '../types/routing';
 import { useSearchParams } from '../hooks/useSearchParams';
 import Logo from './Logo';
@@ -17,13 +17,87 @@ import { langSelectors } from '../slices/langSlice';
 import { useLangData } from '../hooks/useLangData';
 import { getItem } from '../lib/localStorageManager';
 
-import './MainNavbar.css';
+import './MainNavbar.scss';
 
-const languageOptions = ['ru', 'en'];
+const linksData = (t) => [
+  {
+    to: '/rating/politicians',
+    title: t('tabs.rating'),
+    mr: 4,
+  },
+  {
+    to: '/news',
+    title: t('tabs.news'),
+    mr: 4,
+  },
+  {
+    to: '/about',
+    title: t('tabs.about'),
+    mr: 4,
+  },
+  {
+    to: '/suggestion',
+    title: t('buttons.suggestion'),
+    mr: 0,
+    showIsAuth: true,
+  },
+];
+
+const linksToLink = (isAuth, pathname) => ({ title, mr, to, showIsAuth = false }, index) => {
+  if (showIsAuth) {
+    if (isAuth) {
+      return (
+        <Link
+          key={index.toString()}
+          to={to}
+          color="textSecondary"
+          component={RouterLink}
+          underline="none"
+          // variant="body1"
+          sx={{
+            whiteSpace: 'nowrap',
+            marginRight: mr,
+            fontSize: 14,
+            sm: {
+              fontSize: 12,
+            },
+            color: pathname === to ? '#363557' : ''
+          }}
+        >
+          {title}
+        </Link>
+      );
+    }
+    return null;
+  }
+
+  return (
+    <Link
+      key={index.toString()}
+      to={to}
+      color="textSecondary"
+      component={RouterLink}
+      underline="none"
+      // variant="body1"
+      sx={{
+        whiteSpace: 'nowrap',
+        marginRight: mr,
+        fontSize: 14,
+        sm: {
+          fontSize: 12,
+        },
+        color: pathname === to ? '#363557' : ''
+      }}
+    >
+      {title}
+    </Link>
+  );
+};
 
 const MainNavbar: FC = () => {
   const { t, i18n } = useTranslation();
   const langData = useSelector(langSelectors.getLang());
+  const links = linksData(t);
   const { fetch: fetchLang } = useLangData();
   const { push, length } = useHistory() as any;
   const { pathname } = useLocation();
@@ -33,28 +107,17 @@ const MainNavbar: FC = () => {
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
-
-  const links = [
-    {
-      to: '/rating/politicians',
-      title: t('tabs.rating') || 'Рейтинг',
-      mr: 4,
-    },
-    {
-      to: '/news',
-      title: t('tabs.news') || 'Новости',
-      mr: 4,
-    },
-    {
-      to: '/about',
-      title: t('tabs.about') || 'О площадке',
-      mr: 0,
-    },
-  ];
+  // const {
+  //   querySearch: { value: searchValue, setValue: setSearchValue },
+  // } = useSearchParams('querySearch');
 
   useEffect(() => {
     fetchLang();
   }, []);
+
+  // useEffect(() => {
+  //   dispatchLinks({ type: 'CHANGE_LANG', payload: { t } });
+  // }, [i18n.language]);
 
   const handleClick = (to: string) => {
     if (isAuthenticated) {
@@ -63,6 +126,15 @@ const MainNavbar: FC = () => {
       setAuthValue(to);
     }
   };
+
+  const handleSearchEnter = (event) => {
+    // event.preventDefault();
+    if (event.charCode === 13) {
+      push('/search');
+    }
+    return null;
+  };
+
   useEffect(() => {
     setRout({ path: pathname, length });
   }, [pathname]);
@@ -160,110 +232,110 @@ const MainNavbar: FC = () => {
                     Democracy
                   </Typography>
                 </Box>
-                <Box
-                  sx={{
-                    marginLeft: 2,
-                  }}
-                >
-                  {!isMobile && (
-                    <Box style={{ width: '322px' }}>
-                      <InputTextField icon={<Search />} />
-                    </Box>
-                  )}
-                </Box>
-              </Box>
-              {!isMobile && (
-                <Box>
-                  {links.map(({ title, mr, to }, index) => (
-                    <Link
-                      key={index.toString()}
-                      to={to}
-                      color="textSecondary"
-                      component={RouterLink}
-                      underline="none"
-                      // variant="body1"
-                      sx={{
-                        marginRight: mr,
-                        fontSize: 14,
-                        sm: {
-                          fontSize: 12,
-                        },
-                      }}
-                    >
-                      {title}
-                    </Link>
-                  ))}
-                </Box>
-              )}
-              <Box
-                sx={{
-                  backgroundColor: 'background.paper',
-                  p: '5px',
-                  display: 'flex',
-                }}
-              >
-                <Button
-                  className={classNames(['comeIn'])}
-                  sx={{
-                    p: 1,
-                    paddingRight: 2,
-                    paddingLeft: 2,
-                    borderRadius: 100,
-                    mr: '10px',
-                    textDecoration: 'none',
-                  }}
-                  size="small"
-                  variant="outlined"
-                  onClick={() => {
-                    if (pathname !== '/suggestion') {
-                      handleClick(isAuthenticated ? '/suggestion' : 'login');
-                    }
-                  }}
-                >
-                  {isAuthenticated ? t('buttons.suggestion') || 'Предложить новость / политика' : t('buttons.signInButtons') || 'Вход'}
-                </Button>
-                <Button
-                  className={
-                    !isAuthenticated
-                      ? classNames(['buttonsStyle', { register: true }])
-                      : classNames(['buttonsStyleProfile'])
-                  }
-                  sx={{
-                    backgroundColor: 'white',
-                    p: 1,
-                    paddingRight: 2,
-                    paddingLeft: 2,
-                    borderRadius: 100,
-                    mr: 0,
-                  }}
-                  size="small"
-                  variant="outlined"
-                  onClick={() => {
-                    if (!pathname.includes('profile')) {
-                      handleClick(isAuthenticated ? '/profile' : 'register');
-                    }
-                  }}
-                >
-                  {isAuthenticated ? <Person /> : t('buttons.registrationButtons') || 'Регистрация'}
-                </Button>
-              </Box>
-              <Box>
-                <FormControl sx={{ minWidth: '60px' }}>
-                  <Select
-                    variant="outlined"
-                    defaultValue={getItem('i18nextLng').slice(0, 2) || 'ru'}
-                    sx={{ height: '30px' }}
-                    onChange={(event: React.ChangeEvent<{ value: string }>) => {
-                      i18n.changeLanguage(event.target.value);
+                {/*
+                  <Box
+                    sx={{
+                      margin: '0 16px',
                     }}
                   >
-                    {langData.map((item) => (
-                      <MenuItem key={item.id} value={item.key_lang} className={classNames(['language__item'])}>
-                        {item.title}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                    {!isMobile && (
+                      <Box style={{ width: '100%' }}>
+                        {<InputTextField icon={<Search />} />}
+                        <TextField
+                          onKeyPress={handleSearchEnter}
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment sx={{ marginRight: 0 }} position="start">
+                                <Search />
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+                      </Box>
+                    )}
+                  </Box>
+                */}
+              </Box>
+              <Box>
+                {!isMobile && (
+                  <Box>
+                    {links.map(linksToLink(isAuthenticated, pathname))}
+                  </Box>
+                )}
+                <Box
+                  sx={{
+                    backgroundColor: 'background.paper',
+                    p: '5px',
+                    display: 'flex',
+                  }}
+                >
+                  {
+                    !isAuthenticated
+                    &&
+                    <Button
+                      className={classNames(['comeIn'])}
+                      sx={{
+                        p: 1,
+                        paddingRight: 2,
+                        paddingLeft: 2,
+                        borderRadius: 100,
+                        mr: '10px',
+                        textDecoration: 'none',
+                      }}
+                      size="small"
+                      variant="outlined"
+                      onClick={() => {
+                        if (pathname !== '/suggestion') {
+                          handleClick(isAuthenticated ? '/suggestion' : 'login');
+                        }
+                      }}
+                    >
+                      {isAuthenticated ? t('buttons.suggestion') || 'Предложить новость / политика' : t('buttons.signInButtons') || 'Вход'}
+                    </Button>
+                  }
+                  <Button
+                    className={
+                      !isAuthenticated
+                        ? classNames(['buttonsStyle', { register: true }])
+                        : classNames(['buttonsStyleProfile'])
+                    }
+                    sx={{
+                      backgroundColor: 'white',
+                      p: 1,
+                      paddingRight: 2,
+                      paddingLeft: 2,
+                      borderRadius: 100,
+                      mr: 0,
+                    }}
+                    size="small"
+                    variant="outlined"
+                    onClick={() => {
+                      if (!pathname.includes('profile')) {
+                        handleClick(isAuthenticated ? '/profile' : 'register');
+                      }
+                    }}
+                  >
+                    {isAuthenticated ? <NewPerson /> : t('buttons.registrationButtons') || 'Регистрация'}
+                  </Button>
+                </Box>
+                <Box>
+                  <FormControl sx={{ minWidth: '60px' }}>
+                    <Select
+                      variant="outlined"
+                      defaultValue={getItem('i18nextLng').slice(0, 2) || 'ru'}
+                      sx={{ height: '30px' }}
+                      onChange={(event: React.ChangeEvent<{ value: string }>) => {
+                        i18n.changeLanguage(event.target.value);
+                      }}
+                    >
+                      {langData.map((item) => (
+                        <MenuItem key={item.id} value={item.key_lang} className={classNames(['language__item'])}>
+                          {item.title}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Box>
               </Box>
             </>
           )}
