@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { useFetchWidgetLinkData } from '../components/WidgetLink/hooks/useFetchWidgetLinkPage';
 import { widgetLinkSelector } from '../slices/widgetLinkSlice';
 import WidgetLinkPageContent from '../components/WidgetLink/WidgetLinkPageContent/WidgetLinkPageContent';
-import { BackButton } from '../components/BackButton/BackButton';
+// import { BackButton } from '../components/BackButton/BackButton';
 
 interface MatchParamsI {
   id: string;
@@ -25,7 +25,6 @@ const WidgetLinkPage: FC<Props> = () => {
   return (
     <Box>
       <Container maxWidth="lg">
-        <BackButton />
         <WidgetLinkPageContent
           widgetTitle={data?.widgetTitle}
           newsTopics={data?.newsTopics}

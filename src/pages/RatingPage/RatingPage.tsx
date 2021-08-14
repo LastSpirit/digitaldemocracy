@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
-import styles from './RatingPage.module.scss';
-import { BackButton } from '../../components/BackButton/BackButton';
 import { RatingTabs } from '../../types/routing';
 import AuthorsTab from './tabs/AuthorsTab';
 import MassMediaTab from './tabs/MassMediaTab';
 import PartiesTab from './tabs/PartiesTab';
 import PoliticiansTab from './tabs/PoliticiansTab';
+// import { BackButton } from '../../components/BackButton/BackButton';
+
+import styles from './RatingPage.module.scss';
 
 const setTab = (location) => {
   switch (location) {
@@ -45,7 +46,6 @@ const RatingPage = () => {
   return (
     <Container maxWidth="lg" className={styles.container}>
       <div className={styles.container}>
-        <BackButton />
         <div className={styles.tabs}>{RatingTabs(t).map(showTabs)}</div>
         {setTab(pathname)}
       </div>
