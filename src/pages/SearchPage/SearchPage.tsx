@@ -17,7 +17,7 @@ const SearchPage = () => {
           height: '80vh',
         }}
       >
-        <Search />
+        {/* <Search /> */}
       </Container>
     </div>
   );
