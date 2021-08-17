@@ -18,6 +18,7 @@ import { widgetLinkSlice } from '../slices/widgetLinkSlice';
 import { ratingSlice } from '../slices/ratingSlice';
 import { profileSlice } from '../slices/profileSlice';
 import { langSlice } from '../slices/langSlice';
+import { aboutPageSlice } from '../slices/aboutPageSlice';
 
 const rootReducer = combineReducers({
   auth: authSlice.reducer,
@@ -33,7 +34,8 @@ const rootReducer = combineReducers({
   widgetLink: widgetLinkSlice.reducer,
   rating: ratingSlice.reducer,
   profile: profileSlice.reducer,
-  lang: langSlice.reducer
+  lang: langSlice.reducer,
+  aboutPage: aboutPageSlice.reducer,
 });
 
 export default rootReducer;
