@@ -1,32 +1,27 @@
 before_script:
     - env | sort
 
-.deploy_template: &deploy_template
+
+deploy_dev:
   stage: deploy
   script:
     - docker-compose up -d  --force-recreate --build
     - docker rmi $(docker images --filter "dangling=true" -q --no-trunc) || echo "Fail!"
     - echo 'Successfully deploy'
-
-deploy_dev:
-  <<: *deploy_template
   tags:
     - dev-shell
   only:
     - develop
-    - /^devops\/.*$/
+    - /^devops\/dev.*$/
 
 deploy_prod:
-  <<: *deploy_template
+  stage: deploy
+  script:
+    - docker-compose up -f docker-compose-prod.yml -d  --force-recreate --build
+    - docker rmi $(docker images --filter "dangling=true" -q --no-trunc) || echo "Fail!"
+    - echo 'Successfully deploy'
   tags:
     - prod-shell
   only:
     - master
-
-deploy_prod_devops:
-  <<: *deploy_template
-  tags:
-    - prod-shell
-  only:
-    - /^devops\/.*$/
-  when: manual
+    - /^devops\/prod.*$/
