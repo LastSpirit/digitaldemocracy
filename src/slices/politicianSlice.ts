@@ -24,6 +24,7 @@ export interface PoliticianInfoI {
   rating?: string;
   short_link?: string;
   place?: number;
+  country?: { title: [] };
 }
 
 export interface PartyI {
@@ -38,6 +39,7 @@ export interface PartyI {
   source_link?: string;
   rating?: number;
   place?: number;
+  country?: { title: [] };
 }
 
 export interface GraphicDataI {

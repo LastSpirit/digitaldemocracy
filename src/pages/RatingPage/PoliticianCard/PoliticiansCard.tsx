@@ -19,8 +19,18 @@ import { APIStatus } from '../../../lib/axiosAPI';
 
 interface IProps extends PoliticianInfoI {}
 
-const PoliticiansCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_link, position, place }) => {
-  const { t } = useTranslation();
+const PoliticiansCard: FC<IProps> = ({
+  photo,
+  rating,
+  name,
+  is_subscribed,
+  id,
+  short_link,
+  position,
+  place,
+  country,
+}) => {
+  const { t, i18n } = useTranslation();
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { status, change } = useChangeSubscribePolitician(id);
   const { push } = useHistory();
@@ -57,8 +67,8 @@ const PoliticiansCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, s
         </div>
         <div className={styles.percent}>{`${rating ?? '-'} %`}</div>
       </div>
-      <hr />
       <div className={styles.name}>{name}</div>
+      <div className={styles.country}>{country?.title[i18n.language]}</div>
       <div className={styles.position}>{position}</div>
       <Button
         variant="outlined"
@@ -74,7 +84,13 @@ const PoliticiansCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, s
         <Tooltip title={isAuthenticated ? '' : t('errors.notAuth')}>
           <span>
             {/* eslint-disable-next-line no-nested-ternary */}
-            {status === APIStatus.Loading ? <Loading /> : is_subscribed ? t('buttons.unsubscribe') : t('buttons.subscribe')}
+            {status === APIStatus.Loading ? (
+              <Loading />
+            ) : is_subscribed ? (
+              t('buttons.unsubscribe')
+            ) : (
+              t('buttons.subscribe')
+            )}
           </span>
         </Tooltip>
       </Button>

@@ -18,8 +18,8 @@ import { APIStatus } from '../../../lib/axiosAPI';
 
 interface IProps extends PartyI {}
 
-const PartyCard: FC<IProps> = ({ logo, rating, name, id, short_link, place }) => {
-  const { t } = useTranslation();
+const PartyCard: FC<IProps> = ({ logo, rating, name, id, short_link, place, country }) => {
+  const { t, i18n } = useTranslation();
   return (
     <div className={styles.root}>
       <Link to={`/party/${short_link}`}>
@@ -45,6 +45,7 @@ const PartyCard: FC<IProps> = ({ logo, rating, name, id, short_link, place }) =>
       </div>
       <hr />
       <div className={styles.name}>{name}</div>
+      <div>{country?.title[i18n.language]}</div>
     </div>
   );
 };
