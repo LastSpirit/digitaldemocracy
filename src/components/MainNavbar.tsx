@@ -16,7 +16,6 @@ import { userActionCreators, userSelectors } from '../slices/userSlice';
 import { langSelectors } from '../slices/langSlice';
 import { useLangData } from '../hooks/useLangData';
 import { getItem } from '../lib/localStorageManager';
-// import { Search } from '../pages/SearchPage/form/Search';
 
 import './MainNavbar.scss';
 
@@ -113,17 +112,10 @@ const MainNavbar: FC = () => {
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
-  // const {
-  //   querySearch: { value: searchValue, setValue: setSearchValue },
-  // } = useSearchParams('querySearch');
 
   useEffect(() => {
     fetchLang();
   }, []);
-
-  // useEffect(() => {
-  //   dispatchLinks({ type: 'CHANGE_LANG', payload: { t } });
-  // }, [i18n.language]);
 
   const handleClick = (to: string) => {
     if (isAuthenticated) {
@@ -132,14 +124,6 @@ const MainNavbar: FC = () => {
       setAuthValue(to);
     }
   };
-
-  // const handleSearchEnter = (event) => {
-  //   // event.preventDefault();
-  //   if (event.charCode === 13) {
-  //     push('/search');
-  //   }
-  //   return null;
-  // };
 
   useEffect(() => {
     setRout({ path: pathname, length });
