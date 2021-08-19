@@ -1,18 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Button, TextField, InputLabel, InputAdornment, IconButton, Container } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import { Formik, useFormikContext, FormikHelpers, FormikState, FormikProps } from 'formik';
 import * as Yup from 'yup';
-import { BackButton } from '../../../components/BackButton/BackButton';
-import styles from '../SearchPage.module.scss';
+import { useSelector } from 'react-redux';
+import { BackButton } from '../BackButton/BackButton';
+import { useSearch } from './hooks/useSearch';
+import { searchActionCreators, searchSelectors } from '../../slices/searchSlice';
+
+import styles from './Search.module.scss';
 
 export const Search = () => {
   const { pathname } = useLocation();
   const { push } = useHistory();
-  const [query, setQuery] = useState({
-    search: ''
-  });
+  // const [query, setQuery] = useState({
+  //   search: ''
+  // });
+  const { fetch: fetchSearch } = useSearch();
+  const {
+    setQuery,
+  } = searchActionCreators();
   // const {
   //   values: { search },
   //   setFieldValue
@@ -20,6 +28,7 @@ export const Search = () => {
 
   const handleSearchChange = (setValue) => (event): void => {
     setValue('search', event.target.value);
+    setQuery({ query: event.target.value });
     console.log(event.target.value);
   };
 
@@ -39,6 +48,7 @@ export const Search = () => {
           }}
           onSubmit={async (values) => {
             console.log(values.search);
+            fetchSearch();
           }}
           validationSchema={Yup.object().shape({
             search: Yup.string().min(3, 'Нужно ввести минимум 3 символа'),

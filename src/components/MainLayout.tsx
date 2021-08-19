@@ -4,7 +4,7 @@ import Footer from './Footer/Footer';
 import MainNavbar from './MainNavbar';
 import AuthModal from './widgets/modals/AuthModal/AuthModal';
 import { useWindowSize } from '../hooks/useWindowSize';
-import { Search } from '../pages/SearchPage/form/Search';
+import { Search } from './Search/Search';
 
 interface MainLayoutProps {
   children?: ReactNode;
