@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { Button, Tooltip } from '@material-ui/core';
 import { badgeColorChanger } from 'src/utils/badgeColorChanger';
 import { avatarColorChanger } from 'src/utils/avatarColorChanger';
+import { useTranslation } from 'react-i18next';
 import styles from './PartyCard.module.scss';
 import { useSearchParams } from '../../hooks/useSearchParams';
 import { ModalParams } from '../../types/routing';
@@ -35,8 +36,12 @@ const PartyCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_l
     <div className={styles.root}>
       <Link to={`/politician/${short_link}/politician_news`}>
         <div
-          className={rating && place ? styles.avatarBlock : classNames(styles.avatarBlock, styles.avatarBlock__nonRaiting)}
-          style={rating && place ? { backgroundImage: `url(${avatarColorChanger(rating)})`, backgroundSize: 'cover' } : {}}
+          className={
+            rating && place ? styles.avatarBlock : classNames(styles.avatarBlock, styles.avatarBlock__nonRaiting)
+          }
+          style={
+            rating && place ? { backgroundImage: `url(${avatarColorChanger(rating)})`, backgroundSize: 'cover' } : {}
+          }
         >
           <div className={rating && place ? styles.avatar : classNames(styles.avatar, styles.avatar__nonRaiting)}>
             {!photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={photo} alt="" />}
@@ -52,7 +57,7 @@ const PartyCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_l
         >
           <div className={styles.text}>{rating && place ? `Место ${place}` : 'Без рейтинга'}</div>
         </div>
-        {rating && place && (<div className={styles.percent}>{rating} %</div>)}
+        {rating && place && <div className={styles.percent}>{rating} %</div>}
       </div>
       <hr />
       <div className={styles.name}>{name}</div>

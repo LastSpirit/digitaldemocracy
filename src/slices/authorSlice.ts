@@ -18,6 +18,7 @@ export interface AuthorDataI {
   rating?: string;
   short_link?: string;
   place?: number;
+  country?: { title: [] };
 }
 
 export interface GraphicDataI {
