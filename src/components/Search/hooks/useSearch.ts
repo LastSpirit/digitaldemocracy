@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { APIStatus } from 'src/lib/axiosAPI';
 import { searchAPI } from 'src/api/searchAPI';
@@ -6,13 +6,13 @@ import { searchSelectors, searchActionCreators } from 'src/slices/searchSlice';
 
 export const useSearch = () => {
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
-  const searchParams = useSelector(searchSelectors.getSearchParams());
+  // const searchParams = useSelector(searchSelectors.getSearchParams());
   const {
     setSearchData
   } = searchActionCreators();
   const { fetchSearch } = searchAPI();
 
-  const fetch = useCallback(() => {
+  const fetch = useCallback(({ search, isNews = true, isPolitician = true, isParty = true, isMedia = true, isAuthor = true, page = true, perPage = true }) => {
     setStatus(APIStatus.Loading);
     fetchSearch({
       onError: () => {
@@ -24,18 +24,18 @@ export const useSearch = () => {
       },
       payload: {
         params: {
-          search: searchParams.query,
-          isNews: searchParams.isNews,
-          isPolitician: searchParams.isPolitician,
-          isParty: searchParams.isParty,
-          isMedia: searchParams.isMedia,
-          isAuthor: searchParams.isAuthor,
-          page: searchParams.page,
-          PerPage: searchParams.PerPage
+          search,
+          isNews,
+          isPolitician,
+          isParty,
+          isMedia,
+          isAuthor,
+          page,
+          PerPage: perPage
         }
       }
     });
-  }, [searchParams.query, searchParams.isNews, searchParams.isPolitician, searchParams.isParty, searchParams.isMedia]);
+  }, []);
 
   return { status, fetch };
 };

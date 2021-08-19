@@ -22,7 +22,7 @@ const SearchPage = () => {
         }}
       >
         {/* <Search /> */}
-        {searchData}
+        {/* searchData */}
       </Container>
     </div>
   );
