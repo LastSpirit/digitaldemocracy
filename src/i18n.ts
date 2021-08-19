@@ -40,7 +40,10 @@ i18n
     backend: {
       // loadPath: 'https://dev-backoffice.digitaldemocracy.ru/storage/lang/{{lng}}/{{ns}}.json',
       loadPath: `${apiSetting.url_api}getLangContent/{{lng}}`,
-    }
+    },
+    detection: {
+      order: ['localStorage']
+    },
   });
 
 export default i18n;

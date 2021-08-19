@@ -1,44 +1,56 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Container, Button } from '@material-ui/core';
 import { useWindowSize } from 'src/hooks/useWindowSize';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Loading } from 'src/components/Loading/Loading';
+import { useSelector } from 'react-redux';
+import { aboutPageSelectors } from 'src/slices/aboutPageSlice';
+import { useFetchAboutPage } from './hooks/useAboutThePage';
+import Pdf from '../../theme/DD.pdf';
 import styles from './AboutPage.module.scss';
 
 const AboutPage = () => {
   const { isMobile } = useWindowSize();
+  const { i18n } = useTranslation();
+  const lng = i18n.language;
+  const data = useSelector(aboutPageSelectors.getAboutPage());
+  const { fetch, status } = useFetchAboutPage();
+  const textare2Normilize = useMemo(() => {
+    if (!data?.textarea2) {
+      return '';
+    }
+    const text = data.textarea2[lng].split(' ').filter((elem) => elem !== 'info@digitaldemocracy.ru');
+    return text.join(' ');
+  }, [data, lng]);
+  useEffect(() => {
+    fetch();
+  }, []);
 
+  if (!status) {
+    return <Loading />;
+  }
   return (
     <div className={styles.root}>
       <div className={styles.top}>
-        <h1>Дорогой друг!</h1>
-        <p>
-          Мы рады приветствовать тебя на нашей площадке. Digital Democracy если совсем коротко: по форме - агрегатор
-          политических новостей и соцсеть политиков с анализом общественного мнения, а по сути - система коллективной
-          оценки и контроля государственного управления. Ваш голос важен. Ваше мнение важно. И ваше мнение должно быть
-          услышано при принятии важных для вашей страны, вашего региона, вашего города решений. Ваш голос это ваше
-          конституционное право и инструмент контроля работы политиков. Вы прочитали где-то новость и поставили “лайк”.
-          Но что это значит? вам нравится СМИ, автор или вы одобряете какого то из упомянутых политиков? Мы постарались
-          решить эту задачу. Теперь вы можете конкретнее выражать свое мнение. Считаете что СМИ занимается пропагандой
-          или наоборот, выпячивает проблемы? Посмотрите, может вы не один так считаете. Автор пишет заказные статьи? А
-          действительно ли он влияет на общественное мнение? Депутат протащил непопулярный законопроект? Не забудем об
-          этом при следующих выборах! Увидели интересную новость или авторское мнение? Опубликуйте ссылку и посмотрите,
-          что думают остальные граждане. Уже есть новость, но в другом источнике другое мнение - опубликуйте и сравните
-          реакцию. Голосуйте, но помните, у вас как на выборах всего один голос за каждого, сколько бы оценок вы не
-          поставили! И что бы Цифровая Демократия работала и влияла на действия политиков, вам надо сходить на выборы и
-          проголосовать также, как вы голосовали на DD
-        </p>
+        <div className={styles.text}>
+          <h1>{data.title1[lng]}</h1>
+          <p>{data.textarea1[lng]}</p>
+        </div>
       </div>
       <div className={styles.bottom}>
-        <h1>Помочь площадке</h1>
-        <p>
-          Мы находимся в самом начале становления проекта. С вашей помощью возможно проект сможет приблизить
-          цифровизацию государственного управления, когда при принятии любого решения мнение каждого будет важно. Вы
-          можете помочь проекту развиваться дальше: Система DD может быть применена в любой стране. Если вы хотите быть
-          частью позитивных изменений, то вы можете помочь, став модератором. Пишите нам на
-          <a href="mailto:info@digitaldemocracy.ru"> info@digitaldemocracy.ru</a>
-        </p>
-        <a download href="/">
-          <Button className={styles.button}>Узнать подробнее</Button>
-        </a>
+        <div className={styles.text}>
+          <h1>{data.title2[lng]}</h1>
+          <p>
+            {textare2Normilize} <a href="mailto:info@digitaldemocracy.ru">info@digitaldemocracy.ru</a>
+          </p>
+
+          <Button className={styles.button}>
+            <a className={styles.text_link} href={Pdf} download>
+              Узнать подробнее
+            </a>
+          </Button>
+        </div>
       </div>
     </div>
   );

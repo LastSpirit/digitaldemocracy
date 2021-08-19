@@ -117,12 +117,13 @@ export default function CustomArrows({ data }) {
     ],
   };
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { isMobile } = useWindowSize();
   const { push } = useHistory();
   const [date, setDate] = useState(null);
   const [secondDate, setSecondDate] = useState(null);
   const initialDate: any = new Date(0);
+  console.log(data);
   return (
     <div className={styles.carouselContainer}>
       {data ? (
@@ -156,17 +157,34 @@ export default function CustomArrows({ data }) {
                 <CardActionArea>
                   <Box>
                     <Box
-                      className={item?.rating ? styles.imgContainer : classNames(styles.imgContainer, styles.imgContainer__nonRaiting)}
-                      style={item?.rating ? { backgroundImage: `url(${avatarColorChanger(item?.rating)})`, backgroundSize: 'cover' } : {}}
+                      className={
+                        item?.rating
+                          ? styles.imgContainer
+                          : classNames(styles.imgContainer, styles.imgContainer__nonRaiting)
+                      }
+                      style={
+                        item?.rating
+                          ? { backgroundImage: `url(${avatarColorChanger(item?.rating)})`, backgroundSize: 'cover' }
+                          : {}
+                      }
                     >
-                      <img src={item.photo} alt="politics" className={item?.rating ? styles.img : classNames(styles.img, styles.img__nonRaiting)} />
+                      <img
+                        src={item.photo}
+                        alt="politics"
+                        className={item?.rating ? styles.img : classNames(styles.img, styles.img__nonRaiting)}
+                      />
                     </Box>
                   </Box>
                   <Box className={styles.caption}>
                     <Typography className={styles.name}>{item.name}</Typography>
                   </Box>
+                  <Box className={styles.country}>
+                    <Typography className={styles.countryName}>{item.country.title[i18n.language]}</Typography>
+                  </Box>
                   <Box>
-                    <Typography className={styles.percent}>{item.rating ? `${item.rating} %` : t('info.withoutRating')}</Typography>
+                    <Typography className={styles.percent}>
+                      {item.rating ? `${item.rating} %` : t('info.withoutRating')}
+                    </Typography>
                   </Box>
                 </CardActionArea>
                 <CardActions />

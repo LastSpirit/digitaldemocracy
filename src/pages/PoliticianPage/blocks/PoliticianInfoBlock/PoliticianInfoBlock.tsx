@@ -85,7 +85,13 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                   >
                     <Tooltip title={isAuthenticated ? '' : t('errors.notAuth')}>
                       <span>
-                        {status === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? t('buttons.unsubscribe') : t('buttons.subscribe')}
+                        {status === APIStatus.Loading ? (
+                          <Loading />
+                        ) : data?.is_subscribed ? (
+                          t('buttons.unsubscribe')
+                        ) : (
+                          t('buttons.subscribe')
+                        )}
                       </span>
                     </Tooltip>
                   </Button>
@@ -99,14 +105,22 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                     className={styles.subscribersBadge}
                     style={data?.english_name ? { textAlign: 'end' } : { textAlign: 'start' }}
                   >
-                    {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, { one: t('info.subscriber'), many: t('info.subscribers') }, i18n.language)}`}
+                    {`${data?.number_of_subscribers} ${endOfWords(
+                      data?.number_of_subscribers,
+                      { one: t('info.subscriber'), many: t('info.subscribers') },
+                      i18n.language
+                    )}`}
                   </div>
                 )}
               </div>
               {data?.position && <div className={styles.age}>{data?.position}</div>}
               {(data?.age || data?.city) && (
                 <div className={styles.age}>
-                  {data?.age ? `${data?.age} ${t('info.age')}${data?.city ? `, ${data?.city}` : ''}` : data?.city}
+                  {data?.age
+                    ? `${data?.age} ${t('info.age')} ,
+                    ${data?.country?.title[i18n.language]}
+                    ${data?.city ? `, ${data?.city}` : ''}`
+                    : data?.city}
                 </div>
               )}
               <div
@@ -147,7 +161,11 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
           <p>{data?.name}</p>
           {data?.number_of_subscribers && (
             <div className={styles.mobSubscribers}>
-              {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, { one: t('info.subscriber'), many: t('info.subscribers') }, i18n.language)}`}
+              {`${data?.number_of_subscribers} ${endOfWords(
+                data?.number_of_subscribers,
+                { one: t('info.subscriber'), many: t('info.subscribers') },
+                i18n.language
+              )}`}
             </div>
           )}
           {data?.position && <div className={styles.age}>{data?.position}</div>}
@@ -174,7 +192,11 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
               {data?.english_name && <div className={styles.mobEnglishName}>{data?.english_name}</div>}
               {(data?.age || data?.city) && (
                 <div className={styles.mobAge}>
-                  {data?.age ? `${data?.age} ${t('info.age')}${data?.city ? `, ${data?.city}` : ''}` : data?.city}
+                  {data?.age
+                    ? `${data?.age}  ${t('info.age')} ,
+                     ${data?.country?.title[i18n.language]} 
+                     ${data?.city ? `, ${data?.city}` : ''}`
+                    : data?.city}
                 </div>
               )}
               <div
@@ -199,7 +221,15 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
             ])}
           >
             <Tooltip title={isAuthenticated ? '' : t('errors.notAuth')}>
-              <span>{status === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? t('buttons.unsubscribe') : t('buttons.subscribe')}</span>
+              <span>
+                {status === APIStatus.Loading ? (
+                  <Loading />
+                ) : data?.is_subscribed ? (
+                  t('buttons.unsubscribe')
+                ) : (
+                  t('buttons.subscribe')
+                )}
+              </span>
             </Tooltip>
           </Button>
           <div className={styles.MobBottom}>
