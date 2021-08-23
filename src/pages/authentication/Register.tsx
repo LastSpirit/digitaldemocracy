@@ -11,6 +11,7 @@ import { useSearchParams } from '../../hooks/useSearchParams';
 import CreatePasswordRegister from '../../components/authentication/register/forms/CreatePasswordRegister';
 import { authActionCreators, authSelectors } from '../../slices/authSlice';
 import { ModalWrapper } from '../../components/widgets/modals/ModalWrapper';
+import Pdf from '../../theme/Personal_data.pdf';
 
 export const WelcomeTextRegister = () => {
   const {
@@ -50,18 +51,18 @@ export const WelcomeTextRegister = () => {
 
 const getCurrentStepComponent = (step: number) => {
   switch (step) {
-  case 1:
-    return <AddressFormRegister />;
-  case 2:
-    return <TypeRegisterSelect />;
-  case 3:
-    return <VerifyCodeRegister />;
-  case 4:
-    return <CreatePasswordRegister />;
-  case 5:
-    return <WelcomeTextRegister />;
-  default:
-    return <AddressFormRegister />;
+    case 1:
+      return <AddressFormRegister />;
+    case 2:
+      return <TypeRegisterSelect />;
+    case 3:
+      return <VerifyCodeRegister />;
+    case 4:
+      return <CreatePasswordRegister />;
+    case 5:
+      return <WelcomeTextRegister />;
+    default:
+      return <AddressFormRegister />;
   }
 };
 
@@ -103,7 +104,9 @@ const Register: FC = () => {
           fontWeight="300"
           align={endRegistration ? 'center' : 'left'}
         >
-          {endRegistration ? t('registration.step5.titleStep5') || 'Вы успешно зарегистрировались!' : t('registration.titleRegistration') || 'Регистрация'}
+          {endRegistration
+            ? t('registration.step5.titleStep5') || 'Вы успешно зарегистрировались!'
+            : t('registration.titleRegistration') || 'Регистрация'}
         </Typography>
         <Box
           sx={{
@@ -123,21 +126,29 @@ const Register: FC = () => {
       {registerStep < 3 && (
         <>
           <Box sx={{ mt: 4, justifyContent: 'space-between', alignItems: 'center', display: 'flex' }}>
-            <Typography sx={{ pb: '0!important' }}>{ t('registration.questions.second') || 'Уже есть аккаунт?' }</Typography>
+            <Typography sx={{ pb: '0!important' }}>
+              {t('registration.questions.second') || 'Уже есть аккаунт?'}
+            </Typography>
             <Button
               className={styles.loginButton}
               size="medium"
               variant="outlined"
               onClick={() => setAuthValue('login')}
             >
-              { t('buttons.enter') || 'Войти' }
+              {t('buttons.enter') || 'Войти'}
             </Button>
           </Box>
           {registerStep === 1 && (
             <>
               <Divider sx={{ my: 3 }} />
               <Typography color="textSecondary" variant="body2">
-                { t('registration.questions.third') || 'Эти данные будут использоваться только для обезличенной статистики' }
+                {t('registration.questions.third') ||
+                  'Эти данные будут использоваться только для обезличенной статистики'}
+              </Typography>
+              <Typography color="textSecondary" variant="body2">
+                <a href={Pdf} download>
+                  {t('registration.questions.agreePersonalData') || 'Согласие на обработку персональных данных'}
+                </a>
               </Typography>
             </>
           )}
