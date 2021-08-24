@@ -180,11 +180,11 @@ const Footer: FC = (props) => {
       sx={{
         backgroundColor: 'background.default',
         pb: {
-          md: 6,
+          md: 2,
           xs: 0,
         },
         pt: {
-          md: 6,
+          md: 2,
           xs: 0,
         },
       }}

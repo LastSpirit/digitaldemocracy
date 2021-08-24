@@ -5,7 +5,7 @@
   justify-content: space-between;
 
   box-sizing: border-box;
-  min-width: 270px;
+  // min-width: 270px;
   height: 100%;
   margin: 16px auto 0;
   padding: 14px 18px 20px;
@@ -134,7 +134,7 @@
 
 @media (max-width: 600px) {
   .bigCardContainer {
-    max-width: 100%;
+    min-width: 270px;
     min-height: 150px;
     // max-height: 370px;
   }

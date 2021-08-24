@@ -51,18 +51,18 @@ export const WelcomeTextRegister = () => {
 
 const getCurrentStepComponent = (step: number) => {
   switch (step) {
-    case 1:
-      return <AddressFormRegister />;
-    case 2:
-      return <TypeRegisterSelect />;
-    case 3:
-      return <VerifyCodeRegister />;
-    case 4:
-      return <CreatePasswordRegister />;
-    case 5:
-      return <WelcomeTextRegister />;
-    default:
-      return <AddressFormRegister />;
+  case 1:
+    return <AddressFormRegister />;
+  case 2:
+    return <TypeRegisterSelect />;
+  case 3:
+    return <VerifyCodeRegister />;
+  case 4:
+    return <CreatePasswordRegister />;
+  case 5:
+    return <WelcomeTextRegister />;
+  default:
+    return <AddressFormRegister />;
   }
 };
 
