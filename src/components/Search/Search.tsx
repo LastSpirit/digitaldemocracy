@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Button, TextField, InputLabel, InputAdornment, IconButton, Container } from '@material-ui/core';
+import cn from 'classnames';
 import ClearIcon from '@material-ui/icons/Clear';
 import { Formik, useFormikContext, FormikHelpers, FormikState, FormikProps } from 'formik';
 import * as Yup from 'yup';
@@ -74,6 +75,13 @@ const reducerFiltersButtons = (state: filterButtonsI, action) => {
   }
 };
 
+const setActiveAction = (key) => ({
+  type: 'SET_ACTIVE',
+  payload: {
+    key
+  }
+});
+
 export const Search = () => {
   const { pathname } = useLocation();
   const { push } = useHistory();
@@ -99,6 +107,10 @@ export const Search = () => {
       push('/search');
     }
   };
+
+  // const filterTabsButtonClass = cn({
+  //   'tabs_active'
+  // });
 
   return (
     <Container>
@@ -192,15 +204,20 @@ export const Search = () => {
             </Formik>
           </div>
           <div className={styles.filterTabs}>
-            {Object.values(buttons).map((item) => (
+            {Object.keys(buttons).map((key) => (
               <Button
                 variant="outlined"
                 sx={{
                   height: '30px',
                   marginRight: '28px',
+                  // backgroundColor: buttons[key].active ? '#363557' : 'initial',
                 }}
+                className={cn({
+                  [styles.tabs_active]: buttons[key].active,
+                })}
+                onClick={() => dispatchBtn(setActiveAction(key))}
               >
-                {item.name}
+                {buttons[key].name}
               </Button>
             ))}
           </div>

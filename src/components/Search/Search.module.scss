@@ -49,4 +49,13 @@
 
 .filterTabs {
   margin-top: 26px;
+
+  .tabs_active {
+    color: white;
+    background-color: #363557;
+  }
+
+  .tabs_active:hover {
+    background-color: initial;
+  }
 }
