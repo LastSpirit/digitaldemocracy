@@ -29,18 +29,17 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
             <Box className={styles.newsLinks}>
               <Box className={styles.arrows}>
                 <SubdirectoryArrowRightIcon className={styles.arrowGrey} />
-                {data?.is_display
-                  ? (
-                    <IconButton className={styles.arrowButton} onClick={handleToggleIframe}>
+                {data?.is_display ? (
+                  <IconButton className={styles.arrowButton} onClick={handleToggleIframe}>
+                    <CallMadeIcon className={styles.arrowLink} />
+                  </IconButton>
+                ) : (
+                  <a href={data.source_link} target="_blank" rel="noreferrer">
+                    <IconButton className={styles.arrowButton}>
                       <CallMadeIcon className={styles.arrowLink} />
                     </IconButton>
-                  ) : (
-                    <a href={data.source_link} target="_blank" rel="noreferrer">
-                      <IconButton className={styles.arrowButton}>
-                        <CallMadeIcon className={styles.arrowLink} />
-                      </IconButton>
-                    </a>
-                  )}
+                  </a>
+                )}
                 <FacebookShare url={data?.source_link}>
                   <FacebookIcon fontSize="large" className={styles.facebook} />
                 </FacebookShare>
@@ -82,9 +81,7 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
         {toggleIframe ? (
           <>
             <Box className={styles.warningMessage}>
-              <Typography className={styles.warningMessage__title}>
-                {t('info.warningWatchNews')}
-              </Typography>
+              <Typography className={styles.warningMessage__title}>{t('info.warningWatchNews')}</Typography>
             </Box>
             <Box>
               <iframe src={data?.source_link} title="link" className={styles.iframe} width="80vw" />
@@ -92,12 +89,9 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
           </>
         ) : (
           <Box className={styles.warningMessage}>
-            {
-              !data?.is_display &&
-              <Typography className={styles.warningMessage__title}>
-                {t('info.clickForWatch')}
-              </Typography>
-            }
+            {!data?.is_display && (
+              <Typography className={styles.warningMessage__title}>{t('info.clickForWatch')}</Typography>
+            )}
           </Box>
         )}
       </Container>
