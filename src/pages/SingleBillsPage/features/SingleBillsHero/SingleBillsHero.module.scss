@@ -9,7 +9,23 @@
   padding: 15px 20px 15px 30px;
 
   border-radius: 20px;
-  background-color: #E5E5E5;
+  background-color: #e5e5e5;
+}
+.warningMessage {
+  margin-bottom: 20px;
+
+  text-align: center;
+
+  &__title {
+    padding: 0;
+
+    color: #7a7a7a;
+
+    font-family: 'Helvetica', sans-serif;
+    font-size: 25px;
+    font-weight: 300;
+    line-height: 30px;
+  }
 }
 
 .newsTitle {
@@ -19,7 +35,7 @@
   width: 60%;
   padding-right: 40px;
 
-  border-right: 1px solid #B0B0B0;
+  border-right: 1px solid #b0b0b0;
 }
 
 .newsHeading {
@@ -51,14 +67,14 @@
 
   text-align: center;
 
-  border: 1px solid #B0B0B0;
+  border: 1px solid #b0b0b0;
   border-radius: 30px;
 }
 
 .hashtagContain {
   padding: 0;
 
-  color: #B0B0B0;
+  color: #b0b0b0;
 
   font-family: 'Helvetica';
   font-size: 14px;
@@ -108,7 +124,7 @@
   height: 50px;
   margin-right: 10px;
 
-  color: #7A7A7A;
+  color: #7a7a7a;
 }
 
 .arrowLink {
@@ -129,7 +145,7 @@
 
   cursor: pointer;
 
-  color: #FFF;
+  color: #fff;
   border: 1px solid #363557;
   background-color: #363557;
 
