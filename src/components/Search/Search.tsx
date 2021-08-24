@@ -42,7 +42,7 @@ const filtersButtons: filterButtonsI = {
   },
   author: {
     id: 3,
-    type: 'isParty',
+    type: 'isAuthor',
     name: 'Авторы',
     active: false,
   },
@@ -54,7 +54,7 @@ const filtersButtons: filterButtonsI = {
   },
   parties: {
     id: 5,
-    type: 'isAuthor',
+    type: 'isParty',
     name: 'Партии',
     active: false,
   },
@@ -89,16 +89,13 @@ export const Search = () => {
   //   search: ''
   // });
   const { fetch: fetchSearch } = useSearch();
-  const {
-    setQuery,
-  } = searchActionCreators();
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(4);
   const [buttons, dispatchBtn] = useReducer(reducerFiltersButtons, filtersButtons);
 
   const handleSearchChange = (setValue) => (event): void => {
     setValue('search', event.target.value);
-    setQuery({ query: event.target.value });
+    // setQuery({ query: event.target.value });
     console.log(event.target.value);
   };
 
@@ -108,9 +105,9 @@ export const Search = () => {
     }
   };
 
-  // const filterTabsButtonClass = cn({
-  //   'tabs_active'
-  // });
+  useEffect(() => {
+    console.log(buttons);
+  }, [buttons]);
 
   return (
     <Container>
@@ -124,15 +121,26 @@ export const Search = () => {
               }}
               onSubmit={(values, formikHelpers) => {
                 console.log(values.search);
+                const activeButtons = Object.values(buttons).some((item) => item.active);
                 if (values.search) {
-                  fetchSearch({
-                    search: values.search,
-                    isNews: buttons.news.active,
-                    isPolitician: buttons.politician.active,
-                    isParty: buttons.author.active,
-                    isMedia: buttons.media.active,
-                    isParties: buttons.media.active
-                  });
+                  if (activeButtons) {
+                    fetchSearch({
+                      search: values.search,
+                      isNews: buttons.news.active,
+                      isPolitician: buttons.politician.active,
+                      isAuthor: buttons.author.active,
+                      isMedia: buttons.media.active,
+                      isParty: buttons.parties.active,
+                      page,
+                      perPage
+                    });
+                  } else {
+                    fetchSearch({
+                      search: values.search,
+                      page,
+                      perPage
+                    });
+                  }
                 }
               }}
               validationSchema={Yup.object().shape({
@@ -203,24 +211,27 @@ export const Search = () => {
               }}
             </Formik>
           </div>
-          <div className={styles.filterTabs}>
-            {Object.keys(buttons).map((key) => (
-              <Button
-                variant="outlined"
-                sx={{
-                  height: '30px',
-                  marginRight: '28px',
-                  // backgroundColor: buttons[key].active ? '#363557' : 'initial',
-                }}
-                className={cn({
-                  [styles.tabs_active]: buttons[key].active,
-                })}
-                onClick={() => dispatchBtn(setActiveAction(key))}
-              >
-                {buttons[key].name}
-              </Button>
-            ))}
-          </div>
+          {pathname === '/search' && (
+            <div className={styles.filterTabs}>
+              {Object.keys(buttons)
+                .map((key) => (
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      height: '30px',
+                      marginRight: '28px',
+                      // backgroundColor: buttons[key].active ? '#363557' : 'initial',
+                    }}
+                    className={cn({
+                      [styles.tabs_active]: buttons[key].active,
+                    })}
+                    onClick={() => dispatchBtn(setActiveAction(key))}
+                  >
+                    {buttons[key].name}
+                  </Button>
+                ))}
+            </div>
+          )}
         </div>
       </Container>
     </Container>

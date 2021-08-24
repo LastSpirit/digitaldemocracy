@@ -12,7 +12,7 @@ export const useSearch = () => {
   } = searchActionCreators();
   const { fetchSearch } = searchAPI();
 
-  const fetch = useCallback(({ search, isNews = true, isPolitician = true, isParty = true, isMedia = true, isAuthor = true, page = true, perPage = true }) => {
+  const fetch = useCallback(({ search, isNews = true, isPolitician = true, isParty = true, isMedia = true, isAuthor = true, page = 1, perPage = 4 }) => {
     setStatus(APIStatus.Loading);
     fetchSearch({
       onError: () => {
