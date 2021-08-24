@@ -37,7 +37,7 @@ const AddressFormRegister: FC = (props) => {
     cities,
     cityStatus,
   } = useFetchAddresses();
-  const { setRegisterStep } = authActionCreators();
+  const { setRegisterStep, setAuthUserData } = authActionCreators();
   const { check } = useCheckAddress(setRegisterStep);
   const [withCountry, setWithCountry] = useState(false);
   const [withRegion, setWithRegion] = useState(false);
@@ -125,8 +125,24 @@ const AddressFormRegister: FC = (props) => {
                       );
                       if (isValidCountry) {
                         fetchRegions(isValidCountry?.id);
+                        setAuthUserData({
+                          key: 'country_id',
+                          value: isValidCountry.id,
+                        });
                         setWithCountry(true);
                       } else {
+                        setAuthUserData({
+                          key: 'country_id',
+                          value: null,
+                        });
+                        setAuthUserData({
+                          key: 'region_id',
+                          value: null,
+                        });
+                        setAuthUserData({
+                          key: 'city_id',
+                          value: null,
+                        });
                         setWithCountry(false);
                         setWithRegion(false);
                         setWithCity(false);
@@ -163,8 +179,20 @@ const AddressFormRegister: FC = (props) => {
                       );
                       if (isValidRegion) {
                         fetchCities(isValidRegion.id);
+                        setAuthUserData({
+                          key: 'region_id',
+                          value: isValidRegion.id,
+                        });
                         setWithRegion(true);
                       } else {
+                        setAuthUserData({
+                          key: 'region_id',
+                          value: null,
+                        });
+                        setAuthUserData({
+                          key: 'city_id',
+                          value: null,
+                        });
                         setWithRegion(false);
                         setWithCity(false);
                       }
@@ -199,8 +227,16 @@ const AddressFormRegister: FC = (props) => {
                           newValue?.toLowerCase()
                       );
                       if (isValidCity) {
+                        setAuthUserData({
+                          key: 'city_id',
+                          value: isValidCity.id,
+                        });
                         setWithCity(true);
                       } else {
+                        setAuthUserData({
+                          key: 'city_id',
+                          value: null,
+                        });
                         setWithCity(false);
                       }
                     }}

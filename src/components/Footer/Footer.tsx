@@ -22,6 +22,7 @@ import Logo from '../Logo';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import Register from '../../icons/Register';
 import News from '../../icons/News';
+import Information from '../../icons/Information';
 import Search from '../../icons/Search';
 import { Person } from '../../icons/Person';
 import Rating from '../../icons/Rating';
@@ -30,6 +31,7 @@ import { userSelectors } from '../../slices/userSlice';
 import { AuthParam, ModalParams } from '../../types/routing';
 import styles from './styles.module.scss';
 import { useSearchParams } from '../../hooks/useSearchParams';
+import PrivacyPolicyPdf from '../../theme/PrivacyPolicy.pdf';
 
 const sectionsData = () => {
   const { t } = useTranslation();
@@ -61,6 +63,12 @@ const sectionsData = () => {
         {
           title: t('footer.menu.userAgreement') || 'Пользовательское соглашение',
           href: '/',
+        },
+        {
+          title: t('footer.menu.personalDataPolicy') || 'Политика обработки персональных данных',
+          href: null,
+          download: true,
+          downloadLink: PrivacyPolicyPdf,
         },
       ],
     },
@@ -106,6 +114,12 @@ const authUserSectionsData = () => {
           title: t('footer.menu.userAgreement') || 'Пользовательское соглашение',
           href: '/',
         },
+        {
+          title: t('footer.menu.personalDataPolicy') || 'Политика обработки персональных данных',
+          href: null,
+          download: true,
+          downloadLink: PrivacyPolicyPdf,
+        },
       ],
     },
   ];
@@ -130,9 +144,14 @@ const iconsData = (isAuthenticated) => {
       to: '/news',
     },
     {
-      title: isAuthenticated ? t('footer.menu.profileMenu') : t('footer.menu.signInUp'),
+      title: t('footer.menu.aboutMenu') || 'О площадке',
+      icon: <Information />,
+      to: '/about',
+    },
+    {
+      title: isAuthenticated ? t('footer.menu.profileMenu') : t('footer.menu.signInFooter'),
       icon: isAuthenticated ? <Person /> : <Register />,
-      to: isAuthenticated ? '/profile' : AuthParam.register,
+      to: isAuthenticated ? '/profile' : AuthParam.login,
     },
   ];
 };
@@ -161,11 +180,11 @@ const Footer: FC = (props) => {
       sx={{
         backgroundColor: 'background.default',
         pb: {
-          md: 6,
+          md: 2,
           xs: 0,
         },
         pt: {
-          md: 6,
+          md: 2,
           xs: 0,
         },
       }}
@@ -203,14 +222,16 @@ const Footer: FC = (props) => {
                   sx={{
                     display: 'flex',
                     flexDirection: 'column',
+
                     alignItems: 'center',
                     cursor: 'pointer',
                   }}
-                  onClick={() =>
-                    !isAuthenticated && title === t('footer.menu.signInUp') ? setAuthValue(to) : push(to)}
+                  onClick={() => {
+                    return !isAuthenticated && title === t('footer.menu.signInFooter') ? setAuthValue(to) : push(to);
+                  }}
                 >
                   {icon}
-                  <span style={{ marginTop: '10px', fontSize: '12px' }}>{title}</span>
+                  <span style={{ marginTop: '4px', fontSize: '10px' }}>{title}</span>
                 </Box>
               ))}
             </Container>
@@ -299,10 +320,17 @@ const Footer: FC = (props) => {
                                 cursor: 'pointer',
                                 paddingBottom: '0!important',
                               }}
-                              onClick={() => push(link.href)}
+                              onClick={() => {
+                                if (!link.href) {
+                                  return null;
+                                }
+                                return push(link.href);
+                              }}
                               color="#747373"
                               fontWeight="300"
                               variant="subtitle2"
+                              download={link?.download}
+                              href={link?.downloadLink}
                             >
                               {link.title}
                             </Link>
@@ -344,8 +372,8 @@ const Footer: FC = (props) => {
                   textDecoration: 'none !important',
                   whiteSpace: 'nowrap',
                   '&:hover': {
-                    backgroundColor: 'rgba(86, 100, 210, 0.04)'
-                  }
+                    backgroundColor: 'rgba(86, 100, 210, 0.04)',
+                  },
                 }}
               >
                 {t('buttons.helpSite')}

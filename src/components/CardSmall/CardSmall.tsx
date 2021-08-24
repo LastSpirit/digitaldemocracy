@@ -16,7 +16,7 @@ interface CardSmallProps {
   publication_date?: string;
   number_of_views?: number;
   short_link?: string;
-  image?: string;
+  image?: any;
 }
 
 const CardSmall: FC<CardSmallProps> = ({
@@ -92,7 +92,11 @@ const CardSmall: FC<CardSmallProps> = ({
           </Box>
         </Box>
         <Box className={classes.imageContainer} onClick={handleNews}>
-          <img src={image} alt="news" className={classes.image} />
+          {image.length > 1 ? (
+            image.map((elem) => <img src={elem} alt="news" className={classes.image} />).splice(0, 2)
+          ) : (
+            <img src={image} alt="news" className={classes.image_full} />
+          )}
         </Box>
       </Box>
     </Box>

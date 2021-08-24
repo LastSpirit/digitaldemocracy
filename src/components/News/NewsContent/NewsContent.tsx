@@ -79,7 +79,7 @@ const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea, 
               justifyContent="center"
               sx={{
                 maxWidth: '900px',
-                justifyContent: 'flex-start',
+                justifyContent: 'center',
               }}
             >
               {news &&

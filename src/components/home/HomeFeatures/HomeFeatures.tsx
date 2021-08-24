@@ -73,7 +73,7 @@ const HomeFeatures: FC<HomeFeaturesPropsI> = ({ status, newsTopics, news, isMore
                     }}
                   >
                     {news?.map((item, index) => (
-                      <Grid key={index.toString()} item xl={4} lg={4} md={6} sm={6} xs={10}>
+                      <Grid key={index.toString()} item md={4} sm={6} xs={12}>
                         <CardSmall {...item} />
                       </Grid>
                     ))}

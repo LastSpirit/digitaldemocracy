@@ -55,7 +55,7 @@ const WidgetLinkPageContent: FC<NewsPropsI> = ({ news, isMorePages, widgetTitle 
               {news &&
                 news.length > 0 &&
                 news.map((item, index) => (
-                  <Grid key={index.toString()} item md={4} sm={6} xs={12}>
+                  <Grid key={index.toString()} item md={3} sm={6} xs={12}>
                     <CardSmall {...item} />
                   </Grid>
                 ))}
