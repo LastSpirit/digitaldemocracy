@@ -31,7 +31,7 @@ export const useSearch = () => {
       isMedia,
       isAuthor,
       page,
-      PerPage: perPage
+      perPage
     };
     fetchSearch({
       onError: () => {
@@ -39,7 +39,6 @@ export const useSearch = () => {
       },
       onSuccess: (response) => {
         setSearchData(response);
-        // console.log(response);
         setStatus(APIStatus.Success);
       },
       payload: paramAPI

@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
 import { BackButton } from '../BackButton/BackButton';
 import { useSearch } from './hooks/useSearch';
-import { searchActionCreators, searchSelectors } from '../../slices/searchSlice';
+import { searchActionCreators } from '../../slices/searchSlice';
 
 import styles from './Search.module.scss';
 
@@ -95,9 +95,11 @@ const setActiveAction = (key) => ({
 export const Search = () => {
   const { pathname } = useLocation();
   const { push } = useHistory();
+  const {
+    clearSearchData,
+  } = searchActionCreators();
   const { fetch: fetchSearch, status: searchStatus } = useSearch();
-  const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(4);
+  // const [page, setPage] = useState(1);
   const [buttons, dispatchBtn] = useReducer(reducerFiltersButtons, filtersButtons);
 
   const handleSearchChange = (setValue) => (event): void => {
@@ -110,6 +112,12 @@ export const Search = () => {
     if (event.charCode === 13) {
       push('/search');
     }
+  };
+
+  const handleResetSearch = (handleReset) => (event): void => {
+    handleReset(event);
+    dispatchBtn({ type: 'RESET' });
+    clearSearchData();
   };
 
   // useEffect(() => {
@@ -137,14 +145,14 @@ export const Search = () => {
                       isAuthor: buttons.author.active,
                       isMedia: buttons.media.active,
                       isParty: buttons.parties.active,
-                      page,
-                      perPage
+                      page: 1,
+                      perPage: 4
                     });
                   } else {
                     fetchSearch({
                       search: values.search,
-                      page,
-                      perPage
+                      page: 1,
+                      perPage: 4
                     });
                   }
                 }
@@ -186,7 +194,9 @@ export const Search = () => {
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                              <IconButton onClick={handleReset}>
+                              <IconButton
+                                onClick={handleResetSearch(handleReset)}
+                              >
                                 <ClearIcon />
                               </IconButton>
                             </InputAdornment>
@@ -222,6 +232,7 @@ export const Search = () => {
               {Object.keys(buttons)
                 .map((key) => (
                   <Button
+                    key={buttons[key].id}
                     variant="outlined"
                     sx={{
                       height: '30px',

@@ -1,14 +1,17 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Container } from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
 import { useWindowSize } from 'src/hooks/useWindowSize';
-import { Search } from '../../components/Search/Search';
 import { searchSelectors } from '../../slices/searchSlice';
-import PoliticiansCard from '../RatingPage/PoliticianCard/PoliticiansCard';
+import { SearchBlockTypes, SearchBlock } from './SearchBlock/SearchBlock';
 
 const SearchPage = () => {
   const { isMobile } = useWindowSize();
   const searchData = useSelector(searchSelectors.getSearchData());
+
+  useEffect(() => {
+    console.log(searchData);
+  }, [searchData]);
 
   return (
     <Container
@@ -16,14 +19,36 @@ const SearchPage = () => {
       sx={{
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
+        // height: '80vh',
+        flexDirection: 'column',
+        // p: 4,
       }}
     >
-      {/* <Search /> */}
-      {searchData.news && (
-        <div />
-      )}
+      {
+        searchData.news.data.length
+        ? <SearchBlock headerText={'Новости'} type={SearchBlockTypes.NEWS} data={searchData.news.data} />
+        : null
+      }
+      {
+        searchData.party.data.length
+        ? <SearchBlock headerText={'Партии'} type={SearchBlockTypes.PARTY} data={searchData.party.data} />
+        : null
+      }
+      {
+        searchData.author.data.length
+          ? <SearchBlock headerText={'Авторы'} type={SearchBlockTypes.AUTHOR} data={searchData.author.data} />
+          : null
+      }
+      {
+        searchData.politician.data.length
+          ? <SearchBlock headerText={'Политики'} type={SearchBlockTypes.POLITICIAN} data={searchData.politician.data} />
+          : null
+      }
+      {
+        searchData.media.data.length
+          ? <SearchBlock headerText={'СМИ'} type={SearchBlockTypes.MEDIA} data={searchData.media.data} />
+          : null
+      }
     </Container>
   );
 };
