@@ -9,7 +9,7 @@ const fetchSearch = (args) => {
       headers: {
         Accept: 'application/json',
       },
-      params: args.payload.params,
+      // params: args.payload.params,
     },
     ...args,
   });

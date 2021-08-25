@@ -70,6 +70,16 @@ const reducerFiltersButtons = (state: filterButtonsI, action) => {
         active: !state[action.payload.key].active,
       }
     };
+  case 'RESET':
+    return Object
+      .keys(state)
+      .reduce((acc, key) => ({
+        ...acc,
+        [key]: {
+          ...state[key],
+          active: false,
+        },
+      }), state);
   default:
     return state;
   }
@@ -85,10 +95,7 @@ const setActiveAction = (key) => ({
 export const Search = () => {
   const { pathname } = useLocation();
   const { push } = useHistory();
-  // const [query, setQuery] = useState({
-  //   search: ''
-  // });
-  const { fetch: fetchSearch } = useSearch();
+  const { fetch: fetchSearch, status: searchStatus } = useSearch();
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(4);
   const [buttons, dispatchBtn] = useReducer(reducerFiltersButtons, filtersButtons);
@@ -96,7 +103,7 @@ export const Search = () => {
   const handleSearchChange = (setValue) => (event): void => {
     setValue('search', event.target.value);
     // setQuery({ query: event.target.value });
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
 
   const handleKeyPress = (event) => {
@@ -105,9 +112,9 @@ export const Search = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(buttons);
-  }, [buttons]);
+  // useEffect(() => {
+  //   console.log(buttons);
+  // }, [buttons]);
 
   return (
     <Container>
@@ -120,7 +127,6 @@ export const Search = () => {
                 search: ''
               }}
               onSubmit={(values, formikHelpers) => {
-                console.log(values.search);
                 const activeButtons = Object.values(buttons).some((item) => item.active);
                 if (values.search) {
                   if (activeButtons) {

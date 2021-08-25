@@ -12,30 +12,39 @@ export const useSearch = () => {
   } = searchActionCreators();
   const { fetchSearch } = searchAPI();
 
-  const fetch = useCallback(({ search, isNews = true, isPolitician = true, isParty = true, isMedia = true, isAuthor = true, page = 1, perPage = 4 }) => {
+  const fetch = ({
+    search,
+    isNews = true,
+    isPolitician = true,
+    isParty = true,
+    isMedia = true,
+    isAuthor = true,
+    page = 1,
+    perPage = 4
+  }) => {
     setStatus(APIStatus.Loading);
+    const paramAPI = {
+      search,
+      isNews,
+      isPolitician,
+      isParty,
+      isMedia,
+      isAuthor,
+      page,
+      PerPage: perPage
+    };
     fetchSearch({
       onError: () => {
         setStatus(APIStatus.Failure);
       },
       onSuccess: (response) => {
         setSearchData(response);
+        // console.log(response);
         setStatus(APIStatus.Success);
       },
-      payload: {
-        params: {
-          search,
-          isNews,
-          isPolitician,
-          isParty,
-          isMedia,
-          isAuthor,
-          page,
-          PerPage: perPage
-        }
-      }
+      payload: paramAPI
     });
-  }, []);
+  };
 
   return { status, fetch };
 };

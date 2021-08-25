@@ -11,20 +11,18 @@ const SearchPage = () => {
   const searchData = useSelector(searchSelectors.getSearchData());
 
   return (
-    <div>
-      <Container
-        maxWidth="lg"
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '80vh',
-        }}
-      >
-        {/* <Search /> */}
-        {/* searchData */}
-      </Container>
-    </div>
+    <Container
+      maxWidth="lg"
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+      }}
+    >
+      {/* <Search /> */}
+      {/* searchData */}
+    </Container>
   );
 };
 
