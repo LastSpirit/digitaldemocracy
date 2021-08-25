@@ -21,7 +21,9 @@ const SearchPage = () => {
       }}
     >
       {/* <Search /> */}
-      {/* searchData */}
+      {searchData.news && (
+        <div />
+      )}
     </Container>
   );
 };
