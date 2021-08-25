@@ -13,6 +13,12 @@ const SearchPage = () => {
     console.log(searchData);
   }, [searchData]);
 
+  // data={searchData.news.data}
+  // data={searchData.party.data}
+  // data={searchData.author.data}
+  // data={searchData.politician.data}
+  // data={searchData.media.data}
+
   return (
     <Container
       maxWidth="lg"
@@ -26,27 +32,27 @@ const SearchPage = () => {
     >
       {
         searchData.news.data.length
-        ? <SearchBlock headerText={'Новости'} type={SearchBlockTypes.NEWS} data={searchData.news.data} />
+        ? <SearchBlock headerText={'Новости'} type={SearchBlockTypes.NEWS} />
         : null
       }
       {
         searchData.party.data.length
-        ? <SearchBlock headerText={'Партии'} type={SearchBlockTypes.PARTY} data={searchData.party.data} />
+        ? <SearchBlock headerText={'Партии'} type={SearchBlockTypes.PARTY} />
         : null
       }
       {
         searchData.author.data.length
-          ? <SearchBlock headerText={'Авторы'} type={SearchBlockTypes.AUTHOR} data={searchData.author.data} />
+          ? <SearchBlock headerText={'Авторы'} type={SearchBlockTypes.AUTHOR} />
           : null
       }
       {
         searchData.politician.data.length
-          ? <SearchBlock headerText={'Политики'} type={SearchBlockTypes.POLITICIAN} data={searchData.politician.data} />
+          ? <SearchBlock headerText={'Политики'} type={SearchBlockTypes.POLITICIAN} />
           : null
       }
       {
         searchData.media.data.length
-          ? <SearchBlock headerText={'СМИ'} type={SearchBlockTypes.MEDIA} data={searchData.media.data} />
+          ? <SearchBlock headerText={'СМИ'} type={SearchBlockTypes.MEDIA} />
           : null
       }
     </Container>

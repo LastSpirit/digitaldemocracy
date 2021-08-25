@@ -85,6 +85,9 @@ export const searchSlice = createSlice({
       state.media.data = action.payload.media;
       state.author.data = action.payload.author;
     },
+    setSearchDataCategory: (state: SliceState, action) => {
+      state[action.payload.key].data = action.payload;
+    },
     setPage: (state: SliceState, action: ActionSetPageOrPerPage) => {
       state[action.payload.key].page = action.payload.value;
     },
