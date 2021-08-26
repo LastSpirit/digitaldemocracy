@@ -176,6 +176,7 @@ export const Search = () => {
             onSubmit={(values) => {
               handleSubmitForm(values);
             }}
+            // TODO t('errors.minSymbol')
             validationSchema={Yup.object().shape({
               search: Yup.string().min(3, 'Нужно ввести минимум 3 символа'),
             })}
