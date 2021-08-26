@@ -45,10 +45,27 @@ const fetchSubscriptions: APIRequest<{ token: string }, { data?: SubscriptionsI 
     ...args,
   });
 
+const fetchDossierTable: any = (args) =>
+  callAPI({
+    url: 'getPoliticiansDossierTable',
+    config: {
+      method: 'get',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`
+      },
+    },
+    ...args,
+  });
+
+const fetchPoliticiansDossierGraph: any = () => {};
+
 const APIs = {
   fetchUserData,
   fetchBrowsingHistory,
-  fetchSubscriptions
+  fetchSubscriptions,
+  fetchDossierTable,
+  fetchPoliticiansDossierGraph
 };
 
 export const userAPI = () => {
