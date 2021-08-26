@@ -188,7 +188,7 @@ export const politicianSlice = createSlice({
     setNews(state: SliceState, action) {
       state.news = {
         ...state.news,
-        news: [...(state.news.news || []), ...action.payload.news],
+        news: [...action.payload.news],
         isMorePages: action.payload.isMorePages,
       };
       // state.chartData = [...action.payload].map((item) => [new Date(item.publication_date), item.percent]);
@@ -272,7 +272,6 @@ export const politicianSlice = createSlice({
     setReset(state) {
       state.news = {
         ...state.news,
-        news: [],
         isMorePages: false,
         page: 1,
       };
