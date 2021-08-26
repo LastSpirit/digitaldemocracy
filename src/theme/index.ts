@@ -1,5 +1,5 @@
 import merge from 'lodash/merge';
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import type { Direction, Theme, ThemeOptions } from '@material-ui/core';
 import { THEMES } from '../constants';
 import { lightShadows, darkShadows } from './shadows';
@@ -216,7 +216,7 @@ const themesOptions: Record<string, ThemeOptions> = {
   }
 };
 
-export const createTheme = (config: ThemeConfig = {}): Theme => {
+export const createAppTheme = (config: ThemeConfig = {}): Theme => {
   let themeOptions = themesOptions[config.theme];
 
   if (!themeOptions) {
@@ -224,7 +224,7 @@ export const createTheme = (config: ThemeConfig = {}): Theme => {
     themeOptions = themesOptions[THEMES.LIGHT];
   }
 
-  let theme = createMuiTheme(
+  let theme = createTheme(
     merge(
       {},
       baseOptions,

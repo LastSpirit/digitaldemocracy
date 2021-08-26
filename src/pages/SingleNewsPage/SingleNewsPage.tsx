@@ -1,13 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { RouteComponentProps } from 'react-router';
-import { Container, Button } from '@material-ui/core';
-import { BackButton } from 'src/components/BackButton/BackButton';
+import { Container } from '@material-ui/core';
 import { singleNewsSelector, singleNewsActionCreators } from 'src/slices/SingleNewsSlice';
-import { APIStatus } from 'src/lib/axiosAPI';
-import { Loading } from 'src/components/Loading/Loading';
-import { useTranslation } from 'react-i18next';
 import { WrapperAsyncRequest } from './features/Loading/WrapperAsyncRequest';
 import SingleNewsHero from './features/SingleNewsHero/SingleNewsHero';
 import SingleNewsList from './features/SingleNewsList/SingleNewsList';
@@ -18,13 +12,10 @@ import { SingleBillsStatistics } from '../SingleBillsPage/features/SingleBillsSt
 import styles from '../MassMediaPage/MassMediaPage.module.scss';
 
 const SingleNews = (props) => {
-  const { goBack, length, push } = useHistory() as any;
-  const { t } = useTranslation();
   const { fetch } = useFetchSingleNews();
   const { resetSingleNews } = singleNewsActionCreators();
   const data = useSelector(singleNewsSelector.getData());
   const status = useSelector(singleNewsSelector.getStatus());
-  const title = 'Ваше мнение по поводу законопроекта?';
   useEffect((): any => {
     fetch();
     return () => resetSingleNews();
@@ -33,7 +24,6 @@ const SingleNews = (props) => {
     <Container maxWidth="lg" className={styles.container}>
       <div className={styles.container}>
         <WrapperAsyncRequest status={status}>
-          <BackButton />
           <SingleNewsHero data={data?.currentNews} />
           <SingleNewsStatistics
             author={data?.currentNews?.author}

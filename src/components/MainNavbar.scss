@@ -76,6 +76,9 @@
 }
 
 .buttonsStyleProfile {
+  min-width: 40px;
+  padding: 5px;
+
   color: white !important;
   border: 1px solid #363557;
   background-color: #363557;
@@ -84,6 +87,10 @@
 .buttonsStyleProfile:hover {
   color: #363557 !important;
   background-color: white;
+
+  .person {
+    fill: #363557;
+  }
 }
 
 .comeIn {

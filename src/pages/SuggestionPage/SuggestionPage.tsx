@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Container, TextField, Button } from '@material-ui/core';
-import { useWindowSize } from 'src/hooks/useWindowSize';
-import { APIStatus } from '../../lib/axiosAPI';
 import { useFetchSuggestion } from './hooks/useFetchSuggestion';
-import { WrapperAsyncRequest } from '../../components/Loading/WrapperAsyncRequest';
-import { BackButton } from '../../components/BackButton/BackButton';
-import { MobileButtons } from '../../components/MobileButtons/MobileButtons';
 import { DialogSuggest } from './DialogSuggest/DialogSuggest';
 import { Loading } from '../../components/Loading/Loading';
 import { SuggestionNav } from './SuggestionNav/SuggestionNav';
+// import { WrapperAsyncRequest } from '../../components/Loading/WrapperAsyncRequest';
+// import { useWindowSize } from 'src/hooks/useWindowSize';
+// import { BackButton } from '../../components/BackButton/BackButton';
+
 import styles from './SuggestionPage.module.scss';
 
-const NEWS = 'NEWS';
+// const NEWS = 'NEWS';
 const POLITICIAN = 'POLITICIAN';
 
 const SuggestionPage = () => {
   const { t } = useTranslation();
-  const { isMobile } = useWindowSize();
+  // const { isMobile } = useWindowSize();
   const [open, setOpen] = useState(false);
   const [suggest, setSuggest] = useState(POLITICIAN);
   const [infoPolitician, setInfoPolitician] = useState('');
@@ -69,7 +68,6 @@ const SuggestionPage = () => {
   return (
     <Container maxWidth="lg" className={styles.container}>
       {/* <WrapperAsyncRequest status={status}> */}
-      <BackButton />
       <SuggestionNav
         setSuggest={setSuggest}
         setError={setError}

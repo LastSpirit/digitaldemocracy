@@ -123,7 +123,6 @@ export default function CustomArrows({ data }) {
   const [date, setDate] = useState(null);
   const [secondDate, setSecondDate] = useState(null);
   const initialDate: any = new Date(0);
-  console.log(data);
   return (
     <div className={styles.carouselContainer}>
       {data ? (

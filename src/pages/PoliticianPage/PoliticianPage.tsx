@@ -1,21 +1,21 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Container } from '@material-ui/core';
 import 'react-datepicker/dist/react-datepicker.css';
 import { getItem } from 'src/lib/localStorageManager';
-import { useWindowSize } from 'src/hooks/useWindowSize';
-import './datePickerStyles.scss';
-import styles from './PoliticianPage.module.scss';
 import { useFetchProfileInfo } from './hooks/useFetchProfileInfo';
 import { WrapperAsyncRequest } from './blocks/Loading/WrapperAsyncRequest';
 import PoliticianInfoBlock from './blocks/PoliticianInfoBlock/PoliticianInfoBlock';
 import PoliticianNavigation from './blocks/PoliticianNavigation';
-import { MobileButtons } from '../../components/MobileButtons/MobileButtons';
-import { BackButton } from '../../components/BackButton/BackButton';
 import { CustomDialog } from './blocks/CustomDialog/CustomDialog';
 import { politicianActionCreators } from '../../slices/politicianSlice';
+// import { useWindowSize } from 'src/hooks/useWindowSize';
+// import { BackButton } from '../../components/BackButton/BackButton';
+
+import './datePickerStyles.scss';
+import styles from './PoliticianPage.module.scss';
 
 const PoliticianPage = () => {
-  const { isMobile } = useWindowSize();
+  // const { isMobile } = useWindowSize();
   const { status, fetch } = useFetchProfileInfo();
   const { setReset } = politicianActionCreators();
   const [open, setOpen] = useState(false);
@@ -44,7 +44,6 @@ const PoliticianPage = () => {
       <div className={styles.container}>
         <WrapperAsyncRequest status={status}>
           <div className={styles.containerContent}>
-            <BackButton />
             <PoliticianInfoBlock handleClickOpen={handleClickOpen} />
             <PoliticianNavigation />
           </div>

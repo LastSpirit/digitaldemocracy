@@ -9,7 +9,7 @@ import { Helmet } from 'react-helmet-async';
 import { firebaseConfig, gtmConfig } from './config';
 import useSettings from './hooks/useSettings';
 import gtm from './lib/gtm';
-import { createTheme } from './theme';
+import { createAppTheme } from './theme';
 import YandexRegisterModal from './components/widgets/modals/YandexRegisterModal/YandexRegisterModal';
 import { ModalParams } from './types/routing';
 import { useSearchParams } from './hooks/useSearchParams';
@@ -66,7 +66,7 @@ const App: FC = () => {
     gtm.initialize(gtmConfig);
   }, []);
 
-  const theme = createTheme({
+  const theme = createAppTheme({
     direction: settings.direction,
     responsiveFontSizes: settings.responsiveFontSizes,
     roundedCorners: settings.roundedCorners,

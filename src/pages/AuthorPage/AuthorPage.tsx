@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Container } from '@material-ui/core';
-import { BackButton } from 'src/components/BackButton/BackButton';
 import { getItem } from 'src/lib/localStorageManager';
 import styles from './AuthorPage.module.scss';
 
@@ -11,7 +10,7 @@ import { WrapperAsyncRequest } from './blocks/Loading/WrapperAsyncRequest';
 import { useFetchAuthor } from './hooks/useFetchAuthor';
 import { authorActionCreators } from '../../slices/authorSlice';
 
-import { RootState } from '../../store/index';
+import { RootState } from '../../store';
 
 const AuthorPage = () => {
   const { status } = useSelector((s: RootState) => s.author);
@@ -26,7 +25,6 @@ const AuthorPage = () => {
     <Container maxWidth="lg" className={styles.container}>
       <div className={styles.container}>
         <WrapperAsyncRequest status={status}>
-          <BackButton />
           <AuthorInfoBlock />
           <AuthorNavigation />
         </WrapperAsyncRequest>
