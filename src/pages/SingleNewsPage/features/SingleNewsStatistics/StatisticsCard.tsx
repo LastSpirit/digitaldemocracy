@@ -54,7 +54,7 @@ const StatisticsCard: FC<StatisticsCardPropsI> = ({
   politicianIndex,
   id,
   isMasmedia,
-  position
+  position,
 }) => {
   const percentIsPositive = percent?.includes('+') && !percent?.includes('-');
   const { isMobile } = useWindowSize();

@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Container, Typography, IconButton, Grid } from '@material-ui/core';
 import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 import CallMadeIcon from '@material-ui/icons/CallMade';
@@ -9,6 +10,7 @@ import FacebookShare from 'src/components/FacebookShare/FacebookShare';
 import styles from './SingleBillsHero.module.scss';
 
 const SingleBillsHero = ({ data }) => {
+  const { t } = useTranslation();
   const [toggleIframe, setToggleIframe] = useState(true);
   const handleToggleIframe = () => {
     setToggleIframe(!toggleIframe);
@@ -64,9 +66,14 @@ const SingleBillsHero = ({ data }) => {
           </Grid>
         </Grid>
         {toggleIframe ? (
-          <Box>
-            <iframe src={data?.source_link} title="link" className={styles.iframe} width="80vw" />
-          </Box>
+          <>
+            <Box className={styles.warningMessage}>
+              <Typography className={styles.warningMessage__title}>{t('info.warningWatchNews')}</Typography>
+            </Box>
+            <Box>
+              <iframe src={data?.source_link} title="link" className={styles.iframe} width="80vw" />
+            </Box>
+          </>
         ) : null}
       </Container>
     </Box>

@@ -7,12 +7,11 @@ import SingleNewsHero from './features/SingleNewsHero/SingleNewsHero';
 import SingleNewsList from './features/SingleNewsList/SingleNewsList';
 import SingleNewsStatistics from './features/SingleNewsStatistics/SingleNewsStatistics';
 import { useFetchSingleNews } from './hooks/useFetchSingleNews';
-// import { BackButton } from 'src/components/BackButton/BackButton';
+import { SingleBillsStatistics } from '../SingleBillsPage/features/SingleBillsStatistics/SingleBillsStatistics';
 
 import styles from '../MassMediaPage/MassMediaPage.module.scss';
 
 const SingleNews = (props) => {
-  // const { goBack, length, push } = useHistory() as any;
   const { fetch } = useFetchSingleNews();
   const { resetSingleNews } = singleNewsActionCreators();
   const data = useSelector(singleNewsSelector.getData());
@@ -36,6 +35,7 @@ const SingleNews = (props) => {
           ) : null}
         </WrapperAsyncRequest>
       </div>
+      {data?.bills && data?.bills.length > 0 ? data.bills.map((elem) => <SingleBillsStatistics {...elem} />) : null}
     </Container>
   );
 };

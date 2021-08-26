@@ -89,11 +89,26 @@ export interface NewsI {
   short_link?: string;
 }
 
+interface Bills {
+  id: number;
+  title?: string;
+  publication_date: string;
+  image: string;
+  short_link: string;
+  number_of_likes: number;
+  number_of_dislikes: number;
+  is_user_liked: boolean;
+  is_user_disliked: boolean;
+  number_of_views: number;
+  link: string;
+}
+
 export interface SingleNewsI {
   currentNews?: CurrentNewsI;
   news?: NewsI[];
   politicians?: PoliticiansI[];
   isMorePages?: boolean;
+  bills?: Bills[];
 }
 
 export interface LikesI {
