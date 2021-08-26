@@ -26,26 +26,28 @@ const PartiesTab = () => {
     fetch();
   }, [sortDirection, sortField, isAuthenticated]);
   return (
-    <WrapperAsyncRequest status={status}>
+    <>
       <div className={styles.newsContainer}>
         <div className={styles.sortRow}>
           {sortRatingParties(t).map(({ id, full_title, short_title, field }) => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
         </div>
-        {parties && parties?.length > 0 ? (
-          <div className={styles.news}>
-            {parties?.map((item, index) => (
-              <PartyCard key={item.id} {...item} />
-            ))}
-          </div>
-        ) : (
-          <div className={styles.noNewsBlock}>
-            <span>{t('tabs.warningMessageParties')}</span>
-          </div>
-        )}
+        <WrapperAsyncRequest status={status}>
+          {parties && parties?.length > 0 ? (
+            <div className={styles.news}>
+              {parties?.map((item, index) => (
+                <PartyCard key={item.id} {...item} />
+              ))}
+            </div>
+          ) : (
+            <div className={styles.noNewsBlock}>
+              <span>{t('tabs.warningMessageParties')}</span>
+            </div>
+          )}
+        </WrapperAsyncRequest>
       </div>
-    </WrapperAsyncRequest>
+    </>
   );
 };
 

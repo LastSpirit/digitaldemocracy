@@ -26,26 +26,28 @@ const MassMediaTab = () => {
     fetch();
   }, [sortDirection, sortField, isAuthenticated]);
   return (
-    <WrapperAsyncRequest status={status}>
+    <>
       <div className={styles.newsContainer}>
         <div className={styles.sortRow}>
           {sortRatingMedia(t).map(({ id, full_title, short_title, field }) => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
         </div>
-        {media && media?.length > 0 ? (
-          <div className={styles.news}>
-            {media?.map((item, index) => (
-              <MassMediaCard key={item.id} {...item} />
-            ))}
-          </div>
-        ) : (
-          <div className={styles.noNewsBlock}>
-            <span>{t('tabs.warningMessageMassMedia')}</span>
-          </div>
-        )}
+        <WrapperAsyncRequest status={status}>
+          {media && media?.length > 0 ? (
+            <div className={styles.news}>
+              {media?.map((item, index) => (
+                <MassMediaCard key={item.id} {...item} />
+              ))}
+            </div>
+          ) : (
+            <div className={styles.noNewsBlock}>
+              <span>{t('tabs.warningMessageMassMedia')}</span>
+            </div>
+          )}
+        </WrapperAsyncRequest>
       </div>
-    </WrapperAsyncRequest>
+    </>
   );
 };
 

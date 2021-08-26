@@ -26,26 +26,28 @@ const AuthorTab = () => {
     fetch();
   }, [sortDirection, sortField, isAuthenticated]);
   return (
-    <WrapperAsyncRequest status={status}>
+    <>
       <div className={styles.newsContainer}>
         <div className={styles.sortRow}>
           {sortRatingAuthors(t).map(({ id, full_title, short_title, field }) => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
         </div>
-        {authors && authors?.length > 0 ? (
-          <div className={styles.news}>
-            {authors?.map((item, index) => (
-              <AuthorCard key={item.id} {...item} />
-            ))}
-          </div>
-        ) : (
-          <div className={styles.noNewsBlock}>
-            <span>{t('tabs.warningMessageAuthors')}</span>
-          </div>
-        )}
+        <WrapperAsyncRequest status={status}>
+          {authors && authors?.length > 0 ? (
+            <div className={styles.news}>
+              {authors?.map((item, index) => (
+                <AuthorCard key={item.id} {...item} />
+              ))}
+            </div>
+          ) : (
+            <div className={styles.noNewsBlock}>
+              <span>{t('tabs.warningMessageAuthors')}</span>
+            </div>
+          )}
+        </WrapperAsyncRequest>
       </div>
-    </WrapperAsyncRequest>
+    </>
   );
 };
 

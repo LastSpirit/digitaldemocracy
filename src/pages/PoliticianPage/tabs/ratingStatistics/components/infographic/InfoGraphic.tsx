@@ -192,7 +192,7 @@ export const InfoGraphic = () => {
               />
               <div className={styles.checkbox}>
                 <Checkbox value={world} onChange={() => setWorld(!world)} />
-                <p>Весь мир</p>
+                {t('info.worldUser')}
               </div>
               <div className={styles.buttons}>
                 <Button

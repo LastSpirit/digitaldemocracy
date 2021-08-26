@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
+import { Checkbox } from '@material-ui/core';
 import { ratingSelectors } from '../../../slices/ratingSlice';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import { useFetchPoliticians } from '../hooks/useFetchPoliticians';
@@ -22,37 +23,51 @@ const PoliticiansTab = () => {
   const sortDirection = useSelector((s: RootState) => s.rating.sort_direction);
   const sortField = useSelector((s: RootState) => s.rating.sort_field);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
+  const [world, setWorld] = useState(false);
 
   useEffect(() => {
-    fetch();
-  }, [sortDirection, sortField, isAuthenticated]);
+    fetch(world);
+  }, [sortDirection, sortField, isAuthenticated, world]);
 
   return (
-    <WrapperAsyncRequest status={status}>
+    <>
       <div className={styles.newsContainer}>
         <div className={styles.sortDrop}>
           {sortDropdownPoliticians(t).map(({ id, full_title, short_title, field }) => {
-            return <SortDropdown key={id} text={!isMobile ? full_title : short_title} field={field} />;
+            return (
+              <SortDropdown
+                key={id}
+                text={!isMobile ? full_title : short_title}
+                field={field}
+                world={world}
+              />
+            );
           })}
+        </div>
+        <div>
+          <Checkbox value={world} onChange={() => setWorld(!world)} />
+          {t('info.worldUser')}
         </div>
         <div className={styles.sortRow}>
           {sortRatingPoliticians(t).map(({ id, full_title, short_title, field }) => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
         </div>
-        {politicians && politicians?.length > 0 ? (
-          <div className={styles.news}>
-            {politicians?.map((item, index) => (
-              <PoliticiansCard key={item.id} {...item} />
-            ))}
-          </div>
-        ) : (
-          <div className={styles.noNewsBlock}>
-            <span>{t('tabs.warningMessagePoliticians')}</span>
-          </div>
-        )}
+        <WrapperAsyncRequest status={status}>
+          {politicians && politicians?.length > 0 ? (
+            <div className={styles.news}>
+              {politicians?.map((item, index) => (
+                <PoliticiansCard key={item.id} {...item} />
+              ))}
+            </div>
+          ) : (
+            <div className={styles.noNewsBlock}>
+              <span>{t('tabs.warningMessagePoliticians')}</span>
+            </div>
+          )}
+        </WrapperAsyncRequest>
       </div>
-    </WrapperAsyncRequest>
+    </>
   );
 };
 

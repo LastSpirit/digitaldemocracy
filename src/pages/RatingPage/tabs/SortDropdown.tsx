@@ -11,7 +11,7 @@ import { useFetchPoliticians } from '../hooks/useFetchPoliticians';
 import { useFetchSort } from '../hooks/useFetchSort';
 import { ratingActionCreators } from '../../../slices/ratingSlice';
 
-export const SortDropdown = ({ text, field }) => {
+export const SortDropdown = ({ text, field, world }) => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
   const [update, setUpdate] = useState(true);
@@ -29,6 +29,8 @@ export const SortDropdown = ({ text, field }) => {
   const { countries, cities, regions } = useSelector((s: RootState) => s.rating[field]);
   const { fetch } = useFetchPoliticians();
 
+  console.log(world);
+
   const [postData, setPostData] = useState({
     country_politician_id: null,
     region_politician_id: null,
@@ -40,6 +42,10 @@ export const SortDropdown = ({ text, field }) => {
     region_user_id: null,
     city_user_id: null,
   });
+
+  useEffect(() => {
+    fetch(world);
+  }, [update, world]);
 
   useEffect(() => {
     fetchCounties(field);
@@ -66,12 +72,9 @@ export const SortDropdown = ({ text, field }) => {
     postData2.country_user_id,
   ]);
 
-  useEffect(() => {
-    fetch();
-  }, [update]);
-
-  return (
+  return !world ? (
     <Formik
+      key={world}
       initialValues={{
         country: '',
         region: '',
@@ -93,7 +96,7 @@ export const SortDropdown = ({ text, field }) => {
         return (
           <form
             onSubmit={handleSubmit}
-            style={{ width: '180px', marginRight: '15px', display: 'flex', flexDirection: 'column' }}
+            style={{ width: '270px', marginRight: '15px', display: 'flex', flexDirection: 'column' }}
             className={styles.mainForm}
             onReset={handleReset}
             noValidate
@@ -106,9 +109,10 @@ export const SortDropdown = ({ text, field }) => {
                 id="country"
                 options={countries ?? []}
                 value={values.country}
-                style={{ width: '170px' }}
+                style={{ width: '270px' }}
                 getOptionLabel={(option: any) => option?.title?.[currentLang] || option?.title?.ru || values.country}
-                isOptionEqualToValue={(option, value) => option.title?.[currentLang] === value || option.title?.ru === value}
+                isOptionEqualToValue={(option, value) =>
+                  option.title?.[currentLang] === value || option.title?.ru === value}
                 noOptionsText={<>{t('info.noVariants')}</>}
                 onChange={(_, newValue) => {
                   if (newValue && newValue !== null) {
@@ -192,9 +196,10 @@ export const SortDropdown = ({ text, field }) => {
                   id="region"
                   options={regions}
                   value={values.region}
-                  style={{ width: '170px' }}
+                  style={{ width: '270px' }}
                   getOptionLabel={(option: any) => option?.title?.[currentLang] || option?.title?.ru || values.region}
-                  isOptionEqualToValue={(option, value) => option.title?.[currentLang] === value || option.title?.ru === value}
+                  isOptionEqualToValue={(option, value) =>
+                    option.title?.[currentLang] === value || option.title?.ru === value}
                   noOptionsText={<>{t('info.noVariants')}</>}
                   onChange={(_, newValue) => {
                     if (newValue && newValue !== null) {
@@ -250,9 +255,10 @@ export const SortDropdown = ({ text, field }) => {
                   id="city"
                   options={cities}
                   value={values.city}
-                  style={{ width: '170px' }}
+                  style={{ width: '270px' }}
                   getOptionLabel={(option: any) => option?.title?.[currentLang] || option?.title?.ru || values.city}
-                  isOptionEqualToValue={(option, value) => option.title?.[currentLang] === value || option.title?.ru === value}
+                  isOptionEqualToValue={(option, value) =>
+                    option.title?.[currentLang] === value || option.title?.ru === value}
                   noOptionsText={<>{t('info.noVariants')}</>}
                   onChange={(_, newValue) => {
                     if (newValue && newValue !== null) {
@@ -287,7 +293,7 @@ export const SortDropdown = ({ text, field }) => {
         );
       }}
     </Formik>
-  );
+  ) : null;
 };
 
 export default SortDropdown;
