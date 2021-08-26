@@ -16,6 +16,8 @@ export const useFetchNews = () => {
   const [error, setError] = useState<string>();
   const { short_link }: { short_link: string } = useParams();
   const token = getItem('token');
+  const startMIN = Math.floor(946674000);
+  const startMAX = Math.floor(32503669200);
   const fetch = useCallback(() => {
     setStatus(APIStatus.Loading);
     fetchNews({
@@ -30,8 +32,8 @@ export const useFetchNews = () => {
       variables: {
         token,
         politician_id,
-        start_date,
-        end_date,
+        start_date: start_date || startMIN,
+        end_date: end_date || startMAX,
         page,
       },
     });

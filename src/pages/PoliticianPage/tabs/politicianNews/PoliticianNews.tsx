@@ -18,9 +18,7 @@ export const PoliticianNews = () => {
   const { setReset } = politicianActionCreators();
 
   useEffect(() => {
-    if (start_date && end_date) {
-      fetch();
-    }
+    fetch();
   }, [page, start_date, end_date]);
 
   return (
