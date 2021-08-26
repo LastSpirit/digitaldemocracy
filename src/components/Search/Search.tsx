@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Button, TextField, InputLabel, InputAdornment, IconButton, Container } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import { Button, TextField, InputAdornment, IconButton, Container } from '@material-ui/core';
 import cn from 'classnames';
 import ClearIcon from '@material-ui/icons/Clear';
-import { Formik, useFormikContext, FormikHelpers, FormikState, FormikProps } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
 import { BackButton } from '../BackButton/BackButton';
 import { useSearch } from './hooks/useSearch';
 import { searchActionCreators } from '../../slices/searchSlice';
@@ -25,40 +25,46 @@ interface ButtonI {
   type: string;
   name: string;
   active: boolean;
+  keyTranslate: string;
 }
 
-const filtersButtons: filterButtonsI = {
+const filtersButtons = (t): filterButtonsI => ({
   news: {
     id: 1,
     type: 'isNews',
-    name: 'Новости',
+    name: t('tabs.news'),
     active: false,
+    keyTranslate: 'tabs.news'
   },
   politician: {
     id: 2,
     type: 'isPolitician',
-    name: 'Политики',
+    name: t('tabs.politicians'),
     active: false,
+    keyTranslate: 'tabs.politicians'
   },
   author: {
     id: 3,
     type: 'isAuthor',
-    name: 'Авторы',
+    name: t('tabs.authors'),
     active: false,
+    keyTranslate: 'tabs.authors'
   },
   media: {
     id: 4,
     type: 'isMedia',
-    name: 'СМИ',
+    name: t('tabs.massMedia'),
     active: false,
+    keyTranslate: 'tabs.massMedia'
   },
   parties: {
     id: 5,
     type: 'isParty',
-    name: 'Партии',
+    name: t('tabs.parties'),
     active: false,
+    keyTranslate: 'tabs.parties'
   },
-};
+});
 
 const reducerFiltersButtons = (state: filterButtonsI, action) => {
   switch (action.type) {
@@ -70,6 +76,16 @@ const reducerFiltersButtons = (state: filterButtonsI, action) => {
         active: !state[action.payload.key].active,
       }
     };
+  case 'CHANGE_LANG':
+    return Object
+      .keys(state)
+      .reduce((acc, key) => ({
+        ...acc,
+        [key]: {
+          ...state[key],
+          name: action.t(state[key].keyTranslate),
+        },
+      }), state);
   case 'RESET':
     return Object
       .keys(state)
@@ -93,19 +109,23 @@ const setActiveAction = (key) => ({
 });
 
 export const Search = () => {
+  const { t, i18n } = useTranslation();
   const { pathname } = useLocation();
   const { push } = useHistory();
   const {
+    setSearchQuery,
     clearSearchData,
   } = searchActionCreators();
-  const { fetchSearchCategory, status: searchStatus } = useSearch();
-  // const [page, setPage] = useState(1);
-  const [buttons, dispatchBtn] = useReducer(reducerFiltersButtons, filtersButtons);
+  const { fetchSearchCategory } = useSearch();
+  const [buttons, dispatchBtn] = useReducer(reducerFiltersButtons, filtersButtons(t));
+
+  useEffect(() => {
+    dispatchBtn({ type: 'CHANGE_LANG', t });
+  }, [i18n.language]);
 
   const handleSearchChange = (setValue) => (event): void => {
     setValue('search', event.target.value);
-    // setQuery({ query: event.target.value });
-    // console.log(event.target.value);
+    setSearchQuery({ searchQuery: event.target.value });
   };
 
   const handleKeyPress = (event) => {
@@ -143,10 +163,6 @@ export const Search = () => {
       }
     }
   };
-
-  // useEffect(() => {
-  //   console.log(buttons);
-  // }, [buttons]);
 
   return (
     <Container>
@@ -189,7 +205,7 @@ export const Search = () => {
                           variant="outlined"
                           fullWidth
                           // label="Поиск"
-                          placeholder="Поиск"
+                          placeholder={t('footer.menu.search')}
                           value={values.search}
                           onChange={handleSearchChange(setFieldValue)}
                           onBlur={handleBlur}
@@ -225,7 +241,7 @@ export const Search = () => {
                           maxHeight: '40px',
                         }}
                       >
-                        {'Поиск'}
+                        {t('footer.menu.search')}
                       </Button>
                     </div>
                     {pathname === '/search' && (

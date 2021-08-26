@@ -34,6 +34,8 @@
 .searchInput {
   flex: 1;
 
+  min-width: 150px;
+
   input {
     height: 40px;
     padding: 0 0 0 20px;
@@ -57,5 +59,19 @@
 
   .tabs_active:hover {
     background-color: initial;
+  }
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .search {
+    margin-top: 20px;
+  }
+
+  .filterTabs button:nth-child(n) {
+    margin-bottom: 16px;
   }
 }

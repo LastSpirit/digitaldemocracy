@@ -2,33 +2,24 @@ import { bindActionCreators, createSlice, PayloadAction } from '@reduxjs/toolkit
 import { useDispatch } from 'react-redux';
 
 interface SliceState {
+  searchQuery: string,
   news: {
-    page: number,
-    perPage: number,
     isMorePages: boolean,
     data: Array<any>
   };
   politician: {
-    page: number,
-    perPage: number,
     isMorePages: boolean,
     data: Array<any>
   };
   party: {
-    page: number,
-    perPage: number,
     isMorePages: boolean,
     data: Array<any>
   };
   media: {
-    page: number,
-    perPage: number,
     isMorePages: boolean,
     data: Array<any>
   };
   author: {
-    page: number,
-    perPage: number,
     isMorePages: boolean,
     data: Array<any>
   };
@@ -67,33 +58,24 @@ interface ActionSetPageOrPerPage {
 }
 
 const initialState: SliceState = {
+  searchQuery: '',
   news: {
-    page: 1,
-    perPage: 4,
     isMorePages: false,
     data: [],
   },
   politician: {
-    page: 1,
-    perPage: 4,
     isMorePages: false,
     data: [],
   },
   party: {
-    page: 1,
-    perPage: 4,
     isMorePages: false,
     data: [],
   },
   media: {
-    page: 1,
-    perPage: 4,
     isMorePages: false,
     data: [],
   },
   author: {
-    page: 1,
-    perPage: 4,
     isMorePages: false,
     data: [],
   },
@@ -135,18 +117,16 @@ export const searchSlice = createSlice({
       state[action.payload.key].data.push(...action.payload.data);
       state[action.payload.key].isMorePages = action.payload.isMorePages;
     },
-    setPage: (state: SliceState, action: ActionSetPageOrPerPage) => {
-      state[action.payload.key].page = action.payload.value;
-    },
-    setPerPage: (state: SliceState, action: ActionSetPageOrPerPage) => {
-      state[action.payload.key].perPage = action.payload.value;
+    setSearchQuery: (state: SliceState, action) => {
+      state.searchQuery = action.payload.searchQuery;
     },
     clearSearchData: () => initialState
   },
 });
 
 export const searchSelectors = {
-  getSearchData: () => (state) => state.search
+  getSearchData: () => (state) => state.search,
+  getSearchQuery: () => (state) => state.search.searchQuery
 };
 
 export const searchActionCreators = () => {

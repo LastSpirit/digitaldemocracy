@@ -1,23 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { Container, Grid } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import { Container } from '@material-ui/core';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { searchSelectors } from '../../slices/searchSlice';
 import { SearchBlockTypes, SearchBlock } from './SearchBlock/SearchBlock';
 
 const SearchPage = () => {
   const { isMobile } = useWindowSize();
+  const { t } = useTranslation();
   const searchData = useSelector(searchSelectors.getSearchData());
-
-  useEffect(() => {
-    console.log(searchData);
-  }, [searchData]);
-
-  // data={searchData.news.data}
-  // data={searchData.party.data}
-  // data={searchData.author.data}
-  // data={searchData.politician.data}
-  // data={searchData.media.data}
 
   return (
     <Container
@@ -32,28 +24,28 @@ const SearchPage = () => {
     >
       {
         searchData.news.data.length
-        ? <SearchBlock headerText={'Новости'} type={SearchBlockTypes.NEWS} />
+        ? <SearchBlock headerText={t('tabs.news')} type={SearchBlockTypes.NEWS} />
         : null
-      }
-      {
-        searchData.party.data.length
-        ? <SearchBlock headerText={'Партии'} type={SearchBlockTypes.PARTY} />
-        : null
-      }
-      {
-        searchData.author.data.length
-          ? <SearchBlock headerText={'Авторы'} type={SearchBlockTypes.AUTHOR} />
-          : null
       }
       {
         searchData.politician.data.length
-          ? <SearchBlock headerText={'Политики'} type={SearchBlockTypes.POLITICIAN} />
+          ? <SearchBlock headerText={t('tabs.politicians')} type={SearchBlockTypes.POLITICIAN} />
+          : null
+      }
+      {
+        searchData.author.data.length
+          ? <SearchBlock headerText={t('tabs.authors')} type={SearchBlockTypes.AUTHOR} />
           : null
       }
       {
         searchData.media.data.length
-          ? <SearchBlock headerText={'СМИ'} type={SearchBlockTypes.MEDIA} />
+          ? <SearchBlock headerText={t('tabs.massMedia')} type={SearchBlockTypes.MEDIA} />
           : null
+      }
+      {
+        searchData.party.data.length
+        ? <SearchBlock headerText={t('tabs.parties')} type={SearchBlockTypes.PARTY} />
+        : null
       }
     </Container>
   );
