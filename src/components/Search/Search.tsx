@@ -98,7 +98,7 @@ export const Search = () => {
   const {
     clearSearchData,
   } = searchActionCreators();
-  const { fetch: fetchSearch, status: searchStatus } = useSearch();
+  const { fetchSearchCategory, status: searchStatus } = useSearch();
   // const [page, setPage] = useState(1);
   const [buttons, dispatchBtn] = useReducer(reducerFiltersButtons, filtersButtons);
 
@@ -120,6 +120,30 @@ export const Search = () => {
     clearSearchData();
   };
 
+  const handleSubmitForm = (values) => {
+    const activeButtons = Object.values(buttons).some((item) => item.active);
+    if (values.search) {
+      if (activeButtons) {
+        fetchSearchCategory({
+          search: values.search,
+          isNews: buttons.news.active,
+          isPolitician: buttons.politician.active,
+          isAuthor: buttons.author.active,
+          isMedia: buttons.media.active,
+          isParty: buttons.parties.active,
+          page: 1,
+          perPage: 4
+        });
+      } else {
+        fetchSearchCategory({
+          search: values.search,
+          page: 1,
+          perPage: 4
+        });
+      }
+    }
+  };
+
   // useEffect(() => {
   //   console.log(buttons);
   // }, [buttons]);
@@ -128,127 +152,110 @@ export const Search = () => {
     <Container>
       <Container className={styles.container}>
         { pathname !== '/' && <BackButton /> }
-        <div className={styles.searchContainer}>
-          <div className={styles.search}>
-            <Formik
-              initialValues={{
-                search: ''
-              }}
-              onSubmit={(values, formikHelpers) => {
-                const activeButtons = Object.values(buttons).some((item) => item.active);
-                if (values.search) {
-                  if (activeButtons) {
-                    fetchSearch({
-                      search: values.search,
-                      isNews: buttons.news.active,
-                      isPolitician: buttons.politician.active,
-                      isAuthor: buttons.author.active,
-                      isMedia: buttons.media.active,
-                      isParty: buttons.parties.active,
-                      page: 1,
-                      perPage: 4
-                    });
-                  } else {
-                    fetchSearch({
-                      search: values.search,
-                      page: 1,
-                      perPage: 4
-                    });
-                  }
-                }
-              }}
-              validationSchema={Yup.object().shape({
-                search: Yup.string().min(3, 'Нужно ввести минимум 3 символа'),
-              })}
-              enableReinitialize={true}
-            >
-              {(props) => {
-                const {
-                  values,
-                  touched,
-                  errors,
-                  dirty,
-                  isSubmitting,
-                  handleChange,
-                  handleBlur,
-                  handleSubmit,
-                  handleReset,
-                  setFieldValue
-                } = props;
-                return (
-                  <form onSubmit={handleSubmit} noValidate>
-                    <div className={styles.searchInput}>
-                      <TextField
-                        type="text"
-                        id="search"
+        <div className={styles.search}>
+          <Formik
+            initialValues={{
+              search: ''
+            }}
+            onSubmit={(values) => {
+              handleSubmitForm(values);
+            }}
+            validationSchema={Yup.object().shape({
+              search: Yup.string().min(3, 'Нужно ввести минимум 3 символа'),
+            })}
+            enableReinitialize={true}
+          >
+            {(props) => {
+              const {
+                values,
+                touched,
+                errors,
+                dirty,
+                isSubmitting,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                handleReset,
+                setFieldValue
+              } = props;
+              return (
+                <form onSubmit={handleSubmit} noValidate>
+                  <div className={styles.searchContainer}>
+                    <div style={{ display: 'flex', flex: 1 }}>
+                      <div className={styles.searchInput}>
+                        <TextField
+                          type="text"
+                          id="search"
+                          variant="outlined"
+                          fullWidth
+                          // label="Поиск"
+                          placeholder="Поиск"
+                          value={values.search}
+                          onChange={handleSearchChange(setFieldValue)}
+                          onBlur={handleBlur}
+                          onKeyPress={handleKeyPress}
+                          error={touched.search && Boolean(errors.search)}
+                          helperText={touched.search && errors.search}
+                          InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <IconButton
+                                  onClick={handleResetSearch(handleReset)}
+                                >
+                                  <ClearIcon />
+                                </IconButton>
+                              </InputAdornment>
+                            ),
+                            sx: {
+                              borderRadius: '70px 0 0 70px',
+                            },
+                            className: styles.searchInput
+                          }}
+                        />
+                      </div>
+                      <Button
+                        type="submit"
                         variant="outlined"
-                        fullWidth
-                        // label="Поиск"
-                        placeholder="Поиск"
-                        value={values.search}
-                        onChange={handleSearchChange(setFieldValue)}
-                        onBlur={handleBlur}
-                        onKeyPress={handleKeyPress}
-                        error={touched.search && Boolean(errors.search)}
-                        helperText={touched.search && errors.search}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <IconButton
-                                onClick={handleResetSearch(handleReset)}
-                              >
-                                <ClearIcon />
-                              </IconButton>
-                            </InputAdornment>
-                          ),
-                          sx: {
-                            borderRadius: '70px 0 0 70px',
-                          },
-                          className: styles.searchInput
+                        onClick={() => values.search.length >= 3 && push('/search')}
+                        className={styles.searchButton}
+                        sx={{
+                          backgroundColor: '#363557',
+                          borderRadius: '0 70px 70px 0',
+                          width: '15%',
+                          maxHeight: '40px',
                         }}
-                      />
+                      >
+                        {'Поиск'}
+                      </Button>
                     </div>
-                    <Button
-                      type="submit"
-                      variant="outlined"
-                      onClick={() => values.search.length >= 3 && push('/search')}
-                      className={styles.searchButton}
-                      sx={{
-                        backgroundColor: '#363557',
-                        borderRadius: '0 70px 70px 0',
-                        width: '15%',
-                        maxHeight: '40px',
-                      }}
-                    >
-                      {'Поиск'}
-                    </Button>
-                  </form>
-                );
-              }}
-            </Formik>
-          </div>
-          {pathname === '/search' && (
-            <div className={styles.filterTabs}>
-              {Object.keys(buttons)
-                .map((key) => (
-                  <Button
-                    key={buttons[key].id}
-                    variant="outlined"
-                    sx={{
-                      height: '30px',
-                      marginRight: '28px',
-                      // backgroundColor: buttons[key].active ? '#363557' : 'initial',
-                    }}
-                    className={cn({
-                      [styles.tabs_active]: buttons[key].active,
-                    })}
-                    onClick={() => dispatchBtn(setActiveAction(key))}
-                  >
-                    {buttons[key].name}
-                  </Button>
-                ))}
-            </div>
-          )}
+                    {pathname === '/search' && (
+                      <div className={styles.filterTabs}>
+                        {Object.keys(buttons)
+                          .map((key) => (
+                            <Button
+                              key={buttons[key].id}
+                              type="submit"
+                              variant="outlined"
+                              sx={{
+                                height: '30px',
+                                marginRight: '28px',
+                                // backgroundColor: buttons[key].active ? '#363557' : 'initial',
+                              }}
+                              className={cn({
+                                [styles.tabs_active]: buttons[key].active,
+                              })}
+                              onClick={() => dispatchBtn(setActiveAction(key))}
+                            >
+                              {buttons[key].name}
+                            </Button>
+                          ))}
+                      </div>
+                    )}
+                  </div>
+                </form>
+              );
+            }}
+          </Formik>
         </div>
       </Container>
     </Container>

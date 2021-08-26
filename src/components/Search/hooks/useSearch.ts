@@ -12,7 +12,7 @@ export const useSearch = () => {
   } = searchActionCreators();
   const { fetchSearch } = searchAPI();
 
-  const fetch = ({
+  const fetchSearchCategory = ({
     search,
     isNews = true,
     isPolitician = true,
@@ -45,5 +45,5 @@ export const useSearch = () => {
     });
   };
 
-  return { status, fetch };
+  return { status, fetchSearchCategory };
 };
