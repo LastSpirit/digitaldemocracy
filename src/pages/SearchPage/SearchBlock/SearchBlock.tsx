@@ -7,6 +7,7 @@ import PartyCard from '../../RatingPage/PartyCard/PartyCard';
 import AuthorCard from '../../RatingPage/AuthorCard/AuthorCard';
 import PoliticiansCard from '../../RatingPage/PoliticianCard/PoliticiansCard';
 import MassMediaCard from '../../RatingPage/MassMediaCard/MassMediaCard';
+import { useSearchCategory } from '../hooks/useSearchCategory';
 
 interface SearchBlockI {
   headerText: string,
@@ -35,6 +36,7 @@ export const SearchBlock: FC<SearchBlockI> = ({
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(4);
   const searchData = useSelector(searchSelectors.getSearchData());
+  const { status: statusSearch, fetchSearchNewsBlock } = useSearchCategory();
 
   const getComponent = (props) => {
     switch (type) {
@@ -54,8 +56,12 @@ export const SearchBlock: FC<SearchBlockI> = ({
   };
 
   useEffect(() => {
-    console.log(type, perPage);
-  }, [perPage]);
+    if (page > 1) {
+      if (type === SearchBlockTypes.NEWS) {
+        fetchSearchNewsBlock({ search: 'Россия', page });
+      }
+    }
+  }, [page]);
 
   return (
     <Box
@@ -82,21 +88,23 @@ export const SearchBlock: FC<SearchBlockI> = ({
           </Grid>
         ))}
       </Grid>
-      <Box
-        sx={{
-          marginTop: '30px',
-          display: 'flex',
-          justifyContent: 'center'
-        }}
-      >
-        <Button
-          onClick={() => {
-            setPerPage(perPage + 4);
+      {searchData[type].isMorePages && (
+        <Box
+          sx={{
+            marginTop: '30px',
+            display: 'flex',
+            justifyContent: 'center'
           }}
         >
-          Показать еще
-        </Button>
-      </Box>
+          <Button
+            onClick={() => {
+              setPage(page + 1);
+            }}
+          >
+            Показать еще
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 };

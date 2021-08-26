@@ -131,8 +131,9 @@ export const searchSlice = createSlice({
       };
     },
     setSearchDataCategory: (state: SliceState, action) => {
-      state[action.payload.key].data = action.payload.data;
-      state[action.payload.key].isMorePage = action.payload.isMorePage;
+      console.log(action);
+      state[action.payload.key].data.push(...action.payload.data);
+      state[action.payload.key].isMorePages = action.payload.isMorePages;
     },
     setPage: (state: SliceState, action: ActionSetPageOrPerPage) => {
       state[action.payload.key].page = action.payload.value;
