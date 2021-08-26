@@ -116,7 +116,10 @@ export const SearchBlock: FC<SearchBlockI> = ({
               setPage(page + 1);
             }}
           >
-            <ArrowDown htmlColor={'#363557'} style={{ marginRight: '10px' }} />
+            <ArrowDown
+              htmlColor={'#363557'}
+              style={{ marginRight: '10px', height: '16px', width: '16px' }}
+            />
             {t('buttons.showMore')}
           </Button>
         </Box>
