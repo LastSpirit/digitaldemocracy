@@ -57,7 +57,7 @@ export const useFetchInfoGrapchicData = () => {
     });
   }, []);
 
-  const fetchGraphic = useCallback((politician_id, obj) => {
+  const fetchGraphic = useCallback((politician_id, obj, is_votes_world) => {
     const { countries, regions, cities } = obj;
     setStatusGraphic(APIStatus.Loading);
     getPoliticianCustomRating({
@@ -74,6 +74,9 @@ export const useFetchInfoGrapchicData = () => {
           regions,
           cities,
         },
+        params: {
+          is_votes_world: is_votes_world || null
+        }
       },
     });
   }, []);

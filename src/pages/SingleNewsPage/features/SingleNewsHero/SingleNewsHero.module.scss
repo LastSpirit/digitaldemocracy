@@ -13,12 +13,14 @@
 }
 
 .warningMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   margin-bottom: 20px;
 
-  text-align: center;
-
   &__title {
-    padding: 0;
+    padding: 0 0.5em 0 0;
 
     color: #7A7A7A;
 
@@ -262,5 +264,9 @@
   .facebook {
     width: 30px;
     height: 30px;
+  }
+
+  .warningMessage {
+    flex-direction: column;
   }
 }

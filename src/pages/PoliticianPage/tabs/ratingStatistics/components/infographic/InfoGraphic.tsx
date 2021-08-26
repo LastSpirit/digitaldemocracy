@@ -8,7 +8,7 @@ import { APIStatus } from 'src/lib/axiosAPI';
 import { Loading } from 'src/components/Loading/Loading';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Button, InputLabel, Autocomplete, TextField } from '@material-ui/core';
+import { Button, InputLabel, Autocomplete, TextField, Checkbox } from '@material-ui/core';
 import { RootState } from 'src/store';
 import { politicianSelectors } from 'src/slices/politicianSlice';
 import { PercentsLinearGraphic } from './PercentsLinearGraphic';
@@ -24,6 +24,8 @@ export const InfoGraphic = () => {
 
   const { infoGrapghicData } = useSelector((s: RootState) => s.politician);
   const data = useSelector(politicianSelectors.getPoliticianInfo());
+
+  const [world, setWorld] = useState(false);
 
   const [postData, setPostData] = useState({
     country: null,
@@ -56,7 +58,17 @@ export const InfoGraphic = () => {
         })}
         onSubmit={async (values) => {
           try {
-            fetchGraphic(data?.id, postData);
+            if (world) {
+              fetchGraphic(
+                data?.id,
+                {
+                  country: null,
+                  region: null,
+                  city: null,
+                },
+                world
+              );
+            } else fetchGraphic(data?.id, postData, world);
           } catch (e) {
             console.log(e);
           }
@@ -90,6 +102,7 @@ export const InfoGraphic = () => {
                 filterSelectedOptions
                 options={infoGrapghicData?.countries || []}
                 value={values.country}
+                disabled={world}
                 getOptionLabel={(option) => option?.title?.[currentLang] || option?.title?.ru || values.country}
                 noOptionsText={<>{t('info.noVariants')}</>}
                 onChange={(_, newValue) => {
@@ -128,7 +141,7 @@ export const InfoGraphic = () => {
                 limitTags={isMobile ? 2 : 5}
                 filterSelectedOptions
                 options={infoGrapghicData?.regions || []}
-                disabled={values.country.length === 0 || statusRegions !== APIStatus.Success ? true : false}
+                disabled={world || values.country.length === 0 || statusRegions !== APIStatus.Success ? true : false}
                 value={values.region}
                 getOptionLabel={(option) => option?.title?.[currentLang] || option?.title?.ru || values.region}
                 noOptionsText={<>{t('info.noVariants')}</>}
@@ -159,7 +172,7 @@ export const InfoGraphic = () => {
                 filterSelectedOptions
                 options={infoGrapghicData?.cities || []}
                 value={values.city}
-                disabled={!values.region || statusCities !== APIStatus.Success ? true : false}
+                disabled={world || !values.region || statusCities !== APIStatus.Success ? true : false}
                 getOptionLabel={(option) => option?.title?.[currentLang] || option?.title?.ru || values.city}
                 noOptionsText={<>{t('info.noVariants')}</>}
                 onChange={(_, newValue) => {
@@ -177,6 +190,10 @@ export const InfoGraphic = () => {
                   <TextField {...params} type="text" onBlur={handleBlur} variant="outlined" fullWidth />
                 )}
               />
+              <div className={styles.checkbox}>
+                <Checkbox value={world} onChange={() => setWorld(!world)} />
+                <p>Весь мир</p>
+              </div>
               <div className={styles.buttons}>
                 <Button
                   className={styles.submitButton}
@@ -191,7 +208,7 @@ export const InfoGraphic = () => {
                   size="small"
                   variant="outlined"
                   type="submit"
-                  disabled={values.country.length === 0}
+                  disabled={world ? false : values.country.length === 0}
                 >
                   {statusGrapchic === APIStatus.Loading ? (
                     <Loading color="white" />

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import type { FC } from 'react';
-import { useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { Box, Container } from '@material-ui/core';
 import { useSelector } from 'react-redux';
@@ -33,10 +32,11 @@ const News: FC = () => {
   const { fetch, fetchAreaNews, fetchDataStatus, fetchSubscriptionsNews } = useFetchNewsData();
   const data = useSelector(newsSelector.getData());
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
-  const location = useLocation();
+
   useEffect(() => {
     fetch();
-  }, [location]);
+  }, []);
+
   useEffect(() => {
     switch (selectedTab) {
     case TypeNavigationMenu.COUNTRY:
@@ -50,7 +50,7 @@ const News: FC = () => {
     default:
       fetch();
     }
-  }, [selectedTab, location]);
+  }, [selectedTab]);
   return (
     <Box>
       <Container maxWidth="lg">

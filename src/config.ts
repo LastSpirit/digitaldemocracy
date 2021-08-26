@@ -3,6 +3,11 @@ export const apiSetting = {
   url_api: 'https://dev-backoffice.digitaldemocracy.ru/api/',
 };
 
+// YANDEX-METRIKA id 78159532
+// GOOGLE-METRIKA id UA-196188110-5
+// window.google_id = process.env.REACT_APP_GOOGLE_METRICA_ID;
+// window.yandex_id = process.env.REACT_APP_YANDEX_METRICA_ID;
+
 export const amplifyConfig = {
   aws_project_region: process.env.REACT_APP_AWS_PROJECT_REGION,
   aws_cognito_identity_pool_id: process.env.REACT_APP_AWS_COGNITO_IDENTITY_POOL_ID,

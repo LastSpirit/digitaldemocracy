@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
-import Alert from '@material-ui/lab/Alert';
-import { BackButton } from 'src/components/BackButton/BackButton';
+// import { BackButton } from 'src/components/BackButton/BackButton';
 
 import { APIStatus } from '../../../../lib/axiosAPI';
 import { Loading } from './Loading';
@@ -17,7 +16,7 @@ export const WrapperAsyncRequest: FC<WrapperAsyncRequestProps> = ({ children, st
     <>{children}</>
   ) : status === APIStatus.Failure ? (
     <>
-      <BackButton />
+      {/* <BackButton /> */}
       <FailLoading />
     </>
   ) : (

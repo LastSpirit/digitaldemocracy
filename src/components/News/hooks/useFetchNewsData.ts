@@ -65,17 +65,17 @@ export const useFetchNewsData = (setLoadMoreNews?: (value: boolean) => void) => 
         dispatch(action({ ...response, page }));
         setLoadMoreNews(false);
       },
+      onError: (errorResponse) => {
+        setStatus(fetchOnlyNews, APIStatus.Failure);
+        dispatch(action({}));
+        console.log(errorResponse);
+      },
       payload: {
         area,
         page,
         topicId,
         token,
       },
-      onError: (errorResponse) => {
-        setStatus(fetchOnlyNews, APIStatus.Failure);
-        dispatch(action({}));
-        console.log(errorResponse);
-      }
     }));
   }, [fetchNewsStatus, fetchDataStatus]);
 

@@ -18,6 +18,7 @@ import { widgetLinkSlice } from '../slices/widgetLinkSlice';
 import { ratingSlice } from '../slices/ratingSlice';
 import { profileSlice } from '../slices/profileSlice';
 import { langSlice } from '../slices/langSlice';
+import { searchSlice } from '../slices/searchSlice';
 import { aboutPageSlice } from '../slices/aboutPageSlice';
 
 const rootReducer = combineReducers({
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
   rating: ratingSlice.reducer,
   profile: profileSlice.reducer,
   lang: langSlice.reducer,
+  search: searchSlice.reducer,
   aboutPage: aboutPageSlice.reducer,
 });
 

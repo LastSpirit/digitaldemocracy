@@ -157,7 +157,8 @@
     "minLength": "The number of characters eceeds",
     "onlyNumbers": "This field must consist numbers only",
     "ruleForPassword": "The password must consist at least one Latin letter and number",
-    "linkBroken": "Link is incorrect"
+    "linkBroken": "Link is incorrect",
+    "minSymbol": "Enter at least 3 characters"
   },
   "tabs": {
     "rating": "Rating",

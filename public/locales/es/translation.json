@@ -157,7 +157,8 @@
     "minLength": "El número especificado de caracteres no excede",
     "onlyNumbers": "El campo debe contener solo números",
     "ruleForPassword": "La contraseña debe contener al menos una letra y un número latinos",
-    "linkBroken": "El enlace es incorrecto"
+    "linkBroken": "El enlace es incorrecto",
+    "minSymbol": "Introduzca un mínimo de 3 caracteres"
   },
   "tabs": {
     "rating": "Clasificación",

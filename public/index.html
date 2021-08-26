@@ -13,13 +13,16 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:300,400,500,700" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-196188110-5"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=%REACT_APP_GOOGLE_METRICA_ID%"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'UA-196188110-5');
+      const google_id = process.env.REACT_APP_GOOGLE_METRICA_ID;
+      console.log(google_id);
+
+      gtag('config', google_id);
     </script>
     <!-- Yandex.Metrika counter -->
     <!-- Yandex.Metrika counter -->
@@ -35,11 +38,11 @@
         webvisor:true
       });
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/78159532" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <noscript><div><img src="https://mc.yandex.ru/watch/%REACT_APP_YANDEX_METRICA_ID%" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
   </head>
   <body>
-  <noscript><div><img src="https://mc.yandex.ru/watch/78159532" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <noscript><div><img src="https://mc.yandex.ru/watch/%REACT_APP_YANDEX_METRICA_ID%" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <!-- /Yandex.Metrika counter -->
 
   <noscript>You need to enable JavaScript to run this app.</noscript>

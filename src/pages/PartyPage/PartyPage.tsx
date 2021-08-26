@@ -4,10 +4,9 @@ import styles from './PartyPage.module.scss';
 
 import PartyInfoBlock from './blocks/PartyInfoBlock';
 import PartyBlock from './blocks/PartyBlock';
-import { BackButton } from '../../components/BackButton/BackButton';
+// import { BackButton } from '../../components/BackButton/BackButton';
 import { WrapperAsyncRequest } from './blocks/Loading/WrapperAsyncRequest';
 
-import { APIStatus } from '../../lib/axiosAPI';
 import { useFetchPartyInfo } from './hooks/useFetchPartyInfo';
 
 const PartyPage = () => {
@@ -19,7 +18,6 @@ const PartyPage = () => {
     <Container maxWidth="lg" className={styles.container}>
       <div className={styles.container}>
         <WrapperAsyncRequest status={status}>
-          <BackButton />
           <PartyInfoBlock />
           <PartyBlock />
         </WrapperAsyncRequest>
