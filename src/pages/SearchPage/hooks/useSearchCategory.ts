@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { APIStatus } from 'src/lib/axiosAPI';
 import { searchAPI } from 'src/api/searchAPI';
@@ -8,8 +8,9 @@ import { SearchBlockTypes } from '../SearchBlock/SearchBlock';
 export const useSearchCategory = (type) => {
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
   const searchQuery = useSelector(searchSelectors.getSearchQuery());
+
   const {
-    setSearchDataCategory
+    setSearchDataCategory,
   } = searchActionCreators();
   const {
     fetchSearchNews,

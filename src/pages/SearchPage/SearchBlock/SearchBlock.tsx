@@ -28,11 +28,6 @@ export enum SearchBlockTypes {
   AUTHOR = 'author',
 }
 
-// setPerPage({
-//   key: type,
-//   value: searchData[type].perPage + 4
-// });
-
 export const SearchBlock: FC<SearchBlockI> = ({
   headerText,
   type,
@@ -40,6 +35,7 @@ export const SearchBlock: FC<SearchBlockI> = ({
   const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const searchData = useSelector(searchSelectors.getSearchData());
+  const searchQuery = useSelector(searchSelectors.getSearchQuery());
   const {
     status: statusSearch,
     fetchSearchBlock
@@ -65,11 +61,12 @@ export const SearchBlock: FC<SearchBlockI> = ({
   useEffect(() => {
     if (page > 1) {
       fetchSearchBlock({ page });
-      // if (type === SearchBlockTypes.NEWS) {
-      //   fetchSearchNewsBlock({ search: 'Россия', page });
-      // }
     }
   }, [page]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [searchQuery]);
 
   return (
     <Box

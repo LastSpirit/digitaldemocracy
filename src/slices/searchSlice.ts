@@ -113,7 +113,6 @@ export const searchSlice = createSlice({
       };
     },
     setSearchDataCategory: (state: SliceState, action) => {
-      console.log(action);
       state[action.payload.key].data.push(...action.payload.data);
       state[action.payload.key].isMorePages = action.payload.isMorePages;
     },

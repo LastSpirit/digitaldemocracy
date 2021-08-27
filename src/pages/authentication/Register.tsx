@@ -81,7 +81,7 @@ const Register: FC = () => {
 
   useEffect(
     () => () => {
-      setRegisterStep(1);
+      setRegisterStep(5);
     },
     []
   );
@@ -103,6 +103,9 @@ const Register: FC = () => {
           mb="0"
           fontWeight="300"
           align={endRegistration ? 'center' : 'left'}
+          sx={{
+            wordBreak: 'break-word',
+          }}
         >
           {endRegistration
             ? t('registration.step5.titleStep5') || 'Вы успешно зарегистрировались!'
