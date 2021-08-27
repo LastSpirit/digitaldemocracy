@@ -42,7 +42,7 @@ const sectionsData = () => {
       links: [
         {
           title: 'info@digitaldemocracy.ru',
-          href: '/browse',
+          href: 'mailto:info@digitaldemocracy.ru',
         },
       ],
     },

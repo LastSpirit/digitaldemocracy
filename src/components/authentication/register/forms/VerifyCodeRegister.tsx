@@ -125,7 +125,7 @@ const VerifyCodeRegister = () => {
                     {
                       resend !== 0
                         ? `${t('registration.step3.codeWithSeconds')} ${resend} ${t('registration.step3.seconds')}`
-                        : t('registration.step3.codeWithSeconds') || 'Отправить код повторно'
+                        : t('registration.step3.codeWithoutSeconds') || 'Отправить код повторно'
                     }
                   </Button>
                 )}
