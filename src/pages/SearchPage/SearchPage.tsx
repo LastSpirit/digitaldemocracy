@@ -32,7 +32,7 @@ const SearchPage = () => {
               alignSelf: 'center'
             }}
           >
-            Ничего не найдено
+            {t('info.searchNotFound')}
           </Typography>
         )
       }
