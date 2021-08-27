@@ -82,7 +82,7 @@ const AuthModal:React.FC = () => {
         mx: 2,
       }}
     >
-      <Box sx={{ position: 'relative' }}>
+      <Box sx={{ position: 'relative', maxHeight: '100%', overflow: 'auto' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: withoutBackButton ? 'flex-end' : 'space-between', position: 'absolute', top: 20, width: '100%' }}>
           {!withoutBackButton && (
             <ArrowBackIcon
