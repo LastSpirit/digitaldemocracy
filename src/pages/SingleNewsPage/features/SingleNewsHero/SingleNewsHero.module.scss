@@ -54,6 +54,7 @@
 
 .newsLinks {
   display: flex;
+  flex-direction: column-reverse;
 }
 
 .hashtags {
