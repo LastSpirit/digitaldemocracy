@@ -1,15 +1,17 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Container } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 import { useWindowSize } from 'src/hooks/useWindowSize';
-import { searchSelectors } from '../../slices/searchSlice';
+import { searchSelectors, SliceState as ISearchState } from '../../slices/searchSlice';
 import { SearchBlockTypes, SearchBlock } from './SearchBlock/SearchBlock';
 
 const SearchPage = () => {
   const { isMobile } = useWindowSize();
   const { t } = useTranslation();
-  const searchData = useSelector(searchSelectors.getSearchData());
+  const searchData: ISearchState = useSelector(searchSelectors.getSearchData());
+
+  const checkSearchData = (item) => item.data?.length;
 
   return (
     <Container
@@ -17,11 +19,23 @@ const SearchPage = () => {
       sx={{
         display: 'flex',
         justifyContent: 'center',
-        // height: '80vh',
+        minHeight: '550px',
         flexDirection: 'column',
         // p: 4,
       }}
     >
+      {
+        !Object.values(searchData).some(checkSearchData)
+        && (
+          <Typography
+            sx={{
+              alignSelf: 'center'
+            }}
+          >
+            Ничего не найдено
+          </Typography>
+        )
+      }
       {
         searchData.news.data.length
         ? <SearchBlock headerText={t('tabs.news')} type={SearchBlockTypes.NEWS} />
