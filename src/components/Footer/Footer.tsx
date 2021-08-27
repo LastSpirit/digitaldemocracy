@@ -136,7 +136,7 @@ const iconsData = (isAuthenticated) => {
     {
       title: t('footer.menu.search') || 'Поиск',
       icon: <Search />,
-      to: '',
+      to: '/search',
     },
     {
       title: t('footer.menu.ratingMenu') || 'Рейтинг',
