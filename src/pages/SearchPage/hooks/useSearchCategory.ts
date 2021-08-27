@@ -4,10 +4,12 @@ import { APIStatus } from 'src/lib/axiosAPI';
 import { searchAPI } from 'src/api/searchAPI';
 import { searchSelectors, searchActionCreators } from 'src/slices/searchSlice';
 import { SearchBlockTypes } from '../SearchBlock/SearchBlock';
+import { useSearchParams } from '../../../hooks/useSearchParams';
 
 export const useSearchCategory = (type) => {
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
   const searchQuery = useSelector(searchSelectors.getSearchQuery());
+  // const { searchQuery: { value: searchQueryParam, setValue: setSearchQueryParam } } = useSearchParams('searchQuery');
   const {
     setSearchDataCategory
   } = searchActionCreators();
@@ -18,6 +20,8 @@ export const useSearchCategory = (type) => {
     fetchSearchMedia,
     fetchSearchParty
   } = searchAPI();
+
+  // console.log(searchQueryParam);
 
   const fetchSearchBlock = ({
     page = 1,

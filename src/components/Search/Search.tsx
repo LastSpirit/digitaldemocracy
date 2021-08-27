@@ -6,6 +6,7 @@ import cn from 'classnames';
 import ClearIcon from '@material-ui/icons/Clear';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { useSearchParams } from '../../hooks/useSearchParams';
 import { BackButton } from '../BackButton/BackButton';
 import { useSearch } from './hooks/useSearch';
 import { searchActionCreators } from '../../slices/searchSlice';
@@ -116,21 +117,31 @@ export const Search = () => {
     setSearchQuery,
     clearSearchData,
   } = searchActionCreators();
-  const { fetchSearchCategory } = useSearch();
+  // const { searchQuery: { value: searchQueryParam, setValue: setSearchQueryParam } } = useSearchParams('searchQuery');
+  const { fetchSearchCategories } = useSearch();
   const [buttons, dispatchBtn] = useReducer(reducerFiltersButtons, filtersButtons(t));
 
   useEffect(() => {
     dispatchBtn({ type: 'CHANGE_LANG', t });
   }, [i18n.language]);
 
+  // useEffect(() => {
+  //   return () => setSearchQueryParam(searchQueryParam);
+  // }, []);
+
   const handleSearchChange = (setValue) => (event): void => {
     setValue('search', event.target.value);
     setSearchQuery({ searchQuery: event.target.value });
+    // setSearchQueryParam(event.target.value);
   };
 
   const handleKeyPress = (event) => {
     if (event.charCode === 13) {
       push('/search');
+      // push({
+      //   pathname: '/search',
+      //   search: `?searchQuery=${searchQueryParam}`,
+      // });
     }
   };
 
@@ -144,7 +155,7 @@ export const Search = () => {
     const activeButtons = Object.values(buttons).some((item) => item.active);
     if (values.search) {
       if (activeButtons) {
-        fetchSearchCategory({
+        fetchSearchCategories({
           search: values.search,
           isNews: buttons.news.active,
           isPolitician: buttons.politician.active,
@@ -155,7 +166,8 @@ export const Search = () => {
           perPage: 4
         });
       } else {
-        fetchSearchCategory({
+        // setSearchQueryParam(values.search);
+        fetchSearchCategories({
           search: values.search,
           page: 1,
           perPage: 4
