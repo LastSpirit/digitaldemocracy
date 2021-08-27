@@ -1,12 +1,12 @@
 import { useState, useCallback } from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { APIStatus } from 'src/lib/axiosAPI';
 import { searchAPI } from 'src/api/searchAPI';
 import { searchSelectors, searchActionCreators } from 'src/slices/searchSlice';
 
 export const useSearch = () => {
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
-  // const searchParams = useSelector(searchSelectors.getSearchParams());
+  // const searchParams = useSelector(searchSelectors.getSearchQuery());
   const {
     setSearchData
   } = searchActionCreators();

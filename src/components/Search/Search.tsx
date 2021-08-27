@@ -129,6 +129,10 @@ export const Search = () => {
   //   return () => setSearchQueryParam(searchQueryParam);
   // }, []);
 
+  const checkActiveBtn = () => {
+    Object.values(buttons).some((item) => item.active);
+  };
+
   const handleSearchChange = (setValue) => (event): void => {
     setValue('search', event.target.value);
     setSearchQuery({ searchQuery: event.target.value });

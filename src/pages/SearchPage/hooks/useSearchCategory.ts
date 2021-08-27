@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { APIStatus } from 'src/lib/axiosAPI';
 import { searchAPI } from 'src/api/searchAPI';
@@ -11,7 +11,7 @@ export const useSearchCategory = (type) => {
   const searchQuery = useSelector(searchSelectors.getSearchQuery());
   // const { searchQuery: { value: searchQueryParam, setValue: setSearchQueryParam } } = useSearchParams('searchQuery');
   const {
-    setSearchDataCategory
+    setSearchDataCategory,
   } = searchActionCreators();
   const {
     fetchSearchNews,
@@ -113,6 +113,10 @@ export const useSearchCategory = (type) => {
       break;
     }
   };
+
+  // useEffect(() => {
+  //   fetchSearchBlock({});
+  // }, [searchQuery]);
 
   return {
     status,
