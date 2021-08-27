@@ -1,7 +1,7 @@
 import { bindActionCreators, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 
-interface SliceState {
+export interface SliceState {
   searchQuery: string,
   news: {
     isMorePages: boolean,
