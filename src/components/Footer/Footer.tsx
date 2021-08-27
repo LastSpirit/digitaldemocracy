@@ -32,6 +32,7 @@ import { AuthParam, ModalParams } from '../../types/routing';
 import styles from './styles.module.scss';
 import { useSearchParams } from '../../hooks/useSearchParams';
 import PrivacyPolicyPdf from '../../theme/PrivacyPolicy.pdf';
+import TermsOfUse from '../../theme/TermsOfUse.pdf';
 
 const sectionsData = () => {
   const { t } = useTranslation();
@@ -62,7 +63,9 @@ const sectionsData = () => {
         },
         {
           title: t('footer.menu.userAgreement') || 'Пользовательское соглашение',
-          href: '/',
+          href: null,
+          download: true,
+          downloadLink: TermsOfUse,
         },
         {
           title: t('footer.menu.personalDataPolicy') || 'Политика обработки персональных данных',
@@ -112,7 +115,9 @@ const authUserSectionsData = () => {
         },
         {
           title: t('footer.menu.userAgreement') || 'Пользовательское соглашение',
-          href: '/',
+          href: null,
+          download: true,
+          downloadLink: TermsOfUse,
         },
         {
           title: t('footer.menu.personalDataPolicy') || 'Политика обработки персональных данных',
