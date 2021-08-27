@@ -11,7 +11,7 @@ const SearchPage = () => {
   const { t } = useTranslation();
   const searchData: ISearchState = useSelector(searchSelectors.getSearchData());
 
-  const checkSearchData = (item) => item.data?.length;
+  const checkSearchData = Object.values(searchData).some((item) => item.data?.length);
 
   return (
     <Container
@@ -25,7 +25,7 @@ const SearchPage = () => {
       }}
     >
       {
-        !Object.values(searchData).some(checkSearchData)
+        !checkSearchData
         && (
           <Typography
             sx={{
@@ -38,8 +38,8 @@ const SearchPage = () => {
       }
       {
         searchData.news.data.length
-        ? <SearchBlock headerText={t('tabs.news')} type={SearchBlockTypes.NEWS} />
-        : null
+          ? <SearchBlock headerText={t('tabs.news')} type={SearchBlockTypes.NEWS} />
+          : null
       }
       {
         searchData.politician.data.length
@@ -58,8 +58,8 @@ const SearchPage = () => {
       }
       {
         searchData.party.data.length
-        ? <SearchBlock headerText={t('tabs.parties')} type={SearchBlockTypes.PARTY} />
-        : null
+          ? <SearchBlock headerText={t('tabs.parties')} type={SearchBlockTypes.PARTY} />
+          : null
       }
     </Container>
   );
