@@ -7,7 +7,6 @@ import SingleNewsHero from './features/SingleNewsHero/SingleNewsHero';
 import SingleNewsList from './features/SingleNewsList/SingleNewsList';
 import SingleNewsStatistics from './features/SingleNewsStatistics/SingleNewsStatistics';
 import { useFetchSingleNews } from './hooks/useFetchSingleNews';
-import { SingleBillsStatistics } from '../SingleBillsPage/features/SingleBillsStatistics/SingleBillsStatistics';
 
 import styles from '../MassMediaPage/MassMediaPage.module.scss';
 
@@ -29,13 +28,14 @@ const SingleNews = (props) => {
             author={data?.currentNews?.author}
             media={data?.currentNews?.media}
             politicians={data?.politicians}
+            bills={data?.bills}
           />
           {data?.news && data?.news.length > 0 ? (
             <SingleNewsList news={data?.news} isMorePages={data?.isMorePages} />
           ) : null}
         </WrapperAsyncRequest>
       </div>
-      {data?.bills && data?.bills.length > 0 ? data.bills.map((elem) => <SingleBillsStatistics {...elem} />) : null}
+      {/* {data?.bills && data?.bills.length > 0 ? data.bills.map((elem) => <SingleBillsStatistics {...elem} />) : null} */}
     </Container>
   );
 };

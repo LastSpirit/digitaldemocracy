@@ -21,6 +21,7 @@ interface LikeRequest {
   media_id?: number;
   author_id?: number;
   politician_id?: number;
+  bill_id?: number;
   voting_place?: string;
 }
 
@@ -35,6 +36,8 @@ interface LikeVar {
   isAuthorDisliked?: boolean;
   isPoliticianLiked?: boolean;
   isPoliticianDisliked?: boolean;
+  isBillLiked?: boolean;
+  isBillDisliked?: boolean;
 }
 
 const fetchSingleNews: APIRequest<SingleNewsRequest, SingleNewsResponse, SingleNewsErrorResponse> = (args) =>
@@ -138,6 +141,35 @@ const politicianDislike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar>
     ...args,
   });
 };
+const billLike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
+  const { isBillLiked, token } = args.variables;
+  return callAPI({
+    url: isBillLiked ? 'deleteLikeFromPoliticianOnBill' : 'addLikeToPoliticianOnBill',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.variables.token}`,
+      },
+    },
+    ...args,
+  });
+};
+
+const billDislike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
+  const { isBillDisliked, token } = args.variables;
+  return callAPI({
+    url: isBillDisliked ? 'deleteDislikeFromPoliticianOnBill' : 'addDislikeToPoliticianOnBill',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.variables.token}`,
+      },
+    },
+    ...args,
+  });
+};
 
 export const singleNewsAPI = {
   fetchSingleNews,
@@ -147,6 +179,8 @@ export const singleNewsAPI = {
   authorDislike,
   politicianLike,
   politicianDislike,
+  billLike,
+  billDislike,
 };
 
 export const singleNewsAPIActions = () => {
