@@ -15,7 +15,9 @@
       "addPolitician": "Add politician",
       "search": "Search",
       "profileMenu": "Profile",
-      "signInUp": "Enter/Registration"
+      "signInUp": "Enter/Registration",
+      "signInFooter": "Enter",
+      "personalDataPolicy": "Personal Data Policy"
     }
   },
   "cookies": {
@@ -78,7 +80,8 @@
     "questions": {
       "first": "Where have you got a right to vote?",
       "second": "Already have an account?",
-      "third": "This data will be used for impersonal statistics"
+      "third": "This data will be used for impersonal statistics",
+      "agreePersonalData":  "Consent to the processing of personal data"
     },
     "placeholdersForFields": {
       "countryField": "Start to enter country",
@@ -97,7 +100,6 @@
     "confirmRegistration": "Registrate",
     "setPassword": "Set a password",
     "complete": "Finish",
-    "hideChart": "Hide schedule",
     "recoverPassword": "To recover the password",
     "rememberMe": "Remember me",
     "changeProfile": "Change profile",
@@ -123,6 +125,7 @@
     "collapse": "Collapse",
     "add": "Add",
     "send": "Send",
+    "hideChart": "Hide schedule",
     "sort": {
       "ratingFullTitle": "By rating",
       "ratingShortTitle": "Rating",
@@ -159,6 +162,10 @@
     "onlyNumbers": "This field must consist numbers only",
     "ruleForPassword": "The password must consist at least one Latin letter and number",
     "linkBroken": "Link is incorrect",
+    "emailUsed": "The selected e-mail is already in use",
+    "phoneUsed": "This phone number is already in use",
+    "emailNotRegister": "The selected e-mail is not registered",
+    "passwordIncorrect": "Password is incorrect",
     "minSymbol": "Enter at least 3 characters"
   },
   "tabs": {
@@ -204,7 +211,6 @@
     "suggestionChange": "Suggest amendments",
     "suggestionChangeInProfile": "Suggest amendments to the profile",
     "notNewsPeriod": "No news available for the indicated period",
-    "searchNotFound": "Nothing found",
     "descriptionMissing": "There are no description",
     "newsNotFoundMassMedia": "No news available",
     "newsNotFoundAuthor": "No news available",
@@ -214,8 +220,6 @@
     "linkOnNews": "News link",
     "politicianFIO": "Politician name",
     "influences": "influence",
-    "ratingUser": "Your rating for a politician",
-    "worldUser": "The whole world",
     "references": "Total mentions",
     "dateView": "View date",
     "serviceDevelop": "We are sorry, that service part is under development",
@@ -260,7 +264,11 @@
     "titleSuggestInfo": "Suggested information",
     "linkForSubmit": "Confirmation link",
     "titleSendSuggest": "Your suggestion has been sent for consideration",
-    "titleStatisticRegion": "Rating statistics by regions"
+    "titleStatisticRegion": "Rating statistics by regions",
+    "ratingUser": "Your rating for a politician",
+    "worldUser": "The whole world",
+    "searchNotFound": "Nothing found",
+    "learnMore": "Learn more"
   },
   "profile": {
     "warningMessage": "All your profile personal date may be used only for verification of your profile and for impersonal statistics at the present source. This data will not be used otherwise or passed to anybody.",
