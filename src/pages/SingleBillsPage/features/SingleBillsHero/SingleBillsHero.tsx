@@ -20,7 +20,7 @@ const SingleBillsHero = ({ data }) => {
       <Container maxWidth="lg">
         <Grid container className={styles.newsContainer}>
           <Grid item lg={6} md={12} sm={12} className={styles.newsTitle}>
-            <Typography className={styles.newsHeading}>{data?.title}</Typography>
+            <Typography className={styles.newsHeading}>{data?.bill?.title}</Typography>
             <Box className={styles.newsLinks}>
               <Box className={styles.arrows}>
                 <SubdirectoryArrowRightIcon className={styles.arrowGrey} />
@@ -47,22 +47,22 @@ const SingleBillsHero = ({ data }) => {
                 <Typography>{data?.author?.name}</Typography>
               </Box> */}
               <Box className={styles.date}>
-                <Typography>{data?.publication_date}</Typography>
+                <Typography>{data?.bill?.publication_date}</Typography>
               </Box>
             </Box>
 
-            {/* <Box className={styles.newsSubject}>
-              {data?.newTopics.map((item) => (
+            <Box className={styles.politiciansSubject}>
+              {data?.politicians.map((item) => (
                 <Typography
                   key={item.id}
                   sx={{
                     marginRight: '15px',
                   }}
                 >
-                  {item.title}
+                  {item.name}
                 </Typography>
               ))}
-            </Box> */}
+            </Box>
           </Grid>
         </Grid>
         {toggleIframe ? (
@@ -71,7 +71,7 @@ const SingleBillsHero = ({ data }) => {
               <Typography className={styles.warningMessage__title}>{t('info.warningWatchNews')}</Typography>
             </Box>
             <Box>
-              <iframe src={data?.source_link} title="link" className={styles.iframe} width="80vw" />
+              <iframe src={data?.bill.source_link} title="link" className={styles.iframe} width="80vw" />
             </Box>
           </>
         ) : null}

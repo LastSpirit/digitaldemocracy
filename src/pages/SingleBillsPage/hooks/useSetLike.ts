@@ -8,8 +8,8 @@ import { singleBillsActionCreators } from 'src/slices/SingleBillsSlice';
 import { singleBillsAPIActions } from 'src/api/singleBillsAPI';
 
 export const useSetLike = () => {
-  const isBillLiked = useSelector((s: RootState) => s?.singleBills?.data?.is_user_liked);
-  const isBillDisliked = useSelector((s: RootState) => s?.singleBills?.data?.is_user_disliked);
+  const isBillLiked = useSelector((s: RootState) => s?.singleBills?.data?.bill.is_user_liked);
+  const isBillDisliked = useSelector((s: RootState) => s?.singleBills?.data?.bill.is_user_disliked);
   const { data } = useSelector((s: RootState) => s?.singleBills);
   const { startLike, successLike, failLike, startDislike, successDislike, failDislike } = singleBillsActionCreators();
   const { billLike, billDislike } = singleBillsAPIActions();
@@ -31,14 +31,14 @@ export const useSetLike = () => {
         failLike();
       },
       payload: {
-        bill_id: data?.id,
+        bill_id: data?.bill?.id,
       },
       variables: {
         isBillLiked,
         token,
       },
     });
-  }, [isBillLiked, isBillDisliked, token, data?.id]);
+  }, [isBillLiked, isBillDisliked, token, data?.bill?.id]);
   const setBillDislike = useCallback(() => {
     startDislike();
     billDislike({
@@ -56,14 +56,14 @@ export const useSetLike = () => {
         failDislike();
       },
       payload: {
-        bill_id: data?.id,
+        bill_id: data?.bill?.id,
       },
       variables: {
         isBillDisliked,
         token,
       },
     });
-  }, [isBillDisliked, isBillLiked, token, data?.id]);
+  }, [isBillDisliked, isBillLiked, token, data?.bill?.id]);
 
   return {
     setBillLike,
