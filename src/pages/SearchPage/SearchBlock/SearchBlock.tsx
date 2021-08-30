@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Box, Grid, Typography, Button } from '@material-ui/core';
 import { searchActionCreators, searchSelectors } from 'src/slices/searchSlice';
+import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
 import CardSmall from '../../../components/CardSmall/CardSmall';
 import PartyCard from '../../RatingPage/PartyCard/PartyCard';
 import AuthorCard from '../../RatingPage/AuthorCard/AuthorCard';
@@ -10,6 +11,8 @@ import PoliticiansCard from '../../RatingPage/PoliticianCard/PoliticiansCard';
 import MassMediaCard from '../../RatingPage/MassMediaCard/MassMediaCard';
 import { useSearchCategory } from '../hooks/useSearchCategory';
 import ArrowDown from '../../../icons/ArrowDown';
+
+import styles from './SearchBlock.module.scss';
 
 interface SearchBlockI {
   headerText: string,
@@ -25,11 +28,6 @@ export enum SearchBlockTypes {
   AUTHOR = 'author',
 }
 
-// setPerPage({
-//   key: type,
-//   value: searchData[type].perPage + 4
-// });
-
 export const SearchBlock: FC<SearchBlockI> = ({
   headerText,
   type,
@@ -37,7 +35,11 @@ export const SearchBlock: FC<SearchBlockI> = ({
   const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const searchData = useSelector(searchSelectors.getSearchData());
-  const { status: statusSearch, fetchSearchBlock } = useSearchCategory(type);
+  const searchQuery = useSelector(searchSelectors.getSearchQuery());
+  const {
+    status: statusSearch,
+    fetchSearchBlock
+  } = useSearchCategory(type);
 
   const getComponent = (props) => {
     switch (type) {
@@ -59,11 +61,12 @@ export const SearchBlock: FC<SearchBlockI> = ({
   useEffect(() => {
     if (page > 1) {
       fetchSearchBlock({ page });
-      // if (type === SearchBlockTypes.NEWS) {
-      //   fetchSearchNewsBlock({ search: 'Россия', page });
-      // }
     }
   }, [page]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [searchQuery]);
 
   return (
     <Box
@@ -79,51 +82,57 @@ export const SearchBlock: FC<SearchBlockI> = ({
       >
         {headerText}
       </Typography>
-      <Grid
-        container
-        spacing={2}
-        // justifyContent="center"
-      >
-        {searchData[type].data.map((item, index) => (
-          <Grid key={index.toString()} item md={3} sm={6} xs={12} justifyContent="center">
-            {getComponent(item)}
-          </Grid>
-        ))}
-      </Grid>
-      {searchData[type].isMorePages && (
-        <Box
-          sx={{
-            marginTop: '30px',
-            display: 'flex',
-            justifyContent: 'center'
-          }}
-        >
-          <Button
+      <div className={styles.container}>
+        {
+          type === SearchBlockTypes.NEWS
+            ? searchData[type].data.map((item, index) => (
+              <Grid key={index.toString()} item md={3} sm={6} xs={12} sx={{ padding: '0 16px 16px 0' }} justifyContent="center">
+                {getComponent(item)}
+              </Grid>
+            ))
+            : searchData[type].data.map((item, index) => getComponent(item))
+        }
+      </div>
+      <WrapperAsyncRequest status={statusSearch}>
+        {searchData[type].isMorePages && (
+          <Box
             sx={{
-              p: 1,
-              borderRadius: 100,
-              mr: 2,
-              textDecoration: 'none',
-              minWidth: '270px',
-              width: '100%',
-              maxWidth: '360px',
+              marginTop: '30px',
               display: 'flex',
-              alignItems: 'center',
-            }}
-            size="small"
-            variant="outlined"
-            onClick={() => {
-              setPage(page + 1);
+              justifyContent: 'center'
             }}
           >
-            <ArrowDown
-              htmlColor={'#363557'}
-              style={{ marginRight: '10px', height: '16px', width: '16px' }}
-            />
-            {t('buttons.showMore')}
-          </Button>
-        </Box>
-      )}
+            <Button
+              sx={{
+                p: 1,
+                borderRadius: 100,
+                mr: 2,
+                textDecoration: 'none',
+                minWidth: '270px',
+                width: '100%',
+                maxWidth: '360px',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+              size="small"
+              variant="outlined"
+              onClick={() => {
+                setPage(page + 1);
+              }}
+            >
+              <ArrowDown
+                htmlColor={'#363557'}
+                style={{
+                  marginRight: '10px',
+                  height: '16px',
+                  width: '16px'
+                }}
+              />
+              {t('buttons.showMore')}
+            </Button>
+          </Box>
+        )}
+      </WrapperAsyncRequest>
     </Box>
   );
 };

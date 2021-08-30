@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import debounce from 'lodash/debounce';
 import { Button, TextField, InputAdornment, IconButton, Container } from '@material-ui/core';
 import cn from 'classnames';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -116,20 +117,54 @@ export const Search = () => {
     setSearchQuery,
     clearSearchData,
   } = searchActionCreators();
-  const { fetchSearchCategory } = useSearch();
+  // const { searchQuery: { value: searchQueryParam, setValue: setSearchQueryParam } } = useSearchParams('searchQuery');
+  const { fetchSearchCategories } = useSearch();
   const [buttons, dispatchBtn] = useReducer(reducerFiltersButtons, filtersButtons(t));
 
   useEffect(() => {
     dispatchBtn({ type: 'CHANGE_LANG', t });
   }, [i18n.language]);
 
+  const checkActiveBtn = () => {
+    return Object.values(buttons).some((item) => item.active);
+  };
+
+  const handleSearchFetch = (query) => {
+    if (checkActiveBtn()) {
+      fetchSearchCategories({
+        search: query,
+        isNews: buttons.news.active,
+        isPolitician: buttons.politician.active,
+        isAuthor: buttons.author.active,
+        isMedia: buttons.media.active,
+        isParty: buttons.parties.active,
+        page: 1,
+        perPage: 4
+      });
+    } else {
+      fetchSearchCategories({
+        search: query,
+        page: 1,
+        perPage: 4
+      });
+    }
+  };
+
+  const debounceHandleSearchFetch = debounce(handleSearchFetch, 300);
+
   const handleSearchChange = (setValue) => (event): void => {
     setValue('search', event.target.value);
     setSearchQuery({ searchQuery: event.target.value });
+    if (pathname === '/search' && event.target.value.length >= 3) {
+      debounceHandleSearchFetch(event.target.value);
+    }
+    if (event.target.value === '') {
+      clearSearchData();
+    }
   };
 
   const handleKeyPress = (event) => {
-    if (event.charCode === 13) {
+    if (pathname !== '/search' && event.charCode === 13) {
       push('/search');
     }
   };
@@ -141,26 +176,8 @@ export const Search = () => {
   };
 
   const handleSubmitForm = (values) => {
-    const activeButtons = Object.values(buttons).some((item) => item.active);
     if (values.search) {
-      if (activeButtons) {
-        fetchSearchCategory({
-          search: values.search,
-          isNews: buttons.news.active,
-          isPolitician: buttons.politician.active,
-          isAuthor: buttons.author.active,
-          isMedia: buttons.media.active,
-          isParty: buttons.parties.active,
-          page: 1,
-          perPage: 4
-        });
-      } else {
-        fetchSearchCategory({
-          search: values.search,
-          page: 1,
-          perPage: 4
-        });
-      }
+      handleSearchFetch(values.search);
     }
   };
 
@@ -176,9 +193,8 @@ export const Search = () => {
             onSubmit={(values) => {
               handleSubmitForm(values);
             }}
-            // TODO t('errors.minSymbol')
             validationSchema={Yup.object().shape({
-              search: Yup.string().min(3, 'Нужно ввести минимум 3 символа'),
+              search: Yup.string().min(3, t('errors.minSymbol')),
             })}
             enableReinitialize={true}
           >

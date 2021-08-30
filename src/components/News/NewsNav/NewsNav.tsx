@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Box, Tooltip } from '@material-ui/core';
 import classNames from 'classnames';
 import styles from './NewsNav.module.scss';
@@ -16,11 +17,12 @@ interface Props {
 }
 
 const NewsNav: FC<Props> = ({ navigation, selectedTab, onClick }) => {
+  const { t, i18n } = useTranslation();
   const { country_id: country, region_id: region, city_id: city } = useSelector(userSelectors.getUser());
   const tooltipTitles = {
-    country: country?.title?.ru,
-    region: region?.title?.ru,
-    city: city?.title?.ru,
+    country: country?.title?.[i18n.language] ?? country?.title?.ru,
+    region: region?.title?.[i18n.language] ?? region?.title?.ru,
+    city: city?.title?.[i18n.language] ?? city?.title?.ru,
   };
 
   const navigationFiltered = navigation.filter((item, idx) => {

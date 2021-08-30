@@ -283,6 +283,10 @@
       border-radius: 40px;
       background: white;
 
+      @media screen and (max-width: 1024px) {
+        margin-left: 0px;
+      }
+
       &:hover {
         color: white !important;
         background: #363557 !important;
@@ -673,12 +677,11 @@
         align-items: center;
         flex-direction: column;
 
-        height: 223px;
+        height: 290px;
       }
 
       .input {
         flex-basis: 45%;
-
         width: 100%;
 
         .inputLabel {

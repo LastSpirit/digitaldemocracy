@@ -35,7 +35,7 @@ export const useFetchPoliticians = () => {
           country_user_id,
           region_user_id,
           city_user_id,
-          is_votes_world: is_votes_world || null
+          is_votes_world: is_votes_world ? 1 : null
         },
       },
     });

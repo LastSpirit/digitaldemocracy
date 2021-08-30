@@ -1,7 +1,7 @@
 import { bindActionCreators, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 
-interface SliceState {
+export interface SliceState {
   searchQuery: string,
   news: {
     isMorePages: boolean,
@@ -113,7 +113,6 @@ export const searchSlice = createSlice({
       };
     },
     setSearchDataCategory: (state: SliceState, action) => {
-      console.log(action);
       state[action.payload.key].data.push(...action.payload.data);
       state[action.payload.key].isMorePages = action.payload.isMorePages;
     },

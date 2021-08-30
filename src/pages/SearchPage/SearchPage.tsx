@@ -1,15 +1,17 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Container } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 import { useWindowSize } from 'src/hooks/useWindowSize';
-import { searchSelectors } from '../../slices/searchSlice';
+import { searchSelectors, SliceState as ISearchState } from '../../slices/searchSlice';
 import { SearchBlockTypes, SearchBlock } from './SearchBlock/SearchBlock';
 
 const SearchPage = () => {
   const { isMobile } = useWindowSize();
   const { t } = useTranslation();
-  const searchData = useSelector(searchSelectors.getSearchData());
+  const searchData: ISearchState = useSelector(searchSelectors.getSearchData());
+
+  const checkSearchData = Object.values(searchData).some((item) => item.data?.length);
 
   return (
     <Container
@@ -17,15 +19,27 @@ const SearchPage = () => {
       sx={{
         display: 'flex',
         justifyContent: 'center',
-        // height: '80vh',
+        minHeight: '550px',
         flexDirection: 'column',
         // p: 4,
       }}
     >
       {
+        !checkSearchData
+        && (
+          <Typography
+            sx={{
+              alignSelf: 'center'
+            }}
+          >
+            {t('info.searchNotFound')}
+          </Typography>
+        )
+      }
+      {
         searchData.news.data.length
-        ? <SearchBlock headerText={t('tabs.news')} type={SearchBlockTypes.NEWS} />
-        : null
+          ? <SearchBlock headerText={t('tabs.news')} type={SearchBlockTypes.NEWS} />
+          : null
       }
       {
         searchData.politician.data.length
@@ -44,8 +58,8 @@ const SearchPage = () => {
       }
       {
         searchData.party.data.length
-        ? <SearchBlock headerText={t('tabs.parties')} type={SearchBlockTypes.PARTY} />
-        : null
+          ? <SearchBlock headerText={t('tabs.parties')} type={SearchBlockTypes.PARTY} />
+          : null
       }
     </Container>
   );
