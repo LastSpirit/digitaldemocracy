@@ -1,20 +1,14 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { userSelectors } from 'src/slices/userSlice';
-import { setItem } from 'src/lib/sessionStorageManager';
 import { DataGrid, GridColumns } from '@material-ui/data-grid';
 import { useTranslation } from 'react-i18next';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
 import { useWindowSize } from 'src/hooks/useWindowSize';
-import InDevelop from '../../../../components/InDevelop/InDevelop';
 import { useFetchDossierTable } from './hooks/useFetchDossierTable';
-import { getItem } from '../../../../lib/localStorageManager';
 import { WrapperAsyncRequest } from '../../../SingleNewsPage/features/Loading/WrapperAsyncRequest';
 import { useLocalesThemeMaterial } from '../../../../hooks/useLocalesThemeMaterial';
 import styles from './styles.module.scss';
-import { useFetchPoliticianDossierGraph } from './hooks/useFetchPoliticianDossierGraph';
 import PoliticianDossierChart from './components/PoliticianDossierChart';
 
 const columns = (t, onClick): GridColumns => {
@@ -95,12 +89,14 @@ export const VotingStatistics = () => {
         {isGraphShown
           ? <PoliticianDossierChart politicianId={politicianId} setIsGraphShown={setIsGraphShown} />
         :
-          <DataGrid
-            rows={dossierTablePoliticians}
-            columns={isMobile ? mobileColumns(t, showPoliticianChartData) : columns(t, showPoliticianChartData)}
-            hideFooterPagination={true}
-            className={styles.dataGrid}
-          />}
+          <>
+            <DataGrid
+              rows={dossierTablePoliticians}
+              columns={isMobile ? mobileColumns(t, showPoliticianChartData) : columns(t, showPoliticianChartData)}
+              hideFooterPagination={true}
+              className={styles.dataGrid}
+            />
+          </>}
       </ThemeProvider>
     </WrapperAsyncRequest>
   );

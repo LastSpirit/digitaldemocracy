@@ -92,7 +92,7 @@ const PoliticianDossierChart: React.FC<IPoliticianDossierGraph> = ({ setIsGraphS
           role={'button'}
           tabIndex={0}
         >
-          Скрыть график
+          {t('buttons.hideChart')}
         </span>
         <HighchartsReact highcharts={Highcharts} options={options} />
       </div>
