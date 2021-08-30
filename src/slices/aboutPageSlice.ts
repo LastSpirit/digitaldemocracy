@@ -6,7 +6,7 @@ interface SliceState {
   textarea1: string;
   title2: string;
   textarea2: string;
-  file: string;
+  file: {};
 }
 
 const initialState = {
@@ -14,7 +14,7 @@ const initialState = {
   textarea1: '',
   title2: '',
   textarea2: '',
-  file: '',
+  file: {},
 };
 
 export const aboutPageSlice = createSlice({
@@ -26,6 +26,7 @@ export const aboutPageSlice = createSlice({
       state.title2 = action.payload.title2;
       state.textarea1 = action.payload.textarea1;
       state.textarea2 = action.payload.textarea2;
+      state.file = action.payload.file;
     },
   },
 });

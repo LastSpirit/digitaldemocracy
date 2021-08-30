@@ -1,51 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Digital Democracy</title>
-    <meta charset="utf-8" />
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="author" content="Devias IO" />
-    <meta name="description" content="Дорогой Друг! Развитие демократии невозможно без системы сдержек и противовесов, не позволяющей всей полноте власти концентрироваться в одних руках и равномерно распределенной между государственными ветвями власти. С развитием средств связи к этой системе добавились СМИ, которые могли влиять на общественное мнение, но без обратной связи от населения. Интернет привнес интерактив в диалог между властью и народом. Осталось лишь формализовать и структурировать эти отношения и общество будет готово вступить в следующий этап развития политического строя - 'Цифровую демократию'. Добро пожаловать!" />
-    <meta name="keywords" content="Digital Democracy" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:300,400,500,700" />
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=%REACT_APP_GOOGLE_METRICA_ID%"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+<head>
+  <title>Digital Democracy</title>
+  <meta charset="utf-8" />
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="author" content="Devias IO" />
+  <meta name="description" content="Дорогой Друг! Развитие демократии невозможно без системы сдержек и противовесов, не позволяющей всей полноте власти концентрироваться в одних руках и равномерно распределенной между государственными ветвями власти. С развитием средств связи к этой системе добавились СМИ, которые могли влиять на общественное мнение, но без обратной связи от населения. Интернет привнес интерактив в диалог между властью и народом. Осталось лишь формализовать и структурировать эти отношения и общество будет готово вступить в следующий этап развития политического строя - 'Цифровую демократию'. Добро пожаловать!" />
+  <meta name="keywords" content="Digital Democracy" />
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.png" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:300,400,500,700" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-196188110-5"></script>
+  <script>
+    // const gid = document.head.querySelector('script[data-gid]').getAttribute('data-gid');
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-196188110-5');
+  </script>
+  <!-- Yandex.Metrika counter -->
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript" >
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-      const google_id = process.env.REACT_APP_GOOGLE_METRICA_ID;
-      console.log(google_id);
-
-      gtag('config', google_id);
-    </script>
-    <!-- Yandex.Metrika counter -->
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript" >
-      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-      (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-      ym(78159532, "init", {
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true,
-        webvisor:true
-      });
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/%REACT_APP_YANDEX_METRICA_ID%" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
-  </head>
-  <body>
-  <noscript><div><img src="https://mc.yandex.ru/watch/%REACT_APP_YANDEX_METRICA_ID%" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    ym(78159532, "init", {
+      clickmap:true,
+      trackLinks:true,
+      accurateTrackBounce:true,
+      webvisor:true
+    });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/78159532" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+<noscript><div><img src="https://mc.yandex.ru/watch/78159532" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root"></div>
+</body>
 </html>

@@ -34,8 +34,7 @@ import { useSearchParams } from '../../hooks/useSearchParams';
 import PrivacyPolicyPdf from '../../theme/PrivacyPolicy.pdf';
 import TermsOfUse from '../../theme/TermsOfUse.pdf';
 
-const sectionsData = () => {
-  const { t } = useTranslation();
+const sectionsData = (t) => {
   return [
     {
       title: t('footer.menu.contacts') || 'Контакты',
@@ -55,11 +54,11 @@ const sectionsData = () => {
         },
         {
           title: t('footer.menu.ratingMenu') || 'Рейтинг',
-          href: '/rating',
+          href: '/rating/politicians',
         },
         {
           title: t('footer.menu.aboutMenu') || 'О площадке',
-          href: '/help_site',
+          href: '/about',
         },
         {
           title: t('footer.menu.userAgreement') || 'Пользовательское соглашение',
@@ -78,8 +77,7 @@ const sectionsData = () => {
   ];
 };
 
-const authUserSectionsData = () => {
-  const { t } = useTranslation();
+const authUserSectionsData = (t) => {
   return [
     {
       title: t('footer.menu.contacts') || 'Контакты',
@@ -99,11 +97,11 @@ const authUserSectionsData = () => {
         },
         {
           title: t('footer.menu.ratingMenu') || 'Рейтинг',
-          href: '/rating',
+          href: '/rating/politicians',
         },
         {
           title: t('footer.menu.aboutMenu') || 'О площадке',
-          href: '/help_site',
+          href: '/about',
         },
         {
           title: t('footer.menu.addNews') || 'Добавить новость',
@@ -176,8 +174,8 @@ const Footer: FC = (props) => {
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
-  const sections = sectionsData();
-  const authUserSections = authUserSectionsData();
+  const sections = sectionsData(t);
+  const authUserSections = authUserSectionsData(t);
   const icons = iconsData(isAuthenticated);
 
   return (
