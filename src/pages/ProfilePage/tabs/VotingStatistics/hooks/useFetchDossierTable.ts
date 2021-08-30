@@ -13,8 +13,8 @@ export const useFetchDossierTable = () => {
     setStatus(APIStatus.Loading);
     fetchDossierTable({
       onSuccess: (response) => {
-        setStatus(APIStatus.Success);
         setDossierTablePoliticians(response.politicians);
+        setStatus(APIStatus.Success);
       },
       onError: (error) => {
         console.log('error', error);
