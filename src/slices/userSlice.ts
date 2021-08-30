@@ -38,7 +38,8 @@ interface SliceState {
   };
   subscriptions?: SubscriptionsI,
   routes: RoutesI;
-  dossierTablePoliticians: any;
+  dossierTablePoliticians: [];
+  dossierPoliticianGraph: [];
   fetchUserDataStatus: APIStatus;
 }
 
@@ -60,6 +61,7 @@ const initialState: SliceState = {
     medias: [],
   },
   dossierTablePoliticians: [],
+  dossierPoliticianGraph: [],
   fetchUserDataStatus: 'Initial' as APIStatus,
 };
 
@@ -111,6 +113,9 @@ export const userSlice = createSlice({
     },
     setDossierTablePoliticians(state: SliceState, action) {
       state.dossierTablePoliticians = action.payload;
+    },
+    setDossierPoliticianGraph(state: SliceState, action) {
+      state.dossierPoliticianGraph = action.payload;
     }
   },
 });
@@ -125,7 +130,8 @@ export const userSelectors = {
   getIsAuthenticated: () => (state: Store) => state.user.isAuthenticated,
   getBrowsingHistory: () => (state: Store) => state.user.browsingHistory,
   getSubscriptions: () => (state: Store) => state.user.subscriptions,
-  getDossierTableData: () => (state: Store) => state.user.dossierTablePoliticians
+  getDossierTableData: () => (state: Store) => state.user.dossierTablePoliticians,
+  getDossierPoliticianGraph: () => (state: Store) => state.user.dossierPoliticianGraph
 };
 
 export const userActionCreators = () => {

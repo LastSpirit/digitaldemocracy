@@ -14,6 +14,8 @@ import { getItem } from '../../../../lib/localStorageManager';
 import { WrapperAsyncRequest } from '../../../SingleNewsPage/features/Loading/WrapperAsyncRequest';
 import { useLocalesThemeMaterial } from '../../../../hooks/useLocalesThemeMaterial';
 import styles from './styles.module.scss';
+import { useFetchPoliticianDossierGraph } from './hooks/useFetchPoliticianDossierGraph';
+import PoliticianDossierChart from './components/PoliticianDossierChart';
 
 const columns = (t, onClick): GridColumns => {
   return [
@@ -27,7 +29,7 @@ const columns = (t, onClick): GridColumns => {
           onKeyDown={() => onClick()}
           role={'button'}
           tabIndex={0}
-          className={styles.politicianName}
+          className={styles.link}
         >
           {row?.name || '-'}
         </span>
@@ -54,7 +56,7 @@ const mobileColumns = (t, onClick): GridColumns => {
           onKeyDown={() => onClick()}
           role={'button'}
           tabIndex={0}
-          className={styles.politicianName}
+          className={styles.link}
         >
           {row?.name || '-'}
         </span>
@@ -74,25 +76,31 @@ export const VotingStatistics = () => {
   const theme = useLocalesThemeMaterial();
   const [isGraphShown, setIsGraphShown] = useState(false);
   const { fetch: fetchDossierTable, status } = useFetchDossierTable();
+  const [politicianId, setPoliticianId] = useState(null);
   const dossierTablePoliticians = useSelector(userSelectors.getDossierTableData());
   const { isMobile } = useWindowSize();
-  console.log(dossierTablePoliticians);
 
   useEffect(() => {
     fetchDossierTable();
   }, []);
 
-  const showPoliticianChartData = (politicianId: string | number) :void => {};
+  const showPoliticianChartData = (id) :void => {
+    setPoliticianId(Number(id));
+    setIsGraphShown(true);
+  };
 
   return (
     <WrapperAsyncRequest status={status}>
       <ThemeProvider theme={theme}>
-        <DataGrid
-          rows={dossierTablePoliticians}
-          columns={isMobile ? mobileColumns(t, showPoliticianChartData) : columns(t, showPoliticianChartData)}
-          hideFooterPagination={true}
-          className={styles.dataGrid}
-        />
+        {isGraphShown
+          ? <PoliticianDossierChart politicianId={politicianId} setIsGraphShown={setIsGraphShown} />
+        :
+          <DataGrid
+            rows={dossierTablePoliticians}
+            columns={isMobile ? mobileColumns(t, showPoliticianChartData) : columns(t, showPoliticianChartData)}
+            hideFooterPagination={true}
+            className={styles.dataGrid}
+          />}
       </ThemeProvider>
     </WrapperAsyncRequest>
   );

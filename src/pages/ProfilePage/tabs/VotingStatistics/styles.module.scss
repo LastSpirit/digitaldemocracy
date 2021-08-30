@@ -7,9 +7,16 @@
   @media screen and (max-width: $mobileScreen) {
     width: 100%;
   }
+}
 
-  .politicianName {
-    color: #1F00ED;
-    cursor: pointer;
-  }
+.link {
+  color: #1F00ED;
+  cursor: pointer;
+}
+
+.hideChartBtn {
+  color: #1F00ED;
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 30px;
 }

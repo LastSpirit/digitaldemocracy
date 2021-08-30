@@ -58,7 +58,21 @@ const fetchDossierTable: any = (args) =>
     ...args,
   });
 
-const fetchPoliticiansDossierGraph: any = () => {};
+const fetchPoliticiansDossierGraph: any = (args) =>
+  callAPI({
+    url: 'getPoliticiansDossierGraph',
+    config: {
+      method: 'get',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`
+      },
+      params: {
+        politician_id: args.payload.params.politician_id
+      }
+    },
+    ...args
+  });
 
 const APIs = {
   fetchUserData,
