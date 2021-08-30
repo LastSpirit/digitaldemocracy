@@ -119,6 +119,12 @@
   font-size: 14px;
 }
 
+.politiciansSubject {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
 .arrowGrey {
   width: 50px;
   height: 50px;
@@ -240,6 +246,10 @@
   }
 
   .newsSubject {
+    font-size: 12px;
+  }
+
+  .politiciansSubject {
     font-size: 12px;
   }
 

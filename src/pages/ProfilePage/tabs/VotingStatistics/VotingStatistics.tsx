@@ -89,14 +89,12 @@ export const VotingStatistics = () => {
         {isGraphShown
           ? <PoliticianDossierChart politicianId={politicianId} setIsGraphShown={setIsGraphShown} />
         :
-          <>
-            <DataGrid
-              rows={dossierTablePoliticians}
-              columns={isMobile ? mobileColumns(t, showPoliticianChartData) : columns(t, showPoliticianChartData)}
-              hideFooterPagination={true}
-              className={styles.dataGrid}
-            />
-          </>}
+          <DataGrid
+            rows={dossierTablePoliticians}
+            columns={isMobile ? mobileColumns(t, showPoliticianChartData) : columns(t, showPoliticianChartData)}
+            hideFooterPagination={true}
+            className={styles.dataGrid}
+          />}
       </ThemeProvider>
     </WrapperAsyncRequest>
   );
