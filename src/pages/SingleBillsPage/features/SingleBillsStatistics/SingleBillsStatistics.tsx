@@ -29,6 +29,7 @@ export const SingleBillsStatistics: FC<any> = ({
   number_of_views,
 }) => {
   const { t } = useTranslation();
+
   return (
     <Box className={styles.statistics}>
       <Container maxWidth="lg">

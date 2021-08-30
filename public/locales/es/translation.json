@@ -15,7 +15,9 @@
       "addPolitician": "Agregar política",
       "search": "Búsqueda",
       "profileMenu": "Perfil",
-      "signInUp": "Entrada/Registro"
+      "signInUp": "Entrada/Registro",
+      "signInFooter": "Entrada",
+      "personalDataPolicy": "Política de datos personales"
     }
   },
   "cookies": {
@@ -78,7 +80,8 @@
     "questions": {
       "first": "¿Dónde tiene derecho a votar?",
       "second": "¿Ya tiene cuenta?",
-      "third": "Estos datos solo se utilizarán para estadísticas anónimas"
+      "third": "Estos datos solo se utilizarán para estadísticas anónimas",
+      "agreePersonalData": "Consentimiento para el tratamiento de datos personales"
     },
     "placeholdersForFields": {
       "countryField": "Empiece a introducir el país",
@@ -97,7 +100,6 @@
     "confirmRegistration": "Regístrate ahora",
     "setPassword": "Configurar la clave",
     "complete": "Completar",
-    "hideChart": "Ocultar horario",
     "recoverPassword": "Reiniciar su contraseña",
     "rememberMe": "Recordarme",
     "changeProfile": "Cambiar perfil",
@@ -123,6 +125,7 @@
     "collapse": "Сolapso",
     "add": "Agregar",
     "send": "Enviar",
+    "hideChart": "Ocultar horario",
     "sort": {
       "ratingFullTitle": "Por calificación",
       "ratingShortTitle": "Por calificación",
@@ -159,7 +162,11 @@
     "onlyNumbers": "El campo debe contener solo números",
     "ruleForPassword": "La contraseña debe contener al menos una letra y un número latinos",
     "linkBroken": "El enlace es incorrecto",
-    "minSymbol": "Introduzca un mínimo de 3 caracteres"
+    "emailUsed": "El correo electrónico seleccionado ya está en uso",
+    "phoneUsed": "Este número de teléfono ya está en uso",
+    "emailNotRegister": "El correo electrónico seleccionado no está registrado",
+    "passwordIncorrect": "La contraseña es incorrecta",
+    "minSymbol": "Introduce al menos 3 caracteres"
   },
   "tabs": {
     "rating": "Clasificación",
@@ -213,8 +220,6 @@
     "linkOnNews": "Referencia a la noticia",
     "politicianFIO": "Política de Nombre y apellidos",
     "influences": "de Impacto",
-    "ratingUser": "Tu calificación para un político",
-    "worldUser": "El mundo entero",
     "references": "Menciones",
     "dateView": "Fecha de visualización",
     "serviceDevelop": "Lo sentimos, esta parte del servicio está en desarrollo",
@@ -259,7 +264,11 @@
     "titleSuggestInfo": "Información propuesta",
     "linkForSubmit": "Referencia de confirmación",
     "titleSendSuggest": "Su propuesta se ha enviado para su revisión",
-    "titleStatisticRegion": "Estadísticas de votación por región"
+    "titleStatisticRegion": "Estadísticas de votación por región",
+    "ratingUser": "Su calificación para el político",
+    "worldUser": "El mundo entero",
+    "searchNotFound": "Nada Encontrado",
+    "learnMore": "Leer más"
   },
   "profile": {
     "warningMessage": "Todos los datos de su perfil solo se pueden utilizar para verificar su perfil y para estadísticas anónimas sobre este recurso. Estos datos no se utilizarán de ninguna otra manera, ni se transmitirán a nadie.",

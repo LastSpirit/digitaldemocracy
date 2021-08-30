@@ -35,7 +35,6 @@ const SingleNews = (props) => {
           ) : null}
         </WrapperAsyncRequest>
       </div>
-      {/* {data?.bills && data?.bills.length > 0 ? data.bills.map((elem) => <SingleBillsStatistics {...elem} />) : null} */}
     </Container>
   );
 };

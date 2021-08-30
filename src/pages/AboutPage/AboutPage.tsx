@@ -1,28 +1,31 @@
 import { useEffect, useMemo } from 'react';
 import { Container, Button } from '@material-ui/core';
 import { useWindowSize } from 'src/hooks/useWindowSize';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Loading } from 'src/components/Loading/Loading';
 import { useSelector } from 'react-redux';
 import { aboutPageSelectors } from 'src/slices/aboutPageSlice';
 import { useFetchAboutPage } from './hooks/useAboutThePage';
-import Pdf from '../../theme/DD.pdf';
+// import Pdf from '../../theme/DD.pdf';
 import styles from './AboutPage.module.scss';
 
 const AboutPage = () => {
   const { isMobile } = useWindowSize();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const lng = i18n.language;
   const data = useSelector(aboutPageSelectors.getAboutPage());
   const { fetch, status } = useFetchAboutPage();
+
   const textare2Normilize = useMemo(() => {
     if (!data?.textarea2) {
       return '';
     }
-    const text = data.textarea2[lng].split(' ').filter((elem) => elem !== 'info@digitaldemocracy.ru');
+    const text = data.textarea2[lng]
+      .split(' ')
+      .filter((elem) => elem !== 'info@digitaldemocracy.ru');
     return text.join(' ');
   }, [data, lng]);
+
   useEffect(() => {
     fetch();
   }, []);
@@ -30,6 +33,7 @@ const AboutPage = () => {
   if (!status) {
     return <Loading />;
   }
+
   return (
     <div className={styles.root}>
       <div className={styles.top}>
@@ -46,8 +50,8 @@ const AboutPage = () => {
           </p>
 
           <Button className={styles.button}>
-            <a className={styles.text_link} href={Pdf} download>
-              Узнать подробнее
+            <a className={styles.text_link} href={data?.file[lng]?.file} target="_blank" rel="noreferrer" download>
+              {t('info.learnMore')}
             </a>
           </Button>
         </div>
