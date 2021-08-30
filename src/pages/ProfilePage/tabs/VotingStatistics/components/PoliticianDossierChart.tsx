@@ -16,11 +16,11 @@ interface IPoliticianDossierGraph {
 const PoliticianDossierChart: React.FC<IPoliticianDossierGraph> = ({ setIsGraphShown, politicianId }) => {
   const { status, fetch: fetchDossierChartData } = useFetchPoliticianDossierGraph();
   const { t } = useTranslation();
-  const chartData = useSelector(userSelectors.getDossierPoliticianGraph());
+  const { graph } = useSelector(userSelectors.getDossier());
   useEffect(() => {
     fetchDossierChartData(politicianId);
   }, []);
-  const changedChartData = chartData.map((subArr) => [subArr[1], subArr[0]]);
+  const changedChartData = graph.map((subArr) => [subArr[1], subArr[0]]);
 
   const options = {
     chart: {

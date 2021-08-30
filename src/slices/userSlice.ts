@@ -38,8 +38,11 @@ interface SliceState {
   };
   subscriptions?: SubscriptionsI,
   routes: RoutesI;
-  dossierTablePoliticians: [];
-  dossierPoliticianGraph: [];
+  dossier: {
+    politicians: Array<object>,
+    graph: Array<object>,
+    isMorePages: boolean
+  },
   fetchUserDataStatus: APIStatus;
 }
 
@@ -60,8 +63,11 @@ const initialState: SliceState = {
     politicians: [],
     medias: [],
   },
-  dossierTablePoliticians: [],
-  dossierPoliticianGraph: [],
+  dossier: {
+    politicians: [],
+    graph: [],
+    isMorePages: false
+  },
   fetchUserDataStatus: 'Initial' as APIStatus,
 };
 
@@ -112,10 +118,14 @@ export const userSlice = createSlice({
       state.routes.data = [...state.routes.data].splice(0, state.routes.data.length - 1);
     },
     setDossierTablePoliticians(state: SliceState, action) {
-      state.dossierTablePoliticians = action.payload;
+      if (action.payload.pageNumber === 1) {
+        state.dossier.politicians = action.payload.politicians;
+      } else state.dossier.politicians = [...state.dossier.politicians, ...action.payload.politicians];
+
+      state.dossier.isMorePages = action.payload.isMorePages;
     },
     setDossierPoliticianGraph(state: SliceState, action) {
-      state.dossierPoliticianGraph = action.payload;
+      state.dossier.graph = action.payload;
     }
   },
 });
@@ -130,8 +140,7 @@ export const userSelectors = {
   getIsAuthenticated: () => (state: Store) => state.user.isAuthenticated,
   getBrowsingHistory: () => (state: Store) => state.user.browsingHistory,
   getSubscriptions: () => (state: Store) => state.user.subscriptions,
-  getDossierTableData: () => (state: Store) => state.user.dossierTablePoliticians,
-  getDossierPoliticianGraph: () => (state: Store) => state.user.dossierPoliticianGraph
+  getDossier: () => (state: Store) => state.user.dossier
 };
 
 export const userActionCreators = () => {
