@@ -11,8 +11,7 @@ import styles from './AboutPage.module.scss';
 
 const AboutPage = () => {
   const { isMobile } = useWindowSize();
-  const { t, i18n } = useTranslation();
-  const lng = i18n.language;
+  const { t, i18n: { language } } = useTranslation();
   const data = useSelector(aboutPageSelectors.getAboutPage());
   const { fetch, status } = useFetchAboutPage();
 
@@ -20,11 +19,11 @@ const AboutPage = () => {
     if (!data?.textarea2) {
       return '';
     }
-    const text = data.textarea2[lng]
+    const text = data.textarea2[language]
       .split(' ')
       .filter((elem) => elem !== 'info@digitaldemocracy.ru');
     return text.join(' ');
-  }, [data, lng]);
+  }, [data, language]);
 
   useEffect(() => {
     fetch();
@@ -38,21 +37,33 @@ const AboutPage = () => {
     <div className={styles.root}>
       <div className={styles.top}>
         <div className={styles.text}>
-          <h1>{data.title1[lng]}</h1>
-          <p>{data.textarea1[lng]}</p>
+          <h1>{data.title1[language]}</h1>
+          <p>{data.textarea1[language]}</p>
         </div>
       </div>
       <div className={styles.bottom}>
         <div className={styles.text}>
-          <h1>{data.title2[lng]}</h1>
+          <h1>{data.title2[language]}</h1>
           <p>
             {textare2Normilize} <a href="mailto:info@digitaldemocracy.ru">info@digitaldemocracy.ru</a>
           </p>
 
           <Button className={styles.button}>
-            <a className={styles.text_link} href={data?.file[lng]?.file} target="_blank" rel="noreferrer" download>
-              {t('info.learnMore')}
-            </a>
+            {
+              data?.file[language]?.file
+                ? (
+                  <a
+                    className={styles.text_link}
+                    target="_blank"
+                    rel="noreferrer"
+                    href={data?.file[language]?.file ?? ''}
+                    download
+                  >
+                    {t('info.learnMore')}
+                  </a>
+                )
+                : t('info.learnMore')
+            }
           </Button>
         </div>
       </div>

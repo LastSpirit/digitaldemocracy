@@ -26,7 +26,7 @@ export const aboutPageSlice = createSlice({
       state.title2 = action.payload.title2;
       state.textarea1 = action.payload.textarea1;
       state.textarea2 = action.payload.textarea2;
-      state.file = action.payload.file;
+      state.file = action.payload.file ?? {};
     },
   },
 });
