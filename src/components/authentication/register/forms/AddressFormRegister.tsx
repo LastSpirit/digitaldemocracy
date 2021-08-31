@@ -26,7 +26,7 @@ const AddressFormRegister: FC = (props) => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
   const {
-    fetchAddresses,
+    // fetchAddresses,
     addresses: options,
     countries,
     fetchCounties,

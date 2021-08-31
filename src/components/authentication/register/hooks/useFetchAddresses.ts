@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { APIStatus } from 'src/lib/axiosAPI';
-import { dadataConfig } from '../../../../config';
+// import { dadataConfig } from '../../../../config';
 import { authAPI } from '../../../../api/authAPI';
 
 export const useFetchAddresses = () => {
@@ -13,25 +13,25 @@ export const useFetchAddresses = () => {
 
   const { getCountries, getRegions, getCities } = authAPI();
 
-  const fetchAddresses = (query: string) => {
-    const options = {
-      method: 'POST',
-      mode: 'cors' as RequestMode,
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Token ${dadataConfig.apiKey}`,
-      },
-      body: JSON.stringify({ query }),
-    };
-
-    fetch(dadataConfig.getAddresses, options)
-      .then((response) => response.json())
-      .then((result) => {
-        setAddresses(result.suggestions.map((item) => item.value));
-      })
-      .catch((error) => console.log('error', error));
-  };
+  // const fetchAddresses = (query: string) => {
+  //   const options = {
+  //     method: 'POST',
+  //     mode: 'cors' as RequestMode,
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Accept: 'application/json',
+  //       Authorization: `Token ${dadataConfig.apiKey}`,
+  //     },
+  //     body: JSON.stringify({ query }),
+  //   };
+  //
+  //   fetch(dadataConfig.getAddresses, options)
+  //     .then((response) => response.json())
+  //     .then((result) => {
+  //       setAddresses(result.suggestions.map((item) => item.value));
+  //     })
+  //     .catch((error) => console.log('error', error));
+  // };
 
   const fetchCounties = useCallback(() => {
     getCountries({
@@ -84,7 +84,7 @@ export const useFetchAddresses = () => {
   }, []);
 
   return {
-    fetchAddresses,
+    // fetchAddresses,
     fetchCounties,
     fetchRegions,
     fetchCities,
