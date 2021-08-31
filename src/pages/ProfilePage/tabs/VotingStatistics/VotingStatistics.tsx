@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { userSelectors } from 'src/slices/userSlice';
 import { DataGrid, GridColumns } from '@material-ui/data-grid';
@@ -69,16 +69,17 @@ export const VotingStatistics = () => {
   const { t } = useTranslation();
   const theme = useLocalesThemeMaterial();
   const [isGraphShown, setIsGraphShown] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);
   const { fetch: fetchDossierTable, status } = useFetchDossierTable();
   const [politicianId, setPoliticianId] = useState(null);
-  const dossierTablePoliticians = useSelector(userSelectors.getDossierTableData());
+  const { politicians, isMorePages } = useSelector(userSelectors.getDossier());
   const { isMobile } = useWindowSize();
 
   useEffect(() => {
-    fetchDossierTable();
-  }, []);
+    fetchDossierTable(pageNumber);
+  }, [pageNumber]);
 
-  const showPoliticianChartData = (id) :void => {
+  const showPoliticianChartData = (id: number) :void => {
     setPoliticianId(Number(id));
     setIsGraphShown(true);
   };
@@ -89,12 +90,23 @@ export const VotingStatistics = () => {
         {isGraphShown
           ? <PoliticianDossierChart politicianId={politicianId} setIsGraphShown={setIsGraphShown} />
         :
-          <DataGrid
-            rows={dossierTablePoliticians}
-            columns={isMobile ? mobileColumns(t, showPoliticianChartData) : columns(t, showPoliticianChartData)}
-            hideFooterPagination={true}
-            className={styles.dataGrid}
-          />}
+          <div>
+            <DataGrid
+              rows={politicians}
+              columns={isMobile ? mobileColumns(t, showPoliticianChartData) : columns(t, showPoliticianChartData)}
+              hideFooterPagination={true}
+              className={styles.dataGrid}
+            />
+            {isMorePages && (
+              <button
+                className={styles.showMoreBtn}
+                onClick={() => setPageNumber((prev) => prev + 1)}
+                type={'button'}
+              >
+                {t('buttons.showMore')}
+              </button>
+            )}
+          </div>}
       </ThemeProvider>
     </WrapperAsyncRequest>
   );

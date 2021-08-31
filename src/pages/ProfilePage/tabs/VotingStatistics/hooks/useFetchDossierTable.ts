@@ -9,18 +9,26 @@ export const useFetchDossierTable = () => {
   const { fetchDossierTable } = userAPI();
   const { setDossierTablePoliticians } = userActionCreators();
   const token = getItem('token');
-  const fetch = () => {
+  const fetch = (pageNumber: number) => {
     setStatus(APIStatus.Loading);
     fetchDossierTable({
-      onSuccess: (response) => {
-        setDossierTablePoliticians(response.politicians);
+      onSuccess: (response: { politicians: Array<object>, isMorePages: boolean }) => {
+        setDossierTablePoliticians({
+          politicians: response.politicians,
+          isMorePages: response.isMorePages,
+          pageNumber
+        });
         setStatus(APIStatus.Success);
       },
       onError: (error) => {
         console.log('error', error);
+        setStatus(APIStatus.Failure);
       },
       payload: {
         token,
+        params: {
+          page: pageNumber
+        }
       },
     });
   };

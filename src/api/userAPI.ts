@@ -54,6 +54,9 @@ const fetchDossierTable: any = (args) =>
         Accept: 'application/json',
         Authorization: `Bearer ${args.payload.token}`
       },
+      params: {
+        page: args.payload.params.page
+      }
     },
     ...args,
   });
