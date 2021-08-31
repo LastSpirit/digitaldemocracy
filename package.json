@@ -10,6 +10,7 @@
     "start": "set REACT_APP_ENV=development && npm run start-env",
     "start-env": "sh -ac './ .env.${REACT_APP_ENV}; react-scripts start'",
     "build": "set REACT_APP_ENV=production && npm run build-env",
+    "build:dev": "set REACT_APP_ENV=development && npm run build-env",
     "build-env": "sh -ac '. .env.${REACT_APP_ENV}; react-scripts build'",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
