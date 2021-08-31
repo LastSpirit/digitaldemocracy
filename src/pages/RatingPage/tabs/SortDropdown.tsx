@@ -29,8 +29,6 @@ export const SortDropdown = ({ text, field, world }) => {
   const { countries, cities, regions } = useSelector((s: RootState) => s.rating[field]);
   const { fetch } = useFetchPoliticians();
 
-  console.log(world);
-
   const [postData, setPostData] = useState({
     country_politician_id: null,
     region_politician_id: null,
@@ -57,6 +55,7 @@ export const SortDropdown = ({ text, field, world }) => {
         fetchCities(postData.region_politician_id, field);
       }
     }
+
     if (field === 'vote') {
       if (postData2.country_user_id) {
         fetchRegions(postData2.country_user_id, field);
@@ -80,13 +79,9 @@ export const SortDropdown = ({ text, field, world }) => {
         region: '',
         city: '',
       }}
-      onSubmit={async () => {
-        setPostData({ ...postData });
-        try {
-          await setUpdate(!update);
-        } catch (e) {
-          console.log(e);
-        }
+      onSubmit={() => {
+        setPostData(postData);
+        setUpdate(!update);
       }}
       enableReinitialize={true}
     >
@@ -115,8 +110,9 @@ export const SortDropdown = ({ text, field, world }) => {
                   option.title?.[currentLang] === value || option.title?.ru === value}
                 noOptionsText={<>{t('info.noVariants')}</>}
                 onChange={(_, newValue) => {
-                  if (newValue && newValue !== null) {
+                  if (newValue) {
                     setFieldValue('country', newValue.title?.[currentLang] || newValue.title?.ru);
+
                     if (field === 'geography') {
                       setPostData((prevState) => {
                         const newState = {
@@ -130,6 +126,7 @@ export const SortDropdown = ({ text, field, world }) => {
                         return newState;
                       });
                     }
+
                     if (field === 'vote') {
                       setPostData2((prevState) => {
                         const newState = {
@@ -161,6 +158,7 @@ export const SortDropdown = ({ text, field, world }) => {
                       });
                       setUpdate(!update);
                     }
+
                     if (field === 'vote') {
                       setPostData2({
                         ...postData2,

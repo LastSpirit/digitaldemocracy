@@ -129,6 +129,18 @@ export const ratingSlice = createSlice({
       const { id, isSubscribe } = action.payload;
       state.massMedia.media.find((item) => item.id === id).is_subscribed = !isSubscribe;
     },
+    resetFilter(state: SliceState) {
+      state.sort_geography = {
+        country_politician_id: null,
+        region_politician_id: null,
+        city_politician_id: null
+      };
+      state.sort_vote = {
+        country_user_id: null,
+        region_user_id: null,
+        city_user_id: null
+      };
+    }
   },
 });
 
