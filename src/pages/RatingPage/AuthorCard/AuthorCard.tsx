@@ -4,6 +4,7 @@ import { useHistory, matchPath } from 'react-router';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Button, Tooltip } from '@material-ui/core';
 import { badgeColorChanger } from 'src/utils/badgeColorChanger';
 import { avatarColorChanger } from 'src/utils/avatarColorChanger';
@@ -19,6 +20,7 @@ import { APIStatus } from '../../../lib/axiosAPI';
 interface IProps extends AuthorDataI {}
 
 const AuthorCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_link, place }) => {
+  const { t } = useTranslation();
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { status, change } = useChangeSubscribeAuthor(id);
   const { push } = useHistory();
@@ -51,7 +53,7 @@ const AuthorCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_
             backgroundColor: badgeColorChanger(rating),
           }}
         >
-          <div className={styles.text}>{`Место ${place ?? '-'}`}</div>
+          <div className={styles.text}>{`${t('info.place')} ${place ?? '-'}`}</div>
         </div>
         <div className={styles.percent}>{`${rating ?? '-'} %`}</div>
       </div>
@@ -68,10 +70,10 @@ const AuthorCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_
           { '-disabled': !isAuthenticated },
         ])}
       >
-        <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
+        <Tooltip title={isAuthenticated ? '' : t('errors.notAuth')}>
           <span>
             {/* eslint-disable-next-line no-nested-ternary */}
-            {status === APIStatus.Loading ? <Loading /> : is_subscribed ? 'Отписаться' : 'Следить'}
+            {status === APIStatus.Loading ? <Loading /> : is_subscribed ? t('buttons.unsubscribe') : t('buttons.subscribe')}
           </span>
         </Tooltip>
       </Button>

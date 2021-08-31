@@ -16,7 +16,7 @@ interface CardSmallProps {
   publication_date?: string;
   number_of_views?: number;
   short_link?: string;
-  image?: string;
+  image?: any;
 }
 
 const CardSmall: FC<CardSmallProps> = ({
@@ -30,15 +30,17 @@ const CardSmall: FC<CardSmallProps> = ({
   image,
 }) => {
   const history = useHistory();
-  const handleNews = () => {
+  const handleNews = (e) => {
     const newPath = matchPath(`/singleNews/${short_link}`, { path: '/singleNews/:link' });
     history.push(newPath.url);
   };
-  const handleMedia = () => {
+  const handleMedia = (e) => {
+    e.stopPropagation();
     const newPath = matchPath(`/mass-media/${media.short_link}`, { path: '/mass-media/:link' });
     history.push(newPath.url);
   };
-  const handleAuthor = () => {
+  const handleAuthor = (e) => {
+    e.stopPropagation();
     const newPath = matchPath(`/author/${author.short_link}`, { path: '/author/:link' });
     history.push(newPath.url);
   };
@@ -73,18 +75,28 @@ const CardSmall: FC<CardSmallProps> = ({
       </Box>
       <Box className={classes.content}>
         <Box className={classes.cardContent} onClick={handleNews}>
-          <Typography className={classes.bigTitle}>{title}</Typography>
-        </Box>
-        <Box className={classes.cardNames}>
-          <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleAuthor}>
-            {author?.name}
-          </Typography>
-          <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleMedia}>
-            {media?.name}
-          </Typography>
+          <Box sx={{ marginBottom: '10px' }}>
+            <Typography className={classes.bigTitle}>{title}</Typography>
+          </Box>
+          <Box className={classes.cardNames}>
+            {media?.name && (
+              <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleMedia}>
+                {media?.name}
+              </Typography>
+            )}
+            {author?.name && (
+              <Typography sx={{ padding: 0 }} className={classes.clickableText} onClick={handleAuthor}>
+                {author?.name}
+              </Typography>
+            )}
+          </Box>
         </Box>
         <Box className={classes.imageContainer} onClick={handleNews}>
-          <img src={image} alt="news" className={classes.image} />
+          {image.length > 1 ? (
+            image.map((elem) => <img src={elem} alt="news" className={classes.image} />).splice(0, 2)
+          ) : (
+            <img src={image} alt="news" className={classes.image_full} />
+          )}
         </Box>
       </Box>
     </Box>

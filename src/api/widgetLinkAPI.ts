@@ -19,10 +19,10 @@ const fetchWidgetLink: APIRequest<WidgetLinkRequest, WidgetLinkResponse> = (args
       topicId && page
         ? `?page=${page}&topic_id=${topicId}`
         : !topicId && page
-        ? `?page=${args.payload.page}`
-        : topicId && !page
-        ? `?topic_id=${topicId}`
-        : ''
+          ? `?page=${args.payload.page}`
+          : topicId && !page
+            ? `?topic_id=${topicId}`
+            : ''
     }`,
     config: { method: 'GET' },
     ...args,

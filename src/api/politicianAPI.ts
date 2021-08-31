@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { callOtherAPI } from 'src/lib/otherAxiosAPI';
 import { APIRequest, callAPI } from '../lib/axiosAPI';
 import {
   NewsWithPercentI,
@@ -18,10 +19,10 @@ interface NewsRequest {
 }
 
 const fetchNews: APIRequest<NewsRequest, Array<NewsWithPercentI>, string, FetchProfileInfoVar> = (args) => {
-  const { token, politician_id } = args.variables;
+  const { token, politician_id, start_date, end_date, page } = args.variables;
   // eslint-disable-next-line @typescript-eslint/naming-convention
   return callAPI({
-    url: `getPoliticianNews/?politician_id=${politician_id}`,
+    url: `getNewsByDate/?politician_id=${politician_id}&start_date=${start_date}&end_date=${end_date}&page=${page}`,
     config: {
       method: 'get',
       headers: {
@@ -49,6 +50,9 @@ interface FetchProfileInfoVar {
   short_link?: string;
   token?: string;
   politician_id?: number;
+  start_date?: number | string;
+  end_date?: number | string;
+  page?: number;
 }
 
 const fetchProfileInfo: APIRequest<
@@ -197,7 +201,7 @@ interface LikeVar {
 const politicianLike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
   const { isItemLiked, token } = args.variables;
   return callAPI({
-    url: isItemLiked ? 'deleteLikeFromPolitician' : 'addLikeToPolitician',
+    url: isItemLiked ? 'deleteLikeFromPoliticianOnBill' : 'addLikeToPoliticianOnBill',
     config: {
       method: 'POST',
       headers: {
@@ -212,7 +216,7 @@ const politicianLike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = 
 const politicianDislike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
   const { isItemDisliked, token } = args.variables;
   return callAPI({
-    url: isItemDisliked ? 'deleteDislikeFromPolitician' : 'addDislikeToPolitician',
+    url: isItemDisliked ? 'deleteDislikeFromPoliticianOnBill' : 'addDislikeToPoliticianOnBill',
     config: {
       method: 'POST',
       headers: {
@@ -238,6 +242,75 @@ const getGraphPoliticianRatingChange = (args) => {
   });
 };
 
+const getAdditionalInformation = (args) => {
+  return callAPI({
+    url: 'getAdditionalInformation',
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+      params: args.payload,
+    },
+    ...args,
+  });
+};
+
+const fetchCountries = (args) => {
+  return callAPI({
+    url: 'getCountries',
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    },
+    ...args,
+    nestedResponseType: false,
+  });
+};
+
+const fetchRegions = (args) => {
+  return callOtherAPI({
+    url: 'getRegionsByArray',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+      },
+    },
+    ...args,
+    nestedResponseType: false,
+  });
+};
+
+const fetchCities = (args) => {
+  return callOtherAPI({
+    url: 'getCitiesByArray',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+      },
+    },
+    ...args,
+    nestedResponseType: false,
+  });
+};
+
+const getPoliticianCustomRating = (args) => {
+  return callOtherAPI({
+    url: 'getPoliticianCustomRating',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+      },
+    },
+    ...args,
+  });
+};
+
 const APIs = {
   fetchNews,
   fetchProfileInfo,
@@ -253,6 +326,11 @@ const APIs = {
   politicianLike,
   politicianDislike,
   getGraphPoliticianRatingChange,
+  getAdditionalInformation,
+  fetchCountries,
+  fetchRegions,
+  fetchCities,
+  getPoliticianCustomRating,
 };
 
 export const politicianAPI = () => {

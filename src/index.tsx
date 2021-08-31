@@ -2,7 +2,7 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import 'nprogress/nprogress.css';
 
-import { StrictMode } from 'react';
+import { StrictMode, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
@@ -10,12 +10,15 @@ import { Provider as ReduxProvider } from 'react-redux';
 import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 import StyledEngineProvider from '@material-ui/core/StyledEngineProvider';
+import { Container } from '@material-ui/core';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 import { store } from './store';
-import './index.scss';
 import { AuthProvider } from './contexts/JWTContext';
+import { Loading } from './components/Loading/Loading';
+
+import './index.scss';
 
 declare global {
   interface Window {
@@ -34,7 +37,22 @@ ReactDOM.render(
           <StyledEngineProvider injectFirst>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <BrowserRouter>
-                <App />
+                <Suspense fallback={(
+                  <Container
+                    maxWidth="lg"
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      height: '80vh',
+                    }}
+                  >
+                    <Loading size={80} />
+                  </Container>
+                )}
+                >
+                  <App />
+                </Suspense>
               </BrowserRouter>
             </LocalizationProvider>
           </StyledEngineProvider>

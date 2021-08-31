@@ -8,6 +8,25 @@ export interface RegionI {
   federal_district: string
 }
 
+export interface CountryI {
+  id: number,
+  created_at?: string,
+  updated_at?: string,
+  deleted_at?: string,
+  title: string,
+  total_electorate: number
+}
+
+export interface CityI {
+  id: number,
+  region_id?: number,
+  created_at?: string,
+  updated_at?: string,
+  title: string,
+  total_electorate?: number,
+  is_exact_value?: boolean
+}
+
 interface MediaI {
   id: number,
   name: string,
@@ -38,9 +57,11 @@ interface WidgetLinkI {
   number_on_pages: number
 }
 
-interface NewsArrayI {
+export interface NewsArrayI {
   id: number,
   region?: RegionI,
+  country?: CountryI,
+  city?: CityI,
   media?: MediaI,
   author?: AuthorI,
   newTopics?: Array<NewTopicsI>,
@@ -64,7 +85,10 @@ export interface NewsListI {
 export interface NewsI {
   news: Array<NewsListI>,
   newsTopics?: Array<NewTopicsI>,
-  isMorePages: boolean
+  isMorePages: boolean,
+  country?: string,
+  region?: string,
+  city?: string,
 }
 
 interface SliceState {

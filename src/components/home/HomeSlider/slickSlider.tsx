@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 import { Box, Card, Typography, CardActionArea, CardActions, Button, Tooltip, fabClasses } from '@material-ui/core';
 import { milliseconds } from 'date-fns';
 import { useHistory } from 'react-router';
+import classNames from 'classnames';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -115,6 +117,7 @@ export default function CustomArrows({ data }) {
     ],
   };
 
+  const { t, i18n } = useTranslation();
   const { isMobile } = useWindowSize();
   const { push } = useHistory();
   const [date, setDate] = useState(null);
@@ -126,6 +129,7 @@ export default function CustomArrows({ data }) {
         <Slider {...settings} style={{ display: 'flex', alignItems: 'center' }}>
           {data?.map((item) => (
             <Tooltip
+              key={item.id}
               title={item.position ?? ''}
               classes={{
                 tooltip: styles.tooltip,
@@ -152,17 +156,34 @@ export default function CustomArrows({ data }) {
                 <CardActionArea>
                   <Box>
                     <Box
-                      className={styles.imgContainer}
-                      style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
+                      className={
+                        item?.rating
+                          ? styles.imgContainer
+                          : classNames(styles.imgContainer, styles.imgContainer__nonRaiting)
+                      }
+                      style={
+                        item?.rating
+                          ? { backgroundImage: `url(${avatarColorChanger(item?.rating)})`, backgroundSize: 'cover' }
+                          : {}
+                      }
                     >
-                      <img src={item.photo} alt="politics" className={styles.img} />
+                      <img
+                        src={item.photo}
+                        alt="politics"
+                        className={item?.rating ? styles.img : classNames(styles.img, styles.img__nonRaiting)}
+                      />
                     </Box>
                   </Box>
                   <Box className={styles.caption}>
                     <Typography className={styles.name}>{item.name}</Typography>
                   </Box>
+                  <Box className={styles.country}>
+                    <Typography className={styles.countryName}>{item.country.title[i18n.language]}</Typography>
+                  </Box>
                   <Box>
-                    <Typography className={styles.percent}>{item.rating ?? '- '}%</Typography>
+                    <Typography className={styles.percent}>
+                      {item.rating ? `${item.rating} %` : t('info.withoutRating')}
+                    </Typography>
                   </Box>
                 </CardActionArea>
                 <CardActions />
@@ -174,7 +195,7 @@ export default function CustomArrows({ data }) {
       {isMobile && (
         // eslint-disable-next-line react/button-has-type
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Button className={classes.buttonStyle}>Весь рейтинг</Button>
+          <Button className={classes.buttonStyle}>{t('buttons.allRating')}</Button>
         </Box>
       )}
     </div>

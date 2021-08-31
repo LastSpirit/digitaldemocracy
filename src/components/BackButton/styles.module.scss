@@ -1,45 +1,51 @@
+@import '../../_mixins.scss';
+
 .buttonRow {
   display: flex;
-  width: 100%;
-  margin-bottom: 20px;
-  .backButton {
-    background-color: #363557;
-    border: 1px solid #363557;
-    padding: 10px 30px;
-    font-size: 14px;
-    border-radius: 150px;
-    white-space: nowrap;
-    display: flex;
-    height: 40px;
-    color: white;
-    box-sizing: border-box;
 
+  // width: 100%;
+  // margin-bottom: 20px;
+  margin-right: 2vw;
+
+  .backButton {
     &:hover {
       color: #363557;
       background: transparent;
     }
 
     .icon {
-      margin-right: 7px;
       height: 100%;
-      font-family: HelveticaNeueCyr;
-      font-size: 18px;
-      font-style: normal;
-      font-weight: 200;
-      line-height: 18px;
-      letter-spacing: 0em;
+      margin-right: 7px;
+
       text-align: left;
+      letter-spacing: 0;
+
       color: inherit;
+
+      font-family: HelveticaNeueCyr, serif;
+      font-size: 18px;
+      font-weight: 200;
+      font-style: normal;
+      line-height: 18px;
     }
+
     .text {
-      font-family: HelveticaNeueCyr;
-      font-size: 18px;
-      font-style: normal;
-      font-weight: 200;
-      line-height: 18px;
-      letter-spacing: 0em;
       text-align: left;
+      letter-spacing: 0;
+
       color: inherit;
+
+      font-family: HelveticaNeueCyr, serif;
+      font-size: 18px;
+      font-weight: 200;
+      font-style: normal;
+      line-height: 18px;
+    }
+
+    @include buttonStyle;
+
+    @media (max-width: 570px) {
+      padding: 5px 10px;
     }
   }
 }

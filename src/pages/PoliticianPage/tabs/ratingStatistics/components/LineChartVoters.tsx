@@ -1,24 +1,25 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Tooltip } from '@material-ui/core';
 import { politicianSelectors } from '../../../../../slices/politicianSlice';
 import styles from '../styles.module.scss';
 
-const lines = [
+const lines = (t) => [
   {
-    title: 'Присутствуют',
+    title: t('info.present') || 'Присутствуют',
     id: 'numberOfUsersFromRegion',
     color: '#807F7F',
     zIndex: 2
   },
   {
-    title: 'Проголосовали',
+    title: t('info.voted') || 'Проголосовали',
     id: 'numberOfVotedUsers',
     color: '#222222',
     zIndex: 3
   },
   {
-    title: 'Всего электората',
+    title: t('info.totalElectorate') || 'Всего электората',
     id: 'totalElectorate',
     color: '#EDEDED',
     zIndex: 1
@@ -28,11 +29,12 @@ const lines = [
 const getWidth = (item: number, total: number) => ((item * 100) / total < 1 ? 1 : (item * 100) / total);
 
 export const LineChartVoters = () => {
+  const { t } = useTranslation();
   const data = useSelector(politicianSelectors.getRatingStatistic());
   return (
     <div className={styles.lineChartVotersContainer}>
       <div className={styles.lines}>
-        {data?.numberOfVoters && lines.map(({ color, id, zIndex }, index) => {
+        {data?.numberOfVoters && lines(t).map(({ color, id, zIndex }, index) => {
           const item = getWidth(data.numberOfVoters[id], data.numberOfVoters.totalElectorate);
           return (
             <Tooltip
@@ -48,7 +50,7 @@ export const LineChartVoters = () => {
         })}
       </div>
       <div className={styles.legends}>
-        {data?.numberOfVoters && lines.map(({ color, title, id }) => (
+        {data?.numberOfVoters && lines(t).map(({ color, title, id }) => (
           <div className={styles.legend}>
             <div
               style={{ backgroundColor: color }}

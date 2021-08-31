@@ -8,10 +8,12 @@ html {
 
 body {
   margin: 0;
+
   @media screen and (max-width: 570px) {
     overflow-x: hidden;
   }
 }
+
 .PrivateSwitchBase-root {
   color: #363557 !important;
 }
@@ -47,22 +49,26 @@ body {
 }
 
 .MuiButton-containedPrimary {
+  color: #FFF;
   background-color: #363557;
-  color: #ffffff;
 
   &:disabled {
-    background-color: #b0b0b0;
     color: white;
+    background-color: #B0B0B0;
   }
+
   &.-disabled {
-    background-color: #b0b0b0 !important;
-    color: white !important;
-    box-shadow: none !important;
     cursor: default;
-    border-color: #b0b0b0 !important;
+
+    color: white !important;
+    border-color: #B0B0B0 !important;
+    background-color: #B0B0B0 !important;
+    box-shadow: none !important;
+
     .MuiTouchRipple-root {
       display: none !important;
     }
+
     &:hover {
       outline: none !important;
     }
@@ -70,23 +76,27 @@ body {
 }
 
 .MuiButton-outlinedSecondary {
-  background-color: white;
   color: rgba(245, 0, 87) !important;
   border: 1px solid rgba(245, 0, 87, 0.5);
+  background-color: white;
 
   &:disabled {
-    background-color: #b0b0b0;
     color: white;
+    background-color: #B0B0B0;
   }
+
   &.-disabled {
-    background-color: #b0b0b0 !important;
-    color: white !important;
-    box-shadow: none !important;
     cursor: default;
-    border-color: #b0b0b0 !important;
+
+    color: white !important;
+    border-color: #B0B0B0 !important;
+    background-color: #B0B0B0 !important;
+    box-shadow: none !important;
+
     .MuiTouchRipple-root {
       display: none !important;
     }
+
     &:hover {
       outline: none !important;
     }
@@ -102,13 +112,15 @@ body {
 }
 
 .MuiSwitch-track {
-  background-color: #a2ffc7 !important;
+  background-color: #A2FFC7 !important;
 }
-MuiButtonBase-root-MuiIconButton-root-MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
-  background-color: #36cd67 !important;
+
+muibuttonbase-root-muiiconbutton-root-muiswitch-switchbase.Mui-checked + .MuiSwitch-track {
+  background-color: #36CD67 !important;
 }
+
 .Mui-checked + .MuiSwitch-track {
-  background-color: #24c853 !important;
+  background-color: #24C853 !important;
 }
 
 .MuiButton-outlinedPrimary {

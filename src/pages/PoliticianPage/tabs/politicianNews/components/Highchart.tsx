@@ -1,43 +1,35 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import Highcharts from 'highcharts';
+import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
 import HighchartsReact from 'highcharts-react-official';
 import { useFetchChart } from '../../../hooks/useFetchChart';
-import { politicianSelectors } from '../../../../../slices/politicianSlice';
-
-Highcharts.setOptions({
-  lang: {
-    months: [
-      'Январь',
-      'Февраль',
-      'Март',
-      'Апрель',
-      'Май',
-      'Июнь',
-      'Июль',
-      'Август',
-      'Сентрябрь',
-      'Октябрь',
-      'Новябрь',
-      'Декабрь',
-    ],
-    weekdays: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Восресенье'],
-    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Ноябр', 'Дек'],
-    resetZoom: 'Сбрость зумирование',
-  },
-});
-
-const afterSetExtremes = (zoomAxis) => {
-  const { min } = zoomAxis;
-  const { max } = zoomAxis;
-  console.log(min);
-  console.log(max);
-};
+import { politicianActionCreators, politicianSelectors } from '../../../../../slices/politicianSlice';
 
 export const Highchart = () => {
+  const { t } = useTranslation();
   const { fetch, status } = useFetchChart();
+  const { setDate, setReset } = politicianActionCreators();
   const chartData = useSelector(politicianSelectors.getChartData());
+
+  Highcharts.setOptions({
+    lang: {
+      months: Object.values(t('mountsFullName')),
+      weekdays: Object.values(t('days')),
+      shortMonths: Object.values(t('mountsShortName')),
+      resetZoom: t('info.resetZoom'),
+    },
+  });
+
+  const afterSetExtremes = (zoomAxis) => {
+    const { min } = zoomAxis;
+    const { max } = zoomAxis;
+    setDate({ min: Math.floor(min / 1000), max: Math.floor(max / 1000) });
+    setReset();
+  };
+
   useEffect(() => {
     fetch();
   }, []);
@@ -47,7 +39,7 @@ export const Highchart = () => {
       zoomType: 'x',
     },
     title: {
-      text: 'График новостей политика',
+      text: '',
     },
     xAxis: {
       type: 'datetime',
@@ -57,66 +49,63 @@ export const Highchart = () => {
     },
     yAxis: {
       title: {
-        text: 'Количество новости',
+        text: '0% - 100%',
+      },
+      max: 100,
+    },
+    area: {
+      fillColor: {
+        linearGradient: {
+          x1: 0,
+          y1: 0,
+          x2: 0,
+          y2: 1,
+        },
+        stops: [
+          [0, Highcharts.getOptions().colors[0]],
+          [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')],
+        ],
       },
     },
     legend: {
       enabled: false,
     },
-    plotOptions: {
-      series: {
-        cursor: 'pointer',
-        point: {
-          events: {
-            click() {
-              // eslint-disable-next-line react/no-this-in-sfc
-              window.open(this.series.options.link);
-            },
-          },
-        },
-      },
-      area: {
-        fillColor: {
-          linearGradient: {
-            x1: 0,
-            y1: 0,
-            x2: 0,
-            y2: 1,
-          },
-          stops: [
-            [0, Highcharts.getOptions().colors[0]],
-            [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')],
-          ],
-        },
-        marker: {
-          radius: 2,
-        },
-        lineWidth: 1,
-        states: {
-          hover: {
-            lineWidth: 1,
-          },
-        },
-        threshold: null,
-      },
-    },
-
     series: [
       {
-        type: 'area',
-        name: 'Новостей',
+        name: '%',
         data: [...(chartData?.politicianRatingChange || [])],
-        link: 'https://dev.digitaldemocracy.ru/singleNews/Twjy4sPZIdvE4KOKefLq',
+        zoneAxis: 'y',
+        zones: [
+          {
+            value: 49,
+            color: 'rgb(190, 59, 33)',
+          },
+          {
+            color: 'rgb(36, 130, 50)',
+          },
+        ],
       },
       {
-        // type: 'area',
-        name: 'Новостей',
-        data: [...(chartData?.politicianVotingElectorateChange || [])],
-        lineColor: 'black',
-        link: 'https://dev.digitaldemocracy.ru/singleNews/Twjy4sPZIdvE4KOKefLq',
+        type: 'area',
+        name: t('info.totalElectorate') || 'Всего электората',
+        data: [
+          ...(chartData?.politicianVotingElectorateChange?.map((item) => ({
+            x: item[0],
+            y: item[1],
+            votes: item[2],
+          })) || []),
+        ],
+        lineColor: 'rgb(128, 127, 127)',
+        tooltip: {
+          pointFormat: `{series.name}: {point.y}<br/>${t('info.voted')}: {point.votes}`,
+        },
       },
     ],
   };
 
-  return <HighchartsReact highcharts={Highcharts} options={options} />;
+  return (
+    <WrapperAsyncRequest status={status}>
+      <HighchartsReact highcharts={Highcharts} options={options} />
+    </WrapperAsyncRequest>
+  );
 };

@@ -14,19 +14,19 @@ const mock = [
   {
     id: 2,
     width: 0,
-    color: '#C9988E',
+    color: '#EB4335',
     zIndex: 4,
   },
   {
     id: 3,
     width: 100,
-    color: '#C4C4C4',
+    color: '#747373',
     zIndex: 3,
   },
   {
     id: 4,
     width: 0,
-    color: '#749C7E',
+    color: '#34A853',
     zIndex: 2,
   },
   {
@@ -65,25 +65,17 @@ export const PercentsLinearGraphic: FC<IProps> = ({ vote_groups }) => {
               .reduce((acc, rec) => acc + rec.width, 0);
             return (
               <>
-                {width > 0 && (
-                  <div
-                    key={id.toString()}
-                    style={{
-                      width: `${previosWidth + finalArray[index].width}%`,
-                      backgroundColor: color,
-                      zIndex,
-                    }}
-                    className={styles.line}
-                  >
-                    {width < hiddenValue ? (
-                      <Tooltip title={`${Math.round(width)} %`} className={styles.tooltip} placement="bottom-end">
-                        <span>{'...%'}</span>
-                      </Tooltip>
-                    ) : (
-                      <span>{`${Math.round(width)} %`}</span>
-                    )}
-                  </div>
-                )}
+                <div
+                  key={id.toString()}
+                  style={{
+                    width: `${previosWidth + finalArray[index].width}%`,
+                    backgroundColor: color,
+                    zIndex,
+                  }}
+                  className={styles.line}
+                >
+                  <span>{`${Math.round(width)} %`}</span>
+                </div>
               </>
             );
           })}

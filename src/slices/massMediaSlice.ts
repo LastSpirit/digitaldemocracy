@@ -79,6 +79,11 @@ interface StatisticI {
   influence?: string;
   number_of_news?: number;
 }
+export interface AdditionalInformation {
+  id: number;
+  link: string;
+  title: string;
+}
 
 interface SliceState {
   status?: APIStatus;
@@ -91,6 +96,7 @@ interface SliceState {
   sort_field?: string;
   page?: number;
   statistic?: Array<StatisticI>;
+  additionalInformation?: Array<AdditionalInformation>;
 }
 
 const initialState: SliceState = {
@@ -179,6 +185,9 @@ export const massMediaSlice = createSlice({
       state.statistic = initialState.statistic;
       state.statisticStatus = APIStatus.Initial;
     },
+    setAdditionalInformation(state: SliceState, action: PayloadAction<Array<AdditionalInformation>>) {
+      state.additionalInformation = action.payload;
+    },
   },
 });
 
@@ -189,6 +198,7 @@ interface Store {
 export const massmediaSelectors = {
   getMassMediaInfo: () => (state: Store) => state.massmedia.data,
   getNews: () => (state: Store) => state.massmedia.news,
+  getAdditionalInformation: () => (state: Store) => state.massmedia.additionalInformation,
 };
 
 export const massmediaActionCreators = () => {

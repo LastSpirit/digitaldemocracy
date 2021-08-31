@@ -4,6 +4,7 @@ import Footer from './Footer/Footer';
 import MainNavbar from './MainNavbar';
 import AuthModal from './widgets/modals/AuthModal/AuthModal';
 import { useWindowSize } from '../hooks/useWindowSize';
+import { Search } from './Search/Search';
 
 interface MainLayoutProps {
   children?: ReactNode;
@@ -20,9 +21,10 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
 
   return (
     <MainLayoutRoot
-      style={{ background: 'white', paddingBottom: isMobile ? 80 : 0, paddingTop: isMobile ? '64px' : '90px' }}
+      style={{ background: 'white', paddingBottom: isMobile ? 80 : 0, paddingTop: isMobile ? '88px' : '90px' }}
     >
       <MainNavbar />
+      <Search />
       <AuthModal />
       {children}
       <Footer />

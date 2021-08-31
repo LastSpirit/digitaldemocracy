@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Typography, Container, Button } from '@material-ui/core';
 import styles from './HomeSlider.module.scss';
 import CustomArrows from './slickSlider';
@@ -10,6 +11,7 @@ interface SliderPropsI {
 }
 
 const HomeSlider: FC<SliderPropsI> = ({ data }) => {
+  const { t } = useTranslation();
   const { isMobile } = useWindowSize();
   return (
     <Box style={{ backgroundColor: 'white' }}>
@@ -18,13 +20,13 @@ const HomeSlider: FC<SliderPropsI> = ({ data }) => {
           {!isMobile
             ? (
               <Box className={styles.carouselTitle}>
-                <Typography>Открытый рейтинг политиков*</Typography>
+                <Typography>{t('home.titleRating')}</Typography>
                 {/* eslint-disable-next-line react/button-has-type */}
                 <Button
                   color="primary"
                   className={styles.buttonStyle}
                 >
-                  Весь рейтинг
+                  {t('buttons.allRating')}
                 </Button>
               </Box>
             )

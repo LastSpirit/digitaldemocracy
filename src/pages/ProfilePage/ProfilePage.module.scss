@@ -3,33 +3,38 @@
 }
 
 .navigation {
-  margin: 50px 0;
   display: flex;
   flex-shrink: 1;
-  border-top: 1px solid #B0B0B0;
+
+  margin: 50px 0;
   padding-top: 20px;
+
+  border-top: 1px solid #B0B0B0;
 
   .tabList {
     flex-basis: 24%;
     scrollbar-width: none;
 
     .link {
-      height: 40px;
       display: flex;
       align-items: center;
-      border-bottom: 1px solid #B0B0B0;
+
+      height: 40px;
       padding: 5px 10px;
+
       transition: 0.3s all;
-      color: #747373;
       text-decoration: none;
+
+      color: #747373;
+      border-bottom: 1px solid #B0B0B0;
 
       &:hover {
         background-color: #36355720;
       }
 
       &.-active {
-        background-color: #363557;
         color: white;
+        background-color: #363557;
       }
 
       &.withOutBorder {
@@ -39,58 +44,72 @@
   }
 
   .tabContent {
-    margin-left: 30px;
     flex-basis: 76%;
+
+    margin-left: 30px;
+
     @media screen and (max-width: 570px) {
       margin-left: 0 !important;
+      align-items: center;
     }
   }
 
   @media screen and (max-width: 570px) {
     flex-direction: column;
+
     .tabListContainer {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin-bottom: 16px;
       position: relative;
-      width: 100%;
+
+      display: flex;
       overflow-x: scroll;
+      align-items: center;
+      flex-direction: row;
+
+      width: 100%;
+      margin-bottom: 16px;
 
       &::-webkit-scrollbar {
         display: none;
       }
 
       .prevArrow {
-        transform: rotate(180deg);
-        background-color: #F3F3F3;
-        padding: 10px;
-        font-size: 10px;
-        border-radius: 100%;
-        cursor: pointer;
         margin-right: 10px;
+        padding: 10px;
+
+        cursor: pointer;
+        transform: rotate(180deg);
+
+        border-radius: 100%;
+        background-color: #F3F3F3;
+
+        font-size: 10px;
       }
 
       .nextArrow {
-        background-color: #F3F3F3;
-        padding: 10px;
-        font-size: 10px;
-        border-radius: 100%;
-        cursor: pointer;
         margin-left: 10px;
+        padding: 10px;
+
+        cursor: pointer;
+
+        border-radius: 100%;
+        background-color: #F3F3F3;
+
+        font-size: 10px;
       }
 
       .tabContent {
-        width: 100%;
         flex-basis: 100%;
+
+        width: 100%;
       }
 
       .tabList {
-        flex-basis: 100%;
-        display: flex;
-        flex-direction: row;
-        overflow-x: scroll;
         position: relative;
+
+        display: flex;
+        overflow-x: scroll;
+        flex-basis: 100%;
+        flex-direction: row;
         scroll-behavior: smooth;
 
         &::-webkit-scrollbar {
@@ -98,16 +117,21 @@
         }
 
         .link {
-          min-width: calc(50% - 10px);
           position: relative;
+
+          justify-content: center;
+
+          min-width: calc(50% - 10px);
+          height: auto;
+          margin-right: 10px;
+
+          text-align: center;
+
           border: 1px solid #B0B0B0;
           border-radius: 30px;
+
           font-size: 70%;
-          margin-right: 10px;
-          justify-content: center;
-          text-align: center;
           line-height: 15px;
-          height: auto;
         }
       }
     }
@@ -115,11 +139,13 @@
 }
 
 .backButton {
-  cursor: pointer;
   display: flex;
   align-items: center;
-  margin-bottom: 30px;
+
   margin-top: 30px;
+  margin-bottom: 30px;
+
+  cursor: pointer;
 
   .arrow {
     transform: rotate(180deg);
@@ -127,18 +153,20 @@
 
   p {
     margin: 0 !important;
-    padding-left: 10px;
     padding-bottom: 0 !important;
+    padding-left: 10px;
   }
 }
 
 .personContainer {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-shrink: 1;
+  justify-content: space-between;
+
   @media screen and (max-width: 670px) {
     flex-direction: column;
+
     .personBlock {
       .fio {
         p {
@@ -149,20 +177,22 @@
   }
 
   .avatarBlock {
-    flex-basis: 24%;
     display: flex;
+    align-items: center;
+    flex-basis: 24%;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
 
     .avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 100%;
-      overflow: hidden;
       display: flex;
+      overflow: hidden;
       align-items: center;
       justify-content: center;
+
+      width: 120px;
+      height: 120px;
+
+      border-radius: 100%;
 
       &.noAvatar {
         background-color: #E5E5E5;
@@ -174,46 +204,63 @@
       }
 
       img {
-        border-radius: 100%;
-        object-fit: fill;
         width: 120px;
         height: 120px;
+
+        border-radius: 100%;
+        object-fit: cover;
       }
     }
 
     .changeProfileButton {
-      margin-top: 20px;
+      box-sizing: border-box;
       width: 200px;
-      border: 1px solid #B0B0B0;
-      color: #B0B0B0;
-      padding: 2px 0 !important;
+      margin-top: 20px;
+      padding: 10px 0;
+
+      text-align: center;
+
+      color: #363557;
+      border: 1px solid #363557;
+      border-radius: 40px;
+      background: #FFF;
+
+      font-family: HelveticaNeueCyr;
+      font-size: 18px;
+      font-weight: 300;
+      font-style: normal;
+      line-height: 18px;
     }
   }
 
   .personBlock {
-    flex-basis: 76%;
-    margin-left: 30px;
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    flex-basis: 76%;
     flex-direction: column;
+    justify-content: space-between;
+
+    margin-left: 30px;
 
     .fio {
       padding-bottom: 16px;
 
       p {
-        color: #222222;
         margin: 0 !important;
+
+        color: #222;
+
         font-size: 60px;
         line-height: 59.28px;
       }
     }
 
     .infoBlock {
-      width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
+
+      width: 100%;
     }
   }
 
@@ -224,29 +271,31 @@
 
 .hLine {
   position: relative;
+
   width: 100%;
-  border: 1px solid #B0B0B0;
   margin-bottom: 17px;
+
+  border: 1px solid #B0B0B0;
 }
 
 .hLineLite {
   width: 100%;
+
+  color: #000;
   border: 1px solid #E5E5E5;
-  color: #000000;
 }
 
 p {
   margin: 4px 0;
 }
 
-
 .userActivityBlockContainer {
   margin-top: 80px;
 
   .userActivityBlock {
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
+    justify-content: space-between;
 
     .leftList {
       display: flex;

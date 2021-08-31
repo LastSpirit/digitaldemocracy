@@ -1,17 +1,20 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { Redirect, Route, Switch, useHistory } from 'react-router';
-import { ProfileTabs } from '../../../types/routing';
+import { ProfileTabs as ProfileTabsData } from '../../../types/routing';
 import styles from '../ProfilePage.module.scss';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 
 export const ProfilePageNavigation = () => {
+  const { t } = useTranslation();
   const { location: { pathname } } = useHistory();
   const { isMobile } = useWindowSize();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const listItemRef = useRef<HTMLAnchorElement>(null);
+  const ProfileTabs = ProfileTabsData(t);
 
   const handlePrevClick = () => {
     scrollContainerRef.current.scrollLeft -= (listItemRef.current.getBoundingClientRect().width + 10);

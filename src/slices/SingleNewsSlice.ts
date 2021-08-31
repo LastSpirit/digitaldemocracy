@@ -44,6 +44,21 @@ export interface PoliticiansI {
   number_of_likes?: number;
   number_of_dislikes?: number;
   id?: number;
+  position?: string;
+}
+export interface BillsI {
+  id?: number;
+  title?: string;
+  image?: string;
+  link?: string;
+  short_link?: string;
+  source_link?: string;
+  publication_date?: string;
+  number_of_views?: number;
+  is_user_liked?: boolean;
+  is_user_disliked?: boolean;
+  number_of_likes?: number;
+  number_of_dislikes?: number;
 }
 
 interface NewTopicsI {
@@ -69,6 +84,7 @@ export interface CurrentNewsI {
   link: string;
   source_link: string;
   number_of_views: number;
+  is_display: boolean;
 }
 
 export interface NewsI {
@@ -91,6 +107,7 @@ export interface SingleNewsI {
   currentNews?: CurrentNewsI;
   news?: NewsI[];
   politicians?: PoliticiansI[];
+  bills?: BillsI[];
   isMorePages?: boolean;
 }
 
@@ -111,6 +128,8 @@ interface SliceState {
   authorDislikeStatus?: APIStatus;
   politicianLikeStatus?: LikesI;
   politicianDislikeStatus?: LikesI;
+  billLikeStatus?: LikesI;
+  billDislikeStatus?: LikesI;
 }
 
 const initialState: SliceState = {
@@ -121,6 +140,8 @@ const initialState: SliceState = {
   authorDislikeStatus: 'Initial' as APIStatus,
   politicianLikeStatus: {},
   politicianDislikeStatus: {},
+  billLikeStatus: {},
+  billDislikeStatus: {},
 };
 
 export const singleNewsSlice = createSlice({
@@ -217,6 +238,32 @@ export const singleNewsSlice = createSlice({
     },
     failPoliticianDislike(state, action) {
       state.politicianDislikeStatus[action.payload.id] = { status: APIStatus.Failure };
+    },
+    startBillLike(state, action) {
+      state.billLikeStatus[action.payload.id] = { status: APIStatus.Loading };
+    },
+    successBillLike(state, action) {
+      state.billLikeStatus[action.payload.id] = { status: APIStatus.Success };
+      state.data.bills[action.payload.index].is_user_liked = action.payload.status;
+      state.data.bills[action.payload.index].number_of_likes = action.payload.status
+        ? state.data.bills[action.payload.index].number_of_likes + 1
+        : state.data.bills[action.payload.index].number_of_likes - 1;
+    },
+    failBillLike(state, action) {
+      state.billLikeStatus[action.payload.id] = { status: APIStatus.Failure };
+    },
+    startBillDislike(state, action) {
+      state.billDislikeStatus[action.payload.id] = { status: APIStatus.Loading };
+    },
+    successBillDislike(state, action) {
+      state.billDislikeStatus[action.payload.id] = { status: APIStatus.Success };
+      state.data.bills[action.payload.index].is_user_disliked = action.payload.status;
+      state.data.bills[action.payload.index].number_of_dislikes = action.payload.status
+        ? state.data.bills[action.payload.index].number_of_dislikes + 1
+        : state.data.bills[action.payload.index].number_of_dislikes - 1;
+    },
+    failBillDislike(state, action) {
+      state.billDislikeStatus[action.payload.id] = { status: APIStatus.Failure };
     },
   },
 });

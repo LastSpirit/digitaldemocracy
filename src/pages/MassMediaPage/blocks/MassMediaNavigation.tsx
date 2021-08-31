@@ -1,13 +1,15 @@
 import React, { useRef } from 'react';
 import { Redirect, Route, Switch, useHistory, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import { MassMediaTabs } from '../../../types/routing';
+import { MassMediaTabs as MassMediaTabsData } from '../../../types/routing';
 import styles from '../MassMediaPage.module.scss';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 
 const MassMediaNavigation = () => {
+  const { t } = useTranslation();
   const { link }: { link: string } = useParams();
   const {
     location: { pathname },
@@ -15,6 +17,7 @@ const MassMediaNavigation = () => {
   const { isMobile } = useWindowSize();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const listItemRef = useRef<HTMLAnchorElement>(null);
+  const MassMediaTabs = MassMediaTabsData(t);
 
   const handlePrevClick = () => {
     scrollContainerRef.current.scrollLeft -= listItemRef.current.getBoundingClientRect().width + 10;

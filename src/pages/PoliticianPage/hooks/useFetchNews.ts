@@ -9,12 +9,15 @@ import { APIStatus } from '../../../lib/axiosAPI';
 
 export const useFetchNews = () => {
   const { fetchNews } = politicianAPI();
-  const { setNews } = politicianActionCreators();
+  const { setNews, setMorePage } = politicianActionCreators();
   const politician_id = useSelector((s: RootState) => s?.politician?.data?.id);
+  const { start_date, end_date, page } = useSelector((s: RootState) => s.politician.news);
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
   const [error, setError] = useState<string>();
   const { short_link }: { short_link: string } = useParams();
   const token = getItem('token');
+  const startMIN = Math.floor(946674000);
+  const startMAX = Math.floor(32503669200);
   const fetch = useCallback(() => {
     setStatus(APIStatus.Loading);
     fetchNews({
@@ -29,9 +32,12 @@ export const useFetchNews = () => {
       variables: {
         token,
         politician_id,
+        start_date: start_date || startMIN,
+        end_date: end_date || startMAX,
+        page,
       },
     });
-  }, [politician_id, token]);
+  }, [politician_id, token, start_date, end_date, page]);
 
   return { fetch, error, status };
 };

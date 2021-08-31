@@ -1,18 +1,16 @@
 import type { FC } from 'react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Container, Typography, IconButton, Grid } from '@material-ui/core';
 import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import FacebookIcon from '@material-ui/icons/Facebook';
-import { CurrentNewsI } from 'src/slices/SingleNewsSlice';
+import { SingleBillsI } from 'src/slices/SingleBillsSlice';
 import FacebookShare from 'src/components/FacebookShare/FacebookShare';
 import styles from './SingleBillsHero.module.scss';
 
-interface HeroPropsI {
-  data?: CurrentNewsI;
-}
-
-const SingleBillsHero: FC<HeroPropsI> = ({ data }) => {
+const SingleBillsHero = ({ data }) => {
+  const { t } = useTranslation();
   const [toggleIframe, setToggleIframe] = useState(true);
   const handleToggleIframe = () => {
     setToggleIframe(!toggleIframe);
@@ -22,7 +20,7 @@ const SingleBillsHero: FC<HeroPropsI> = ({ data }) => {
       <Container maxWidth="lg">
         <Grid container className={styles.newsContainer}>
           <Grid item lg={6} md={12} sm={12} className={styles.newsTitle}>
-            <Typography className={styles.newsHeading}>{data?.title}</Typography>
+            <Typography className={styles.newsHeading}>{data?.bill?.title}</Typography>
             <Box className={styles.newsLinks}>
               <Box className={styles.arrows}>
                 <SubdirectoryArrowRightIcon className={styles.arrowGrey} />
@@ -44,33 +42,38 @@ const SingleBillsHero: FC<HeroPropsI> = ({ data }) => {
           </Grid>
           <Grid item lg={6} md={12} className={styles.newsInfo}>
             <Box className={styles.newsAuthor}>
-              <Box>
+              {/* <Box>
                 <Typography>{data?.media?.name}</Typography>
                 <Typography>{data?.author?.name}</Typography>
-              </Box>
+              </Box> */}
               <Box className={styles.date}>
-                <Typography>{data?.publication_date}</Typography>
+                <Typography>{data?.bill?.publication_date}</Typography>
               </Box>
             </Box>
 
-            <Box className={styles.newsSubject}>
-              {data?.newTopics.map((item) => (
+            <Box className={styles.politiciansSubject}>
+              {data?.politicians.map((item) => (
                 <Typography
                   key={item.id}
                   sx={{
                     marginRight: '15px',
                   }}
                 >
-                  {item.title}
+                  {item.name}
                 </Typography>
               ))}
             </Box>
           </Grid>
         </Grid>
         {toggleIframe ? (
-          <Box>
-            <iframe src={data?.source_link} title="link" className={styles.iframe} width="80vw" />
-          </Box>
+          <>
+            <Box className={styles.warningMessage}>
+              <Typography className={styles.warningMessage__title}>{t('info.warningWatchNews')}</Typography>
+            </Box>
+            <Box>
+              <iframe src={data?.bill.source_link} title="link" className={styles.iframe} width="80vw" />
+            </Box>
+          </>
         ) : null}
       </Container>
     </Box>
