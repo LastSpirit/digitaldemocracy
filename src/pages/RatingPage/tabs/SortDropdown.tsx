@@ -29,8 +29,6 @@ export const SortDropdown = ({ text, field, world }) => {
   const { countries, cities, regions } = useSelector((s: RootState) => s.rating[field]);
   const { fetch } = useFetchPoliticians();
   const { sort_vote, sort_geography } = useSelector((s: RootState) => s.rating);
-  console.log('sort_geography', sort_geography);
-  console.log('sort_vote', sort_vote);
 
   const [postData, setPostData] = useState({
     country_politician_id: null,
