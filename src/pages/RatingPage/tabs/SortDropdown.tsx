@@ -28,6 +28,9 @@ export const SortDropdown = ({ text, field, world }) => {
   } = ratingActionCreators();
   const { countries, cities, regions } = useSelector((s: RootState) => s.rating[field]);
   const { fetch } = useFetchPoliticians();
+  const { sort_vote, sort_geography } = useSelector((s: RootState) => s.rating);
+  console.log('sort_geography', sort_geography);
+  console.log('sort_vote', sort_vote);
 
   const [postData, setPostData] = useState({
     country_politician_id: null,
@@ -200,7 +203,8 @@ export const SortDropdown = ({ text, field, world }) => {
                     option.title?.[currentLang] === value || option.title?.ru === value}
                   noOptionsText={<>{t('info.noVariants')}</>}
                   onChange={(_, newValue) => {
-                    if (newValue && newValue !== null) {
+                    console.log('region value', newValue);
+                    if (newValue) {
                       setFieldValue('region', newValue.title?.[currentLang] || newValue.title?.ru);
                       if (field === 'geography') {
                         setPostData((prevState) => {
@@ -230,11 +234,19 @@ export const SortDropdown = ({ text, field, world }) => {
                         setPostData({ ...postData, region_politician_id: null, city_politician_id: null });
                         setCitiesGeography(false);
                         setUpdate(!update);
+
+                        setSortGeography({
+                          region_politician_id: null,
+                        });
                       }
                       if (field === 'vote') {
                         setPostData2({ ...postData2, region_user_id: null, city_user_id: null });
                         setCitiesVote(false);
                         setUpdate(!update);
+
+                        setSortVote({
+                          region_user_id: null,
+                        });
                       }
                     }
                   }}
@@ -259,7 +271,7 @@ export const SortDropdown = ({ text, field, world }) => {
                     option.title?.[currentLang] === value || option.title?.ru === value}
                   noOptionsText={<>{t('info.noVariants')}</>}
                   onChange={(_, newValue) => {
-                    if (newValue && newValue !== null) {
+                    if (newValue) {
                       setFieldValue('city', newValue.title?.[currentLang] || newValue.title?.ru);
                       if (field === 'geography') {
                         setPostData((prevState) => {
@@ -278,6 +290,15 @@ export const SortDropdown = ({ text, field, world }) => {
                         });
                       }
                     } else {
+                      if (field === 'geography') {
+                        setSortGeography({
+                          city_politician_id: null,
+                        });
+                      } else {
+                        setSortVote({
+                          city_user_id: null,
+                        });
+                      }
                       setFieldValue('city', '');
                     }
                   }}
