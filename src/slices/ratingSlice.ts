@@ -94,10 +94,12 @@ export const ratingSlice = createSlice({
       state.sort_field = action.payload;
     },
     setSortGeography(state, action) {
-      state.sort_geography = action.payload;
+      // state.sort_geography = action.payload;
+      state.sort_geography = { ...state.sort_geography, ...action.payload };
     },
     setSortVote(state, action) {
-      state.sort_vote = action.payload;
+      // state.sort_vote = action.payload;
+      state.sort_vote = { ...state.sort_vote, ...action.payload };
     },
     setCountryGeography(state: SliceState, action) {
       state.geography.countries = action.payload;
@@ -130,11 +132,6 @@ export const ratingSlice = createSlice({
       state.massMedia.media.find((item) => item.id === id).is_subscribed = !isSubscribe;
     },
     resetFilter(state: SliceState) {
-      state.sort_geography = {
-        country_politician_id: null,
-        region_politician_id: null,
-        city_politician_id: null
-      };
       state.sort_vote = {
         country_user_id: null,
         region_user_id: null,

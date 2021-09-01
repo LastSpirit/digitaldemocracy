@@ -1,5 +1,5 @@
 before_script:
-    - env | sort
+  - env | sort
 
 
 deploy_dev:

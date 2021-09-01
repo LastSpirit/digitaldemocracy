@@ -8,7 +8,6 @@ export interface CountryI {
 }
 
 const fetchRatingPoliticians = (args) => {
-  console.log('params', args.payload.params);
   return callAPI({
     url: 'getRatingPage/politicians',
     config: {
