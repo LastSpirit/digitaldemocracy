@@ -49,8 +49,8 @@ const PoliticiansTab = () => {
           <Checkbox
             value={world}
             onChange={() => {
-              setWorld(!world);
               resetFilter();
+              setWorld(!world);
             }}
           />
           <p>

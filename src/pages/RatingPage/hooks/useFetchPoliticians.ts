@@ -17,7 +17,6 @@ export const useFetchPoliticians = () => {
   const { country_politician_id, region_politician_id, city_politician_id } = sort_geography;
   const { country_user_id, region_user_id, city_user_id } = sort_vote;
   const fetch = useCallback((is_votes_world) => {
-    console.log();
     setStatus(APIStatus.Loading);
     fetchRatingPoliticians({
       onSuccess: (response) => {
@@ -27,11 +26,7 @@ export const useFetchPoliticians = () => {
       onError: () => setStatus(APIStatus.Failure),
       payload: {
         token,
-        params: is_votes_world ? {
-          orderBy: sort_direction,
-          sortBy: sort_field,
-          is_votes_world: 1
-        } : {
+        params: {
           orderBy: sort_direction,
           sortBy: sort_field,
           country_politician_id,
@@ -40,6 +35,7 @@ export const useFetchPoliticians = () => {
           country_user_id,
           region_user_id,
           city_user_id,
+          is_votes_world: is_votes_world ? 1 : null
         },
       },
     });
