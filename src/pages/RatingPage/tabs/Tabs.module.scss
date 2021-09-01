@@ -6,6 +6,11 @@
 
   width: 100%;
 
+  .worldCheckbox {
+    display: flex;
+    align-items: center;
+  }
+
   .sortRow {
     display: flex;
     overflow-x: hidden;

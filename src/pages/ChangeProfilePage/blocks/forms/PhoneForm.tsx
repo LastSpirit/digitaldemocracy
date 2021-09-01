@@ -117,7 +117,6 @@ export const PhoneForm = () => {
         }}
         onSubmit={async (values) => {
           verify(values.codeForPhone, tele);
-          console.log(values.codeForPhone);
         }}
         validationSchema={Yup.object().shape({
           codeForPhone: Yup.number()

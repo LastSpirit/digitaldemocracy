@@ -7,7 +7,6 @@ export const useCheckAddress = (setRegisterStep: (value: number) => void) => {
   const { setAuthUserData } = authActionCreators();
   const check = useCallback(
     ({ country_title, region_title, city_title, countries, regions, cities, withCountry, withRegion, withCity }) => {
-      console.log(withCountry);
       if (withCountry) {
         setRegisterStep(2);
         setAuthUserData({

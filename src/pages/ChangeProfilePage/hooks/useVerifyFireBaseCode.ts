@@ -18,7 +18,7 @@ export const useVerifyFirebaseCode = () => {
         attachPhone({
           onSuccess: (response) => {
             setStatus(APIStatus.Success);
-            console.log(result.user.za);
+            // console.log(result.user.za);
           },
           onError: (errorResponse) => {
             if (typeof errorResponse === 'string') {

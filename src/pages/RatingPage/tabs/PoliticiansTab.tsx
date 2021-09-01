@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
 import { Checkbox } from '@material-ui/core';
-import { ratingSelectors } from '../../../slices/ratingSlice';
+import { ratingActionCreators, ratingSelectors } from '../../../slices/ratingSlice';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import { useFetchPoliticians } from '../hooks/useFetchPoliticians';
 import { RootState } from '../../../store/index';
@@ -20,6 +20,7 @@ const PoliticiansTab = () => {
   const { isMobile } = useWindowSize();
   const { politicians } = useSelector((s: RootState) => s.rating?.politicians);
   const { fetch, status } = useFetchPoliticians();
+  const { resetFilter } = ratingActionCreators();
   const sortDirection = useSelector((s: RootState) => s.rating.sort_direction);
   const sortField = useSelector((s: RootState) => s.rating.sort_field);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
@@ -44,9 +45,17 @@ const PoliticiansTab = () => {
             );
           })}
         </div>
-        <div>
-          <Checkbox value={world} onChange={() => setWorld(!world)} />
-          {t('info.worldUser')}
+        <div className={styles.worldCheckbox}>
+          <Checkbox
+            value={world}
+            onChange={() => {
+              setWorld(!world);
+              resetFilter();
+            }}
+          />
+          <p>
+            {t('info.worldUser')}
+          </p>
         </div>
         <div className={styles.sortRow}>
           {sortRatingPoliticians(t).map(({ id, full_title, short_title, field }) => {
