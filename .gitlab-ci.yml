@@ -5,6 +5,7 @@ before_script:
 deploy_dev:
   stage: deploy
   script:
+    - cp .env.development .env
     - docker-compose up -d  --force-recreate --build
     - docker rmi $(docker images --filter "dangling=true" -q --no-trunc) || echo "Fail!"
     - echo 'Successfully deploy'
@@ -17,6 +18,7 @@ deploy_dev:
 deploy_prod:
   stage: deploy
   script:
+    - cp .env.production .env
     - docker-compose -f docker-compose-prod.yml up -d  --force-recreate --build
     - docker rmi $(docker images --filter "dangling=true" -q --no-trunc) || echo "Fail!"
     - echo 'Successfully deploy'
