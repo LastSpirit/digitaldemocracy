@@ -6,6 +6,7 @@ deploy_dev:
   stage: deploy
   script:
     - mv -f .env.development .env
+    - find . -type f -iname ".env.*" -not -name '.env' -delete
     - docker-compose up -d  --force-recreate --build
     - docker rmi $(docker images --filter "dangling=true" -q --no-trunc) || echo "Fail!"
     - echo 'Successfully deploy'
@@ -19,6 +20,7 @@ deploy_prod:
   stage: deploy
   script:
     - mv -f .env.production .env
+    - find . -type f -iname ".env.*" -not -name '.env' -delete
     - docker-compose -f docker-compose-prod.yml up -d  --force-recreate --build
     - docker rmi $(docker images --filter "dangling=true" -q --no-trunc) || echo "Fail!"
     - echo 'Successfully deploy'
