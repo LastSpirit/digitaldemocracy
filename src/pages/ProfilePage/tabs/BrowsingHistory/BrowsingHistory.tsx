@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Box, Button, Grid, Typography } from '@material-ui/core';
 import { useFetchBrowsingHistory } from './hooks/useFetchBrowsingHistory';
 import { userActionCreators, userSelectors } from '../../../../slices/userSlice';
@@ -9,6 +10,7 @@ import { WrapperAsyncRequest } from '../../../../components/Loading/WrapperAsync
 import { APIStatus } from '../../../../lib/axiosAPI';
 
 export const BrowsingHistory = () => {
+  const { t } = useTranslation();
   const { status, fetch } = useFetchBrowsingHistory();
   const { data, page } = useSelector(userSelectors.getBrowsingHistory());
   const [loadMore, setLoadMore] = useState(false);
@@ -33,7 +35,7 @@ export const BrowsingHistory = () => {
           ? data?.views?.map((newsBlock) => (
             <div className={styles.newsBlock}>
               <span>
-                Дата просмотра:
+                {t('info.dateView')}:
                 {' '}
                 {newsBlock.dateView}
               </span>
@@ -64,9 +66,7 @@ export const BrowsingHistory = () => {
             </div>
           ))
           : (
-            <Box>
-              На данный момент новостей нет
-            </Box>
+            <Box>{t('news.warningMissNews')}</Box>
           )}
       </div>
       {data?.isMorePages && (
@@ -76,7 +76,7 @@ export const BrowsingHistory = () => {
           <Typography
             className={styles.transparentButtonText}
           >
-            Показать больше
+            {t('buttons.showMore')}
           </Typography>
         </Button>
       )}

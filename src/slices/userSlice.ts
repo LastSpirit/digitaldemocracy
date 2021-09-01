@@ -5,6 +5,9 @@ import { removeItem } from '../lib/localStorageManager';
 import { NewsI } from './homeSlice';
 // eslint-disable-next-line import/no-cycle
 import { APIStatus } from '../lib/axiosAPI';
+import { AuthorDataI } from './authorSlice';
+import { PoliticianInfoI } from './politicianSlice';
+import { MassMediaDataI } from './massMediaSlice';
 
 export interface HistoryNewsI {
   views: Array<{ dateView: string; news: Array<NewsI> }>;
@@ -20,6 +23,12 @@ interface RoutesDataI {
   path: string;
 }
 
+export interface SubscriptionsI {
+  authors?: Array<AuthorDataI>;
+  politicians?: Array<PoliticianInfoI>;
+  medias?: Array<MassMediaDataI>;
+}
+
 interface SliceState {
   data: User;
   isAuthenticated?: boolean;
@@ -27,7 +36,13 @@ interface SliceState {
     data?: HistoryNewsI;
     page: number;
   };
+  subscriptions?: SubscriptionsI,
   routes: RoutesI;
+  dossier: {
+    politicians: Array<object>,
+    graph: Array<object>,
+    isMorePages: boolean
+  },
   fetchUserDataStatus: APIStatus;
 }
 
@@ -42,6 +57,16 @@ const initialState: SliceState = {
   routes: {
     data: [{ number: 1, path: '/' }],
     length: 1,
+  },
+  subscriptions: {
+    authors: [],
+    politicians: [],
+    medias: [],
+  },
+  dossier: {
+    politicians: [],
+    graph: [],
+    isMorePages: false
   },
   fetchUserDataStatus: 'Initial' as APIStatus,
 };
@@ -66,6 +91,9 @@ export const userSlice = createSlice({
       state.browsingHistory.page = 1;
       state.browsingHistory.data.views = [];
     },
+    setSubscriptions(state: SliceState, actions: PayloadAction<SubscriptionsI>) {
+      state.subscriptions = actions.payload;
+    },
     logout(state: SliceState) {
       state.isAuthenticated = false;
       state.data = {};
@@ -89,6 +117,16 @@ export const userSlice = createSlice({
       state.routes.length = state.routes.length > 1 ? state.routes.length - 1 : 1;
       state.routes.data = [...state.routes.data].splice(0, state.routes.data.length - 1);
     },
+    setDossierTablePoliticians(state: SliceState, action) {
+      if (action.payload.pageNumber === 1) {
+        state.dossier.politicians = action.payload.politicians;
+      } else state.dossier.politicians = [...state.dossier.politicians, ...action.payload.politicians];
+
+      state.dossier.isMorePages = action.payload.isMorePages;
+    },
+    setDossierPoliticianGraph(state: SliceState, action) {
+      state.dossier.graph = action.payload;
+    }
   },
 });
 
@@ -101,6 +139,8 @@ export const userSelectors = {
   getStatus: () => (state: Store) => state.user.fetchUserDataStatus,
   getIsAuthenticated: () => (state: Store) => state.user.isAuthenticated,
   getBrowsingHistory: () => (state: Store) => state.user.browsingHistory,
+  getSubscriptions: () => (state: Store) => state.user.subscriptions,
+  getDossier: () => (state: Store) => state.user.dossier
 };
 
 export const userActionCreators = () => {

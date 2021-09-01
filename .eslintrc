@@ -39,6 +39,7 @@
     "implicit-arrow-linebreak": "off",
     "no-nested-ternary": "off",
     "arrow-body-style": "off",
+    "indent": ["warn", 2, { "ignoredNodes": ["JSXElement *", "JSXElement"]}],
     "@typescript-eslint/indent": "off",
     "@typescript-eslint/no-unused-vars": "off",
     "react/jsx-boolean-value": "off",
@@ -49,6 +50,7 @@
     "react/jsx-one-expression-per-line": "off",
     "@typescript-eslint/naming-convention": "off",
     "import/no-cycle": "off",
-    "react/jsx-wrap-multilines": "off"
+    "react/jsx-wrap-multilines": "off",
+    "react/jsx-indent": ["warn", 2]
   }
 }

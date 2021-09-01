@@ -35,9 +35,9 @@ export const SortBadge = ({ text, field }) => {
       <div className={styles.text}>{text}</div>
       {sortField === field ? (
         sortDirection === 'asc' ? (
-          <ExpandMoreIcon className={styles.icon} />
-        ) : (
           <ExpandLessIcon className={styles.icon} />
+        ) : (
+          <ExpandMoreIcon className={styles.icon} />
         )
       ) : (
         <div className={styles.emptyIcon}>

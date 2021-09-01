@@ -1,6 +1,6 @@
 import createSvgIcon from '@material-ui/core/utils/createSvgIcon';
 
-const Person = createSvgIcon(
+export const Person = createSvgIcon(
   <svg viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M17.5 20.2762C22.4004 20.2762 26.3729 16.3037 26.3729 11.4033C26.3729 6.50294 22.4004 2.5304 17.5 2.5304C12.5996 2.5304 8.62708 6.50294 8.62708 11.4033C8.62708 16.3037 12.5996 20.2762 17.5 20.2762Z"
@@ -20,4 +20,18 @@ const Person = createSvgIcon(
   'Person'
 );
 
-export default Person;
+export const NewPerson = createSvgIcon(
+  <svg viewBox="0 0 27 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M7 19.1115C7 16.6984 8.69732 14.643 11.004 14.2627L11.2118 14.2284C13.0589 13.9239 14.9411 13.9239 16.7882 14.2284L16.996 14.2627C19.3027 14.643 21 16.6984 21 19.1115C21 20.1545 20.1815 21 19.1719 21H8.82813C7.81848 21 7 20.1545 7 19.1115Z"
+      fill="white"
+      className="person"
+    />
+    <path
+      d="M18.0834 6.9375C18.0834 9.11212 16.2552 10.875 14 10.875C11.7449 10.875 9.91669 9.11212 9.91669 6.9375C9.91669 4.76288 11.7449 3 14 3C16.2552 3 18.0834 4.76288 18.0834 6.9375Z"
+      fill="white"
+      className="person"
+    />
+  </svg>,
+  'Person'
+);

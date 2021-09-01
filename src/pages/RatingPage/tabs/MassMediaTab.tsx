@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { ratingSelectors } from '../../../slices/ratingSlice';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import { useFetchMedia } from '../hooks/useFetchMedia';
-import { RootState } from '../../../store/index';
+import { RootState } from '../../../store';
 import { SortBadge } from './SortBadge';
 import { sortRatingMedia } from '../../../static/static';
 import { userSelectors } from '../../../slices/userSlice';
@@ -13,6 +14,7 @@ import styles from './Tabs.module.scss';
 import { APIStatus } from '../../../lib/axiosAPI';
 
 const MassMediaTab = () => {
+  const { t } = useTranslation();
   const { isMobile } = useWindowSize();
   const { media } = useSelector((s: RootState) => s.rating?.massMedia);
   const { fetch, status } = useFetchMedia();
@@ -24,26 +26,28 @@ const MassMediaTab = () => {
     fetch();
   }, [sortDirection, sortField, isAuthenticated]);
   return (
-    <WrapperAsyncRequest status={status}>
+    <>
       <div className={styles.newsContainer}>
         <div className={styles.sortRow}>
-          {sortRatingMedia.map(({ id, full_title, short_title, field }) => {
+          {sortRatingMedia(t).map(({ id, full_title, short_title, field }) => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
           })}
         </div>
-        {media && media?.length > 0 ? (
-          <div className={styles.news}>
-            {media?.map((item, index) => (
-              <MassMediaCard key={item.id} {...item} />
-            ))}
-          </div>
-        ) : (
-          <div className={styles.noNewsBlock}>
-            <span>Здесь будут отображаться СМИ</span>
-          </div>
-        )}
+        <WrapperAsyncRequest status={status}>
+          {media && media?.length > 0 ? (
+            <div className={styles.news}>
+              {media?.map((item, index) => (
+                <MassMediaCard key={item.id} {...item} />
+              ))}
+            </div>
+          ) : (
+            <div className={styles.noNewsBlock}>
+              <span>{t('tabs.warningMessageMassMedia')}</span>
+            </div>
+          )}
+        </WrapperAsyncRequest>
       </div>
-    </WrapperAsyncRequest>
+    </>
   );
 };
 

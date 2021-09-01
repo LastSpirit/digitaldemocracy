@@ -1,6 +1,7 @@
 import { positions } from '@material-ui/system';
 import { bindActionCreators, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
+import { newsAPI } from 'src/api/newsAPI';
 import { APIStatus } from 'src/lib/axiosAPI';
 import { NewsI } from './homeSlice';
 
@@ -23,6 +24,7 @@ export interface PoliticianInfoI {
   rating?: string;
   short_link?: string;
   place?: number;
+  country?: { title: [] };
 }
 
 export interface PartyI {
@@ -37,6 +39,7 @@ export interface PartyI {
   source_link?: string;
   rating?: number;
   place?: number;
+  country?: { title: [] };
 }
 
 export interface GraphicDataI {
@@ -84,7 +87,7 @@ export interface MetricI {
 }
 
 export interface VoicesRegionI {
-  region_with_type: string;
+  region_with_type: any;
   total: number;
 }
 
@@ -124,6 +127,12 @@ export interface StatusI {
   status: APIStatus;
 }
 
+export interface AdditionalInformation {
+  id: number;
+  link: string;
+  title: string;
+}
+
 interface SliceState {
   data?: PoliticianInfoI;
   news?: any;
@@ -140,6 +149,14 @@ interface SliceState {
   billsDislikeStatus?: LikesI;
   statisticLikeStatus?: LikesI;
   statisticDislikeStatus?: LikesI;
+  additionalInformation?: Array<AdditionalInformation>;
+  infoGrapghicData: {
+    countries: any;
+    regions: any;
+    cities: any;
+    rating: any;
+    vote_groups: any;
+  };
 }
 
 export interface NewsWithPercentI extends NewsI {
@@ -147,7 +164,7 @@ export interface NewsWithPercentI extends NewsI {
 }
 
 const initialState: SliceState = {
-  news: [],
+  news: { page: 1, start_date: 0, end_date: 0 },
   chartData: {},
   promisesLikeStatus: {},
   promisesDislikeStatus: {},
@@ -155,14 +172,25 @@ const initialState: SliceState = {
   billsDislikeStatus: {},
   statisticLikeStatus: {},
   statisticDislikeStatus: {},
+  infoGrapghicData: {
+    countries: [],
+    regions: [],
+    cities: [],
+    rating: null,
+    vote_groups: [],
+  },
 };
 
 export const politicianSlice = createSlice({
   name: 'politicianSlice',
   initialState,
   reducers: {
-    setNews(state: SliceState, action: PayloadAction<Array<NewsWithPercentI>>) {
-      state.news = action.payload;
+    setNews(state: SliceState, action) {
+      state.news = {
+        ...state.news,
+        news: [...action.payload.news],
+        isMorePages: action.payload.isMorePages,
+      };
       // state.chartData = [...action.payload].map((item) => [new Date(item.publication_date), item.percent]);
     },
     setPoliticianInfo(state: SliceState, action: PayloadAction<PoliticianInfoI>) {
@@ -198,6 +226,9 @@ export const politicianSlice = createSlice({
     setPositionsDescription(state: SliceState, action: PayloadAction<Array<PositionsDescriptionI>>) {
       state.positionDescription = action.payload.filter((item) => item.is_active === true);
     },
+    setPoliticianAdditionalInformation(state: SliceState, action: PayloadAction<Array<AdditionalInformation>>) {
+      state.additionalInformation = action.payload;
+    },
     setStatistic(state: SliceState, action: PayloadAction<Array<StatisticI>>) {
       state.statistic = action.payload;
     },
@@ -232,6 +263,34 @@ export const politicianSlice = createSlice({
     setChartData(state, action) {
       state.chartData = action.payload;
     },
+    setMorePage(state) {
+      state.news = { ...state.news, page: state.news.page + 1 };
+    },
+    setDate(state, action) {
+      state.news = { ...state.news, start_date: action.payload.min, end_date: action.payload.max };
+    },
+    setReset(state) {
+      state.news = {
+        ...state.news,
+        isMorePages: false,
+        page: 1,
+      };
+    },
+    setCountries(state, action) {
+      state.infoGrapghicData.countries = action.payload;
+    },
+    setRegions(state, action) {
+      state.infoGrapghicData.regions = action.payload;
+    },
+    setCities(state, action) {
+      state.infoGrapghicData.cities = action.payload;
+    },
+    setRating(state, action) {
+      state.infoGrapghicData.rating = action.payload;
+    },
+    setVotesGroup(state, action) {
+      state.infoGrapghicData.vote_groups = action.payload;
+    },
   },
 });
 
@@ -250,6 +309,8 @@ export const politicianSelectors = {
   getPositionsDescription: () => (state: Store) => state.politician.positionDescription,
   getStatistic: () => (state: Store) => state.politician.statistic,
   getBills: () => (state: Store) => state.politician.bills,
+  getPoliticianAdditionalInformation: () => (state: Store) => state.politician.additionalInformation,
+  getInfoGrapghicDatas: () => (state: Store) => state.politician.infoGrapghicData,
 };
 
 export const politicianActionCreators = () => {

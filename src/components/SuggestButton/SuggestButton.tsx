@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { Button, Tooltip } from '@material-ui/core';
@@ -17,6 +18,7 @@ interface IProps {
 }
 
 export const SuggestButton: FC<IProps> = ({ handleClickOpen }) => {
+  const { t } = useTranslation();
   const { pathname } = useLocation();
   const { push } = useHistory() as any;
   const { deleteLastRout } = userActionCreators();
@@ -44,8 +46,8 @@ export const SuggestButton: FC<IProps> = ({ handleClickOpen }) => {
             variant="outlined"
             color="primary"
           >
-            <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
-              <span>Предложить новость / политика</span>
+            <Tooltip title={isAuthenticated ? '' : t('errors.notAuth')}>
+              <span>{t('buttons.suggestion')}</span>
             </Tooltip>
           </Button>
         </Link>

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Button, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import styles from './styles.module.scss';
@@ -13,12 +14,12 @@ import OAuthBlockLogin from '../../components/authentication/common/OAuthBlockLo
 
 const getCurrentStepComponent = (step: number) => {
   switch (step) {
-    case 1:
-      return <TypeSelectLogin />;
-    case 2:
-      return <ConfirmPasswordLogin />;
-    default:
-      return <TypeSelectLogin />;
+  case 1:
+    return <TypeSelectLogin />;
+  case 2:
+    return <ConfirmPasswordLogin />;
+  default:
+    return <TypeSelectLogin />;
   }
 };
 
@@ -26,6 +27,8 @@ const Login: FC = () => {
   useEffect(() => {
     gtm.push({ event: 'page_view' });
   }, []);
+
+  const { t } = useTranslation();
 
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
@@ -51,7 +54,7 @@ const Login: FC = () => {
         }}
       >
         <Typography color="textPrimary" gutterBottom variant="h3" mb="0" fontWeight="300">
-          Вход
+          {t('signIn.titleSignIn')}
         </Typography>
       </Box>
       {getCurrentStepComponent(loginStep)}
@@ -75,13 +78,13 @@ const Login: FC = () => {
               }}
               onClick={() => setAuthValue('reset_password')}
             >
-              Восстановить забытый пароль
+              {t('buttons.recoverPassword')}
             </Typography>
           </Box>
         )}
       </Box>
       <Box sx={{ mt: 4, justifyContent: 'space-between', alignItems: 'center', display: 'flex' }}>
-        <Typography sx={{ pb: '0px!important' }}>Новый пользователь?</Typography>
+        <Typography sx={{ pb: '0px!important' }}>{t('signIn.newUser')}</Typography>
         <Button
           className={styles.registerButton}
           // color="primary"
@@ -89,7 +92,7 @@ const Login: FC = () => {
           variant="outlined"
           onClick={() => setAuthValue('register')}
         >
-          Регистрация
+          {t('buttons.registrationButtons')}
         </Button>
       </Box>
     </ModalWrapper>

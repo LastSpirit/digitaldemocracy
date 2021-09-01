@@ -47,8 +47,8 @@ export const useFetchBills = () => {
         failLike({ id, field: 'bills' });
       },
       payload: {
-        politician_id: politicianId,
-        voting_place: 'bill',
+        // politician_id: politicianId,
+        // voting_place: 'bill',
         bill_id: id,
       },
       variables: {
@@ -77,8 +77,8 @@ export const useFetchBills = () => {
         failDislike({ id, field: 'bills' });
       },
       payload: {
-        politician_id: politicianId,
-        voting_place: 'bill',
+        // politician_id: politicianId,
+        // voting_place: 'bill',
         bill_id: id,
       },
       variables: {

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { ModalWrapper } from '../../components/widgets/modals/ModalWrapper';
@@ -8,29 +9,33 @@ import PasswordResetSendEmail from '../../components/authentication/password-res
 import { useSearchParams } from '../../hooks/useSearchParams';
 import CreateNewPassword from '../../components/authentication/password-reset/forms/CreateNewPassword';
 
-const InfoBlockResetPassword = () => (
-  <Typography
-    align="center"
-    mt={2}
-  >
-    Проверьте свой email, на  почту отправлена инструкция по восстановлению пароля
-  </Typography>
-);
+const InfoBlockResetPassword = () => {
+  const { t } = useTranslation();
+  return (
+    <Typography
+      align="center"
+      mt={2}
+    >
+      {t('resetPassword.messageCheckEmail')}
+    </Typography>
+  );
+};
 
 const getCurrentStepComponent = (step: number) => {
   switch (step) {
-    case 1:
-      return <PasswordResetSendEmail />;
-    case 2:
-      return <InfoBlockResetPassword />;
-    case 3:
-      return <CreateNewPassword />;
-    default:
-      return <TypeSelectLogin />;
+  case 1:
+    return <PasswordResetSendEmail />;
+  case 2:
+    return <InfoBlockResetPassword />;
+  case 3:
+    return <CreateNewPassword />;
+  default:
+    return <TypeSelectLogin />;
   }
 };
 
 const ResetPassword = () => {
+  const { t } = useTranslation();
   const { setResetStep } = authActionCreators();
   const {
     email: { value: email },
@@ -64,7 +69,7 @@ const ResetPassword = () => {
           mb="0"
           fontWeight="300"
         >
-          Восстановление пароля
+          {t('resetPassword.titleResetPassword')}
         </Typography>
       </Box>
       {getCurrentStepComponent(resetStep)}

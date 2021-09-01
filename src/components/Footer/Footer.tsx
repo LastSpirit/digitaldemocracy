@@ -12,6 +12,7 @@ import {
   ListItemText,
   Typography,
 } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
 import { alpha } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
@@ -21,91 +22,146 @@ import Logo from '../Logo';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import Register from '../../icons/Register';
 import News from '../../icons/News';
+import Information from '../../icons/Information';
 import Search from '../../icons/Search';
-import Person from '../../icons/Person';
+import { Person } from '../../icons/Person';
 import Rating from '../../icons/Rating';
-import '../MainNavbar.css';
+import '../MainNavbar.scss';
 import { userSelectors } from '../../slices/userSlice';
 import { AuthParam, ModalParams } from '../../types/routing';
 import styles from './styles.module.scss';
 import { useSearchParams } from '../../hooks/useSearchParams';
+import PrivacyPolicyPdf from '../../theme/PrivacyPolicy.pdf';
+import TermsOfUse from '../../theme/TermsOfUse.pdf';
 
-const sections = [
-  {
-    title: 'Контакты',
-    links: [
-      {
-        title: 'info@digitaldemocracy.ru',
-        href: '/browse',
-      },
-    ],
-  },
-  {
-    title: 'Карта сайта',
-    links: [
-      {
-        title: 'Новости',
-        href: '/news',
-      },
-      {
-        title: 'Рейтинг',
-        href: '/rating',
-      },
-      {
-        title: 'О площадке',
-        href: '/help_site',
-      },
-      {
-        title: 'Пользовательское соглашение',
-        href: '/',
-      },
-    ],
-  },
-];
+const sectionsData = (t) => {
+  return [
+    {
+      title: t('footer.menu.contacts') || 'Контакты',
+      links: [
+        {
+          title: 'info@digitaldemocracy.ru',
+          href: 'mailto:info@digitaldemocracy.ru',
+        },
+      ],
+    },
+    {
+      title: t('footer.menu.mapSite') || 'Карта сайта',
+      links: [
+        {
+          title: t('footer.menu.newsMenu') || 'Новости',
+          href: '/news',
+        },
+        {
+          title: t('footer.menu.ratingMenu') || 'Рейтинг',
+          href: '/rating/politicians',
+        },
+        {
+          title: t('footer.menu.aboutMenu') || 'О площадке',
+          href: '/about',
+        },
+        {
+          title: t('footer.menu.userAgreement') || 'Пользовательское соглашение',
+          href: null,
+          download: true,
+          downloadLink: TermsOfUse,
+        },
+        {
+          title: t('footer.menu.personalDataPolicy') || 'Политика обработки персональных данных',
+          href: null,
+          download: true,
+          downloadLink: PrivacyPolicyPdf,
+        },
+      ],
+    },
+  ];
+};
 
-const authUserSections = [
-  {
-    title: 'Контакты',
-    links: [
-      {
-        title: 'info@digitaldemocracy.ru',
-        href: 'mailto:info@digitaldemocracy.ru',
-      },
-    ],
-  },
-  {
-    title: 'Карта сайта',
-    links: [
-      {
-        title: 'Новости',
-        href: '/news',
-      },
-      {
-        title: 'Рейтинг',
-        href: '/rating',
-      },
-      {
-        title: 'О площадке',
-        href: '/help_site',
-      },
-      {
-        title: 'Добавить новость',
-        href: '/suggestion',
-      },
-      {
-        title: 'Добавить политика',
-        href: '/suggestion',
-      },
-      {
-        title: 'Пользовательское соглашение',
-        href: '/',
-      },
-    ],
-  },
-];
+const authUserSectionsData = (t) => {
+  return [
+    {
+      title: t('footer.menu.contacts') || 'Контакты',
+      links: [
+        {
+          title: 'info@digitaldemocracy.ru',
+          href: 'mailto:info@digitaldemocracy.ru',
+        },
+      ],
+    },
+    {
+      title: t('footer.menu.mapSite') || 'Карта сайта',
+      links: [
+        {
+          title: t('footer.menu.newsMenu') || 'Новости',
+          href: '/news',
+        },
+        {
+          title: t('footer.menu.ratingMenu') || 'Рейтинг',
+          href: '/rating/politicians',
+        },
+        {
+          title: t('footer.menu.aboutMenu') || 'О площадке',
+          href: '/about',
+        },
+        {
+          title: t('footer.menu.addNews') || 'Добавить новость',
+          href: '/suggestion',
+        },
+        {
+          title: t('footer.menu.addPolitician') || 'Добавить политика',
+          href: '/suggestion',
+        },
+        {
+          title: t('footer.menu.userAgreement') || 'Пользовательское соглашение',
+          href: null,
+          download: true,
+          downloadLink: TermsOfUse,
+        },
+        {
+          title: t('footer.menu.personalDataPolicy') || 'Политика обработки персональных данных',
+          href: null,
+          download: true,
+          downloadLink: PrivacyPolicyPdf,
+        },
+      ],
+    },
+  ];
+};
+
+const iconsData = (isAuthenticated) => {
+  const { t } = useTranslation();
+  return [
+    {
+      title: t('footer.menu.search') || 'Поиск',
+      icon: <Search />,
+      to: '/search',
+    },
+    {
+      title: t('footer.menu.ratingMenu') || 'Рейтинг',
+      icon: <Rating />,
+      to: '/rating/politicians',
+    },
+    {
+      title: t('footer.menu.newsMenu') || 'Новости',
+      icon: <News />,
+      to: '/news',
+    },
+    {
+      title: t('footer.menu.aboutMenu') || 'О площадке',
+      icon: <Information />,
+      to: '/about',
+    },
+    {
+      title: isAuthenticated ? t('footer.menu.profileMenu') : t('footer.menu.signInFooter'),
+      icon: isAuthenticated ? <Person /> : <Register />,
+      to: isAuthenticated ? '/profile' : AuthParam.login,
+    },
+  ];
+};
 
 const Footer: FC = (props) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
+  const { t } = useTranslation();
   const { isMobile } = useWindowSize();
   const {
     push,
@@ -118,39 +174,20 @@ const Footer: FC = (props) => {
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
+  const sections = sectionsData(t);
+  const authUserSections = authUserSectionsData(t);
+  const icons = iconsData(isAuthenticated);
 
-  const icons = [
-    {
-      title: 'Поиск',
-      icon: <Search />,
-      to: '',
-    },
-    {
-      title: 'Рейтинг',
-      icon: <Rating />,
-      to: '/rating/politicians',
-    },
-    {
-      title: 'Новости',
-      icon: <News />,
-      to: '/news',
-    },
-    {
-      title: isAuthenticated ? 'Профиль' : 'Вход/Регистрация',
-      icon: isAuthenticated ? <Person /> : <Register />,
-      to: isAuthenticated ? '/profile' : AuthParam.register,
-    },
-  ];
   return (
     <Box
       sx={{
         backgroundColor: 'background.default',
         pb: {
-          md: 6,
+          md: 2,
           xs: 0,
         },
         pt: {
-          md: 6,
+          md: 2,
           xs: 0,
         },
       }}
@@ -188,13 +225,16 @@ const Footer: FC = (props) => {
                   sx={{
                     display: 'flex',
                     flexDirection: 'column',
+
                     alignItems: 'center',
                     cursor: 'pointer',
                   }}
-                  onClick={() => (!isAuthenticated && title === 'Вход/Регистрация' ? setAuthValue(to) : push(to))}
+                  onClick={() => {
+                    return !isAuthenticated && title === t('footer.menu.signInFooter') ? setAuthValue(to) : push(to);
+                  }}
                 >
                   {icon}
-                  <span style={{ marginTop: '10px', fontSize: '12px' }}>{title}</span>
+                  <span style={{ marginTop: '4px', fontSize: '10px' }}>{title}</span>
                 </Box>
               ))}
             </Container>
@@ -283,10 +323,17 @@ const Footer: FC = (props) => {
                                 cursor: 'pointer',
                                 paddingBottom: '0!important',
                               }}
-                              onClick={() => push(link.href)}
+                              onClick={() => {
+                                if (!link.href) {
+                                  return null;
+                                }
+                                return push(link.href);
+                              }}
                               color="#747373"
                               fontWeight="300"
                               variant="subtitle2"
+                              download={link?.download}
+                              href={link?.downloadLink}
                             >
                               {link.title}
                             </Link>
@@ -313,19 +360,27 @@ const Footer: FC = (props) => {
               }}
               xs={12}
             >
-              <Button
+              <Link
+                href={'/donation'}
                 sx={{
                   border: '1px solid #B0B0B0',
                   borderRadius: 100,
                   paddingTop: 3,
                   paddingBottom: 3,
+                  padding: '30px !important',
                   fontSize: '20px',
                   width: 400,
                   color: '#222222',
+                  textAlign: 'center',
+                  textDecoration: 'none !important',
+                  whiteSpace: 'nowrap',
+                  '&:hover': {
+                    backgroundColor: 'rgba(86, 100, 210, 0.04)',
+                  },
                 }}
               >
-                Помочь&ensp;площадке
-              </Button>
+                {t('buttons.helpSite')}
+              </Link>
             </Grid>
           </Grid>
           {withNotification && (
@@ -340,8 +395,9 @@ const Footer: FC = (props) => {
               <Typography color="textSecondary" variant="caption">
                 {`* ${
                   pathname === '/'
-                    ? 'отображает только мнение пользователей данного сайта'
-                    : 'рейтинг отображает мнение пользователей Digital Democracy'
+                    ? t('footer.descriptionsFooter.variant1') || 'отображает только мнение пользователей данного сайта'
+                    : t('footer.descriptionsFooter.variant2') ||
+                      'рейтинг отображает мнение пользователей Digital Democracy'
                 }`}
               </Typography>
             </>

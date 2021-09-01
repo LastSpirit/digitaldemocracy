@@ -1,24 +1,30 @@
 .container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   flex-wrap: wrap;
+  justify-content: space-between;
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+  }
 
   .newsBlock {
     span {
       color: #747373;
     }
+
     .block {
-      margin-bottom: 30px;
       margin-top: 10px;
+      margin-bottom: 30px;
     }
   }
 }
 
-
 .transparentButtonText {
-  font-size: 14px;
   cursor: pointer;
   text-decoration: underline;
+
   color: #363557;
+
+  font-size: 14px;
 }

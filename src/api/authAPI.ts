@@ -20,7 +20,8 @@ interface RegisterResponse {
 
 interface SendCodeRequest {
   country_id?: number;
-  address: string;
+  region_id?: number;
+  city_id?: number;
   email?: string;
   phone?: string;
 }
@@ -57,8 +58,25 @@ interface RegisterViaPhoneErrorResponse {
 
 interface GetYandexUserInfoRequest {
   format: 'json' | 'xml';
-  with_openid_identity: boolean;
+  with_openid_identity?: boolean;
   oauth_token: string;
+}
+
+interface GetYandexUserInfoResponse {
+  id?: string,
+  login?: string,
+  client_id?: string,
+  display_name?: string,
+  real_name?: string,
+  first_name?: string,
+  last_name?: string,
+  sex?: string | null,
+  default_email?: string,
+  emails?: Array<string>,
+  birthday?: string,
+  default_avatar_id?: string,
+  is_avatar_empty?: boolean,
+  psuid?: string
 }
 
 interface RegisterViaGoogleRequest {
@@ -111,7 +129,7 @@ const checkValidatePhoneLogin: APIRequest<{ phone: string }, string, { phone: Ar
   callAPI({ url: 'checkPhoneForLogin ', ...args });
 
 const sendCode: APIRequest<SendCodeRequest, {}> = (args) =>
-  callAPI({ url: args.payload.email ? 'registrationViaEmail' : 'registrationViaPhone', ...args });
+  callAPI({ url: args?.payload?.email ? 'registrationViaEmail' : 'registrationViaPhone', ...args });
 
 const verifyCode: APIRequest<VerifyCodeRequest, { token?: string }, { code: Array<string> }> = (args) =>
   callAPI({ url: 'checkEmailConfirmationCode', ...args });
@@ -125,9 +143,19 @@ const registerViaPhone: APIRequest<
   RegisterViaPhoneErrorResponse | string
 > = (args) => callAPI({ url: 'checkPhoneConfirmationToken', ...args });
 
-const registerViaGoogle: APIRequest<RegisterViaGoogleRequest, LoginViaPhoneResponse, RegisterViaGoogleErrorResponse> = (
-  args
-) => callAPI({ url: 'registrationViaGoogle', ...args });
+const registerViaGoogle = (args) =>
+  callAPI({
+    url: 'registrationViaGoogle',
+    config: { params: args.payload },
+    ...args,
+  });
+
+const registerViaYandex = (args) =>
+  callAPI({
+    url: 'registrationViaYandex',
+    config: { params: args.payload },
+    ...args,
+  });
 
 const getCodeYandexOAuth: APIRequest<GetCodeYandexRequest, Response> = (args) =>
   callAPI({
@@ -137,17 +165,29 @@ const getCodeYandexOAuth: APIRequest<GetCodeYandexRequest, Response> = (args) =>
     ...args,
   });
 
-const getYandexUserInfo: APIRequest<GetYandexUserInfoRequest> = (args) =>
+// TODO Яндекс рекомендует использовать токен в заголовке при запросе, но в таком случае возникает исключение
+const getYandexUserInfo: APIRequest<GetYandexUserInfoRequest, GetYandexUserInfoResponse> = (args) =>
   callAPI({
+    // &with_openid_identity=${args.payload.with_openid_identity}
     customBaseUrl: 'https://login.yandex.ru/',
-    url: `/info?format=${args.payload.format}&with_openid_identity=${args.payload.with_openid_identity}&oauth_token=${args.payload.oauth_token}`,
+    url: `info?format=${args.payload.format}&oauth_token=${args.payload.oauth_token}`,
     nestedResponseType: false,
+    config: {
+      method: 'GET',
+      // headers: {
+      //  Authorization: `OAuth ${args.payload.oauth_token}`,
+      // },
+    },
     ...args,
   });
 
 const authViaGoogle: APIRequest<RegisterViaGoogleRequest, LoginViaPhoneResponse, RegisterViaGoogleErrorResponse> = (
   args
 ) => callAPI({ url: 'login/google', ...args });
+
+const authViaYandex: APIRequest<any, any> = (
+  args
+) => callAPI({ url: 'login/yandex', ...args });
 
 const authViaEmailConfirmPassword: APIRequest<
   { password: string; email: string },
@@ -171,6 +211,16 @@ const resetPassword: APIRequest<ResetPasswordRequest, LoginViaPhoneResponse, { p
 const getCountries: APIRequest<{}, Array<CountryI>> = (args) =>
   callAPI({ url: 'getCountries', config: { method: 'get' }, ...args, nestedResponseType: false });
 
+const getRegions: APIRequest<{}, Array<CountryI>, {}, { params: { country_id: number } }> = (args) => {
+  const { params } = args.variables;
+  return callAPI({ url: 'getRegions', config: { method: 'get', params }, ...args, nestedResponseType: false });
+};
+
+const getCities: APIRequest<{}, Array<CountryI>, {}, { params: { region_id: number } }> = (args) => {
+  const { params } = args.variables;
+  return callAPI({ url: 'getCities', config: { method: 'get', params }, ...args, nestedResponseType: false });
+};
+
 const APIs = {
   checkValidateAddress,
   sendCode,
@@ -180,7 +230,9 @@ const APIs = {
   registerViaPhone,
   getYandexUserInfo,
   registerViaGoogle,
+  registerViaYandex,
   authViaGoogle,
+  authViaYandex,
   authViaEmailConfirmPassword,
   loginViaPhone,
   checkValidateEmail,
@@ -190,6 +242,8 @@ const APIs = {
   sendResetLinkEmail,
   resetPassword,
   getCountries,
+  getRegions,
+  getCities,
 };
 
 export const authAPI = () => {

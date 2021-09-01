@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box } from '@material-ui/core';
 import classNames from 'classnames';
 import styles from './SuggestionNav.module.scss';
@@ -11,9 +12,10 @@ interface IProps {
 }
 
 export const SuggestionNav: FC<IProps> = ({ setSuggest, setError, setIsRequiredInfo, setIsRequiredNews }) => {
+  const { t } = useTranslation();
   const navigation = [
-    { title: 'Добавить политика', id: 0, key: 'POLITICIAN' },
-    { title: 'Добавить Новость', id: 1, key: 'NEWS' },
+    { title: t('footer.menu.addPolitician') || 'Добавить политика', id: 0, key: 'POLITICIAN' },
+    { title: t('footer.menu.addNews') || 'Добавить Новость', id: 1, key: 'NEWS' },
   ];
   const [selectedTab, setSelectedTab] = useState(0);
 

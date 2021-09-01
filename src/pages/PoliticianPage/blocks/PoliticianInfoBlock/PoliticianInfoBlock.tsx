@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import type { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import PersonIcon from '@material-ui/icons/Person';
 import { Button, Tooltip, Dialog, IconButton, TextField } from '@material-ui/core';
@@ -31,6 +32,7 @@ interface IProps {
 }
 
 const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
+  const { t, i18n } = useTranslation();
   const data = useSelector(politicianSelectors.getPoliticianInfo());
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { isMobile } = useWindowSize();
@@ -52,10 +54,16 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
       {!isMobile ? (
         <div className={styles.topItems}>
           <div
-            className={styles.avatarBlock}
-            style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
+            className={
+              data?.rating ? styles.avatarBlock : classNames(styles.avatarBlock, styles.avatarBlock__nonRaiting)
+            }
+            style={
+              data?.rating
+                ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }
+                : {}
+            }
           >
-            <div className={styles.avatar}>
+            <div className={data?.rating ? styles.avatar : classNames(styles.avatar, styles.avatar__nonRaiting)}>
               {!data?.photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={data?.photo} alt="" />}
             </div>
           </div>
@@ -75,9 +83,15 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                       { '-disabled': !isAuthenticated },
                     ])}
                   >
-                    <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
+                    <Tooltip title={isAuthenticated ? '' : t('errors.notAuth')}>
                       <span>
-                        {status === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? 'Отписаться' : 'Следить'}
+                        {status === APIStatus.Loading ? (
+                          <Loading />
+                        ) : data?.is_subscribed ? (
+                          t('buttons.unsubscribe')
+                        ) : (
+                          t('buttons.subscribe')
+                        )}
                       </span>
                     </Tooltip>
                   </Button>
@@ -91,13 +105,22 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                     className={styles.subscribersBadge}
                     style={data?.english_name ? { textAlign: 'end' } : { textAlign: 'start' }}
                   >
-                    {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, 'подписчик')}`}
+                    {`${data?.number_of_subscribers} ${endOfWords(
+                      data?.number_of_subscribers,
+                      { one: t('info.subscriber'), many: t('info.subscribers') },
+                      i18n.language
+                    )}`}
                   </div>
                 )}
               </div>
+              {data?.position && <div className={styles.age}>{data?.position}</div>}
               {(data?.age || data?.city) && (
                 <div className={styles.age}>
-                  {data?.age ? `${data?.age} лет${data?.city ? `, ${data?.city}` : ''}` : data?.city}
+                  {data?.age
+                    ? `${data?.age} ${t('info.age')} ,
+                    ${data?.country?.title[i18n.language]}
+                    ${data?.city ? `, ${data?.city}` : ''}`
+                    : data?.city}
                 </div>
               )}
               <div
@@ -119,8 +142,8 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                   color="primary"
                   onClick={isAuthenticated ? handleClickOpen : handleClick}
                 >
-                  <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
-                    <span>Предложить изменения в профиле</span>
+                  <Tooltip title={isAuthenticated ? '' : t('errors.notAuth')}>
+                    <span>{t('info.suggestionChange')}</span>
                   </Tooltip>
                 </Button>
 
@@ -138,15 +161,30 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
           <p>{data?.name}</p>
           {data?.number_of_subscribers && (
             <div className={styles.mobSubscribers}>
-              {`${data?.number_of_subscribers} ${endOfWords(data?.number_of_subscribers, 'подписчик')}`}
+              {`${data?.number_of_subscribers} ${endOfWords(
+                data?.number_of_subscribers,
+                { one: t('info.subscriber'), many: t('info.subscribers') },
+                i18n.language
+              )}`}
             </div>
           )}
+          {data?.position && <div className={styles.age}>{data?.position}</div>}
           <div className={styles.mobInfoBlock}>
             <div
-              className={styles.mobAvatarBlock}
-              style={{ backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }}
+              className={
+                data?.rating
+                  ? styles.mobAvatarBlock
+                  : classNames(styles.mobAvatarBlock, styles.mobAvatarBlock__nonRaiting)
+              }
+              style={
+                data?.rating
+                  ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }
+                  : {}
+              }
             >
-              <div className={styles.mobAvatar}>
+              <div
+                className={data?.rating ? styles.mobAvatar : classNames(styles.mobAvatar, styles.mobAvatar__nonRaiting)}
+              >
                 {!data?.photo ? <PersonIcon className={styles.mobNoAvatarIcon} /> : <img src={data?.photo} alt="" />}
               </div>
             </div>
@@ -154,7 +192,11 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
               {data?.english_name && <div className={styles.mobEnglishName}>{data?.english_name}</div>}
               {(data?.age || data?.city) && (
                 <div className={styles.mobAge}>
-                  {data?.age ? `${data?.age} лет${data?.city ? `, ${data?.city}` : ''}` : data?.city}
+                  {data?.age
+                    ? `${data?.age}  ${t('info.age')} ,
+                     ${data?.country?.title[i18n.language]} 
+                     ${data?.city ? `, ${data?.city}` : ''}`
+                    : data?.city}
                 </div>
               )}
               <div
@@ -178,8 +220,16 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
               { '-disabled': !isAuthenticated },
             ])}
           >
-            <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
-              <span>{status === APIStatus.Loading ? <Loading /> : data?.is_subscribed ? 'Отписаться' : 'Следить'}</span>
+            <Tooltip title={isAuthenticated ? '' : t('errors.notAuth')}>
+              <span>
+                {status === APIStatus.Loading ? (
+                  <Loading />
+                ) : data?.is_subscribed ? (
+                  t('buttons.unsubscribe')
+                ) : (
+                  t('buttons.subscribe')
+                )}
+              </span>
             </Tooltip>
           </Button>
           <div className={styles.MobBottom}>
@@ -191,8 +241,8 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
               color="primary"
               onClick={isAuthenticated ? handleClickOpen : handleClick}
             >
-              <Tooltip title={isAuthenticated ? '' : 'Вы не авторизованы'}>
-                <span>Предложить изменения</span>
+              <Tooltip title={isAuthenticated ? '' : t('errors.notAuth')}>
+                <span>{t('info.suggestionChangeInProfile')}</span>
               </Tooltip>
             </Button>
 

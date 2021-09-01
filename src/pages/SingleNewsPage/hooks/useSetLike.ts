@@ -32,9 +32,23 @@ export const useSetLike = () => {
     startPoliticianDislike,
     successPoliticianDislike,
     failPoliticianDislike,
+    startBillLike,
+    successBillLike,
+    failBillLike,
+    startBillDislike,
+    successBillDislike,
+    failBillDislike,
   } = singleNewsActionCreators();
-  const { massmediaLike, massmediaDislike, authorLike, authorDislike, politicianLike, politicianDislike } =
-    singleNewsAPIActions();
+  const {
+    massmediaLike,
+    massmediaDislike,
+    authorLike,
+    authorDislike,
+    politicianLike,
+    politicianDislike,
+    billLike,
+    billDislike,
+  } = singleNewsAPIActions();
   const token = getItem('token');
   const setMassMediaLike = useCallback(() => {
     startMassmediaLike();
@@ -205,6 +219,71 @@ export const useSetLike = () => {
     },
     [token, data?.currentNews?.id]
   );
+  const setBillLike = useCallback(
+    ({ index, id, isLiked, isDisliked }) => {
+      const isBillLiked = isLiked;
+      const isBillDisliked = isDisliked;
+      startBillLike({ id });
+      billLike({
+        onSuccess: () => {
+          if (isBillLiked) {
+            successBillLike({ index, id, status: false });
+          } else {
+            successBillLike({ index, id, status: true });
+            if (isBillDisliked) {
+              successBillDislike({ index, id, status: false });
+            }
+          }
+        },
+        onError: () => {
+          failBillLike({ id });
+        },
+        payload: {
+          bill_id: id,
+          voting_place: 'news',
+          news_id: data?.currentNews?.id,
+        },
+        variables: {
+          isBillLiked,
+          token,
+        },
+      });
+    },
+    [token, data?.currentNews?.id]
+  );
+
+  const setBillDislike = useCallback(
+    ({ index, id, isLiked, isDisliked }) => {
+      const isBillLiked = isLiked;
+      const isBillDisliked = isDisliked;
+      startBillDislike({ id });
+      billDislike({
+        onSuccess: () => {
+          if (isBillDisliked) {
+            successBillDislike({ index, id, status: false });
+          } else {
+            successBillDislike({ index, id, status: true });
+            if (isBillLiked) {
+              successBillLike({ index, id, status: false });
+            }
+          }
+        },
+        onError: () => {
+          failBillDislike({ id });
+        },
+        payload: {
+          bill_id: id,
+          voting_place: 'news',
+          news_id: data?.currentNews?.id,
+        },
+        variables: {
+          isBillDisliked,
+          token,
+        },
+      });
+    },
+    [token, data?.currentNews?.id]
+  );
   return {
     setMassMediaLike,
     setMassMediaDislike,
@@ -212,6 +291,8 @@ export const useSetLike = () => {
     setAuthorDislike,
     setPoliticianLike,
     setPoliticianDislike,
+    setBillLike,
+    setBillDislike,
   };
 };
 

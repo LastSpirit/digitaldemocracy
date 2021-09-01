@@ -1,8 +1,14 @@
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { callAPI } from '../lib/axiosAPI';
+import { APIRequest, callAPI } from '../lib/axiosAPI';
+
+export interface CountryI {
+  id: number;
+  title: string;
+}
 
 const fetchRatingPoliticians = (args) => {
+  console.log('params', args.payload.params);
   return callAPI({
     url: 'getRatingPage/politicians',
     config: {
@@ -104,6 +110,33 @@ const unsubscribeMedia = (args) =>
     },
     ...args,
   });
+const getCountries: APIRequest<{}, Array<CountryI>> = (args) =>
+  callAPI({
+    url: 'getCountries',
+    config: {
+      method: 'GET'
+    },
+    ...args,
+    nestedResponseType: false
+  });
+
+const getRegions = (args) => {
+  return callAPI({ url: 'getRegions',
+    config: { method: 'get',
+      params: args.params
+    },
+    ...args,
+    nestedResponseType: false });
+};
+
+const getCities = (args) => {
+  return callAPI({ url: 'getCities',
+    config: { method: 'get',
+      params: args.params
+    },
+    ...args,
+    nestedResponseType: false });
+};
 
 const APIs = {
   fetchRatingPoliticians,
@@ -114,6 +147,9 @@ const APIs = {
   subscribeMedia,
   unsubscribeMedia,
   fetchRatingParties,
+  getCountries,
+  getRegions,
+  getCities,
 };
 
 export const ratingAPI = () => {

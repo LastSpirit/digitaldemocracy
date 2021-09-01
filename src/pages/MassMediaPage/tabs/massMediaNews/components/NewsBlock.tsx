@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Button } from '@material-ui/core';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { useFetchMassMedia } from 'src/pages/MassMediaPage/hooks/useFetchMassMedia';
 import { RootState } from 'src/store/index';
 import { APIStatus } from 'src/lib/axiosAPI';
@@ -15,8 +16,9 @@ import { sortMassMedia } from '../../../../../static/static';
 import { Loading } from '../../../blocks/Loading/Loading';
 
 export const NewsBlock = () => {
+  const { t } = useTranslation();
   const { news } = useSelector((s: RootState) => s?.massmedia?.news);
-  const loaction = useLocation().pathname;
+  const location = useLocation().pathname;
   const { newsStatus, sort_direction, sort_field, page } = useSelector((s: RootState) => s.massmedia);
   const { resetNews, resetSort } = massmediaActionCreators();
   const { isMobile } = useWindowSize();
@@ -41,7 +43,7 @@ export const NewsBlock = () => {
           {news && news.length > 0 ? (
             <>
               <div className={styles.sortRow}>
-                {sortMassMedia.map(({ id, full_title, short_title, field }) => {
+                {sortMassMedia(t).map(({ id, full_title, short_title, field }) => {
                   return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
                 })}
               </div>
@@ -55,13 +57,13 @@ export const NewsBlock = () => {
             </>
           ) : (
             <div className={styles.noNewsBlock}>
-              <span>Здесь будут отображаться новости за выбранный период</span>
+              <span>{t('info.newsSelectPeriod')}</span>
             </div>
           )}
         </div>
       ) : newsStatus === APIStatus.Failure ? (
         <div className={styles.noNewsBlock}>
-          <span>К сожалению нам не удалось получить новости для данного СМИ</span>
+          <span>{t('info.newsNotFoundMassMedia')}</span>
         </div>
       ) : (
         <div className={styles.loaderWrapper}>

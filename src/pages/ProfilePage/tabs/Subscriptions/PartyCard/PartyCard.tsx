@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import PersonIcon from '@material-ui/icons/Person';
 import { useHistory, matchPath } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { withStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
@@ -20,6 +21,7 @@ import { APIStatus } from '../../../../../lib/axiosAPI';
 interface IProps extends PoliticianInfoI {}
 
 const PartyCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_link, position, place }) => {
+  const { t } = useTranslation();
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { status, change } = useChangeSubscribe(id);
   const { push } = useHistory();
@@ -66,7 +68,7 @@ const PartyCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_l
             backgroundColor: badgeColorChanger(rating),
           }}
         >
-          <div className={styles.text}>{`Место ${place ?? '-'}`}</div>
+          <div className={styles.text}>{`${t('info.place')} ${place ?? '-'}`}</div>
         </div>
         <div className={styles.percent}>{rating ?? '-'} %</div>
       </div>
@@ -82,7 +84,7 @@ const PartyCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_l
           { '-disabled': !isAuthenticated },
         ])}
       >
-        Отписаться
+        {t('buttons.unsubscribe')}
       </Button>
     </div>
   );

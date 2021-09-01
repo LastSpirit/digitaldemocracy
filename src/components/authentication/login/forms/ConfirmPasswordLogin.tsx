@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, Switch, TextField, Typography } from '@material-ui/core';
 import { Formik } from 'formik';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import ReCAPTCHA from 'react-google-recaptcha';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import { useLogin } from '../hooks/useLogin';
@@ -12,6 +13,7 @@ import { Loading } from '../../../Loading/Loading';
 import './styles.scss';
 
 const ConfirmPasswordLogin = () => {
+  const { t } = useTranslation();
   const isMountedRef = useIsMountedRef();
   const { passwordVerify, codeVerify, error, status, resendFirebaseCode } = useLogin();
   const { rememberMe, authType } = useSelector(authSelectors.getAllData());
@@ -88,7 +90,7 @@ const ConfirmPasswordLogin = () => {
               error={!!error}
               value={loginThroughEmail ? values.password : values.code}
               onChange={handleChange}
-              label={loginThroughEmail ? 'Пароль' : 'Код из смс'}
+              label={loginThroughEmail ? t('signIn.titlePassword') : t('signIn.titlePhone')}
               variant="outlined"
               name={loginThroughEmail ? 'password' : 'code'}
               sx={{
@@ -102,37 +104,37 @@ const ConfirmPasswordLogin = () => {
                 onClick={resendCode}
                 id="sign-in-button"
               >
-                {resend !== 0 ? `Отправить код повторно можно через ${resend} секунд` : 'Отправить код повторно'}
+                {resend !== 0 ? `${t('registration.step3.codeWithSeconds')} ${resend} ${t('registration.step3.seconds')}` : t('registration.step3.codeWithoutSeconds')}
               </Button>
             )}
             <Box>
               {false && (
-              <ReCAPTCHA
-                sitekey={recaptchaConfig.siteKey}
-                onChange={onChangeRecaptcha}
-              />
+                <ReCAPTCHA
+                  sitekey={recaptchaConfig.siteKey}
+                  onChange={onChangeRecaptcha}
+                />
               )}
               {loginThroughEmail && (
-              <Box sx={{
-                mt: 2,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}
-              >
-                <Typography sx={{
-                  paddingBottom: '0!important'
+                <Box sx={{
+                  mt: 2,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
                 }}
                 >
-                  Запомнить меня
-                </Typography>
-                <Switch
-                  color="primary"
-                  value={values.rememberMe}
-                  name="rememberMe"
-                  onChange={handleChange}
-                />
-              </Box>
+                  <Typography sx={{
+                    paddingBottom: '0!important'
+                  }}
+                  >
+                    {t('buttons.rememberMe')}
+                  </Typography>
+                  <Switch
+                    color="primary"
+                    value={values.rememberMe}
+                    name="rememberMe"
+                    onChange={handleChange}
+                  />
+                </Box>
               )}
             </Box>
             <Box sx={{ mt: 3 }}>
@@ -144,7 +146,7 @@ const ConfirmPasswordLogin = () => {
                 type="submit"
                 variant="contained"
               >
-                {status === APIStatus.Loading ? <Loading /> : 'ВОЙТИ'}
+                {status === APIStatus.Loading ? <Loading /> : t('buttons.enter').toUpperCase()}
               </Button>
             </Box>
           </form>

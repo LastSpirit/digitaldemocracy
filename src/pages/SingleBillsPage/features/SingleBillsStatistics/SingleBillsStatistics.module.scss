@@ -1,43 +1,55 @@
 .statistics {
-    padding-bottom: 50px;
-    margin-bottom: 35px;
+  margin-bottom: 35px;
+  padding-bottom: 50px;
 }
+
 .statisticsContainer {
-    width: 100%;
-    border-bottom: 1px solid #b0b0b0;
+  width: 100%;
+
+  border-bottom: 1px solid #B0B0B0;
 }
+
 .politicians {
-    padding-right: 100px;
+  padding-right: 100px;
 }
+
 .headings {
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #E5E5E5;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+
+  border-bottom: 1px solid #E5E5E5;
 }
+
 .heading {
-    font-size: 25px;
-    line-height: 30px;
-    font-weight: 300;
-    font-family: 'Helvetica';
-    color: #7a7a7a;
-    padding: 0;
+  padding: 0;
+
+  color: #7A7A7A;
+
+  font-family: 'Helvetica';
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 30px;
 }
+
 @media (max-width: 960px) {
-    .politicians {
-        padding-right: 0;
-        width: 100%;
-    }
+  .politicians {
+    width: 100%;
+    padding-right: 0;
+  }
 }
+
 @media (max-width: 600px) {
-    .statistics {
-        margin-bottom: 25px;
-        padding-bottom: 30px;
-    }
-    .headings {
-        margin-bottom: 15px;
-        padding-bottom: 15px;
-    }
-    .heading {
-        font-size: 18px;
-    }
+  .statistics {
+    margin-bottom: 25px;
+    padding-bottom: 30px;
+  }
+
+  .headings {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+  }
+
+  .heading {
+    font-size: 18px;
+  }
 }

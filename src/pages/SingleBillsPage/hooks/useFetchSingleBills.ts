@@ -1,31 +1,32 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { singleNewsAPIActions } from '../../../api/singleNewsAPI';
-import { singleNewsActionCreators } from '../../../slices/SingleNewsSlice';
+import { singleBillsAPIActions } from '../../../api/singleBillsAPI';
+import { singleBillsActionCreators } from '../../../slices/SingleBillsSlice';
 import { getItem } from '../../../lib/localStorageManager';
+import { APIStatus } from '../../../lib/axiosAPI';
 
 export const useFetchSingleBills = () => {
-  const { setData, failFetch, startFetch } = singleNewsActionCreators();
-  const { fetchSingleNews } = singleNewsAPIActions();
+  const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
+  const { setData } = singleBillsActionCreators();
+  const { fetchSingleBills } = singleBillsAPIActions();
   const token = getItem('token');
-  // const { link } = useParams() as any;
-  const link = 'G5k98kLYTr2G3s2Y63IQ';
+  const { link } = useParams() as any;
 
   const fetch = useCallback(() => {
-    startFetch();
-    fetchSingleNews({
+    fetchSingleBills({
       onSuccess: (response) => {
         setData(response);
+        setStatus(APIStatus.Success);
       },
       payload: {
         token,
         link,
       },
       onError: (errorResponse) => {
-        failFetch();
-        console.log(errorResponse);
+        setStatus(APIStatus.Failure);
       },
     });
   }, [token]);
-  return { fetch };
+
+  return { fetch, status };
 };

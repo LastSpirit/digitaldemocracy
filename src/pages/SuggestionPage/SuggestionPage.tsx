@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Container, TextField, Button } from '@material-ui/core';
-import { useWindowSize } from 'src/hooks/useWindowSize';
-import { APIStatus } from '../../lib/axiosAPI';
 import { useFetchSuggestion } from './hooks/useFetchSuggestion';
-import { WrapperAsyncRequest } from '../../components/Loading/WrapperAsyncRequest';
-import { BackButton } from '../../components/BackButton/BackButton';
-import { MobileButtons } from '../../components/MobileButtons/MobileButtons';
 import { DialogSuggest } from './DialogSuggest/DialogSuggest';
 import { Loading } from '../../components/Loading/Loading';
 import { SuggestionNav } from './SuggestionNav/SuggestionNav';
+// import { WrapperAsyncRequest } from '../../components/Loading/WrapperAsyncRequest';
+// import { useWindowSize } from 'src/hooks/useWindowSize';
+// import { BackButton } from '../../components/BackButton/BackButton';
+
 import styles from './SuggestionPage.module.scss';
 
-const NEWS = 'NEWS';
+// const NEWS = 'NEWS';
 const POLITICIAN = 'POLITICIAN';
 
 const SuggestionPage = () => {
-  const { isMobile } = useWindowSize();
+  const { t } = useTranslation();
+  // const { isMobile } = useWindowSize();
   const [open, setOpen] = useState(false);
   const [suggest, setSuggest] = useState(POLITICIAN);
   const [infoPolitician, setInfoPolitician] = useState('');
@@ -67,7 +68,6 @@ const SuggestionPage = () => {
   return (
     <Container maxWidth="lg" className={styles.container}>
       {/* <WrapperAsyncRequest status={status}> */}
-      <BackButton />
       <SuggestionNav
         setSuggest={setSuggest}
         setError={setError}
@@ -91,10 +91,10 @@ const SuggestionPage = () => {
         <div className={styles.fieldWrapper}>
           <TextField
             id="info"
-            label={`Ссылка на ${suggest === POLITICIAN ? 'политика' : 'новость'}`}
+            label={suggest === POLITICIAN ? t('info.linkOnPolitician') : t('info.linkOnNews')}
             className={styles.textField}
             fullWidth
-            placeholder={`Ссылка на ${suggest === POLITICIAN ? 'политика' : 'новость'}`}
+            placeholder={suggest === POLITICIAN ? t('info.linkOnPolitician') : t('info.linkOnNews')}
             required
             value={suggest === POLITICIAN ? infoPolitician : infoNews}
             onChange={
@@ -103,21 +103,21 @@ const SuggestionPage = () => {
             // helperText={error ? 'Ссылка неверна' : false}
             helperText={
               isRequiredNews
-                ? 'Поле обязательно для заполнения'
+                ? t('errors.requiredField')
                 : isRequiredInfo
-                ? 'Поле обязательно для заполнения'
-                : error
-                ? 'Ссылка неверна'
-                : false
+                  ? t('errors.requiredField')
+                  : error
+                    ? t('errors.linkBroken')
+                    : false
             }
             error={error || isRequiredNews || isRequiredInfo}
           />
           <TextField
             id="description"
-            label="Описание"
+            label={t('info.labelFieldDescription')}
             className={styles.textField}
             fullWidth
-            placeholder="Описание"
+            placeholder={t('info.labelFieldDescription')}
             value={suggest === POLITICIAN ? descriptionPoliticain : descriptionNews}
             onChange={
               suggest === POLITICIAN
@@ -136,7 +136,7 @@ const SuggestionPage = () => {
           }}
           onClick={handeClick}
         >
-          {status === 'Loading' ? <Loading /> : 'Добавить'}
+          {status === 'Loading' ? <Loading /> : t('buttons.add')}
         </Button>
       </form>
       {/* </WrapperAsyncRequest> */}

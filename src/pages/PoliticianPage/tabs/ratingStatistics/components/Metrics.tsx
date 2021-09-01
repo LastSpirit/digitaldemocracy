@@ -8,16 +8,9 @@ export const Metrics = () => {
   return (
     <div className={styles.metricsContainer}>
       {data?.metrics?.map(({ color, icon, text, title }, index) => (
-        <div
-          className={styles.metric}
-          style={{ backgroundColor: color }}
-          key={index.toString()}
-        >
+        <div className={styles.metric} style={{ backgroundColor: color }} key={index.toString()}>
           <div className={styles.icon}>
-            <img
-              src={icon}
-              alt=""
-            />
+            <img src={icon} alt="" />
           </div>
           <div className={styles.text}>
             <span className={styles.percent}>{title}</span>

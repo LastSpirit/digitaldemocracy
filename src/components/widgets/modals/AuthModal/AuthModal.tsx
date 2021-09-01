@@ -13,14 +13,14 @@ import ResetPassword from '../../../../pages/authentication/ResetPassword';
 
 const getModal = (value: string) => {
   switch (value) {
-    case AuthParam.login:
-      return <Login />;
-    case AuthParam.reset_password:
-      return <ResetPassword />;
-    case AuthParam.register:
-      return <Register />;
-    default:
-      return <Login />;
+  case AuthParam.login:
+    return <Login />;
+  case AuthParam.reset_password:
+    return <ResetPassword />;
+  case AuthParam.register:
+    return <Register />;
+  default:
+    return <Login />;
   }
 };
 
@@ -53,14 +53,14 @@ const AuthModal:React.FC = () => {
 
   const handleBack = () => {
     switch (authValue) {
-      case AuthParam.login:
-        return setLoginStep(loginStep - 1);
-      case AuthParam.reset_password:
-        return setResetStep(resetStep - 1);
-      case AuthParam.register:
-        return setRegisterStep(registerStep - 1);
-      default:
-        return setLoginStep(loginStep - 1);
+    case AuthParam.login:
+      return setLoginStep(loginStep - 1);
+    case AuthParam.reset_password:
+      return setResetStep(resetStep - 1);
+    case AuthParam.register:
+      return setRegisterStep(registerStep - 1);
+    default:
+      return setLoginStep(loginStep - 1);
     }
   };
 
@@ -82,13 +82,13 @@ const AuthModal:React.FC = () => {
         mx: 2,
       }}
     >
-      <Box sx={{ position: 'relative' }}>
+      <Box sx={{ position: 'relative', maxHeight: '100%', overflow: 'auto' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: withoutBackButton ? 'flex-end' : 'space-between', position: 'absolute', top: 20, width: '100%' }}>
           {!withoutBackButton && (
-          <ArrowBackIcon
-            sx={{ left: 20, position: 'relative', color: '#B0B0B0', width: 35, height: 35, cursor: 'pointer' }}
-            onClick={handleBack}
-          />
+            <ArrowBackIcon
+              sx={{ left: 20, position: 'relative', color: '#B0B0B0', width: 35, height: 35, cursor: 'pointer' }}
+              onClick={handleBack}
+            />
           )}
           <CloseIcon
             onClick={onCloseModal}

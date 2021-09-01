@@ -1,16 +1,19 @@
 .registerButton {
-  background-color: #248232 !important;
   color: white !important;
   border: 1px solid #248232 !important;
+  background-color: #248232 !important;
+
   &:hover {
     color: #248232 !important;
     background-color: white !important;
   }
 }
+
 .loginButton {
-  background-color: white;
-  border: 1px solid #363557;
   color: #363557 !important;
+  border: 1px solid #363557;
+  background-color: white;
+
   &:hover {
     color: white !important;
     background-color: #363557 !important;

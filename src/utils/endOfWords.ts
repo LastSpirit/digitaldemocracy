@@ -1,4 +1,9 @@
-export const endOfWords = (obj, string) => {
+interface IStrings {
+  one: string,
+  many: string
+}
+
+export const endOfWords = (obj, strings: IStrings, lang: string) => {
   if ([...obj.toString()].length >= 2) {
     if (
       [...obj.toString()][[...obj.toString()].length - 2] + [...obj.toString()][[...obj.toString()].length - 1] ===
@@ -9,18 +14,18 @@ export const endOfWords = (obj, string) => {
         '13' ||
       [...obj.toString()][[...obj.toString()].length - 2] + [...obj.toString()][[...obj.toString()].length - 1] === '14'
     ) {
-      return `${string}ов`;
+      return strings.many;
     }
   }
   if ([...obj.toString()][[...obj.toString()].length - 1] === '1') {
-    return `${string}`;
+    return strings.one;
   }
   if (
     [...obj.toString()][[...obj.toString()].length - 1] === '2' ||
     [...obj.toString()][[...obj.toString()].length - 1] === '3' ||
     [...obj.toString()][[...obj.toString()].length - 1] === '4'
   ) {
-    return `${string}а`;
+    return lang.startsWith('ru') ? `${strings.one}а` : strings.many;
   }
-  return `${string}ов`;
+  return strings.many;
 };

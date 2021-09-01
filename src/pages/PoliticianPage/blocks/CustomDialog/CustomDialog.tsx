@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Dialog, IconButton, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { useFetchChanges } from '../../hooks/useFetchChanges';
@@ -14,6 +15,7 @@ interface IProps {
 }
 
 export const CustomDialog: FC<IProps> = ({ open, next, setNext, handleClose }) => {
+  const { t } = useTranslation();
   const [info, setInfo] = useState('');
   const [url, setUrl] = useState('');
   const [error, setError] = useState(false);
@@ -89,34 +91,34 @@ export const CustomDialog: FC<IProps> = ({ open, next, setNext, handleClose }) =
           method="POST"
         >
           <div>
-            <h2>Спасибо за ваше участие, мы обязательно ознакомимся с вашим предложением!</h2>
+            <h2>{t('info.titleThanksSuggest')}</h2>
             <div className={styles.fieldWrapper}>
               <TextField
                 id="info"
-                label="Предлагаемая информация"
+                label={t('info.titleSuggestInfo')}
                 className={styles.textField}
                 fullWidth
-                placeholder="Предлагаемая информация"
+                placeholder={t('info.titleSuggestInfo')}
                 rows={4}
                 required
                 multiline
                 value={info}
                 onChange={(e) => setInfo(e.target.value)}
-                helperText={isRequiredInfo ? 'Поле обязательно для заполнения' : false}
+                helperText={isRequiredInfo ? t('errors.requiredField') : false}
                 error={isRequiredInfo}
               />
               <TextField
                 id="url"
-                label="Ссылка для подтверждения"
+                label={t('info.linkForSubmit')}
                 className={styles.textField}
                 fullWidth
-                placeholder="Ссылка для подтверждения"
+                placeholder={t('info.linkForSubmit')}
                 required
                 rows={2}
                 multiline
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                helperText={isRequiredUrl ? 'Поле обязательно для заполнения' : error ? 'Ссылка неверна' : false}
+                helperText={isRequiredUrl ? t('errors.requiredField') : error ? t('errors.linkBroken') : false}
                 error={error || isRequiredUrl}
               />
             </div>
@@ -131,11 +133,11 @@ export const CustomDialog: FC<IProps> = ({ open, next, setNext, handleClose }) =
             }}
             onClick={handeClick}
           >
-            {status === 'Loading' ? <Loading /> : 'Отправить'}
+            {status === 'Loading' ? <Loading /> : t('buttons.send')}
           </Button>
         </form>
       ) : (
-        <h2>Ваше предложение отправлено на рассмотрение</h2>
+        <h2>{t('info.titleSendSuggest')}</h2>
       )}
     </Dialog>
   );

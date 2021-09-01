@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { APIRequest, callAPI } from '../lib/axiosAPI';
 import { User } from '../types/user';
-import { HistoryNewsI } from '../slices/userSlice';
+import { HistoryNewsI, SubscriptionsI } from '../slices/userSlice';
 
 export interface UserDataResponse extends User {}
 
@@ -32,9 +32,57 @@ const fetchBrowsingHistory: APIRequest<{ page?: number; token: string }, History
     ...args,
   });
 
+const fetchSubscriptions: APIRequest<{ token: string }, { data?: SubscriptionsI }> = (args) =>
+  callAPI({
+    url: 'getSubscriptionsForUser',
+    config: {
+      method: 'get',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+    },
+    ...args,
+  });
+
+const fetchDossierTable: any = (args) =>
+  callAPI({
+    url: 'getPoliticiansDossierTable',
+    config: {
+      method: 'get',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`
+      },
+      params: {
+        page: args.payload.params.page
+      }
+    },
+    ...args,
+  });
+
+const fetchPoliticiansDossierGraph: any = (args) =>
+  callAPI({
+    url: 'getPoliticiansDossierGraph',
+    config: {
+      method: 'get',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`
+      },
+      params: {
+        politician_id: args.payload.params.politician_id
+      }
+    },
+    ...args
+  });
+
 const APIs = {
   fetchUserData,
   fetchBrowsingHistory,
+  fetchSubscriptions,
+  fetchDossierTable,
+  fetchPoliticiansDossierGraph
 };
 
 export const userAPI = () => {

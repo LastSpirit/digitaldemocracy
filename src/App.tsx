@@ -6,12 +6,10 @@ import './i18n';
 import firebase from 'firebase';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
-import { setRoutes } from 'src/hooks/setRoutes';
-import { userActionCreators } from 'src/slices/userSlice';
 import { firebaseConfig, gtmConfig } from './config';
 import useSettings from './hooks/useSettings';
 import gtm from './lib/gtm';
-import { createTheme } from './theme';
+import { createAppTheme } from './theme';
 import YandexRegisterModal from './components/widgets/modals/YandexRegisterModal/YandexRegisterModal';
 import { ModalParams } from './types/routing';
 import { useSearchParams } from './hooks/useSearchParams';
@@ -19,6 +17,7 @@ import MainLayout from './components/MainLayout';
 import Home from './pages/Home';
 import SingleNewsPage from './pages/SingleNewsPage/SingleNewsPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
+import ChangeProfilePage from './pages/ChangeProfilePage/ChangeProfilePage';
 import { userSelectors } from './slices/userSlice';
 import News from './pages/News';
 import PoliticianPage from './pages/PoliticianPage/PoliticianPage';
@@ -30,6 +29,10 @@ import SuggestionPage from './pages/SuggestionPage/SuggestionPage';
 import { DonationPage } from './pages/ProfilePage/DonationPage/DonationPage';
 import RatingPage from './pages/RatingPage/RatingPage';
 import SingleBills from './pages/SingleBillsPage/SingleBillsPage';
+import SearchPage from './pages/SearchPage/SearchPage';
+import AboutPage from './pages/AboutPage/AboutPage';
+import ModalCookie from './components/ModalCookie/ModalCookie';
+import { getItem } from './lib/localStorageManager';
 
 const App: FC = () => {
   if (!firebase.apps.length) {
@@ -40,6 +43,7 @@ const App: FC = () => {
   const location = useLocation();
   const { pathname } = useLocation();
   const [path, setPath] = React.useState(pathname);
+  const [visibleCookie, setVisibleCookie] = React.useState(!JSON.parse(getItem('user_cookie_confirm')));
 
   const intersect = (prev, next) => {
     return prev
@@ -62,7 +66,7 @@ const App: FC = () => {
     gtm.initialize(gtmConfig);
   }, []);
 
-  const theme = createTheme({
+  const theme = createAppTheme({
     direction: settings.direction,
     responsiveFontSizes: settings.responsiveFontSizes,
     roundedCorners: settings.roundedCorners,
@@ -90,6 +94,7 @@ const App: FC = () => {
               <Route path="/widgetLink/:id" component={WidgetLinkPage} />
               {isAuthenticated && <Route exact path="/profile" component={ProfilePage} />}
               {isAuthenticated && <Route exact path="/profile/*" component={ProfilePage} />}
+              {isAuthenticated && <Route exact path="/changeProfile" component={ChangeProfilePage} />}
               <Route exact path="/politician/:short_link" component={PoliticianPage} />
               <Route exact path="/politician/:short_link/*" component={PoliticianPage} />
               <Route exact path="/mass-media/:link" component={MassMediaPage} />
@@ -99,15 +104,18 @@ const App: FC = () => {
               <Route exact path="/party/:short_link" component={PartyPage} />
               <Route exact path="/party/:short_link*" component={PartyPage} />
               <Route exact path="/rating/*" component={RatingPage} />
+              <Route exact path="/search" component={SearchPage} />
+              <Route exact path="/about" component={AboutPage} />
               {isAuthenticated && <Route exact path="/suggestion" component={SuggestionPage} />}
               <Redirect to="/" />
             </Switch>
           </MainLayout>
+          {visibleCookie && <ModalCookie onClick={setVisibleCookie} />}
           <YandexRegisterModal open={!!yandexRegisterValue} onClose={() => setYandexRegisterValue(undefined)} />
           <div id="sign-in-button" />
         </ThemeProvider>
       ) : null,
-    [isAuthenticated, location]
+    [isAuthenticated, location, visibleCookie]
   );
 };
 

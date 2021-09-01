@@ -11,10 +11,13 @@ export const useFetchPoliticians = () => {
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
   const { fetchRatingPoliticians } = ratingAPI();
   const { setPoliticians } = ratingActionCreators();
-  const { sort_direction, sort_field } = useSelector((s: RootState) => s.rating);
+  const { sort_direction, sort_field, sort_vote, sort_geography } = useSelector((s: RootState) => s.rating);
   const token = getItem('token');
 
-  const fetch = useCallback(() => {
+  const { country_politician_id, region_politician_id, city_politician_id } = sort_geography;
+  const { country_user_id, region_user_id, city_user_id } = sort_vote;
+  const fetch = useCallback((is_votes_world) => {
+    console.log();
     setStatus(APIStatus.Loading);
     fetchRatingPoliticians({
       onSuccess: (response) => {
@@ -24,13 +27,23 @@ export const useFetchPoliticians = () => {
       onError: () => setStatus(APIStatus.Failure),
       payload: {
         token,
-        params: {
+        params: is_votes_world ? {
           orderBy: sort_direction,
           sortBy: sort_field,
+          is_votes_world: 1
+        } : {
+          orderBy: sort_direction,
+          sortBy: sort_field,
+          country_politician_id,
+          region_politician_id,
+          city_politician_id,
+          country_user_id,
+          region_user_id,
+          city_user_id,
         },
       },
     });
-  }, [sort_direction, sort_field, token]);
+  }, [sort_direction, sort_field, token, city_politician_id, sort_geography, city_user_id]);
 
   return { fetch, status };
 };

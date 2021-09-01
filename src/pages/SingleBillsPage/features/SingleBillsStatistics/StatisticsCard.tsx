@@ -5,7 +5,7 @@ import { avatarColorChanger } from 'src/utils/avatarColorChanger';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import { useWindowSize } from 'src/hooks/useWindowSize';
-import { AuthorVotesGroup } from '../VotesGroup/AuthorVotesGroup';
+import { SingleBillsVotesGroup } from '../VotesGroup/SingleBillsVotesGroup';
 import styles from './StatisticsCard.module.scss';
 
 interface StatisticsCardPropsI {
@@ -27,19 +27,12 @@ interface StatisticsCardPropsI {
 const StatisticsCard: FC<StatisticsCardPropsI> = ({
   name,
   photo,
-  percent,
   short_link,
-  field,
-  rating,
   likes,
   dislikes,
   isLiked,
   isDisliked,
-  politicianIndex,
-  id,
-  isMasmedia,
 }) => {
-  const percentIsPositive = percent?.includes('+') && !percent?.includes('-');
   const { isMobile } = useWindowSize();
   return (
     <>
@@ -47,23 +40,19 @@ const StatisticsCard: FC<StatisticsCardPropsI> = ({
         <div className={styles['card-mobile']}>
           <div className={styles.topItems}>
             <div className={styles.cardContent}>
-              <Link to={`${field}/${short_link}`} className={styles.title}>
-                Название законопроекта
-              </Link>
+              <div className={styles.title}>{name}</div>
             </div>
           </div>
           <div className={styles.bottomItems}>
-            <AuthorVotesGroup likes={likes} dislikes={dislikes} isLiked={isLiked} isDisliked={isDisliked} />
+            <SingleBillsVotesGroup likes={likes} dislikes={dislikes} isLiked={isLiked} isDisliked={isDisliked} />
           </div>
         </div>
       ) : (
         <div className={styles.card}>
           <div className={styles.cardContent}>
-            <Link to={`${field}/${short_link}`} className={styles.title}>
-              Название законопроекта
-            </Link>
+            <div className={styles.title}>{name}</div>
             <div className={styles.bottomItem}>
-              <AuthorVotesGroup likes={likes} dislikes={dislikes} isLiked={isLiked} isDisliked={isDisliked} />
+              <SingleBillsVotesGroup likes={likes} dislikes={dislikes} isLiked={isLiked} isDisliked={isDisliked} />
             </div>
           </div>
         </div>

@@ -3,12 +3,13 @@
 }
 
 .MuiButton-containedPrimary {
+  color: #FFF;
   background-color: #363557;
-  color: #FFFFFF;
 }
+
 .MuiButton-containedPrimary:disabled {
-  background-color: #B0B0B0;
   color: white;
+  background-color: #B0B0B0;
 }
 
 .MuiSwitch-colorPrimary {
@@ -16,16 +17,15 @@
 }
 
 .MuiSwitch-track {
-  background-color: #9f9f9f !important;
+  background-color: #9F9F9F !important;
 }
 
 .MuiButton-outlinedPrimary {
   color: #747373;
   border-color: #747373;
 }
+
 .MuiButton-outlinedPrimary:hover {
   color: #363557;
   border-color: #363557;
 }
-
-/*# sourceMappingURL=index.css.map */

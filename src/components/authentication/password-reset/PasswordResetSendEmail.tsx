@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import React from 'react';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { Box, Button, TextField, } from '@material-ui/core';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 import { useSendResetLinkEmail } from './hooks/useSendResetLinkEmail';
@@ -10,6 +11,7 @@ import { APIStatus } from '../../../lib/axiosAPI';
 import { Loading } from '../../Loading/Loading';
 
 const PasswordResetSendEmail: FC = () => {
+  const { t } = useTranslation();
   const isMountedRef = useIsMountedRef();
   const { setResetStep } = authActionCreators();
   const { status, error, send } = useSendResetLinkEmail(setResetStep);
@@ -25,9 +27,9 @@ const PasswordResetSendEmail: FC = () => {
           .shape({
             email: Yup
               .string()
-              .email('Введите корректный e-mail')
+              .email(t('errors.enterValidEmail'))
               .max(255)
-              .required('Это обязательное поле'),
+              .required(t('errors.requiredField')),
           })
       }
       onSubmit={async (values, {
@@ -63,7 +65,7 @@ const PasswordResetSendEmail: FC = () => {
             error={!!errors.email || !!error}
             value={values.email}
             onChange={handleChange}
-            label="Введите, пожалуйста, свой email"
+            label={t('resetPassword.placeholderEnterEmail')}
             variant="outlined"
             name="email"
             sx={{
@@ -79,7 +81,7 @@ const PasswordResetSendEmail: FC = () => {
               type="submit"
               variant="contained"
             >
-              {status === APIStatus.Loading ? <Loading /> : 'ПРОДОЛЖИТЬ'}
+              {status === APIStatus.Loading ? <Loading /> : t('buttons.continue')}
             </Button>
           </Box>
         </form>

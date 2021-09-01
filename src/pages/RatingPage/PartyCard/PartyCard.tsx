@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import PersonIcon from '@material-ui/icons/Person';
 import { useHistory, matchPath } from 'react-router';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 import { Button, Tooltip } from '@material-ui/core';
@@ -17,7 +18,8 @@ import { APIStatus } from '../../../lib/axiosAPI';
 
 interface IProps extends PartyI {}
 
-const PartyCard: FC<IProps> = ({ logo, rating, name, id, short_link, place }) => {
+const PartyCard: FC<IProps> = ({ logo, rating, name, id, short_link, place, country }) => {
+  const { t, i18n } = useTranslation();
   return (
     <div className={styles.root}>
       <Link to={`/party/${short_link}`}>
@@ -37,12 +39,13 @@ const PartyCard: FC<IProps> = ({ logo, rating, name, id, short_link, place }) =>
             backgroundColor: badgeColorChanger(rating),
           }}
         >
-          <div className={styles.text}>{`Место ${place ?? '-'}`}</div>
+          <div className={styles.text}>{`${t('info.place')} ${place ?? '-'}`}</div>
         </div>
         <div className={styles.percent}>{rating ?? '-'} %</div>
       </div>
       <hr />
       <div className={styles.name}>{name}</div>
+      <div>{country?.title[i18n.language]}</div>
     </div>
   );
 };

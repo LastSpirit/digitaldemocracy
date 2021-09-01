@@ -1,39 +1,50 @@
 @import 'src/variables.scss';
 
 .container {
-  height: 100%;
-  border-radius: 5px;
-  border: 1px solid #b0b0b0;
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: column;
-  padding: 20px 50px;
   overflow: scroll;
-  max-height: 500px;
   overflow-y: scroll;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  height: 100%;
+  max-height: 500px;
+  padding: 20px 50px;
+
+  border: 1px solid #B0B0B0;
+  border-radius: 5px;
   scrollbar-width: none;
+
   &::-webkit-scrollbar {
-    background: transparent;
-    width: 5px;
     right: 20px !important;
+
+    width: 5px;
+
     transform: translateX(-30%) !important;
+
+    background: transparent;
   }
 
   &::-webkit-scrollbar-track {
     position: relative;
+    right: 20px !important;
+
+    transform: translateX(-30%) !important;
+
     border-radius: 30px;
     background: transparent; /* color of the tracking area */
-    right: 20px !important;
-    transform: translateX(-30%) !important;
   }
 
   &::-webkit-scrollbar-thumb {
-    width: 2px !important;
     position: relative;
-    background-color: #b0b0b0;
-    border-radius: 20px;
+
+    width: 2px !important;
+
     transform: translateX(-30%) !important;
+
+    border-radius: 20px;
+    background-color: #B0B0B0;
   }
 
   &::-webkit-scrollbar-track-piece {
@@ -41,47 +52,59 @@
   }
 
   .informationBlock {
-    width: 100%;
-    padding: 10px 30px;
-    margin-bottom: 20px;
     display: flex;
-    font-size: 16px;
-    border-bottom: 1px solid #b0b0b0;
     justify-content: space-between;
+
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px 30px;
+
+    border-bottom: 1px solid #B0B0B0;
+
+    font-size: 16px;
+
     @media screen and (max-width: 1024px) {
-      padding: 0px;
+      padding: 0;
     }
+
     &:last-child {
       margin-bottom: 0 !important;
+
       border-bottom: none !important;
     }
   }
 
   @media screen and (max-width: 1024px) {
-    padding: 0 20px;
+    padding: 0 10px;
+
     .informationBlock {
-      margin-bottom: 10px;
       flex-direction: column;
+
+      margin-bottom: 10px;
     }
   }
 }
 
 .link {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: flex-start;
+
   width: 100%;
   height: max-content;
+
   p {
-    margin-right: 10px;
     min-width: 180px;
+    margin-right: 10px;
   }
+
   .linkContent {
     white-space: normal;
-    overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
+    overflow-wrap: break-word;
   }
+
   @media screen and (max-width: $mobileScreen) {
     p {
       min-width: 165px;
