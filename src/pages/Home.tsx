@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import type { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container } from '@material-ui/core';
-import { SuggestButton } from 'src/components/SuggestButton/SuggestButton';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { HomeHero, HomeSlider, HomeFeatures } from '../components/home';
 import { useFetchHomePageData } from '../components/home/hooks/useFetchHomePageData';
@@ -52,7 +51,6 @@ const Home: FC = () => {
         ) : (
           <>
             {!isAuthenticated && <HomeHero />}
-            {isAuthenticated && isMobile && <SuggestButton />}
             <HomeSlider data={data?.politicians} />
             <HomeFeatures
               newsTopics={data?.newsTopics}

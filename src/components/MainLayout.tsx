@@ -1,10 +1,14 @@
 import type { FC, ReactNode } from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import { experimentalStyled } from '@material-ui/core/styles';
+import { userSelectors } from '../slices/userSlice';
 import Footer from './Footer/Footer';
 import MainNavbar from './MainNavbar';
 import AuthModal from './widgets/modals/AuthModal/AuthModal';
 import { useWindowSize } from '../hooks/useWindowSize';
 import { Search } from './Search/Search';
+import { SuggestButton } from './SuggestButton/SuggestButton';
 
 interface MainLayoutProps {
   children?: ReactNode;
@@ -18,6 +22,8 @@ const MainLayoutRoot = experimentalStyled('div')(({ theme }) => ({
 
 const MainLayout: FC<MainLayoutProps> = ({ children }) => {
   const { isMobile } = useWindowSize();
+  const { location: { pathname } } = useHistory();
+  const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
 
   return (
     <MainLayoutRoot
@@ -25,6 +31,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
     >
       <MainNavbar />
       <Search />
+      {isAuthenticated && isMobile && pathname !== '/suggestion' && <SuggestButton />}
       <AuthModal />
       {children}
       <Footer />
