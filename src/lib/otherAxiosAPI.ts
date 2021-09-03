@@ -7,6 +7,7 @@ import { RootState, store } from '../store';
 import { removeItem } from './localStorageManager';
 // eslint-disable-next-line import/no-cycle
 import { userSlice } from '../slices/userSlice';
+import { apiSetting } from '../config';
 
 export type GenericAppThunk<RootState> = ThunkAction<void, RootState, null, Action<string>>;
 
@@ -36,7 +37,7 @@ export enum APIStatus {
 
 export type CallAPI<AppThunk> = (params: CallAPIParams) => AppThunk;
 
-const baseURL = 'https://dev-backoffice.digitaldemocracy.ru/api/';
+const baseURL = apiSetting.url_api;
 
 export const getCallAPI =
   <RootState>(): CallAPI<GenericAppThunk<RootState>> =>
