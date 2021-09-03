@@ -47,24 +47,27 @@ const AboutPage = () => {
           <p>
             {textare2Normilize} <a href="mailto:info@digitaldemocracy.ru">info@digitaldemocracy.ru</a>
           </p>
-
-          <Button className={styles.button}>
-            {
-              data?.file[language]?.file
-                ? (
-                  <a
-                    className={styles.text_link}
-                    target="_blank"
-                    rel="noreferrer"
-                    href={data?.file[language]?.file ?? ''}
-                    download
-                  >
+          {
+            data?.file[language]?.file
+              ? (
+                <a
+                  className={`${styles.btnLink} ${styles.btnLink_mrTop}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  href={data?.file[language]?.file ?? ''}
+                  download
+                >
+                  <Button className={`${styles.button}`}>
                     {t('info.learnMore')}
-                  </a>
-                )
-                : t('info.learnMore')
-            }
-          </Button>
+                  </Button>
+                </a>
+              )
+              : (
+                <Button className={`${styles.button} ${styles.button_mrTop}`}>
+                  {t('info.learnMore')}
+                </Button>
+              )
+          }
         </div>
       </div>
     </div>
