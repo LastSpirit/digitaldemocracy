@@ -1,7 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { callAPI } from '../lib/axiosAPI';
-import { callOtherAPI } from '../lib/otherAxiosAPI';
 
 const fetchProfile = (args) => {
   return callAPI({
@@ -204,7 +203,7 @@ const attachEmailSetPassword = (args) => {
 };
 
 const editUserAvatar = (args) => {
-  return callOtherAPI({
+  return callAPI({
     url: 'editUserAvatar',
     config: {
       method: 'POST',

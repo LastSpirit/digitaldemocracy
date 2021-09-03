@@ -94,11 +94,9 @@ export const ratingSlice = createSlice({
       state.sort_field = action.payload;
     },
     setSortGeography(state, action) {
-      // state.sort_geography = action.payload;
       state.sort_geography = { ...state.sort_geography, ...action.payload };
     },
     setSortVote(state, action) {
-      // state.sort_vote = action.payload;
       state.sort_vote = { ...state.sort_vote, ...action.payload };
     },
     setCountryGeography(state: SliceState, action) {

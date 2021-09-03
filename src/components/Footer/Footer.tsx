@@ -29,10 +29,11 @@ import Rating from '../../icons/Rating';
 import '../MainNavbar.scss';
 import { userSelectors } from '../../slices/userSlice';
 import { AuthParam, ModalParams } from '../../types/routing';
-import styles from './styles.module.scss';
 import { useSearchParams } from '../../hooks/useSearchParams';
 import PrivacyPolicyPdf from '../../theme/PrivacyPolicy.pdf';
 import TermsOfUse from '../../theme/TermsOfUse.pdf';
+
+import styles from './styles.module.scss';
 
 const sectionsData = (t) => {
   return [
@@ -362,22 +363,7 @@ const Footer: FC = (props) => {
             >
               <Link
                 href={'/donation'}
-                sx={{
-                  border: '1px solid #B0B0B0',
-                  borderRadius: 100,
-                  paddingTop: 3,
-                  paddingBottom: 3,
-                  padding: '30px !important',
-                  fontSize: '20px',
-                  width: 400,
-                  color: '#222222',
-                  textAlign: 'center',
-                  textDecoration: 'none !important',
-                  whiteSpace: 'nowrap',
-                  '&:hover': {
-                    backgroundColor: 'rgba(86, 100, 210, 0.04)',
-                  },
-                }}
+                className={styles.btn}
               >
                 {t('buttons.helpSite')}
               </Link>

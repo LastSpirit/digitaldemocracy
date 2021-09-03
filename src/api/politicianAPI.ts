@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { callOtherAPI } from 'src/lib/otherAxiosAPI';
 import { APIRequest, callAPI } from '../lib/axiosAPI';
 import {
   NewsWithPercentI,
@@ -271,7 +270,7 @@ const fetchCountries = (args) => {
 };
 
 const fetchRegions = (args) => {
-  return callOtherAPI({
+  return callAPI({
     url: 'getRegionsByArray',
     config: {
       method: 'POST',
@@ -285,7 +284,7 @@ const fetchRegions = (args) => {
 };
 
 const fetchCities = (args) => {
-  return callOtherAPI({
+  return callAPI({
     url: 'getCitiesByArray',
     config: {
       method: 'POST',
@@ -299,7 +298,7 @@ const fetchCities = (args) => {
 };
 
 const getPoliticianCustomRating = (args) => {
-  return callOtherAPI({
+  return callAPI({
     url: 'getPoliticianCustomRating',
     config: {
       method: 'POST',

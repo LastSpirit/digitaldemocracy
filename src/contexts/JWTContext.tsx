@@ -64,9 +64,9 @@ const initialState: State = {
 
 const setSession = (accessToken: string | null): void => {
   if (accessToken) {
-    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('token', accessToken);
   } else {
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem('token');
   }
 };
 
@@ -137,6 +137,7 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
           setIsAuthenticated(false);
         }
       } catch (err) {
+        console.log(err);
         setIsAuthenticated(false);
       }
     };
@@ -180,7 +181,7 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
     );
     const { accessToken, user } = response.data;
 
-    window.localStorage.setItem('accessToken', accessToken);
+    setSession(accessToken);
     dispatch({
       type: 'REGISTER',
       payload: {
