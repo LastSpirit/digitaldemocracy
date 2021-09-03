@@ -92,25 +92,38 @@
     }
   }
 
+  .btnLink {
+    width: 240px;
+
+    &_mrTop {
+      margin-top: 40px;
+    }
+  }
+
   .button {
     width: 240px;
     height: 71px;
-    margin-top: 40px;
     padding: 25px 20px;
+
+    transition: opacity ease-in-out 0.25s;
+    transition-property: background-color, color;
 
     text-transform: uppercase;
 
     color: #FFF;
+    border: 1px solid #248232;
     border-radius: 40px;
     background: #248232;
 
     font-size: 18px;
-    line-height: 71px;
 
-    .text_link {
-      text-decoration: none;
+    &:hover {
+      color: #248232;
+      background: #FFF;
+    }
 
-      color: inherit;
+    &_mrTop {
+      margin-top: 40px;
     }
 
     @media screen and (max-width: 430px) {
