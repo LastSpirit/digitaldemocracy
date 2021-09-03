@@ -34,9 +34,7 @@ export const useFetchInfoGrapchicData = () => {
         setStatusRegions(APIStatus.Success);
       },
       payload: {
-        data: {
-          countries: array,
-        },
+        countries: array,
       },
     });
   }, []);
@@ -50,9 +48,7 @@ export const useFetchInfoGrapchicData = () => {
         setStatusCities(APIStatus.Success);
       },
       payload: {
-        data: {
-          regions: array,
-        },
+        regions: array,
       },
     });
   }, []);
@@ -68,15 +64,13 @@ export const useFetchInfoGrapchicData = () => {
         setStatusGraphic(APIStatus.Success);
       },
       payload: {
-        data: {
-          politician_id,
-          countries,
-          regions,
-          cities,
-        },
-        params: {
-          is_votes_world: is_votes_world || null
-        }
+        politician_id,
+        countries,
+        regions,
+        cities,
+        // params: {
+        //   is_votes_world: is_votes_world || null
+        // }
       },
     });
   }, []);
