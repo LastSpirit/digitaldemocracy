@@ -15,15 +15,15 @@ import { WrapperAsyncRequest } from '../../Loading/WrapperAsyncRequest';
 import { TypeNavigationMenu } from '../../../pages/News';
 
 interface NewsPropsI {
-  newsTopics?: Array<NewTopicsI>,
-  news?: Array<NewsListI> | Array<NewsArrayI>,
-  isMorePages?: boolean,
-  nameArea?: string,
-  selectedTab?: TypeNavigationMenu,
+  newsTopics?: Array<NewTopicsI>;
+  news?: Array<NewsListI> | Array<NewsArrayI>;
+  isMorePages?: boolean;
+  nameArea?: string;
+  selectedTab?: TypeNavigationMenu;
 }
 
 const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea, selectedTab }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { isMobile } = useWindowSize();
   const [loadMoreNews, setLoadMoreNews] = useState(false);
   const { fetch, fetchSubscriptionsNews, fetchAreaNews, fetchNewsStatus } = useFetchNewsData(setLoadMoreNews);
@@ -31,19 +31,19 @@ const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea, 
 
   const handleGetMorePages = () => {
     switch (selectedTab) {
-    case TypeNavigationMenu.COUNTRY:
-    case TypeNavigationMenu.REGION:
-    case TypeNavigationMenu.CITY:
-      setLoadMoreNews(true);
-      fetchAreaNews(selectedTab, page + 1, undefined, true);
-      return;
-    case TypeNavigationMenu.SUBSCRIPTIONS:
-      setLoadMoreNews(true);
-      fetchSubscriptionsNews(page + 1, undefined, true);
-      return;
-    default:
-      setLoadMoreNews(true);
-      fetch(page + 1, undefined, true);
+      case TypeNavigationMenu.COUNTRY:
+      case TypeNavigationMenu.REGION:
+      case TypeNavigationMenu.CITY:
+        setLoadMoreNews(true);
+        fetchAreaNews(selectedTab, page + 1, undefined, true);
+        return;
+      case TypeNavigationMenu.SUBSCRIPTIONS:
+        setLoadMoreNews(true);
+        fetchSubscriptionsNews(page + 1, undefined, true);
+        return;
+      default:
+        setLoadMoreNews(true);
+        fetch(page + 1, undefined, true);
     }
   };
 
@@ -82,8 +82,7 @@ const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea, 
                 justifyContent: 'center',
               }}
             >
-              {news &&
-                news.length > 0 ?
+              {news && news.length > 0 ? (
                 news.map((item, index) => (
                   <Grid
                     key={index.toString()}
@@ -94,22 +93,27 @@ const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea, 
                     style={
                       item.type === 'widgetLink'
                         ? {
-                          alignSelf: 'center',
-                        }
+                            alignSelf: 'center',
+                          }
                         : {}
                     }
                   >
-                    {
-                      item.type ?
-                        item.type === 'widgetLink' ?
-                          <WidgetLink {...item.widgetLink} />
-                          : <CardSmall {...item.news} />
-                        : <CardSmall {...item} />
-                    }
+                    {item.type ? (
+                      item.type === 'widgetLink' ? (
+                        <WidgetLink {...item.widgetLink} />
+                      ) : (
+                        <CardSmall {...item.news} />
+                      )
+                    ) : (
+                      <CardSmall {...item} />
+                    )}
                   </Grid>
-                )) : (
-                  <Box component={'span'} p={2}>{t('news.warningMissNews')}</Box>
-                )}
+                ))
+              ) : (
+                <Box component={'span'} p={2}>
+                  {t('news.warningMissNews')}
+                </Box>
+              )}
             </Grid>
             <div className={styles.loadMore}>
               <WrapperAsyncRequest status={loadMoreNews ? fetchNewsStatus : APIStatus.Success}>

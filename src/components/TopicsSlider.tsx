@@ -3,11 +3,18 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Box, Typography } from '@material-ui/core';
+import { FC, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'src/hooks/useSearchParams';
+import { NewsTopicsI } from '../slices/homeSlice';
 // import { useFetchHomePageData } from './home/hooks/useFetchHomePageData';
-
+interface SidebarPropsI {
+  newsTopics?: NewsTopicsI[];
+  fetch?: any;
+}
 const SamplePrevArrow = (props) => {
   const { className, onClick } = props;
   return (
@@ -86,10 +93,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TopicsSlider({ newsTopics, fetch }) {
+const TopicsSlider: FC<SidebarPropsI> = ({ newsTopics, fetch }) => {
+  const { t, i18n } = useTranslation();
+  const [resultNewsTopics, setResultNewsTopics] = useState([]);
+  const {
+    news_topic_id: { value: topicId, setValue: setTopicId },
+  } = useSearchParams('news_topic_id');
   const handleNewsTopics = (id) => {
-    fetch(1, id);
+    fetch(1, id, true);
+    setTopicId(id);
   };
+  useEffect(() => {
+    if (newsTopics && newsTopics.length !== 0) {
+      setResultNewsTopics([{ id: -1, title: t('news.mainTitleList') }, ...newsTopics]);
+    }
+  }, [newsTopics, i18n.language]);
   const classes = useStyles();
 
   const settings = {
@@ -114,15 +132,49 @@ export default function TopicsSlider({ newsTopics, fetch }) {
   };
   return (
     <div className={classes.carouselContainer}>
-      {newsTopics && (
-        <Slider {...settings} style={{ width: '100%', display: 'flex' }}>
-          {newsTopics?.map((item) => (
-            <Box className={classes.topic} onClick={() => handleNewsTopics(item.id)} key={item.id}>
-              <Typography className={classes.topicText}>{item.title}</Typography>
+      {resultNewsTopics && (
+        <Slider
+          {...settings}
+          style={{
+            width: '100%',
+            display: 'flex',
+          }}
+        >
+          {resultNewsTopics?.map((item) => (
+            <Box
+              sx={{
+                textAlign: 'center',
+                width: '150px',
+                maxWidth: '160px',
+                cursor: 'pointer',
+                border: '1px solid #363557',
+                borderRadius: '50px',
+                backgroundColor: Number(topicId) === item.id ? '#363557 !important' : 'transparent',
+              }}
+              onClick={() => handleNewsTopics(item.id)}
+              key={item.id}
+            >
+              <Typography
+                sx={{
+                  fontWeight: 400,
+                  fontSize: 14,
+                  padding: '8px 8px',
+                  height: 40,
+                  boxSizing: 'border-box',
+                  // [theme.breakpoints.down('sm')]: {
+                  //   fontSize: 12,
+                  // },
+                  color: Number(topicId) === item.id ? 'white!important' : 'black',
+                }}
+              >
+                {item.title}
+              </Typography>
             </Box>
           ))}
         </Slider>
       )}
     </div>
   );
-}
+};
+
+export default TopicsSlider;
