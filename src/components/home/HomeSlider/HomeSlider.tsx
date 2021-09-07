@@ -7,7 +7,7 @@ import { PoliticiansI } from '../../../slices/homeSlice';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 
 interface SliderPropsI {
-  data?: PoliticiansI[]
+  data?: PoliticiansI[];
 }
 
 const HomeSlider: FC<SliderPropsI> = ({ data }) => {
@@ -17,28 +17,23 @@ const HomeSlider: FC<SliderPropsI> = ({ data }) => {
     <Box style={{ backgroundColor: 'white' }}>
       <Container maxWidth="lg">
         <Box className={styles.textBeforeCarousel}>
-          {!isMobile
-            ? (
-              <Box className={styles.carouselTitle}>
-                <Typography>{t('home.titleRating')}</Typography>
-                {/* eslint-disable-next-line react/button-has-type */}
-                <Button
-                  color="primary"
-                  className={styles.buttonStyle}
-                >
-                  {t('buttons.allRating')}
-                </Button>
-              </Box>
-            )
-            : null }
+          {!isMobile ? (
+            <Box className={styles.carouselTitle}>
+              <Typography>{t('home.titleRating')}</Typography>
+              {/* eslint-disable-next-line react/button-has-type */}
+              <Button color="primary" className={styles.buttonStyle} href={'/rating/politicians'}>
+                {t('buttons.allRating')}
+              </Button>
+            </Box>
+          ) : null}
         </Box>
-        <Box sx={{
-          margin: '0 auto'
-        }}
+        <Box
+          sx={{
+            margin: '0 auto',
+          }}
         >
           <CustomArrows data={data} />
         </Box>
-
       </Container>
     </Box>
   );
