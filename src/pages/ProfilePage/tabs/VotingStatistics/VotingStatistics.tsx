@@ -87,7 +87,7 @@ export const VotingStatistics = () => {
   const [sortModel, setSortModel] = React.useState<GridSortModel>([
     {
       field: 'rating',
-      sort: 'asc',
+      sort: 'desc',
     },
   ]);
 
