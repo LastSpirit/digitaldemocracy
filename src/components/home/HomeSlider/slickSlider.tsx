@@ -195,7 +195,9 @@ export default function CustomArrows({ data }) {
       {isMobile && (
         // eslint-disable-next-line react/button-has-type
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Button className={classes.buttonStyle}>{t('buttons.allRating')}</Button>
+          <Button className={classes.buttonStyle} href={'/rating/politicians'}>
+            {t('buttons.allRating')}
+          </Button>
         </Box>
       )}
     </div>
