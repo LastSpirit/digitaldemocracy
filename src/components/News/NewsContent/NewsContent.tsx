@@ -23,7 +23,7 @@ interface NewsPropsI {
 }
 
 const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea, selectedTab }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { isMobile } = useWindowSize();
   const [loadMoreNews, setLoadMoreNews] = useState(false);
   const { fetch, fetchSubscriptionsNews, fetchAreaNews, fetchNewsStatus } = useFetchNewsData(setLoadMoreNews);
@@ -58,7 +58,13 @@ const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea, 
     <Box className={styles.content}>
       <Box className={styles.contentContainer}>
         {isMobile ? (
-          <Box className={styles.topicsSlider}>
+          <Box
+            sx={{
+              minWidth: '160px',
+              // maxWidth: '80%',
+              margin: '35px auto',
+            }}
+          >
             <TopicsSlider newsTopics={newsTopics} fetch={fetch} />
           </Box>
         ) : (

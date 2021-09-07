@@ -11,10 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'src/hooks/useSearchParams';
 import { NewsTopicsI } from '../slices/homeSlice';
 // import { useFetchHomePageData } from './home/hooks/useFetchHomePageData';
-interface SidebarPropsI {
-  newsTopics?: NewsTopicsI[];
-  fetch?: any;
-}
+
 const SamplePrevArrow = (props) => {
   const { className, onClick } = props;
   return (
@@ -93,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TopicsSlider: FC<SidebarPropsI> = ({ newsTopics, fetch }) => {
+const TopicsSlider = ({ newsTopics, fetch }) => {
   const { t, i18n } = useTranslation();
   const [resultNewsTopics, setResultNewsTopics] = useState([]);
   const {
@@ -142,12 +139,8 @@ const TopicsSlider: FC<SidebarPropsI> = ({ newsTopics, fetch }) => {
         >
           {resultNewsTopics?.map((item) => (
             <Box
+              className={classes.topic}
               sx={{
-                textAlign: 'center',
-                width: '150px',
-                maxWidth: '160px',
-                cursor: 'pointer',
-                border: '1px solid #363557',
                 borderRadius: '50px',
                 backgroundColor: Number(topicId) === item.id ? '#363557 !important' : 'transparent',
               }}
@@ -155,15 +148,8 @@ const TopicsSlider: FC<SidebarPropsI> = ({ newsTopics, fetch }) => {
               key={item.id}
             >
               <Typography
+                className={classes.topicText}
                 sx={{
-                  fontWeight: 400,
-                  fontSize: 14,
-                  padding: '8px 8px',
-                  height: 40,
-                  boxSizing: 'border-box',
-                  // [theme.breakpoints.down('sm')]: {
-                  //   fontSize: 12,
-                  // },
                   color: Number(topicId) === item.id ? 'white!important' : 'black',
                 }}
               >
