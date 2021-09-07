@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { userSelectors } from 'src/slices/userSlice';
-import { DataGrid, GridColumns } from '@material-ui/data-grid';
+import { DataGrid, GridColumns, GridSortModel } from '@material-ui/data-grid';
 import { useTranslation } from 'react-i18next';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { useWindowSize } from 'src/hooks/useWindowSize';
@@ -30,7 +30,7 @@ const columns = (t, onClick): GridColumns => {
       ),
     },
     {
-      field: 'ratingUser',
+      field: 'rating',
       headerName: `${t('info.ratingUser')}` || 'Ваш рейтинг для политика',
       width: 400,
       renderCell: ({ row }: any) => row.rating || '-',
@@ -57,7 +57,7 @@ const mobileColumns = (t, onClick): GridColumns => {
       ),
     },
     {
-      field: 'ratingUser',
+      field: 'rating',
       headerName: `${t('info.ratingUser')}` || 'Ваш рейтинг для политика',
       width: 300,
       renderCell: ({ row }: any) => row.rating || '-',
@@ -84,6 +84,13 @@ export const VotingStatistics = () => {
     setIsGraphShown(true);
   };
 
+  const [sortModel, setSortModel] = React.useState<GridSortModel>([
+    {
+      field: 'rating',
+      sort: 'asc',
+    },
+  ]);
+
   return (
     <WrapperAsyncRequest status={status}>
       <ThemeProvider theme={theme}>
@@ -92,6 +99,8 @@ export const VotingStatistics = () => {
         :
           <div>
             <DataGrid
+              sortModel={sortModel}
+              onSortModelChange={(model) => setSortModel(model.sortModel)}
               rows={politicians}
               columns={isMobile ? mobileColumns(t, showPoliticianChartData) : columns(t, showPoliticianChartData)}
               hideFooterPagination={true}
