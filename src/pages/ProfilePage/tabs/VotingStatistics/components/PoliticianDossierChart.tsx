@@ -20,6 +20,7 @@ const PoliticianDossierChart: React.FC<IPoliticianDossierGraph> = ({ setIsGraphS
   useEffect(() => {
     fetchDossierChartData(politicianId);
   }, []);
+
   const changedChartData = graph.map((subArr) => [subArr[1], subArr[0]]);
 
   const options = {
@@ -38,6 +39,9 @@ const PoliticianDossierChart: React.FC<IPoliticianDossierGraph> = ({ setIsGraphS
         text: '0% - 100%',
       },
       max: 100,
+    },
+    tooltip: {
+      xDateFormat: '%A, %b %e',
     },
     area: {
       fillColor: {
