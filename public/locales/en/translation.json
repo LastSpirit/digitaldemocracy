@@ -265,7 +265,7 @@
     "linkForSubmit": "Confirmation link",
     "titleSendSuggest": "Your suggestion has been sent for consideration",
     "titleStatisticRegion": "Rating statistics by regions",
-    "ratingUser": "Your rating for a politician",
+    "ratingUser": "Your rating for a politician, %",
     "worldUser": "The whole world",
     "searchNotFound": "Nothing found",
     "learnMore": "Learn more"

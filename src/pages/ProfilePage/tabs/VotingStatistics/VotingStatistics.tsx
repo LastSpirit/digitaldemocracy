@@ -16,7 +16,7 @@ const columns = (t, onClick): GridColumns => {
     {
       field: 'name',
       width: 400,
-      headerName: t('info.politicianFIO') || 'ФИО политика',
+      headerName: t('info.politicianFIO'),
       renderCell: ({ row }: any) => (
         <span
           onClick={() => onClick(row.id)}
@@ -31,7 +31,7 @@ const columns = (t, onClick): GridColumns => {
     },
     {
       field: 'rating',
-      headerName: `${t('info.ratingUser')}` || 'Ваш рейтинг для политика',
+      headerName: `${t('info.ratingUser')}`,
       width: 400,
       renderCell: ({ row }: any) => row.rating || '-',
     },
@@ -42,7 +42,7 @@ const mobileColumns = (t, onClick): GridColumns => {
   return [
     {
       field: 'name',
-      headerName: t('info.politicianFIO') || 'ФИО политика',
+      headerName: t('info.politicianFIO'),
       width: 300,
       renderCell: ({ row }: any) => (
         <span
@@ -58,7 +58,7 @@ const mobileColumns = (t, onClick): GridColumns => {
     },
     {
       field: 'rating',
-      headerName: `${t('info.ratingUser')}` || 'Ваш рейтинг для политика',
+      headerName: `${t('info.ratingUser')}`,
       width: 300,
       renderCell: ({ row }: any) => row.rating || '-',
     },
