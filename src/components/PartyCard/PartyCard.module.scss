@@ -12,9 +12,9 @@
   margin-bottom: 20px;
   padding: 19px;
 
-  border: 1px solid #B0B0B0;
+  border: 1px solid #b0b0b0;
   border-radius: 20px;
-  background: #FFF;
+  background: #fff;
 
   &:nth-child(4n) {
     margin-right: 0;
@@ -49,11 +49,11 @@
 
       border-radius: 150px;
       // height: 100%;
-      background: #EDEDED;
+      background: #ededed;
 
       .text {
         overflow: hidden;
-
+        color: #fff;
         white-space: nowrap;
 
         font-size: 18px;
@@ -99,14 +99,14 @@
       height: 93%;
 
       border-radius: 5%;
-      background-color: #FFF;
+      background-color: #fff;
 
       &__nonRaiting {
         border: 1px solid #000;
       }
 
       &.noAvatar {
-        background-color: #E5E5E5;
+        background-color: #e5e5e5;
       }
 
       .noAvatarIcon {
@@ -126,7 +126,7 @@
     width: 100%;
     height: 0;
 
-    border: 1px solid #B0B0B0;
+    border: 1px solid #b0b0b0;
   }
 
   .name {
@@ -151,7 +151,7 @@
 
     text-align: center;
 
-    color: #7A7A7A;
+    color: #7a7a7a;
 
     font-size: 14px;
     line-height: 16px;
@@ -181,9 +181,9 @@
 
     cursor: pointer;
 
-    border: 1px solid #B0B0B0;
+    border: 1px solid #b0b0b0;
     border-radius: 40px;
-    background: #E5E5E5;
+    background: #e5e5e5;
   }
 
   .subscribed {
@@ -197,7 +197,7 @@
 
     cursor: pointer;
 
-    border: 1px solid #B0B0B0;
+    border: 1px solid #b0b0b0;
     border-radius: 40px;
     background: white;
   }

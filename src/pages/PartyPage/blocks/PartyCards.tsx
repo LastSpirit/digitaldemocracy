@@ -27,22 +27,22 @@ const PartyCards = ({ data }) => {
       return 'white';
     }
     if (type === 'text') {
-      if (!!percent && percent >= 0 && percent <= 20) {
-        return '#BF381B';
-      }
-      if (!!percent && percent > 20 && percent <= 40) {
-        return '#EC4132';
-      }
-      if (!!percent && percent > 40 && percent <= 60) {
-        return '#757474';
-      }
-      if (!!percent && percent > 60 && percent <= 80) {
-        return '#31AA52';
-      }
-      if (!!percent && percent > 80 && percent <= 100) {
-        return '#1F832E';
-      }
-      return '#757474';
+      // if (!!percent && percent >= 0 && percent <= 20) {
+      //   return '#BF381B';
+      // }
+      // if (!!percent && percent > 20 && percent <= 40) {
+      //   return '#EC4132';
+      // }
+      // if (!!percent && percent > 40 && percent <= 60) {
+      //   return '#757474';
+      // }
+      // if (!!percent && percent > 60 && percent <= 80) {
+      //   return '#31AA52';
+      // }
+      // if (!!percent && percent > 80 && percent <= 100) {
+      //   return '#1F832E';
+      // }
+      return 'white';
     }
     return '#757474';
   };
@@ -87,7 +87,7 @@ const PartyCards = ({ data }) => {
                 <div
                   className={styles.mobText}
                   style={{
-                    color: data?.place && data?.rating ? badgeColorChanger(data?.rating, 'text') : '#C4C4C4',
+                    color: data?.place && data?.rating ? badgeColorChanger(data?.rating, 'text') : 'white',
                   }}
                 >
                   {`${t('info.place')} ${data?.place}`}
