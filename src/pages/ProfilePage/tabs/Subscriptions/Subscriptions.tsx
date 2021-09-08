@@ -17,7 +17,7 @@ interface IState {
 
 export enum TypeSubscribe {
   POLITICIANS = 'politicians',
-  MEDIAS = 'massMedia',
+  MEDIAS = 'medias',
   AUTHORS = 'authors',
 }
 
@@ -41,41 +41,41 @@ const initialState = (t): IState => {
 
 function reducer(state, action) {
   switch (action.type) {
-  case 'setActive':
-    return {
-      ...state,
-      activeType: action.payload.type,
-      data: [...state.data].map((item) =>
-        item.id === action.payload.id ? { ...item, active: true } : { ...item, active: false }
-      ),
-    };
-  case 'changeTitle':
-    return {
-      ...state,
-      data: [...state.data].map((item) => {
-        if (TypeSubscribe.POLITICIANS === item.type) {
-          return {
-            ...item,
-            title: action.payload.t('tabs.politicians'),
-          };
-        }
-        if (TypeSubscribe.MEDIAS === item.type) {
-          return {
-            ...item,
-            title: action.payload.t('tabs.massMedia'),
-          };
-        }
-        if (TypeSubscribe.AUTHORS === item.type) {
-          return {
-            ...item,
-            title: action.payload.t('tabs.authors'),
-          };
-        }
-        return item;
-      }),
-    };
-  default:
-    return state;
+    case 'setActive':
+      return {
+        ...state,
+        activeType: action.payload.type,
+        data: [...state.data].map((item) =>
+          item.id === action.payload.id ? { ...item, active: true } : { ...item, active: false }
+        ),
+      };
+    case 'changeTitle':
+      return {
+        ...state,
+        data: [...state.data].map((item) => {
+          if (TypeSubscribe.POLITICIANS === item.type) {
+            return {
+              ...item,
+              title: action.payload.t('tabs.politicians'),
+            };
+          }
+          if (TypeSubscribe.MEDIAS === item.type) {
+            return {
+              ...item,
+              title: action.payload.t('tabs.massMedia'),
+            };
+          }
+          if (TypeSubscribe.AUTHORS === item.type) {
+            return {
+              ...item,
+              title: action.payload.t('tabs.authors'),
+            };
+          }
+          return item;
+        }),
+      };
+    default:
+      return state;
   }
 }
 
