@@ -15,16 +15,22 @@ const PartyCards = ({ data }) => {
   const { isMobile } = useWindowSize();
   const badgeColorChanger = (percent, type) => {
     if (type === 'ground') {
-      if (!!percent && percent >= 0 && percent <= 40) {
-        return '#FFBFBA';
+      if (!!percent && percent >= 0 && percent <= 20) {
+        return '#BE3B21';
+      }
+      if (!!percent && percent > 20 && percent <= 40) {
+        return '#EB4335';
       }
       if (!!percent && percent > 40 && percent <= 60) {
-        return '#BDBDBD';
+        return '#9F9F9F';
       }
-      if (!!percent && percent > 60 && percent <= 100) {
-        return '#D4F5DD';
+      if (!!percent && percent > 60 && percent <= 80) {
+        return '#34A853';
       }
-      return 'white';
+      if (!!percent && percent > 80 && percent <= 100) {
+        return '#248232';
+      }
+      return '#B0B0B0';
     }
     if (type === 'text') {
       // if (!!percent && percent >= 0 && percent <= 20) {
