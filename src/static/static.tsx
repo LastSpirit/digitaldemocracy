@@ -305,16 +305,16 @@ export const sortRatingPoliticians = (t) => {
 export const sortDropdownPoliticians = (t) => [
   {
     id: 1,
-    full_title: t('buttons.sort.geographyFullTitle') || 'По географии',
+    full_title: t('buttons.sort.geographyFullTitle') || 'Политики, по географии:',
     short_title: t('buttons.sort.geographyShortTitle') || 'География',
     field: 'geography',
   },
   {
     id: 2,
-    full_title: t('buttons.sort.votesFullTitle') || 'По проголосовавшим',
+    full_title: t('buttons.sort.votesFullTitle') || 'Политики, по проголосовавшим',
     short_title: t('buttons.sort.votesShortTitle') || 'Проголосовавшие',
     field: 'vote',
-  }
+  },
 ];
 
 export const sortRatingAuthors = (t) => {
