@@ -54,7 +54,7 @@ export const useFetchInfoGrapchicData = () => {
   }, []);
 
   const fetchGraphic = useCallback((politician_id, obj, is_votes_world) => {
-    const { countries, regions, cities } = obj;
+    const { country, region, city } = obj;
     setStatusGraphic(APIStatus.Loading);
     getPoliticianCustomRating({
       onError: () => setStatusGraphic(APIStatus.Failure),
@@ -65,9 +65,9 @@ export const useFetchInfoGrapchicData = () => {
       },
       payload: {
         politician_id,
-        countries,
-        regions,
-        cities,
+        countries: country,
+        regions: region,
+        cities: city,
         // params: {
         //   is_votes_world: is_votes_world || null
         // }
