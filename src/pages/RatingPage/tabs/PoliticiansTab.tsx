@@ -20,7 +20,7 @@ const PoliticiansTab = () => {
   const { isMobile } = useWindowSize();
   const { politicians } = useSelector((s: RootState) => s.rating?.politicians);
   const { fetch, status } = useFetchPoliticians();
-  const { resetFilter } = ratingActionCreators();
+  const { resetFilterForGeography } = ratingActionCreators();
   const sortDirection = useSelector((s: RootState) => s.rating.sort_direction);
   const sortField = useSelector((s: RootState) => s.rating.sort_field);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
@@ -34,29 +34,25 @@ const PoliticiansTab = () => {
     <>
       <div className={styles.newsContainer}>
         <div className={styles.sortDrop}>
-          {sortDropdownPoliticians(t).map(({ id, full_title, short_title, field }) => {
+          {sortDropdownPoliticians(t).map(({ id, full_title, field }) => {
             return (
-              <SortDropdown
-                key={id}
-                text={!isMobile ? full_title : short_title}
-                field={field}
-                world={world}
-              />
+              <>
+                <SortDropdown key={id} text={full_title} field={field} world={world} />
+                <div className={styles.worldCheckbox}>
+                  <Checkbox
+                    value={world}
+                    // onChange={() => {
+                    //   resetFilterForGeography();
+                    //   setWorld(!world);
+                    // }}
+                  />
+                  <p>{t('info.worldUser')}</p>
+                </div>
+              </>
             );
           })}
         </div>
-        <div className={styles.worldCheckbox}>
-          <Checkbox
-            value={world}
-            onChange={() => {
-              resetFilter();
-              setWorld(!world);
-            }}
-          />
-          <p>
-            {t('info.worldUser')}
-          </p>
-        </div>
+
         <div className={styles.sortRow}>
           {sortRatingPoliticians(t).map(({ id, full_title, short_title, field }) => {
             return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
