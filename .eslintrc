@@ -39,7 +39,7 @@
     "implicit-arrow-linebreak": "off",
     "no-nested-ternary": "off",
     "arrow-body-style": "off",
-    "indent": ["warn", 2, { "ignoredNodes": ["JSXElement *", "JSXElement"]}],
+    "indent": ["warn", 2, { "ignoredNodes": ["JSXElement *", "JSXElement"], "SwitchCase": 1}],
     "@typescript-eslint/indent": "off",
     "@typescript-eslint/no-unused-vars": "off",
     "react/jsx-boolean-value": "off",
