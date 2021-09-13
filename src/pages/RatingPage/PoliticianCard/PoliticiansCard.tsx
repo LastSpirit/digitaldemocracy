@@ -63,9 +63,13 @@ const PoliticiansCard: FC<IProps> = ({
             backgroundColor: badgeColorChanger(rating),
           }}
         >
-          <div className={styles.text}>{`${t('info.place')} ${place ?? '-'}`}</div>
+          <div className={styles.text}>
+            {rating && place ? `${t('info.place')} ${place}` : t('info.withoutRating')}
+          </div>
         </div>
-        <div className={styles.percent}>{`${rating ?? '-'} %`}</div>
+        <div className={styles.percent}>
+          {rating ? `${rating} %` : ''}
+        </div>
       </div>
       <div className={styles.name}>{name}</div>
       <div className={styles.country}>{country?.title[i18n.language]}</div>
