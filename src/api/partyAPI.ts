@@ -14,6 +14,7 @@ interface QueryParamsI {
   orderBy: string;
   sortBy: string;
   token?: string;
+  page?: number;
 }
 
 interface PartyPoliticiansRequest {
