@@ -43,18 +43,18 @@ export const SearchBlock: FC<SearchBlockI> = ({
 
   const getComponent = (props) => {
     switch (type) {
-    case SearchBlockTypes.NEWS:
-      return <CardSmall {...props} />;
-    case SearchBlockTypes.PARTY:
-      return <PartyCard {...props} />;
-    case SearchBlockTypes.AUTHOR:
-      return <AuthorCard {...props} />;
-    case SearchBlockTypes.POLITICIAN:
-      return <PoliticiansCard {...props} />;
-    case SearchBlockTypes.MEDIA:
-      return <MassMediaCard {...props} />;
-    default:
-      return null;
+      case SearchBlockTypes.NEWS:
+        return <CardSmall {...props} />;
+      case SearchBlockTypes.PARTY:
+        return <PartyCard {...props} />;
+      case SearchBlockTypes.AUTHOR:
+        return <AuthorCard {...props} />;
+      case SearchBlockTypes.POLITICIAN:
+        return <PoliticiansCard {...props} />;
+      case SearchBlockTypes.MEDIA:
+        return <MassMediaCard {...props} />;
+      default:
+        return null;
     }
   };
 

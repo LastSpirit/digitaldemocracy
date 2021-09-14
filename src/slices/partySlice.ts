@@ -22,6 +22,10 @@ const initialState: SliceState = {
   },
   sort_direction: '',
   sort_field: '',
+  politiciansPartyInfo: {
+    politicians: [],
+    isMorePages: false,
+  }
 };
 
 export const partySlice = createSlice({
@@ -32,7 +36,13 @@ export const partySlice = createSlice({
       state.data = action.payload;
     },
     setPartyPoliticians(state: SliceState, action: PayloadAction<PoliticiansPartyInfoI>) {
-      state.politiciansPartyInfo = action.payload;
+      state.politiciansPartyInfo = {
+        politicians: [
+          ...state.politiciansPartyInfo.politicians,
+          ...action.payload.politicians
+        ],
+        isMorePages: action.payload.isMorePages,
+      };
     },
     setSortDirection(state, action) {
       state.sort_direction = action.payload;
@@ -43,6 +53,9 @@ export const partySlice = createSlice({
     setIsSubscribe(state: SliceState, action) {
       const { id, isSubscribe } = action.payload;
       state.politiciansPartyInfo.politicians.find((item) => item.id === id).is_subscribed = !isSubscribe;
+    },
+    clearPartyInfo() {
+      return initialState;
     },
   },
 });

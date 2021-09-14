@@ -9,7 +9,6 @@
   .worldCheckbox {
     display: flex;
     align-items: center;
-    border-radius: 10px;
   }
 
   .sortRow {
@@ -19,7 +18,8 @@
     width: 40%;
     margin-top: 20px;
     margin-bottom: 30px;
-    @media (max-width: 430px) {
+    @media screen and (max-width: $mobileScreen) {
+      flex-direction: column;
       width: 100%;
     }
 
@@ -28,6 +28,7 @@
       align-items: center;
 
       margin: 0;
+
       margin-right: 15px;
       padding: 5px 20px;
 
@@ -122,12 +123,14 @@
 
     @media screen and (max-width: $mobileScreen) {
       .sortBadge {
+        margin-top: 22px;
         .text {
           font-size: 14px;
         }
       }
 
       .sortBadge-active {
+        margin-top: 22px;
         .text {
           font-size: 14px;
         }
