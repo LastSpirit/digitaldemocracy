@@ -6,11 +6,6 @@
 
   width: 100%;
 
-  .worldCheckbox {
-    display: flex;
-    align-items: center;
-  }
-
   .sortRow {
     display: flex;
     overflow-x: hidden;
@@ -154,23 +149,21 @@
     }
   }
 
-  //   .sortDrop {
-  //     display: flex;
-  //     flex-direction: column;
-  //     @media (max-width: 1024px) {
-  //       flex-direction: column;
-  //       .mainForm {
-  //         display: flex;
-  //         flex-direction: column;
-  //       }
-  //     }
-  //     @media screen and (max-width: $mobileScreen) {
-  //       .mainForm {
-  //         display: flex;
-  //         flex-direction: column;
-  //       }
-  //     }
-  //   }
+  .buttonForTitle {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    color: black;
+    text-align: left;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 25px;
+    @media screen and (max-width: 320px) {
+      width: 256px;
+    }
+  }
   .mainTitle {
     width: 100%;
     display: flex;
@@ -182,6 +175,12 @@
     font-weight: normal;
     font-size: 18px;
     line-height: 25px;
+
+    .worldCheckbox {
+      display: flex;
+      align-items: center;
+      margin-top: 19px;
+    }
   }
   .sortDrop {
     display: flex;

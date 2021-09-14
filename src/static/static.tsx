@@ -311,7 +311,7 @@ export const sortDropdownPoliticians = (t) => [
   },
   {
     id: 2,
-    full_title: t('buttons.sort.votesFullTitle') || 'Политики, по проголосовавшим',
+    full_title: t('buttons.sort.votesFullTitle') || 'Проголосовавшие, по географии',
     short_title: t('buttons.sort.votesShortTitle') || 'Проголосовавшие',
     field: 'vote',
   },

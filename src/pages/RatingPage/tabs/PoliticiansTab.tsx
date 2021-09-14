@@ -39,45 +39,13 @@ const PoliticiansTab = () => {
         {!isMobile ? (
           <div className={styles.sortDrop}>
             {sortDropdownPoliticians(t).map(({ id, full_title, field }) => {
-              return (
-                <>
-                  <SortDropdown key={id} text={full_title} field={field} world={world} />
-                  <div className={styles.worldCheckbox}>
-                    <Checkbox
-                      icon={<CircleUnchecked style={{ color: 'black' }} />}
-                      checkedIcon={<RadioButtonCheckedIcon style={{ color: 'black' }} />}
-                      value={world}
-                      // onChange={() => {
-                      //   resetFilterForGeography();
-                      //   setWorld(!world);
-                      // }}
-                    />
-                    <p>{t('info.worldUser')}</p>
-                  </div>
-                </>
-              );
+              return <SortDropdown key={id} text={full_title} field={field} world={world} />;
             })}
           </div>
         ) : (
           <div className={styles.sortDrop}>
             {sortDropdownPoliticians(t).map(({ id, full_title, field }) => {
-              return (
-                <>
-                  <div className={styles.worldCheckbox}>
-                    <Checkbox
-                      icon={<CircleUnchecked style={{ color: 'black' }} />}
-                      checkedIcon={<RadioButtonCheckedIcon style={{ color: 'black' }} />}
-                      value={world}
-                      // onChange={() => {
-                      //   resetFilterForGeography();
-                      //   setWorld(!world);
-                      // }}
-                    />
-                    <p>{t('info.worldUser')}</p>
-                  </div>
-                  <SortDropdownMobile key={id} text={full_title} field={field} world={world} />
-                </>
-              );
+              return <SortDropdownMobile key={id} text={full_title} field={field} world={world} />;
             })}
           </div>
         )}
