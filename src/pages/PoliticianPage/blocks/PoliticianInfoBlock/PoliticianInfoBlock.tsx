@@ -194,7 +194,7 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                 <div className={styles.mobAge}>
                   {data?.age
                     ? `${data?.age}  ${t('info.age')} ,
-                     ${data?.country?.title[i18n.language]} 
+                     ${data?.country?.title[i18n.language]}
                      ${data?.city ? `, ${data?.city}` : ''}`
                     : data?.city}
                 </div>

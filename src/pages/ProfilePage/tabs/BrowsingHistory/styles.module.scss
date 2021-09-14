@@ -1,12 +1,8 @@
 .container {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: space-between;
-
-  @media screen and (max-width: 1024px) {
-    flex-direction: column;
-  }
+  // display: flex;
+  // align-items: center;
+  // flex-wrap: wrap;
+  // justify-content: space-between;
 
   .newsBlock {
     span {
@@ -17,6 +13,10 @@
       margin-top: 10px;
       margin-bottom: 30px;
     }
+  }
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
   }
 }
 
