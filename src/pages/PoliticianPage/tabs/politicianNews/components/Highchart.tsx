@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
@@ -13,6 +13,16 @@ export const Highchart = () => {
   const { fetch, status } = useFetchChart();
   const { setDate, setReset } = politicianActionCreators();
   const chartData = useSelector(politicianSelectors.getChartData());
+
+  const formatDate = (date) => {
+    return new Date(date).toLocaleString('ru-RU',
+      {
+        weekday: 'long',
+        month: 'long',
+        day: '2-digit',
+        year: 'numeric'
+      });
+  };
 
   Highcharts.setOptions({
     lang: {
@@ -87,7 +97,7 @@ export const Highchart = () => {
       },
       {
         type: 'area',
-        name: t('info.totalElectorate') || 'Всего электората',
+        name: t('info.voted'),
         data: [
           ...(chartData?.politicianVotingElectorateChange?.map((item) => ({
             x: item[0],
@@ -97,7 +107,7 @@ export const Highchart = () => {
         ],
         lineColor: 'rgb(128, 127, 127)',
         tooltip: {
-          pointFormat: `{series.name}: {point.y}<br/>${t('info.voted')}: {point.votes}`,
+          pointFormat: `{series.name}: {point.y}<br/>${t('info.totalElectorate')}: {point.votes}`,
         },
       },
     ],
