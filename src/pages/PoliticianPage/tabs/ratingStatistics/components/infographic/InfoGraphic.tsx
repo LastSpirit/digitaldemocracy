@@ -10,7 +10,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Button, InputLabel, Autocomplete, TextField, Checkbox } from '@material-ui/core';
 import { RootState } from 'src/store';
-import { politicianSelectors } from 'src/slices/politicianSlice';
+import { politicianActionCreators, politicianSelectors } from 'src/slices/politicianSlice';
 import { PercentsLinearGraphic } from './PercentsLinearGraphic';
 import { useFetchInfoGrapchicData } from '../../hooks/useFetchInfoGrapchicData';
 import styles from './InfoGraphic.module.scss';
@@ -19,11 +19,12 @@ export const InfoGraphic = () => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
   const { isMobile } = useWindowSize();
+  const { setRating } = politicianActionCreators();
   const { statusCities, statusRegions, fetchCity, fetchRegion, fetchGraphic, statusGrapchic } =
     useFetchInfoGrapchicData();
 
-  const { infoGrapghicData } = useSelector((s: RootState) => s.politician);
   const data = useSelector(politicianSelectors.getPoliticianInfo());
+  const { infoGrapghicData } = useSelector((s: RootState) => s.politician);
 
   const [world, setWorld] = useState(false);
 
@@ -32,7 +33,9 @@ export const InfoGraphic = () => {
     region: null,
     city: null,
   });
-
+  useEffect(() => {
+    setRating(null);
+  }, [data?.id]);
   useEffect(() => {
     if (postData.country) {
       fetchRegion(postData.country);

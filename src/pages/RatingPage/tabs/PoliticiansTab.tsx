@@ -3,12 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
 import { Checkbox } from '@material-ui/core';
+import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import { ratingActionCreators, ratingSelectors } from '../../../slices/ratingSlice';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import { useFetchPoliticians } from '../hooks/useFetchPoliticians';
 import { RootState } from '../../../store/index';
 import { SortBadge } from './SortBadge';
 import { SortDropdown } from './SortDropdown';
+import { SortDropdownMobile } from './SortDropdownMobile';
 import { sortRatingPoliticians, sortDropdownPoliticians } from '../../../static/static';
 import { userSelectors } from '../../../slices/userSlice';
 import PoliticiansCard from '../PoliticianCard/PoliticiansCard';
@@ -33,29 +36,55 @@ const PoliticiansTab = () => {
   return (
     <>
       <div className={styles.newsContainer}>
-        <div className={styles.sortDrop}>
-          {sortDropdownPoliticians(t).map(({ id, full_title, field }) => {
-            return (
-              <>
-                <SortDropdown key={id} text={full_title} field={field} world={world} />
-                <div className={styles.worldCheckbox}>
-                  <Checkbox
-                    value={world}
-                    // onChange={() => {
-                    //   resetFilterForGeography();
-                    //   setWorld(!world);
-                    // }}
-                  />
-                  <p>{t('info.worldUser')}</p>
-                </div>
-              </>
-            );
-          })}
-        </div>
+        {!isMobile ? (
+          <div className={styles.sortDrop}>
+            {sortDropdownPoliticians(t).map(({ id, full_title, field }) => {
+              return (
+                <>
+                  <SortDropdown key={id} text={full_title} field={field} world={world} />
+                  <div className={styles.worldCheckbox}>
+                    <Checkbox
+                      icon={<CircleUnchecked style={{ color: 'black' }} />}
+                      checkedIcon={<RadioButtonCheckedIcon style={{ color: 'black' }} />}
+                      value={world}
+                      // onChange={() => {
+                      //   resetFilterForGeography();
+                      //   setWorld(!world);
+                      // }}
+                    />
+                    <p>{t('info.worldUser')}</p>
+                  </div>
+                </>
+              );
+            })}
+          </div>
+        ) : (
+          <div className={styles.sortDrop}>
+            {sortDropdownPoliticians(t).map(({ id, full_title, field }) => {
+              return (
+                <>
+                  <div className={styles.worldCheckbox}>
+                    <Checkbox
+                      icon={<CircleUnchecked style={{ color: 'black' }} />}
+                      checkedIcon={<RadioButtonCheckedIcon style={{ color: 'black' }} />}
+                      value={world}
+                      // onChange={() => {
+                      //   resetFilterForGeography();
+                      //   setWorld(!world);
+                      // }}
+                    />
+                    <p>{t('info.worldUser')}</p>
+                  </div>
+                  <SortDropdownMobile key={id} text={full_title} field={field} world={world} />
+                </>
+              );
+            })}
+          </div>
+        )}
 
         <div className={styles.sortRow}>
           {sortRatingPoliticians(t).map(({ id, full_title, short_title, field }) => {
-            return <SortBadge key={id} text={!isMobile ? full_title : short_title} field={field} />;
+            return <SortBadge key={id} text={full_title} field={field} />;
           })}
         </div>
         <WrapperAsyncRequest status={status}>
