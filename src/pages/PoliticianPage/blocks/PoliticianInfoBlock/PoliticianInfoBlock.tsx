@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import PersonIcon from '@material-ui/icons/Person';
@@ -34,6 +34,7 @@ interface IProps {
 const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
   const { t, i18n } = useTranslation();
   const data = useSelector(politicianSelectors.getPoliticianInfo());
+  const historyPosition = useSelector(politicianSelectors.getPositionHistory());
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { isMobile } = useWindowSize();
   const { status, change } = useChangeSubscribe();
@@ -113,15 +114,16 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                   </div>
                 )}
               </div>
-              {data?.position && <div className={styles.age}>{data?.position}</div>}
-              {(data?.age || data?.city) && (
-                <div className={styles.age}>
-                  {data?.age
-                    ? `${data?.age} ${t('info.age')} ,
-                    ${data?.country?.title[i18n.language]}
-                    ${data?.city ? `, ${data?.city}` : ''}`
-                    : data?.city}
+              {data?.position && (
+                <div className={styles.politicPosition}>
+                  {data?.position} <Link to={'position_history'}>{`...еше  ${historyPosition?.length - 1}` || ''}</Link>
                 </div>
+              )}
+              {(data?.age || data?.city) && (
+                <>
+                  <div className={styles.age}>{data?.age ? `${data?.age} ${t('info.age')}` : ''}</div>
+                  <div className={styles.age}>{data?.city ? `${data?.city}` : ''}</div>
+                </>
               )}
               <div
                 onClick={() => push(`/party/${data?.party?.short_link}`)}
@@ -192,11 +194,10 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
               {data?.english_name && <div className={styles.mobEnglishName}>{data?.english_name}</div>}
               {(data?.age || data?.city) && (
                 <div className={styles.mobAge}>
-                  {data?.age
-                    ? `${data?.age}  ${t('info.age')} ,
-                     ${data?.country?.title[i18n.language]}
-                     ${data?.city ? `, ${data?.city}` : ''}`
-                    : data?.city}
+                  <>
+                    <div className={styles.mobAge}>{data?.age ? `${data?.age} ${t('info.age')}` : ''}</div>
+                    <div className={styles.mobAge}>{data?.city ? `${data?.city}` : ''}</div>
+                  </>
                 </div>
               )}
               <div
