@@ -1,3 +1,5 @@
+@import 'src/variables.scss';
+
 .hero {
   margin-bottom: 40px;
   padding-top: 50px;
@@ -9,7 +11,7 @@
   padding: 15px 20px 15px 30px;
 
   border-radius: 20px;
-  background-color: #E5E5E5;
+  background-color: #e5e5e5;
 }
 
 .warningMessage {
@@ -22,7 +24,7 @@
   &__title {
     padding: 0 0.5em 0 0;
 
-    color: #7A7A7A;
+    color: #7a7a7a;
 
     font-family: 'Helvetica', sans-serif;
     font-size: 25px;
@@ -38,7 +40,7 @@
   width: 60%;
   padding-right: 40px;
 
-  border-right: 1px solid #B0B0B0;
+  border-right: 1px solid #b0b0b0;
 }
 
 .newsHeading {
@@ -71,14 +73,14 @@
 
   text-align: center;
 
-  border: 1px solid #B0B0B0;
+  border: 1px solid #b0b0b0;
   border-radius: 30px;
 }
 
 .hashtagContain {
   padding: 0;
 
-  color: #B0B0B0;
+  color: #b0b0b0;
 
   font-family: 'Helvetica';
   font-size: 14px;
@@ -128,7 +130,7 @@
   height: 50px;
   margin-right: 10px;
 
-  color: #7A7A7A;
+  color: #7a7a7a;
 }
 
 .arrowLink {
@@ -149,13 +151,38 @@
 
   cursor: pointer;
 
-  color: #FFF;
+  color: #fff;
   border: 1px solid #363557;
   background-color: #363557;
 
   &:hover {
     color: #363557;
     background-color: white;
+  }
+}
+.linkButton {
+  min-width: 180px;
+  height: 40px;
+  margin-right: 20px;
+  padding: 0px 16px;
+  cursor: pointer;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+
+  color: #fff;
+  border: 1px solid #363557;
+  background-color: #363557;
+
+  &:hover {
+    color: #363557;
+    background-color: white;
+  }
+  @media (max-width: $mobileScreen) {
+    margin-top: 10px;
+    min-width: 288px;
   }
 }
 
