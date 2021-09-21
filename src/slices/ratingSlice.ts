@@ -93,6 +93,15 @@ export const ratingSlice = createSlice({
     setMedia(state: SliceState, action: PayloadAction<MediaI>) {
       state.massMedia = action.payload;
     },
+    addMedia(state: SliceState, action: PayloadAction<MediaI>) {
+      state.massMedia = {
+        media: [
+          ...state.massMedia.media,
+          ...action.payload.media
+        ],
+        isMorePages: action.payload.isMorePages,
+      };
+    },
     setParties(state: SliceState, action: PayloadAction<PartiesI>) {
       state.parties = action.payload;
     },

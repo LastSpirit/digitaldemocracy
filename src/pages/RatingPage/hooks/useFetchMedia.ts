@@ -10,21 +10,26 @@ import { getItem } from '../../../lib/localStorageManager';
 export const useFetchMedia = () => {
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
   const { fetchRatingMassMedia } = ratingAPI();
-  const { setMedia } = ratingActionCreators();
+  const { setMedia, addMedia } = ratingActionCreators();
   const { sort_direction, sort_field } = useSelector((s: RootState) => s.rating);
   const token = getItem('token');
 
-  const fetch = useCallback(() => {
+  const fetch = useCallback((page = 1) => {
     setStatus(APIStatus.Loading);
     fetchRatingMassMedia({
       onSuccess: (response) => {
-        setMedia(response);
+        if (page > 1) {
+          addMedia(response);
+        } else {
+          setMedia(response);
+        }
         setStatus(APIStatus.Success);
       },
       onError: () => setStatus(APIStatus.Failure),
       payload: {
         token,
         params: {
+          page,
           orderBy: sort_direction,
           sortBy: sort_field,
         },
