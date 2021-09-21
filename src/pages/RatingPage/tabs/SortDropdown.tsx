@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { RootState } from 'src/store';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { InputLabel, Autocomplete } from '@material-ui/core';
+import { InputLabel, Autocomplete, Checkbox } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
+import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import { Formik } from 'formik';
 import styles from './Tabs.module.scss';
 import { useFetchPoliticians } from '../hooks/useFetchPoliticians';
@@ -312,6 +314,18 @@ export const SortDropdown = ({ text, field, world }) => {
                 </div>
               ) : null}
             </form>
+            <div className={styles.worldCheckbox}>
+              <Checkbox
+                icon={<CircleUnchecked style={{ color: 'black' }} />}
+                checkedIcon={<RadioButtonCheckedIcon style={{ color: 'black' }} />}
+                value={world}
+                // onChange={() => {
+                //   resetFilterForGeography();
+                //   setWorld(!world);
+                // }}
+              />
+              <p>{t('info.worldUser')}</p>
+            </div>
           </div>
         );
       }}

@@ -1,7 +1,8 @@
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Container, Typography, IconButton, Grid } from '@material-ui/core';
+import { useWindowSize } from 'src/hooks/useWindowSize';
+import { Box, Container, Typography, IconButton, Grid, Button } from '@material-ui/core';
 import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -16,11 +17,11 @@ interface HeroPropsI {
 const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
   const { t } = useTranslation();
   const [toggleIframe, setToggleIframe] = useState(data.is_display);
-
+  const { isMobile } = useWindowSize();
   const handleToggleIframe = () => {
     setToggleIframe(!toggleIframe);
   };
-
+  console.log(data?.is_display, 'aasdadassdasdasd');
   const pasteLink = (str) => {
     const partStr = str.split(',');
     return (
@@ -43,6 +44,13 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
       </IconButton>
     </a>
   );
+  const getLinkButton = () => (
+    <a href={data.source_link} target="_blank" rel="noreferrer">
+      <Button className={styles.linkButton}>
+        {!isMobile ? `${t('info.clickForWatchButton')}` : `${t('info.clickForWatchButtonMobile')}`}
+      </Button>
+    </a>
+  );
 
   return (
     <Box className={styles.hero}>
@@ -53,15 +61,13 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
             <Box className={styles.newsLinks}>
               <Box className={styles.arrows}>
                 <SubdirectoryArrowRightIcon className={styles.arrowGrey} />
-                {
-                  data?.is_display
-                    ? (
-                      <IconButton className={styles.arrowButton} onClick={handleToggleIframe}>
-                        <CallMadeIcon className={styles.arrowLink} />
-                      </IconButton>
-                    )
-                    : getLink()
-                }
+                {data?.is_display ? (
+                  <IconButton className={styles.arrowButton} onClick={handleToggleIframe}>
+                    <CallMadeIcon className={styles.arrowLink} />
+                  </IconButton>
+                ) : (
+                  getLink()
+                )}
                 <FacebookShare url={data?.source_link}>
                   <FacebookIcon fontSize="large" className={styles.facebook} />
                 </FacebookShare>
@@ -103,22 +109,22 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
         {toggleIframe ? (
           <>
             <Box className={styles.warningMessage}>
-              <Typography className={styles.warningMessage__title}>
-                {t('info.warningWatchNews')}
-              </Typography>
+              <Typography className={styles.warningMessage__title}>{t('info.warningWatchNews')}</Typography>
             </Box>
             <Box>
               <iframe src={data?.source_link} title="link" className={styles.iframe} width="80vw" />
+            </Box>
+            <Box className={styles.warningMessage} sx={{ marginTop: '30px' }}>
+              <Typography className={styles.warningMessage__title}>{t('info.clickForWatch')}</Typography>
+              {getLinkButton()}
             </Box>
           </>
         ) : (
           <Box className={styles.warningMessage}>
             {!data?.is_display && (
               <>
-                <Typography className={styles.warningMessage__title}>
-                  {t('info.clickForWatch')}
-                </Typography>
-                {getLink()}
+                <Typography className={styles.warningMessage__title}>{t('info.clickForWatch')}</Typography>
+                {getLinkButton()}
               </>
             )}
           </Box>
