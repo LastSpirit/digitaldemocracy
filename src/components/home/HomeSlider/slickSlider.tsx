@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { withStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { Box, Card, Typography, CardActionArea, CardActions, Button, Tooltip, fabClasses } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { milliseconds } from 'date-fns';
 import { useHistory } from 'react-router';
 import classNames from 'classnames';
@@ -123,6 +124,7 @@ export default function CustomArrows({ data }) {
   const [date, setDate] = useState(null);
   const [secondDate, setSecondDate] = useState(null);
   const initialDate: any = new Date(0);
+
   return (
     <div className={styles.carouselContainer}>
       {data ? (
@@ -130,7 +132,23 @@ export default function CustomArrows({ data }) {
           {data?.map((item) => (
             <Tooltip
               key={item.id}
-              title={item.position ?? ''}
+              title={
+                item.position ? (
+                  <>
+                    <div className={styles.positionText}>{item.position}</div>
+                    <Link
+                      style={{
+                        color: 'white',
+                      }}
+                      to={`/politician/${item.short_link}/position_history`}
+                    >
+                      {item?.position ? `${`${t('info.more')} ${item?.position_count - 1}`}` : ''}
+                    </Link>
+                  </>
+                ) : (
+                  ''
+                )
+              }
               classes={{
                 tooltip: styles.tooltip,
               }}

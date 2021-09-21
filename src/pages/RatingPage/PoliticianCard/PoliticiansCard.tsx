@@ -28,6 +28,7 @@ const PoliticiansCard: FC<IProps> = ({
   short_link,
   position,
   place,
+  position_count,
   country,
 }) => {
   const { t, i18n } = useTranslation();
@@ -74,7 +75,7 @@ const PoliticiansCard: FC<IProps> = ({
       <div className={styles.position}>
         {position}
         <Link to={`/politician/${short_link}/position_history`}>
-          {position ? `${`...еше ${historyPosition?.length - 1}`}` : ''}
+          {position ? `${`...${t('info.more')}${position_count - 1}`}` : ''}
         </Link>
       </div>
       <Button
