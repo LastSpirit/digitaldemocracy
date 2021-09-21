@@ -2,17 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
-import { Checkbox } from '@material-ui/core';
-import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
-import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
-import { ratingActionCreators, ratingSelectors } from '../../../slices/ratingSlice';
+import { Box, Button, Typography } from '@material-ui/core';
+import { ratingActionCreators } from '../../../slices/ratingSlice';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import { useFetchPoliticians } from '../hooks/useFetchPoliticians';
 import { RootState } from '../../../store/index';
 import { SortBadge } from './SortBadge';
 import { SortDropdown } from './SortDropdown';
 import { SortDropdownMobile } from './SortDropdownMobile';
-import { sortRatingPoliticians, sortDropdownPoliticians } from '../../../static/static';
+import { sortDropdownPoliticians, sortRatingPoliticians } from '../../../static/static';
 import { userSelectors } from '../../../slices/userSlice';
 import PoliticiansCard from '../PoliticianCard/PoliticiansCard';
 import styles from './Tabs.module.scss';
@@ -21,17 +19,26 @@ import { APIStatus } from '../../../lib/axiosAPI';
 const PoliticiansTab = () => {
   const { t } = useTranslation();
   const { isMobile } = useWindowSize();
-  const { politicians } = useSelector((s: RootState) => s.rating?.politicians);
+  const { politicians, isMorePages } = useSelector((s: RootState) => s.rating?.politicians);
   const { fetch, status } = useFetchPoliticians();
   const { resetFilterForGeography } = ratingActionCreators();
   const sortDirection = useSelector((s: RootState) => s.rating.sort_direction);
   const sortField = useSelector((s: RootState) => s.rating.sort_field);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const [world, setWorld] = useState(false);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    fetch(world);
-  }, [sortDirection, sortField, isAuthenticated, world]);
+    if (page > 1) {
+      fetch(world, page);
+    } else {
+      fetch(world);
+    }
+  }, [sortDirection, sortField, isAuthenticated, world, page]);
+
+  const handleMorePages = () => {
+    setPage(page + 1);
+  };
 
   return (
     <>
@@ -39,67 +46,50 @@ const PoliticiansTab = () => {
         {!isMobile ? (
           <div className={styles.sortDrop}>
             {sortDropdownPoliticians(t).map(({ id, full_title, field }) => {
-              return (
-                <>
-                  <SortDropdown key={id} text={full_title} field={field} world={world} />
-                  <div className={styles.worldCheckbox}>
-                    <Checkbox
-                      icon={<CircleUnchecked style={{ color: 'black' }} />}
-                      checkedIcon={<RadioButtonCheckedIcon style={{ color: 'black' }} />}
-                      value={world}
-                      // onChange={() => {
-                      //   resetFilterForGeography();
-                      //   setWorld(!world);
-                      // }}
-                    />
-                    <p>{t('info.worldUser')}</p>
-                  </div>
-                </>
-              );
+              return <SortDropdown key={id} text={full_title} field={field} world={world} />;
             })}
           </div>
         ) : (
           <div className={styles.sortDrop}>
             {sortDropdownPoliticians(t).map(({ id, full_title, field }) => {
-              return (
-                <>
-                  <div className={styles.worldCheckbox}>
-                    <Checkbox
-                      icon={<CircleUnchecked style={{ color: 'black' }} />}
-                      checkedIcon={<RadioButtonCheckedIcon style={{ color: 'black' }} />}
-                      value={world}
-                      // onChange={() => {
-                      //   resetFilterForGeography();
-                      //   setWorld(!world);
-                      // }}
-                    />
-                    <p>{t('info.worldUser')}</p>
-                  </div>
-                  <SortDropdownMobile key={id} text={full_title} field={field} world={world} />
-                </>
-              );
+              return <SortDropdownMobile key={id} text={full_title} field={field} world={world} />;
             })}
           </div>
         )}
 
         <div className={styles.sortRow}>
           {sortRatingPoliticians(t).map(({ id, full_title, short_title, field }) => {
-            return <SortBadge key={id} text={full_title} field={field} />;
+            return <SortBadge key={id} text={full_title} field={field} setPage={setPage} />;
           })}
         </div>
-        <WrapperAsyncRequest status={status}>
+        <WrapperAsyncRequest status={isMorePages ? APIStatus.Success : status}>
           {politicians && politicians?.length > 0 ? (
-            <div className={styles.news}>
-              {politicians?.map((item, index) => (
-                <PoliticiansCard key={item.id} {...item} />
+            <>
+              <div className={styles.news}>
+                {politicians?.map((item, index) => (
+                  <PoliticiansCard key={item.id} {...item} />
               ))}
-            </div>
+              </div>
+              <WrapperAsyncRequest status={status} />
+            </>
           ) : (
             <div className={styles.noNewsBlock}>
               <span>{t('tabs.warningMessagePoliticians')}</span>
             </div>
           )}
         </WrapperAsyncRequest>
+        {isMorePages && status !== APIStatus.Loading && (
+          <Box className={styles.containerBtn}>
+            <Button className={styles.containerBtn}>
+              <Typography
+                className={styles.btnShowMore}
+                onClick={handleMorePages}
+              >
+                {t('buttons.showMore')}
+              </Typography>
+            </Button>
+          </Box>
+        )}
       </div>
     </>
   );
