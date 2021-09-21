@@ -59,7 +59,7 @@ const PoliticiansTab = () => {
 
         <div className={styles.sortRow}>
           {sortRatingPoliticians(t).map(({ id, full_title, short_title, field }) => {
-            return <SortBadge key={id} text={full_title} field={field} />;
+            return <SortBadge key={id} text={full_title} field={field} setPage={setPage} />;
           })}
         </div>
         <WrapperAsyncRequest status={isMorePages ? APIStatus.Success : status}>
