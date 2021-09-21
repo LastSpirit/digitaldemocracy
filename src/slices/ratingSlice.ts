@@ -90,6 +90,15 @@ export const ratingSlice = createSlice({
     setAuthors(state: SliceState, action: PayloadAction<AuthorsI>) {
       state.authors = action.payload;
     },
+    addAuthors(state: SliceState, action: PayloadAction<AuthorsI>) {
+      state.authors = {
+        authors: [
+          ...state.authors.authors,
+          ...action.payload.authors
+        ],
+        isMorePages: action.payload.isMorePages,
+      };
+    },
     setMedia(state: SliceState, action: PayloadAction<MediaI>) {
       state.massMedia = action.payload;
     },
