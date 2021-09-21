@@ -114,6 +114,15 @@ export const ratingSlice = createSlice({
     setParties(state: SliceState, action: PayloadAction<PartiesI>) {
       state.parties = action.payload;
     },
+    addParties(state: SliceState, action: PayloadAction<PartiesI>) {
+      state.parties = {
+        parties: [
+          ...state.parties.parties,
+          ...action.payload.parties,
+        ],
+        isMorePages: action.payload.isMorePages,
+      };
+    },
     setSortDirection(state, action) {
       state.sort_direction = action.payload;
     },
