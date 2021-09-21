@@ -1517,6 +1517,19 @@
     .mobEnglishName {
       margin-bottom: 8px;
     }
+    .mobPosition {
+      max-width: 175px;
+      white-space: nowrap;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .positionText {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
     .mobAge {
       margin-bottom: 8px;
