@@ -78,6 +78,15 @@ export const ratingSlice = createSlice({
     setPoliticians(state: SliceState, action: PayloadAction<PoliticiansI>) {
       state.politicians = action.payload;
     },
+    addPoliticians(state: SliceState, action: PayloadAction<PoliticiansI>) {
+      state.politicians = {
+        politicians: [
+          ...state.politicians.politicians,
+          ...action.payload.politicians
+        ],
+        isMorePages: action.payload.isMorePages,
+      };
+    },
     setAuthors(state: SliceState, action: PayloadAction<AuthorsI>) {
       state.authors = action.payload;
     },

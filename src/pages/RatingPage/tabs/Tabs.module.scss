@@ -195,4 +195,20 @@
       }
     }
   }
+
+  .containerBtn {
+    display: flex;
+    justify-content: center;
+
+    margin-bottom: 32px;
+
+    .btnShowMore {
+      cursor: pointer;
+      text-decoration: underline;
+
+      color: #363557;
+
+      font-size: 14px;
+    }
+  }
 }
