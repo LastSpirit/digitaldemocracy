@@ -16,7 +16,7 @@ import { userActionCreators, userSelectors } from '../slices/userSlice';
 import { langSelectors } from '../slices/langSlice';
 import { useLangData } from '../hooks/useLangData';
 import { getItem } from '../lib/localStorageManager';
-
+import HeaderMobile from './Header/HeaderMobile';
 import './MainNavbar.scss';
 
 const linksData = (t) => [
@@ -141,54 +141,14 @@ const MainNavbar: FC = () => {
         <Toolbar
           sx={{
             minHeight: 64,
-            justifyContent: isMobile ? 'center' : 'space-between',
+            justifyContent: 'space-between',
             alignItems: 'center',
             display: 'flex',
+            position: 'relative',
+            padding: isMobile && '0!important'
           }}
         >
-          {isMobile ? (
-            <Box sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-            >
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: 40,
-                  cursor: 'pointer',
-                }}
-                onClick={() => push('/')}
-              >
-                <Brand />
-              </Box>
-              <Box sx={{
-                marginTop: '5px'
-              }}
-              >
-                <FormControl sx={{ minWidth: '60px' }}>
-                  <Select
-                    variant="outlined"
-                    defaultValue={getItem('i18nextLng').slice(0, 2) || 'ru'}
-                    sx={{ height: '30px' }}
-                    onChange={(event: React.ChangeEvent<{ value: string }>) => {
-                      i18n.changeLanguage(event.target.value);
-                    }}
-                  >
-                    {langData.map((item) => (
-                      <MenuItem key={item.id} value={item.key_lang} className={classNames(['language__item'])}>
-                        {item.title}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Box>
-            </Box>
-          ) : (
+          {isMobile ? <HeaderMobile /> : (
             <>
               <Box
                 sx={{

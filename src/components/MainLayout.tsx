@@ -30,8 +30,8 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
       style={{ background: 'white', paddingBottom: isMobile ? 80 : 0, paddingTop: isMobile ? '88px' : '90px' }}
     >
       <MainNavbar />
-      <Search />
-      {isAuthenticated && isMobile && pathname !== '/suggestion' && <SuggestButton />}
+      {!isMobile && <Search />}
+      {isAuthenticated && !isMobile && pathname !== '/suggestion' && <SuggestButton />}
       <AuthModal />
       {children}
       <Footer />
