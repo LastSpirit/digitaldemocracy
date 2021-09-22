@@ -9,7 +9,7 @@ import styles from './Tabs.module.scss';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import { ratingActionCreators } from '../../../slices/ratingSlice';
 
-export const SortBadge = ({ text, field }) => {
+export const SortBadge = ({ text, field, setPage }) => {
   const { isMobile } = useWindowSize();
   const { setSortDirection, setSortField } = ratingActionCreators();
   const sortDirection = useSelector((s: RootState) => s.rating.sort_direction);
@@ -20,6 +20,7 @@ export const SortBadge = ({ text, field }) => {
       variant="outlined"
       className={active ? styles['sortBadge-active'] : styles.sortBadge}
       onClick={() => {
+        setPage(1);
         if (!active) {
           setSortField(field);
           setSortDirection('asc');

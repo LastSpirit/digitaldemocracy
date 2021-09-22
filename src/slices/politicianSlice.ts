@@ -25,6 +25,7 @@ export interface PoliticianInfoI {
   short_link?: string;
   place?: number;
   country?: { title: [] };
+  position_count?: number;
 }
 
 export interface PartyI {

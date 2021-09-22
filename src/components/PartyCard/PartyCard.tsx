@@ -19,9 +19,20 @@ import { APIStatus } from '../../lib/axiosAPI';
 
 interface IProps extends PoliticianInfoI {}
 
-const PartyCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_link, position, place }) => {
+const PartyCard: FC<IProps> = ({
+  photo,
+  rating,
+  name,
+  is_subscribed,
+  id,
+  short_link,
+  position,
+  place,
+  position_count,
+}) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { status, change } = useChangeSubscribe(id);
+  const { t, i18n } = useTranslation();
   const { push } = useHistory();
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
@@ -61,7 +72,12 @@ const PartyCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_l
       </div>
       <hr />
       <div className={styles.name}>{name}</div>
-      <div className={styles.position}>{position}</div>
+      <div className={styles.position}>
+        {position}
+        <Link to={`/politician/${short_link}/position_history`}>
+          {position ? `${`...${t('info.more')} ${position_count - 1}`}` : ''}
+        </Link>
+      </div>
       <Button
         variant="outlined"
         color={is_subscribed ? 'secondary' : 'primary'}

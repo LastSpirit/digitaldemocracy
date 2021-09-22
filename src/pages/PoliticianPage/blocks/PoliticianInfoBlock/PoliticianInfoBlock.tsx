@@ -34,7 +34,6 @@ interface IProps {
 const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
   const { t, i18n } = useTranslation();
   const data = useSelector(politicianSelectors.getPoliticianInfo());
-  const historyPosition = useSelector(politicianSelectors.getPositionHistory());
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { isMobile } = useWindowSize();
   const { status, change } = useChangeSubscribe();
@@ -49,7 +48,6 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
       setAuthValue('/login');
     }
   };
-
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
       {!isMobile ? (
@@ -116,7 +114,8 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
               </div>
               {data?.position && (
                 <div className={styles.politicPosition}>
-                  {data?.position} <Link to={'position_history'}>{`...еше  ${historyPosition?.length - 1}` || ''}</Link>
+                  {data?.position}
+                  <Link to={'position_history'}>{`...${t('info.more')} ${data.position_count - 1}` || ''}</Link>
                 </div>
               )}
               {(data?.age || data?.city) && (
@@ -170,7 +169,7 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
               )}`}
             </div>
           )}
-          {data?.position && <div className={styles.age}>{data?.position}</div>}
+          {/* {data?.position && <div className={styles.age}>{data?.position}</div>} */}
           <div className={styles.mobInfoBlock}>
             <div
               className={
@@ -192,6 +191,12 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
             </div>
             <div className={styles.mobRightBlock}>
               {data?.english_name && <div className={styles.mobEnglishName}>{data?.english_name}</div>}
+              <div className={styles.mobPosition}>
+                <div className={styles.positionText}> {data?.position}</div>
+                <Link to={`/politician/${data?.short_link}/position_history`}>
+                  {data?.position ? `${`${t('info.more')}${data?.position_count - 1}`}` : ''}
+                </Link>
+              </div>
               {(data?.age || data?.city) && (
                 <div className={styles.mobAge}>
                   <>
