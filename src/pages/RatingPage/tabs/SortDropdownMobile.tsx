@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { RootState } from 'src/store';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { InputLabel, Autocomplete } from '@material-ui/core';
+import { InputLabel, Autocomplete, Checkbox, Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
+import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Formik } from 'formik';
 import styles from './Tabs.module.scss';
 import { useFetchPoliticians } from '../hooks/useFetchPoliticians';
@@ -40,7 +44,8 @@ export const SortDropdownMobile = ({ text, field, world }) => {
     region_user_id: null,
     city_user_id: null,
   });
-  const [opened, setOpened] = useState(false);
+
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     fetch(world);
@@ -72,6 +77,10 @@ export const SortDropdownMobile = ({ text, field, world }) => {
     postData2.country_user_id,
   ]);
 
+  const handleClick = () => {
+    setExpanded(!expanded);
+  };
+
   return !world ? (
     <Formik
       key={world}
@@ -91,227 +100,259 @@ export const SortDropdownMobile = ({ text, field, world }) => {
 
         return (
           <div className={styles.mainTitle}>
-            {text}
-            <form
-              onSubmit={handleSubmit}
-              style={{ width: '270px', marginRight: '15px' }}
-              className={styles.mainForm}
-              onReset={handleReset}
-              noValidate
+            <Button
+              className={styles.buttonForTitle}
+              onClick={() => {
+                handleClick();
+              }}
             >
-              <div style={{ marginRight: '30px' }}>
-                <InputLabel htmlFor="country" className={styles.inputLabel}>
-                  {t('buttons.sort.countryFullTitle')}
-                </InputLabel>
-                <Autocomplete
-                  id="country"
-                  options={countries ?? []}
-                  value={values.country}
-                  style={{ width: '292px' }}
-                  getOptionLabel={(option: any) => option?.title?.[currentLang] || option?.title?.ru || values.country}
-                  isOptionEqualToValue={(option, value) => {
-                    return option.title?.[currentLang] === value || option.title?.ru === value;
-                  }}
-                  noOptionsText={<>{t('info.noVariants')}</>}
-                  onChange={(_, newValue) => {
-                    if (newValue) {
-                      setFieldValue('country', newValue.title?.[currentLang] || newValue.title?.ru);
+              {text}
 
-                      if (field === 'geography') {
-                        setPostData((prevState) => {
-                          const newState = {
-                            ...prevState,
-                            country_politician_id: newValue.id,
-                            region_politician_id: null,
-                            city_politician_id: null,
-                          };
-                          setSortGeography(newState);
-                          setUpdate(!update);
-                          return newState;
-                        });
-                      }
-
-                      if (field === 'vote') {
-                        setPostData2((prevState) => {
-                          const newState = {
-                            ...prevState,
-                            country_user_id: newValue.id,
-                            region_user_id: null,
-                            city_user_id: null,
-                          };
-                          setSortVote(newState);
-                          setUpdate(!update);
-                          return newState;
-                        });
-                      }
-                      setFieldValue('region', '');
-                    } else {
-                      if (field === 'geography') {
-                        setPostData({
-                          ...postData,
-                          country_politician_id: null,
-                          region_politician_id: null,
-                          city_politician_id: null,
-                        });
-                        setRegionsGeography(false);
-                        setCitiesGeography(false);
-                        setSortGeography({
-                          country_politician_id: null,
-                          region_politician_id: null,
-                          city_politician_id: null,
-                        });
-                        setUpdate(!update);
-                      }
-
-                      if (field === 'vote') {
-                        setPostData2({
-                          ...postData2,
-                          country_user_id: null,
-                          region_user_id: null,
-                          city_user_id: null,
-                        });
-                        setRegionsVote(false);
-                        setCitiesVote(false);
-                        setSortVote({
-                          country_user_id: null,
-                          region_user_id: null,
-                          city_user_id: null,
-                        });
-                        setUpdate(!update);
-                      }
-                      setFieldValue('country', '');
-                      setFieldValue('region', '');
-                      setFieldValue('city', '');
-                    }
-                  }}
-                  renderInput={(params) => (
-                    <TextField {...params} type="text" onBlur={handleBlur} fullWidth helperText={errors.country} />
-                  )}
-                />
-              </div>
-              {regions ? (
-                <div style={{ marginRight: '30px' }}>
-                  <InputLabel htmlFor="region" className={styles.inputLabel}>
-                    {t('buttons.sort.regionFullTitle')}
-                  </InputLabel>
-                  <Autocomplete
-                    id="region"
-                    options={regions}
-                    value={values.region}
-                    style={{ width: '292px' }}
-                    getOptionLabel={(option: any) => option?.title?.[currentLang] || option?.title?.ru || values.region}
-                    isOptionEqualToValue={(option, value) => {
-                      return option.title?.[currentLang] === value || option.title?.ru === value;
-                    }}
-                    noOptionsText={<>{t('info.noVariants')}</>}
-                    onChange={(_, newValue) => {
-                      console.log('region value', newValue);
-                      if (newValue) {
-                        setFieldValue('region', newValue.title?.[currentLang] || newValue.title?.ru);
-                        if (field === 'geography') {
-                          setPostData((prevState) => {
-                            const newState = {
-                              ...prevState,
-                              region_politician_id: newValue.id,
-                              city_politician_id: null,
-                            };
-                            setSortGeography(newState);
-                            setUpdate(!update);
-                            return newState;
-                          });
-                        }
-                        if (field === 'vote') {
-                          setPostData2((prevState) => {
-                            const newState = { ...prevState, region_user_id: newValue.id, city_user_id: null };
-                            setSortVote(newState);
-                            setUpdate(!update);
-                            return newState;
-                          });
-                        }
-                        setFieldValue('city', '');
-                      } else {
-                        setFieldValue('region', '');
-                        setFieldValue('city', '');
-                        if (field === 'geography') {
-                          setPostData({ ...postData, region_politician_id: null, city_politician_id: null });
-                          setCitiesGeography(false);
-                          setUpdate(!update);
-
-                          setSortGeography({
-                            region_politician_id: null,
-                          });
-                        }
-                        if (field === 'vote') {
-                          setPostData2({ ...postData2, region_user_id: null, city_user_id: null });
-                          setCitiesVote(false);
-                          setUpdate(!update);
-
-                          setSortVote({
-                            region_user_id: null,
-                          });
-                        }
-                      }
-                    }}
-                    renderInput={(params) => (
-                      <TextField {...params} type="text" onBlur={handleBlur} variant="outlined" fullWidth />
-                    )}
+              {!expanded ? <ExpandLessIcon className={styles.icon} /> : <ExpandMoreIcon className={styles.icon} />}
+            </Button>
+            {expanded && (
+              <>
+                <div className={styles.worldCheckbox}>
+                  <Checkbox
+                    style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}
+                    icon={<CircleUnchecked style={{ color: 'black' }} />}
+                    checkedIcon={<RadioButtonCheckedIcon style={{ color: 'black' }} />}
+                    value={world}
+                    // onChange={() => {
+                    //   resetFilterForGeography();
+                    //   setWorld(!world);
+                    // }}
                   />
+                  <p>{t('info.worldUser')}</p>
                 </div>
-              ) : null}
-              {cities ? (
-                <div style={{ marginRight: '5px' }}>
-                  <InputLabel htmlFor="city" className={styles.inputLabel}>
-                    {t('buttons.sort.citiesFullTitle')}
-                  </InputLabel>
-                  <Autocomplete
-                    id="city"
-                    options={cities}
-                    value={values.city}
-                    style={{ width: '292px' }}
-                    getOptionLabel={(option: any) => option?.title?.[currentLang] || option?.title?.ru || values.city}
-                    isOptionEqualToValue={(option, value) => {
-                      return option.title?.[currentLang] === value || option.title?.ru === value;
-                    }}
-                    noOptionsText={<>{t('info.noVariants')}</>}
-                    onChange={(_, newValue) => {
-                      if (newValue) {
-                        setFieldValue('city', newValue.title?.[currentLang] || newValue.title?.ru);
-                        if (field === 'geography') {
-                          setPostData((prevState) => {
-                            const newState = { ...prevState, city_politician_id: newValue.id };
-                            setSortGeography(newState);
-                            setUpdate(!update);
-                            return newState;
-                          });
-                        }
-                        if (field === 'vote') {
-                          setPostData2((prevState) => {
-                            const newState = { ...prevState, city_user_id: newValue.id };
-                            setSortVote(newState);
-                            setUpdate(!update);
-                            return newState;
-                          });
-                        }
-                      } else {
-                        if (field === 'geography') {
-                          setSortGeography({
-                            city_politician_id: null,
-                          });
+                <form
+                  onSubmit={handleSubmit}
+                  style={{ width: '270px', marginRight: '15px' }}
+                  className={styles.mainForm}
+                  onReset={handleReset}
+                  noValidate
+                >
+                  <div style={{ marginRight: '30px' }}>
+                    <InputLabel htmlFor="country" className={styles.inputLabel}>
+                      {t('buttons.sort.countryFullTitle')}
+                    </InputLabel>
+                    <Autocomplete
+                      id="country"
+                      options={countries ?? []}
+                      value={values.country}
+                      style={{ width: '292px' }}
+                      getOptionLabel={(option: any) => {
+                        return option?.title?.[currentLang] || option?.title?.ru || values.country;
+                      }}
+                      isOptionEqualToValue={(option, value) => {
+                        return option.title?.[currentLang] === value || option.title?.ru === value;
+                      }}
+                      noOptionsText={<>{t('info.noVariants')}</>}
+                      onChange={(_, newValue) => {
+                        if (newValue) {
+                          setFieldValue('country', newValue.title?.[currentLang] || newValue.title?.ru);
+
+                          if (field === 'geography') {
+                            setPostData((prevState) => {
+                              const newState = {
+                                ...prevState,
+                                country_politician_id: newValue.id,
+                                region_politician_id: null,
+                                city_politician_id: null,
+                              };
+                              setSortGeography(newState);
+                              setUpdate(!update);
+                              return newState;
+                            });
+                          }
+
+                          if (field === 'vote') {
+                            setPostData2((prevState) => {
+                              const newState = {
+                                ...prevState,
+                                country_user_id: newValue.id,
+                                region_user_id: null,
+                                city_user_id: null,
+                              };
+                              setSortVote(newState);
+                              setUpdate(!update);
+                              return newState;
+                            });
+                          }
+                          setFieldValue('region', '');
                         } else {
-                          setSortVote({
-                            city_user_id: null,
-                          });
+                          if (field === 'geography') {
+                            setPostData({
+                              ...postData,
+                              country_politician_id: null,
+                              region_politician_id: null,
+                              city_politician_id: null,
+                            });
+                            setRegionsGeography(false);
+                            setCitiesGeography(false);
+                            setSortGeography({
+                              country_politician_id: null,
+                              region_politician_id: null,
+                              city_politician_id: null,
+                            });
+                            setUpdate(!update);
+                          }
+
+                          if (field === 'vote') {
+                            setPostData2({
+                              ...postData2,
+                              country_user_id: null,
+                              region_user_id: null,
+                              city_user_id: null,
+                            });
+                            setRegionsVote(false);
+                            setCitiesVote(false);
+                            setSortVote({
+                              country_user_id: null,
+                              region_user_id: null,
+                              city_user_id: null,
+                            });
+                            setUpdate(!update);
+                          }
+                          setFieldValue('country', '');
+                          setFieldValue('region', '');
+                          setFieldValue('city', '');
                         }
-                        setFieldValue('city', '');
-                      }
-                    }}
-                    renderInput={(params) => (
-                      <TextField {...params} type="text" onBlur={handleBlur} variant="outlined" fullWidth />
-                    )}
-                  />
-                </div>
-              ) : null}
-            </form>
+                      }}
+                      renderInput={(params) => (
+                        <TextField {...params} type="text" onBlur={handleBlur} fullWidth helperText={errors.country} />
+                      )}
+                    />
+                  </div>
+                  {regions ? (
+                    <div style={{ marginRight: '30px' }}>
+                      <InputLabel htmlFor="region" className={styles.inputLabel}>
+                        {t('buttons.sort.regionFullTitle')}
+                      </InputLabel>
+                      <Autocomplete
+                        id="region"
+                        options={regions}
+                        value={values.region}
+                        style={{ width: '292px' }}
+                        getOptionLabel={(option: any) => {
+                          return option?.title?.[currentLang] || option?.title?.ru || values.region;
+                        }}
+                        isOptionEqualToValue={(option, value) => {
+                          return option.title?.[currentLang] === value || option.title?.ru === value;
+                        }}
+                        noOptionsText={<>{t('info.noVariants')}</>}
+                        onChange={(_, newValue) => {
+                          console.log('region value', newValue);
+                          if (newValue) {
+                            setFieldValue('region', newValue.title?.[currentLang] || newValue.title?.ru);
+                            if (field === 'geography') {
+                              setPostData((prevState) => {
+                                const newState = {
+                                  ...prevState,
+                                  region_politician_id: newValue.id,
+                                  city_politician_id: null,
+                                };
+                                setSortGeography(newState);
+                                setUpdate(!update);
+                                return newState;
+                              });
+                            }
+                            if (field === 'vote') {
+                              setPostData2((prevState) => {
+                                const newState = { ...prevState, region_user_id: newValue.id, city_user_id: null };
+                                setSortVote(newState);
+                                setUpdate(!update);
+                                return newState;
+                              });
+                            }
+                            setFieldValue('city', '');
+                          } else {
+                            setFieldValue('region', '');
+                            setFieldValue('city', '');
+                            if (field === 'geography') {
+                              setPostData({ ...postData, region_politician_id: null, city_politician_id: null });
+                              setCitiesGeography(false);
+                              setUpdate(!update);
+
+                              setSortGeography({
+                                region_politician_id: null,
+                              });
+                            }
+                            if (field === 'vote') {
+                              setPostData2({ ...postData2, region_user_id: null, city_user_id: null });
+                              setCitiesVote(false);
+                              setUpdate(!update);
+
+                              setSortVote({
+                                region_user_id: null,
+                              });
+                            }
+                          }
+                        }}
+                        renderInput={(params) => (
+                          <TextField {...params} type="text" onBlur={handleBlur} variant="outlined" fullWidth />
+                        )}
+                      />
+                    </div>
+                  ) : null}
+                  {cities ? (
+                    <div style={{ marginRight: '5px' }}>
+                      <InputLabel htmlFor="city" className={styles.inputLabel}>
+                        {t('buttons.sort.citiesFullTitle')}
+                      </InputLabel>
+                      <Autocomplete
+                        id="city"
+                        options={cities}
+                        value={values.city}
+                        style={{ width: '292px' }}
+                        getOptionLabel={(option: any) => {
+                          return option?.title?.[currentLang] || option?.title?.ru || values.city;
+                        }}
+                        isOptionEqualToValue={(option, value) => {
+                          return option.title?.[currentLang] === value || option.title?.ru === value;
+                        }}
+                        noOptionsText={<>{t('info.noVariants')}</>}
+                        onChange={(_, newValue) => {
+                          if (newValue) {
+                            setFieldValue('city', newValue.title?.[currentLang] || newValue.title?.ru);
+                            if (field === 'geography') {
+                              setPostData((prevState) => {
+                                const newState = { ...prevState, city_politician_id: newValue.id };
+                                setSortGeography(newState);
+                                setUpdate(!update);
+                                return newState;
+                              });
+                            }
+                            if (field === 'vote') {
+                              setPostData2((prevState) => {
+                                const newState = { ...prevState, city_user_id: newValue.id };
+                                setSortVote(newState);
+                                setUpdate(!update);
+                                return newState;
+                              });
+                            }
+                          } else {
+                            if (field === 'geography') {
+                              setSortGeography({
+                                city_politician_id: null,
+                              });
+                            } else {
+                              setSortVote({
+                                city_user_id: null,
+                              });
+                            }
+                            setFieldValue('city', '');
+                          }
+                        }}
+                        renderInput={(params) => (
+                          <TextField {...params} type="text" onBlur={handleBlur} variant="outlined" fullWidth />
+                        )}
+                      />
+                    </div>
+                  ) : null}
+                </form>
+              </>
+            )}
           </div>
         );
       }}

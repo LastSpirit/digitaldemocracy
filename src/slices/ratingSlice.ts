@@ -78,14 +78,50 @@ export const ratingSlice = createSlice({
     setPoliticians(state: SliceState, action: PayloadAction<PoliticiansI>) {
       state.politicians = action.payload;
     },
+    addPoliticians(state: SliceState, action: PayloadAction<PoliticiansI>) {
+      state.politicians = {
+        politicians: [
+          ...state.politicians.politicians,
+          ...action.payload.politicians
+        ],
+        isMorePages: action.payload.isMorePages,
+      };
+    },
     setAuthors(state: SliceState, action: PayloadAction<AuthorsI>) {
       state.authors = action.payload;
+    },
+    addAuthors(state: SliceState, action: PayloadAction<AuthorsI>) {
+      state.authors = {
+        authors: [
+          ...state.authors.authors,
+          ...action.payload.authors
+        ],
+        isMorePages: action.payload.isMorePages,
+      };
     },
     setMedia(state: SliceState, action: PayloadAction<MediaI>) {
       state.massMedia = action.payload;
     },
+    addMedia(state: SliceState, action: PayloadAction<MediaI>) {
+      state.massMedia = {
+        media: [
+          ...state.massMedia.media,
+          ...action.payload.media
+        ],
+        isMorePages: action.payload.isMorePages,
+      };
+    },
     setParties(state: SliceState, action: PayloadAction<PartiesI>) {
       state.parties = action.payload;
+    },
+    addParties(state: SliceState, action: PayloadAction<PartiesI>) {
+      state.parties = {
+        parties: [
+          ...state.parties.parties,
+          ...action.payload.parties,
+        ],
+        isMorePages: action.payload.isMorePages,
+      };
     },
     setSortDirection(state, action) {
       state.sort_direction = action.payload;

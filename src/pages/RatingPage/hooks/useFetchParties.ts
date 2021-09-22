@@ -9,19 +9,24 @@ import { ratingActionCreators } from '../../../slices/ratingSlice';
 export const useFetchParties = () => {
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
   const { fetchRatingParties } = ratingAPI();
-  const { setParties } = ratingActionCreators();
+  const { setParties, addParties } = ratingActionCreators();
   const { sort_direction, sort_field } = useSelector((s: RootState) => s.rating);
 
-  const fetch = useCallback(() => {
+  const fetch = useCallback((page = 1) => {
     setStatus(APIStatus.Loading);
     fetchRatingParties({
       onSuccess: (response) => {
-        setParties(response);
+        if (page > 1) {
+          addParties(response);
+        } else {
+          setParties(response);
+        }
         setStatus(APIStatus.Success);
       },
       onError: () => setStatus(APIStatus.Failure),
       payload: {
         params: {
+          page,
           orderBy: sort_direction,
           sortBy: sort_field,
         },

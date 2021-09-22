@@ -15,7 +15,7 @@
   }
 
   .chartContainer {
-    border: 1px solid #B0B0B0;
+    border: 1px solid #b0b0b0;
     border-radius: 5px;
 
     .chartWrapper {
@@ -42,7 +42,7 @@
 
       padding: 10px;
 
-      border-bottom: 1px solid #B0B0B0;
+      border-bottom: 1px solid #b0b0b0;
 
       .picker {
         display: flex;
@@ -118,7 +118,7 @@
       margin-right: 15px;
       padding: 5px 20px;
 
-      border-color: #B0B0B0;
+      border-color: #b0b0b0;
 
       .icon {
         height: 100%;
@@ -126,7 +126,7 @@
         text-align: left;
         letter-spacing: 0;
 
-        color: #7A7A7A;
+        color: #7a7a7a;
 
         font-family: HelveticaNeueCyr;
         font-size: 18px;
@@ -141,7 +141,7 @@
         text-align: left;
         letter-spacing: 0;
 
-        color: #7A7A7A;
+        color: #7a7a7a;
 
         font-family: HelveticaNeueCyr;
         font-size: 18px;
@@ -166,7 +166,7 @@
       margin-right: 15px;
       padding: 5px 20px;
 
-      border-color: #B0B0B0;
+      border-color: #b0b0b0;
       background-color: #363557;
 
       .icon {
@@ -175,7 +175,7 @@
         text-align: left;
         letter-spacing: 0;
 
-        color: #FFF;
+        color: #fff;
 
         font-family: HelveticaNeueCyr;
         font-size: 18px;
@@ -190,7 +190,7 @@
         text-align: left;
         letter-spacing: 0;
 
-        color: #FFF;
+        color: #fff;
 
         font-family: HelveticaNeueCyr;
         font-size: 18px;
@@ -284,7 +284,7 @@
       text-decoration: none;
 
       color: #747373;
-      border-bottom: 1px solid #B0B0B0;
+      border-bottom: 1px solid #b0b0b0;
 
       &:hover {
         background-color: #36355720;
@@ -334,7 +334,7 @@
         transform: rotate(180deg);
 
         border-radius: 100%;
-        background-color: #F3F3F3;
+        background-color: #f3f3f3;
 
         font-size: 10px;
       }
@@ -346,7 +346,7 @@
         cursor: pointer;
 
         border-radius: 100%;
-        background-color: #F3F3F3;
+        background-color: #f3f3f3;
 
         font-size: 10px;
       }
@@ -383,7 +383,7 @@
 
           text-align: center;
 
-          border: 1px solid #B0B0B0;
+          border: 1px solid #b0b0b0;
           border-radius: 30px;
 
           font-size: 70%;
@@ -400,7 +400,7 @@
   flex-direction: column;
   justify-content: space-between;
 
-  border-bottom: 1px solid #B0B0B0;
+  border-bottom: 1px solid #b0b0b0;
 
   .buttonRow {
     display: flex;
@@ -412,7 +412,7 @@
       margin: 0;
       padding: 5px 20px;
 
-      border-color: #B0B0B0;
+      border-color: #b0b0b0;
 
       .icon {
         height: 100%;
@@ -421,7 +421,7 @@
         text-align: left;
         letter-spacing: 0;
 
-        color: #7A7A7A;
+        color: #7a7a7a;
 
         font-family: HelveticaNeueCyr;
         font-size: 18px;
@@ -434,7 +434,7 @@
         text-align: left;
         letter-spacing: 0;
 
-        color: #7A7A7A;
+        color: #7a7a7a;
 
         font-family: HelveticaNeueCyr;
         font-size: 18px;
@@ -720,7 +720,7 @@
 }
 .cardsBlock {
   .text {
-    color: white
+    color: white;
   }
 }
 
@@ -764,7 +764,7 @@
       margin: 0 !important;
       padding: 5px 20px;
 
-      border-color: #B0B0B0;
+      border-color: #b0b0b0;
 
       .icon {
         height: 100%;
@@ -773,7 +773,7 @@
         text-align: left;
         letter-spacing: 0;
 
-        color: #7A7A7A;
+        color: #7a7a7a;
 
         font-family: HelveticaNeueCyr;
         font-size: 18px;
@@ -786,7 +786,7 @@
         text-align: left;
         letter-spacing: 0;
 
-        color: #7A7A7A;
+        color: #7a7a7a;
 
         font-family: HelveticaNeueCyr;
         font-size: 18px;
@@ -828,10 +828,10 @@
         height: 100%;
 
         border-radius: 100%;
-        background-color: #FFF;
+        background-color: #fff;
 
         &.noAvatar {
-          background-color: #E5E5E5;
+          background-color: #e5e5e5;
         }
 
         .noAvatarIcon {
@@ -876,7 +876,7 @@
           height: 100%;
           padding: 0 20px;
 
-          border: 1px solid #B0B0B0;
+          border: 1px solid #b0b0b0;
           border-radius: 20px;
 
           .infoCard {
@@ -903,7 +903,7 @@
                 height: 16px;
                 margin-right: 10px;
 
-                border: 1px solid #9F9F9F;
+                border: 1px solid #9f9f9f;
                 border-radius: 100%;
 
                 img {
@@ -915,7 +915,7 @@
               .title {
                 letter-spacing: 0;
 
-                color: #B0B0B0;
+                color: #b0b0b0;
 
                 font-family: HelveticaNeueCyr;
                 font-size: 14px;
@@ -934,13 +934,13 @@
               padding: 0 0;
 
               .position {
-                color: #B0B0B0;
+                color: #b0b0b0;
 
                 font-size: 10px;
               }
 
               .age {
-                color: #B0B0B0;
+                color: #b0b0b0;
 
                 font-size: 8px;
               }
@@ -998,7 +998,7 @@
               align-items: center;
               justify-content: center;
 
-              color: #7A7A7A;
+              color: #7a7a7a;
 
               font-size: 13px;
             }
@@ -1049,8 +1049,8 @@
     margin-top: 10px !important;
 
     color: #222;
-    border: 1px solid #B0B0B0;
-    background-color: #EDEDED !important;
+    border: 1px solid #b0b0b0;
+    background-color: #ededed !important;
 
     font-size: 14px;
   }
@@ -1106,14 +1106,14 @@
       height: 93%;
 
       border-radius: 5%;
-      background-color: #FFF;
+      background-color: #fff;
 
       &__nonRaiting {
         border: 1px solid #000;
       }
 
       &.noAvatar {
-        background-color: #E5E5E5;
+        background-color: #e5e5e5;
       }
 
       .noAvatarIcon {
@@ -1133,8 +1133,8 @@
       margin-top: 20px;
       padding: 2px 0 !important;
 
-      color: #B0B0B0;
-      border: 1px solid #B0B0B0;
+      color: #b0b0b0;
+      border: 1px solid #b0b0b0;
     }
   }
 
@@ -1230,7 +1230,7 @@
               padding: 20px 15px;
 
               border-radius: 48px;
-              background: #EDEDED;
+              background: #ededed;
 
               @media screen and (max-width: $preMobileScreen) {
                 height: 70%;
@@ -1342,7 +1342,7 @@
   align-items: flex-end;
   justify-content: flex-end;
 
-  color: #7A7A7A;
+  color: #7a7a7a;
 
   font-size: 18px;
   font-weight: 500;
@@ -1377,6 +1377,14 @@
     border-radius: 50%;
     background-color: #363557;
   }
+}
+.politicPosition {
+  margin-bottom: 12px;
+
+  color: #585858;
+
+  font-size: 18px;
+  line-height: 21px;
 }
 
 .age {
@@ -1438,7 +1446,7 @@
     margin-top: 8px;
     margin-bottom: 12px;
 
-    color: #7A7A7A;
+    color: #7a7a7a;
 
     font-size: 11px;
     font-weight: 500;
@@ -1473,14 +1481,14 @@
         height: 93%;
 
         border-radius: 5%;
-        background-color: #FFF;
+        background-color: #fff;
 
         &__nonRaiting {
           border: 1px solid #000;
         }
 
         &.mobNoAvatar {
-          background-color: #E5E5E5;
+          background-color: #e5e5e5;
         }
 
         .mobNoAvatarIcon {
@@ -1501,13 +1509,26 @@
     display: flex;
     flex-direction: column;
 
-    color: #7A7A7A;
+    color: #7a7a7a;
 
     font-size: 11px;
     line-height: 13px;
 
     .mobEnglishName {
       margin-bottom: 8px;
+    }
+    .mobPosition {
+      max-width: 175px;
+      white-space: nowrap;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .positionText {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .mobAge {
@@ -1557,9 +1578,9 @@
         width: 112px;
         height: 29px;
 
-        color: #34A853;
+        color: #34a853;
         border-radius: 150px;
-        background: #D4F5DD;
+        background: #d4f5dd;
 
         &__nonRaiting {
           width: auto;

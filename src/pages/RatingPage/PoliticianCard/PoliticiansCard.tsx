@@ -12,7 +12,7 @@ import styles from './PoliticiansCard.module.scss';
 import { useSearchParams } from '../../../hooks/useSearchParams';
 import { ModalParams } from '../../../types/routing';
 import { userSelectors } from '../../../slices/userSlice';
-import { PoliticianInfoI } from '../../../slices/politicianSlice';
+import { PoliticianInfoI, politicianSelectors } from '../../../slices/politicianSlice';
 import { Loading } from '../../../components/Loading/Loading';
 import { useChangeSubscribePolitician } from '../hooks/useChangeSubscribePolitician';
 import { APIStatus } from '../../../lib/axiosAPI';
@@ -28,10 +28,12 @@ const PoliticiansCard: FC<IProps> = ({
   short_link,
   position,
   place,
+  position_count,
   country,
 }) => {
   const { t, i18n } = useTranslation();
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
+  const historyPosition = useSelector(politicianSelectors.getPositionHistory());
   const { status, change } = useChangeSubscribePolitician(id);
   const { push } = useHistory();
   const {
@@ -43,6 +45,7 @@ const PoliticiansCard: FC<IProps> = ({
       setAuthValue('/login');
     }
   };
+  console.log(historyPosition, 'wdkicbdhwjniecd');
 
   return (
     <div className={styles.root}>
@@ -63,17 +66,18 @@ const PoliticiansCard: FC<IProps> = ({
             backgroundColor: badgeColorChanger(rating),
           }}
         >
-          <div className={styles.text}>
-            {rating && place ? `${t('info.place')} ${place}` : t('info.withoutRating')}
-          </div>
+          <div className={styles.text}>{rating && place ? `${t('info.place')} ${place}` : t('info.withoutRating')}</div>
         </div>
-        <div className={styles.percent}>
-          {rating ? `${rating} %` : ''}
-        </div>
+        <div className={styles.percent}>{rating ? `${rating} %` : ''}</div>
       </div>
       <div className={styles.name}>{name}</div>
-      <div className={styles.country}>{country?.title[i18n.language]}</div>
-      <div className={styles.position}>{position}</div>
+
+      <div className={styles.position}>
+        {position}
+        <Link to={`/politician/${short_link}/position_history`}>
+          {position ? `${`...${t('info.more')}${position_count - 1}`}` : ''}
+        </Link>
+      </div>
       <Button
         variant="outlined"
         color={is_subscribed ? 'secondary' : 'primary'}

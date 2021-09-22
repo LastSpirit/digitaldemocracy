@@ -39,13 +39,9 @@ const PartyCard: FC<IProps> = ({ logo, rating, name, id, short_link, place, coun
             backgroundColor: badgeColorChanger(rating),
           }}
         >
-          <div className={styles.text}>
-            {rating && place ? `${t('info.place')} ${place}` : t('info.withoutRating')}
-          </div>
+          <div className={styles.text}>{rating && place ? `${t('info.place')} ${place}` : t('info.withoutRating')}</div>
         </div>
-        <div className={styles.percent}>
-          {rating ? `${rating} %` : ''}
-        </div>
+        <div className={styles.percent}>{rating ? `${rating} %` : ''}</div>
       </div>
       <hr />
       <div className={styles.name}>{name}</div>
