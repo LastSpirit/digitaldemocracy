@@ -5,6 +5,7 @@ import debounce from 'lodash/debounce';
 import { Button, TextField, InputAdornment, IconButton, Container } from '@material-ui/core';
 import cn from 'classnames';
 import ClearIcon from '@material-ui/icons/Clear';
+import SearchIcon from '@material-ui/icons/Search';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { BackButton } from '../BackButton/BackButton';
@@ -109,7 +110,7 @@ const setActiveAction = (key) => ({
   }
 });
 
-export const Search = () => {
+export const Search = ({ mobile = false }) => {
   const { t, i18n } = useTranslation();
   const { pathname } = useLocation();
   const { push } = useHistory();
@@ -183,8 +184,8 @@ export const Search = () => {
 
   return (
     <Container>
-      <Container className={styles.container}>
-        { pathname !== '/' && <BackButton /> }
+      <Container className={styles.container} sx={{ padding: mobile && '0!important' }}>
+        { pathname !== '/' && !mobile && <BackButton /> }
         <div className={styles.search}>
           <Formik
             initialValues={{
@@ -241,6 +242,7 @@ export const Search = () => {
                             ),
                             sx: {
                               borderRadius: '70px 0 0 70px',
+                              background: mobile ? '#fff' : 'auto'
                             },
                             className: styles.searchInput
                           }}
@@ -258,10 +260,10 @@ export const Search = () => {
                           maxHeight: '40px',
                         }}
                       >
-                        {t('footer.menu.search')}
+                        {mobile ? <SearchIcon fill={'#FFFFFF'} style={{ fontSize: '30px' }} /> : t('footer.menu.search')}
                       </Button>
                     </div>
-                    {pathname === '/search' && (
+                    {!mobile && pathname === '/search' && (
                       <div className={styles.filterTabs}>
                         {Object.keys(buttons)
                           .map((key) => (

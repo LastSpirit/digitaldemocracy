@@ -22,8 +22,6 @@ import Logo from '../Logo';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import Register from '../../icons/Register';
 import News from '../../icons/News';
-import Information from '../../icons/Information';
-import Search from '../../icons/Search';
 import { Person } from '../../icons/Person';
 import Rating from '../../icons/Rating';
 import '../MainNavbar.scss';
@@ -34,6 +32,8 @@ import PrivacyPolicyPdf from '../../theme/PrivacyPolicy.pdf';
 import TermsOfUse from '../../theme/TermsOfUse.pdf';
 
 import styles from './styles.module.scss';
+import Donate from '../../icons/Donate';
+import Add from '../../icons/Add';
 
 const sectionsData = (t) => {
   return [
@@ -133,29 +133,41 @@ const iconsData = (isAuthenticated) => {
   const { t } = useTranslation();
   return [
     {
-      title: t('footer.menu.search') || 'Поиск',
-      icon: <Search />,
-      to: '/search',
-    },
-    {
       title: t('footer.menu.ratingMenu') || 'Рейтинг',
       icon: <Rating />,
       to: '/rating/politicians',
+      auth: ['user', 'no-user'],
     },
     {
-      title: t('footer.menu.newsMenu') || 'Новости',
-      icon: <News />,
-      to: '/news',
-    },
-    {
-      title: t('footer.menu.aboutMenu') || 'О площадке',
-      icon: <Information />,
-      to: '/about',
+      title: t('buttons.add'),
+      icon: <Add />,
+      to: '/suggestion',
+      auth: ['user'],
     },
     {
       title: isAuthenticated ? t('footer.menu.profileMenu') : t('footer.menu.signInFooter'),
       icon: isAuthenticated ? <Person /> : <Register />,
       to: isAuthenticated ? '/profile' : AuthParam.login,
+      auth: ['user'],
+    },
+    {
+      title: t('footer.menu.newsMenu') || 'Новости',
+      icon: <News />,
+      to: '/news',
+      auth: ['user', 'no-user'],
+    },
+    {
+      title: t('buttons.enter'),
+      icon: <Register />,
+      to: AuthParam.login,
+      login: true,
+      auth: ['no-user']
+    },
+    {
+      title: t('footer.menu.donateMenu'),
+      icon: <Donate />,
+      to: '/donation',
+      auth: ['user', 'no-user']
     },
   ];
 };
@@ -178,7 +190,6 @@ const Footer: FC = (props) => {
   const sections = sectionsData(t);
   const authUserSections = authUserSectionsData(t);
   const icons = iconsData(isAuthenticated);
-
   return (
     <Box
       sx={{
@@ -220,7 +231,7 @@ const Footer: FC = (props) => {
                 overflow: 'hidden',
               }}
             >
-              {icons.map(({ icon, title, to }, index) => (
+              {icons.filter((el) => isAuthenticated ? el.auth.includes('user') : el.auth.includes('no-user')).map(({ icon, title, to, login }, index) => (
                 <Box
                   key={index.toString()}
                   sx={{
@@ -231,7 +242,7 @@ const Footer: FC = (props) => {
                     cursor: 'pointer',
                   }}
                   onClick={() => {
-                    return !isAuthenticated && title === t('footer.menu.signInFooter') ? setAuthValue(to) : push(to);
+                    return !isAuthenticated && login ? setAuthValue(to) : push(to);
                   }}
                 >
                   {icon}
