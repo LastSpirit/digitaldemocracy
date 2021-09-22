@@ -34,6 +34,7 @@ interface IProps {
 const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
   const { t, i18n } = useTranslation();
   const data = useSelector(politicianSelectors.getPoliticianInfo());
+  const historyPosition = useSelector(politicianSelectors.getPositionHistory());
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { isMobile } = useWindowSize();
   const { status, change } = useChangeSubscribe();
