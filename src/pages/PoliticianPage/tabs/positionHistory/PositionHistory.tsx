@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DataGrid, GridColumns } from '@material-ui/data-grid';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { Tooltip } from '@material-ui/core';
+import { Tooltip, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import styles from './styles.module.scss';
 import { useFetchHistory } from './hooks/useFetchHistory';
@@ -46,6 +46,8 @@ export const PositionHistory = () => {
   const { status, fetch } = useFetchHistory();
   const data = useSelector(politicianSelectors.getPositionHistory());
   const theme = useLocalesThemeMaterial();
+
+  const tableData = (data || []).map((row, index) => ({ ...row, index }));
   useEffect(() => {
     fetch();
   }, []);
@@ -55,11 +57,14 @@ export const PositionHistory = () => {
       <WrapperAsyncRequest status={status}>
         <ThemeProvider theme={theme}>
           <DataGrid
-            rows={data || []}
+            autoHeight
+            rows={tableData}
             columns={columns(t)}
+            getRowClassName={() => styles['table-row']}
             // pageSize={5}
             // checkboxSelection={false}
             // pageSize={0}
+            rowHeight={30}
             hideFooterPagination={true}
             rowsPerPageOptions={[]}
             className={styles.dataGrid}
