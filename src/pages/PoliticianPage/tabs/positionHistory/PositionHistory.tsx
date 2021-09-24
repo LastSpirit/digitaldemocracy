@@ -44,10 +44,37 @@ const columns = (t): GridColumns => [
 export const PositionHistory = () => {
   const { t } = useTranslation();
   const { status, fetch } = useFetchHistory();
-  const data = useSelector(politicianSelectors.getPositionHistory());
+  const data = useSelector(politicianSelectors.getPoliticianInfo());
   const theme = useLocalesThemeMaterial();
 
-  const tableData = (data || []).map((row, index) => ({ ...row, index }));
+  const tableData = data
+    ? [
+        ...data.list_position.map(({ position, type, id, percent, years }) => ({
+          position,
+          type,
+          id,
+          percent,
+          years,
+          className: 'list_position',
+        })),
+        ...data.list_active_position.map(({ position, type, id, percent, years }) => ({
+          position,
+          type,
+          id,
+          percent,
+          years,
+          className: 'list_active_position',
+        })),
+        ...data.list_other_position.map(({ position, type, id, percent, years }) => ({
+          position,
+          type,
+          id,
+          percent,
+          years,
+        })),
+      ]
+    : [];
+
   useEffect(() => {
     fetch();
   }, []);
@@ -60,7 +87,10 @@ export const PositionHistory = () => {
             autoHeight
             rows={tableData}
             columns={columns(t)}
-            getRowClassName={() => styles['table-row']}
+            getRowClassName={(params) => {
+              const className = params.getValue(params.id, 'className');
+              return styles[String(className)];
+            }}
             // pageSize={5}
             // checkboxSelection={false}
             // pageSize={0}
