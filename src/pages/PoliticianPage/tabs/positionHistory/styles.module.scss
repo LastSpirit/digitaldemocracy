@@ -9,8 +9,12 @@
 //   }
 // }
 
-.table-row:first-child {
+.list_position {
   background-color: rgb(31, 131, 46) !important;
+}
+
+.list_active_position {
+  background-color: rgb(49, 170, 82) !important;
 }
 
 .cell {
