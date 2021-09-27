@@ -6,7 +6,7 @@ import './i18n';
 import firebase from 'firebase';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
-import { firebaseConfig, gtmConfig } from './config';
+import { isDev, firebaseConfig, gtmConfig } from './config';
 import useSettings from './hooks/useSettings';
 import gtm from './lib/gtm';
 import { createAppTheme } from './theme';
@@ -82,7 +82,7 @@ const App: FC = () => {
       isAuthenticated !== undefined ? (
         <ThemeProvider theme={theme}>
           <Helmet>
-            <title>Digital Democracy | Dev</title>
+            <title>{isDev ? 'Digital Democracy | Dev' : 'Digital Democracy'}</title>
           </Helmet>
           <MainLayout>
             <Switch>
