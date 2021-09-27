@@ -31,7 +31,6 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
     >
       <MainNavbar />
       {!isMobile && <Search />}
-      {isAuthenticated && !isMobile && pathname !== '/suggestion' && <SuggestButton />}
       <AuthModal />
       {children}
       <Footer />
