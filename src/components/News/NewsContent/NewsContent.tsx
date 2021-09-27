@@ -99,8 +99,8 @@ const NewsContent: FC<NewsPropsI> = ({ newsTopics, news, isMorePages, nameArea, 
                     style={
                       item.type === 'widgetLink'
                         ? {
-                            alignSelf: 'center',
-                          }
+                          alignSelf: 'center',
+                        }
                         : {}
                     }
                   >
