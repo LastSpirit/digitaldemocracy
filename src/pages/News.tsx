@@ -8,8 +8,8 @@ import { useActions } from '../components/News/hooks/useActions';
 import { useSelectorType } from '../components/News/hooks/useSelecterType';
 import { useWindowSize } from '../hooks/useWindowSize';
 import NewsSideBar from '../components/News/NewsSideBar';
-import NewsBody from '../components/News/NewsBody';
 import NewsSlider from '../components/News/NewsSlider';
+import NewsBody from '../components/News/NewsBody';
 
 export enum TypeNavigationMenu {
   ACTUAL = 'actual',
@@ -90,6 +90,7 @@ const News:FC<IPropsNews> = ({ main }) => {
           <Box
             sx={{
               maxWidth: '100%',
+              minWidth: '160px',
               margin: '35px auto',
             }}
           >

@@ -13,7 +13,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { useHistory, useLocation } from 'react-router-dom';
+import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
 import { alpha } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
@@ -245,8 +245,8 @@ const Footer: FC = (props) => {
                     return !isAuthenticated && login ? setAuthValue(to) : push(to);
                   }}
                 >
-                  {icon}
-                  <span style={{ marginTop: '4px', fontSize: '10px', color: pathname === to ? '#248232' : '#7A7A7A' }}>{title}</span>
+                    {icon}
+                    <span style={{ marginTop: '4px', fontSize: '10px', color: pathname === to ? '#248232' : '#7A7A7A' }}>{title}</span>
                 </Box>
               ))}
             </Container>
