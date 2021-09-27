@@ -17,6 +17,9 @@ export interface PoliticianInfoI {
   party?: PartyI;
   party_logo?: string;
   position?: string | null;
+  list_other_position: Array<PositionHistoryI>;
+  list_active_position?: Array<PositionHistoryI>;
+  list_position?: Array<PositionHistoryI>;
   age?: number;
   city?: string;
   trust?: string;

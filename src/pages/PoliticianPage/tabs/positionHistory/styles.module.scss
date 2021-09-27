@@ -3,15 +3,22 @@
   height: 100%;
 }
 
-.dataGrid {
-  @media screen and (max-width: 570px) {
-    height: 400px !important;
-  }
+// .dataGrid {
+//   @media screen and (max-width: 570px) {
+//     height: 400px !important;
+//   }
+// }
+
+.list_position {
+  background-color: rgb(31, 131, 46) !important;
+}
+
+.list_active_position {
+  background-color: rgb(49, 170, 82) !important;
 }
 
 .cell {
   overflow: hidden;
-
-  white-space: nowrap;
+  white-space: wrap;
   text-overflow: ellipsis;
 }
