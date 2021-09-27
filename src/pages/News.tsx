@@ -1,15 +1,98 @@
-import React, { useEffect, useState } from 'react';
-import type { FC } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Box, Container } from '@material-ui/core';
+// import React, { useEffect, useState } from 'react';
+// import type { FC } from 'react';
+// import { useTranslation } from 'react-i18next';
+// import { Box, Container } from '@material-ui/core';
+// import { useSelector } from 'react-redux';
+// import { useFetchNewsData } from '../components/News/hooks/useFetchNewsData';
+// import NewsNav from '../components/News/NewsNav/NewsNav';
+// import NewsContent from '../components/News/NewsContent/NewsContent';
+// import { newsSelector } from '../slices/newsSlice';
+// import { userSelectors } from '../slices/userSlice';
+// import { APIStatus } from '../lib/axiosAPI';
+// import { Loading } from '../components/Loading/Loading';
+//
+
+//
+// const News: FC = () => {
+//   const { t } = useTranslation();
+//   const navigation = [
+//     { title: t('news.tabTitleActual'), id: 0, type: TypeNavigationMenu.ACTUAL },
+//     { title: t('news.tabTitleSubscription'), id: 1, type: TypeNavigationMenu.SUBSCRIPTIONS },
+//     { title: t('news.tabTitleCountry'), id: 2, type: TypeNavigationMenu.COUNTRY },
+//     { title: t('news.tabTitleRegion'), id: 3, type: TypeNavigationMenu.REGION },
+//     { title: t('news.tabTitleCity'), id: 4, type: TypeNavigationMenu.CITY },
+//   ];
+//   const [selectedTab, setSelectedTab] = useState(TypeNavigationMenu.ACTUAL);
+//   const { fetch, fetchAreaNews, fetchDataStatus, fetchSubscriptionsNews, fetchWeeksForNews } = useFetchNewsData();
+//   const data = useSelector(newsSelector.getData());
+//   const weeks = useSelector(newsSelector.getWeeks());
+//   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
+//   // useEffect(() => {
+//   //   fetch();
+//   // }, []);
+//   useEffect(() => {
+//     fetchWeeksForNews();
+//   }, []);
+//   // console.log(selectedTab);
+//   // useEffect(() => {
+//   //   switch (selectedTab) {
+//   //   case TypeNavigationMenu.COUNTRY:
+//   //   case TypeNavigationMenu.REGION:
+//   //   case TypeNavigationMenu.CITY:
+//   //     fetchAreaNews(selectedTab);
+//   //     return;
+//   //   case TypeNavigationMenu.SUBSCRIPTIONS:
+//   //     fetchSubscriptionsNews();
+//   //     return;
+//   //   default:
+//   //     fetch();
+//   //   }
+//   // }, [selectedTab]);
+//   return (
+//     <Box>
+//       <Container maxWidth="lg">
+//         {isAuthenticated && <NewsNav navigation={navigation} selectedTab={selectedTab} onClick={setSelectedTab} />}
+//         {fetchDataStatus === APIStatus.Loading ? (
+//           <Container
+//             maxWidth="lg"
+//             sx={{
+//               display: 'flex',
+//               justifyContent: 'center',
+//               alignItems: 'center',
+//               height: '80vh',
+//             }}
+//           >
+//             <Loading size={80} />
+//           </Container>
+//         ) : (
+//           <NewsContent
+//             selectedTab={selectedTab}
+//             newsTopics={data?.newsTopics}
+//             news={data?.news}
+//             weekNews={weeks?.news}
+//             isMorePages={weeks?.isMorePages}
+//             nameArea={data?.country || data?.region || data?.city}
+//           />
+//         )}
+//       </Container>
+//     </Box>
+//   );
+// };
+//
+// export default News;
+
+import React, { FC, useEffect, useMemo, useState } from 'react';
+import { Box, Container, Grid } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import { useFetchNewsData } from '../components/News/hooks/useFetchNewsData';
-import NewsNav from '../components/News/NewsNav/NewsNav';
-import NewsContent from '../components/News/NewsContent/NewsContent';
-import { newsSelector } from '../slices/newsSlice';
+import { useTranslation } from 'react-i18next';
+import NewsTab from '../components/News/NewsNav/NewsTab';
 import { userSelectors } from '../slices/userSlice';
-import { APIStatus } from '../lib/axiosAPI';
-import { Loading } from '../components/Loading/Loading';
+import { useActions } from '../components/News/hooks/useActions';
+import { useSelectorType } from '../components/News/hooks/useSelecterType';
+import { useWindowSize } from '../hooks/useWindowSize';
+import NewsSideBar from '../components/News/NewsSideBar';
+import NewsBody from '../components/News/NewsBody';
+import NewsSlider from '../components/News/NewsSlider';
 
 export enum TypeNavigationMenu {
   ACTUAL = 'actual',
@@ -19,65 +102,113 @@ export enum TypeNavigationMenu {
   CITY = 'city',
 }
 
-const News: FC = () => {
-  const { t } = useTranslation();
-  const navigation = [
-    { title: t('news.tabTitleActual'), id: 0, type: TypeNavigationMenu.ACTUAL },
-    { title: t('news.tabTitleSubscription'), id: 1, type: TypeNavigationMenu.SUBSCRIPTIONS },
-    { title: t('news.tabTitleCountry'), id: 2, type: TypeNavigationMenu.COUNTRY },
-    { title: t('news.tabTitleRegion'), id: 3, type: TypeNavigationMenu.REGION },
-    { title: t('news.tabTitleCity'), id: 4, type: TypeNavigationMenu.CITY },
-  ];
-  const [selectedTab, setSelectedTab] = useState(TypeNavigationMenu.ACTUAL);
-  const { fetch, fetchAreaNews, fetchDataStatus, fetchSubscriptionsNews } = useFetchNewsData();
-  const data = useSelector(newsSelector.getData());
+interface IPropsNews{
+  main?: boolean
+}
+const News:FC<IPropsNews> = ({ main }) => {
+  const { t, i18n } = useTranslation();
+  const { isMobile } = useWindowSize();
+  const lang = i18n.language;
+  const { fetchNews, fetchAllNews, fetchTopicsNews } = useActions();
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
-
+  const { country_id: country, region_id: region, city_id: city } = useSelector(userSelectors.getUser());
+  const { news, loading, isMorePages, error, newsTopics, allNews, loadingMore } = useSelectorType((state) => state.newsPage);
+  const objForTab = { country, region, city, actual: true, subscriptions: isAuthenticated };
+  const [stateTab, setStateTab] = useState(TypeNavigationMenu.ACTUAL);
+  const [stateTheme, setStateTheme] = useState(null);
+  const [statePage, setStatePage] = useState(1);
+  const [stateWkNews, setStateWkNews] = useState({});
   useEffect(() => {
-    fetch();
-  }, []);
-
-  useEffect(() => {
-    switch (selectedTab) {
-    case TypeNavigationMenu.COUNTRY:
-    case TypeNavigationMenu.REGION:
-    case TypeNavigationMenu.CITY:
-      fetchAreaNews(selectedTab);
-      return;
-    case TypeNavigationMenu.SUBSCRIPTIONS:
-      fetchSubscriptionsNews();
-      return;
-    default:
-      fetch();
+    if (main) {
+      fetchAllNews(statePage, stateTheme);
+    } else {
+      fetchTopicsNews(statePage);
+      fetchNews(statePage, stateTheme, stateTab);
     }
-  }, [selectedTab]);
+  }, [statePage, stateTheme, stateTab, main]);
+  useEffect(() => {
+    if (!main) {
+      const obj = {};
+      if (news && news.length) {
+        news.forEach((el) => {
+          if (el.news.length > 3) {
+            obj[el.weekdayfrom] = 3;
+          }
+        });
+        setStateWkNews(obj);
+      }
+    }
+  }, [news, main]);
+  const handlerTheme = (id: number | null) => {
+    setStatePage(1);
+    setStateTheme(id);
+  };
+
+  const titleContent = useMemo(() => {
+    let title = t('news.actualNews');
+    if (stateTab === TypeNavigationMenu.SUBSCRIPTIONS) {
+      title = t('news.actualNewsSubscriptions');
+    } else if (stateTab !== TypeNavigationMenu.ACTUAL) {
+      title = objForTab[stateTab]?.title[lang];
+    }
+    return title;
+  }, [stateTab, lang]);
+  const showMoreNews = () => {
+    setStatePage((prevState) => prevState + 1);
+  };
+  const viewMore = (key) => {
+    setStateWkNews((prevState) => {
+      return { ...prevState, [key]: prevState[key] + 3 };
+    });
+  };
   return (
-    <Box>
-      <Container maxWidth="lg">
-        {isAuthenticated && <NewsNav navigation={navigation} selectedTab={selectedTab} onClick={setSelectedTab} />}
-        {fetchDataStatus === APIStatus.Loading ? (
-          <Container
-            maxWidth="lg"
+    <Container maxWidth="lg">
+      <Grid container direction="column" spacing={isMobile ? 0 : 3} marginBottom={10}>
+        {isAuthenticated && !main && (
+          <Grid item xs sx={{ width: '100%' }}>
+            <NewsTab objForTab={objForTab} handlerTab={setStateTab} valTab={stateTab} />
+          </Grid>
+        )}
+        {isMobile && (
+          <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '80vh',
+              maxWidth: '100%',
+              margin: '35px auto',
             }}
           >
-            <Loading size={80} />
-          </Container>
-        ) : (
-          <NewsContent
-            selectedTab={selectedTab}
-            newsTopics={data?.newsTopics}
-            news={data?.news}
-            isMorePages={data?.isMorePages}
-            nameArea={data?.country || data?.region || data?.city}
-          />
+            <NewsSlider mainTitle={t('news.mainTitleList')} items={newsTopics} checkedItem={stateTheme} handlerItem={handlerTheme} />
+          </Box>
         )}
-      </Container>
-    </Box>
+        <Grid item xs>
+          <Grid container direction={isMobile ? 'column' : 'row'} spacing={isMobile ? 0 : 3}>
+            {!isMobile && (
+              <Grid item xs={3}>
+                <NewsSideBar
+                  title={t('news.titleList')}
+                  checkedTheme={stateTheme}
+                  items={newsTopics || []}
+                  handlerTheme={handlerTheme}
+                  mainTitle={t('news.mainTitleList')}
+                />
+              </Grid>
+            )}
+            <Grid item xs={12} sm={isMobile ? 12 : 9}>
+              <NewsBody
+                news={main ? allNews : news || []}
+                main={main}
+                titleContent={titleContent}
+                isMorePages={isMorePages}
+                loading={loading}
+                loadingMore={loadingMore}
+                showMoreNews={showMoreNews}
+                viewMore={viewMore}
+                viewWk={stateWkNews}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 

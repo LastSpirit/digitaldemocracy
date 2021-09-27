@@ -93,7 +93,7 @@ const CardSmall: FC<CardSmallProps> = ({
         </Box>
         <Box className={classes.imageContainer} onClick={handleNews}>
           {image.length > 1 ? (
-            image.map((elem) => <img src={elem} alt="news" className={classes.image} />).splice(0, 2)
+            image.map((elem) => <img src={elem} key={elem} alt="news" className={classes.image} />).splice(0, 2)
           ) : (
             <img src={image} alt="news" className={classes.image_full} />
           )}

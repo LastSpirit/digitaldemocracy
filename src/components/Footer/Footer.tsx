@@ -129,43 +129,43 @@ const authUserSectionsData = (t) => {
   ];
 };
 
-const iconsData = (isAuthenticated) => {
+const iconsData = (isAuthenticated, pathname) => {
   const { t } = useTranslation();
   return [
     {
       title: t('footer.menu.ratingMenu') || 'Рейтинг',
-      icon: <Rating />,
+      icon: <Rating className={pathname === '/rating/politicians' ? 'icon-footer active' : 'icon-footer'} />,
       to: '/rating/politicians',
       auth: ['user', 'no-user'],
     },
     {
       title: t('buttons.add'),
-      icon: <Add />,
+      icon: <Add className={pathname === '/suggestion' ? 'icon-footer active' : 'icon-footer'} />,
       to: '/suggestion',
       auth: ['user'],
     },
     {
-      title: isAuthenticated ? t('footer.menu.profileMenu') : t('footer.menu.signInFooter'),
-      icon: isAuthenticated ? <Person /> : <Register />,
-      to: isAuthenticated ? '/profile' : AuthParam.login,
+      title: t('footer.menu.profileMenu'),
+      icon: <Person className={pathname === '/profile/subscriptions' ? 'icon-footer active' : 'icon-footer'} />,
+      to: '/profile/subscriptions',
       auth: ['user'],
     },
     {
       title: t('footer.menu.newsMenu') || 'Новости',
-      icon: <News />,
+      icon: <News className={pathname === '/news' ? 'icon-footer active' : 'icon-footer'} />,
       to: '/news',
       auth: ['user', 'no-user'],
     },
     {
       title: t('buttons.enter'),
-      icon: <Register />,
+      icon: <Register className={'icon-footer'} />,
       to: AuthParam.login,
       login: true,
       auth: ['no-user']
     },
     {
       title: t('footer.menu.donateMenu'),
-      icon: <Donate />,
+      icon: <Donate className={pathname === '/donation' ? 'icon-footer active' : 'icon-footer'} />,
       to: '/donation',
       auth: ['user', 'no-user']
     },
@@ -189,7 +189,7 @@ const Footer: FC = (props) => {
   } = useSearchParams(ModalParams.Auth);
   const sections = sectionsData(t);
   const authUserSections = authUserSectionsData(t);
-  const icons = iconsData(isAuthenticated);
+  const icons = iconsData(isAuthenticated, pathname);
   return (
     <Box
       sx={{
@@ -246,7 +246,7 @@ const Footer: FC = (props) => {
                   }}
                 >
                   {icon}
-                  <span style={{ marginTop: '4px', fontSize: '10px' }}>{title}</span>
+                  <span style={{ marginTop: '4px', fontSize: '10px', color: pathname === to ? '#248232' : '#7A7A7A' }}>{title}</span>
                 </Box>
               ))}
             </Container>

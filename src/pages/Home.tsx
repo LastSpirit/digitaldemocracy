@@ -10,23 +10,19 @@ import { APIStatus } from '../lib/axiosAPI';
 import { Loading } from '../components/Loading/Loading';
 import gtm from '../lib/gtm';
 import { userSelectors } from '../slices/userSlice';
-import { useSearchParams } from '../hooks/useSearchParams';
+import News from './News';
 
 const Home: FC = () => {
   useEffect(() => {
     gtm.push({ event: 'page_view' });
   }, []);
-  const { isMobile } = useWindowSize();
-  const { fetch, fetchDataStatus, fetchNewsStatus } = useFetchHomePageData();
+  const { fetch, fetchDataStatus } = useFetchHomePageData();
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
-  const {
-    news_topic_id: { setValue: setTopicId },
-  } = useSearchParams('news_topic_id');
+
   const { pageReset } = homeSlice.actions;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setTopicId('-1');
     fetch();
     return () => {
       dispatch(pageReset());
@@ -52,12 +48,7 @@ const Home: FC = () => {
           <>
             {!isAuthenticated && <HomeHero />}
             <HomeSlider data={data?.politicians} />
-            <HomeFeatures
-              newsTopics={data?.newsTopics}
-              news={data?.news}
-              status={fetchNewsStatus}
-              isMorePages={data?.isMorePages}
-            />
+            <News main />
           </>
         )}
       </div>

@@ -91,8 +91,14 @@ export interface NewsI {
   city?: string,
 }
 
+export interface IWeek {
+  begin: string,
+  end: string
+}
+
 interface SliceState {
   data?: NewsI,
+  week?: any,
   status: APIStatus,
   page?: number
 }
@@ -119,6 +125,10 @@ export const newsSlice = createSlice({
       state.data.isMorePages = action.payload.isMorePages;
       state.page = 1;
     },
+    setWeeks(state: SliceState, action: PayloadAction<any>) {
+      console.log(state.week);
+      state.week = action.payload;
+    }
   }
 });
 
@@ -129,4 +139,5 @@ interface Store {
 export const newsSelector = {
   getData: () => (state: Store) => state.news.data,
   getPage: () => (state: Store) => state.news.page,
+  getWeeks: () => (state: Store) => state.news.week
 };

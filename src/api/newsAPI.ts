@@ -66,8 +66,32 @@ const fetchNewsSubscriptions: APIRequest<NewsRequest, NewsResponse> = (args) => 
   });
 };
 
+const fetchWeeks: APIRequest<NewsRequest, NewsResponse> = (args) => {
+  const { page, topicId, area } = args.payload;
+  console.log(page, area);
+  let url = 'getNewsByWeeks';
+  if (area === 'subscriptions') {
+    url = 'getNewsBySubscriptions';
+  }
+  return callAPI({
+    url,
+    config: {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+      params: {
+        page,
+        topic_id: topicId
+      }
+    },
+    ...args
+  });
+};
+
 export const newsAPI = {
   fetchNews,
   fetchNewsArea,
-  fetchNewsSubscriptions
+  fetchNewsSubscriptions,
+  fetchWeeks,
 };
