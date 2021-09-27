@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DataGrid, GridColumns } from '@material-ui/data-grid';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { Tooltip } from '@material-ui/core';
+import { Tooltip, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import styles from './styles.module.scss';
 import { useFetchHistory } from './hooks/useFetchHistory';
@@ -44,8 +44,37 @@ const columns = (t): GridColumns => [
 export const PositionHistory = () => {
   const { t } = useTranslation();
   const { status, fetch } = useFetchHistory();
-  const data = useSelector(politicianSelectors.getPositionHistory());
+  const data = useSelector(politicianSelectors.getPoliticianInfo());
   const theme = useLocalesThemeMaterial();
+
+  const tableData = data
+    ? [
+        ...data.list_position.map(({ position, type, id, percent, years }) => ({
+          position,
+          type,
+          id,
+          percent,
+          years,
+          className: 'list_position',
+        })),
+        ...data.list_active_position.map(({ position, type, id, percent, years }) => ({
+          position,
+          type,
+          id,
+          percent,
+          years,
+          className: 'list_active_position',
+        })),
+        ...data.list_other_position.map(({ position, type, id, percent, years }) => ({
+          position,
+          type,
+          id,
+          percent,
+          years,
+        })),
+      ]
+    : [];
+
   useEffect(() => {
     fetch();
   }, []);
@@ -55,11 +84,17 @@ export const PositionHistory = () => {
       <WrapperAsyncRequest status={status}>
         <ThemeProvider theme={theme}>
           <DataGrid
-            rows={data || []}
+            autoHeight
+            rows={tableData}
             columns={columns(t)}
+            getRowClassName={(params) => {
+              const className = params.getValue(params.id, 'className');
+              return styles[String(className)];
+            }}
             // pageSize={5}
             // checkboxSelection={false}
             // pageSize={0}
+            rowHeight={30}
             hideFooterPagination={true}
             rowsPerPageOptions={[]}
             className={styles.dataGrid}
