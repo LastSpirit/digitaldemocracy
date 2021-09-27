@@ -90,7 +90,7 @@ const NewsBody:FC<IProps> = ({ main, titleContent, news, loadingMore, isMorePage
         {news.map((wkNews) => {
           return (
             <Grid item xs key={JSON.stringify(wkNews)}>
-              <Typography sx={{ color: '#747373' }}>Новости с {wkNews.weekdayfrom} по {wkNews.weekdayto}</Typography>
+              <Typography sx={{ color: '#747373' }}>{t('news.newsFrom')} {wkNews.weekdayfrom} {t('news.newsTo')} {wkNews.weekdayto}</Typography>
               <Grid container spacing={2} sx={{ marginTop: 0 }}>
                 {sortArray(wkNews.news.slice(0, viewWk[wkNews.weekdayfrom] || wkNews.news.length)).map((el) => {
                   return (
@@ -100,7 +100,7 @@ const NewsBody:FC<IProps> = ({ main, titleContent, news, loadingMore, isMorePage
                   );
                 })}
               </Grid>
-              {viewWk[wkNews.weekdayfrom] && wkNews.news.length > viewWk[wkNews.weekdayfrom] && <Typography onClick={() => viewMore(wkNews.weekdayfrom)} className={classes.moreBtn}>Больше новостей за период</Typography>}
+              {viewWk[wkNews.weekdayfrom] && wkNews.news.length > viewWk[wkNews.weekdayfrom] && <Typography onClick={() => viewMore(wkNews.weekdayfrom)} className={classes.moreBtn}>{t('news.moreNewsWeek')}</Typography>}
             </Grid>
           );
         })}
@@ -116,14 +116,14 @@ const NewsBody:FC<IProps> = ({ main, titleContent, news, loadingMore, isMorePage
             <Button
               fullWidth className={classNames(classes.sortBtn, stateSort === 'date' && classes.activeBtn)}
               variant="outlined" endIcon={stateSort === 'date' ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />} onClick={() => handlerSort('date')}
-            >По дате
+            >{t('news.sortByDate')}
             </Button>
           </Grid>
           <Grid item xs={12} sm={4} md={3}>
             <Button
               fullWidth className={classNames(classes.sortBtn, stateSort === 'population' && classes.activeBtn)}
               endIcon={stateSort === 'population' ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />} variant="outlined" onClick={() => handlerSort('population')}
-            >По популярности
+            >{t('news.sortByPopulation')}
             </Button>
           </Grid>
         </Grid>

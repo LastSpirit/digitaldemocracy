@@ -142,7 +142,7 @@ const NewsSlider:FC<IProps> = ({ items, checkedItem, handlerItem, mainTitle }) =
             {mainTitle}
           </Typography>
         </Box>
-        {items?.map((item) => (
+        {items.map((item) => (
           <Box
             className={classes.topic}
             sx={{
