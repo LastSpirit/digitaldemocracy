@@ -90,11 +90,13 @@ const HeaderMobile: FC = () => {
   const { t, i18n } = useTranslation();
   const { pathname } = useLocation();
   const { push, goBack } = useHistory() as any;
+  const { deleteLastRout } = userActionCreators();
   const langData = useSelector(langSelectors.getLang());
   const classes = useStyles();
   const [open, setOpen] = useState(null);
   const [openModal, setOpenModal] = React.useState(false);
-
+  const { data } = useSelector((s: RootState) => s?.user?.routes);
+  const lastRout = data[data.length - 2]?.path || '/';
   const handleClose = () => {
     setOpenModal(false);
   };
@@ -107,7 +109,8 @@ const HeaderMobile: FC = () => {
     if (pathUrl === 'search') {
       push('/');
     } else {
-      goBack();
+      push(lastRout);
+      deleteLastRout();
     }
   };
   const langTitle = useMemo(() => {
@@ -115,20 +118,15 @@ const HeaderMobile: FC = () => {
   }, [getItem('i18nextLng').slice(0, 2), langData]);
   return (
     <>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          height: 40,
-          cursor: 'pointer',
-        }}
-        onClick={() => {
-          push('/');
-          window.scrollTo(0, 0);
-        }}
-      >
         {pathname !== '/' ? (
-          <>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              height: 40,
+              cursor: 'pointer',
+            }}
+          >
           <IconButton onClick={redirectBack}>
             <ArrowBackIcon />
           </IconButton>
@@ -138,8 +136,21 @@ const HeaderMobile: FC = () => {
           >
             {t(`footer.menu.${pathUrl}`)}
           </Typography>
-          </>) : (
-          <>
+          </Box>
+        ) : (
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              height: 40,
+              cursor: 'pointer',
+            }}
+            onClick={() => {
+              push('/');
+              console.log('redsa');
+              window.scrollTo(0, 0);
+            }}
+          >
             <div className="logo">
               <Logo />
             </div>
@@ -151,9 +162,8 @@ const HeaderMobile: FC = () => {
               <br />
               Democracy
             </Typography>
-          </>
+          </Box>
           )}
-      </Box>
       <Box
         sx={{
           display: 'flex',

@@ -20,6 +20,7 @@ import { profileSlice } from '../slices/profileSlice';
 import { langSlice } from '../slices/langSlice';
 import { searchSlice } from '../slices/searchSlice';
 import { aboutPageSlice } from '../slices/aboutPageSlice';
+import { newsSlice1 } from '../slices/newsSlice1';
 
 const rootReducer = combineReducers({
   auth: authSlice.reducer,
@@ -38,6 +39,7 @@ const rootReducer = combineReducers({
   lang: langSlice.reducer,
   search: searchSlice.reducer,
   aboutPage: aboutPageSlice.reducer,
+  newsPage: newsSlice1.reducer,
 });
 
 export default rootReducer;

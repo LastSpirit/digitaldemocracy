@@ -53,7 +53,6 @@ const App: FC = () => {
   };
 
   // нуждается в тесте
-
   useEffect(() => {
     if (intersect(path, pathname).length < 1) {
       window.scrollTo(0, 0);
