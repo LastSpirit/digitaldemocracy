@@ -81,11 +81,10 @@ const Register: FC = () => {
 
   useEffect(
     () => () => {
-      setRegisterStep(5);
+      setRegisterStep(1);
     },
     []
   );
-
   return (
     <ModalWrapper>
       <Box

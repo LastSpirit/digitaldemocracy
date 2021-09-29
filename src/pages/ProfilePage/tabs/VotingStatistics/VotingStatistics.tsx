@@ -109,7 +109,6 @@ export const VotingStatistics = () => {
 
   useEffect(() => {
     if (date.min && date.max && politician.id) {
-      console.log('fetch');
       fetchNewsPolitician(politician.id, date.min, date.max, pageNews);
     }
   }, [date.max, date.min, politician, pageNews]);
