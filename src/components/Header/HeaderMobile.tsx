@@ -116,6 +116,17 @@ const HeaderMobile: FC = () => {
   const langTitle = useMemo(() => {
     return langData.find((el) => el.key_lang === getItem('i18nextLng').slice(0, 2))?.title;
   }, [getItem('i18nextLng').slice(0, 2), langData]);
+  const urlTitle = useMemo(() => {
+    let title = pathUrl;
+    if (pathUrl === 'subscriptions') {
+      title = `${pathUrl}Profile`;
+    } else if (pathUrl === 'suggestion') {
+      title = `${pathUrl}Add`;
+    } else if (pathUrl === 'politicians') {
+      title = `${pathUrl}Rating`;
+    }
+    return title;
+  }, [pathUrl]);
   return (
     <>
         {pathname !== '/' ? (
@@ -134,7 +145,7 @@ const HeaderMobile: FC = () => {
             sx={{ ml: 1.5, fontSize: '14px' }}
             color="textSecondary"
           >
-            {t(`footer.menu.${pathUrl}`)}
+            {t(`footer.menu.${urlTitle}`)}
           </Typography>
           </Box>
         ) : (
