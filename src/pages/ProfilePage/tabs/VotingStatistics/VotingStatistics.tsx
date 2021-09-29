@@ -1,15 +1,21 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { userSelectors } from 'src/slices/userSlice';
 import { DataGrid, GridColumns, GridSortModel } from '@material-ui/data-grid';
 import { useTranslation } from 'react-i18next';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { useWindowSize } from 'src/hooks/useWindowSize';
+import { Grid } from '@material-ui/core';
 import { useFetchDossierTable } from './hooks/useFetchDossierTable';
 import { WrapperAsyncRequest } from '../../../SingleNewsPage/features/Loading/WrapperAsyncRequest';
 import { useLocalesThemeMaterial } from '../../../../hooks/useLocalesThemeMaterial';
 import styles from './styles.module.scss';
 import PoliticianDossierChart from './components/PoliticianDossierChart';
+import { useFetchPoliticianDossierGraph } from './hooks/useFetchPoliticianDossierGraph';
+import { useActions } from '../../../../components/News/hooks/useActions';
+import ProfileNews from '../../components/ProfileNews';
+import { useSelectorType } from '../../../../components/News/hooks/useSelecterType';
+import { APIStatus } from '../../../../lib/axiosAPI';
 
 const columns = (t, onClick): GridColumns => {
   return [
@@ -19,7 +25,7 @@ const columns = (t, onClick): GridColumns => {
       headerName: t('info.politicianFIO'),
       renderCell: ({ row }: any) => (
         <span
-          onClick={() => onClick(row.id)}
+          onClick={() => onClick(row)}
           onKeyDown={() => onClick()}
           role={'button'}
           tabIndex={0}
@@ -46,7 +52,7 @@ const mobileColumns = (t, onClick): GridColumns => {
       width: 300,
       renderCell: ({ row }: any) => (
         <span
-          onClick={() => onClick(row.id)}
+          onClick={() => onClick(row)}
           onKeyDown={() => onClick()}
           role={'button'}
           tabIndex={0}
@@ -70,32 +76,77 @@ export const VotingStatistics = () => {
   const theme = useLocalesThemeMaterial();
   const [isGraphShown, setIsGraphShown] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
+  const [pageNews, setPageNews] = useState(1);
   const { fetch: fetchDossierTable, status } = useFetchDossierTable();
-  const [politicianId, setPoliticianId] = useState(null);
+  const { fetch: fetchDossierChartData, status: statusGraph } = useFetchPoliticianDossierGraph();
+  const [politician, setPolitician] = useState({ id: null });
   const { politicians, isMorePages } = useSelector(userSelectors.getDossier());
+  const { graph } = useSelector(userSelectors.getDossier());
+  const { reset } = useActions();
+  const { newsProfile, loading, isMorePages: isMorePagesNews } = useSelectorType((state) => state.newsPage);
   const { isMobile } = useWindowSize();
-
+  const { fetchNewsPolitician } = useActions();
+  const changedChartData = graph.map((subArr) => [subArr[1], subArr[0]]);
+  const [date, setDate] = useState({
+    min: null,
+    max: null
+  });
   useEffect(() => {
     fetchDossierTable(pageNumber);
+    return () => {
+      setPolitician({ id: null });
+    };
   }, [pageNumber]);
 
-  const showPoliticianChartData = (id: number) :void => {
-    setPoliticianId(Number(id));
+  useEffect(() => {
+    if (politician.id) {
+      fetchDossierChartData(politician.id);
+    }
+    return () => {
+      reset();
+    };
+  }, [politician]);
+
+  useEffect(() => {
+    if (date.min && date.max && politician.id) {
+      console.log('fetch');
+      fetchNewsPolitician(politician.id, date.min, date.max, pageNews);
+    }
+  }, [date.max, date.min, politician, pageNews]);
+  const showPoliticianChartData = (politic) :void => {
+    setPolitician(politic);
+    setDate({ max: null, min: null });
     setIsGraphShown(true);
   };
-
   const [sortModel, setSortModel] = React.useState<GridSortModel>([
     {
       field: 'rating',
       sort: 'desc',
     },
   ]);
-
+  const showMoreNews = () => {
+    setPageNews((prev) => prev + 1);
+  };
   return (
     <WrapperAsyncRequest status={status}>
       <ThemeProvider theme={theme}>
         {isGraphShown
-          ? <PoliticianDossierChart politicianId={politicianId} setIsGraphShown={setIsGraphShown} />
+          ? <Grid container direction="column" spacing={4}>
+            <Grid item xs={12}>
+              <PoliticianDossierChart
+                politician={politician}
+                setIsGraphShown={setIsGraphShown}
+                changedChartData={changedChartData}
+                status={statusGraph}
+                setDate={setDate}
+              />
+            </Grid>
+            <Grid item xs>
+              <WrapperAsyncRequest status={loading ? APIStatus.Loading : APIStatus.Success}>
+                <ProfileNews items={newsProfile} isMorePagesNews={isMorePagesNews} showMoreNews={showMoreNews} />
+              </WrapperAsyncRequest>
+            </Grid>
+            </Grid>
         :
           <div>
             <DataGrid
