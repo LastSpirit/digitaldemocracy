@@ -7,6 +7,7 @@ import { politicianSelectors } from '../../../../slices/politicianSlice';
 import { PercentsLinearGraphic } from './PercentsLinearGraphic';
 import { useWindowSize } from '../../../../hooks/useWindowSize';
 import InDevelop from '../../../../components/InDevelop/InDevelop';
+import { LineChartVoters } from './LineChartVoters';
 
 const PoliticianCards = () => {
   const { t } = useTranslation();
@@ -63,29 +64,31 @@ const PoliticianCards = () => {
         </div>
       </div> */}
       {!isMobile ? (
-        <div className={data?.place ? styles.card : `${styles.card} ${styles.card__nonRaiting}`}>
-          <div className={styles.secondCard}>
-            <div className={styles.trustRow}>
-              <div
-                className={data?.place ? styles.badge : `${styles.badge} ${styles.badge__nonRaiting}`}
-                style={{
-                  backgroundColor: badgeColorChanger(data?.rating, 'ground'),
-                }}
-              >
+        <>
+          <div className={data?.place ? styles.card : `${styles.card} ${styles.card__nonRaiting}`}>
+            <div className={styles.secondCard}>
+              <div className={styles.trustRow}>
                 <div
-                  className={styles.text}
+                  className={data?.place ? styles.badge : `${styles.badge} ${styles.badge__nonRaiting}`}
                   style={{
-                    color: badgeColorChanger(data?.rating, 'text'),
+                    backgroundColor: badgeColorChanger(data?.rating, 'ground'),
                   }}
                 >
-                  {data?.place ? `${t('info.place')} ${data?.place}` : t('info.withoutRating')}
+                  <div
+                    className={styles.text}
+                    style={{
+                      color: badgeColorChanger(data?.rating, 'text'),
+                    }}
+                  >
+                    {data?.place ? `${t('info.place')} ${data?.place}` : t('info.withoutRating')}
+                  </div>
                 </div>
+                {data?.rating && <div className={styles.percent}>{data?.rating} %</div>}
               </div>
-              {data?.rating && <div className={styles.percent}>{data?.rating} %</div>}
+              {data?.rating && <PercentsLinearGraphic vote_groups={data?.vote_groups} />}
             </div>
-            {data?.rating && <PercentsLinearGraphic vote_groups={data?.vote_groups} />}
           </div>
-        </div>
+        </>
       ) : (
         <div className={styles.mobCard}>
           <div className={styles.mobSecondCard}>

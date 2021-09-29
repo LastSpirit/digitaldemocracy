@@ -1,38 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Highcharts, { chart } from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { userSelectors } from 'src/slices/userSlice';
+import { useSelector } from 'react-redux';
 import { useFetchPoliticianDossierGraph } from '../hooks/useFetchPoliticianDossierGraph';
 import { WrapperAsyncRequest } from '../../../../../components/Loading/WrapperAsyncRequest';
 import styles from '../styles.module.scss';
+import { userSelectors } from '../../../../../slices/userSlice';
 
 interface IPoliticianDossierGraph {
   setIsGraphShown: any,
-  politicianId: number
+  politician: any,
+  changedChartData: any,
+  status: any,
+  setDate: any
 }
 
-const PoliticianDossierChart: React.FC<IPoliticianDossierGraph> = ({ setIsGraphShown, politicianId }) => {
-  const { status, fetch: fetchDossierChartData } = useFetchPoliticianDossierGraph();
+const PoliticianDossierChart: React.FC<IPoliticianDossierGraph> = ({ setIsGraphShown, politician, changedChartData, status, setDate }) => {
   const { t } = useTranslation();
-  const { graph } = useSelector(userSelectors.getDossier());
-  useEffect(() => {
-    fetchDossierChartData(politicianId);
-  }, []);
-
-  const changedChartData = graph.map((subArr) => [subArr[1], subArr[0]]);
+  const afterSetExtremes = (zoomAxis) => {
+    const { min } = zoomAxis;
+    const { max } = zoomAxis;
+    setDate({ min: Math.floor(min / 1000), max: Math.floor(max / 1000) });
+  };
 
   const options = {
     chart: {
       zoomType: 'x',
     },
     title: {
-      text: '',
+      text: `${politician.name || ''} ${politician.english_name ? `(${politician.english_name})` : ''}`,
     },
     xAxis: {
       type: 'datetime',
-      events: {},
+      events: {
+        afterSetExtremes
+      },
     },
     yAxis: {
       title: {
@@ -85,7 +88,9 @@ const PoliticianDossierChart: React.FC<IPoliticianDossierGraph> = ({ setIsGraphS
       resetZoom: t('info.resetZoom'),
     },
   });
+  const zoomInHandler = () => {
 
+  };
   return (
     <WrapperAsyncRequest status={status}>
       <div>

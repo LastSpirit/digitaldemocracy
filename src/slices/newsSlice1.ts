@@ -6,6 +6,7 @@ import { getItem } from '../lib/localStorageManager';
 export interface IState {
   allNews: any,
   news: any,
+  newsProfile: any,
   newsTopics: any,
   loading: boolean,
   loadingMore: boolean,
@@ -18,6 +19,7 @@ export interface IState {
 const initialState:IState = {
   allNews: [],
   news: [],
+  newsProfile: null,
   newsTopics: [],
   loading: false,
   isMorePages: false,
@@ -67,9 +69,24 @@ export const newsSlice1 = createSlice({
       }
       state.error = null;
     },
+    fetchNewsProfileSuccess(state, action: PayloadAction<IState>) {
+      const { isMorePages, news, page } = action.payload;
+      state.isMorePages = isMorePages;
+      state.newsProfile = page === 1 ? news : [...state.newsProfile, ...news];
+      if (page !== 1) {
+        state.loadingMore = false;
+      } else {
+        state.loading = false;
+      }
+      state.error = null;
+    },
     fetchError(state, action) {
       state.error = action.payload;
       state.loading = false;
+    },
+    resetStore(state, action: PayloadAction<IState>) {
+      state.newsProfile = null;
+      state.isMorePages = false;
     }
   }
 });
@@ -80,7 +97,9 @@ const {
   fetchSuccess,
   fetchAllNewsSuccess,
   fetchTopicsSuccess,
-  fetchRequestMore
+  fetchRequestMore,
+  fetchNewsProfileSuccess,
+  resetStore
 } = newsSlice1.actions;
 
 const baseURL = apiSetting.url_api;
@@ -158,4 +177,33 @@ const fetchTopicsNews = (page?:number) => {
   };
 };
 
-export default { fetchNews, fetchAllNews, fetchTopicsNews };
+const fetchNewsPolitician = (politician_id: number, start_date: number, end_date: number, page: number) => {
+  return async (dispatch) => {
+    const params = {
+      politician_id,
+      start_date,
+      end_date,
+      page
+    };
+    try {
+      if (page !== 1) {
+        dispatch(fetchRequestMore());
+      } else {
+        dispatch(fetchRequest());
+      }
+      const res = await axiosApi.get('getNewsByPoliticianVoteDate', { params });
+      const payload = { ...res?.data?.data, page };
+      dispatch(fetchNewsProfileSuccess(payload));
+    } catch (e) {
+      dispatch(fetchError(e));
+    }
+  };
+};
+
+const reset = () => {
+  return async (dispatch) => {
+    dispatch(resetStore());
+  };
+};
+
+export default { fetchNews, fetchAllNews, fetchTopicsNews, fetchNewsPolitician, reset };
