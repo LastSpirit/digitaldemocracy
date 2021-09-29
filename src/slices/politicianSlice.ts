@@ -98,10 +98,17 @@ export interface VoicesRegionI {
 export interface RatingStatisticsI {
   metrics: Array<MetricI>;
   voicesByRegion: Array<VoicesRegionI>;
-  numberOfVoters: {
-    numberOfUsersFromRegion: number;
+  numberOfVotes: {
     numberOfVotedUsers: number;
+    numberOfUsersFromRegion: number;
     totalElectorate: number;
+  };
+}
+export interface VoteCountStatisticsI {
+  numberOfVotes: {
+    numberOfVotedUsers: any;
+    numberOfUsersFromRegion: any;
+    totalElectorate: any;
   };
 }
 
@@ -161,6 +168,11 @@ interface SliceState {
     rating: any;
     vote_groups: any;
   };
+  numberOfVotes?: {
+    numberOfVotedUsers: any;
+    numberOfUsersFromRegion: any;
+    totalElectorate: any;
+  };
 }
 
 export interface NewsWithPercentI extends NewsI {
@@ -182,6 +194,11 @@ const initialState: SliceState = {
     cities: [],
     rating: null,
     vote_groups: [],
+  },
+  numberOfVotes: {
+    numberOfVotedUsers: null,
+    numberOfUsersFromRegion: null,
+    totalElectorate: null,
   },
 };
 
@@ -226,6 +243,10 @@ export const politicianSlice = createSlice({
     },
     setRatingStatistics(state: SliceState, action: PayloadAction<RatingStatisticsI>) {
       state.ratingStatistics = action.payload;
+    },
+
+    setVoteCountStatistics(state: SliceState, action) {
+      state.numberOfVotes = action.payload;
     },
     setPositionsDescription(state: SliceState, action: PayloadAction<Array<PositionsDescriptionI>>) {
       state.positionDescription = action.payload.filter((item) => item.is_active === true);
@@ -310,6 +331,7 @@ export const politicianSelectors = {
   getPositionHistory: () => (state: Store) => state.politician.history,
   getPositionPromises: () => (state: Store) => state.politician.promises,
   getRatingStatistic: () => (state: Store) => state.politician.ratingStatistics,
+  getVoteCountStatistics: () => (state: Store) => state.politician.numberOfVotes,
   getPositionsDescription: () => (state: Store) => state.politician.positionDescription,
   getStatistic: () => (state: Store) => state.politician.statistic,
   getBills: () => (state: Store) => state.politician.bills,
