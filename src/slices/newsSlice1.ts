@@ -27,7 +27,7 @@ const initialState:IState = {
   mainIsMorePages: false,
   error: null,
   loadingMore: false,
-  wkNews: {}
+  wkNews: null
 };
 
 export const newsSlice1 = createSlice({
