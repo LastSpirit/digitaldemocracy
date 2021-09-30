@@ -5,6 +5,7 @@ import {
   NewsWithPercentI,
   PoliticianInfoI,
   PositionHistoryI,
+  VoteCountStatisticsI,
   PromiseI,
   RatingStatisticsI,
   PositionsDescriptionI,
@@ -34,6 +35,9 @@ const fetchNews: APIRequest<NewsRequest, Array<NewsWithPercentI>, string, FetchP
 
 interface DefaultRequest {
   politician_id: number;
+}
+interface DefaultRequestVotes {
+  short_link: string;
 }
 interface PromiseVarI {
   token?: string;
@@ -154,6 +158,13 @@ const fetchStatistic: APIRequest<DefaultRequest, Array<StatisticI>, null, Promis
 const fetchRatingStatistics: APIRequest<DefaultRequest, RatingStatisticsI> = (args) =>
   callAPI({
     url: `getPoliticianVotingStatistics?politician_id=${args.payload.politician_id}`,
+    config: { method: 'GET' },
+    ...args,
+  });
+
+const fetchVoteCountStatistics: APIRequest<DefaultRequestVotes, VoteCountStatisticsI> = (args) =>
+  callAPI({
+    url: `getPoliticianVoteCountStatistics/${args.payload.short_link}`,
     config: { method: 'GET' },
     ...args,
   });
@@ -318,6 +329,7 @@ const APIs = {
   subscribe,
   unsubscribe,
   fetchRatingStatistics,
+  fetchVoteCountStatistics,
   fetchPositionsDescription,
   fetchStatistic,
   fetchPoliticianChanges,

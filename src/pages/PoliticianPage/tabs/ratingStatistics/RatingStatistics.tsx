@@ -4,7 +4,7 @@ import { useFetchInfoGrapchicData } from './hooks/useFetchInfoGrapchicData';
 import { WrapperAsyncRequest } from '../../../../components/Loading/WrapperAsyncRequest';
 import { Metrics } from './components/Metrics';
 import { RatingDiagram } from './components/RatingDiagram';
-import { LineChartVoters } from './components/LineChartVoters';
+// import { LineChartVoters } from './components/LineChartVoters';
 import { InfoGraphic } from './components/infographic/InfoGraphic';
 
 export const RatingStatistics = () => {
@@ -19,7 +19,7 @@ export const RatingStatistics = () => {
       <Metrics />
       <RatingDiagram />
       <InfoGraphic />
-      <LineChartVoters />
+      {/* <LineChartVoters /> */}
     </WrapperAsyncRequest>
   );
 };
