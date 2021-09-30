@@ -14,6 +14,7 @@ export interface IState {
   mainIsMorePages: boolean,
   error: any,
   page?: number,
+  wkNews?: any
 }
 
 const initialState:IState = {
@@ -25,7 +26,8 @@ const initialState:IState = {
   isMorePages: false,
   mainIsMorePages: false,
   error: null,
-  loadingMore: false
+  loadingMore: false,
+  wkNews: {}
 };
 
 export const newsSlice1 = createSlice({
@@ -87,11 +89,14 @@ export const newsSlice1 = createSlice({
     resetStore(state, action: PayloadAction<IState>) {
       state.newsProfile = null;
       state.isMorePages = false;
+    },
+    setWkNews(state, action) {
+      state.wkNews = action.payload;
     }
   }
 });
 
-const {
+export const {
   fetchRequest,
   fetchError,
   fetchSuccess,
@@ -99,7 +104,8 @@ const {
   fetchTopicsSuccess,
   fetchRequestMore,
   fetchNewsProfileSuccess,
-  resetStore
+  resetStore,
+  setWkNews
 } = newsSlice1.actions;
 
 const baseURL = apiSetting.url_api;

@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Box, Container, Grid } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import NewsTab from '../components/News/NewsNav/NewsTab';
 import { userSelectors } from '../slices/userSlice';
@@ -10,6 +10,7 @@ import { useWindowSize } from '../hooks/useWindowSize';
 import NewsSideBar from '../components/News/NewsSideBar';
 import NewsSlider from '../components/News/NewsSlider';
 import NewsBody from '../components/News/NewsBody';
+import { setWkNews } from '../slices/newsSlice1';
 
 export enum TypeNavigationMenu {
   ACTUAL = 'actual',
@@ -25,11 +26,12 @@ interface IPropsNews{
 const News:FC<IPropsNews> = ({ main }) => {
   const { t, i18n } = useTranslation();
   const { isMobile } = useWindowSize();
+  const dispatch = useDispatch();
   const lang = i18n.language;
   const { fetchNews, fetchAllNews, fetchTopicsNews } = useActions();
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { country_id: country, region_id: region, city_id: city } = useSelector(userSelectors.getUser());
-  const { news, loading, isMorePages, error, newsTopics, allNews, loadingMore } = useSelectorType((state) => state.newsPage);
+  const { news, loading, isMorePages, error, newsTopics, allNews, loadingMore, wkNews } = useSelectorType((state) => state.newsPage);
   const objForTab = { country, region, city, actual: true, subscriptions: isAuthenticated };
   const [stateTab, setStateTab] = useState(TypeNavigationMenu.ACTUAL);
   const [stateTheme, setStateTheme] = useState(null);
@@ -46,13 +48,15 @@ const News:FC<IPropsNews> = ({ main }) => {
   useEffect(() => {
     if (!main) {
       const obj = {};
-      if (news && news.length) {
+      if (news && news.length && !Object.keys(wkNews).length) {
         news.forEach((el) => {
           if (el.news.length > 3) {
             obj[el.weekdayfrom] = 3;
           }
         });
         setStateWkNews(obj);
+      } else {
+        setStateWkNews(wkNews);
       }
     }
   }, [news, main]);
@@ -74,9 +78,12 @@ const News:FC<IPropsNews> = ({ main }) => {
     setStatePage((prevState) => prevState + 1);
   };
   const viewMore = (key) => {
+    const copyWk = { ...stateWkNews };
     setStateWkNews((prevState) => {
       return { ...prevState, [key]: prevState[key] + 3 };
     });
+    copyWk[key] += 3;
+    dispatch(setWkNews(copyWk));
   };
   return (
     <Container maxWidth="lg">
