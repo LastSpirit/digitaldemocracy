@@ -51,7 +51,6 @@ const App: FC = () => {
       .filter(Boolean)
       .filter((item) => next.split('/').filter(Boolean).indexOf(item) !== -1);
   };
-
   // нуждается в тесте
   useEffect(() => {
     if (intersect(path, pathname).length < 1) {

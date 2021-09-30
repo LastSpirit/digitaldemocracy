@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Container } from '@material-ui/core';
 import { singleNewsSelector, singleNewsActionCreators } from 'src/slices/SingleNewsSlice';
+import { useParams } from 'react-router-dom';
 import { WrapperAsyncRequest } from './features/Loading/WrapperAsyncRequest';
 import SingleNewsHero from './features/SingleNewsHero/SingleNewsHero';
 import SingleNewsList from './features/SingleNewsList/SingleNewsList';
@@ -15,10 +16,12 @@ const SingleNews = (props) => {
   const { resetSingleNews } = singleNewsActionCreators();
   const data = useSelector(singleNewsSelector.getData());
   const status = useSelector(singleNewsSelector.getStatus());
+  const { link } = useParams() as any;
   useEffect((): any => {
-    fetch();
+    fetch(link);
+    window.scrollTo(0, 0);
     return () => resetSingleNews();
-  }, []);
+  }, [link]);
   return (
     <Container maxWidth="lg" className={styles.container}>
       <div className={styles.container}>

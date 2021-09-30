@@ -91,6 +91,7 @@ export interface MetricI {
 }
 
 export interface VoicesRegionI {
+  country_with_type: any;
   region_with_type: any;
   total: number;
 }

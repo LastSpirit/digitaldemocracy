@@ -27,7 +27,6 @@ const SingleNewsList: FC<NewsListI> = ({ news, isMorePages }) => {
             ))}
           </Grid>
         </Box>
-
         {isMorePages ? (
           <Box>
             <Button>
