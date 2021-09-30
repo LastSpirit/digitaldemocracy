@@ -11,9 +11,9 @@ export const RatingDiagram = () => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
   const data = useSelector(politicianSelectors.getRatingStatistic());
-  const chartData = data?.voicesByRegion?.map(({ region_with_type, total }) => {
-    const { [currentLang]: lang } = JSON.parse(region_with_type);
-    const { ru } = JSON.parse(region_with_type);
+  const chartData = data?.voicesByRegion?.map(({ country_with_type, region_with_type, total }) => {
+    const { [currentLang]: lang } = JSON.parse(region_with_type || country_with_type);
+    const { ru } = JSON.parse(region_with_type || country_with_type);
     return [lang || ru, total];
   });
   const { isMobile } = useWindowSize();

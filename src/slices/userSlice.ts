@@ -140,7 +140,8 @@ export const userSelectors = {
   getIsAuthenticated: () => (state: Store) => state.user.isAuthenticated,
   getBrowsingHistory: () => (state: Store) => state.user.browsingHistory,
   getSubscriptions: () => (state: Store) => state.user.subscriptions,
-  getDossier: () => (state: Store) => state.user.dossier
+  getDossier: () => (state: Store) => state.user.dossier,
+  getRoutes: () => (state: Store) => state.user.routes
 };
 
 export const userActionCreators = () => {

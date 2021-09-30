@@ -45,7 +45,6 @@ const PoliticiansCard: FC<IProps> = ({
       setAuthValue('/login');
     }
   };
-  console.log(historyPosition, 'wdkicbdhwjniecd');
 
   return (
     <div className={styles.root}>
