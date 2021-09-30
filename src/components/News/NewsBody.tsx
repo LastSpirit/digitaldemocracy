@@ -62,13 +62,14 @@ const NewsBody:FC<IProps> = ({ main, titleContent, news, loadingMore, isMorePage
     setStateSort((prevState) => prevState === val ? null : val);
   };
   const sortArray = (arr) => {
+    const copyArr = [...arr];
     if (!stateSort) {
       return arr;
     }
     if (stateSort === 'population') {
-      return arr.sort((a, b) => b.number_of_views - a.number_of_views);
+      return copyArr.sort((a, b) => b.number_of_views - a.number_of_views);
     }
-    return arr.sort((a, b) => a.id - b.id);
+    return copyArr.sort((a, b) => a.id - b.id);
   };
   const content = useMemo(() => {
     if (main) {
@@ -92,7 +93,7 @@ const NewsBody:FC<IProps> = ({ main, titleContent, news, loadingMore, isMorePage
             <Grid item xs key={JSON.stringify(wkNews)}>
               <Typography sx={{ color: '#747373' }}>{t('news.newsFrom')} {wkNews.weekdayfrom} {t('news.newsTo')} {wkNews.weekdayto}</Typography>
               <Grid container spacing={2} sx={{ marginTop: 0 }}>
-                {sortArray(wkNews.news.slice(0, viewWk[wkNews.weekdayfrom] || wkNews.news.length)).map((el) => {
+                {sortArray(wkNews.news).slice(0, viewWk[wkNews.weekdayfrom] || wkNews.news.length).map((el) => {
                   return (
                     <Grid item md={4} sm={6} xs={12} key={el.id}>
                       <CardSmall {...el} />

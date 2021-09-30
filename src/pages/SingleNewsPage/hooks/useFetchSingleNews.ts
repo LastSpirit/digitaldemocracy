@@ -10,7 +10,7 @@ export const useFetchSingleNews = () => {
   const token = getItem('token');
   const { link } = useParams() as any;
 
-  const fetch = useCallback(() => {
+  const fetch = useCallback((linkTo: string) => {
     startFetch();
     fetchSingleNews({
       onSuccess: (response) => {
@@ -18,7 +18,7 @@ export const useFetchSingleNews = () => {
       },
       payload: {
         token,
-        link,
+        link: linkTo || link,
       },
       onError: (errorResponse) => {
         failFetch();
