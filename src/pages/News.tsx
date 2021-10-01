@@ -36,7 +36,7 @@ const News:FC<IPropsNews> = ({ main }) => {
   const [stateTab, setStateTab] = useState(TypeNavigationMenu.ACTUAL);
   const [stateTheme, setStateTheme] = useState(null);
   const [statePage, setStatePage] = useState(1);
-  const [stateWkNews, setStateWkNews] = useState({});
+  const [stateWkNews, setStateWkNews] = useState(null);
   useEffect(() => {
     if (main) {
       fetchAllNews(statePage, stateTheme);
@@ -48,7 +48,7 @@ const News:FC<IPropsNews> = ({ main }) => {
   useEffect(() => {
     if (!main) {
       const obj = {};
-      if (news && news.length && !Object.keys(wkNews).length) {
+      if (news && news.length && !wkNews) {
         news.forEach((el) => {
           if (el.news.length > 3) {
             obj[el.weekdayfrom] = 3;
@@ -97,6 +97,7 @@ const News:FC<IPropsNews> = ({ main }) => {
           <Box
             sx={{
               maxWidth: '100%',
+              width: '100%',
               minWidth: '160px',
               margin: '35px auto',
             }}
@@ -127,7 +128,7 @@ const News:FC<IPropsNews> = ({ main }) => {
                 loadingMore={loadingMore}
                 showMoreNews={showMoreNews}
                 viewMore={viewMore}
-                viewWk={stateWkNews}
+                viewWk={stateWkNews || {}}
               />
             </Grid>
           </Grid>

@@ -33,14 +33,20 @@ const lines = (t) => [
 const getWidth = (item: number, total: number) => ((item * 100) / total < 1 ? 1 : (item * 100) / total);
 
 export const LineChartVoters = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const data = useSelector(politicianSelectors.getPoliticianInfo());
   const numberOfVotes = useSelector(politicianSelectors.getVoteCountStatistics());
   const { fetch } = useFetchLineChartVoters();
   useEffect(() => {
     fetch();
   }, []);
+  const titleTooltip = () => {
+    const title = `${t('profile.electorate')}: ${data?.country?.title?.[i18n.language] || data?.region?.title?.[i18n.language] || t('info.worldUser')}`;
+    return title;
+  };
   return (
     <div className={styles.lineChartVotersContainer}>
+      <Tooltip title={titleTooltip()}>
       <div className={styles.lines}>
         {numberOfVotes &&
           lines(t).map(({ color, id, zIndex, width }, index) => {
@@ -55,6 +61,7 @@ export const LineChartVoters = () => {
             );
           })}
       </div>
+      </Tooltip>
       <div className={styles.legends}>
         {numberOfVotes &&
           lines(t).map(({ color, title, id }) => (

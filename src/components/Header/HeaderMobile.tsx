@@ -117,13 +117,21 @@ const HeaderMobile: FC = () => {
     return langData.find((el) => el.key_lang === getItem('i18nextLng').slice(0, 2))?.title;
   }, [getItem('i18nextLng').slice(0, 2), langData]);
   const urlTitle = useMemo(() => {
-    let title = pathUrl;
+    let title = '';
     if (pathUrl === 'subscriptions') {
       title = `${pathUrl}Profile`;
     } else if (pathUrl === 'suggestion') {
       title = `${pathUrl}Add`;
     } else if (pathUrl === 'politicians') {
       title = `${pathUrl}Rating`;
+    } else if (pathUrl === 'news') {
+      title = 'news';
+    } else if (pathUrl === 'donation') {
+      title = 'donation';
+    } else if (pathname.startsWith('/profile')) {
+      title = 'profileMenu';
+    } else if (pathname.startsWith('/rating')) {
+      title = 'politiciansRating';
     }
     return title;
   }, [pathUrl]);
@@ -145,7 +153,7 @@ const HeaderMobile: FC = () => {
             sx={{ ml: 1.5, fontSize: '14px' }}
             color="textSecondary"
           >
-            {t(`footer.menu.${urlTitle}`)}
+            {urlTitle ? t(`footer.menu.${urlTitle}`) : ''}
           </Typography>
           </Box>
         ) : (

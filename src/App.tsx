@@ -4,7 +4,7 @@ import { Route, Switch, Redirect, useLocation, useHistory } from 'react-router-d
 import { ThemeProvider } from '@material-ui/core';
 import './i18n';
 import firebase from 'firebase';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 import { isDev, firebaseConfig, gtmConfig } from './config';
 import useSettings from './hooks/useSettings';
@@ -33,6 +33,8 @@ import SearchPage from './pages/SearchPage/SearchPage';
 import AboutPage from './pages/AboutPage/AboutPage';
 import ModalCookie from './components/ModalCookie/ModalCookie';
 import { getItem } from './lib/localStorageManager';
+import { setWkNews } from './slices/newsSlice1';
+import { useSelectorType } from './components/News/hooks/useSelecterType';
 
 const App: FC = () => {
   if (!firebase.apps.length) {
@@ -40,8 +42,11 @@ const App: FC = () => {
   } else {
     firebase.app();
   }
+  const dispatch = useDispatch();
   const location = useLocation();
   const { pathname } = useLocation();
+  const { data: dataRoutes } = useSelector(userSelectors.getRoutes());
+  const { wkNews } = useSelectorType((state) => state.newsPage);
   const [path, setPath] = React.useState(pathname);
   const [visibleCookie, setVisibleCookie] = React.useState(!JSON.parse(getItem('user_cookie_confirm')));
 
@@ -58,12 +63,16 @@ const App: FC = () => {
     }
     setPath(pathname);
   }, [pathname]);
-
   const { settings } = useSettings();
   useEffect(() => {
     gtm.initialize(gtmConfig);
   }, []);
-
+  useEffect(() => {
+    const lastRoute = dataRoutes[dataRoutes.length - 1].path;
+    if (wkNews && lastRoute !== '/news' && !lastRoute.startsWith('/singleNews')) {
+      dispatch(setWkNews(null));
+    }
+  }, [dataRoutes]);
   const theme = createAppTheme({
     direction: settings.direction,
     responsiveFontSizes: settings.responsiveFontSizes,

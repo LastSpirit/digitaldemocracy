@@ -1,7 +1,7 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { Box, Typography } from '@material-ui/core';
+import { Box, Tooltip, Typography } from '@material-ui/core';
 import { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
@@ -18,7 +18,6 @@ const SamplePrevArrow = (props) => {
         left: 0,
         width: '35px',
         height: '35px',
-        top: '3px',
         fontSize: '32px',
         display: 'flex',
         alignItems: 'center',
@@ -45,7 +44,6 @@ const SampleNextArrow = (props) => {
         right: 0,
         width: '35px',
         height: '35px',
-        top: '3px',
         fontSize: '32px',
         display: 'flex',
         alignItems: 'center',
@@ -67,6 +65,11 @@ const useStyles = makeStyles((theme) => ({
     width: '150px',
     maxWidth: '160px',
     cursor: 'pointer',
+    whiteSpace: 'pre-wrap',
+    margin: 0,
+    [theme.breakpoints.up('xs')]: {
+      maxWidth: '180px'
+    }
   },
   topicText: {
     fontWeight: 400,
@@ -75,7 +78,6 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid #363557',
     borderRadius: '50px',
     color: '#363557',
-    height: 40,
     boxSizing: 'border-box',
     [theme.breakpoints.down('sm')]: {
       fontSize: 12,
@@ -152,14 +154,16 @@ const NewsSlider:FC<IProps> = ({ items, checkedItem, handlerItem, mainTitle }) =
             onClick={() => handlerItem(item.id)}
             key={item.id}
           >
+            <Tooltip title={item.title}>
             <Typography
               className={classes.topicText}
               sx={{
                 color: Number(checkedItem) === item.id ? 'white!important' : 'black',
               }}
             >
-              {item.title}
+              {item.title.substring(0, 18)}{item.title.length >= 18 && '...'}
             </Typography>
+            </Tooltip>
           </Box>
         ))}
       </Slider>
