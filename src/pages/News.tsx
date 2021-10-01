@@ -97,6 +97,7 @@ const News:FC<IPropsNews> = ({ main }) => {
           <Box
             sx={{
               maxWidth: '100%',
+              width: '100%',
               minWidth: '160px',
               margin: '35px auto',
             }}
