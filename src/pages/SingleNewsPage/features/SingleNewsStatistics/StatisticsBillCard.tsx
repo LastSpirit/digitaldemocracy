@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, IconButton, Card, Typography } from '@material-ui/core';
+import { Box, IconButton, Card, Typography, Tooltip } from '@material-ui/core';
 import { avatarColorChanger } from 'src/utils/avatarColorChanger';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
@@ -55,19 +55,21 @@ const StatisticsBillCard: FC<StatisticsCardPropsI> = ({
         </div>
       ) : (
         <div className={styles.card}>
-          <div className={styles.cardContent}>
-            <Link to={`/singleBills/${short_link}`} className={styles.title}>{name}</Link>
-            <div className={styles.bottomItem}>
-              <BillVotesGroup
-                id={id}
-                index={billIndex}
-                likes={likes}
-                dislikes={dislikes}
-                isLiked={isLiked}
-                isDisliked={isDisliked}
-              />
+          <Tooltip title={name}>
+            <div className={styles.cardContent}>
+              <Link to={`/singleBills/${short_link}`} className={styles.title}>{name}</Link>
+              <div className={styles.bottomItem}>
+                <BillVotesGroup
+                  id={id}
+                  index={billIndex}
+                  likes={likes}
+                  dislikes={dislikes}
+                  isLiked={isLiked}
+                  isDisliked={isDisliked}
+                />
+              </div>
             </div>
-          </div>
+          </Tooltip>
         </div>
       )}
     </>

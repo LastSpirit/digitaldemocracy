@@ -27,7 +27,8 @@ export interface PoliticianInfoI {
   rating?: string;
   short_link?: string;
   place?: number;
-  country?: { title: [] };
+  country?: any;
+  region?: any,
   position_count?: number;
 }
 
