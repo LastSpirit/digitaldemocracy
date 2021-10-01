@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Tooltip } from '@material-ui/core';
 import styles from '../../PoliticianPage.module.scss';
 import { politicianSelectors } from '../../../../slices/politicianSlice';
 import { PercentsLinearGraphic } from './PercentsLinearGraphic';
@@ -10,7 +11,7 @@ import InDevelop from '../../../../components/InDevelop/InDevelop';
 import { LineChartVoters } from './LineChartVoters';
 
 const PoliticianCards = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const data = useSelector(politicianSelectors.getPoliticianInfo());
   const { isMobile } = useWindowSize();
   const history = useHistory();
@@ -56,6 +57,10 @@ const PoliticianCards = () => {
   // const trust = data?.rating ? (data?.rating > 50 ? 'Высокое доверие' : 'Низкое доверие') : 'Без рейтинга';
   // const badgeBackground = trust === 'Высокое доверие' ? 'green' : trust === 'Низкое доверие' ? 'red' : null;
   // const badgeColor = trust === 'Высокое доверие' ? '#fff' : '#222';
+  const titleTooltip = () => {
+    const title = `${t('profile.rankingPlace')}: ${data?.country?.title?.[i18n.language] || data?.region?.title?.[i18n.language] || t('info.worldUser')}`;
+    return title;
+  };
   return (
     <div className={styles.cardsBlock}>
       {/* <div className={styles.card}>
@@ -68,21 +73,24 @@ const PoliticianCards = () => {
           <div className={data?.place ? styles.card : `${styles.card} ${styles.card__nonRaiting}`}>
             <div className={styles.secondCard}>
               <div className={styles.trustRow}>
-                <div
-                  className={data?.place ? styles.badge : `${styles.badge} ${styles.badge__nonRaiting}`}
-                  style={{
-                    backgroundColor: badgeColorChanger(data?.rating, 'ground'),
-                  }}
-                >
+                <Tooltip title={titleTooltip()}>
                   <div
-                    className={styles.text}
+                    className={data?.place ? styles.badge : `${styles.badge} ${styles.badge__nonRaiting}`}
                     style={{
-                      color: badgeColorChanger(data?.rating, 'text'),
+                      backgroundColor: badgeColorChanger(data?.rating, 'ground'),
+                      cursor: 'pointer'
                     }}
                   >
-                    {data?.place ? `${t('info.place')} ${data?.place}` : t('info.withoutRating')}
+                    <div
+                      className={styles.text}
+                      style={{
+                        color: badgeColorChanger(data?.rating, 'text'),
+                      }}
+                    >
+                      {data?.place ? `${t('info.place')} ${data?.place}` : t('info.withoutRating')}
+                    </div>
                   </div>
-                </div>
+                </Tooltip>
                 {data?.rating && <div className={styles.percent}>{data?.rating} %</div>}
               </div>
               {data?.rating && <PercentsLinearGraphic vote_groups={data?.vote_groups} />}
