@@ -30,6 +30,7 @@ const PoliticiansCard: FC<IProps> = ({
   place,
   position_count,
   country,
+  list_active_position,
 }) => {
   const { t, i18n } = useTranslation();
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
@@ -70,12 +71,13 @@ const PoliticiansCard: FC<IProps> = ({
         <div className={styles.percent}>{rating ? `${rating} %` : ''}</div>
       </div>
       <div className={styles.name}>{name}</div>
-
       <div className={styles.position}>
-        {position}
-        <Link to={`/politician/${short_link}/position_history`}>
-          {position ? `${`...${t('info.more')}${position_count - 1}`}` : ''}
-        </Link>
+        <div className={styles.position_text}>{position}</div>
+        {!!list_active_position.length && (
+          <Link to={`/politician/${short_link}/position_history`} className={styles.position_textLink}>
+            {position ? `${` ${t('info.more')} ${position_count - 1}`}` : ''}
+          </Link>
+        )}
       </div>
       <Button
         variant="outlined"

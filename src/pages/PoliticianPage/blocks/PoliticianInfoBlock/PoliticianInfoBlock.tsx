@@ -117,7 +117,11 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                 {data?.position && (
                   <div className={styles.politicPosition}>
                     {data?.position}
-                    <Link to={'position_history'}>{`...${t('info.more')} ${data.position_count - 1}` || ''}</Link>
+                    {data?.list_active_position.length ? (
+                      <Link to={'position_history'}>{` ${t('info.more')} ${data.position_count - 1}` || ''}</Link>
+                    ) : (
+                      ''
+                    )}
                   </div>
                 )}
                 {(data?.age || data?.city) && (
@@ -200,9 +204,13 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
               {data?.english_name && <div className={styles.mobEnglishName}>{data?.english_name}</div>}
               <div className={styles.mobPosition}>
                 <div className={styles.positionText}> {data?.position}</div>
-                <Link to={`/politician/${data?.short_link}/position_history`}>
-                  {data?.position ? `${`${t('info.more')}${data?.position_count - 1}`}` : ''}
-                </Link>
+                {data?.list_active_position.length ? (
+                  <Link to={`/politician/${data?.short_link}/position_history`}>
+                    {data?.position ? `${` ${t('info.more')}${data?.position_count - 1}`}` : ''}
+                  </Link>
+                ) : (
+                  ''
+                )}
               </div>
               {(data?.age || data?.city) && (
                 <div className={styles.mobAge}>
