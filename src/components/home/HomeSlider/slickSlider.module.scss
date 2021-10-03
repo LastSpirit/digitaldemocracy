@@ -9,7 +9,7 @@
 
 .tooltip {
   max-width: 210px;
-  white-space: nowrap;
+  // white-space: nowrap;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,11 +19,11 @@
 
   font-size: 11;
 }
-.positionText {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+// .positionText {
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+// }
 
 .custom {
   display: flex;
