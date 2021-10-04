@@ -135,17 +135,21 @@ export default function CustomArrows({ data }) {
               key={item.id}
               title={
                 item.position ? (
-                  <>
-                    <div className={styles.positionText}>{item.position}</div>
-                    <Link
-                      style={{
-                        color: 'white',
-                      }}
-                      to={`/politician/${item.short_link}/position_history`}
-                    >
-                      {item?.position ? `${`${t('info.more')} ${item?.position_count - 1}`}` : ''}
-                    </Link>
-                  </>
+                  <div className={styles.positionText}>
+                    {item.position}
+                    {item.list_active_position.length ? (
+                      <Link
+                        style={{
+                          color: 'white',
+                        }}
+                        to={`/politician/${item.short_link}/position_history`}
+                      >
+                        {item?.position ? `${` ${t('info.more')} ${item?.position_count - 1}`}` : ''}
+                      </Link>
+                    ) : (
+                      ''
+                    )}
+                  </div>
                 ) : (
                   ''
                 )
