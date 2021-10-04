@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
@@ -43,7 +43,18 @@ export const Highchart = () => {
   useEffect(() => {
     fetch();
   }, []);
-
+  const dateForChat = useMemo(() => {
+    let arr = [];
+    if (chartData.politicianVotingElectorateChange) {
+      arr = chartData.politicianVotingElectorateChange.map((item) => ({
+        x: item[0],
+        y: item[2],
+        votes: item[3],
+        votes2: item[1] || 0,
+      }));
+    }
+    return arr;
+  }, [chartData]);
   const options = {
     chart: {
       zoomType: 'x',
@@ -85,6 +96,9 @@ export const Highchart = () => {
         name: '%',
         data: [...(chartData?.politicianRatingChange || [])],
         zoneAxis: 'y',
+        tooltip: {
+          headerFormat: '<b>{point.x:%A %d-%b-%Y}</b><br/>',
+        },
         zones: [
           {
             value: 49,
@@ -98,21 +112,15 @@ export const Highchart = () => {
       {
         type: 'area',
         name: t('info.voted'),
-        data: [
-          ...(chartData?.politicianVotingElectorateChange?.map((item) => ({
-            x: item[0],
-            y: item[1],
-            votes: item[2],
-          })) || []),
-        ],
+        data: [...dateForChat],
         lineColor: 'rgb(128, 127, 127)',
         tooltip: {
-          pointFormat: `{series.name}: {point.y}<br/>${t('info.totalElectorate')}: {point.votes}`,
+          headerFormat: '<b>{point.x:%A %d-%b-%Y}</b><br/>',
+          pointFormat: `{series.name}, %: {point.y}<br/>${t('info.votedPeople')}: {point.votes2}<br/>${t('info.totalElectorate')}: {point.votes}`,
         },
       },
     ],
   };
-
   return (
     <WrapperAsyncRequest status={status}>
       <HighchartsReact highcharts={Highcharts} options={options} />
