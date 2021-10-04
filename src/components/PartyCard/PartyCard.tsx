@@ -29,11 +29,13 @@ const PartyCard: FC<IProps> = ({
   position,
   place,
   position_count,
+  list_active_position,
 }) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { status, change } = useChangeSubscribe(id);
   const { t, i18n } = useTranslation();
   const { push } = useHistory();
+
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
@@ -73,10 +75,12 @@ const PartyCard: FC<IProps> = ({
       <hr />
       <div className={styles.name}>{name}</div>
       <div className={styles.position}>
-        {position}
-        <Link to={`/politician/${short_link}/position_history`}>
-          {position ? `${`...${t('info.more')} ${position_count - 1}`}` : ''}
-        </Link>
+        <div className={styles.position_text}>{position}</div>
+        {!!list_active_position.length && (
+          <Link to={`/politician/${short_link}/position_history`} className={styles.position_textLink}>
+            {position ? `${` ${t('info.more')} ${position_count - 1}`}` : ''}
+          </Link>
+        )}
       </div>
       <Button
         variant="outlined"

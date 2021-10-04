@@ -132,15 +132,25 @@
 
   .position {
     min-height: 50px;
-    margin-top: 12px;
-    margin-bottom: 12px;
-    text-overflow: ellipsis;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+
     text-align: center;
 
     color: #7a7a7a;
 
     font-size: 14px;
     line-height: 16px;
+    display: flex;
+    flex-direction: column;
+    &_text {
+      height: 34px;
+      overflow: hidden;
+    }
+    &_textLink {
+      height: 10px;
+    }
   }
 
   .country {
