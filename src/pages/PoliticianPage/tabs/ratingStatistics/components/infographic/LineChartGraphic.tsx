@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import React, { FC } from 'react';
 import { Tooltip } from '@material-ui/core';
-import { politicianSelectors } from '../../../../slices/politicianSlice';
-import styles from '../../PoliticianPage.module.scss';
-import { useFetchLineChartVoters } from '../../hooks/useFetchLineChartVoters';
+import { useTranslation } from 'react-i18next';
+import styles from './InfoGraphic.module.scss';
 
 const lines = (t) => [
   {
@@ -30,47 +27,41 @@ const lines = (t) => [
   },
 ];
 
+interface IProps{
+  electorate: any
+}
+
 const getWidth = (item: number, total: number) => ((item * 100) / total < 1 ? 1 : (item * 100) / total);
 
-export const LineChartVoters = () => {
-  const { t, i18n } = useTranslation();
-  const data = useSelector(politicianSelectors.getPoliticianInfo());
-  const numberOfVotes = useSelector(politicianSelectors.getVoteCountStatistics());
-  const { fetch } = useFetchLineChartVoters();
-  useEffect(() => {
-    fetch();
-  }, []);
-  const titleTooltip = () => {
-    const title = `${t('profile.electorate')}: ${data?.country?.title?.[i18n.language] || data?.region?.title?.[i18n.language] || t('info.worldUser')}`;
-    return title;
-  };
+const LineChartGraphic:FC<IProps> = ({ electorate }) => {
+  const { t } = useTranslation();
   return (
     <div className={styles.lineChartVotersContainer}>
-      <Tooltip title={titleTooltip()}>
-      <div className={styles.lines}>
-        {numberOfVotes &&
+        <div className={styles.lines}>
+          {electorate.totalElectorate !== null &&
           lines(t).map(({ color, id, zIndex, width }, index) => {
-            const item = getWidth(numberOfVotes[id], numberOfVotes.totalElectorate);
+            const item = getWidth(electorate[id], electorate.totalElectorate);
 
             return (
               <Tooltip title="" key={index.toString()}>
                 <div className={styles.line} style={{ backgroundColor: color, width: `${width}%`, zIndex }}>
-                  <span className={styles.count}>{`${numberOfVotes[id]} ${t('info.people')} `}</span>
+                  <span className={styles.count}>{`${electorate[id]} ${t('info.people')} `}</span>
                 </div>
               </Tooltip>
             );
           })}
-      </div>
-      </Tooltip>
-      <div className={styles.legends}>
-        {numberOfVotes &&
+        </div>
+        <div className={styles.legends}>
+          {electorate.totalElectorate !== null &&
           lines(t).map(({ color, title, id }) => (
             <div className={styles.legend} key={id}>
               <span>{title}</span>
               <div style={{ backgroundColor: color }} className={styles.legendMark} />
             </div>
           ))}
-      </div>
+        </div>
     </div>
   );
 };
+
+export default LineChartGraphic;
