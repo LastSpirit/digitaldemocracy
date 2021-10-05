@@ -175,6 +175,11 @@ interface SliceState {
     numberOfUsersFromRegion: any;
     totalElectorate: any;
   };
+  electorate? : {
+    numberOfVotedUsers: any;
+    numberOfUsersFromRegion: any;
+    totalElectorate: any;
+  }
 }
 
 export interface NewsWithPercentI extends NewsI {
@@ -196,6 +201,11 @@ const initialState: SliceState = {
     cities: [],
     rating: null,
     vote_groups: [],
+  },
+  electorate: {
+    numberOfVotedUsers: null,
+    numberOfUsersFromRegion: null,
+    totalElectorate: null,
   },
   numberOfVotes: {
     numberOfVotedUsers: null,
@@ -318,6 +328,9 @@ export const politicianSlice = createSlice({
     setVotesGroup(state, action) {
       state.infoGrapghicData.vote_groups = action.payload;
     },
+    setElectorate(state, action) {
+      state.electorate = action.payload;
+    }
   },
 });
 
@@ -338,7 +351,7 @@ export const politicianSelectors = {
   getStatistic: () => (state: Store) => state.politician.statistic,
   getBills: () => (state: Store) => state.politician.bills,
   getPoliticianAdditionalInformation: () => (state: Store) => state.politician.additionalInformation,
-  getInfoGrapghicDatas: () => (state: Store) => state.politician.infoGrapghicData,
+  getElectorate: () => (state: Store) => state.politician.electorate,
 };
 
 export const politicianActionCreators = () => {
