@@ -84,7 +84,7 @@ const PartyCard: FC<IProps> = ({
         <div className={styles.position_text}>{sliceTxt(position)}
           {!!list_active_position.length && (
             <Link to={`/politician/${short_link}/position_history`} className={styles.position_textLink}>
-              {position ? `${` ${t('info.more')} ${position_count - 1}`}` : ''}
+              {position ? `${` ${t('info.more')} ${position_count}`}` : ''}
             </Link>
           )}
         </div>
