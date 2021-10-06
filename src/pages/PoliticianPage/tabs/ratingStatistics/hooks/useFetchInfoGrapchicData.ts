@@ -12,7 +12,7 @@ export const useFetchInfoGrapchicData = () => {
   const [statusCities, setStatusCities] = useState<APIStatus>(APIStatus.Initial);
   const [statusGrapchic, setStatusGraphic] = useState<APIStatus>(APIStatus.Initial);
   const { fetchCountries, fetchRegions, fetchCities, getPoliticianCustomRating } = politicianAPI();
-  const { setCountries, setCities, setRegions, setRating, setVotesGroup } = politicianActionCreators();
+  const { setCountries, setCities, setRegions, setRating, setVotesGroup, setElectorate } = politicianActionCreators();
 
   const fetchCountry = useCallback(() => {
     setStatusCountries(APIStatus.Loading);
@@ -59,6 +59,7 @@ export const useFetchInfoGrapchicData = () => {
     getPoliticianCustomRating({
       onError: () => setStatusGraphic(APIStatus.Failure),
       onSuccess: (response) => {
+        setElectorate(response?.electorate);
         setRating(response?.rating);
         setVotesGroup(response?.vote_groups);
         setStatusGraphic(APIStatus.Success);
