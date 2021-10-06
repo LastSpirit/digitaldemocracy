@@ -7,7 +7,7 @@ export const useFetchSort = () => {
   const [regionStatus, setRegionStatus] = useState(APIStatus.Initial);
   const [cityStatus, setCityStatus] = useState(APIStatus.Initial);
 
-  const { getCountries, getRegions, getRegionsArray, getCities } = ratingAPI();
+  const { getCountries, getRegions, getRegionsArray, getCities, getCitiesArray } = ratingAPI();
   const { setCountryGeography, setCitiesGeography, setRegionsGeography, setCountryVote, setCitiesVote, setRegionsVote } = ratingActionCreators();
   const fetchCounties = useCallback((field) => {
     getCountries({
@@ -36,15 +36,15 @@ export const useFetchSort = () => {
         setRegionStatus(APIStatus.Failure);
         console.log(errorResponse);
       },
-      params: {
-        country_id: id,
+      payload: {
+        countries: id,
       },
     });
   }, []);
 
   const fetchCities = useCallback((id, field) => {
     setCityStatus(APIStatus.Loading);
-    getCities({
+    getCitiesArray({
       onSuccess: (response) => {
         if (field === 'geography') {
           setCitiesGeography(response);
@@ -56,8 +56,8 @@ export const useFetchSort = () => {
         setCityStatus(APIStatus.Failure);
         console.log(errorResponse);
       },
-      params: {
-        region_id: id,
+      payload: {
+        regions: id,
       },
     });
   }, []);

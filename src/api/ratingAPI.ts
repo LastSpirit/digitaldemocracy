@@ -134,7 +134,7 @@ const getCountries: APIRequest<{}, Array<CountryI>> = (args) =>
   });
 
 const getRegionsArray = (args) => {
-  return callAPI({ url: 'getRegions',
+  return callAPI({ url: 'getRegionsByArray',
     config: { method: 'POST',
     },
     ...args,
@@ -146,6 +146,13 @@ const getRegions = (args) => {
     config: { method: 'get',
       params: args.params
     },
+    ...args,
+    nestedResponseType: false });
+};
+
+const getCitiesArray = (args) => {
+  return callAPI({ url: 'getCitiesByArray',
+    config: { method: 'POST' },
     ...args,
     nestedResponseType: false });
 };
@@ -172,6 +179,7 @@ const APIs = {
   getCountries,
   getRegionsArray,
   getRegions,
+  getCitiesArray,
   getCities,
 };
 

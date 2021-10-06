@@ -8,6 +8,14 @@ interface CountryId {
   id?: number;
 }
 
+interface RegionId {
+  id?: number;
+}
+
+interface CityId {
+  id?: number;
+}
+
 interface PoliticiansI {
   politicians?: Array<PoliticianInfoI>;
   isMorePages?: boolean;
@@ -29,8 +37,8 @@ interface MediaI {
 }
 interface SortGeography {
   country_politician_idArray: Array<CountryId>;
-  region_politician_id: number;
-  city_politician_id: number;
+  region_politician_id: Array<RegionId>;
+  city_politician_id: Array<CityId>;
 }
 interface SortVote {
   country_user_id: number;
