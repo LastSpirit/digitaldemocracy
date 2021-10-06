@@ -3,13 +3,17 @@ import { APIStatus } from 'src/lib/axiosAPI';
 import { ratingAPI } from '../../../api/ratingAPI';
 import { ratingActionCreators } from '../../../slices/ratingSlice';
 
+interface CommonId {
+  id?: number;
+}
+
 export const useFetchSort = () => {
   const [regionStatus, setRegionStatus] = useState(APIStatus.Initial);
   const [cityStatus, setCityStatus] = useState(APIStatus.Initial);
 
   const { getCountries, getRegions, getRegionsArray, getCities, getCitiesArray } = ratingAPI();
   const { setCountryGeography, setCitiesGeography, setRegionsGeography, setCountryVote, setCitiesVote, setRegionsVote } = ratingActionCreators();
-  const fetchCounties = useCallback((field) => {
+  const fetchCountries = useCallback((field) => {
     getCountries({
       onSuccess: (response) => {
         if (field === 'geography') {
@@ -22,7 +26,7 @@ export const useFetchSort = () => {
     });
   }, []);
 
-  const fetchRegions = useCallback((id: number, field: string) => {
+  const fetchRegions = useCallback((id: Array<CommonId>, field: string) => {
     setRegionStatus(APIStatus.Loading);
     getRegionsArray({
       onSuccess: (response) => {
@@ -63,7 +67,7 @@ export const useFetchSort = () => {
   }, []);
 
   return {
-    fetchCounties,
+    fetchCountries,
     fetchRegions,
     fetchCities,
     regionStatus,

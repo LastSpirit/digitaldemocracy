@@ -17,7 +17,7 @@ export const SortDropdown = ({ text, field, world }) => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
   const [update, setUpdate] = useState(true);
-  const { fetchCounties, fetchRegions, fetchCities } = useFetchSort();
+  const { fetchCountries, fetchRegions, fetchCities } = useFetchSort();
   const {
     setSortGeography,
     setSortVote,
@@ -39,9 +39,9 @@ export const SortDropdown = ({ text, field, world }) => {
   });
 
   const [postData2, setPostData2] = useState({
-    country_user_id: null,
-    region_user_id: null,
-    city_user_id: null,
+    country_user_idArray: null,
+    region_user_idArray: null,
+    city_user_idArray: null,
   });
 
   // console.log(postData);
@@ -51,7 +51,7 @@ export const SortDropdown = ({ text, field, world }) => {
   }, [update, world]);
 
   useEffect(() => {
-    fetchCounties(field);
+    fetchCountries(field);
     if (field === 'geography') {
       if (postData.country_politician_idArray) {
         fetchRegions(postData.country_politician_idArray, field);
@@ -62,18 +62,18 @@ export const SortDropdown = ({ text, field, world }) => {
     }
 
     if (field === 'vote') {
-      if (postData2.country_user_id) {
-        fetchRegions(postData2.country_user_id, field);
+      if (postData2.country_user_idArray) {
+        fetchRegions(postData2.country_user_idArray, field);
       }
-      if (postData2.region_user_id) {
-        fetchCities(postData2.region_user_id, field);
+      if (postData2.region_user_idArray) {
+        fetchCities(postData2.region_user_idArray, field);
       }
     }
   }, [
     postData.country_politician_idArray,
     postData.region_politician_idArray,
-    postData2.region_user_id,
-    postData2.country_user_id,
+    postData2.region_user_idArray,
+    postData2.country_user_idArray,
   ]);
 
   return !world ? (
@@ -81,8 +81,8 @@ export const SortDropdown = ({ text, field, world }) => {
       key={world}
       initialValues={{
         country: [],
-        region: '',
-        city: '',
+        region: [],
+        city: [],
       }}
       onSubmit={() => {
         setPostData(postData);
@@ -141,9 +141,9 @@ export const SortDropdown = ({ text, field, world }) => {
                         setPostData2((prevState) => {
                           const newState = {
                             ...prevState,
-                            // country_user_id: newValue.id,
-                            region_user_id: null,
-                            city_user_id: null,
+                            country_user_idArray: newVal,
+                            region_user_idArray: null,
+                            city_user_idArray: null,
                           };
                           setSortVote(newState);
                           setUpdate(!update);
@@ -172,16 +172,16 @@ export const SortDropdown = ({ text, field, world }) => {
                       if (field === 'vote') {
                         setPostData2({
                           ...postData2,
-                          country_user_id: null,
-                          region_user_id: null,
-                          city_user_id: null,
+                          country_user_idArray: null,
+                          region_user_idArray: null,
+                          city_user_idArray: null,
                         });
                         setRegionsVote(false);
                         setCitiesVote(false);
                         setSortVote({
-                          country_user_id: null,
-                          region_user_id: null,
-                          city_user_id: null,
+                          country_user_idArray: null,
+                          region_user_idArray: null,
+                          city_user_idArray: null,
                         });
                         setUpdate(!update);
                       }
@@ -204,7 +204,6 @@ export const SortDropdown = ({ text, field, world }) => {
                     multiple
                     id="region"
                     options={regions}
-                    // value={values.region}
                     style={{ width: '292px' }}
                     getOptionLabel={(option: any) => option?.title?.[currentLang] || option?.title?.ru || values.region}
                     isOptionEqualToValue={(option, value) => {
@@ -230,12 +229,16 @@ export const SortDropdown = ({ text, field, world }) => {
                           });
                         }
                         if (field === 'vote') {
-                          // setPostData2((prevState) => {
-                            // const newState = { ...prevState, region_user_id: newValue.id, city_user_id: null };
-                            // setSortVote(newState);
-                            // setUpdate(!update);
-                            // return newState;
-                          // });
+                          setPostData2((prevState) => {
+                            const newState = {
+                              ...prevState,
+                              region_user_idArray: newVal,
+                              city_user_idArray: null
+                            };
+                            setSortVote(newState);
+                            setUpdate(!update);
+                            return newState;
+                          });
                         }
                         setFieldValue('city', '');
                       } else {
@@ -251,12 +254,16 @@ export const SortDropdown = ({ text, field, world }) => {
                           });
                         }
                         if (field === 'vote') {
-                          setPostData2({ ...postData2, region_user_id: null, city_user_id: null });
+                          setPostData2({
+                            ...postData2,
+                            region_user_idArray: null,
+                            city_user_idArray: null
+                          });
                           setCitiesVote(false);
                           setUpdate(!update);
 
                           setSortVote({
-                            region_user_id: null,
+                            region_user_idArray: null,
                           });
                         }
                       }
@@ -276,7 +283,6 @@ export const SortDropdown = ({ text, field, world }) => {
                     multiple
                     id="city"
                     options={cities}
-                    // value={values.city}
                     style={{ width: '292px' }}
                     getOptionLabel={(option: any) => option?.title?.[currentLang] || option?.title?.ru || values.city}
                     isOptionEqualToValue={(option, value) => {
@@ -285,22 +291,31 @@ export const SortDropdown = ({ text, field, world }) => {
                     noOptionsText={<>{t('info.noVariants')}</>}
                     onChange={(_, newValue) => {
                       if (newValue) {
-                        // setFieldValue('city', newValue.title?.[currentLang] || newValue.title?.ru);
+                        setFieldValue('city', newValue);
+                        const newVal = newValue.map((i) => {
+                          return { id: i.id };
+                        });
                         if (field === 'geography') {
                           setPostData((prevState) => {
-                            const newState = { ...prevState, city_politician_idArray: newValue };
+                            const newState = {
+                              ...prevState,
+                              city_politician_idArray: newVal
+                            };
                             setSortGeography(newState);
                             setUpdate(!update);
                             return newState;
                           });
                         }
                         if (field === 'vote') {
-                          // setPostData2((prevState) => {
-                            // const newState = { ...prevState, city_user_id: newValue.id };
-                            // setSortVote(newState);
-                            // setUpdate(!update);
-                            // return newState;
-                          // });
+                          setPostData2((prevState) => {
+                            const newState = {
+                              ...prevState,
+                              city_user_idArray: newVal
+                            };
+                            setSortVote(newState);
+                            setUpdate(!update);
+                            return newState;
+                          });
                         }
                       } else {
                         if (field === 'geography') {
@@ -309,7 +324,7 @@ export const SortDropdown = ({ text, field, world }) => {
                           });
                         } else {
                           setSortVote({
-                            city_user_id: null,
+                            city_user_idArray: null,
                           });
                         }
                         setFieldValue('city', '');
