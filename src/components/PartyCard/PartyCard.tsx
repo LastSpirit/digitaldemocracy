@@ -44,6 +44,11 @@ const PartyCard: FC<IProps> = ({
       setAuthValue('/login');
     }
   };
+  const sliceTxt = (txt) => {
+    const countEnd = 50;
+    const title = txt.slice(0, countEnd);
+    return title + (txt.length >= countEnd ? '...' : '');
+  };
 
   return (
     <div className={styles.root}>
@@ -75,12 +80,15 @@ const PartyCard: FC<IProps> = ({
       <hr />
       <div className={styles.name}>{name}</div>
       <div className={styles.position}>
-        <div className={styles.position_text}>{position}</div>
-        {!!list_active_position.length && (
-          <Link to={`/politician/${short_link}/position_history`} className={styles.position_textLink}>
-            {position ? `${` ${t('info.more')} ${position_count - 1}`}` : ''}
-          </Link>
-        )}
+        <Tooltip title={position}>
+        <div className={styles.position_text}>{sliceTxt(position)}
+          {!!list_active_position.length && (
+            <Link to={`/politician/${short_link}/position_history`} className={styles.position_textLink}>
+              {position ? `${` ${t('info.more')} ${position_count - 1}`}` : ''}
+            </Link>
+          )}
+        </div>
+        </Tooltip>
       </div>
       <Button
         variant="outlined"
