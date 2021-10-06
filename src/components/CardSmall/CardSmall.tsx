@@ -5,7 +5,6 @@ import { useHistory, matchPath } from 'react-router';
 import watched from '../../icons/pictures/watched.png';
 import logo from '../../icons/logo/2.svg';
 import { AuthorI, MediaI } from '../../slices/homeSlice';
-import { HashtagsI, NewTopicsI, RegionI } from '../../slices/newsSlice';
 import classes from './CardSmall.module.scss';
 
 interface CardSmallProps {
@@ -18,6 +17,11 @@ interface CardSmallProps {
   short_link?: string;
   image?: any;
 }
+
+const checkImg = (el) => {
+  const boolImg = (/\.(gif|jpe?g|tiff|png|webp|svg)$/i).test(el);
+  return boolImg ? el : '/static/no_photo.svg';
+};
 
 const CardSmall: FC<CardSmallProps> = ({
   media,
@@ -44,6 +48,7 @@ const CardSmall: FC<CardSmallProps> = ({
     const newPath = matchPath(`/author/${author.short_link}`, { path: '/author/:link' });
     history.push(newPath.url);
   };
+
   return (
     <Box className={classes.bigCardContainer}>
       <Box className={classes.mainHeader}>
@@ -93,7 +98,7 @@ const CardSmall: FC<CardSmallProps> = ({
         </Box>
         <Box className={classes.imageContainer} onClick={handleNews}>
           {image.length > 1 ? (
-            image.map((elem) => <img src={elem} key={elem} alt="news" className={classes.image} />).splice(0, 2)
+            image.map((elem) => <img src={checkImg(elem)} key={elem} alt="news" className={classes.image} />).splice(0, 2)
           ) : (
             <img src={image} alt="news" className={classes.image_full} />
           )}

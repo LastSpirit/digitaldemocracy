@@ -17,9 +17,6 @@ export interface PoliticianInfoI {
   party?: PartyI;
   party_logo?: string;
   position?: string | null;
-  list_other_position: Array<PositionHistoryI>;
-  list_active_position?: Array<PositionHistoryI>;
-  list_position?: Array<PositionHistoryI>;
   age?: number;
   city?: string;
   trust?: string;
@@ -27,8 +24,7 @@ export interface PoliticianInfoI {
   rating?: string;
   short_link?: string;
   place?: number;
-  country?: any;
-  region?: any,
+  country?: { title: [] };
   position_count?: number;
 }
 
@@ -92,7 +88,6 @@ export interface MetricI {
 }
 
 export interface VoicesRegionI {
-  country_with_type: any;
   region_with_type: any;
   total: number;
 }
@@ -100,17 +95,10 @@ export interface VoicesRegionI {
 export interface RatingStatisticsI {
   metrics: Array<MetricI>;
   voicesByRegion: Array<VoicesRegionI>;
-  numberOfVotes: {
-    numberOfVotedUsers: number;
+  numberOfVoters: {
     numberOfUsersFromRegion: number;
+    numberOfVotedUsers: number;
     totalElectorate: number;
-  };
-}
-export interface VoteCountStatisticsI {
-  numberOfVotes: {
-    numberOfVotedUsers: any;
-    numberOfUsersFromRegion: any;
-    totalElectorate: any;
   };
 }
 
@@ -170,11 +158,6 @@ interface SliceState {
     rating: any;
     vote_groups: any;
   };
-  numberOfVotes?: {
-    numberOfVotedUsers: any;
-    numberOfUsersFromRegion: any;
-    totalElectorate: any;
-  };
 }
 
 export interface NewsWithPercentI extends NewsI {
@@ -196,11 +179,6 @@ const initialState: SliceState = {
     cities: [],
     rating: null,
     vote_groups: [],
-  },
-  numberOfVotes: {
-    numberOfVotedUsers: null,
-    numberOfUsersFromRegion: null,
-    totalElectorate: null,
   },
 };
 
@@ -245,10 +223,6 @@ export const politicianSlice = createSlice({
     },
     setRatingStatistics(state: SliceState, action: PayloadAction<RatingStatisticsI>) {
       state.ratingStatistics = action.payload;
-    },
-
-    setVoteCountStatistics(state: SliceState, action) {
-      state.numberOfVotes = action.payload;
     },
     setPositionsDescription(state: SliceState, action: PayloadAction<Array<PositionsDescriptionI>>) {
       state.positionDescription = action.payload.filter((item) => item.is_active === true);
@@ -333,7 +307,6 @@ export const politicianSelectors = {
   getPositionHistory: () => (state: Store) => state.politician.history,
   getPositionPromises: () => (state: Store) => state.politician.promises,
   getRatingStatistic: () => (state: Store) => state.politician.ratingStatistics,
-  getVoteCountStatistics: () => (state: Store) => state.politician.numberOfVotes,
   getPositionsDescription: () => (state: Store) => state.politician.positionDescription,
   getStatistic: () => (state: Store) => state.politician.statistic,
   getBills: () => (state: Store) => state.politician.bills,

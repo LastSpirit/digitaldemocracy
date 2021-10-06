@@ -8,12 +8,13 @@ import { APIStatus } from 'src/lib/axiosAPI';
 import { Loading } from 'src/components/Loading/Loading';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Button, InputLabel, Autocomplete, TextField, Checkbox } from '@material-ui/core';
+import { Button, InputLabel, Autocomplete, TextField, Checkbox, Tooltip } from '@material-ui/core';
 import { RootState } from 'src/store';
 import { politicianActionCreators, politicianSelectors } from 'src/slices/politicianSlice';
 import { PercentsLinearGraphic } from './PercentsLinearGraphic';
 import { useFetchInfoGrapchicData } from '../../hooks/useFetchInfoGrapchicData';
 import styles from './InfoGraphic.module.scss';
+import LineChartGraphic from './LineChartGraphic';
 
 export const InfoGraphic = () => {
   const { t, i18n } = useTranslation();
@@ -24,7 +25,7 @@ export const InfoGraphic = () => {
     useFetchInfoGrapchicData();
 
   const data = useSelector(politicianSelectors.getPoliticianInfo());
-  const { infoGrapghicData } = useSelector((s: RootState) => s.politician);
+  const { infoGrapghicData, electorate } = useSelector((s: RootState) => s.politician);
 
   const [world, setWorld] = useState(false);
 
@@ -47,7 +48,6 @@ export const InfoGraphic = () => {
       fetchCity(postData.region);
     }
   }, [postData.region]);
-
   return (
     <div className={styles.root}>
       <Formik
@@ -244,12 +244,17 @@ export const InfoGraphic = () => {
       </Formik>
       <WrapperAsyncRequest status={statusGrapchic}>
         {infoGrapghicData?.rating ? (
-          <div className={styles.retingWrapper}>
-            <div className={styles.percent}>{infoGrapghicData?.rating} %</div>
-            <div className={styles.linear}>
-              <PercentsLinearGraphic vote_groups={infoGrapghicData?.vote_groups} />
+          <>
+            <div className={styles.retingWrapper}>
+              <div className={styles.percent}>{infoGrapghicData?.rating} %</div>
+              <div className={styles.linear}>
+                <PercentsLinearGraphic vote_groups={infoGrapghicData?.vote_groups} />
+              </div>
             </div>
-          </div>
+            <div className={styles.lineChartWrapper}>
+              <LineChartGraphic electorate={electorate} />
+            </div>
+          </>
         ) : (
           <div className={styles.notData}>{t('info.noData')}</div>
         )}
