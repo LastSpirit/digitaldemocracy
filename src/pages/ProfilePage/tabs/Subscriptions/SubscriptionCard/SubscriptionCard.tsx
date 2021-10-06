@@ -5,7 +5,7 @@ import { useHistory } from 'react-router';
 import { Theme, withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import { Button } from '@material-ui/core';
+import { Button, Tooltip } from '@material-ui/core';
 import { badgeColorChanger } from 'src/utils/badgeColorChanger';
 import { avatarColorChanger } from 'src/utils/avatarColorChanger';
 import styles from './SubscriptionCard.module.scss';
@@ -84,6 +84,12 @@ const SubscriptionCard: FC<IProps> = ({
     }
   };
 
+  const sliceTxt = (txt) => {
+    const countEnd = 50;
+    const title = txt.slice(0, countEnd);
+    return title + (txt.length >= countEnd ? '...' : '');
+  };
+
   return (
     <div className={styles.root}>
       <Link to={getLink()}>
@@ -118,14 +124,16 @@ const SubscriptionCard: FC<IProps> = ({
       </div>
       <div className={styles.name}>{name}</div>
       {position && (
+        <Tooltip title={position}>
         <div className={styles.position}>
-          <div className={styles.position_text}>{position}</div>
-          {!!list_active_position.length && (
+          <div className={styles.position_text}>{sliceTxt(position)}{!!list_active_position.length && (
             <Link to={`/politician/${short_link}/position_history`} className={styles.position_textLink}>
               {position ? `${` ${t('info.more')} ${position_count - 1}`}` : ''}
             </Link>
           )}
+          </div>
         </div>
+        </Tooltip>
       )}
       <Button
         variant="outlined"
