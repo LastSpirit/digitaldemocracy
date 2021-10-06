@@ -47,7 +47,7 @@ const PoliticiansCard: FC<IProps> = ({
     }
   };
   const sliceTxt = (txt) => {
-    const countEnd = 50;
+    const countEnd = 75;
     const title = txt.slice(0, countEnd);
     return title + (txt.length >= countEnd ? '...' : '');
   };
