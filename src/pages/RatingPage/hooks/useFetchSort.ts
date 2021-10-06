@@ -3,13 +3,17 @@ import { APIStatus } from 'src/lib/axiosAPI';
 import { ratingAPI } from '../../../api/ratingAPI';
 import { ratingActionCreators } from '../../../slices/ratingSlice';
 
+interface CommonId {
+  id?: number;
+}
+
 export const useFetchSort = () => {
   const [regionStatus, setRegionStatus] = useState(APIStatus.Initial);
   const [cityStatus, setCityStatus] = useState(APIStatus.Initial);
 
-  const { getCountries, getRegions, getCities } = ratingAPI();
+  const { getCountries, getRegions, getRegionsArray, getCities, getCitiesArray } = ratingAPI();
   const { setCountryGeography, setCitiesGeography, setRegionsGeography, setCountryVote, setCitiesVote, setRegionsVote } = ratingActionCreators();
-  const fetchCounties = useCallback((field) => {
+  const fetchCountries = useCallback((field) => {
     getCountries({
       onSuccess: (response) => {
         if (field === 'geography') {
@@ -22,9 +26,9 @@ export const useFetchSort = () => {
     });
   }, []);
 
-  const fetchRegions = useCallback((id: number, field: string) => {
+  const fetchRegions = useCallback((id: Array<CommonId>, field: string) => {
     setRegionStatus(APIStatus.Loading);
-    getRegions({
+    getRegionsArray({
       onSuccess: (response) => {
         if (field === 'geography') {
           setRegionsGeography(response);
@@ -36,15 +40,15 @@ export const useFetchSort = () => {
         setRegionStatus(APIStatus.Failure);
         console.log(errorResponse);
       },
-      params: {
-        country_id: id,
+      payload: {
+        countries: id,
       },
     });
   }, []);
 
   const fetchCities = useCallback((id, field) => {
     setCityStatus(APIStatus.Loading);
-    getCities({
+    getCitiesArray({
       onSuccess: (response) => {
         if (field === 'geography') {
           setCitiesGeography(response);
@@ -56,14 +60,14 @@ export const useFetchSort = () => {
         setCityStatus(APIStatus.Failure);
         console.log(errorResponse);
       },
-      params: {
-        region_id: id,
+      payload: {
+        regions: id,
       },
     });
   }, []);
 
   return {
-    fetchCounties,
+    fetchCountries,
     fetchRegions,
     fetchCities,
     regionStatus,

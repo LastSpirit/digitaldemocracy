@@ -18,7 +18,7 @@ export const SortDropdownMobile = ({ text, field, world }) => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
   const [update, setUpdate] = useState(true);
-  const { fetchCounties, fetchRegions, fetchCities } = useFetchSort();
+  const { fetchCountries, fetchRegions, fetchCities } = useFetchSort();
   const {
     setSortGeography,
     setSortVote,
@@ -52,7 +52,7 @@ export const SortDropdownMobile = ({ text, field, world }) => {
   }, [update, world]);
 
   useEffect(() => {
-    fetchCounties(field);
+    fetchCountries(field);
     if (field === 'geography') {
       if (postData.country_politician_id) {
         fetchRegions(postData.country_politician_id, field);
