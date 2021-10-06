@@ -4,6 +4,10 @@ import { PoliticianInfoI, PartyI } from './politicianSlice';
 import { AuthorDataI } from './authorSlice';
 import { MassMediaDataI } from './massMediaSlice';
 
+interface CountryId {
+  id?: number;
+}
+
 interface PoliticiansI {
   politicians?: Array<PoliticianInfoI>;
   isMorePages?: boolean;
@@ -24,7 +28,7 @@ interface MediaI {
   isMorePages?: boolean;
 }
 interface SortGeography {
-  country_politician_id: number;
+  country_politician_idArray: Array<CountryId>;
   region_politician_id: number;
   city_politician_id: number;
 }

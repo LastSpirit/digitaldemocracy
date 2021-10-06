@@ -7,7 +7,7 @@ export const useFetchSort = () => {
   const [regionStatus, setRegionStatus] = useState(APIStatus.Initial);
   const [cityStatus, setCityStatus] = useState(APIStatus.Initial);
 
-  const { getCountries, getRegions, getCities } = ratingAPI();
+  const { getCountries, getRegions, getRegionsArray, getCities } = ratingAPI();
   const { setCountryGeography, setCitiesGeography, setRegionsGeography, setCountryVote, setCitiesVote, setRegionsVote } = ratingActionCreators();
   const fetchCounties = useCallback((field) => {
     getCountries({
@@ -24,7 +24,7 @@ export const useFetchSort = () => {
 
   const fetchRegions = useCallback((id: number, field: string) => {
     setRegionStatus(APIStatus.Loading);
-    getRegions({
+    getRegionsArray({
       onSuccess: (response) => {
         if (field === 'geography') {
           setRegionsGeography(response);

@@ -7,6 +7,20 @@ export interface CountryI {
   title: string;
 }
 
+const fetchRatingPoliticiansArray = (args) => {
+  return callAPI({
+    url: 'getRatingPage/politiciansByArray',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+    },
+    ...args,
+  });
+};
+
 const fetchRatingPoliticians = (args) => {
   return callAPI({
     url: 'getRatingPage/politicians',
@@ -119,6 +133,14 @@ const getCountries: APIRequest<{}, Array<CountryI>> = (args) =>
     nestedResponseType: false
   });
 
+const getRegionsArray = (args) => {
+  return callAPI({ url: 'getRegions',
+    config: { method: 'POST',
+    },
+    ...args,
+    nestedResponseType: false });
+};
+
 const getRegions = (args) => {
   return callAPI({ url: 'getRegions',
     config: { method: 'get',
@@ -138,6 +160,7 @@ const getCities = (args) => {
 };
 
 const APIs = {
+  fetchRatingPoliticiansArray,
   fetchRatingPoliticians,
   fetchRatingAuthors,
   fetchRatingMassMedia,
@@ -147,6 +170,7 @@ const APIs = {
   unsubscribeMedia,
   fetchRatingParties,
   getCountries,
+  getRegionsArray,
   getRegions,
   getCities,
 };

@@ -33,7 +33,7 @@ export const SortDropdown = ({ text, field, world }) => {
   const { sort_vote, sort_geography } = useSelector((s: RootState) => s.rating);
 
   const [postData, setPostData] = useState({
-    country_politician_id: null,
+    country_politician_idArray: null,
     region_politician_id: null,
     city_politician_id: null,
   });
@@ -44,6 +44,8 @@ export const SortDropdown = ({ text, field, world }) => {
     city_user_id: null,
   });
 
+  console.log(postData);
+
   useEffect(() => {
     fetch(world);
   }, [update, world]);
@@ -51,11 +53,11 @@ export const SortDropdown = ({ text, field, world }) => {
   useEffect(() => {
     fetchCounties(field);
     if (field === 'geography') {
-      if (postData.country_politician_id) {
-        fetchRegions(postData.country_politician_id, field);
+      if (postData.country_politician_idArray) {
+        fetchRegions(postData.country_politician_idArray, field);
       }
-      if (postData.region_politician_id) {
-        fetchCities(postData.region_politician_id, field);
+      if (postData.country_politician_idArray) {
+        fetchCities(postData.country_politician_idArray, field);
       }
     }
 
@@ -68,7 +70,7 @@ export const SortDropdown = ({ text, field, world }) => {
       }
     }
   }, [
-    postData.country_politician_id,
+    postData.country_politician_idArray,
     postData.region_politician_id,
     postData2.region_user_id,
     postData2.country_user_id,
@@ -78,7 +80,7 @@ export const SortDropdown = ({ text, field, world }) => {
     <Formik
       key={world}
       initialValues={{
-        country: '',
+        country: [],
         region: '',
         city: '',
       }}
@@ -90,7 +92,6 @@ export const SortDropdown = ({ text, field, world }) => {
     >
       {(props) => {
         const { values, errors, handleChange, handleBlur, handleSubmit, handleReset, setFieldValue } = props;
-
         return (
           <div className={styles.mainTitle}>
             {text}
@@ -106,9 +107,9 @@ export const SortDropdown = ({ text, field, world }) => {
                   {t('buttons.sort.countryFullTitle')}
                 </InputLabel>
                 <Autocomplete
+                  multiple
                   id="country"
                   options={countries ?? []}
-                  value={values.country}
                   style={{ width: '292px' }}
                   getOptionLabel={(option: any) => option?.title?.[currentLang] || option?.title?.ru || values.country}
                   isOptionEqualToValue={(option, value) => {
@@ -117,13 +118,16 @@ export const SortDropdown = ({ text, field, world }) => {
                   noOptionsText={<>{t('info.noVariants')}</>}
                   onChange={(_, newValue) => {
                     if (newValue) {
-                      setFieldValue('country', newValue.title?.[currentLang] || newValue.title?.ru);
+                      setFieldValue('country', newValue);
+                      const newVal = newValue.map((i) => {
+                        return { id: i.id };
+                      });
 
                       if (field === 'geography') {
                         setPostData((prevState) => {
                           const newState = {
                             ...prevState,
-                            country_politician_id: newValue.id,
+                            country_politician_idArray: newVal,
                             region_politician_id: null,
                             city_politician_id: null,
                           };
@@ -137,7 +141,7 @@ export const SortDropdown = ({ text, field, world }) => {
                         setPostData2((prevState) => {
                           const newState = {
                             ...prevState,
-                            country_user_id: newValue.id,
+                            // country_user_id: newValue.id,
                             region_user_id: null,
                             city_user_id: null,
                           };
@@ -151,7 +155,7 @@ export const SortDropdown = ({ text, field, world }) => {
                       if (field === 'geography') {
                         setPostData({
                           ...postData,
-                          country_politician_id: null,
+                          country_politician_idArray: null,
                           region_politician_id: null,
                           city_politician_id: null,
                         });
