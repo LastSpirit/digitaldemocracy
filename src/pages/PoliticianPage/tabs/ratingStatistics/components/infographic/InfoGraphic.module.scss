@@ -76,15 +76,18 @@
         width: 198px;
         height: 36px;
         margin-right: 20px;
-
-        color: white;
-        border: 1px solid #363557;
+        color: white !important;
         background: #363557;
 
         @media screen and (max-width: 1024px) {
           width: 100%;
           margin-bottom: 18px;
           margin-right: 00px;
+        }
+        &:hover {
+          color: #363557 !important;
+          background: white !important;
+          border: 1px solid #363557;
         }
       }
 

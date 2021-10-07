@@ -4,6 +4,10 @@ import { PoliticianInfoI, PartyI } from './politicianSlice';
 import { AuthorDataI } from './authorSlice';
 import { MassMediaDataI } from './massMediaSlice';
 
+interface CommonId {
+  id?: number;
+}
+
 interface PoliticiansI {
   politicians?: Array<PoliticianInfoI>;
   isMorePages?: boolean;
@@ -24,14 +28,14 @@ interface MediaI {
   isMorePages?: boolean;
 }
 interface SortGeography {
-  country_politician_id: number;
-  region_politician_id: number;
-  city_politician_id: number;
+  country_politician_idArray: Array<CommonId>;
+  region_politician_idArray: Array<CommonId>;
+  city_politician_idArray: Array<CommonId>;
 }
 interface SortVote {
-  country_user_id: number;
-  region_user_id: number;
-  city_user_id: number;
+  country_user_idArray: Array<CommonId>;
+  region_user_idArray: Array<CommonId>;
+  city_user_idArray: Array<CommonId>;
 }
 interface SliceState {
   sort_direction?: string;
@@ -167,9 +171,9 @@ export const ratingSlice = createSlice({
     },
     resetFilterForGeography(state: SliceState) {
       state.sort_vote = {
-        country_user_id: null,
-        region_user_id: null,
-        city_user_id: null,
+        country_user_idArray: null,
+        region_user_idArray: null,
+        city_user_idArray: null,
       };
     },
   },
