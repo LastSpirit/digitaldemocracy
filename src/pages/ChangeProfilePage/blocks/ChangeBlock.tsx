@@ -23,7 +23,7 @@ export const ChangeBlock = () => {
   const [imageTest, setImageTest] = useState(false);
   const onChange = (e) => {
     const file = e.target.files[0];
-    if (!file.type.split('/').includes('image')) {
+    if (file && file.type && !file.type.split('/').includes('image')) {
       setImageTest(true);
     } else if (file) {
       fetchAvatar(file);
