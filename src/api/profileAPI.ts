@@ -213,7 +213,6 @@ const editUserAvatar = (args) => {
         Authorization: `Bearer ${args?.token}`,
       },
     },
-    payload: args?.payload,
     ...args,
   });
 };
