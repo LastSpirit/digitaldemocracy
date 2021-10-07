@@ -19,10 +19,12 @@ export const useFetchAvatar = () => {
       onError: (errorResponse) => {
         setStatus(APIStatus.Failure);
       },
-      payload: {
-        data: FORM,
-        token,
-      },
+      // payload: {
+      //   data: FORM,
+      //   token,
+      // },
+      payload: FORM,
+      token,
     });
   };
 
