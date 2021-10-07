@@ -28,7 +28,7 @@
   margin: 50px 0;
   padding-top: 20px;
 
-  border-top: 1px solid #B0B0B0;
+  border-top: 1px solid #b0b0b0;
 
   .tabList {
     flex-basis: 24%;
@@ -45,7 +45,7 @@
       text-decoration: none;
 
       color: #747373;
-      border-bottom: 1px solid #B0B0B0;
+      border-bottom: 1px solid #b0b0b0;
 
       &:hover {
         background-color: #36355720;
@@ -101,7 +101,7 @@
         transform: rotate(180deg);
 
         border-radius: 100%;
-        background-color: #F3F3F3;
+        background-color: #f3f3f3;
 
         font-size: 10px;
       }
@@ -113,7 +113,7 @@
         cursor: pointer;
 
         border-radius: 100%;
-        background-color: #F3F3F3;
+        background-color: #f3f3f3;
 
         font-size: 10px;
       }
@@ -148,7 +148,7 @@
 
           text-align: center;
 
-          border: 1px solid #B0B0B0;
+          border: 1px solid #b0b0b0;
           border-radius: 30px;
 
           font-size: 70%;
@@ -191,13 +191,14 @@
   }
 
   .logoutButton {
-    color: #363557 !important;
+    color: white;
     border: 1px solid #363557;
-    background: white;
+
+    background: #363557;
 
     &:hover {
-      color: white !important;
-      background: #363557 !important;
+      color: #363557 !important;
+      background: white !important;
     }
 
     @media screen and (max-width: 1024px) {
@@ -227,7 +228,7 @@
 
     border: 1px solid #248232;
     border-radius: 20px;
-    background: #F0FFF2;
+    background: #f0fff2;
   }
 
   .avatarBlock {
@@ -257,7 +258,7 @@
       height: 200px;
 
       border-radius: 100%;
-      background-color: #E5E5E5;
+      background-color: #e5e5e5;
 
       @media screen and (max-width: 1024px) {
         margin-bottom: 20px;
@@ -278,18 +279,18 @@
 
       cursor: pointer;
 
-      color: #363557 !important;
+      color: white !important;
       border: 1px solid #363557;
       border-radius: 40px;
-      background: white;
+      background: #363557;
 
       @media screen and (max-width: 1024px) {
         margin-left: 0px;
       }
 
       &:hover {
-        color: white !important;
-        background: #363557 !important;
+        color: #363557 !important;
+        background: white !important;
       }
     }
   }
@@ -357,6 +358,10 @@
           width: 100%;
           margin-bottom: 18px;
         }
+        &:hover {
+          color: #363557 !important;
+          background: white !important;
+        }
       }
 
       .clearButton {
@@ -412,7 +417,7 @@
     margin-bottom: 18px;
     padding: 21px 27px;
 
-    border: 1px solid #B0B0B0;
+    border: 1px solid #b0b0b0;
     border-radius: 20px;
 
     img {
@@ -433,6 +438,11 @@
       color: white;
       border: 1px solid #363557;
       background: #363557;
+
+      &:hover {
+        color: #363557 !important;
+        background: white !important;
+      }
     }
   }
 }
@@ -508,6 +518,11 @@
           color: white;
           border: 1px solid #363557;
           background: #363557;
+
+          &:hover {
+            color: #363557 !important;
+            background: white !important;
+          }
         }
       }
     }
@@ -556,6 +571,11 @@
       color: white;
       border: 1px solid #363557;
       background: #363557;
+
+      &:hover {
+        color: #363557 !important;
+        background: white !important;
+      }
     }
   }
 
@@ -636,6 +656,11 @@
           color: white;
           border: 1px solid #363557;
           background: #363557;
+
+          &:hover {
+            color: #363557 !important;
+            background: white !important;
+          }
         }
       }
     }
@@ -735,6 +760,11 @@
           color: white;
           border: 1px solid #363557;
           background: #363557;
+
+          &:hover {
+            color: #363557 !important;
+            background: white !important;
+          }
         }
       }
     }
