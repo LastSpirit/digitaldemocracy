@@ -80,10 +80,15 @@ const PoliticianDossierChart: React.FC<IPoliticianDossierGraph> = ({ setIsGraphS
       },
     ],
   };
+  const cd = (w) => {
+    const arr = Object.values(w);
+    return [arr.pop(), ...arr] || [];
+  };
   Highcharts.setOptions({
     lang: {
       months: Object.values(t('mountsFullName')),
-      weekdays: Object.values(t('days')),
+      // @ts-ignore
+      weekdays: cd(t('days')),
       shortMonths: Object.values(t('mountsShortName')),
       resetZoom: t('info.resetZoom'),
     },
