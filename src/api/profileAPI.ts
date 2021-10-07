@@ -209,10 +209,11 @@ const editUserAvatar = (args) => {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-type': 'multipart/form-data',
-        Authorization: `Bearer ${args.payload.token}`,
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${args?.token}`,
       },
     },
+    payload: args?.payload,
     ...args,
   });
 };
