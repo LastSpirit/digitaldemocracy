@@ -118,7 +118,7 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                   <div className={styles.politicPosition}>
                     {data?.position}
                     {data?.list_active_position.length ? (
-                      <Link to={'position_history'}>{` ${t('info.more')} ${data.position_count - 1}` || ''}</Link>
+                      <Link to={'position_history'}>{` ${t('info.more')} ${data.position_count}` || ''}</Link>
                     ) : (
                       ''
                     )}
@@ -206,7 +206,7 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                 <div className={styles.positionText}> {data?.position}</div>
                 {data?.list_active_position.length ? (
                   <Link to={`/politician/${data?.short_link}/position_history`}>
-                    {data?.position ? `${` ${t('info.more')}${data?.position_count - 1}`}` : ''}
+                    {data?.position ? `${` ${t('info.more')}${data?.position_count}`}` : ''}
                   </Link>
                 ) : (
                   ''

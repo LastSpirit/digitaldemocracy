@@ -116,7 +116,7 @@ export const Highchart = () => {
         lineColor: 'rgb(128, 127, 127)',
         tooltip: {
           headerFormat: '<b>{point.x:%A %d-%b-%Y}</b><br/>',
-          pointFormat: `{series.name}, %: {point.y}<br/>${t('info.votedPeople')}: {point.votes2}<br/>${t('info.totalElectorate')}: {point.votes}`,
+          pointFormat: `${t('info.votedPeople')}: {point.votes2}<br/>${t('info.totalElectorate')}: {point.votes}`,
         },
       },
     ],
