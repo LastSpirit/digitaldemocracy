@@ -125,14 +125,14 @@ const SubscriptionCard: FC<IProps> = ({
       <div className={styles.name}>{name}</div>
       {position && (
         <Tooltip title={position}>
-        <div className={styles.position}>
-          <div className={styles.position_text}>{sliceTxt(position)}{!!list_active_position.length && (
+          <div className={styles.position}>
+            <div className={styles.position_text}>{position && sliceTxt(position)}{!!list_active_position.length && (
             <Link to={`/politician/${short_link}/position_history`} className={styles.position_textLink}>
               {position ? `${` ${t('info.more')} ${position_count}`}` : ''}
             </Link>
           )}
+            </div>
           </div>
-        </div>
         </Tooltip>
       )}
       <Button
