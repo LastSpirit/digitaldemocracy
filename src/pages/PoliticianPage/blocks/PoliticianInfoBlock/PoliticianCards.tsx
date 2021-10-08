@@ -58,7 +58,12 @@ const PoliticianCards = () => {
   // const badgeBackground = trust === 'Высокое доверие' ? 'green' : trust === 'Низкое доверие' ? 'red' : null;
   // const badgeColor = trust === 'Высокое доверие' ? '#fff' : '#222';
   const titleTooltip = () => {
-    const title = `${t('profile.rankingPlace')}: ${data?.country?.title?.[i18n.language] || data?.region?.title?.[i18n.language] || t('info.worldUser')}`;
+    const title = `${t('profile.rankingPlace')}: ${
+      data?.city_full?.title?.[i18n.language] ||
+      data?.region?.title?.[i18n.language] ||
+      data?.country?.title?.[i18n.language] ||
+      t('info.worldUser')
+    }`;
     return title;
   };
   return (
@@ -78,7 +83,7 @@ const PoliticianCards = () => {
                     className={data?.place ? styles.badge : `${styles.badge} ${styles.badge__nonRaiting}`}
                     style={{
                       backgroundColor: badgeColorChanger(data?.rating, 'ground'),
-                      cursor: 'pointer'
+                      cursor: 'pointer',
                     }}
                   >
                     <div
