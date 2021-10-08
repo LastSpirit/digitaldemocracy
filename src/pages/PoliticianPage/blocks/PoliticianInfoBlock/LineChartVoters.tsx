@@ -41,26 +41,31 @@ export const LineChartVoters = () => {
     fetch();
   }, []);
   const titleTooltip = () => {
-    const title = `${t('profile.electorate')}: ${data?.country?.title?.[i18n.language] || data?.region?.title?.[i18n.language] || t('info.worldUser')}`;
+    const title = `${t('profile.electorate')}: ${
+      data?.city_full?.title?.[i18n.language] ||
+      data?.region?.title?.[i18n.language] ||
+      data?.country?.title?.[i18n.language] ||
+      t('info.worldUser')
+    }`;
     return title;
   };
   return (
     <div className={styles.lineChartVotersContainer}>
       <Tooltip title={titleTooltip()}>
-      <div className={styles.lines}>
-        {numberOfVotes &&
-          lines(t).map(({ color, id, zIndex, width }, index) => {
-            const item = getWidth(numberOfVotes[id], numberOfVotes.totalElectorate);
+        <div className={styles.lines}>
+          {numberOfVotes &&
+            lines(t).map(({ color, id, zIndex, width }, index) => {
+              const item = getWidth(numberOfVotes[id], numberOfVotes.totalElectorate);
 
-            return (
-              <Tooltip title="" key={index.toString()}>
-                <div className={styles.line} style={{ backgroundColor: color, width: `${width}%`, zIndex }}>
-                  <span className={styles.count}>{`${numberOfVotes[id]} ${t('info.people')} `}</span>
-                </div>
-              </Tooltip>
-            );
-          })}
-      </div>
+              return (
+                <Tooltip title="" key={index.toString()}>
+                  <div className={styles.line} style={{ backgroundColor: color, width: `${width}%`, zIndex }}>
+                    <span className={styles.count}>{`${numberOfVotes[id]} ${t('info.people')} `}</span>
+                  </div>
+                </Tooltip>
+              );
+            })}
+        </div>
       </Tooltip>
       <div className={styles.legends}>
         {numberOfVotes &&

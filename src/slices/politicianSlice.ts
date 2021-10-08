@@ -28,7 +28,8 @@ export interface PoliticianInfoI {
   short_link?: string;
   place?: number;
   country?: any;
-  region?: any,
+  region?: any;
+  city_full?: any;
   position_count?: number;
 }
 
@@ -101,8 +102,8 @@ export interface RatingStatisticsI {
   metrics: Array<MetricI>;
   voicesByRegion: Array<VoicesRegionI>;
   numberOfVotes: {
-    numberOfVotedUsers: number;
     numberOfUsersFromRegion: number;
+    numberOfVotedUsers: number;
     totalElectorate: number;
   };
 }
@@ -175,11 +176,11 @@ interface SliceState {
     numberOfUsersFromRegion: any;
     totalElectorate: any;
   };
-  electorate? : {
+  electorate?: {
     numberOfVotedUsers: any;
     numberOfUsersFromRegion: any;
     totalElectorate: any;
-  }
+  };
 }
 
 export interface NewsWithPercentI extends NewsI {
@@ -330,7 +331,7 @@ export const politicianSlice = createSlice({
     },
     setElectorate(state, action) {
       state.electorate = action.payload;
-    }
+    },
   },
 });
 
