@@ -91,7 +91,7 @@ export const SortDropdown = ({ text, field, world, setWorld, update, setUpdate, 
           region_user_idArray: null,
           city_user_idArray: null,
         };
-        setSortGeography(newState);
+        setSortVote(newState);
         setRegionsVote(null);
         setCitiesVote(null);
         return newState;
@@ -239,7 +239,6 @@ export const SortDropdown = ({ text, field, world, setWorld, update, setUpdate, 
                     noOptionsText={<>{t('info.noVariants')}</>}
                     onChange={(_, newValue) => {
                       if (newValue) {
-                        console.log(newValue);
                         setFieldValue('region', newValue);
                         const newVal = newValue.map((i) => {
                           return { id: i.id };
@@ -343,7 +342,7 @@ export const SortDropdown = ({ text, field, world, setWorld, update, setUpdate, 
                       return newState;
                     });
                   } else {
-                    setPostData((prevState) => {
+                    setPostData2((prevState) => {
                       const newState = {
                         ...prevState,
                         country_user_idArray: null,
