@@ -13,7 +13,7 @@ import { useFetchPoliticians } from '../hooks/useFetchPoliticians';
 import { useFetchSort } from '../hooks/useFetchSort';
 import { ratingActionCreators } from '../../../slices/ratingSlice';
 
-export const SortDropdown = ({ text, field, world, setWorld, update, setUpdate }) => {
+export const SortDropdown = ({ text, field, world, setWorld, update, setUpdate, worldVotes, setWorldVotes }) => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
   const { fetchCountries, fetchRegions, fetchCities } = useFetchSort();
@@ -76,12 +76,26 @@ export const SortDropdown = ({ text, field, world, setWorld, update, setUpdate }
     }
 
     if (field === 'vote') {
-      if (postData2.country_user_idArray) {
+      if (postData2.country_user_idArray && postData2.country_user_idArray.length) {
+        setWorldVotes(false);
         fetchRegions(postData2.country_user_idArray, field);
       }
-      if (postData2.region_user_idArray) {
+      if (postData2.region_user_idArray && postData2.region_user_idArray.length) {
         fetchCities(postData2.region_user_idArray, field);
       }
+    } else {
+      setPostData2((prevState) => {
+        const newState = {
+          ...prevState,
+          country_user_idArray: null,
+          region_user_idArray: null,
+          city_user_idArray: null,
+        };
+        setSortGeography(newState);
+        setRegionsVote(null);
+        setCitiesVote(null);
+        return newState;
+      });
     }
     setUpdate(!update);
   }, [
@@ -109,32 +123,43 @@ export const SortDropdown = ({ text, field, world, setWorld, update, setUpdate }
         const { values, errors, handleChange, handleBlur, handleSubmit, handleReset, setFieldValue } = props;
 
         useEffect(() => {
-          const newValue = [];
-          if (values.region.length && regions && regions.length) {
-            values.region.forEach((item) => {
-              regions.forEach((i) => {
-                if (item.id === i.id) {
-                  newValue.push(item);
+          const newValueCity = [];
+          const newValueRegion = [];
+          if (values.country.length) {
+            values.country.forEach((item) => {
+              values.region.forEach((i) => {
+                if (item.id === i.country_id) {
+                  newValueRegion.push(i);
                 }
               });
             });
           }
-          setFieldValue('region', newValue);
-        }, [regions]);
+          if (values.country.length) {
+            values.country.forEach((item) => {
+              values.city.forEach((i) => {
+                if (item.id === i.country_id) {
+                  newValueCity.push(i);
+                }
+              });
+            });
+          }
+          setFieldValue('region', newValueRegion);
+          setFieldValue('city', newValueCity);
+        }, [values.country]);
 
         useEffect(() => {
           const newValue = [];
-          if (values.city.length && cities && cities.length) {
-            values.city.forEach((item) => {
-              cities.forEach((i) => {
-                if (item.id === i.id) {
-                  newValue.push(item);
+          if (values.region.length) {
+            values.region.forEach((item) => {
+              values.city.forEach((i) => {
+                if (item.id === i.region_id) {
+                  newValue.push(i);
                 }
               });
             });
           }
           setFieldValue('city', newValue);
-        }, [cities]);
+        }, [values.region]);
 
         return (
           <div className={styles.mainTitle}>
@@ -214,6 +239,7 @@ export const SortDropdown = ({ text, field, world, setWorld, update, setUpdate }
                     noOptionsText={<>{t('info.noVariants')}</>}
                     onChange={(_, newValue) => {
                       if (newValue) {
+                        console.log(newValue);
                         setFieldValue('region', newValue);
                         const newVal = newValue.map((i) => {
                           return { id: i.id };
@@ -301,10 +327,10 @@ export const SortDropdown = ({ text, field, world, setWorld, update, setUpdate }
               <Checkbox
                 icon={<CircleUnchecked style={{ color: 'black' }} />}
                 checkedIcon={<RadioButtonCheckedIcon style={{ color: 'black' }} />}
-                checked={field === 'geography' ? world : null}
+                checked={field === 'geography' ? world : worldVotes}
                 onChange={() => {
+                  clearValue('country', setFieldValue);
                   if (field === 'geography') {
-                    clearValue('country', setFieldValue);
                     setPostData((prevState) => {
                       const newState = {
                         ...prevState,
@@ -317,7 +343,6 @@ export const SortDropdown = ({ text, field, world, setWorld, update, setUpdate }
                       return newState;
                     });
                   } else {
-                    clearValue('country', setFieldValue);
                     setPostData((prevState) => {
                       const newState = {
                         ...prevState,
@@ -326,7 +351,7 @@ export const SortDropdown = ({ text, field, world, setWorld, update, setUpdate }
                         city_user_idArray: null,
                       };
                       setSortVote(newState);
-                      setWorld(true);
+                      setWorldVotes(true);
                       return newState;
                     });
                   }
