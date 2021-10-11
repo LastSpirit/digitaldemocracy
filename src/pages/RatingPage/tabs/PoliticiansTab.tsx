@@ -26,6 +26,7 @@ const PoliticiansTab = () => {
   const sortField = useSelector((s: RootState) => s.rating.sort_field);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const [world, setWorld] = useState(true);
+  const [worldVotes, setWorldVotes] = useState(false);
   const [page, setPage] = useState(1);
   const [update, setUpdate] = useState(true);
 
@@ -55,6 +56,8 @@ const PoliticiansTab = () => {
                 setWorld={setWorld}
                 update={update}
                 setUpdate={setUpdate}
+                worldVotes={worldVotes}
+                setWorldVotes={setWorldVotes}
               />;
             })}
           </div>
@@ -69,6 +72,8 @@ const PoliticiansTab = () => {
                 setWorld={setWorld}
                 update={update}
                 setUpdate={setUpdate}
+                worldVotes={worldVotes}
+                setWorldVotes={setWorldVotes}
               />;
             })}
           </div>
