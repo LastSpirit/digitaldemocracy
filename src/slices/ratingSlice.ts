@@ -169,13 +169,13 @@ export const ratingSlice = createSlice({
       const { id, isSubscribe } = action.payload;
       state.massMedia.media.find((item) => item.id === id).is_subscribed = !isSubscribe;
     },
-    resetFilterForGeography(state: SliceState) {
-      state.sort_vote = {
-        country_user_idArray: null,
-        region_user_idArray: null,
-        city_user_idArray: null,
-      };
-    },
+    // resetFilterForGeography(state: SliceState) {
+    //   state.sort_vote = {
+    //     country_user_idArray: null,
+    //     region_user_idArray: null,
+    //     city_user_idArray: null,
+    //   };
+    // },
   },
 });
 

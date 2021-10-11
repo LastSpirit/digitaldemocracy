@@ -6,7 +6,7 @@ import { Box, Button, Typography } from '@material-ui/core';
 import { ratingActionCreators } from '../../../slices/ratingSlice';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import { useFetchPoliticians } from '../hooks/useFetchPoliticians';
-import { RootState } from '../../../store/index';
+import { RootState } from '../../../store';
 import { SortBadge } from './SortBadge';
 import { SortDropdown } from './SortDropdown';
 import { SortDropdownMobile } from './SortDropdownMobile';
@@ -21,12 +21,13 @@ const PoliticiansTab = () => {
   const { isMobile } = useWindowSize();
   const { politicians, isMorePages } = useSelector((s: RootState) => s.rating?.politicians);
   const { fetch, status } = useFetchPoliticians();
-  const { resetFilterForGeography } = ratingActionCreators();
+  // const { resetFilterForGeography } = ratingActionCreators();
   const sortDirection = useSelector((s: RootState) => s.rating.sort_direction);
   const sortField = useSelector((s: RootState) => s.rating.sort_field);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
-  const [world, setWorld] = useState(false);
+  const [world, setWorld] = useState(true);
   const [page, setPage] = useState(1);
+  const [update, setUpdate] = useState(true);
 
   useEffect(() => {
     if (page > 1) {
@@ -34,7 +35,7 @@ const PoliticiansTab = () => {
     } else {
       fetch(world);
     }
-  }, [sortDirection, sortField, isAuthenticated, world, page]);
+  }, [sortDirection, sortField, isAuthenticated, world, update, page]);
 
   const handleMorePages = () => {
     setPage(page + 1);
@@ -46,13 +47,29 @@ const PoliticiansTab = () => {
         {!isMobile ? (
           <div className={styles.sortDrop}>
             {sortDropdownPoliticians(t).map(({ id, full_title, field }) => {
-              return <SortDropdown key={id} text={full_title} field={field} world={world} />;
+              return <SortDropdown
+                key={id}
+                text={full_title}
+                field={field}
+                world={world}
+                setWorld={setWorld}
+                update={update}
+                setUpdate={setUpdate}
+              />;
             })}
           </div>
         ) : (
           <div className={styles.sortDrop}>
             {sortDropdownPoliticians(t).map(({ id, full_title, field }) => {
-              return <SortDropdownMobile key={id} text={full_title} field={field} world={world} />;
+              return <SortDropdownMobile
+                key={id}
+                text={full_title}
+                field={field}
+                world={world}
+                setWorld={setWorld}
+                update={update}
+                setUpdate={setUpdate}
+              />;
             })}
           </div>
         )}
