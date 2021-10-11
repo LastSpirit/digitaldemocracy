@@ -14,7 +14,7 @@ import { useFetchPoliticians } from '../hooks/useFetchPoliticians';
 import { useFetchSort } from '../hooks/useFetchSort';
 import { ratingActionCreators } from '../../../slices/ratingSlice';
 
-export const SortDropdownMobile = ({ text, field, world, setWorld, update, setUpdate }) => {
+export const SortDropdownMobile = ({ text, field, world, setWorld, update, setUpdate, worldVotes, setWorldVotes }) => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
   const [expanded, setExpanded] = useState(false);
@@ -78,12 +78,26 @@ export const SortDropdownMobile = ({ text, field, world, setWorld, update, setUp
     }
 
     if (field === 'vote') {
-      if (postData2.country_user_idArray) {
+      if (postData2.country_user_idArray && postData2.country_user_idArray.length) {
+        setWorldVotes(false);
         fetchRegions(postData2.country_user_idArray, field);
       }
-      if (postData2.region_user_idArray) {
+      if (postData2.region_user_idArray && postData2.region_user_idArray.length) {
         fetchCities(postData2.region_user_idArray, field);
       }
+    } else {
+      setPostData2((prevState) => {
+        const newState = {
+          ...prevState,
+          country_user_idArray: null,
+          region_user_idArray: null,
+          city_user_idArray: null,
+        };
+        setSortGeography(newState);
+        setRegionsVote(null);
+        setCitiesVote(null);
+        return newState;
+      });
     }
     setUpdate(!update);
   }, [
@@ -115,33 +129,43 @@ export const SortDropdownMobile = ({ text, field, world, setWorld, update, setUp
         const { values, errors, handleChange, handleBlur, handleSubmit, handleReset, setFieldValue } = props;
 
         useEffect(() => {
-          const newValue = [];
-          if (values.region.length && regions && regions.length) {
-            values.region.forEach((item) => {
-              regions.forEach((i) => {
-                if (item.id === i.id) {
-                  newValue.push(item);
+          const newValueCity = [];
+          const newValueRegion = [];
+          if (values.country.length) {
+            values.country.forEach((item) => {
+              values.region.forEach((i) => {
+                if (item.id === i.country_id) {
+                  newValueRegion.push(i);
                 }
               });
             });
           }
-          setFieldValue('region', newValue);
-        }, [regions]);
+          if (values.country.length) {
+            values.country.forEach((item) => {
+              values.city.forEach((i) => {
+                if (item.id === i.country_id) {
+                  newValueCity.push(i);
+                }
+              });
+            });
+          }
+          setFieldValue('region', newValueRegion);
+          setFieldValue('city', newValueCity);
+        }, [values.country]);
 
         useEffect(() => {
           const newValue = [];
-          if (values.city.length && cities && cities.length) {
-            values.city.forEach((item) => {
-              cities.forEach((i) => {
-                if (item.id === i.id) {
-                  newValue.push(item);
+          if (values.region.length) {
+            values.region.forEach((item) => {
+              values.city.forEach((i) => {
+                if (item.id === i.region_id) {
+                  newValue.push(i);
                 }
               });
             });
           }
           setFieldValue('city', newValue);
-        }, [cities]);
-
+        }, [values.region]);
         return (
           <div className={styles.mainTitle}>
             <Button
