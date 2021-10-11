@@ -144,7 +144,7 @@ export default function CustomArrows({ data }) {
                         }}
                         to={`/politician/${item.short_link}/position_history`}
                       >
-                        {item?.position ? `${` ${t('info.more')} ${item?.position_count - 1}`}` : ''}
+                        {item?.position ? `${` ${t('info.more')} ${item?.position_count}`}` : ''}
                       </Link>
                     ) : (
                       ''
