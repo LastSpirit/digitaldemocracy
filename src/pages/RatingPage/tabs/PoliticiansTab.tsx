@@ -61,7 +61,15 @@ const PoliticiansTab = () => {
         ) : (
           <div className={styles.sortDrop}>
             {sortDropdownPoliticians(t).map(({ id, full_title, field }) => {
-              return <SortDropdownMobile key={id} text={full_title} field={field} world={world} />;
+              return <SortDropdownMobile
+                key={id}
+                text={full_title}
+                field={field}
+                world={world}
+                setWorld={setWorld}
+                update={update}
+                setUpdate={setUpdate}
+              />;
             })}
           </div>
         )}
