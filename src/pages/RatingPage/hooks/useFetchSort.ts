@@ -27,23 +27,25 @@ export const useFetchSort = () => {
   }, []);
 
   const fetchRegions = useCallback((id: Array<CommonId>, field: string) => {
-    setRegionStatus(APIStatus.Loading);
-    getRegionsArray({
-      onSuccess: (response) => {
-        if (field === 'geography') {
-          setRegionsGeography(response);
-        } else if (field === 'vote') {
-          setRegionsVote(response);
-        }
-      },
-      onError: (errorResponse) => {
-        setRegionStatus(APIStatus.Failure);
-        console.log(errorResponse);
-      },
-      payload: {
-        countries: id,
-      },
-    });
+    if (id.length) {
+      setRegionStatus(APIStatus.Loading);
+      getRegionsArray({
+        onSuccess: (response) => {
+          if (field === 'geography') {
+            setRegionsGeography(response);
+          } else if (field === 'vote') {
+            setRegionsVote(response);
+          }
+        },
+        onError: (errorResponse) => {
+          setRegionStatus(APIStatus.Failure);
+          console.log(errorResponse);
+        },
+        payload: {
+          countries: id,
+        },
+      });
+    }
   }, []);
 
   const fetchCities = useCallback((id, field) => {

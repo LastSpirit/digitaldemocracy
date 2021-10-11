@@ -102,8 +102,8 @@ export interface RatingStatisticsI {
   metrics: Array<MetricI>;
   voicesByRegion: Array<VoicesRegionI>;
   numberOfVotes: {
-    numberOfUsersFromRegion: number;
     numberOfVotedUsers: number;
+    numberOfUsersFromRegion: number;
     totalElectorate: number;
   };
 }
