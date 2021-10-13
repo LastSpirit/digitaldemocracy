@@ -5,7 +5,8 @@ import { DataGrid, GridColumns, GridSortModel } from '@material-ui/data-grid';
 import { useTranslation } from 'react-i18next';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { useWindowSize } from 'src/hooks/useWindowSize';
-import { Grid } from '@material-ui/core';
+import { Grid, TextField, InputAdornment, IconButton } from '@material-ui/core';
+import ClearIcon from '@material-ui/icons/Clear';
 import { useFetchDossierTable } from './hooks/useFetchDossierTable';
 import { WrapperAsyncRequest } from '../../../SingleNewsPage/features/Loading/WrapperAsyncRequest';
 import { useLocalesThemeMaterial } from '../../../../hooks/useLocalesThemeMaterial';
@@ -89,14 +90,20 @@ export const VotingStatistics = () => {
   const changedChartData = graph.map((subArr) => [subArr[1], subArr[0]]);
   const [date, setDate] = useState({
     min: null,
-    max: null
+    max: null,
   });
+  const [searchText, setSearchText] = useState('');
+  const [listPoliticians, setListPoliticians] = useState(politicians);
   useEffect(() => {
     fetchDossierTable(pageNumber);
     return () => {
       setPolitician({ id: null });
     };
   }, [pageNumber]);
+
+  useEffect(() => {
+    setListPoliticians(politicians);
+  }, [politicians]);
 
   useEffect(() => {
     if (politician.id) {
@@ -112,7 +119,7 @@ export const VotingStatistics = () => {
       fetchNewsPolitician(politician.id, date.min, date.max, pageNews);
     }
   }, [date.max, date.min, politician, pageNews]);
-  const showPoliticianChartData = (politic) :void => {
+  const showPoliticianChartData = (politic): void => {
     setPolitician(politic);
     setDate({ max: null, min: null });
     setIsGraphShown(true);
@@ -126,11 +133,16 @@ export const VotingStatistics = () => {
   const showMoreNews = () => {
     setPageNews((prev) => prev + 1);
   };
+  const requestSearch = (value) => {
+    setSearchText(value);
+    const newList = politicians.filter((n) => n.name.toUpperCase().indexOf(value.toUpperCase()) > -1);
+    setListPoliticians(newList);
+  };
   return (
     <WrapperAsyncRequest status={status}>
       <ThemeProvider theme={theme}>
-        {isGraphShown
-          ? <Grid container direction="column" spacing={4}>
+        {isGraphShown ? (
+          <Grid container direction="column" spacing={4}>
             <Grid item xs={12}>
               <PoliticianDossierChart
                 politician={politician}
@@ -145,27 +157,43 @@ export const VotingStatistics = () => {
                 <ProfileNews items={newsProfile} isMorePagesNews={isMorePagesNews} showMoreNews={showMoreNews} />
               </WrapperAsyncRequest>
             </Grid>
-            </Grid>
-        :
+          </Grid>
+        ) : (
           <div>
+            <TextField
+              type="text"
+              id="search"
+              variant="outlined"
+              placeholder={t('footer.menu.search')}
+              onChange={(e) => requestSearch(e.target.value)}
+              value={searchText}
+              className={styles.searchInput}
+              fullWidth
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={() => requestSearch('')}>
+                      <ClearIcon />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
             <DataGrid
               sortModel={sortModel}
               onSortModelChange={(model) => setSortModel(model.sortModel)}
-              rows={politicians}
+              rows={listPoliticians}
               columns={isMobile ? mobileColumns(t, showPoliticianChartData) : columns(t, showPoliticianChartData)}
               hideFooterPagination={true}
               className={styles.dataGrid}
             />
             {isMorePages && (
-              <button
-                className={styles.showMoreBtn}
-                onClick={() => setPageNumber((prev) => prev + 1)}
-                type={'button'}
-              >
+              <button className={styles.showMoreBtn} onClick={() => setPageNumber((prev) => prev + 1)} type={'button'}>
                 {t('buttons.showMore')}
               </button>
             )}
-          </div>}
+          </div>
+        )}
       </ThemeProvider>
     </WrapperAsyncRequest>
   );

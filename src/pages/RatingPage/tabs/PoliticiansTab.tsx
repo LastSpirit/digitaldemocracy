@@ -32,11 +32,11 @@ const PoliticiansTab = () => {
 
   useEffect(() => {
     if (page > 1) {
-      fetch(world, page);
+      fetch(world, worldVotes, page);
     } else {
-      fetch(world);
+      fetch(world, worldVotes);
     }
-  }, [sortDirection, sortField, isAuthenticated, world, update, page]);
+  }, [sortDirection, sortField, isAuthenticated, world, worldVotes, update, page]);
 
   const handleMorePages = () => {
     setPage(page + 1);
