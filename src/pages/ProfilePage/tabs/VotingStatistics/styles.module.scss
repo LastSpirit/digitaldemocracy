@@ -29,3 +29,15 @@
   background: #fff;
   border: none;
 }
+
+.searchInput {
+  display: block;
+  max-width: 250px;
+  margin: 0 0 10px auto;
+
+  input {
+    height: 45px;
+    padding: 0 0 0 20px;
+    line-height: 40px;
+  } 
+}

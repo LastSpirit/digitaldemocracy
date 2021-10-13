@@ -36,88 +36,87 @@ const filtersButtons = (t): filterButtonsI => ({
     type: 'isNews',
     name: t('tabs.news'),
     active: false,
-    keyTranslate: 'tabs.news'
+    keyTranslate: 'tabs.news',
   },
   politician: {
     id: 2,
     type: 'isPolitician',
     name: t('tabs.politicians'),
     active: false,
-    keyTranslate: 'tabs.politicians'
+    keyTranslate: 'tabs.politicians',
   },
   author: {
     id: 3,
     type: 'isAuthor',
     name: t('tabs.authors'),
     active: false,
-    keyTranslate: 'tabs.authors'
+    keyTranslate: 'tabs.authors',
   },
   media: {
     id: 4,
     type: 'isMedia',
     name: t('tabs.massMedia'),
     active: false,
-    keyTranslate: 'tabs.massMedia'
+    keyTranslate: 'tabs.massMedia',
   },
   parties: {
     id: 5,
     type: 'isParty',
     name: t('tabs.parties'),
     active: false,
-    keyTranslate: 'tabs.parties'
+    keyTranslate: 'tabs.parties',
   },
 });
 
 const reducerFiltersButtons = (state: filterButtonsI, action) => {
   switch (action.type) {
-  case 'SET_ACTIVE':
-    return {
-      ...state,
-      [action.payload.key]: {
-        ...state[action.payload.key],
-        active: !state[action.payload.key].active,
-      }
-    };
-  case 'CHANGE_LANG':
-    return Object
-      .keys(state)
-      .reduce((acc, key) => ({
-        ...acc,
-        [key]: {
-          ...state[key],
-          name: action.t(state[key].keyTranslate),
+    case 'SET_ACTIVE':
+      return {
+        ...state,
+        [action.payload.key]: {
+          ...state[action.payload.key],
+          active: !state[action.payload.key].active,
         },
-      }), state);
-  case 'RESET':
-    return Object
-      .keys(state)
-      .reduce((acc, key) => ({
-        ...acc,
-        [key]: {
-          ...state[key],
-          active: false,
-        },
-      }), state);
-  default:
-    return state;
+      };
+    case 'CHANGE_LANG':
+      return Object.keys(state).reduce(
+        (acc, key) => ({
+          ...acc,
+          [key]: {
+            ...state[key],
+            name: action.t(state[key].keyTranslate),
+          },
+        }),
+        state
+      );
+    case 'RESET':
+      return Object.keys(state).reduce(
+        (acc, key) => ({
+          ...acc,
+          [key]: {
+            ...state[key],
+            active: false,
+          },
+        }),
+        state
+      );
+    default:
+      return state;
   }
 };
 
 const setActiveAction = (key) => ({
   type: 'SET_ACTIVE',
   payload: {
-    key
-  }
+    key,
+  },
 });
 
 export const Search = ({ mobile = false }) => {
   const { t, i18n } = useTranslation();
   const { pathname } = useLocation();
   const { push } = useHistory();
-  const {
-    setSearchQuery,
-    clearSearchData,
-  } = searchActionCreators();
+  const { setSearchQuery, clearSearchData } = searchActionCreators();
   // const { searchQuery: { value: searchQueryParam, setValue: setSearchQueryParam } } = useSearchParams('searchQuery');
   const { fetchSearchCategories } = useSearch();
   const [buttons, dispatchBtn] = useReducer(reducerFiltersButtons, filtersButtons(t));
@@ -140,29 +139,31 @@ export const Search = ({ mobile = false }) => {
         isMedia: buttons.media.active,
         isParty: buttons.parties.active,
         page: 1,
-        perPage: 4
+        perPage: 4,
       });
     } else {
       fetchSearchCategories({
         search: query,
         page: 1,
-        perPage: 4
+        perPage: 4,
       });
     }
   };
 
   const debounceHandleSearchFetch = debounce(handleSearchFetch, 300);
 
-  const handleSearchChange = (setValue) => (event): void => {
-    setValue('search', event.target.value);
-    setSearchQuery({ searchQuery: event.target.value });
-    if (pathname === '/search' && event.target.value.length >= 3) {
-      debounceHandleSearchFetch(event.target.value);
-    }
-    if (event.target.value === '') {
-      clearSearchData();
-    }
-  };
+  const handleSearchChange =
+    (setValue) =>
+    (event): void => {
+      setValue('search', event.target.value);
+      setSearchQuery({ searchQuery: event.target.value });
+      if (pathname === '/search' && event.target.value.length >= 3) {
+        debounceHandleSearchFetch(event.target.value);
+      }
+      if (event.target.value === '') {
+        clearSearchData();
+      }
+    };
 
   const handleKeyPress = (event) => {
     if (pathname !== '/search' && event.charCode === 13) {
@@ -170,11 +171,13 @@ export const Search = ({ mobile = false }) => {
     }
   };
 
-  const handleResetSearch = (handleReset) => (event): void => {
-    handleReset(event);
-    dispatchBtn({ type: 'RESET' });
-    clearSearchData();
-  };
+  const handleResetSearch =
+    (handleReset) =>
+    (event): void => {
+      handleReset(event);
+      dispatchBtn({ type: 'RESET' });
+      clearSearchData();
+    };
 
   const handleSubmitForm = (values) => {
     if (values.search) {
@@ -185,11 +188,11 @@ export const Search = ({ mobile = false }) => {
   return (
     <Container>
       <Container className={styles.container} sx={{ padding: mobile && '0!important' }}>
-        { pathname !== '/' && !mobile && <BackButton /> }
+        {pathname !== '/' && !mobile && <BackButton />}
         <div className={styles.search}>
           <Formik
             initialValues={{
-              search: ''
+              search: '',
             }}
             onSubmit={(values) => {
               handleSubmitForm(values);
@@ -210,7 +213,7 @@ export const Search = ({ mobile = false }) => {
                 handleBlur,
                 handleSubmit,
                 handleReset,
-                setFieldValue
+                setFieldValue,
               } = props;
               return (
                 <form onSubmit={handleSubmit} noValidate>
@@ -233,18 +236,16 @@ export const Search = ({ mobile = false }) => {
                           InputProps={{
                             endAdornment: (
                               <InputAdornment position="end">
-                                <IconButton
-                                  onClick={handleResetSearch(handleReset)}
-                                >
+                                <IconButton onClick={handleResetSearch(handleReset)}>
                                   <ClearIcon />
                                 </IconButton>
                               </InputAdornment>
                             ),
                             sx: {
                               borderRadius: '70px 0 0 70px',
-                              background: mobile ? '#fff' : 'auto'
+                              background: mobile ? '#fff' : 'auto',
                             },
-                            className: styles.searchInput
+                            className: styles.searchInput,
                           }}
                         />
                       </div>
@@ -260,30 +261,33 @@ export const Search = ({ mobile = false }) => {
                           maxHeight: '40px',
                         }}
                       >
-                        {mobile ? <SearchIcon fill={'#FFFFFF'} style={{ fontSize: '30px' }} /> : t('footer.menu.search')}
+                        {mobile ? (
+                          <SearchIcon fill={'#FFFFFF'} style={{ fontSize: '30px' }} />
+                        ) : (
+                          t('footer.menu.search')
+                        )}
                       </Button>
                     </div>
                     {!mobile && pathname === '/search' && (
                       <div className={styles.filterTabs}>
-                        {Object.keys(buttons)
-                          .map((key) => (
-                            <Button
-                              key={buttons[key].id}
-                              type="submit"
-                              variant="outlined"
-                              sx={{
-                                height: '30px',
-                                marginRight: '28px',
-                                // backgroundColor: buttons[key].active ? '#363557' : 'initial',
-                              }}
-                              className={cn({
-                                [styles.tabs_active]: buttons[key].active,
-                              })}
-                              onClick={() => dispatchBtn(setActiveAction(key))}
-                            >
-                              {buttons[key].name}
-                            </Button>
-                          ))}
+                        {Object.keys(buttons).map((key) => (
+                          <Button
+                            key={buttons[key].id}
+                            type="submit"
+                            variant="outlined"
+                            sx={{
+                              height: '30px',
+                              marginRight: '28px',
+                              // backgroundColor: buttons[key].active ? '#363557' : 'initial',
+                            }}
+                            className={cn({
+                              [styles.tabs_active]: buttons[key].active,
+                            })}
+                            onClick={() => dispatchBtn(setActiveAction(key))}
+                          >
+                            {buttons[key].name}
+                          </Button>
+                        ))}
                       </div>
                     )}
                   </div>
