@@ -39,7 +39,7 @@ interface SliceState {
   subscriptions?: SubscriptionsI,
   routes: RoutesI;
   dossier: {
-    politicians: Array<object>,
+    politicians: Array<PoliticianInfoI>,
     graph: Array<object>,
     isMorePages: boolean
   },
