@@ -49,6 +49,21 @@ export const SortDropdownMobile = ({ text, field, world, setWorld, update, setUp
     setValue(key, []);
   };
 
+  const getIdArray = (item) => item.map((i) => {
+    return { id: i.id };
+  });
+
+  const sendDataForSort = (func, key, value, sortFunc) => {
+    func((prevState) => {
+      const newState = {
+        ...prevState,
+        [key]: getIdArray(value).length ? getIdArray(value) : null,
+      };
+      sortFunc(newState);
+      return newState;
+    });
+  };
+
   useEffect(() => {
     fetchCountries(field);
     if (field === 'geography') {
@@ -81,31 +96,33 @@ export const SortDropdownMobile = ({ text, field, world, setWorld, update, setUp
       if (postData2.country_user_idArray && postData2.country_user_idArray.length) {
         setWorldVotes(false);
         fetchRegions(postData2.country_user_idArray, field);
+        if (postData2.region_user_idArray && postData2.region_user_idArray.length) {
+          fetchCities(postData2.region_user_idArray, field);
+        } else {
+          setCitiesVote(null);
+        }
+      } else {
+        setPostData2((prevState) => {
+          const newState = {
+            ...prevState,
+            country_user_idArray: null,
+            region_user_idArray: null,
+            city_user_idArray: null,
+          };
+          setSortVote(newState);
+          setRegionsVote(null);
+          setCitiesVote(null);
+          return newState;
+        });
       }
-      if (postData2.region_user_idArray && postData2.region_user_idArray.length) {
-        fetchCities(postData2.region_user_idArray, field);
-      }
-    } else {
-      setPostData2((prevState) => {
-        const newState = {
-          ...prevState,
-          country_user_idArray: null,
-          region_user_idArray: null,
-          city_user_idArray: null,
-        };
-        setSortGeography(newState);
-        setRegionsVote(null);
-        setCitiesVote(null);
-        return newState;
-      });
     }
     setUpdate(!update);
   }, [
     postData.country_politician_idArray,
     postData.region_politician_idArray,
     postData.city_politician_idArray,
-    postData2.region_user_idArray,
     postData2.country_user_idArray,
+    postData2.region_user_idArray,
     postData2.city_user_idArray,
   ]);
 
@@ -151,6 +168,18 @@ export const SortDropdownMobile = ({ text, field, world, setWorld, update, setUp
           }
           setFieldValue('region', newValueRegion);
           setFieldValue('city', newValueCity);
+          sendDataForSort(
+            field === 'geography' ? setPostData : setPostData2,
+            field === 'geography' ? 'region_politician_idArray' : 'region_user_idArray',
+            newValueRegion,
+            field === 'geography' ? setSortGeography : setSortVote,
+          );
+          sendDataForSort(
+            field === 'geography' ? setPostData : setPostData2,
+            field === 'geography' ? 'city_politician_idArray' : 'city_user_idArray',
+            newValueRegion,
+            field === 'geography' ? setSortGeography : setSortVote,
+          );
         }, [values.country]);
 
         useEffect(() => {
@@ -165,6 +194,12 @@ export const SortDropdownMobile = ({ text, field, world, setWorld, update, setUp
             });
           }
           setFieldValue('city', newValue);
+          sendDataForSort(
+            field === 'geography' ? setPostData : setPostData2,
+            field === 'geography' ? 'city_politician_idArray' : 'city_user_idArray',
+            newValue,
+            field === 'geography' ? setSortGeography : setSortVote,
+          );
         }, [values.region]);
         return (
           <div className={styles.mainTitle}>
@@ -184,10 +219,10 @@ export const SortDropdownMobile = ({ text, field, world, setWorld, update, setUp
                   <Checkbox
                     icon={<CircleUnchecked style={{ color: 'black' }} />}
                     checkedIcon={<RadioButtonCheckedIcon style={{ color: 'black' }} />}
-                    checked={field === 'geography' ? world : null}
+                    checked={field === 'geography' ? world : worldVotes}
                     onChange={() => {
+                      clearValue('country', setFieldValue);
                       if (field === 'geography') {
-                        clearValue('country', setFieldValue);
                         setPostData((prevState) => {
                           const newState = {
                             ...prevState,
@@ -196,12 +231,13 @@ export const SortDropdownMobile = ({ text, field, world, setWorld, update, setUp
                             city_politician_idArray: null,
                           };
                           setSortGeography(newState);
+                          setRegionsGeography(null);
+                          setCitiesGeography(null);
                           setWorld(true);
                           return newState;
                         });
                       } else {
-                        clearValue('country', setFieldValue);
-                        setPostData((prevState) => {
+                        setPostData2((prevState) => {
                           const newState = {
                             ...prevState,
                             country_user_idArray: null,
@@ -209,7 +245,9 @@ export const SortDropdownMobile = ({ text, field, world, setWorld, update, setUp
                             city_user_idArray: null,
                           };
                           setSortVote(newState);
-                          setWorld(true);
+                          setRegionsVote(null);
+                          setCitiesVote(null);
+                          setWorldVotes(!worldVotes);
                           return newState;
                         });
                       }
@@ -242,30 +280,11 @@ export const SortDropdownMobile = ({ text, field, world, setWorld, update, setUp
                       onChange={(_, newValue) => {
                         if (newValue) {
                           setFieldValue('country', newValue);
-                          const newVal = newValue.map((i) => {
-                            return { id: i.id };
-                          });
-
                           if (field === 'geography') {
-                            setPostData((prevState) => {
-                              const newState = {
-                                ...prevState,
-                                country_politician_idArray: newVal.length ? newVal : null,
-                              };
-                              setSortGeography(newState);
-                              return newState;
-                            });
+                            sendDataForSort(setPostData, 'country_politician_idArray', newValue, setSortGeography);
                           }
-
                           if (field === 'vote') {
-                            setPostData2((prevState) => {
-                              const newState = {
-                                ...prevState,
-                                country_user_idArray: newVal.length ? newVal : null,
-                              };
-                              setSortVote(newState);
-                              return newState;
-                            });
+                            sendDataForSort(setPostData2, 'country_user_idArray', newValue, setSortVote);
                           }
                         }
                       }}
@@ -293,28 +312,11 @@ export const SortDropdownMobile = ({ text, field, world, setWorld, update, setUp
                         onChange={(_, newValue) => {
                           if (newValue) {
                             setFieldValue('region', newValue);
-                            const newVal = newValue.map((i) => {
-                              return { id: i.id };
-                            });
                             if (field === 'geography') {
-                              setPostData((prevState) => {
-                                const newState = {
-                                  ...prevState,
-                                  region_politician_idArray: newVal.length ? newVal : null,
-                                };
-                                setSortGeography(newState);
-                                return newState;
-                              });
+                              sendDataForSort(setPostData, 'region_politician_idArray', newValue, setSortGeography);
                             }
                             if (field === 'vote') {
-                              setPostData2((prevState) => {
-                                const newState = {
-                                  ...prevState,
-                                  region_user_idArray: newVal.length ? newVal : null,
-                                };
-                                setSortVote(newState);
-                                return newState;
-                              });
+                              sendDataForSort(setPostData2, 'region_user_idArray', newValue, setSortVote);
                             }
                           }
                         }}
@@ -343,28 +345,11 @@ export const SortDropdownMobile = ({ text, field, world, setWorld, update, setUp
                         onChange={(_, newValue) => {
                           if (newValue) {
                             setFieldValue('city', newValue);
-                            const newVal = newValue.map((i) => {
-                              return { id: i.id };
-                            });
                             if (field === 'geography') {
-                              setPostData((prevState) => {
-                                const newState = {
-                                  ...prevState,
-                                  city_politician_idArray: newVal
-                                };
-                                setSortGeography(newState);
-                                return newState;
-                              });
+                              sendDataForSort(setPostData, 'city_politician_idArray', newValue, setSortGeography);
                             }
                             if (field === 'vote') {
-                              setPostData2((prevState) => {
-                                const newState = {
-                                  ...prevState,
-                                  city_user_idArray: newVal
-                                };
-                                setSortVote(newState);
-                                return newState;
-                              });
+                              sendDataForSort(setPostData2, 'city_user_idArray', newValue, setSortVote);
                             }
                           }
                         }}
