@@ -18,7 +18,7 @@ export const useFetchPoliticians = () => {
   const { country_politician_idArray, region_politician_idArray, city_politician_idArray } = sort_geography;
   const { country_user_idArray, region_user_idArray, city_user_idArray } = sort_vote;
 
-  const fetch = useCallback((world, page = 1) => {
+  const fetch = useCallback((world, worldVotes, page = 1) => {
     setStatus(APIStatus.Loading);
     fetchRatingPoliticiansArray({
       onSuccess: (response) => {
@@ -41,7 +41,8 @@ export const useFetchPoliticians = () => {
         country_user_id: country_user_idArray,
         region_user_id: region_user_idArray,
         city_user_id: city_user_idArray,
-        is_world_votes: world ? 1 : 0,
+        is_world_votes: worldVotes ? 1 : 0,
+        is_world_politicians: world ? 1 : 0,
       },
     });
   }, [sort_direction, sort_field, token, city_politician_idArray, sort_geography, city_user_idArray, sort_vote]);
