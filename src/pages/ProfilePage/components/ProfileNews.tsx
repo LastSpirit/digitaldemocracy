@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   hocNewsCard: {
     height: '100%',
     position: 'relative',
-    maxWidth: '270px',
+    // maxWidth: '270px',
     margin: '0 auto',
   },
   grade: {
