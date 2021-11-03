@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, memo } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
@@ -8,7 +8,7 @@ import HighchartsReact from 'highcharts-react-official';
 import { useFetchChart } from '../../../hooks/useFetchChart';
 import { politicianActionCreators, politicianSelectors } from '../../../../../slices/politicianSlice';
 
-export const Highchart = () => {
+export const Highchart = memo(() => {
   const { t } = useTranslation();
   const { fetch, status } = useFetchChart();
   const { setDate, setReset } = politicianActionCreators();
@@ -131,4 +131,4 @@ export const Highchart = () => {
       <HighchartsReact highcharts={Highcharts} options={options} />
     </WrapperAsyncRequest>
   );
-};
+});
