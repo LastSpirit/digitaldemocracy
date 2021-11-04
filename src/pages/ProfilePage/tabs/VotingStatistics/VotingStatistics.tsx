@@ -40,7 +40,8 @@ const columns = (t, onClick): GridColumns => {
       field: 'rating',
       headerName: `${t('info.ratingUser')}`,
       width: 400,
-      renderCell: ({ row }: any) => row.rating || '-',
+      type: 'number',
+      renderCell: ({ row }: any) => row?.rating || '-',
     },
   ];
 };
@@ -67,7 +68,8 @@ const mobileColumns = (t, onClick): GridColumns => {
       field: 'rating',
       headerName: `${t('info.ratingUser')}`,
       width: 300,
-      renderCell: ({ row }: any) => row.rating || '-',
+      type: 'number',
+      renderCell: ({ row }: any) => row?.rating || '-',
     },
   ];
 };
