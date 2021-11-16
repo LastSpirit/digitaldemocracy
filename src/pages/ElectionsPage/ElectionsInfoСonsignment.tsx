@@ -85,6 +85,7 @@ const ElectionsInfoСonsignment = () => {
                 <div className={styles.description__info_voice}>
                   <div>
                     <Checkbox
+                      className={styles.сheckbox}
                       checked={checked}
                       onChange={handleChange}
                       {...label}
@@ -121,8 +122,7 @@ const ElectionsInfoСonsignment = () => {
                   : classNames(styles.mobileRoot__border, styles.mobileRoot__border_green)
               }
             >
-              <p>Единая россия</p>
-              {/* {data?.position && <div className={styles.age}>{data?.position}</div>} */}
+              <p className={styles.mobName}>Единая россия</p>
               <div className={styles.mobInfoBlock}>
                 <div
                   className={
@@ -154,20 +154,10 @@ const ElectionsInfoСonsignment = () => {
                     политическая партия Российской Федерации[16], «партия власти»
                   </div>
                   <div className={styles.mobEnglishName}>3000000 членов партии</div>
-                  <div className={styles.mobPosition}>
-                    <div className={styles.positionText}> {data?.position}</div>
-                    {data?.list_active_position.length ? (
-                      <Link to={`/politician/${data?.short_link}/position_history`}>
-                        {data?.position ? `${` ${t('info.more')}${data?.position_count}`}` : ''}
-                      </Link>
-                    ) : (
-                      ''
-                    )}
-                  </div>
                 </div>
               </div>
               <div className={styles.mobRightBlock}>
-                <div className={styles.percent_black}>62,2%</div>
+                <div className={styles.percent_black_big}>62,2%</div>
               </div>
               <LineChartVoters />
               <div className={styles.mobRightBlock}>

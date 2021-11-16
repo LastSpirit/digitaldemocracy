@@ -20,7 +20,6 @@ const ElectionsPage = () => {
   const data = useSelector(singleNewsSelector.getData());
   const status = useSelector(singleNewsSelector.getStatus());
   const { link } = useParams() as any;
-
   useEffect((): any => {
     fetch('iNHrHVX3CNvbXRND1ptX');
     window.scrollTo(0, 0);

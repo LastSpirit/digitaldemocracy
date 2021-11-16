@@ -76,10 +76,10 @@ const ElectionsInfoPerson = () => {
                   </div>
                 </div>
                 <div className={styles.aboutRatings}>
-                  {/* <LineChartVoters /> */}
                   <div className={styles.percentBlock}>
                     <div>
                       <Checkbox
+                        className={styles.сheckbox}
                         checked={checked}
                         onChange={handleChange}
                         {...label}
@@ -120,7 +120,6 @@ const ElectionsInfoPerson = () => {
                   : classNames(styles.mobileRoot__border, styles.mobileRoot__border_green)
               }
             >
-              <p>Путин Владимир Владимирович</p>
               {/* {data?.position && <div className={styles.age}>{data?.position}</div>} */}
               <div className={styles.mobInfoBlock}>
                 <div
@@ -148,28 +147,8 @@ const ElectionsInfoPerson = () => {
                   </div>
                 </div>
                 <div className={styles.mobRightBlock}>
+                  <p>Путин Владимир Владимирович</p>
                   <div className={styles.mobEnglishName}>Putin Vladimir Vladimirovich</div>
-                  <div className={styles.mobEnglishName}>
-                    Член Генерального совета Партии Единая Россия, мэр Томска и еще 3
-                  </div>
-                  <div className={styles.mobEnglishName}>36 лет.</div>
-                  <div className={styles.mobEnglishName}>
-                    {' '}
-                    <Link to={`/politician/${data?.short_link}/position_history`}>
-                      {data?.position ? `${` ${t('info.more')}${data?.position_count}`}` : 'Единая Россия'}
-                    </Link>
-                  </div>
-                  <div className={styles.mobEnglishName}>Москва</div>
-                  <div className={styles.mobPosition}>
-                    <div className={styles.positionText}> {data?.position}</div>
-                    {data?.list_active_position.length ? (
-                      <Link to={`/politician/${data?.short_link}/position_history`}>
-                        {data?.position ? `${` ${t('info.more')}${data?.position_count}`}` : ''}
-                      </Link>
-                    ) : (
-                      ''
-                    )}
-                  </div>
                 </div>
               </div>
               <div className={styles.mobRightBlock}>
