@@ -35,6 +35,7 @@ import ModalCookie from './components/ModalCookie/ModalCookie';
 import { getItem } from './lib/localStorageManager';
 import { setWkNews } from './slices/newsSlice1';
 import { useSelectorType } from './components/News/hooks/useSelecterType';
+import VotesPage from './pages/VotesPage/VotesPage';
 import ElectionsPage from './pages/ElectionsPage/ElectionsPage';
 
 const App: FC = () => {
@@ -114,6 +115,7 @@ const App: FC = () => {
               <Route exact path="/rating/*" component={RatingPage} />
               <Route exact path="/search" component={SearchPage} />
               <Route exact path="/about" component={AboutPage} />
+              <Route exact path="/votes" component={VotesPage} />
               <Route exact path="/elections" component={ElectionsPage} />
               {isAuthenticated && <Route exact path="/suggestion" component={SuggestionPage} />}
               <Redirect to="/" />
