@@ -12,6 +12,8 @@ import styles from './ElectionsPage.module.scss';
 import 'react-datepicker/dist/react-datepicker.css';
 import ElectionsInfoPerson from './ElectionsInfoPerson';
 import ElectionsInfoСonsignment from './ElectionsInfoСonsignment';
+import VotingResult from './VotingResult';
+import VotingResultDD from './VotingResultDD';
 
 const ElectionsPage = () => {
   const { fetch } = useFetchSingleNews();
@@ -46,12 +48,24 @@ const ElectionsPage = () => {
               <b>9999</b>
             </div>
           </div>
-          <h2 className={styles.h2}>{'Политики'}</h2>
           <ElectionsInfoPerson />
-          <ElectionsInfoPerson />
-          <h2 className={styles.h2}>{'Партии'}</h2>
           <ElectionsInfoСonsignment />
-          <ElectionsInfoСonsignment />
+          <h2 className={styles.h2}>{'Итог голосования на платформе DD:'}</h2>
+          <div className={styles.votingResult}>
+            <VotingResultDD />
+          </div>
+          <h2 className={styles.h2}>{'Результаты выборов:'}</h2>
+          <div className={styles.votingResult}>
+            <VotingResult />
+          </div>
+          <div className={!isMobile ? styles.statisticVotin : styles.statisticVotinMobile}>
+            <div className={styles.item}>
+              <span className={styles.item_span}>Электорат: 9999</span>
+            </div>
+            <div className={styles.item}>
+              <span className={styles.item_span}>Явка: 9999</span>
+            </div>
+          </div>
           {data?.news && data?.news.length > 0 && <SingleNewsList news={data?.news} isMorePages={data?.isMorePages} />}
         </WrapperAsyncRequest>
       </div>
