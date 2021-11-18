@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { useSearchParams } from 'src/hooks/useSearchParams';
 import { LineChartVoters } from '../PoliticianPage/blocks/PoliticianInfoBlock/LineChartVoters';
+import hish from '../../icons/pictures/hish.png';
 import styles from './ElectionsInfoBlock.module.scss';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -75,39 +76,45 @@ const ElectionsInfoPerson = () => {
                     </div>
                   </div>
                 </div>
-                <div className={styles.aboutRatings}>
-                  <div className={styles.percentBlock}>
-                    <div>
-                      <Checkbox
-                        className={styles.сheckbox}
-                        checked={checked}
-                        onChange={handleChange}
-                        {...label}
-                        defaultChecked
-                        sx={{
-                          color: '#248232 !important',
-                          '&.Mui-checked': { color: '#248232 !important' },
-                          '& .MuiSvgIcon-root': { fontSize: 60 },
-                        }}
-                      />
-                      <div className={styles.description}>
-                        {checked ? (
-                          <div className={styles.voice}>
-                            <div>Ваш голос принят</div>
-                          </div>
-                        ) : (
-                          <div className={styles.voice_empty_politic}>
-                            <div> </div>
-                          </div>
-                        )}
+                {!true ? (
+                  <div className={styles.aboutRatings}>
+                    <div className={styles.percentBlock}>
+                      <div>
+                        <Checkbox
+                          className={styles.сheckbox}
+                          checked={checked}
+                          onChange={handleChange}
+                          {...label}
+                          defaultChecked
+                          sx={{
+                            color: '#248232 !important',
+                            '&.Mui-checked': { color: '#248232 !important' },
+                            '& .MuiSvgIcon-root': { fontSize: 60 },
+                          }}
+                        />
+                        <div className={styles.description}>
+                          {checked ? (
+                            <div className={styles.voice}>
+                              <div>Ваш голос принят</div>
+                            </div>
+                          ) : (
+                            <div className={styles.voice_empty_politic}>
+                              <div> </div>
+                            </div>
+                          )}
+                        </div>
                       </div>
+                      <div className={styles.percentOther}>Проголосовало</div>
+                      <div className={styles.percentOther}>за этого кандидата:</div>
+                      <div className={styles.percentNumber}>62,2%</div>
+                      <div className={styles.percentOther_green}>10 человек</div>
                     </div>
-                    <div className={styles.percentOther}>Проголосовало</div>
-                    <div className={styles.percentOther}>за этого кандидата:</div>
-                    <div className={styles.percentNumber}>62,2%</div>
-                    <div className={styles.percentOther_green}>10 человек</div>
                   </div>
-                </div>
+                ) : (
+                  <div className={styles.hish}>
+                    <img className={styles.imgSize} src={hish} alt="hish" />
+                  </div>
+                )}
               </div>
             </div>
           </>
@@ -165,25 +172,34 @@ const ElectionsInfoPerson = () => {
                   Рейтинг: <span className={styles.percent_span}>62,2%</span>
                 </div>
               </div>
-              <div className={styles.mobCheckBlock}>
-                <Checkbox
-                  className={styles.mobCheckBlock__box}
-                  checked={checked}
-                  onChange={handleChange}
-                  {...label}
-                  defaultChecked
-                  sx={{
-                    color: '#248232 !important',
-                    '&.Mui-checked': { color: '#248232 !important' },
-                    '& .MuiSvgIcon-root': { fontSize: 30 },
-                  }}
-                />
-                {checked && (
-                  <div className={styles.mobCheckBlock__voice}>
-                    <div>Ваш голос принят</div>
+              {true ? (
+                <div className={styles.mobCheckBlock}>
+                  <Checkbox
+                    className={styles.mobCheckBlock__box}
+                    checked={checked}
+                    onChange={handleChange}
+                    {...label}
+                    defaultChecked
+                    sx={{
+                      color: '#248232 !important',
+                      '&.Mui-checked': { color: '#248232 !important' },
+                      '& .MuiSvgIcon-root': { fontSize: 30 },
+                    }}
+                  />
+                  {checked && (
+                    <div className={styles.mobCheckBlock__voice}>
+                      <div>Ваш голос принят</div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className={styles.blockHish}>
+                  <div className={styles.blockHish__img}>
+                    <img className={styles.blockHish__imgSize} src={hish} alt="hish" />
                   </div>
-                )}
-              </div>
+                  <div className={styles.blockHish__text}>День тишины</div>
+                </div>
+              )}
             </div>
           </div>
         )}
