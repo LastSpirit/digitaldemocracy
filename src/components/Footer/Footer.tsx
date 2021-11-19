@@ -18,6 +18,7 @@ import { alpha } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { routesWithNotification } from 'src/static/static';
+import Elections from 'src/icons/Elections';
 import Logo from '../Logo';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import Register from '../../icons/Register';
@@ -161,13 +162,14 @@ const iconsData = (isAuthenticated, pathname) => {
       icon: <Register className={'icon-footer'} />,
       to: AuthParam.login,
       login: true,
-      auth: ['no-user']
+      auth: ['no-user'],
     },
     {
-      title: t('footer.menu.donateMenu'),
-      icon: <Donate className={pathname === '/donation' ? 'icon-footer active' : 'icon-footer'} />,
-      to: '/donation',
-      auth: ['user', 'no-user']
+      title: t('footer.menu.elections') || 'Выборы',
+      // icon: <Donate className={pathname === '/donation' ? 'icon-footer active' : 'icon-footer'} />,
+      icon: <Elections className={pathname === '/elections' ? 'icon-footer active' : 'icon-footer'} />,
+      to: '/elections',
+      auth: ['user', 'no-user'],
     },
   ];
 };
@@ -231,24 +233,30 @@ const Footer: FC = (props) => {
                 overflow: 'hidden',
               }}
             >
-              {icons.filter((el) => isAuthenticated ? el.auth.includes('user') : el.auth.includes('no-user')).map(({ icon, title, to, login }, index) => (
-                <Box
-                  key={index.toString()}
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
+              {icons
+                .filter((el) => (isAuthenticated ? el.auth.includes('user') : el.auth.includes('no-user')))
+                .map(({ icon, title, to, login }, index) => (
+                  <Box
+                    key={index.toString()}
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
 
-                    alignItems: 'center',
-                    cursor: 'pointer',
-                  }}
-                  onClick={() => {
-                    return !isAuthenticated && login ? setAuthValue(to) : push(to);
-                  }}
-                >
+                      alignItems: 'center',
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => {
+                      return !isAuthenticated && login ? setAuthValue(to) : push(to);
+                    }}
+                  >
                     {icon}
-                    <span style={{ marginTop: '4px', fontSize: '10px', color: pathname === to ? '#248232' : '#7A7A7A' }}>{title}</span>
-                </Box>
-              ))}
+                    <span
+                      style={{ marginTop: '4px', fontSize: '10px', color: pathname === to ? '#248232' : '#7A7A7A' }}
+                    >
+                      {title}
+                    </span>
+                  </Box>
+                ))}
             </Container>
           </Box>
         </Box>
@@ -372,10 +380,7 @@ const Footer: FC = (props) => {
               }}
               xs={12}
             >
-              <Link
-                href={'/donation'}
-                className={styles.btn}
-              >
+              <Link href={'/donation'} className={styles.btn}>
                 {t('buttons.helpSite')}
               </Link>
             </Grid>
