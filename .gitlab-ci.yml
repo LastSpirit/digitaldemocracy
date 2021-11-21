@@ -2,30 +2,42 @@ before_script:
   - env | sort
 
 
-deploy_dev:
+.deploy:
   stage: deploy
   script:
-    - mv -f .env.development .env
+    - mv -f .env.${ENV} .env
     - find . -type f -iname ".env.*" -not -name '.env' -delete
     - docker-compose up -d  --force-recreate --build
     - docker rmi $(docker images --filter "dangling=true" -q --no-trunc) || echo "Fail!"
     - echo 'Successfully deploy'
+
+
+deploy_prod:
+  extends: .deploy
+  variables:
+    ENV: production
+  tags:
+    - prod-shell
+  only:
+    - master
+    - /^devops\/prod.*$/
+
+deploy_dev:
+  extends: .deploy
+  variables:
+    ENV: development
   tags:
     - dev-shell
   only:
     - develop
     - /^devops\/dev.*$/
 
-deploy_prod:
-  stage: deploy
-  script:
-    - mv -f .env.production .env
-    - find . -type f -iname ".env.*" -not -name '.env' -delete
-    - docker-compose -f docker-compose-prod.yml up -d  --force-recreate --build
-    - docker rmi $(docker images --filter "dangling=true" -q --no-trunc) || echo "Fail!"
-    - echo 'Successfully deploy'
+deploy_stage:
+  extends: .deploy
+  variables:
+    ENV: stage
   tags:
-    - prod-shell
+    - stage-shell
   only:
-    - master
-    - /^devops\/prod.*$/
+    - stage
+    - /^devops\/stage.*$/
