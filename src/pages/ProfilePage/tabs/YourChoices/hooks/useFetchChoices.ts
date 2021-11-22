@@ -13,7 +13,6 @@ export const useFetchChoices = () => {
     setStatus(APIStatus.Loading);
     fetchChoices({
       onSuccess: (response) => {
-        console.log(response);
         setChoices(response);
         setStatus(APIStatus.Success);
       },

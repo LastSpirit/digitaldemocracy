@@ -1,13 +1,37 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { userSelectors } from 'src/slices/userSlice';
-import { DataGrid } from '@material-ui/data-grid';
+import { DataGrid, GridColumns } from '@material-ui/data-grid';
 import { useTranslation } from 'react-i18next';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { WrapperAsyncRequest } from '../../../SingleNewsPage/features/Loading/WrapperAsyncRequest';
 import { useLocalesThemeMaterial } from '../../../../hooks/useLocalesThemeMaterial';
 import { useFetchChoices } from './hooks/useFetchChoices';
+import styles from './styles.module.scss';
+
+const columns = (isMobile): GridColumns => {
+  return [
+    {
+      field: 'choices',
+      width: isMobile ? 300 : 400,
+      headerName: 'choices',
+      type: 'string',
+      renderCell: ({ row }: any) => (
+        <span role={'button'} tabIndex={0}>
+          {row.choices || '-'}
+        </span>
+      ),
+    },
+    {
+      field: 'candidate',
+      headerName: 'candidate',
+      width: isMobile ? 300 : 400,
+      type: 'string',
+      renderCell: ({ row }: any) => row.candidate || '-',
+    },
+  ];
+};
 
 export const YourChoices = () => {
   const { t } = useTranslation();
@@ -17,29 +41,28 @@ export const YourChoices = () => {
   const date = useSelector(userSelectors.getChoices());
   const { isMobile } = useWindowSize();
 
-  const columns = [
-    { field: 'choices', width: isMobile ? 200 : 350 },
-    { field: 'candidate', width: 350 },
-  ];
+  useEffect(() => {
+    const row = [];
+    date.forEach((data) =>
+      row.push({ id: data.election.id, choices: data.election.title, candidate: data.participant.name })
+    );
+    setRows(row);
+  }, [date]);
 
   useEffect(() => {
-    if (!rows) {
-      fetchChoices();
-      const row = [];
-      date.forEach((data) =>
-        row.push({ id: data.election.id, choices: data.election.title, candidate: data.participant.name })
-      );
-      setRows(row);
-    }
-  }, [rows]);
+    fetchChoices();
+  }, []);
 
+  console.log(rows, 'rows');
   return (
     <WrapperAsyncRequest status={status}>
       <ThemeProvider theme={theme}>
         <div style={{ height: '100%', width: isMobile ? '400px' : '100%' }}>
           <DataGrid
-            columns={columns}
+            className={styles.dataGrid}
+            columns={columns(isMobile)}
             rows={rows}
+            hideFooterPagination={true}
             sortModel={[
               { field: 'choices', sort: 'asc' },
               { field: 'candidate', sort: 'asc' },
