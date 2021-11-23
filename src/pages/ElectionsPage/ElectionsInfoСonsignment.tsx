@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ModalParams } from 'src/types/routing';
 import { userSelectors } from 'src/slices/userSlice';
 import { avatarColorChanger } from 'src/utils/avatarColorChanger';
-import { politicianActionCreators, politicianSelectors } from 'src/slices/politicianSlice';
+import { politicianActionCreators, PoliticianInfoI, politicianSelectors } from 'src/slices/politicianSlice';
 import classNames from 'classnames';
 import { Container, Checkbox } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
@@ -12,16 +12,24 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { useSearchParams } from 'src/hooks/useSearchParams';
+
 import { LineChartVoters } from '../PoliticianPage/blocks/PoliticianInfoBlock/LineChartVoters';
 import hish from '../../icons/pictures/hish.png';
 import styles from './ElectionsInfoBlock.module.scss';
+import { PercentsLinearGraphic } from '../PoliticianPage/tabs/ratingStatistics/components/infographic/PercentsLinearGraphic';
 
 interface IProps {
   handleClickOpen?: any;
 }
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
-const ElectionsInfoСonsignment = () => {
+interface IProps {
+  politician?: PoliticianInfoI;
+  voteStatisticsInOtherRegion?: any;
+  election?: any;
+  item?: any;
+}
+const ElectionsInfoСonsignment: FC<IProps> = ({ item, election }) => {
+  console.log(election, 'ElectionsInfoСonsignment');
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const [checked, setChecked] = useState(false);
   const [open, setOpen] = useState(false);
@@ -66,24 +74,20 @@ const ElectionsInfoСonsignment = () => {
                 <div className={styles.fioBlock}>
                   <div className={styles.fio}>
                     <div className={styles.descriptionParty}>
-                      <p>Единая Россия</p>
-                      <div className={styles.description}>
-                        Всеросси́йская полити́ческая па́ртия «Еди́ная Росси́я» — российская политическая партия, крупнейшая
-                        политическая партия Российской Федерации[16], «партия власти»
-                      </div>
+                      <p>{item?.name}</p>
                       <div className={styles.description__info}>
-                        <div className={styles.description}>3000000 членов партии</div>
+                        <div className={styles.description}>{item?.politicians_count} членов партии</div>
                       </div>
                       <div className={styles.description}>
-                        <div className={styles.rating_grey}>62,2%</div>
+                        <div className={styles.rating_grey}>{item?.rating}%</div>
                       </div>
                       <div className={styles.aboutRatings}>
-                        <LineChartVoters />
+                        <PercentsLinearGraphic vote_groups={item?.vote_groups} />
                       </div>
                     </div>
                   </div>
                 </div>
-                {!true ? (
+                {item?.is_silence ? (
                   <div className={styles.description__info_voice}>
                     <div>
                       <Checkbox
@@ -109,8 +113,12 @@ const ElectionsInfoСonsignment = () => {
                       </div>
                     )}
                     <div className={styles.percentOther_grey}> Проголосовало за эту партию:</div>
-                    <div className={styles.percentNumber}>62,2%</div>
-                    <div className={styles.percentOther_grey}>10 человек</div>
+                    <div className={styles.percentNumber}>
+                      {item?.election_vote_statistics.percent_rating_election}%
+                    </div>
+                    <div className={styles.percentOther_grey}>
+                      {item?.election_vote_statistics.count_voted_users_on_election} человек
+                    </div>
                   </div>
                 ) : (
                   <div className={styles.hishParty}>
@@ -129,7 +137,7 @@ const ElectionsInfoСonsignment = () => {
                   : classNames(styles.mobileRoot__border, styles.mobileRoot__border_green)
               }
             >
-              <p className={styles.mobName}>Единая россия</p>
+              <p className={styles.mobName}>{item?.name}</p>
               <div className={styles.mobInfoBlock}>
                 <div
                   className={
@@ -156,24 +164,30 @@ const ElectionsInfoСonsignment = () => {
                   </div>
                 </div>
                 <div className={styles.mobRightBlock}>
-                  <div className={styles.mobEnglishName}>
-                    Всеросси́йская полити́ческая па́ртия «Еди́ная Росси́я» — российская политическая партия, крупнейшая
-                    политическая партия Российской Федерации[16], «партия власти»
+                  <div className={styles.mobEnglishName}>{item?.politicians_count} членов партии</div>
+                  <div className={styles.percent_black_big}>{item?.rating}%</div>
+                </div>
+              </div>
+              {/* <div className={styles.mobRightBlock}>
+                <div className={styles.percent_black_big}>{item?.rating}%</div>
+              </div> */}
+              <div className={styles.aboutRatings}>
+                <PercentsLinearGraphic vote_groups={item?.vote_groups} />
+              </div>
+              {item?.is_silence && (
+                <div className={styles.mobRightBlock}>
+                  <div className={styles.percent_grey}>
+                    Проголосовало: {item?.election_vote_statistics.count_voted_users_on_election} человек
                   </div>
-                  <div className={styles.mobEnglishName}>3000000 членов партии</div>
+                  <div className={styles.percent_grey}>
+                    Рейтинг:{' '}
+                    <span className={styles.percent_span}>
+                      {item?.election_vote_statistics.percent_rating_election}%
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div className={styles.mobRightBlock}>
-                <div className={styles.percent_black_big}>62,2%</div>
-              </div>
-              <LineChartVoters />
-              <div className={styles.mobRightBlock}>
-                <div className={styles.percent_grey}>Проголосовало: 10 человек</div>
-                <div className={styles.percent_grey}>
-                  Рейтинг: <span className={styles.percent_span}>62,2%</span>
-                </div>
-              </div>
-              {true ? (
+              )}
+              {item?.is_silence ? (
                 <div className={styles.mobCheckBlock}>
                   <Checkbox
                     className={styles.mobCheckBlock__box}

@@ -29,7 +29,7 @@ const ElectionsPage = () => {
     window.scrollTo(0, 0);
     return () => resetEctions();
   }, [link]);
-
+  console.log(data, 'data');
   return (
     <Container maxWidth="lg" className={styles.container}>
       <div className={styles.container}>
@@ -51,23 +51,27 @@ const ElectionsPage = () => {
               <b>{data?.numberOfVotesElection?.numberOfVotedUsers}</b>
             </div>
           </div>
-          {data?.politicians && data?.politicians.length > 0 ? (
+          {data?.politicians &&
+            data?.politicians.length > 0 &&
             data?.politicians.map((item) => (
-              <ElectionsInfoPerson key={item?.politician?.id} {...item} />
-            ))
-          ) : null}
-          {data?.parties && data?.parties.length > 0 ? (
-            data?.parties?.map((item) => (
-              <ElectionsInfoСonsignment key={item?.id} {...item} />
-            ))
-          ) : null}
+              <ElectionsInfoPerson key={item?.politician?.id} election={data?.election} {...item} />
+            ))}
+          {data?.parties &&
+            data?.parties.length > 0 &&
+            data?.parties.map((item) => (
+              <ElectionsInfoСonsignment key={item?.id} item={item} election={data?.election} />
+            ))}
           <h2 className={styles.h2}>{'Итог голосования на платформе DD:'}</h2>
           <div className={styles.votingResult}>
-            <VotingResultDD />
+            {data?.winners.map((item) => (
+              <VotingResultDD key={item.id} winners={item} />
+            ))}
           </div>
           <h2 className={styles.h2}>{'Результаты выборов:'}</h2>
           <div className={styles.votingResult}>
-            <VotingResult />
+            {data?.outsideWinners.map((item) => (
+              <VotingResult key={item.id} outsideWinners={item} />
+            ))}
           </div>
           <div className={!isMobile ? styles.statisticVotin : styles.statisticVotinMobile}>
             <div className={styles.item}>

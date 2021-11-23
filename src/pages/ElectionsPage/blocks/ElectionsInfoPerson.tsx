@@ -23,8 +23,10 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 interface IProps {
   politician?: PoliticianInfoI;
   voteStatisticsInOtherRegion?: any;
+  election?: any;
 }
-const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegion }) => {
+const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegion, election }) => {
+  console.log(election, 'election');
   const { isMobile } = useWindowSize();
   const [checked, setChecked] = useState(false);
   // const { setReset } = politicianActionCreators();
@@ -53,7 +55,9 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
             <div className={!checked ? styles.topItems : classNames(styles.topItems, styles.topItems_green)}>
               <div
                 className={
-                  politician?.rating ? styles.avatarBlock : classNames(styles.avatarBlock, styles.avatarBlock__nonRaiting)
+                  politician?.rating
+                    ? styles.avatarBlock
+                    : classNames(styles.avatarBlock, styles.avatarBlock__nonRaiting)
                 }
                 style={
                   politician?.rating
@@ -61,8 +65,14 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
                     : {}
                 }
               >
-                <div className={politician?.rating ? styles.avatar : classNames(styles.avatar, styles.avatar__nonRaiting)}>
-                  {!politician?.photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={politician?.photo} alt="" />}
+                <div
+                  className={politician?.rating ? styles.avatar : classNames(styles.avatar, styles.avatar__nonRaiting)}
+                >
+                  {!politician?.photo ? (
+                    <PersonIcon className={styles.noAvatarIcon} />
+                  ) : (
+                    <img src={politician?.photo} alt="" />
+                  )}
                 </div>
               </div>
               <div className={styles.personBlock}>
@@ -70,29 +80,34 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
                   <div className={styles.fio}>
                     <p>{politician?.name}</p>
                     <div className={styles.description__info}>{politician?.english_name}</div>
-                    { politician?.rating && (
+                    {politician?.rating && (
                       <div className={styles.description}>
                         <div className={styles.rating}>
-                          Рейтинг: {politician?.region?.title?.[i18n.language]} - {politician?.rating}%
+                          Рейтинг: {politician?.region?.title?.[i18n.language]} -- {politician?.rating}%
                         </div>
                       </div>
                     )}
-                    {politician?.place && politician?.rating && <PercentsLinearGraphic vote_groups={politician?.vote_groups} />}
+                    {politician?.place && politician?.rating && (
+                      <PercentsLinearGraphic vote_groups={politician?.vote_groups} />
+                    )}
                     <LineChartVoters data={politician} />
                     {voteStatisticsInOtherRegion && (
                       <div className={styles.aboutRatingsOther}>
                         <div className={styles.description}>
                           <div className={styles.rating}>
-                            Рейтинг: {voteStatisticsInOtherRegion?.regionElection?.title?.[i18n.language]} - {voteStatisticsInOtherRegion?.rating}%
+                            Рейтинг: {voteStatisticsInOtherRegion?.regionElection?.title?.[i18n.language]} -{' '}
+                            {voteStatisticsInOtherRegion?.rating}%
                           </div>
                         </div>
-                        {voteStatisticsInOtherRegion?.rating && <PercentsLinearGraphic vote_groups={voteStatisticsInOtherRegion?.vote_groups} />}
+                        {voteStatisticsInOtherRegion?.rating && (
+                          <PercentsLinearGraphic vote_groups={voteStatisticsInOtherRegion?.vote_groups} />
+                        )}
                         <LineChartVoters data={voteStatisticsInOtherRegion} />
                       </div>
                     )}
                   </div>
                 </div>
-                {true ? (
+                {election.is_silence ? (
                   <div className={styles.aboutRatings}>
                     <div className={styles.percentBlock}>
                       <div>
@@ -121,8 +136,12 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
                       </div>
                       <div className={styles.percentOther}>Проголосовало</div>
                       <div className={styles.percentOther}>за этого кандидата:</div>
-                      <div className={styles.percentNumber}>{politician?.election_vote_statistics?.percent_rating_election}%</div>
-                      <div className={styles.percentOther_green}>{politician?.election_vote_statistics?.count_voted_users_on_election} человек</div>
+                      <div className={styles.percentNumber}>
+                        {politician?.election_vote_statistics?.percent_rating_election}%
+                      </div>
+                      <div className={styles.percentOther_green}>
+                        {politician?.election_vote_statistics?.count_voted_users_on_election} человек
+                      </div>
                     </div>
                   </div>
                 ) : (
@@ -169,25 +188,45 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
                   </div>
                 </div>
                 <div className={styles.mobRightBlock}>
-                  <p>Путин Владимир Владимирович</p>
-                  <div className={styles.mobEnglishName}>Putin Vladimir Vladimirovich</div>
+                  <p>{politician?.name}</p>
+                  <div className={styles.mobEnglishName}>{politician?.english_name}</div>
                 </div>
               </div>
               <div className={styles.mobRightBlock}>
-                <div className={styles.percent_black}>Рейтинг: Республика Северная Осетия-Алания - 62,2%</div>
-              </div>
-              <LineChartVoters />
-              <div className={styles.mobRightBlock}>
-                <div className={styles.percent_black}>Рейтинг: Республика Северная Осетия-Алания - 62,2%</div>
-              </div>
-              <LineChartVoters />
-              <div className={styles.mobRightBlock}>
-                <div className={styles.percent_grey}>Проголосовало: 10 человек</div>
-                <div className={styles.percent_grey}>
-                  Рейтинг: <span className={styles.percent_span}>62,2%</span>
+                <div className={styles.percent_black}>
+                  Рейтинг: {politician?.region?.title?.[i18n.language]} - {politician?.rating}%
                 </div>
               </div>
-              {true ? (
+              {politician?.place && politician?.rating && (
+                <PercentsLinearGraphic vote_groups={politician?.vote_groups} />
+              )}
+              <LineChartVoters data={politician} />
+              <div className={styles.mobRightBlock}>
+                <div className={styles.percent_black}>
+                  {voteStatisticsInOtherRegion?.regionElection?.title && 'Рейтинг:'}{' '}
+                  {voteStatisticsInOtherRegion?.regionElection?.title?.[i18n.language]} {' '}
+                  {voteStatisticsInOtherRegion?.rating}{voteStatisticsInOtherRegion?.regionElection?.title && '%'}
+                </div>
+                {voteStatisticsInOtherRegion?.rating && (
+                  <PercentsLinearGraphic vote_groups={voteStatisticsInOtherRegion?.vote_groups} />
+                )}
+                <LineChartVoters data={voteStatisticsInOtherRegion} />
+              </div>
+              <LineChartVoters />
+              {election.is_silence && (
+                <div className={styles.mobRightBlock}>
+                  <div className={styles.percent_grey}>
+                    Проголосовало: {politician?.election_vote_statistics?.count_voted_users_on_election} человек
+                  </div>
+                  <div className={styles.percent_grey}>
+                    Рейтинг:{' '}
+                    <span className={styles.percent_span}>
+                      {politician?.election_vote_statistics?.percent_rating_election}%
+                    </span>
+                  </div>
+                </div>
+              )}
+              {election.is_silence ? (
                 <div className={styles.mobCheckBlock}>
                   <Checkbox
                     className={styles.mobCheckBlock__box}

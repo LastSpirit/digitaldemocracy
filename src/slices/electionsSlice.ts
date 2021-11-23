@@ -61,6 +61,8 @@ export interface ElectionsSingleI {
     region?: RegionI;
   };
   news?: any;
+  winners?: any;
+  outsideWinners?: any;
   politicians?: Array<PoliticiansI>;
   parties?: Array<PartyI>;
   isMorePages?: boolean;

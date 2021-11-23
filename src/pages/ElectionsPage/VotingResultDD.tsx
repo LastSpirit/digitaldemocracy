@@ -6,16 +6,16 @@ import badgeColorChanger from 'src/utils/badgeColorChanger';
 import PersonIcon from '@material-ui/icons/Person';
 import styles from './VotingResult.module.scss';
 
-const VotingResultDD = () => {
+const VotingResultDD = ({ winners }) => {
   const [button, setButton] = useState(true);
   return (
     <div className={styles.root}>
       <div className={styles.avatarBlock}>
         <div className={styles.avatar}>
-          {true ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={'photo'} alt="" />}
+          {winners.photo ? <img src={winners.photo} alt="" /> : <PersonIcon className={styles.noAvatarIcon} />}
         </div>
       </div>
-      <div className={styles.name}>Партия РОСТ</div>
+      <div className={styles.name}>{winners.name}</div>
       <div className={styles.second}>
         <div
           className={styles.badge}
@@ -23,14 +23,18 @@ const VotingResultDD = () => {
             backgroundColor: '#B0B0B0',
           }}
         >
-          <div className={styles.text}>2 Место</div>
+          <div className={styles.text}>{winners.place} Место</div>
         </div>
-        <div className={styles.percent}>42,2%</div>
+        <div className={styles.percent}>{winners.election_vote_statistics.percent_rating_election}%</div>
       </div>
 
       <div className={styles.position}>
-        <div className={styles.position_text}>Проголосовало: 25%</div>
-        <div className={styles.position_text}>Проголосовало: 10 человек</div>
+        <div className={styles.position_text}>
+          Проголосовало: {winners.election_vote_statistics.percent_voted_users_on_election}%
+        </div>
+        <div className={styles.position_text}>
+          Проголосовало: {winners.election_vote_statistics.count_voted_users_on_election} человек
+        </div>
       </div>
       <Button
         variant="outlined"

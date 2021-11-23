@@ -6,13 +6,13 @@ import badgeColorChanger from 'src/utils/badgeColorChanger';
 import PersonIcon from '@material-ui/icons/Person';
 import styles from './VotingResult.module.scss';
 
-const VotingResult = () => {
+const VotingResult = ({ outsideWinners }) => {
   const [button, setButton] = useState(true);
   return (
     <div className={styles.root}>
       <div className={styles.avatarBlock}>
         <div className={styles.avatar}>
-          {true ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={'photo'} alt="" />}
+          {!outsideWinners.photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={outsideWinners.photo} alt="" />}
         </div>
       </div>
       <div className={styles.second}>
@@ -22,13 +22,13 @@ const VotingResult = () => {
             backgroundColor: '#B0B0B0',
           }}
         >
-          <div className={styles.text}>5 Место</div>
+          <div className={styles.text}>{outsideWinners.place} Место</div>
         </div>
-        <div className={styles.percent}>42,2%</div>
+        <div className={styles.percent}>{outsideWinners.percent_rating_election}%</div>
       </div>
 
       <div className={styles.positionText}>
-        <div className={styles.positionText_text}>Путин Владимир Владимирович</div>
+        <div className={styles.positionText_text}>{outsideWinners.name}</div>
       </div>
       <Button
         variant="outlined"

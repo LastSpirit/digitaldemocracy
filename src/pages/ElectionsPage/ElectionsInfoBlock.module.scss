@@ -348,8 +348,9 @@
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
-
+  
   .topItems {
+    width: 100%;
     padding: 30px 28px 22px 20px;
     border: 3px solid #e5e5e5;
     border-radius: 27px;
@@ -1020,7 +1021,7 @@
         font-weight: 700;
       }
       .rating_grey {
-        padding-top: 34px;
+        margin: 80px 0 20px;
         color: #585858;
         font-size: 36px;
         font-weight: 400;
@@ -1283,7 +1284,7 @@
   align-items: center;
 }
 .hishParty {
-  width: 150px;
+  width: 70px;
   height: 70px;
   background-color: #cfcfcf;
   border-radius: 50%;
@@ -1459,6 +1460,7 @@
   .mobRightBlock {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     color: #7a7a7a;
     font-size: 11px;
     line-height: 13px;
@@ -1551,7 +1553,7 @@
     border-radius: 50%;
     display: flex;
     justify-content: center;
-    align-items: center;    
+    align-items: center;
   }
   &__imgSize {
     width: 25px;
@@ -1560,8 +1562,7 @@
   &__text {
     margin-left: 12px;
     font-size: 18px;
-    color: #7A7A7A;
-
+    color: #7a7a7a;
   }
 }
 
