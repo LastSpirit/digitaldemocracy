@@ -4,6 +4,10 @@
   min-height: 80vh;
   display: flex;
   flex-direction: column;
+  margin-bottom: 110px;
+  @media screen and (max-width: $mobileScreen) {
+    margin-top: 60px;
+  }
 }
 
 .boxShowBtn {
@@ -11,7 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 110px 0;
+  margin-top: 110px;
   @media screen and (max-width: $mobileScreen) {
     margin: 60px 0 60px 0;
   }
@@ -20,5 +24,19 @@
   min-width: 357px;
   @media screen and (max-width: $mobileScreen) {
     min-width: 200px;
+  }
+}
+
+.sortDrop {
+  display: flex;
+  flex-direction: column;
+
+  .mainForm {
+    display: flex;
+    flex-direction: row;
+
+    @media screen and (max-width: $mobileScreen) {
+      flex-direction: column;
+    }
   }
 }

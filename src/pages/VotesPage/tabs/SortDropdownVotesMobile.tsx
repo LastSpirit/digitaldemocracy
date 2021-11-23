@@ -14,16 +14,7 @@ import { useFetchPoliticians } from 'src/pages/RatingPage/hooks/useFetchPolitici
 import styles from './Tabs.module.scss';
 import { ratingActionCreators } from '../../../slices/ratingSlice';
 
-export const SortDropdownVotesMobile = ({
-  text,
-  field,
-  world,
-  setWorld,
-  update,
-  setUpdate,
-  worldVotes,
-  setWorldVotes,
-}) => {
+export const SortDropdownVotesMobile = ({ field, world, setWorld, update, setUpdate, worldVotes, setWorldVotes }) => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
   const [expanded, setExpanded] = useState(false);
@@ -213,171 +204,169 @@ export const SortDropdownVotesMobile = ({
         }, [values.region]);
         return (
           <div className={styles.mainTitle}>
-            <Button
+            {/* <Button
               className={styles.buttonForTitle}
               onClick={() => {
                 handleClick();
               }}
             >
-              {text}
-
               {!expanded ? <ExpandMoreIcon className={styles.icon} /> : <ExpandLessIcon className={styles.icon} />}
             </Button>
             {expanded && (
-              <>
-                <div className={styles.worldCheckbox}>
-                  <Checkbox
-                    icon={<CircleUnchecked style={{ color: 'black' }} />}
-                    checkedIcon={<RadioButtonCheckedIcon style={{ color: 'black' }} />}
-                    checked={field === 'geography' ? world : worldVotes}
-                    onChange={() => {
-                      clearValue('country', setFieldValue);
+              <> */}
+            {/* <div className={styles.worldCheckbox}>
+              <Checkbox
+                icon={<CircleUnchecked style={{ color: 'black' }} />}
+                checkedIcon={<RadioButtonCheckedIcon style={{ color: 'black' }} />}
+                checked={field === 'geography' ? world : worldVotes}
+                onChange={() => {
+                  clearValue('country', setFieldValue);
+                  if (field === 'geography') {
+                    setPostData((prevState) => {
+                      const newState = {
+                        ...prevState,
+                        country_politician_idArray: null,
+                        region_politician_idArray: null,
+                        city_politician_idArray: null,
+                      };
+                      setSortGeography(newState);
+                      setRegionsGeography(null);
+                      setCitiesGeography(null);
+                      setWorld(true);
+                      return newState;
+                    });
+                  } else {
+                    setPostData2((prevState) => {
+                      const newState = {
+                        ...prevState,
+                        country_user_idArray: null,
+                        region_user_idArray: null,
+                        city_user_idArray: null,
+                      };
+                      setSortVote(newState);
+                      setRegionsVote(null);
+                      setCitiesVote(null);
+                      setWorldVotes(!worldVotes);
+                      return newState;
+                    });
+                  }
+                }}
+              />
+              <p>{t('info.worldUser')}</p>
+            </div> */}
+            <form
+              onSubmit={handleSubmit}
+              style={{ width: '270px', marginRight: '15px' }}
+              className={styles.mainForm}
+              onReset={handleReset}
+              noValidate
+            >
+              <div style={{ marginRight: '30px' }}>
+                <InputLabel htmlFor="country" className={styles.inputLabel}>
+                  {t('buttons.sort.countryFullTitle')}
+                </InputLabel>
+                <Autocomplete
+                  value={values.country}
+                  multiple
+                  id="country"
+                  options={countries ?? []}
+                  style={{ width: '292px' }}
+                  getOptionLabel={(option: any) => {
+                    return option?.title?.[currentLang] || option?.title?.ru || values.country;
+                  }}
+                  isOptionEqualToValue={(option, value) => {
+                    return option.title?.[currentLang] === value || option.title?.ru === value;
+                  }}
+                  noOptionsText={<>{t('info.noVariants')}</>}
+                  onChange={(_, newValue) => {
+                    if (newValue) {
+                      setFieldValue('country', newValue);
                       if (field === 'geography') {
-                        setPostData((prevState) => {
-                          const newState = {
-                            ...prevState,
-                            country_politician_idArray: null,
-                            region_politician_idArray: null,
-                            city_politician_idArray: null,
-                          };
-                          setSortGeography(newState);
-                          setRegionsGeography(null);
-                          setCitiesGeography(null);
-                          setWorld(true);
-                          return newState;
-                        });
-                      } else {
-                        setPostData2((prevState) => {
-                          const newState = {
-                            ...prevState,
-                            country_user_idArray: null,
-                            region_user_idArray: null,
-                            city_user_idArray: null,
-                          };
-                          setSortVote(newState);
-                          setRegionsVote(null);
-                          setCitiesVote(null);
-                          setWorldVotes(!worldVotes);
-                          return newState;
-                        });
+                        sendDataForSort(setPostData, 'country_politician_idArray', newValue, setSortGeography);
+                      }
+                      if (field === 'vote') {
+                        sendDataForSort(setPostData2, 'country_user_idArray', newValue, setSortVote);
+                      }
+                    }
+                  }}
+                  renderInput={(params) => (
+                    <TextField {...params} type="text" onBlur={handleBlur} fullWidth helperText={errors.country} />
+                  )}
+                />
+              </div>
+              {regions ? (
+                <div style={{ marginRight: '30px' }}>
+                  <InputLabel htmlFor="region" className={styles.inputLabel}>
+                    {t('buttons.sort.regionFullTitle')}
+                  </InputLabel>
+                  <Autocomplete
+                    value={values.region}
+                    multiple
+                    id="region"
+                    options={regions}
+                    style={{ width: '292px' }}
+                    getOptionLabel={(option: any) => {
+                      return option?.title?.[currentLang] || option?.title?.ru || values.region;
+                    }}
+                    isOptionEqualToValue={(option, value) => {
+                      return option.title?.[currentLang] === value || option.title?.ru === value;
+                    }}
+                    noOptionsText={<>{t('info.noVariants')}</>}
+                    onChange={(_, newValue) => {
+                      if (newValue) {
+                        setFieldValue('region', newValue);
+                        if (field === 'geography') {
+                          sendDataForSort(setPostData, 'region_politician_idArray', newValue, setSortGeography);
+                        }
+                        if (field === 'vote') {
+                          sendDataForSort(setPostData2, 'region_user_idArray', newValue, setSortVote);
+                        }
                       }
                     }}
+                    renderInput={(params) => (
+                      <TextField {...params} type="text" onBlur={handleBlur} variant="outlined" fullWidth />
+                    )}
                   />
-                  <p>{t('info.worldUser')}</p>
                 </div>
-                <form
-                  onSubmit={handleSubmit}
-                  style={{ width: '270px', marginRight: '15px' }}
-                  className={styles.mainForm}
-                  onReset={handleReset}
-                  noValidate
-                >
-                  <div style={{ marginRight: '30px' }}>
-                    <InputLabel htmlFor="country" className={styles.inputLabel}>
-                      {t('buttons.sort.countryFullTitle')}
-                    </InputLabel>
-                    <Autocomplete
-                      value={values.country}
-                      multiple
-                      id="country"
-                      options={countries ?? []}
-                      style={{ width: '292px' }}
-                      getOptionLabel={(option: any) => {
-                        return option?.title?.[currentLang] || option?.title?.ru || values.country;
-                      }}
-                      isOptionEqualToValue={(option, value) => {
-                        return option.title?.[currentLang] === value || option.title?.ru === value;
-                      }}
-                      noOptionsText={<>{t('info.noVariants')}</>}
-                      onChange={(_, newValue) => {
-                        if (newValue) {
-                          setFieldValue('country', newValue);
-                          if (field === 'geography') {
-                            sendDataForSort(setPostData, 'country_politician_idArray', newValue, setSortGeography);
-                          }
-                          if (field === 'vote') {
-                            sendDataForSort(setPostData2, 'country_user_idArray', newValue, setSortVote);
-                          }
+              ) : null}
+              {cities ? (
+                <div style={{ marginRight: '5px' }}>
+                  <InputLabel htmlFor="city" className={styles.inputLabel}>
+                    {t('buttons.sort.citiesFullTitle')}
+                  </InputLabel>
+                  <Autocomplete
+                    value={values.city}
+                    multiple
+                    id="city"
+                    options={cities}
+                    style={{ width: '292px' }}
+                    getOptionLabel={(option: any) => {
+                      return option?.title?.[currentLang] || option?.title?.ru || values.city;
+                    }}
+                    isOptionEqualToValue={(option, value) => {
+                      return option.title?.[currentLang] === value || option.title?.ru === value;
+                    }}
+                    noOptionsText={<>{t('info.noVariants')}</>}
+                    onChange={(_, newValue) => {
+                      if (newValue) {
+                        setFieldValue('city', newValue);
+                        if (field === 'geography') {
+                          sendDataForSort(setPostData, 'city_politician_idArray', newValue, setSortGeography);
                         }
-                      }}
-                      renderInput={(params) => (
-                        <TextField {...params} type="text" onBlur={handleBlur} fullWidth helperText={errors.country} />
-                      )}
-                    />
-                  </div>
-                  {regions ? (
-                    <div style={{ marginRight: '30px' }}>
-                      <InputLabel htmlFor="region" className={styles.inputLabel}>
-                        {t('buttons.sort.regionFullTitle')}
-                      </InputLabel>
-                      <Autocomplete
-                        value={values.region}
-                        multiple
-                        id="region"
-                        options={regions}
-                        style={{ width: '292px' }}
-                        getOptionLabel={(option: any) => {
-                          return option?.title?.[currentLang] || option?.title?.ru || values.region;
-                        }}
-                        isOptionEqualToValue={(option, value) => {
-                          return option.title?.[currentLang] === value || option.title?.ru === value;
-                        }}
-                        noOptionsText={<>{t('info.noVariants')}</>}
-                        onChange={(_, newValue) => {
-                          if (newValue) {
-                            setFieldValue('region', newValue);
-                            if (field === 'geography') {
-                              sendDataForSort(setPostData, 'region_politician_idArray', newValue, setSortGeography);
-                            }
-                            if (field === 'vote') {
-                              sendDataForSort(setPostData2, 'region_user_idArray', newValue, setSortVote);
-                            }
-                          }
-                        }}
-                        renderInput={(params) => (
-                          <TextField {...params} type="text" onBlur={handleBlur} variant="outlined" fullWidth />
-                        )}
-                      />
-                    </div>
-                  ) : null}
-                  {cities ? (
-                    <div style={{ marginRight: '5px' }}>
-                      <InputLabel htmlFor="city" className={styles.inputLabel}>
-                        {t('buttons.sort.citiesFullTitle')}
-                      </InputLabel>
-                      <Autocomplete
-                        value={values.city}
-                        multiple
-                        id="city"
-                        options={cities}
-                        style={{ width: '292px' }}
-                        getOptionLabel={(option: any) => {
-                          return option?.title?.[currentLang] || option?.title?.ru || values.city;
-                        }}
-                        isOptionEqualToValue={(option, value) => {
-                          return option.title?.[currentLang] === value || option.title?.ru === value;
-                        }}
-                        noOptionsText={<>{t('info.noVariants')}</>}
-                        onChange={(_, newValue) => {
-                          if (newValue) {
-                            setFieldValue('city', newValue);
-                            if (field === 'geography') {
-                              sendDataForSort(setPostData, 'city_politician_idArray', newValue, setSortGeography);
-                            }
-                            if (field === 'vote') {
-                              sendDataForSort(setPostData2, 'city_user_idArray', newValue, setSortVote);
-                            }
-                          }
-                        }}
-                        renderInput={(params) => (
-                          <TextField {...params} type="text" onBlur={handleBlur} variant="outlined" fullWidth />
-                        )}
-                      />
-                    </div>
-                  ) : null}
-                </form>
-              </>
-            )}
+                        if (field === 'vote') {
+                          sendDataForSort(setPostData2, 'city_user_idArray', newValue, setSortVote);
+                        }
+                      }
+                    }}
+                    renderInput={(params) => (
+                      <TextField {...params} type="text" onBlur={handleBlur} variant="outlined" fullWidth />
+                    )}
+                  />
+                </div>
+              ) : null}
+            </form>
+            {/* </>
+            )} */}
           </div>
         );
       }}
