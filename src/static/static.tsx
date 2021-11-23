@@ -317,6 +317,15 @@ export const sortDropdownPoliticians = (t) => [
   },
 ];
 
+export const sortDropdownCountryVotes = (t) => [
+  {
+    id: 1,
+    full_title: t('buttons.sort.geographyFullTitle') || 'Политики, по географии:',
+    short_title: t('buttons.sort.geographyShortTitle') || 'География',
+    field: 'geography',
+  },
+];
+
 export const sortRatingAuthors = (t) => {
   return [
     {
