@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { useTranslation } from 'react-i18next';
-import { sortDropdownPoliticians } from 'src/static/static';
+import { sortDropdownCountryVotes } from 'src/static/static';
 import { Box, Button, Container } from '@material-ui/core';
 import { GridArrowDownwardIcon } from '@material-ui/data-grid';
 import VotesCard from './tabs/VoteCards';
 import styles from './VotesPage.module.scss';
 import { SortDropdownVotes } from './tabs/SortDropdownVotes';
 import { SortDropdownVotesMobile } from './tabs/SortDropdownVotesMobile';
+import { VoteCalendar } from './tabs/VoteCalendar';
 
 const VotesPage = () => {
   const { t } = useTranslation();
@@ -40,11 +41,10 @@ const VotesPage = () => {
     <Container maxWidth="lg" className={styles.VotesContainer}>
       {!isMobile ? (
         <div className={styles.sortDrop}>
-          {sortDropdownPoliticians(t).map(({ id, full_title, field }) => {
+          {sortDropdownCountryVotes(t).map(({ id, full_title, field }) => {
             return (
               <SortDropdownVotes
                 key={id}
-                text={full_title}
                 field={field}
                 world={world}
                 setWorld={setWorld}
@@ -55,14 +55,14 @@ const VotesPage = () => {
               />
             );
           })}
+          <VoteCalendar />
         </div>
       ) : (
         <div className={styles.sortDrop}>
-          {sortDropdownPoliticians(t).map(({ id, full_title, field }) => {
+          {sortDropdownCountryVotes(t).map(({ id, full_title, field }) => {
             return (
               <SortDropdownVotesMobile
                 key={id}
-                text={full_title}
                 field={field}
                 world={world}
                 setWorld={setWorld}
@@ -73,6 +73,7 @@ const VotesPage = () => {
               />
             );
           })}
+          <VoteCalendar />
         </div>
       )}
 

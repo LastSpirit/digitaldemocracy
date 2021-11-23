@@ -9,10 +9,10 @@ import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import { Formik } from 'formik';
 import { useFetchSort } from 'src/pages/RatingPage/hooks/useFetchSort';
 import { useFetchPoliticians } from 'src/pages/RatingPage/hooks/useFetchPoliticians';
-import styles from '../../RatingPage/tabs/Tabs.module.scss';
+import styles from './Tabs.module.scss';
 import { ratingActionCreators } from '../../../slices/ratingSlice';
 
-export const SortDropdownVotes = ({ text, field, world, setWorld, update, setUpdate, worldVotes, setWorldVotes }) => {
+export const SortDropdownVotes = ({ field, world, setWorld, update, setUpdate, worldVotes, setWorldVotes }) => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
   const { fetchCountries, fetchRegions, fetchCities } = useFetchSort();
@@ -198,7 +198,6 @@ export const SortDropdownVotes = ({ text, field, world, setWorld, update, setUpd
 
         return (
           <div className={styles.mainTitle}>
-            {text}
             <form
               onSubmit={handleSubmit}
               style={{ width: '270px', marginRight: '15px' }}
@@ -304,46 +303,6 @@ export const SortDropdownVotes = ({ text, field, world, setWorld, update, setUpd
                 </div>
               ) : null}
             </form>
-            <div className={styles.worldCheckbox}>
-              <Checkbox
-                icon={<CircleUnchecked style={{ color: 'black' }} />}
-                checkedIcon={<RadioButtonCheckedIcon style={{ color: 'black' }} />}
-                checked={field === 'geography' ? world : worldVotes}
-                onChange={() => {
-                  clearValue('country', setFieldValue);
-                  if (field === 'geography') {
-                    setPostData((prevState) => {
-                      const newState = {
-                        ...prevState,
-                        country_politician_idArray: null,
-                        region_politician_idArray: null,
-                        city_politician_idArray: null,
-                      };
-                      setSortGeography(newState);
-                      setRegionsGeography(null);
-                      setCitiesGeography(null);
-                      setWorld(true);
-                      return newState;
-                    });
-                  } else {
-                    setPostData2((prevState) => {
-                      const newState = {
-                        ...prevState,
-                        country_user_idArray: null,
-                        region_user_idArray: null,
-                        city_user_idArray: null,
-                      };
-                      setSortVote(newState);
-                      setRegionsVote(null);
-                      setCitiesVote(null);
-                      setWorldVotes(!worldVotes);
-                      return newState;
-                    });
-                  }
-                }}
-              />
-              <p>{t('info.worldUser')}</p>
-            </div>
           </div>
         );
       }}
@@ -351,4 +310,4 @@ export const SortDropdownVotes = ({ text, field, world, setWorld, update, setUpd
   );
 };
 
-// export default SortDropdownVotes;
+export default SortDropdownVotes;
