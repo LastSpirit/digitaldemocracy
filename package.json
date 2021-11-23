@@ -7,10 +7,6 @@
     "stylelint-fix": "stylelint --fix ./src",
     "lint": "eslint ./src",
     "lint-fix": "eslint --fix ./src",
-<<<<<<< Updated upstream
-=======
-    // "start": "react-scripts --openssl-legacy-provider start",
->>>>>>> Stashed changes
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
