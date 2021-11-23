@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ModalParams } from 'src/types/routing';
 import { userSelectors } from 'src/slices/userSlice';
@@ -12,33 +12,39 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { useSearchParams } from 'src/hooks/useSearchParams';
-import { LineChartVoters } from '../PoliticianPage/blocks/PoliticianInfoBlock/LineChartVoters';
-import hish from '../../icons/pictures/hish.png';
-import styles from './ElectionsInfoBlock.module.scss';
+import { PercentsLinearGraphic } from './PercentsLinearGraphic/PercentsLinearGraphic';
+import { PoliticianInfoI } from '../../../slices/politicianSlice';
+import { LineChartVoters } from './LineChartVoters';
+import hish from '../../../icons/pictures/hish.png';
+import styles from '../ElectionsInfoBlock.module.scss';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-const ElectionsInfoPerson = () => {
+interface IProps {
+  politician?: PoliticianInfoI;
+  voteStatisticsInOtherRegion?: any;
+}
+const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegion }) => {
   const { isMobile } = useWindowSize();
   const [checked, setChecked] = useState(false);
-  const { setReset } = politicianActionCreators();
+  // const { setReset } = politicianActionCreators();
   const { t, i18n } = useTranslation();
-  const data = useSelector(politicianSelectors.getPoliticianInfo());
-  const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
+  // const data = useSelector(politicianSelectors.getPoliticianInfo());
+  // const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
 
-  const {
-    [ModalParams.Auth]: { setValue: setAuthValue },
-  } = useSearchParams(ModalParams.Auth);
+  // const {
+  //   [ModalParams.Auth]: { setValue: setAuthValue },
+  // } = useSearchParams(ModalParams.Auth);
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
 
-  useEffect(() => {
-    return () => {
-      setReset();
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     setReset();
+  //   };
+  // }, []);
   return (
     <Container maxWidth="lg" className={styles.cont}>
       <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
@@ -47,36 +53,46 @@ const ElectionsInfoPerson = () => {
             <div className={!checked ? styles.topItems : classNames(styles.topItems, styles.topItems_green)}>
               <div
                 className={
-                  data?.rating ? styles.avatarBlock : classNames(styles.avatarBlock, styles.avatarBlock__nonRaiting)
+                  politician?.rating ? styles.avatarBlock : classNames(styles.avatarBlock, styles.avatarBlock__nonRaiting)
                 }
                 style={
-                  data?.rating
-                    ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }
+                  politician?.rating
+                    ? { backgroundImage: `url(${avatarColorChanger(politician?.rating)})`, backgroundSize: 'cover' }
                     : {}
                 }
               >
-                <div className={data?.rating ? styles.avatar : classNames(styles.avatar, styles.avatar__nonRaiting)}>
-                  {!data?.photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={data?.photo} alt="" />}
+                <div className={politician?.rating ? styles.avatar : classNames(styles.avatar, styles.avatar__nonRaiting)}>
+                  {!politician?.photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={politician?.photo} alt="" />}
                 </div>
               </div>
               <div className={styles.personBlock}>
                 <div className={styles.fioBlock}>
                   <div className={styles.fio}>
-                    <p>Путин Владимир Владимирович</p>
-                    <div className={styles.description__info}>Putin Vladimir Vladimirovich</div>
-                    <div className={styles.description}>
-                      <div className={styles.rating}>Рейтинг: Республика Северная Осетия-Алания - 62,2%</div>
-                    </div>
-                    <LineChartVoters />
-                    <div className={styles.aboutRatingsOther}>
+                    <p>{politician?.name}</p>
+                    <div className={styles.description__info}>{politician?.english_name}</div>
+                    { politician?.rating && (
                       <div className={styles.description}>
-                        <div className={styles.rating}>Рейтинг: Москва - 57,2%</div>
+                        <div className={styles.rating}>
+                          Рейтинг: {politician?.region?.title?.[i18n.language]} - {politician?.rating}%
+                        </div>
                       </div>
-                      <LineChartVoters />
-                    </div>
+                    )}
+                    {politician?.place && politician?.rating && <PercentsLinearGraphic vote_groups={politician?.vote_groups} />}
+                    <LineChartVoters data={politician} />
+                    {voteStatisticsInOtherRegion && (
+                      <div className={styles.aboutRatingsOther}>
+                        <div className={styles.description}>
+                          <div className={styles.rating}>
+                            Рейтинг: {voteStatisticsInOtherRegion?.regionElection?.title?.[i18n.language]} - {voteStatisticsInOtherRegion?.rating}%
+                          </div>
+                        </div>
+                        {voteStatisticsInOtherRegion?.rating && <PercentsLinearGraphic vote_groups={voteStatisticsInOtherRegion?.vote_groups} />}
+                        <LineChartVoters data={voteStatisticsInOtherRegion} />
+                      </div>
+                    )}
                   </div>
                 </div>
-                {!true ? (
+                {true ? (
                   <div className={styles.aboutRatings}>
                     <div className={styles.percentBlock}>
                       <div>
@@ -85,7 +101,6 @@ const ElectionsInfoPerson = () => {
                           checked={checked}
                           onChange={handleChange}
                           {...label}
-                          defaultChecked
                           sx={{
                             color: '#248232 !important',
                             '&.Mui-checked': { color: '#248232 !important' },
@@ -106,8 +121,8 @@ const ElectionsInfoPerson = () => {
                       </div>
                       <div className={styles.percentOther}>Проголосовало</div>
                       <div className={styles.percentOther}>за этого кандидата:</div>
-                      <div className={styles.percentNumber}>62,2%</div>
-                      <div className={styles.percentOther_green}>10 человек</div>
+                      <div className={styles.percentNumber}>{politician?.election_vote_statistics?.percent_rating_election}%</div>
+                      <div className={styles.percentOther_green}>{politician?.election_vote_statistics?.count_voted_users_on_election} человек</div>
                     </div>
                   </div>
                 ) : (
@@ -131,25 +146,25 @@ const ElectionsInfoPerson = () => {
               <div className={styles.mobInfoBlock}>
                 <div
                   className={
-                    data?.rating
+                    politician?.rating
                       ? styles.mobAvatarBlock
                       : classNames(styles.mobAvatarBlock, styles.mobAvatarBlock__nonRaiting)
                   }
                   style={
-                    data?.rating
-                      ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }
+                    politician?.rating
+                      ? { backgroundImage: `url(${avatarColorChanger(politician?.rating)})`, backgroundSize: 'cover' }
                       : {}
                   }
                 >
                   <div
                     className={
-                      data?.rating ? styles.mobAvatar : classNames(styles.mobAvatar, styles.mobAvatar__nonRaiting)
+                      politician?.rating ? styles.mobAvatar : classNames(styles.mobAvatar, styles.mobAvatar__nonRaiting)
                     }
                   >
-                    {!data?.photo ? (
+                    {!politician?.photo ? (
                       <PersonIcon className={styles.mobNoAvatarIcon} />
                     ) : (
-                      <img src={data?.photo} alt="" />
+                      <img src={politician?.photo} alt="" />
                     )}
                   </div>
                 </div>
@@ -179,7 +194,6 @@ const ElectionsInfoPerson = () => {
                     checked={checked}
                     onChange={handleChange}
                     {...label}
-                    defaultChecked
                     sx={{
                       color: '#248232 !important',
                       '&.Mui-checked': { color: '#248232 !important' },

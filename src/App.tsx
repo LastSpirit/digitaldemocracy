@@ -116,7 +116,7 @@ const App: FC = () => {
               <Route exact path="/search" component={SearchPage} />
               <Route exact path="/about" component={AboutPage} />
               <Route exact path="/votes" component={VotesPage} />
-              <Route exact path="/elections" component={ElectionsPage} />
+              <Route exact path="/elections/:link" component={ElectionsPage} />
               {isAuthenticated && <Route exact path="/suggestion" component={SuggestionPage} />}
               <Redirect to="/" />
             </Switch>
