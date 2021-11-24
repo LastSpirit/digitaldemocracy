@@ -165,10 +165,10 @@ const iconsData = (isAuthenticated, pathname) => {
       auth: ['no-user'],
     },
     {
-      title: t('footer.menu.elections') || 'Выборы',
+      title: t('footer.menu.votes') || 'Выборы',
       // icon: <Donate className={pathname === '/donation' ? 'icon-footer active' : 'icon-footer'} />,
-      icon: <Elections className={pathname === '/elections' ? 'icon-footer active' : 'icon-footer'} />,
-      to: '/elections',
+      icon: <Elections className={pathname === '/votes' ? 'icon-footer active' : 'icon-footer'} />,
+      to: '/votes',
       auth: ['user', 'no-user'],
     },
   ];
