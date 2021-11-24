@@ -38,4 +38,8 @@ export const userActivityLeftNavigationItems = [
     id: 4,
     title: 'История донатов',
   },
+  {
+    id: 5,
+    title: 'Ваши выборы',
+  },
 ];

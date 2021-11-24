@@ -5,6 +5,12 @@ import { newsAPI } from 'src/api/newsAPI';
 import { APIStatus } from 'src/lib/axiosAPI';
 import { NewsI } from './homeSlice';
 
+interface Election_vote_statisticsI {
+  count_voted_users_on_election: number;
+  is_user_has_vote: boolean;
+  percent_rating_election: string;
+}
+
 export interface PoliticianInfoI {
   id?: number;
   name?: string;
@@ -31,6 +37,7 @@ export interface PoliticianInfoI {
   region?: any;
   city_full?: any;
   position_count?: number;
+  election_vote_statistics?: Election_vote_statisticsI;
 }
 
 export interface PartyI {
@@ -45,6 +52,7 @@ export interface PartyI {
   source_link?: string;
   rating?: number;
   place?: number;
+  election_vote_statistics?: Election_vote_statisticsI;
   country?: { title: [] };
 }
 
