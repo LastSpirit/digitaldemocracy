@@ -14,7 +14,7 @@ import {
   Reception,
   AdditionalInformation,
 } from '../pages/PoliticianPage/tabs';
-import { Subscriptions, BrowsingHistory, DonationHistory, VotingStatistics } from '../pages/ProfilePage/tabs';
+import { Subscriptions, BrowsingHistory, DonationHistory, VotingStatistics, YourChoices } from '../pages/ProfilePage/tabs';
 
 import { NewsBlock, MassMediaInfluenceStatistic } from '../pages/MassMediaPage/tabs';
 import { AuthorNewsBlock, InfluenceStatistic } from '../pages/AuthorPage/tabs';
@@ -107,6 +107,11 @@ export const ProfileTabs = (t) => {
       id: 'donation_history',
       title: t('tabs.historyDonation') || 'История донатов',
       component: DonationHistory,
+    },
+    {
+      id: 'yourChoices',
+      title: t('Ваши выборы') || 'Ваши выборы',
+      component: YourChoices,
     },
   ];
 };

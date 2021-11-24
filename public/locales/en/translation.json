@@ -194,7 +194,8 @@
     "subscriptions": "Subscriptions",
     "statisticsVoting": "Your politicians data book",
     "historyBrowsing": "View history",
-    "historyDonation": "Donations history"
+    "historyDonation": "Donations history",
+    "yourChoices": "Your Choices"
   },
   "info": {
     "resetZoom": "Reset zoom",

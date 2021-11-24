@@ -8,7 +8,13 @@ import {
   ListItem,
   ListItemText,
   Link,
-  ListItemIcon, Dialog, FormControl, RadioGroup, FormControlLabel, Radio, DialogContent
+  ListItemIcon,
+  Dialog,
+  FormControl,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  DialogContent,
 } from '@material-ui/core';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -33,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     '@media (min-width:900px)': {
       top: 70,
-    }
+    },
   },
   boxMenu: {
     background: '#fff',
@@ -43,47 +49,51 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
   },
   active: {
-    display: 'block'
+    display: 'block',
   },
   listItem: {
-    padding: '0'
+    padding: '0',
   },
   link: {
     display: 'block',
     fontSize: '12px',
     padding: '19px 16px!important',
     color: '#747373',
-    fontWeight: 300
+    fontWeight: 300,
   },
   paper: {
-    borderRadius: 0
+    borderRadius: 0,
   },
   itemLang: {
     padding: '5px 16px',
-    borderBottom: '1px solid #ccc'
+    borderBottom: '1px solid #ccc',
   },
   itemLangText: {
     '& .MuiTypography-root': {
       fontSize: '12px!important',
-    }
-  }
+    },
+  },
 }));
 const linksData = [
   {
     title: 'aboutMenu',
-    url: '/about'
+    url: '/about',
+  },
+  {
+    title: 'donation',
+    url: '/donation',
   },
   {
     title: 'userAgreement', // Пользовательское соглашение
     url: null,
     download: true,
-    downloadLink: TermsOfUse
+    downloadLink: TermsOfUse,
   },
   {
     title: 'personalDataPolicy', // Политика персональных данных
     url: null,
     download: true,
-    downloadLink: PrivacyPolicyPdf
+    downloadLink: PrivacyPolicyPdf,
   },
 ];
 const HeaderMobile: FC = () => {
@@ -102,7 +112,7 @@ const HeaderMobile: FC = () => {
   };
   const pathUrl = pathname.split('/').pop();
   const openDrop = (type: string) => {
-    setOpen((prevState) => prevState === type ? null : type);
+    setOpen((prevState) => (prevState === type ? null : type));
   };
   const redirectBack = () => {
     setOpen(null);
@@ -137,52 +147,46 @@ const HeaderMobile: FC = () => {
   }, [pathUrl]);
   return (
     <>
-        {pathname !== '/' ? (
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              height: 40,
-              cursor: 'pointer',
-            }}
-          >
+      {pathname !== '/' ? (
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            height: 40,
+            cursor: 'pointer',
+          }}
+        >
           <IconButton onClick={redirectBack}>
             <ArrowBackIcon />
           </IconButton>
-          <Typography
-            sx={{ ml: 1.5, fontSize: '14px' }}
-            color="textSecondary"
-          >
+          <Typography sx={{ ml: 1.5, fontSize: '14px' }} color="textSecondary">
             {urlTitle ? t(`footer.menu.${urlTitle}`) : ''}
           </Typography>
-          </Box>
-        ) : (
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              height: 40,
-              cursor: 'pointer',
-            }}
-            onClick={() => {
-              push('/');
-              console.log('redsa');
-              window.scrollTo(0, 0);
-            }}
-          >
-            <div className="logo">
-              <Logo />
-            </div>
-            <Typography
-              sx={{ ml: 1.5, fontSize: '14px' }}
-              color="textSecondary"
-            >
-              Digital
-              <br />
-              Democracy
-            </Typography>
-          </Box>
-          )}
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            height: 40,
+            cursor: 'pointer',
+          }}
+          onClick={() => {
+            push('/');
+            console.log('redsa');
+            window.scrollTo(0, 0);
+          }}
+        >
+          <div className="logo">
+            <Logo />
+          </div>
+          <Typography sx={{ ml: 1.5, fontSize: '14px' }} color="textSecondary">
+            Digital
+            <br />
+            Democracy
+          </Typography>
+        </Box>
+      )}
       <Box
         sx={{
           display: 'flex',
@@ -196,52 +200,49 @@ const HeaderMobile: FC = () => {
           <Menu />
         </IconButton>
       </Box>
-      <Box
-        className={classes.boxSearch}
-        style={{ display: open === 'search' ? 'block' : 'none' }}
-      >
+      <Box className={classes.boxSearch} style={{ display: open === 'search' ? 'block' : 'none' }}>
         <SearchBlock mobile={true} />
       </Box>
-      <Box
-        className={classes.boxMenu}
-        style={{ display: open === 'menu' ? 'block' : 'none' }}
-      >
+      <Box className={classes.boxMenu} style={{ display: open === 'menu' ? 'block' : 'none' }}>
         <List disablePadding>
           {linksData.map((el) => {
             return (
-                    <ListItem key={el.title} button className={classes.listItem}>
-                      <ListItemText primary={
-                        <Link
-                          sx={{
-                          cursor: 'pointer',
-                        }}
-                          onClick={() => {
-                          if (!el.url) {
+              <ListItem key={el.title} button className={classes.listItem}>
+                <ListItemText
+                  primary={
+                    <Link
+                      sx={{
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => {
+                        if (!el.url) {
                           return null;
                         }
-                          return push(el.url);
-                        }}
-                          className={classes.link}
-                          download={el?.download}
-                          href={el?.downloadLink}
-                        >
-                         { t(`footer.menu.${el.title}`) }
-                        </Link>
-                    } />
-                    </ListItem>
+                        return push(el.url);
+                      }}
+                      className={classes.link}
+                      download={el?.download}
+                      href={el?.downloadLink}
+                    >
+                      {t(`footer.menu.${el.title}`)}
+                    </Link>
+                  }
+                />
+              </ListItem>
             );
-          }) }
+          })}
           <ListItem button className={classes.listItem} onClick={() => setOpenModal(true)}>
-            <ListItemText primary={
-              <Link
-                sx={{
-                  cursor: 'pointer',
-                }}
-                className={classes.link}
-              >
-                { langTitle }
-              </Link>
-            }
+            <ListItemText
+              primary={
+                <Link
+                  sx={{
+                    cursor: 'pointer',
+                  }}
+                  className={classes.link}
+                >
+                  {langTitle}
+                </Link>
+              }
             />
             <ListItemIcon>
               <ArrowDropDownIcon />
@@ -254,14 +255,19 @@ const HeaderMobile: FC = () => {
         onClose={handleClose}
         fullWidth
         classes={{
-          paper: classes.paper
+          paper: classes.paper,
         }}
         // className={classes.modal}
       >
         <List disablePadding>
           {langData.map((el) => {
             return (
-              <ListItem button key={el.key_lang} onClick={() => i18n.changeLanguage(el.key_lang)} className={classes.itemLang}>
+              <ListItem
+                button
+                key={el.key_lang}
+                onClick={() => i18n.changeLanguage(el.key_lang)}
+                className={classes.itemLang}
+              >
                 <ListItemText className={classes.itemLangText}>{el.title}</ListItemText>
                 <ListItemIcon sx={{ marginRight: '0' }}>
                   <Radio checked={getItem('i18nextLng').slice(0, 2) === el.key_lang} />

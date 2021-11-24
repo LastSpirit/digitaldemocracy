@@ -52,11 +52,11 @@ const fetchDossierTable: any = (args) =>
       method: 'get',
       headers: {
         Accept: 'application/json',
-        Authorization: `Bearer ${args.payload.token}`
+        Authorization: `Bearer ${args.payload.token}`,
       },
       params: {
-        page: args.payload.params.page
-      }
+        page: args.payload.params.page,
+      },
     },
     ...args,
   });
@@ -68,13 +68,26 @@ const fetchPoliticiansDossierGraph: any = (args) =>
       method: 'get',
       headers: {
         Accept: 'application/json',
-        Authorization: `Bearer ${args.payload.token}`
+        Authorization: `Bearer ${args.payload.token}`,
       },
       params: {
-        politician_id: args.payload.params.politician_id
-      }
+        politician_id: args.payload.params.politician_id,
+      },
     },
-    ...args
+    ...args,
+  });
+
+const fetchChoices: any = (args) =>
+  callAPI({
+    url: 'getUserElectionListVotes',
+    config: {
+      method: 'get',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+    },
+    ...args,
   });
 
 const APIs = {
@@ -82,7 +95,8 @@ const APIs = {
   fetchBrowsingHistory,
   fetchSubscriptions,
   fetchDossierTable,
-  fetchPoliticiansDossierGraph
+  fetchPoliticiansDossierGraph,
+  fetchChoices,
 };
 
 export const userAPI = () => {
