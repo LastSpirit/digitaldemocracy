@@ -54,7 +54,13 @@ const VoteCards = () => {
               <VoteCard key={card.id} />
             ))}
           </div>
-          {tempCards?.length > 4 && isMoreLoaded && tempCards.slice(4).map((card) => <VoteCard key={card.id} />)}
+          {tempCards?.length > 4 &&
+            isMoreLoaded &&
+            tempCards.slice(4).map((card) => (
+              <div className={styles.VotingCards}>
+                <VoteCard key={card.id} />
+              </div>
+            ))}
           {tempCards?.length > 4 && !isMoreLoaded && (
             <button type="button" className={styles.ShowOtherSelections} onClick={handleIsMoreLoaded}>
               Показать остальные выборы

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { useTranslation } from 'react-i18next';
+import { userSelectors } from 'src/slices/userSlice';
 import { sortDropdownCountryVotes } from 'src/static/static';
 import { Box, Button, Container } from '@material-ui/core';
 import { GridArrowDownwardIcon } from '@material-ui/data-grid';
@@ -9,8 +11,10 @@ import styles from './VotesPage.module.scss';
 import { SortDropdownVotes } from './tabs/SortDropdownVotes';
 import { SortDropdownVotesMobile } from './tabs/SortDropdownVotesMobile';
 import { VoteCalendar } from './tabs/VoteCalendar';
+import MyVoteCard from './tabs/MyVotesCard';
 
 const VotesPage = () => {
+  const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { t } = useTranslation();
   const { isMobile } = useWindowSize();
   const [world, setWorld] = useState(true);
@@ -76,6 +80,7 @@ const VotesPage = () => {
           <VoteCalendar />
         </div>
       )}
+      {isAuthenticated && <MyVoteCard />}
 
       {countries.map((country) => (
         <VotesCard key={country.id} />
