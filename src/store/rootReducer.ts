@@ -22,6 +22,7 @@ import { searchSlice } from '../slices/searchSlice';
 import { aboutPageSlice } from '../slices/aboutPageSlice';
 import { newsSlice1 } from '../slices/newsSlice1';
 import { electionsSlice } from '../slices/electionsSlice';
+import { votesPageSlice } from '../slices/votesPageSlice';
 
 const rootReducer = combineReducers({
   auth: authSlice.reducer,
@@ -41,7 +42,8 @@ const rootReducer = combineReducers({
   search: searchSlice.reducer,
   aboutPage: aboutPageSlice.reducer,
   newsPage: newsSlice1.reducer,
-  elections: electionsSlice.reducer
+  elections: electionsSlice.reducer,
+  votes: votesPageSlice.reducer,
 });
 
 export default rootReducer;

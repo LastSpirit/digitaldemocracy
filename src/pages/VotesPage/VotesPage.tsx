@@ -6,6 +6,8 @@ import { userSelectors } from 'src/slices/userSlice';
 import { sortDropdownCountryVotes } from 'src/static/static';
 import { Box, Button, Container } from '@material-ui/core';
 import { GridArrowDownwardIcon } from '@material-ui/data-grid';
+import { RootState } from '../../store';
+import { useFetchListElections } from './hooks/useFetchListElections';
 import VotesCard from './tabs/VoteCards';
 import styles from './VotesPage.module.scss';
 import { SortDropdownVotes } from './tabs/SortDropdownVotes';
@@ -17,9 +19,12 @@ const VotesPage = () => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { t } = useTranslation();
   const { isMobile } = useWindowSize();
+  const { elections, isMorePages } = useSelector((s: RootState) => s.votes?.data);
+  const { fetch, status } = useFetchListElections();
   const [world, setWorld] = useState(true);
   const [worldVotes, setWorldVotes] = useState(false);
   const [update, setUpdate] = useState(true);
+  const [page, setPage] = useState(1);
 
   const [countries, setCountries] = useState([]);
   const loadCountriesNum = 25;
@@ -27,6 +32,14 @@ const VotesPage = () => {
     id: 1,
     name: 'test',
   });
+
+  useEffect(() => {
+    if (page > 1) {
+      fetch(page);
+    } else {
+      fetch();
+    }
+  }, [isAuthenticated, update, page]);
 
   useEffect(() => {
     const newCountries = allCountries.slice(0, loadCountriesNum);
@@ -83,7 +96,7 @@ const VotesPage = () => {
       {isAuthenticated && <MyVoteCard />}
 
       {countries.map((country) => (
-        <VotesCard key={country.id} />
+        <VotesCard key={Math.random()} />
       ))}
       {allCountries.length - countries.length > 0 && (
         <Box className={styles.boxShowBtn}>
