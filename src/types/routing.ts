@@ -110,7 +110,7 @@ export const ProfileTabs = (t) => {
     },
     {
       id: 'yourChoices',
-      title: t('Ваши выборы') || 'Ваши выборы',
+      title: t('tabs.voice') || 'Ваши выборы',
       component: YourChoices,
     },
   ];

@@ -1,5 +1,5 @@
 import { Container } from '@material-ui/core';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
@@ -17,19 +17,20 @@ import { useFetchElections } from './hooks/useFetchElections';
 import SingleNewsList from '../SingleNewsPage/features/SingleNewsList/SingleNewsList';
 
 const ElectionsPage = () => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { fetch } = useFetchElections();
   const { isMobile } = useWindowSize();
   const { resetEctions } = electionsActionCreators();
   const data = useSelector(electionsSelector.getData());
   const status = useSelector(electionsSelector.getStatus());
   const { link } = useParams() as any;
+
   useEffect((): any => {
     fetch(link);
     window.scrollTo(0, 0);
     return () => resetEctions();
   }, [link]);
-  console.log(data, 'data');
+
   return (
     <Container maxWidth="lg" className={styles.container}>
       <div className={styles.container}>
@@ -37,17 +38,17 @@ const ElectionsPage = () => {
           {data && <ElectionsHero data={data?.election} />}
           <div className={!isMobile ? styles.statistic : styles.statisticMobile}>
             <div className={styles.item}>
-              <span className={styles.item_span}>Электорат: </span>
+              <span className={styles.item_span}>{t('elections.electorate')}</span>
               <b>{data?.regionElection?.region?.title?.[i18n.language]}</b>
               <b>{data?.numberOfVotesElection?.totalElectorate}</b>
             </div>
             <div className={styles.item}>
-              <span className={styles.item_span}>Присутствуют на сайте:</span>
+              <span className={styles.item_span}>{t('elections.presentOnSite')}</span>
               <b>{data?.regionElection?.region?.title?.[i18n.language]}</b>
               <b>{data?.numberOfVotesElection?.numberOfUsersFromRegion}</b>
             </div>
             <div className={styles.item}>
-              <span className={styles.item_span}>Проголосовало:</span>
+              <span className={styles.item_span}>{t('elections.voted')}</span>
               <b>{data?.numberOfVotesElection?.numberOfVotedUsers}</b>
             </div>
           </div>
@@ -59,15 +60,15 @@ const ElectionsPage = () => {
           {data?.parties &&
             data?.parties.length > 0 &&
             data?.parties.map((item) => (
-              <ElectionsInfoСonsignment key={item?.id} item={item} election={data?.election} />
+              <ElectionsInfoСonsignment key={item?.id} party={item} election={data?.election} />
             ))}
-          <h2 className={styles.h2}>{'Итог голосования на платформе DD:'}</h2>
+          <h2 className={styles.h2}>{t('elections.resultDD')}</h2>
           <div className={styles.votingResult}>
             {data?.winners.map((item) => (
               <VotingResultDD key={item.id} winners={item} />
             ))}
           </div>
-          <h2 className={styles.h2}>{'Результаты выборов:'}</h2>
+          <h2 className={styles.h2}>{t('elections.electionResults')}</h2>
           <div className={styles.votingResult}>
             {data?.outsideWinners.map((item) => (
               <VotingResult key={item.id} outsideWinners={item} />
@@ -75,10 +76,10 @@ const ElectionsPage = () => {
           </div>
           <div className={!isMobile ? styles.statisticVotin : styles.statisticVotinMobile}>
             <div className={styles.item}>
-              <span className={styles.item_span}>Электорат: {data?.numberOfVotesElection?.totalElectorate}</span>
+              <span className={styles.item_span}>{t('elections.electorate')}: {data?.numberOfVotesElection?.totalElectorate}</span>
             </div>
             <div className={styles.item}>
-              <span className={styles.item_span}>Явка: {data?.numberOfVotesElection?.numberOfVotedUsers}</span>
+              <span className={styles.item_span}>{t('elections.turnout')}: {data?.numberOfVotesElection?.numberOfVotedUsers}</span>
             </div>
           </div>
           {data?.news && data?.news.length > 0 && <SingleNewsList news={data?.news} isMorePages={data?.isMorePages} />}

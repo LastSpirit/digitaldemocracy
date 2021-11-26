@@ -89,6 +89,9 @@ export const electionsSlice = createSlice({
       state.data = action.payload;
       state.status = APIStatus.Success;
     },
+    successFetch(state: SliceState) {
+      state.status = APIStatus.Success;
+    },
     failFetch(state: SliceState) {
       state.status = APIStatus.Failure;
     },

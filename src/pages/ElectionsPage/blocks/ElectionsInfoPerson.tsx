@@ -1,22 +1,20 @@
-import { useEffect, useState, FC } from 'react';
+import { useState, FC } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import { ModalParams } from 'src/types/routing';
-import { userSelectors } from 'src/slices/userSlice';
 import { avatarColorChanger } from 'src/utils/avatarColorChanger';
-import { politicianActionCreators, politicianSelectors } from 'src/slices/politicianSlice';
 import classNames from 'classnames';
 import { Container, Checkbox } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useWindowSize } from 'src/hooks/useWindowSize';
-import { useSearchParams } from 'src/hooks/useSearchParams';
+import { electionsSelector } from 'src/slices/electionsSlice';
 import { PercentsLinearGraphic } from './PercentsLinearGraphic/PercentsLinearGraphic';
 import { PoliticianInfoI } from '../../../slices/politicianSlice';
+import { useFetchVoiceDelete } from '../hooks/useFetchVoiceDelete';
 import { LineChartVoters } from './LineChartVoters';
 import hish from '../../../icons/pictures/hish.png';
 import styles from '../ElectionsInfoBlock.module.scss';
+import { useFetchVoiceAdd } from '../hooks/useFetchVoiceAdd';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -24,29 +22,30 @@ interface IProps {
   politician?: PoliticianInfoI;
   voteStatisticsInOtherRegion?: any;
   election?: any;
+  updateChoices?: any;
+  voice?: {
+    id?: number;
+    isVoice?: boolean;
+    length?: number;
+  };
 }
 const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegion, election }) => {
-  console.log(election, 'election');
   const { isMobile } = useWindowSize();
-  const [checked, setChecked] = useState(false);
-  // const { setReset } = politicianActionCreators();
+  const [checked, setChecked] = useState(politician.election_vote_statistics.is_user_has_vote);
   const { t, i18n } = useTranslation();
-  // const data = useSelector(politicianSelectors.getPoliticianInfo());
-  // const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
-
-  // const {
-  //   [ModalParams.Auth]: { setValue: setAuthValue },
-  // } = useSearchParams(ModalParams.Auth);
+  const { fetch: addVoice } = useFetchVoiceAdd();
+  const { fetch: deleteVoice } = useFetchVoiceDelete();
+  const data = useSelector(electionsSelector.getData());
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
+    if (checked) {
+      deleteVoice(politician?.type, politician.id, data.election.id);
+    } else if (!checked) {
+      addVoice(politician?.type, politician.id, data.election.id);
+    }
   };
 
-  // useEffect(() => {
-  //   return () => {
-  //     setReset();
-  //   };
-  // }, []);
   return (
     <Container maxWidth="lg" className={styles.cont}>
       <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
@@ -83,7 +82,7 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
                     {politician?.rating && (
                       <div className={styles.description}>
                         <div className={styles.rating}>
-                          Рейтинг: {politician?.region?.title?.[i18n.language]} -- {politician?.rating}%
+                          {t('elections.rating')}: {politician?.region?.title?.[i18n.language]} - {politician?.rating}%
                         </div>
                       </div>
                     )}
@@ -95,7 +94,8 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
                       <div className={styles.aboutRatingsOther}>
                         <div className={styles.description}>
                           <div className={styles.rating}>
-                            Рейтинг: {voteStatisticsInOtherRegion?.regionElection?.title?.[i18n.language]} -{' '}
+                            {t('elections.rating')}:{' '}
+                            {voteStatisticsInOtherRegion?.regionElection?.title?.[i18n.language]} -{' '}
                             {voteStatisticsInOtherRegion?.rating}%
                           </div>
                         </div>
@@ -107,7 +107,7 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
                     )}
                   </div>
                 </div>
-                {election.is_silence ? (
+                {!election.is_silence ? (
                   <div className={styles.aboutRatings}>
                     <div className={styles.percentBlock}>
                       <div>
@@ -125,7 +125,7 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
                         <div className={styles.description}>
                           {checked ? (
                             <div className={styles.voice}>
-                              <div>Ваш голос принят</div>
+                              <div>{t('elections.yourVoteIsTaken')}</div>
                             </div>
                           ) : (
                             <div className={styles.voice_empty_politic}>
@@ -134,13 +134,12 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
                           )}
                         </div>
                       </div>
-                      <div className={styles.percentOther}>Проголосовало</div>
-                      <div className={styles.percentOther}>за этого кандидата:</div>
+                      <div className={styles.percentOther}>{t('elections.votedCandidate')}:</div>
                       <div className={styles.percentNumber}>
                         {politician?.election_vote_statistics?.percent_rating_election}%
                       </div>
                       <div className={styles.percentOther_green}>
-                        {politician?.election_vote_statistics?.count_voted_users_on_election} человек
+                        {politician?.election_vote_statistics?.count_voted_users_on_election} {t('info.people')}
                       </div>
                     </div>
                   </div>
@@ -194,7 +193,7 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
               </div>
               <div className={styles.mobRightBlock}>
                 <div className={styles.percent_black}>
-                  Рейтинг: {politician?.region?.title?.[i18n.language]} - {politician?.rating}%
+                  {t('elections.rating')}: {politician?.region?.title?.[i18n.language]} - {politician?.rating}%
                 </div>
               </div>
               {politician?.place && politician?.rating && (
@@ -204,8 +203,9 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
               <div className={styles.mobRightBlock}>
                 <div className={styles.percent_black}>
                   {voteStatisticsInOtherRegion?.regionElection?.title && 'Рейтинг:'}{' '}
-                  {voteStatisticsInOtherRegion?.regionElection?.title?.[i18n.language]} {' '}
-                  {voteStatisticsInOtherRegion?.rating}{voteStatisticsInOtherRegion?.regionElection?.title && '%'}
+                  {voteStatisticsInOtherRegion?.regionElection?.title?.[i18n.language]}{' '}
+                  {voteStatisticsInOtherRegion?.rating}
+                  {voteStatisticsInOtherRegion?.regionElection?.title && '%'}
                 </div>
                 {voteStatisticsInOtherRegion?.rating && (
                   <PercentsLinearGraphic vote_groups={voteStatisticsInOtherRegion?.vote_groups} />
@@ -216,10 +216,11 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
               {election.is_silence && (
                 <div className={styles.mobRightBlock}>
                   <div className={styles.percent_grey}>
-                    Проголосовало: {politician?.election_vote_statistics?.count_voted_users_on_election} человек
+                    {t('elections.voted')}: {politician?.election_vote_statistics?.count_voted_users_on_election}{' '}
+                    {t('info.people')}
                   </div>
                   <div className={styles.percent_grey}>
-                    Рейтинг:{' '}
+                    {t('elections.rating')}:{' '}
                     <span className={styles.percent_span}>
                       {politician?.election_vote_statistics?.percent_rating_election}%
                     </span>
@@ -241,7 +242,7 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
                   />
                   {checked && (
                     <div className={styles.mobCheckBlock__voice}>
-                      <div>Ваш голос принят</div>
+                      <div>{t('elections.yourVoteIsTaken')}</div>
                     </div>
                   )}
                 </div>
@@ -250,7 +251,7 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
                   <div className={styles.blockHish__img}>
                     <img className={styles.blockHish__imgSize} src={hish} alt="hish" />
                   </div>
-                  <div className={styles.blockHish__text}>День тишины</div>
+                  <div className={styles.blockHish__text}>{t('elections.electionSilence')}</div>
                 </div>
               )}
             </div>

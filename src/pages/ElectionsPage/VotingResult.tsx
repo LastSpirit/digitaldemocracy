@@ -1,4 +1,5 @@
 import { Button, Link, Tooltip } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Loading } from 'src/components/Loading/Loading';
@@ -8,11 +9,16 @@ import styles from './VotingResult.module.scss';
 
 const VotingResult = ({ outsideWinners }) => {
   const [button, setButton] = useState(true);
+  const { t, i18n } = useTranslation();
   return (
     <div className={styles.root}>
       <div className={styles.avatarBlock}>
         <div className={styles.avatar}>
-          {!outsideWinners.photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={outsideWinners.photo} alt="" />}
+          {!outsideWinners.photo ? (
+            <PersonIcon className={styles.noAvatarIcon} />
+          ) : (
+            <img src={outsideWinners.photo} alt="" />
+          )}
         </div>
       </div>
       <div className={styles.second}>
@@ -22,7 +28,9 @@ const VotingResult = ({ outsideWinners }) => {
             backgroundColor: '#B0B0B0',
           }}
         >
-          <div className={styles.text}>{outsideWinners.place} Место</div>
+          <div className={styles.text}>
+            {outsideWinners.place} {t('info.place')}
+          </div>
         </div>
         <div className={styles.percent}>{outsideWinners.percent_rating_election}%</div>
       </div>
@@ -41,7 +49,7 @@ const VotingResult = ({ outsideWinners }) => {
           marginTop: '40px',
         }}
       >
-        {button ? 'Следить' : 'Отписаться'}
+        {button ? t('buttons.subscribe') : t('buttons.unsubscribe')}
       </Button>
     </div>
   );
