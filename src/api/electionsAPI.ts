@@ -14,8 +14,34 @@ const fetchElections = (args) =>
     ...args,
   });
 
+const fetchVoiceAdd = (args) =>
+  callAPI({
+    url: 'addVoteOnElection',
+    config: {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+    },
+    ...args,
+  });
+
+const fetchVoiceDelete = (args) =>
+  callAPI({
+    url: 'deleteVoteOnElection',
+    config: {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+    },
+    ...args,
+  });
+
 export const electionsAPI = {
-  fetchElections
+  fetchElections,
+  fetchVoiceAdd,
+  fetchVoiceDelete
 };
 
 export const electionsAPIActions = () => {

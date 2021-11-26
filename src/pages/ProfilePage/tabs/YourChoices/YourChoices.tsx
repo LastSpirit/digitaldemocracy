@@ -10,12 +10,12 @@ import { useLocalesThemeMaterial } from '../../../../hooks/useLocalesThemeMateri
 import { useFetchChoices } from './hooks/useFetchChoices';
 import styles from './styles.module.scss';
 
-const columns = (isMobile): GridColumns => {
+const columns = (isMobile, t): GridColumns => {
   return [
     {
       field: 'choices',
       width: isMobile ? 300 : 400,
-      headerName: 'choices',
+      headerName: t('tabs.voice'),
       type: 'string',
       renderCell: ({ row }: any) => (
         <span role={'button'} tabIndex={0}>
@@ -25,7 +25,7 @@ const columns = (isMobile): GridColumns => {
     },
     {
       field: 'candidate',
-      headerName: 'candidate',
+      headerName: t('tabs.yourCandidate'),
       width: isMobile ? 300 : 400,
       type: 'string',
       renderCell: ({ row }: any) => row.candidate || '-',
@@ -60,7 +60,7 @@ export const YourChoices = () => {
         <div style={{ height: '100%', width: isMobile ? '400px' : '100%' }}>
           <DataGrid
             className={styles.dataGrid}
-            columns={columns(isMobile)}
+            columns={columns(isMobile, t)}
             rows={rows}
             hideFooterPagination={true}
             sortModel={[

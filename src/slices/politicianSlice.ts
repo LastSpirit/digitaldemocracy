@@ -38,6 +38,7 @@ export interface PoliticianInfoI {
   city_full?: any;
   position_count?: number;
   election_vote_statistics?: Election_vote_statisticsI;
+  type?: any;
 }
 
 export interface PartyI {

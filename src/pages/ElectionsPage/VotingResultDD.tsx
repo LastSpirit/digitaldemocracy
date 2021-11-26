@@ -1,4 +1,5 @@
 import { Button, Link, Tooltip } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Loading } from 'src/components/Loading/Loading';
@@ -8,6 +9,7 @@ import styles from './VotingResult.module.scss';
 
 const VotingResultDD = ({ winners }) => {
   const [button, setButton] = useState(true);
+  const { t, i18n } = useTranslation();
   return (
     <div className={styles.root}>
       <div className={styles.avatarBlock}>
@@ -23,17 +25,17 @@ const VotingResultDD = ({ winners }) => {
             backgroundColor: '#B0B0B0',
           }}
         >
-          <div className={styles.text}>{winners.place} Место</div>
+          <div className={styles.text}>{winners.place} {t('info.place')}</div>
         </div>
         <div className={styles.percent}>{winners.election_vote_statistics.percent_rating_election}%</div>
       </div>
 
       <div className={styles.position}>
         <div className={styles.position_text}>
-          Проголосовало: {winners.election_vote_statistics.percent_voted_users_on_election}%
+        {t('elections.voted')}: {winners.election_vote_statistics.percent_voted_users_on_election}%
         </div>
         <div className={styles.position_text}>
-          Проголосовало: {winners.election_vote_statistics.count_voted_users_on_election} человек
+        {t('elections.voted')}: {winners.election_vote_statistics.count_voted_users_on_election} {t('info.people')}
         </div>
       </div>
       <Button
@@ -47,7 +49,7 @@ const VotingResultDD = ({ winners }) => {
           marginTop: '40px',
         }}
       >
-        {button ? 'Следить' : 'Отписаться'}
+        {button ? t('buttons.subscribe') : t('buttons.unsubscribe')}
       </Button>
     </div>
   );
