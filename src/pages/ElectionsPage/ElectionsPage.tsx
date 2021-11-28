@@ -88,13 +88,13 @@ const ElectionsPage = () => {
             <div>
               <h2 className={styles.h2}>{t('elections.resultDD')}</h2>
               <div className={styles.votingResult}>
-                {data?.winners.map((item) => (
+                {data?.winners?.map((item) => (
                   <VotingResultDD key={item.id} winners={item} />
                 ))}
               </div>
               <h2 className={styles.h2}>{t('elections.electionResults')}</h2>
               <div className={styles.votingResult}>
-                {data?.outsideWinners.map((item) => (
+                {data?.outsideWinners?.map((item) => (
                   <VotingResult key={item.id} outsideWinners={item} />
                 ))}
               </div>

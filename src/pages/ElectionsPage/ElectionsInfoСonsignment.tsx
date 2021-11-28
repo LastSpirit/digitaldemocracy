@@ -112,7 +112,7 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                       />
                     )}
                   </div>
-                  {checked ? (
+                  {checked && !party?.is_silence && isNow ? (
                     <div className={styles.voice}>
                       <div>{t('elections.yourVoteIsTaken')}</div>
                     </div>
@@ -219,7 +219,7 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                     }}
                   />
                 )}
-                {checked && (
+                {checked && !party?.is_silence && isNow && (
                   <div className={styles.mobCheckBlock__voice}>
                     <div>{t('elections.yourVoteIsTaken')}</div>
                   </div>

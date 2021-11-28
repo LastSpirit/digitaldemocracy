@@ -134,7 +134,7 @@ const ElectionsInfoPerson: FC<IProps> = ({
                         />
                       )}
                       <div className={styles.description}>
-                        {checked ? (
+                        {checked && !election.is_silence && isNow ? (
                           <div className={styles.voice}>
                             <div>{t('elections.yourVoteIsTaken')}</div>
                           </div>
@@ -256,7 +256,7 @@ const ElectionsInfoPerson: FC<IProps> = ({
                     }}
                   />
                 )}
-                {checked && (
+                {checked && !election.is_silence && isNow && (
                   <div className={styles.mobCheckBlock__voice}>
                     <div>{t('elections.yourVoteIsTaken')}</div>
                   </div>
