@@ -1,20 +1,22 @@
-import { useState, FC } from 'react';
+import { useEffect, useState, FC } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
+import { ModalParams } from 'src/types/routing';
+import { userSelectors } from 'src/slices/userSlice';
 import { avatarColorChanger } from 'src/utils/avatarColorChanger';
+import { politicianActionCreators, politicianSelectors } from 'src/slices/politicianSlice';
 import classNames from 'classnames';
 import { Container, Checkbox } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useWindowSize } from 'src/hooks/useWindowSize';
-import { electionsSelector } from 'src/slices/electionsSlice';
+import { useSearchParams } from 'src/hooks/useSearchParams';
 import { PercentsLinearGraphic } from './PercentsLinearGraphic/PercentsLinearGraphic';
 import { PoliticianInfoI } from '../../../slices/politicianSlice';
-import { useFetchVoiceDelete } from '../hooks/useFetchVoiceDelete';
 import { LineChartVoters } from './LineChartVoters';
 import hish from '../../../icons/pictures/hish.png';
 import styles from '../ElectionsInfoBlock.module.scss';
-import { useFetchVoiceAdd } from '../hooks/useFetchVoiceAdd';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -22,28 +24,24 @@ interface IProps {
   politician?: PoliticianInfoI;
   voteStatisticsInOtherRegion?: any;
   election?: any;
-  updateChoices?: any;
-  voice?: {
-    id?: number;
-    isVoice?: boolean;
-    length?: number;
-  };
+  isBefore?: boolean;
+  isNow?: boolean;
+  isAfter?: boolean;
 }
-const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegion, election }) => {
+const ElectionsInfoPerson: FC<IProps> = ({
+  politician,
+  voteStatisticsInOtherRegion,
+  election,
+  isBefore,
+  isAfter,
+  isNow,
+}) => {
   const { isMobile } = useWindowSize();
-  const [checked, setChecked] = useState(politician.election_vote_statistics.is_user_has_vote);
+  const [checked, setChecked] = useState(false);
   const { t, i18n } = useTranslation();
-  const { fetch: addVoice } = useFetchVoiceAdd();
-  const { fetch: deleteVoice } = useFetchVoiceDelete();
-  const data = useSelector(electionsSelector.getData());
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
-    if (checked) {
-      deleteVoice(politician?.type, politician.id, data.election.id);
-    } else if (!checked) {
-      addVoice(politician?.type, politician.id, data.election.id);
-    }
   };
 
   return (
@@ -107,10 +105,11 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
                     )}
                   </div>
                 </div>
-                {!election.is_silence ? (
-                  <div className={styles.aboutRatings}>
-                    <div className={styles.percentBlock}>
-                      <div>
+
+                <div className={styles.aboutRatings}>
+                  <div className={styles.percentBlock}>
+                    <div>
+                      {isNow && !election.is_silence && (
                         <Checkbox
                           className={styles.сheckbox}
                           checked={checked}
@@ -122,28 +121,33 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
                             '& .MuiSvgIcon-root': { fontSize: 60 },
                           }}
                         />
-                        <div className={styles.description}>
-                          {checked ? (
-                            <div className={styles.voice}>
-                              <div>{t('elections.yourVoteIsTaken')}</div>
-                            </div>
-                          ) : (
-                            <div className={styles.voice_empty_politic}>
-                              <div> </div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      <div className={styles.percentOther}>{t('elections.votedCandidate')}:</div>
-                      <div className={styles.percentNumber}>
-                        {politician?.election_vote_statistics?.percent_rating_election}%
-                      </div>
-                      <div className={styles.percentOther_green}>
-                        {politician?.election_vote_statistics?.count_voted_users_on_election} {t('info.people')}
+                      )}
+                      <div className={styles.description}>
+                        {checked ? (
+                          <div className={styles.voice}>
+                            <div>{t('elections.yourVoteIsTaken')}</div>
+                          </div>
+                        ) : (
+                          <div className={styles.voice_empty_politic}>
+                            <div> </div>
+                          </div>
+                        )}
                       </div>
                     </div>
+                    {(isNow || isAfter) && !election.is_silence && (
+                      <div>
+                        <div className={styles.percentOther}>{t('elections.votedCandidate')}</div>
+                        <div className={styles.percentNumber}>
+                          {politician?.election_vote_statistics?.percent_rating_election}%
+                        </div>
+                        <div className={styles.percentOther_green}>
+                          {politician?.election_vote_statistics?.count_voted_users_on_election} {t('info.people')}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                ) : (
+                </div>
+                {election.is_silence && (
                   <div className={styles.hish}>
                     <img className={styles.imgSize} src={hish} alt="hish" />
                   </div>
@@ -213,7 +217,7 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
                 <LineChartVoters data={voteStatisticsInOtherRegion} />
               </div>
               <LineChartVoters />
-              {election.is_silence && (
+              {(isNow || isAfter) && !election.is_silence && (
                 <div className={styles.mobRightBlock}>
                   <div className={styles.percent_grey}>
                     {t('elections.voted')}: {politician?.election_vote_statistics?.count_voted_users_on_election}{' '}
@@ -227,8 +231,8 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
                   </div>
                 </div>
               )}
-              {election.is_silence ? (
-                <div className={styles.mobCheckBlock}>
+              <div className={styles.mobCheckBlock}>
+                {isNow && !election.is_silence && (
                   <Checkbox
                     className={styles.mobCheckBlock__box}
                     checked={checked}
@@ -240,13 +244,14 @@ const ElectionsInfoPerson: FC<IProps> = ({ politician, voteStatisticsInOtherRegi
                       '& .MuiSvgIcon-root': { fontSize: 30 },
                     }}
                   />
-                  {checked && (
-                    <div className={styles.mobCheckBlock__voice}>
-                      <div>{t('elections.yourVoteIsTaken')}</div>
-                    </div>
-                  )}
-                </div>
-              ) : (
+                )}
+                {checked && (
+                  <div className={styles.mobCheckBlock__voice}>
+                    <div>{t('elections.yourVoteIsTaken')}</div>
+                  </div>
+                )}
+              </div>
+              {election.is_silence && (
                 <div className={styles.blockHish}>
                   <div className={styles.blockHish__img}>
                     <img className={styles.blockHish__imgSize} src={hish} alt="hish" />

@@ -24,12 +24,20 @@ const ElectionsPage = () => {
   const data = useSelector(electionsSelector.getData());
   const status = useSelector(electionsSelector.getStatus());
   const { link } = useParams() as any;
-
+  const [isAfter, setIsAfter] = useState(false);
+  const [isBefore, setIsBefore] = useState(false);
+  const [isNow, setisNow] = useState(false);
   useEffect((): any => {
     fetch(link);
     window.scrollTo(0, 0);
     return () => resetEctions();
   }, [link]);
+
+  useEffect((): any => {
+    setIsAfter(data?.isAfter);
+    setIsBefore(data?.isBefore);
+    setisNow(data?.isNow);
+  }, [data]);
 
   return (
     <Container maxWidth="lg" className={styles.container}>
@@ -55,34 +63,60 @@ const ElectionsPage = () => {
           {data?.politicians &&
             data?.politicians.length > 0 &&
             data?.politicians.map((item) => (
-              <ElectionsInfoPerson key={item?.politician?.id} election={data?.election} {...item} />
+              <ElectionsInfoPerson
+                key={item?.politician?.id}
+                election={data?.election}
+                isNow={isNow}
+                isBefore={isBefore}
+                isAfter={isAfter}
+                {...item}
+              />
             ))}
           {data?.parties &&
             data?.parties.length > 0 &&
             data?.parties.map((item) => (
-              <ElectionsInfoСonsignment key={item?.id} party={item} election={data?.election} />
+              <ElectionsInfoСonsignment
+                key={item?.id}
+                party={item}
+                isNow={isNow}
+                isBefore={isBefore}
+                isAfter={isAfter}
+                election={data?.election}
+              />
             ))}
-          <h2 className={styles.h2}>{t('elections.resultDD')}</h2>
-          <div className={styles.votingResult}>
-            {data?.winners.map((item) => (
-              <VotingResultDD key={item.id} winners={item} />
-            ))}
-          </div>
-          <h2 className={styles.h2}>{t('elections.electionResults')}</h2>
-          <div className={styles.votingResult}>
-            {data?.outsideWinners.map((item) => (
-              <VotingResult key={item.id} outsideWinners={item} />
-            ))}
-          </div>
-          <div className={!isMobile ? styles.statisticVotin : styles.statisticVotinMobile}>
-            <div className={styles.item}>
-              <span className={styles.item_span}>{t('elections.electorate')}: {data?.numberOfVotesElection?.totalElectorate}</span>
+          {isAfter && (
+            <div>
+              <h2 className={styles.h2}>{t('elections.resultDD')}</h2>
+              <div className={styles.votingResult}>
+                {data?.winners.map((item) => (
+                  <VotingResultDD key={item.id} winners={item} />
+                ))}
+              </div>
+              <h2 className={styles.h2}>{t('elections.electionResults')}</h2>
+              <div className={styles.votingResult}>
+                {data?.outsideWinners.map((item) => (
+                  <VotingResult key={item.id} outsideWinners={item} />
+                ))}
+              </div>
+              <div className={!isMobile ? styles.statisticVotin : styles.statisticVotinMobile}>
+                <div className={styles.item}>
+                  <span className={styles.item_span}>
+                    {t('elections.electorate')}: {data?.numberOfVotesElection?.totalElectorate}
+                  </span>
+                </div>
+                <div className={styles.item}>
+                  <span className={styles.item_span}>
+                    {t('elections.turnout')}: {data?.numberOfVotesElection?.numberOfVotedUsers}
+                  </span>
+                </div>
+              </div>
             </div>
-            <div className={styles.item}>
-              <span className={styles.item_span}>{t('elections.turnout')}: {data?.numberOfVotesElection?.numberOfVotedUsers}</span>
-            </div>
+          )}
+          <div className={styles.newsTop}>
+            {data?.news && data?.news.length > 0 && (
+              <SingleNewsList news={data?.news} isMorePages={data?.isMorePages} />
+            )}
           </div>
-          {data?.news && data?.news.length > 0 && <SingleNewsList news={data?.news} isMorePages={data?.isMorePages} />}
         </WrapperAsyncRequest>
       </div>
     </Container>

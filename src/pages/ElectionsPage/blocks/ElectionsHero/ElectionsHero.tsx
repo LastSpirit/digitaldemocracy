@@ -23,7 +23,7 @@ const ElectionsHero: FC<HeroPropsI> = ({ data }) => {
           </Grid>
           <Grid item lg={6} md={12} className={styles.newsInfo}>
             <Box>
-              <Typography>{data?.start_date} по {data?.end_date}</Typography>
+              <Typography>{data?.start_date} - {data?.end_date}</Typography>
             </Box>
             <Box>
               <Typography>{data?.country?.title?.[i18n.language]}</Typography>

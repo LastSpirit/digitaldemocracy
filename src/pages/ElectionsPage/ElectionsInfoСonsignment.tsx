@@ -27,8 +27,11 @@ interface IProps {
   voteStatisticsInOtherRegion?: any;
   election?: any;
   party?: any;
+  isNow?: boolean;
+  isBefore?: boolean;
+  isAfter?: boolean;
 }
-const ElectionsInfoСonsignment: FC<IProps> = ({ party }) => {
+const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow }) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const [checked, setChecked] = useState(party.election_vote_statistics.is_user_has_vote);
   const [open, setOpen] = useState(false);
@@ -92,9 +95,9 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party }) => {
                     </div>
                   </div>
                 </div>
-                {!party?.is_silence ? (
-                  <div className={styles.description__info_voice}>
-                    <div>
+                <div className={styles.description__info_voice}>
+                  <div>
+                    {isNow && !party.is_silence && (
                       <Checkbox
                         className={styles.сheckbox}
                         checked={checked}
@@ -107,25 +110,30 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party }) => {
                           '& .MuiSvgIcon-root': { fontSize: 60 },
                         }}
                       />
-                    </div>
-                    {checked ? (
-                      <div className={styles.voice}>
-                        <div>{t('elections.yourVoteIsTaken')}</div>
-                      </div>
-                    ) : (
-                      <div className={styles.voice_empty}>
-                        <div> </div>
-                      </div>
                     )}
-                    <div className={styles.percentOther_grey}>{t('elections.votedParty')}:</div>
-                    <div className={styles.percentNumber}>
-                      {party?.election_vote_statistics.percent_rating_election}%
-                    </div>
-                    <div className={styles.percentOther_grey}>
-                      {party?.election_vote_statistics.count_voted_users_on_election} {t('info.people')}
-                    </div>
                   </div>
-                ) : (
+                  {checked ? (
+                    <div className={styles.voice}>
+                      <div>{t('elections.yourVoteIsTaken')}</div>
+                    </div>
+                  ) : (
+                    <div className={styles.voice_empty}>
+                      <div> </div>
+                    </div>
+                  )}
+                  {((isNow || isAfter) && !party?.is_silence) && (
+                    <div>
+                      <div className={styles.percentOther_grey}>{t('elections.votedParty')}:</div>
+                      <div className={styles.percentNumber}>
+                        {party?.election_vote_statistics.percent_rating_election}%
+                      </div>
+                      <div className={styles.percentOther_grey}>
+                        {party?.election_vote_statistics.count_voted_users_on_election} {t('info.people')}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                {party?.is_silence && (
                   <div className={styles.hishParty}>
                     <img className={styles.imgSize} src={hish} alt="hish" />
                   </div>
@@ -181,7 +189,7 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party }) => {
               <div className={styles.aboutRatings}>
                 <PercentsLinearGraphic vote_groups={party?.vote_groups} />
               </div>
-              {!party?.is_silence && (
+              {((isNow || isAfter) && !party?.is_silence) && (
                 <div className={styles.mobRightBlock}>
                   <div className={styles.percent_grey}>
                     {t('elections.voted')}: {party?.election_vote_statistics.count_voted_users_on_election}{' '}
@@ -195,8 +203,9 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party }) => {
                   </div>
                 </div>
               )}
-              {!party?.is_silence ? (
-                <div className={styles.mobCheckBlock}>
+
+              <div className={styles.mobCheckBlock}>
+                {isNow && !party?.is_silence && (
                   <Checkbox
                     className={styles.mobCheckBlock__box}
                     checked={checked}
@@ -209,13 +218,14 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party }) => {
                       '& .MuiSvgIcon-root': { fontSize: 30 },
                     }}
                   />
-                  {checked && (
-                    <div className={styles.mobCheckBlock__voice}>
-                      <div>{t('elections.yourVoteIsTaken')}</div>
-                    </div>
-                  )}
-                </div>
-              ) : (
+                )}
+                {checked && (
+                  <div className={styles.mobCheckBlock__voice}>
+                    <div>{t('elections.yourVoteIsTaken')}</div>
+                  </div>
+                )}
+              </div>
+              {party?.is_silence && (
                 <div className={styles.blockHish}>
                   <div className={styles.blockHish__img}>
                     <img className={styles.blockHish__imgSize} src={hish} alt="hish" />
