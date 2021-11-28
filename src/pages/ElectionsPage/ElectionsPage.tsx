@@ -9,7 +9,7 @@ import { electionsActionCreators, electionsSelector } from 'src/slices/elections
 import ElectionsHero from './blocks/ElectionsHero/ElectionsHero';
 import styles from './ElectionsPage.module.scss';
 import 'react-datepicker/dist/react-datepicker.css';
-import ElectionsInfoPerson from './blocks/ElectionsInfoPerson';
+import ElectionsInfoPerson from './ElectionsInfoPerson';
 import ElectionsInfoСonsignment from './ElectionsInfoСonsignment';
 import VotingResult from './VotingResult';
 import VotingResultDD from './VotingResultDD';

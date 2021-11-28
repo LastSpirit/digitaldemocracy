@@ -12,11 +12,14 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { useSearchParams } from 'src/hooks/useSearchParams';
-import { PercentsLinearGraphic } from './PercentsLinearGraphic/PercentsLinearGraphic';
-import { PoliticianInfoI } from '../../../slices/politicianSlice';
-import { LineChartVoters } from './LineChartVoters';
-import hish from '../../../icons/pictures/hish.png';
-import styles from '../ElectionsInfoBlock.module.scss';
+import { electionsSelector } from 'src/slices/electionsSlice';
+import { PercentsLinearGraphic } from './blocks/PercentsLinearGraphic/PercentsLinearGraphic';
+import { PoliticianInfoI } from '../../slices/politicianSlice';
+import { LineChartVoters } from './blocks/LineChartVoters';
+import hish from '../../icons/pictures/hish.png';
+import styles from './ElectionsInfoBlock.module.scss';
+import { useFetchVoiceAdd } from './hooks/useFetchVoiceAdd';
+import { useFetchVoiceDelete } from './hooks/useFetchVoiceDelete';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -37,11 +40,19 @@ const ElectionsInfoPerson: FC<IProps> = ({
   isNow,
 }) => {
   const { isMobile } = useWindowSize();
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(politician.election_vote_statistics.is_user_has_vote);
   const { t, i18n } = useTranslation();
+  const { fetch: addVoice } = useFetchVoiceAdd();
+  const { fetch: deleteVoice } = useFetchVoiceDelete();
+  const data = useSelector(electionsSelector.getData());
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
+    if (checked) {
+      deleteVoice(politician?.type, politician.id, data?.election.id);
+    } else if (!checked) {
+      addVoice(politician?.type, politician.id, data?.election.id);
+    }
   };
 
   return (
