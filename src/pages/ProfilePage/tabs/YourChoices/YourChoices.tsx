@@ -11,7 +11,7 @@ import { useLocalesThemeMaterial } from '../../../../hooks/useLocalesThemeMateri
 import { useFetchChoices } from './hooks/useFetchChoices';
 import styles from './styles.module.scss';
 
-const columns = (isMobile, t, link, linkVoice): GridColumns => {
+const columns = (isMobile, t): GridColumns => {
   return [
     {
       field: 'choices',
@@ -19,7 +19,7 @@ const columns = (isMobile, t, link, linkVoice): GridColumns => {
       headerName: t('tabs.voice'),
       type: 'string',
       renderCell: ({ row }: any) => (
-        <Link role={'button'} className={styles.link} tabIndex={0} to={`/elections/${linkVoice}`}>
+        <Link role={'button'} className={styles.link} tabIndex={0} to={`/elections/${row.short_link}`}>
           {row.choices || '-'}
         </Link>
       ),
@@ -30,7 +30,12 @@ const columns = (isMobile, t, link, linkVoice): GridColumns => {
       width: isMobile ? 300 : 400,
       type: 'string',
       renderCell: ({ row }: any) => (
-        <Link role={'button'} className={styles.link} tabIndex={0} to={`/politician/${link}/politician_news`}>
+        <Link
+          role={'button'}
+          className={styles.link}
+          tabIndex={0}
+          to={row.type !== 'party' ? `/politician/${row.politic_link}/politician_news` : `/party/${row.politic_link}`}
+        >
           {row.candidate || '-'}
         </Link>
       ),
@@ -46,21 +51,19 @@ export const YourChoices = () => {
   const date = useSelector(userSelectors.getChoices());
   const { isMobile } = useWindowSize();
 
-  const getLink = () => {
-    return date[0]?.participant.short_link;
-  };
-
-  const getLinkVoice = () => {
-    return date[1]?.election.short_link;
-  };
-  console.log(date);
   useEffect(() => {
     const row = [];
     date.forEach((data) =>
-      row.push({ id: data.election.id, choices: data.election.title, candidate: data.participant.name })
+      row.push({
+        id: data.election.id,
+        choices: data.election.title,
+        candidate: data.participant.name,
+        short_link: data.election.short_link,
+        politic_link: data.participant.short_link,
+        type: data.participant.type,
+      })
     );
     setRows(row);
-    getLink();
   }, [date]);
 
   useEffect(() => {
@@ -73,7 +76,7 @@ export const YourChoices = () => {
         <div style={{ height: '100%', width: isMobile ? '400px' : '100%' }}>
           <DataGrid
             className={styles.dataGrid}
-            columns={columns(isMobile, t, getLink(), getLinkVoice())}
+            columns={columns(isMobile, t)}
             rows={rows}
             hideFooterPagination={true}
             sortModel={[
