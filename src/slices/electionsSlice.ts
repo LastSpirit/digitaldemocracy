@@ -41,7 +41,7 @@ export interface PoliticiansI {
     number_of_votes_users: any;
     rating: any;
     regionElection: any;
-  }
+  };
 }
 
 interface numberOfVotesElectionI {
@@ -67,6 +67,9 @@ export interface ElectionsSingleI {
   parties?: Array<PartyI>;
   isMorePages?: boolean;
   isMorePageParticipants?: boolean;
+  isAfter?: boolean;
+  isBefore?: boolean;
+  isNow?: boolean;
 }
 
 interface SliceState {
@@ -75,7 +78,7 @@ interface SliceState {
 }
 
 const initialState: SliceState = {
-  status: 'Initial' as APIStatus
+  status: 'Initial' as APIStatus,
 };
 
 export const electionsSlice = createSlice({
@@ -98,7 +101,7 @@ export const electionsSlice = createSlice({
     resetEctions(state: SliceState) {
       state = initialState;
     },
-  }
+  },
 });
 
 interface Store {

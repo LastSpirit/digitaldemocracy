@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { userSelectors } from 'src/slices/userSlice';
 import { DataGrid, GridColumns } from '@material-ui/data-grid';
@@ -10,7 +11,7 @@ import { useLocalesThemeMaterial } from '../../../../hooks/useLocalesThemeMateri
 import { useFetchChoices } from './hooks/useFetchChoices';
 import styles from './styles.module.scss';
 
-const columns = (isMobile, t): GridColumns => {
+const columns = (isMobile, t, link, linkVoice): GridColumns => {
   return [
     {
       field: 'choices',
@@ -18,9 +19,9 @@ const columns = (isMobile, t): GridColumns => {
       headerName: t('tabs.voice'),
       type: 'string',
       renderCell: ({ row }: any) => (
-        <span role={'button'} tabIndex={0}>
+        <Link role={'button'} className={styles.link} tabIndex={0} to={`/elections/${linkVoice}`}>
           {row.choices || '-'}
-        </span>
+        </Link>
       ),
     },
     {
@@ -28,7 +29,11 @@ const columns = (isMobile, t): GridColumns => {
       headerName: t('tabs.yourCandidate'),
       width: isMobile ? 300 : 400,
       type: 'string',
-      renderCell: ({ row }: any) => row.candidate || '-',
+      renderCell: ({ row }: any) => (
+        <Link role={'button'} className={styles.link} tabIndex={0} to={`/politician/${link}/politician_news`}>
+          {row.candidate || '-'}
+        </Link>
+      ),
     },
   ];
 };
@@ -41,26 +46,34 @@ export const YourChoices = () => {
   const date = useSelector(userSelectors.getChoices());
   const { isMobile } = useWindowSize();
 
+  const getLink = () => {
+    return date[0]?.participant.short_link;
+  };
+
+  const getLinkVoice = () => {
+    return date[1]?.election.short_link;
+  };
+  console.log(date);
   useEffect(() => {
     const row = [];
     date.forEach((data) =>
       row.push({ id: data.election.id, choices: data.election.title, candidate: data.participant.name })
     );
     setRows(row);
+    getLink();
   }, [date]);
 
   useEffect(() => {
     fetchChoices();
   }, []);
 
-  console.log(rows, 'rows');
   return (
     <WrapperAsyncRequest status={status}>
       <ThemeProvider theme={theme}>
         <div style={{ height: '100%', width: isMobile ? '400px' : '100%' }}>
           <DataGrid
             className={styles.dataGrid}
-            columns={columns(isMobile, t)}
+            columns={columns(isMobile, t, getLink(), getLinkVoice())}
             rows={rows}
             hideFooterPagination={true}
             sortModel={[
