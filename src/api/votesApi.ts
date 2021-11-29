@@ -11,14 +11,30 @@ const fetchListElections = (args) => {
         Accept: 'application/json',
         Authorization: `Bearer ${args.payload.token}`,
       },
-      params: args.payload.params,
+      params: args.payload,
+    },
+    ...args,
+  });
+};
+const fetchUserElections = (args) => {
+  console.log('args', args);
+  return callAPI({
+    url: 'getUserElections',
+    config: {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.payload.token}`,
+      },
+      params: args.payload,
     },
     ...args,
   });
 };
 
 export const ListelectionsAPI = {
-  fetchListElections
+  fetchListElections,
+  fetchUserElections
 };
 
 export const votesAPI = () => {
