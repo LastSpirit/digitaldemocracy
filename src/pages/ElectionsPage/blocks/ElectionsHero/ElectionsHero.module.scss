@@ -46,8 +46,11 @@
 
   width: 60%;
   padding-right: 40px;
-  height: 300px;
   border-right: 1px solid #b0b0b0;
+
+  @media screen and (max-width: $laptopScreen) {
+    border-right: none;
+  }
 }
 
 .newsHeading {
@@ -246,7 +249,7 @@
 
   .newsTitle {
     width: 100%;
-   
+
     border-right: none;
   }
 
