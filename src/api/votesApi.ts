@@ -17,7 +17,6 @@ const fetchListElections = (args) => {
   });
 };
 const fetchUserElections = (args) => {
-  console.log('args', args);
   return callAPI({
     url: 'getUserElections',
     config: {
