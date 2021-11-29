@@ -348,7 +348,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
-  
+
   .topItems {
     width: 100%;
     padding: 30px 28px 22px 20px;
@@ -1499,7 +1499,7 @@
       font-size: 14px;
       line-height: 16px;
       color: #585857;
-      margin-top: 20px;
+      margin: 20px 0;
       font-weight: bold;
     }
     .percent_black_big {
@@ -1563,6 +1563,31 @@
     margin-left: 12px;
     font-size: 18px;
     color: #7a7a7a;
+  }
+}
+
+.noRiting {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 12px;
+  &__btn {
+    width: 150px;
+    height: 40px;
+    background-color: #cfcfcf;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__btnMob {
+    width: 150px;
+    height: 30px;
+    background-color: #cfcfcf;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 

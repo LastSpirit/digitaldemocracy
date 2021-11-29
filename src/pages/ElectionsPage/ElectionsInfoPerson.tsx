@@ -41,10 +41,28 @@ const ElectionsInfoPerson: FC<IProps> = ({
 }) => {
   const { isMobile } = useWindowSize();
   const [checked, setChecked] = useState(politician.election_vote_statistics.is_user_has_vote);
+  const [level, setLevel] = useState(null);
   const { t, i18n } = useTranslation();
   const { fetch: addVoice } = useFetchVoiceAdd();
   const { fetch: deleteVoice } = useFetchVoiceDelete();
   const data = useSelector(electionsSelector.getData());
+
+  const getLevel = () => {
+    console.log(politician, '111');
+    switch (politician?.level) {
+      case 'country_id':
+        setLevel(politician?.country?.title?.[i18n.language]);
+        break;
+      case 'city_id':
+        setLevel(politician?.city?.title?.[i18n.language]);
+        break;
+      case 'region_id':
+        setLevel(politician?.region?.title?.[i18n.language]);
+        break;
+      default:
+        setLevel(null);
+    }
+  };
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
@@ -54,7 +72,9 @@ const ElectionsInfoPerson: FC<IProps> = ({
       addVoice(politician?.type, politician.id, data?.election.id);
     }
   };
-
+  useEffect((): any => {
+    getLevel();
+  }, [data]);
   return (
     <Container maxWidth="lg" className={styles.cont}>
       <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
@@ -83,40 +103,46 @@ const ElectionsInfoPerson: FC<IProps> = ({
                   )}
                 </div>
               </div>
+
               <div className={styles.personBlock}>
                 <div className={styles.fioBlock}>
                   <div className={styles.fio}>
                     <p>{politician?.name}</p>
                     <div className={styles.description__info}>{politician?.english_name}</div>
-                    {politician?.rating && (
+                    {level && (
                       <div className={styles.description}>
                         <div className={styles.rating}>
-                          {t('elections.rating')}: {politician?.region?.title?.[i18n.language]} - {politician?.rating}%
+                          {t('elections.rating')}: {level} {politician?.rating && `- ${politician?.rating}%`}
                         </div>
                       </div>
                     )}
-                    {politician?.place && politician?.rating && (
+
+                    {politician?.place && politician?.rating && level && (
                       <PercentsLinearGraphic vote_groups={politician?.vote_groups} />
                     )}
-                    <LineChartVoters data={politician} />
+                    {level && <LineChartVoters data={politician} />}
                     {voteStatisticsInOtherRegion && (
                       <div className={styles.aboutRatingsOther}>
                         <div className={styles.description}>
                           <div className={styles.rating}>
                             {t('elections.rating')}:{' '}
-                            {voteStatisticsInOtherRegion?.regionElection?.title?.[i18n.language]} -{' '}
-                            {voteStatisticsInOtherRegion?.rating}%
+                            {voteStatisticsInOtherRegion?.regionElection?.title?.[i18n.language]}
+                            {voteStatisticsInOtherRegion?.rating !== 0 && `- ${voteStatisticsInOtherRegion?.rating}%`}
                           </div>
                         </div>
-                        {voteStatisticsInOtherRegion?.rating && (
+                        {voteStatisticsInOtherRegion?.rating ? (
                           <PercentsLinearGraphic vote_groups={voteStatisticsInOtherRegion?.vote_groups} />
+                        ) : (
+                          <div className={styles.noRiting}>
+                            <div className={styles.noRiting__btn}>{t('info.withoutRating')}</div>
+                          </div>
                         )}
                         <LineChartVoters data={voteStatisticsInOtherRegion} />
                       </div>
                     )}
                   </div>
                 </div>
-
+                )
                 <div className={styles.aboutRatings}>
                   <div className={styles.percentBlock}>
                     <div>
@@ -206,27 +232,34 @@ const ElectionsInfoPerson: FC<IProps> = ({
                   <div className={styles.mobEnglishName}>{politician?.english_name}</div>
                 </div>
               </div>
-              <div className={styles.mobRightBlock}>
-                <div className={styles.percent_black}>
-                  {t('elections.rating')}: {politician?.region?.title?.[i18n.language]} - {politician?.rating}%
+              {level && (
+                <div className={styles.mobRightBlock}>
+                  <div className={styles.percent_black}>
+                    {t('elections.rating')}: {level} {politician?.rating && `- ${politician?.rating}%`}
+                  </div>
                 </div>
-              </div>
-              {politician?.place && politician?.rating && (
+              )}
+              {politician?.place && politician?.rating && level && (
                 <PercentsLinearGraphic vote_groups={politician?.vote_groups} />
               )}
-              <LineChartVoters data={politician} />
-              <div className={styles.mobRightBlock}>
-                <div className={styles.percent_black}>
-                  {voteStatisticsInOtherRegion?.regionElection?.title && 'Рейтинг:'}{' '}
-                  {voteStatisticsInOtherRegion?.regionElection?.title?.[i18n.language]}{' '}
-                  {voteStatisticsInOtherRegion?.rating}
-                  {voteStatisticsInOtherRegion?.regionElection?.title && '%'}
+              {level && <LineChartVoters data={politician} />}
+              {voteStatisticsInOtherRegion && (
+                <div className={styles.mobRightBlock}>
+                  <div className={styles.percent_black}>
+                    {voteStatisticsInOtherRegion?.regionElection?.title && 'Рейтинг:'}{' '}
+                    {voteStatisticsInOtherRegion?.regionElection?.title?.[i18n.language]}{' '}
+                    {voteStatisticsInOtherRegion?.rating !== 0 && `- ${voteStatisticsInOtherRegion?.rating}%`}
+                  </div>
+                  {voteStatisticsInOtherRegion?.rating ? (
+                    <PercentsLinearGraphic vote_groups={voteStatisticsInOtherRegion?.vote_groups} />
+                  ) : (
+                    <div className={styles.noRiting}>
+                      <div className={styles.noRiting__btnMob}>{t('info.withoutRating')}</div>
+                    </div>
+                  )}
+                  <LineChartVoters data={voteStatisticsInOtherRegion} />
                 </div>
-                {voteStatisticsInOtherRegion?.rating && (
-                  <PercentsLinearGraphic vote_groups={voteStatisticsInOtherRegion?.vote_groups} />
-                )}
-                <LineChartVoters data={voteStatisticsInOtherRegion} />
-              </div>
+              )}
               <LineChartVoters />
               {(isNow || isAfter) && !election.is_silence && (
                 <div className={styles.mobRightBlock}>

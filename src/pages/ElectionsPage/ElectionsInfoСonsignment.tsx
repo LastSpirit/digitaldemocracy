@@ -86,12 +86,20 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                           {party?.politicians_count} {t('elections.partyMembers')}
                         </div>
                       </div>
-                      <div className={styles.description}>
-                        <div className={styles.rating_grey}>{party?.rating}%</div>
-                      </div>
-                      <div className={styles.aboutRatings}>
-                        <PercentsLinearGraphic vote_groups={party?.vote_groups} />
-                      </div>
+                      {party?.rating ? (
+                        <div>
+                          <div className={styles.description}>
+                            <div className={styles.rating_grey}>{party?.rating}%</div>
+                          </div>
+                          <div className={styles.aboutRatings}>
+                            <PercentsLinearGraphic vote_groups={party?.vote_groups} />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className={styles.noRiting}>
+                          <div className={styles.noRiting__btn}>{t('info.withoutRating')}</div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -121,7 +129,7 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                       <div> </div>
                     </div>
                   )}
-                  {((isNow || isAfter) && !party?.is_silence) && (
+                  {(isNow || isAfter) && !party?.is_silence && (
                     <div>
                       <div className={styles.percentOther_grey}>{t('elections.votedParty')}:</div>
                       <div className={styles.percentNumber}>
@@ -180,16 +188,19 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                   <div className={styles.mobEnglishName}>
                     {party?.politicians_count} {t('elections.partyMembers')}
                   </div>
-                  <div className={styles.percent_black_big}>{party?.rating}%</div>
+                  <div className={styles.percent_black_big}>{party?.rating && `${party?.rating}%`}</div>
                 </div>
               </div>
-              {/* <div className={styles.mobRightBlock}>
-                <div className={styles.percent_black_big}>{item?.rating}%</div>
-              </div> */}
-              <div className={styles.aboutRatings}>
-                <PercentsLinearGraphic vote_groups={party?.vote_groups} />
-              </div>
-              {((isNow || isAfter) && !party?.is_silence) && (
+              {party?.rating ? (
+                <div className={styles.aboutRatings}>
+                  <PercentsLinearGraphic vote_groups={party?.vote_groups} />
+                </div>
+              ) : (
+                <div className={styles.noRiting}>
+                  <div className={styles.noRiting__btnMob}>{t('info.withoutRating')}</div>
+                </div>
+              )}
+              {(isNow || isAfter) && !party?.is_silence && (
                 <div className={styles.mobRightBlock}>
                   <div className={styles.percent_grey}>
                     {t('elections.voted')}: {party?.election_vote_statistics.count_voted_users_on_election}{' '}

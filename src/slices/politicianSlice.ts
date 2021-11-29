@@ -27,7 +27,7 @@ export interface PoliticianInfoI {
   list_active_position?: Array<PositionHistoryI>;
   list_position?: Array<PositionHistoryI>;
   age?: number;
-  city?: string;
+  city?: any;
   trust?: string;
   link?: string;
   rating?: string;
@@ -39,6 +39,7 @@ export interface PoliticianInfoI {
   position_count?: number;
   election_vote_statistics?: Election_vote_statisticsI;
   type?: any;
+  level?: any;
 }
 
 export interface PartyI {
