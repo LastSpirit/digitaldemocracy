@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import type { FC } from 'react';
 import { Route, Switch, Redirect, useLocation, useHistory } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
@@ -49,8 +49,8 @@ const App: FC = () => {
   const { pathname } = useLocation();
   const { data: dataRoutes } = useSelector(userSelectors.getRoutes());
   const { wkNews } = useSelectorType((state) => state.newsPage);
-  const [path, setPath] = React.useState(pathname);
-  const [visibleCookie, setVisibleCookie] = React.useState(!JSON.parse(getItem('user_cookie_confirm')));
+  const [path, setPath] = useState(pathname);
+  const [visibleCookie, setVisibleCookie] = useState(!JSON.parse(getItem('user_cookie_confirm')));
 
   const intersect = (prev, next) => {
     return prev

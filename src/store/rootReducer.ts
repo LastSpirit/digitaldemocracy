@@ -1,5 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { authorSlice } from 'src/slices/authorSlice';
+import { electionsSlice } from 'src/slices/electionsSlice';
 import { authSlice } from '../slices/authSlice';
 // eslint-disable-next-line import/no-cycle
 import { homeSlice } from '../slices/homeSlice';
@@ -21,7 +22,7 @@ import { langSlice } from '../slices/langSlice';
 import { searchSlice } from '../slices/searchSlice';
 import { aboutPageSlice } from '../slices/aboutPageSlice';
 import { newsSlice1 } from '../slices/newsSlice1';
-import { electionsSlice } from '../slices/electionsSlice';
+// import { electionsSlice } from '../slices/electionsSlice';
 import { votesPageSlice } from '../slices/votesPageSlice';
 
 const rootReducer = combineReducers({

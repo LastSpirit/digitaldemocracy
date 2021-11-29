@@ -8,30 +8,58 @@ import { Box, Button, Container } from '@material-ui/core';
 import { GridArrowDownwardIcon } from '@material-ui/data-grid';
 import { RootState } from '../../store';
 import { useFetchListElections } from './hooks/useFetchListElections';
+import { useFetchUserElections } from './hooks/useFetchUserElections';
 import VotesCard from './tabs/VoteCards';
 import styles from './VotesPage.module.scss';
 import { SortDropdownVotes } from './tabs/SortDropdownVotes';
 import { SortDropdownVotesMobile } from './tabs/SortDropdownVotesMobile';
 import { VoteCalendar } from './tabs/VoteCalendar';
-import MyVoteCard from './tabs/MyVotesCard';
+import MyVotesCard from './tabs/MyVotesCard';
 
 const VotesPage = () => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { t } = useTranslation();
   const { isMobile } = useWindowSize();
   const { elections, isMorePages } = useSelector((s: RootState) => s.votes?.data);
+  const userElections = useSelector((s: RootState) => s.votes?.userElections);
   const { fetch, status } = useFetchListElections();
+  const { fetchElections, statusElections } = useFetchUserElections();
   const [world, setWorld] = useState(true);
   const [worldVotes, setWorldVotes] = useState(false);
   const [update, setUpdate] = useState(true);
   const [page, setPage] = useState(1);
 
-  const [countries, setCountries] = useState([]);
-  const loadCountriesNum = 25;
-  const allCountries = Array(55).fill({
-    id: 1,
-    name: 'test',
-  });
+  const [visibleElections, setVisibleElections] = useState([]);
+  const [visibleUserElections, setVisibleUserElections] = useState([]);
+
+  useEffect(() => {
+    if (userElections?.length > 0) {
+      setVisibleUserElections(userElections);
+    }
+  }, [userElections]);
+
+  useEffect(() => {
+    if (elections && Object.values(elections).length > 0) {
+      const visibleElectionsCopy = [...visibleElections];
+      /* eslint-disable-next-line */
+      for (const [key, value] of Object.entries(elections)) {
+        const cards = value as any;
+        if (cards.length > 0) {
+          const country = cards[0]?.country;
+          const index = visibleElectionsCopy.findIndex((e) => e.id === country.id);
+          if (index === -1) {
+            const election = {
+              id: country.id,
+              country,
+              cards,
+            };
+            visibleElectionsCopy.push(election);
+          }
+        }
+      }
+      setVisibleElections(visibleElectionsCopy);
+    }
+  }, [elections]);
 
   useEffect(() => {
     if (page > 1) {
@@ -42,18 +70,12 @@ const VotesPage = () => {
   }, [isAuthenticated, update, page]);
 
   useEffect(() => {
-    const newCountries = allCountries.slice(0, loadCountriesNum);
-    setCountries(newCountries);
-  }, []);
+    fetchElections();
+  }, [isAuthenticated]);
 
   const handleShowMoreCountries = () => {
-    if (allCountries.length - countries.length > 0) {
-      const addedCountries = allCountries.slice(countries.length, countries.length + loadCountriesNum);
-      const mergedCountries = countries.concat(addedCountries);
-      setCountries(mergedCountries);
-    }
+    setPage(page + 1);
   };
-
   return (
     <Container maxWidth="lg" className={styles.VotesContainer}>
       {!isMobile ? (
@@ -93,12 +115,13 @@ const VotesPage = () => {
           <VoteCalendar />
         </div>
       )}
-      {isAuthenticated && <MyVoteCard />}
 
-      {countries.map((country) => (
-        <VotesCard key={Math.random()} />
+      <MyVotesCard props={visibleUserElections} />
+
+      {visibleElections.map((election) => (
+        <VotesCard key={election?.id} props={election} />
       ))}
-      {allCountries.length - countries.length > 0 && (
+      {isMorePages && (
         <Box className={styles.boxShowBtn}>
           <Button
             variant="outlined"
