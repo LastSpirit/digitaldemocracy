@@ -1,39 +1,26 @@
 import { Typography } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useState, useEffect, FC } from 'react';
+import { useSelector } from 'react-redux';
 import VoteCard from 'src/components/VoteCard/VoteCard';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { votesSelectors } from 'src/slices/votesPageSlice';
+import { useTranslation } from 'react-i18next';
 import styles from './MyVoteCard.module.scss';
 
-const tempCards = [
-  {
-    id: 1,
-    name: 'Card 1',
-  },
-  {
-    id: 2,
-    name: 'Card 2',
-  },
-  {
-    id: 3,
-    name: 'Card 3',
-  },
-  {
-    id: 4,
-    name: 'Card 4',
-  },
-  {
-    id: 5,
-    name: 'Card 5',
-  },
-];
+const MyVoteCard = ({ props }) => {
+  const { t, i18n } = useTranslation();
 
-const MyVoteCard = () => {
   const [isMoreLoaded, setIsMoreLoaded] = useState(false);
+  const [cards, setCards] = useState([]);
 
   const handleIsMoreLoaded = () => {
     setIsMoreLoaded(true);
   };
+
+  useEffect(() => {
+    if (props?.length > 0) {
+      setCards(props);
+    }
+  }, [props]);
 
   return (
     <div className={styles.Container}>
@@ -42,28 +29,24 @@ const MyVoteCard = () => {
           <p> Мои выборы</p>
         </Typography>
       </div>
-
-      <>
-        <div className={styles.VotingCards}>
-          {tempCards.slice(0, 4).map((card) => (
-            <VoteCard key={card.id} />
-          ))}
-        </div>
-        {tempCards?.length > 4 &&
-          isMoreLoaded &&
-          tempCards.slice(4).map((card) => (
-            <div className={styles.VotingCards}>
-              <VoteCard key={card.id} />
-            </div>
-          ))}
-        {tempCards?.length > 4 && !isMoreLoaded && (
-          <button type="button" className={styles.ShowOtherSelections} onClick={handleIsMoreLoaded}>
-            Показать остальные выборы
-          </button>
-        )}
-      </>
+      <div className={styles.VotingCards}>
+        {cards.slice(0, 4).map((card) => (
+          <VoteCard key={card.id} props={card} />
+        ))}
+      </div>
+      {cards?.length > 4 &&
+        isMoreLoaded &&
+        cards.slice(4).map((card) => (
+          <div key={card.id} className={styles.VotingCards}>
+            <VoteCard props={card} />
+          </div>
+        ))}
+      {cards?.length > 4 && !isMoreLoaded && (
+        <button type="button" className={styles.ShowOtherSelections} onClick={handleIsMoreLoaded}>
+          Показать остальные выборы
+        </button>
+      )}
     </div>
   );
 };
-
 export default MyVoteCard;
