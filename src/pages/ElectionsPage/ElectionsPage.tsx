@@ -23,6 +23,7 @@ const ElectionsPage = () => {
   const { resetEctions } = electionsActionCreators();
   const data = useSelector(electionsSelector.getData());
   const status = useSelector(electionsSelector.getStatus());
+  const statusVoice = useSelector(electionsSelector.getStatusVoice());
   const { link } = useParams() as any;
   const [isAfter, setIsAfter] = useState(false);
   const [isBefore, setIsBefore] = useState(false);
@@ -38,6 +39,12 @@ const ElectionsPage = () => {
     setIsBefore(data?.isBefore);
     setisNow(data?.isNow);
   }, [data]);
+
+  useEffect((): any => {
+    if (statusVoice === 'Success') {
+      fetch(link);
+    }
+  }, [statusVoice]);
 
   return (
     <Container maxWidth="lg" className={styles.container}>

@@ -4,17 +4,17 @@ import { electionsActionCreators } from '../../../slices/electionsSlice';
 import { getItem } from '../../../lib/localStorageManager';
 
 export const useFetchVoiceDelete = () => {
-  const { failFetch, startFetch, successFetch } = electionsActionCreators();
+  const { failFetch, startFetch, successVoiceFetch, voiceFetch } = electionsActionCreators();
   const { fetchVoiceDelete } = electionsAPIActions();
   const token = getItem('token');
 
   const fetch = useCallback(
-    (type: string, objectId: number, electionId: number,) => {
+    (type: string, objectId: number, electionId: number) => {
       startFetch();
       fetchVoiceDelete({
-        onSuccess: (response) => {
-          successFetch();
-          console.log(response);
+        onSuccess: () => {
+          successVoiceFetch();
+          voiceFetch();
         },
         payload: {
           token,

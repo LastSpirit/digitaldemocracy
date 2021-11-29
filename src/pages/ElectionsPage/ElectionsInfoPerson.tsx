@@ -48,7 +48,6 @@ const ElectionsInfoPerson: FC<IProps> = ({
   const data = useSelector(electionsSelector.getData());
 
   const getLevel = () => {
-    console.log(politician, '111');
     switch (politician?.level) {
       case 'country_id':
         setLevel(politician?.country?.title?.[i18n.language]);

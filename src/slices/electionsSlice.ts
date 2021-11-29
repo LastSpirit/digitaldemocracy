@@ -75,6 +75,7 @@ export interface ElectionsSingleI {
 interface SliceState {
   data?: ElectionsSingleI;
   status?: APIStatus;
+  statusVoice?: APIStatus;
 }
 
 const initialState: SliceState = {
@@ -95,6 +96,12 @@ export const electionsSlice = createSlice({
     successFetch(state: SliceState) {
       state.status = APIStatus.Success;
     },
+    successVoiceFetch(state: SliceState) {
+      state.statusVoice = APIStatus.Success;
+    },
+    voiceFetch(state: SliceState) {
+      state.statusVoice = null;
+    },
     failFetch(state: SliceState) {
       state.status = APIStatus.Failure;
     },
@@ -111,6 +118,7 @@ interface Store {
 export const electionsSelector = {
   getData: () => (state: Store) => state.elections.data,
   getStatus: () => (state: Store) => state.elections.status,
+  getStatusVoice: () => (state: Store) => state.elections.statusVoice,
 };
 
 export const electionsActionCreators = () => {
