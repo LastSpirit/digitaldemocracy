@@ -70,7 +70,9 @@ const VotesPage = () => {
   }, [isAuthenticated, update, page]);
 
   useEffect(() => {
-    fetchElections();
+    if (isAuthenticated) {
+      fetchElections();
+    }
   }, [isAuthenticated]);
 
   const handleShowMoreCountries = () => {
@@ -115,9 +117,7 @@ const VotesPage = () => {
           <VoteCalendar />
         </div>
       )}
-
-      <MyVotesCard props={visibleUserElections} />
-
+      {isAuthenticated && <MyVotesCard props={visibleUserElections} />}
       {visibleElections.map((election) => (
         <VotesCard key={election?.id} props={election} />
       ))}
