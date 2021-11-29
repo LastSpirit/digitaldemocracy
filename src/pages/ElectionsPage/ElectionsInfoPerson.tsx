@@ -142,7 +142,7 @@ const ElectionsInfoPerson: FC<IProps> = ({
                     )}
                   </div>
                 </div>
-                )
+
                 <div className={styles.aboutRatings}>
                   <div className={styles.percentBlock}>
                     <div>
