@@ -8,7 +8,7 @@ import SingleNewsHero from './features/SingleNewsHero/SingleNewsHero';
 import SingleNewsList from './features/SingleNewsList/SingleNewsList';
 import SingleNewsStatistics from './features/SingleNewsStatistics/SingleNewsStatistics';
 import { useFetchSingleNews } from './hooks/useFetchSingleNews';
-
+import SingleNewsVotes from './features/SingleNewsList/SingleNewsVotes';
 import styles from '../MassMediaPage/MassMediaPage.module.scss';
 
 const SingleNews = (props) => {
@@ -33,9 +33,10 @@ const SingleNews = (props) => {
             politicians={data?.politicians}
             bills={data?.bills}
           />
-          {data?.news && data?.news.length > 0 ? (
-            <SingleNewsList news={data?.news} isMorePages={data?.isMorePages} />
-          ) : null}
+          {data?.news && data?.news.length && <SingleNewsList news={data?.news} isMorePages={data?.isMorePages} />}
+          {data?.elections && data?.elections.length && (
+            <SingleNewsVotes elections={data?.elections} news={data?.news} isMorePages={data?.isMorePages} />
+          )}
         </WrapperAsyncRequest>
       </div>
     </Container>
