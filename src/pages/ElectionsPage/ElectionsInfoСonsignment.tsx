@@ -73,7 +73,7 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                 }
               >
                 <div className={data?.rating ? styles.avatar : classNames(styles.avatar, styles.avatar__nonRaiting)}>
-                  {!data?.photo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={data?.photo} alt="" />}
+                  {party?.logo ? <img src={party?.logo} alt="" /> : <PersonIcon className={styles.noAvatarIcon} />}
                 </div>
               </div>
               <div className={styles.personBlockParty}>
@@ -177,10 +177,10 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                       data?.rating ? styles.mobAvatar : classNames(styles.mobAvatar, styles.mobAvatar__nonRaiting)
                     }
                   >
-                    {!data?.photo ? (
+                    {!party?.logo ? (
                       <PersonIcon className={styles.mobNoAvatarIcon} />
                     ) : (
-                      <img src={data?.photo} alt="" />
+                      <img src={party?.logo} alt="" />
                     )}
                   </div>
                 </div>
