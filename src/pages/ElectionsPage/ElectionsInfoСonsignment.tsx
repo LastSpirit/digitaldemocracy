@@ -121,7 +121,7 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                       />
                     )}
                   </div>
-                  {!canVotes && (
+                  {isNow && !canVotes && (
                     <div className={styles.noVoice}>
                       <div>{t('elections.noVoite')}</div>
                     </div>
@@ -237,7 +237,7 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                     }}
                   />
                 )}
-                {!canVotes && (
+                {isNow && !canVotes && (
                   <div className={styles.mobCheckBlock__noVoice}>
                     <div>{t('elections.noVoite')}</div>
                   </div>

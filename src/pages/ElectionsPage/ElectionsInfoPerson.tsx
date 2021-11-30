@@ -162,7 +162,7 @@ const ElectionsInfoPerson: FC<IProps> = ({
                         />
                       )}
                       <div className={styles.description}>
-                        {!canVotes && (
+                        {isNow && !canVotes && (
                           <div className={styles.noVoice}>
                             <div>{t('elections.noVoite')}</div>
                           </div>
@@ -297,7 +297,7 @@ const ElectionsInfoPerson: FC<IProps> = ({
                     }}
                   />
                 )}
-                {!canVotes && (
+                {isNow && !canVotes && (
                   <div className={styles.mobCheckBlock__noVoice}>
                     <div>{t('elections.noVoite')}</div>
                   </div>
