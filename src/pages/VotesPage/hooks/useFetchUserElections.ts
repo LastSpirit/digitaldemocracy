@@ -13,7 +13,7 @@ export const useFetchUserElections = () => {
   const { setUserElections } = electionsActionCreators();
   const token = getItem('token');
 
-  const fetchElections = useCallback(() => {
+  const fetchElections = useCallback((is_onlyBefore = 0) => {
     setStatusElections(APIStatus.Loading);
     fetchUserElections({
       onSuccess: (response) => {
@@ -23,6 +23,7 @@ export const useFetchUserElections = () => {
       onError: () => setStatusElections(APIStatus.Failure),
       payload: {
         token,
+        is_onlyBefore,
       },
     });
   }, [token]);
