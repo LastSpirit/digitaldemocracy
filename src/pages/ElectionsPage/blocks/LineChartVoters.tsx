@@ -38,8 +38,10 @@ export const LineChartVoters: FC<IProps> = ({ data }) => {
       data?.city_full?.title?.[i18n.language] ||
       data?.region?.title?.[i18n.language] ||
       data?.country?.title?.[i18n.language] ||
+      data?.regionElection?.title?.[i18n.language] ||
       t('info.worldUser')
     }`;
+    console.log('title', data);
     return title;
   };
   return (
