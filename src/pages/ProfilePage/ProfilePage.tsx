@@ -31,7 +31,13 @@ const ProfilePage = () => {
           {/* <BackButton /> */}
           <div className={styles.personContainer}>
             <PersonBlock avatar={data.avatar} />
-            <InfoBlock fio={data?.first_name && data?.last_name ? `${data?.first_name} ${data?.last_name}` : data?.first_name || t('profile.userName')} />
+            <InfoBlock
+              fio={
+                data?.first_name && data?.last_name
+                  ? `${data?.first_name} ${data?.last_name}`
+                  : data?.first_name || t('profile.userName')
+              }
+            />
           </div>
           <ProfilePageNavigation />
         </WrapperAsyncRequest>

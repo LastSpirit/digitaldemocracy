@@ -30,8 +30,9 @@ interface IProps {
   isNow?: boolean;
   isBefore?: boolean;
   isAfter?: boolean;
+  canVotes?: boolean;
 }
-const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow }) => {
+const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow, canVotes }) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const [checked, setChecked] = useState(party.election_vote_statistics.is_user_has_vote);
   const [open, setOpen] = useState(false);
@@ -42,7 +43,6 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
   const { fetch: deleteVoice } = useFetchVoiceDelete();
   const dataVoice = useSelector(electionsSelector.getData());
   const data = useSelector(politicianSelectors.getPoliticianInfo());
-
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
@@ -110,6 +110,7 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                         className={styles.сheckbox}
                         checked={checked}
                         onChange={handleChange}
+                        disabled={!canVotes}
                         {...label}
                         defaultChecked
                         sx={{
@@ -120,6 +121,11 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                       />
                     )}
                   </div>
+                  {!canVotes && (
+                    <div className={styles.noVoice}>
+                      <div>{t('elections.noVoite')}</div>
+                    </div>
+                  )}
                   {checked && !party?.is_silence && isNow ? (
                     <div className={styles.voice}>
                       <div>{t('elections.yourVoteIsTaken')}</div>
@@ -221,6 +227,7 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                     className={styles.mobCheckBlock__box}
                     checked={checked}
                     onChange={handleChange}
+                    disabled={!canVotes}
                     {...label}
                     defaultChecked
                     sx={{
@@ -229,6 +236,11 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                       '& .MuiSvgIcon-root': { fontSize: 30 },
                     }}
                   />
+                )}
+                {!canVotes && (
+                  <div className={styles.mobCheckBlock__noVoice}>
+                    <div>{t('elections.noVoite')}</div>
+                  </div>
                 )}
                 {checked && !party?.is_silence && isNow && (
                   <div className={styles.mobCheckBlock__voice}>

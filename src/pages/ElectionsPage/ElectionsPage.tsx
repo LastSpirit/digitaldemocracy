@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
 import { electionsActionCreators, electionsSelector } from 'src/slices/electionsSlice';
+import { userSelectors } from 'src/slices/userSlice';
 import ElectionsHero from './blocks/ElectionsHero/ElectionsHero';
 import styles from './ElectionsPage.module.scss';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -24,10 +25,29 @@ const ElectionsPage = () => {
   const data = useSelector(electionsSelector.getData());
   const status = useSelector(electionsSelector.getStatus());
   const statusVoice = useSelector(electionsSelector.getStatusVoice());
+  const dataVoite = useSelector(userSelectors.getUser());
   const { link } = useParams() as any;
   const [isAfter, setIsAfter] = useState(false);
   const [isBefore, setIsBefore] = useState(false);
   const [isNow, setisNow] = useState(false);
+  const [canVotes, setCanVotes] = useState(null);
+
+  const getVotes = () => {
+    switch (data?.regionElection.type) {
+      case 'country':
+        setCanVotes(data?.regionElection.region.id === dataVoite.country_id.id);
+        break;
+      case 'city':
+        setCanVotes(data?.regionElection.region.id === dataVoite.city_id.id);
+        break;
+      case 'region':
+        setCanVotes(data?.regionElection.region.id === dataVoite.region_id.id);
+        break;
+      default:
+        setCanVotes(false);
+    }
+  };
+
   useEffect((): any => {
     fetch(link);
     window.scrollTo(0, 0);
@@ -38,6 +58,7 @@ const ElectionsPage = () => {
     setIsAfter(data?.isAfter);
     setIsBefore(data?.isBefore);
     setisNow(data?.isNow);
+    getVotes();
   }, [data]);
 
   useEffect((): any => {
@@ -76,6 +97,7 @@ const ElectionsPage = () => {
                 isNow={isNow}
                 isBefore={isBefore}
                 isAfter={isAfter}
+                canVotes={canVotes}
                 {...item}
               />
             ))}
@@ -88,6 +110,7 @@ const ElectionsPage = () => {
                 isNow={isNow}
                 isBefore={isBefore}
                 isAfter={isAfter}
+                canVotes={canVotes}
                 election={data?.election}
               />
             ))}
