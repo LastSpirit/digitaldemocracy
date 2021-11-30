@@ -21,7 +21,7 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
   const handleToggleIframe = () => {
     setToggleIframe(!toggleIframe);
   };
-  console.log(data?.is_display, 'aasdadassdasdasd');
+  // console.log(data?.is_display, 'aasdadassdasdasd');
   const pasteLink = (str) => {
     const partStr = str.split(',');
     return (

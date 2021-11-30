@@ -15,9 +15,10 @@ import classes from './VoteCard.module.scss';
 
 interface ElectionsI {
   props?: any;
+  bool?: boolean;
 }
 
-const VoteCard: FC<ElectionsI> = ({ props }) => {
+const VoteCard: FC<ElectionsI> = ({ props, bool }) => {
   const { t, i18n } = useTranslation();
   const getCountry = () => {
     const language = i18n?.language ?? 'ru';
@@ -58,7 +59,7 @@ const VoteCard: FC<ElectionsI> = ({ props }) => {
   };
 
   return (
-    <Box className={classes.bigCardContainer} style={{ background: getBackgroundColor(), border: getBorder() }}>
+    <Box className={bool ? classes.bigCardContainerCard : classes.bigCardContainer} style={{ background: getBackgroundColor(), border: getBorder() }}>
       <Box className={classes.mainHeader}>
         <Box className={classes.date}>
           <Typography className={classes.text}>{props?.start_date}</Typography>

@@ -103,12 +103,30 @@ export interface NewsI {
   short_link?: string;
 }
 
+export interface ElectionsI {
+  id?: number;
+  count_voted_users: number;
+  count_winners: number;
+  description: string;
+  end_date: string;
+  is_after: boolean;
+  is_before: boolean;
+  is_now: boolean;
+  is_silence: boolean;
+  link: string;
+  short_link: string;
+  silence_tip: string;
+  start_date: string;
+  title: string;
+}
+
 export interface SingleNewsI {
   currentNews?: CurrentNewsI;
   news?: NewsI[];
   politicians?: PoliticiansI[];
   bills?: BillsI[];
   isMorePages?: boolean;
+  elections?: ElectionsI[];
 }
 
 export interface LikesI {
