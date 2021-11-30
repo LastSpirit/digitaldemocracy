@@ -30,6 +30,7 @@ interface IProps {
   isBefore?: boolean;
   isNow?: boolean;
   isAfter?: boolean;
+  canVotes?: boolean;
 }
 const ElectionsInfoPerson: FC<IProps> = ({
   politician,
@@ -38,14 +39,15 @@ const ElectionsInfoPerson: FC<IProps> = ({
   isBefore,
   isAfter,
   isNow,
+  canVotes,
 }) => {
   const { isMobile } = useWindowSize();
   const [checked, setChecked] = useState(politician.election_vote_statistics.is_user_has_vote);
   const [level, setLevel] = useState(null);
-  const { t, i18n } = useTranslation();
   const { fetch: addVoice } = useFetchVoiceAdd();
   const { fetch: deleteVoice } = useFetchVoiceDelete();
   const data = useSelector(electionsSelector.getData());
+  const { t, i18n } = useTranslation();
 
   const getLevel = () => {
     switch (politician?.level) {
@@ -150,6 +152,7 @@ const ElectionsInfoPerson: FC<IProps> = ({
                           className={styles.сheckbox}
                           checked={checked}
                           onChange={handleChange}
+                          disabled={!canVotes}
                           {...label}
                           sx={{
                             color: '#248232 !important',
@@ -159,6 +162,11 @@ const ElectionsInfoPerson: FC<IProps> = ({
                         />
                       )}
                       <div className={styles.description}>
+                        {!canVotes && (
+                          <div className={styles.noVoice}>
+                            <div>{t('elections.noVoite')}</div>
+                          </div>
+                        )}
                         {checked && !election.is_silence && isNow ? (
                           <div className={styles.voice}>
                             <div>{t('elections.yourVoteIsTaken')}</div>
@@ -280,6 +288,7 @@ const ElectionsInfoPerson: FC<IProps> = ({
                     className={styles.mobCheckBlock__box}
                     checked={checked}
                     onChange={handleChange}
+                    disabled={!canVotes}
                     {...label}
                     sx={{
                       color: '#248232 !important',
@@ -287,6 +296,11 @@ const ElectionsInfoPerson: FC<IProps> = ({
                       '& .MuiSvgIcon-root': { fontSize: 30 },
                     }}
                   />
+                )}
+                {!canVotes && (
+                  <div className={styles.mobCheckBlock__noVoice}>
+                    <div>{t('elections.noVoite')}</div>
+                  </div>
                 )}
                 {checked && !election.is_silence && isNow && (
                   <div className={styles.mobCheckBlock__voice}>

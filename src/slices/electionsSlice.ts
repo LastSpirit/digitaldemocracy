@@ -11,6 +11,7 @@ interface CountryI {
 interface RegionI {
   id: number;
   title: string;
+  type?: string;
 }
 
 interface CityI {

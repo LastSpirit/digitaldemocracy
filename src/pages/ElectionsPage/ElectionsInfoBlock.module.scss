@@ -967,8 +967,8 @@
     }
 
     .fioBlock {
-       flex-grow: 1;
-       margin-bottom: 16px;
+      flex-grow: 1;
+      margin-bottom: 16px;
 
       .fio {
         display: flex;
@@ -1522,7 +1522,12 @@
     }
   }
 }
-
+.noVoice {
+  color: #eb4335;
+  font-size: 18px;
+  font-weight: 700;
+  width: 200px;
+}
 .mobCheckBlock {
   display: flex;
   align-items: center;
@@ -1533,6 +1538,12 @@
     font-size: 18px;
     font-weight: 900;
     color: #248232;
+  }
+  .mobCheckBlock__noVoice {
+    font-size: 18px;
+    font-weight: 900;
+    color: #EB4335;
+    margin-left: 20px;
   }
   .mobCheckBlock__box {
     padding: 0 !important;
