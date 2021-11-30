@@ -53,6 +53,7 @@ interface RegionI {
   id?: number;
   name_with_type?: string;
   federal_district?: string;
+  type?: string;
 }
 interface MediaI {
   id: number;

@@ -35,13 +35,13 @@ const ElectionsPage = () => {
   const getVotes = () => {
     switch (data?.regionElection.type) {
       case 'country':
-        setCanVotes(data?.regionElection.region.id === dataVoite.country_id.id);
+        setCanVotes(data?.regionElection.region.id === dataVoite?.country_id?.id);
         break;
       case 'city':
-        setCanVotes(data?.regionElection.region.id === dataVoite.city_id.id);
+        setCanVotes(data?.regionElection.region.id === dataVoite?.city_id?.id);
         break;
       case 'region':
-        setCanVotes(data?.regionElection.region.id === dataVoite.region_id.id);
+        setCanVotes(data?.regionElection.region.id === dataVoite?.region_id?.id);
         break;
       default:
         setCanVotes(false);
