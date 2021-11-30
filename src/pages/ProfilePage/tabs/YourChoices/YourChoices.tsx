@@ -19,7 +19,7 @@ const columns = (isMobile, t): GridColumns => {
       headerName: t('tabs.voice'),
       type: 'string',
       renderCell: ({ row }: any) => (
-        <Link role={'button'} className={styles.link} tabIndex={0} to={`/votes/${row.short_link}`}>
+        <Link role={'button'} className={styles.link} tabIndex={0} to={`/elections/${row.short_link}`}>
           {row.choices || '-'}
         </Link>
       ),

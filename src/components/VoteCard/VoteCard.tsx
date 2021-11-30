@@ -88,14 +88,14 @@ const VoteCard: FC<ElectionsI> = ({ props }) => {
           {props?.is_silence ? (
             <Tooltip title={props?.silence_tip}>
               <Box sx={{ marginBottom: '10px', minHeight: '115px' }}>
-                <Link to={`/votes/${props?.short_link}`}>
+                <Link to={`/elections/${props?.short_link}`}>
                   <Typography className={classes.bigTitle}>{props?.title}</Typography>
                 </Link>
               </Box>
             </Tooltip>
           ) : (
             <Box sx={{ marginBottom: '10px', minHeight: '115px' }}>
-              <Link to={`/votes/${props?.short_link}`}>
+              <Link to={`/elections/${props?.short_link}`}>
                 <Typography className={classes.bigTitle}>{props?.title}</Typography>
               </Link>
             </Box>
