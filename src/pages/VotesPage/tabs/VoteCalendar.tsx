@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Autocomplete, Box, Checkbox, InputLabel, TextField } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { userSelectors } from 'src/slices/userSlice';
+import { electionsActionCreators } from 'src/slices/votesPageSlice';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import DesktopDatePicker from '@material-ui/lab/DatePicker';
@@ -12,21 +13,21 @@ import { useFetchListElections } from '../hooks/useFetchListElections';
 import { useFetchUserElections } from '../hooks/useFetchUserElections';
 import styles from './VoteCalendar.module.scss';
 
-export const VoteCalendar = () => {
+export const VoteCalendar = ({ page, isOnlyBefore, handleChange }) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const [value, setValue] = useState<Date | null>(new Date());
-  const [isOnlyBefore, setIsOnlyBefore] = useState(0);
   const { fetch } = useFetchListElections();
   const { fetchElections } = useFetchUserElections();
 
   useEffect(() => {
     if (!isAuthenticated) {
-      fetch(isOnlyBefore);
+      fetch(page, isOnlyBefore);
     } else {
-      fetch(isOnlyBefore);
+      fetch(page, isOnlyBefore);
       fetchElections(isOnlyBefore);
     }
   }, [isOnlyBefore]);
+
   return (
     <div className={styles.DateContainer}>
       <form className={styles.form}>
@@ -34,7 +35,7 @@ export const VoteCalendar = () => {
           <div className={styles.futureCheckbox}>
             <Checkbox
               checked={isOnlyBefore === 1}
-              onChange={() => setIsOnlyBefore(isOnlyBefore === 0 ? 1 : 0)}
+              onChange={handleChange}
               icon={<CircleUnchecked style={{ color: 'black' }} />}
               checkedIcon={<RadioButtonCheckedIcon style={{ color: 'black' }} />}
             />
@@ -46,8 +47,9 @@ export const VoteCalendar = () => {
             </InputLabel>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
+                minDate={isOnlyBefore && new Date()}
                 label="Custom input"
-                value={value}
+                value={!isOnlyBefore ? value : new Date()}
                 onChange={(newValue) => {
                   setValue(newValue);
                 }}

@@ -13,7 +13,7 @@ export const useFetchListElections = () => {
   const { setVotes } = electionsActionCreators();
   const token = getItem('token');
 
-  const fetch = useCallback((is_onlyBefore = 0, page = 1) => {
+  const fetch = useCallback((page = 1, is_onlyBefore = 0) => {
     setStatus(APIStatus.Loading);
     fetchListElections({
       onSuccess: (response) => {
@@ -23,8 +23,8 @@ export const useFetchListElections = () => {
       onError: () => setStatus(APIStatus.Failure),
       payload: {
         token,
-        page,
         is_onlyBefore,
+        page,
         // orderBy: sort_direction,
         // sortBy: sort_field,
         // country_politician_id: country_politician_idArray,
