@@ -18,8 +18,6 @@ const VoteCards: FC<ElectionsI> = ({ props }) => {
   const [isMoreLoaded, setIsMoreLoaded] = useState(false);
   const [cards, setCards] = useState([]);
 
-  const data = useSelector(votesSelectors.getVotes());
-
   useEffect(() => {
     if (props?.cards?.length > 0) {
       setCards(props?.cards);

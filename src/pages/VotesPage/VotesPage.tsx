@@ -6,6 +6,7 @@ import { userSelectors } from 'src/slices/userSlice';
 import { sortDropdownCountryVotes } from 'src/static/static';
 import { Box, Button, Container } from '@material-ui/core';
 import { GridArrowDownwardIcon } from '@material-ui/data-grid';
+import { electionsActionCreators } from 'src/slices/votesPageSlice';
 import { RootState } from '../../store';
 import { useFetchListElections } from './hooks/useFetchListElections';
 import { useFetchUserElections } from './hooks/useFetchUserElections';
@@ -27,10 +28,22 @@ const VotesPage = () => {
   const [world, setWorld] = useState(true);
   const [worldVotes, setWorldVotes] = useState(false);
   const [update, setUpdate] = useState(true);
+  const { resetEctions } = electionsActionCreators();
+  const [isOnlyBefore, setIsOnlyBefore] = useState(0);
   const [page, setPage] = useState(1);
 
   const [visibleElections, setVisibleElections] = useState([]);
   const [visibleUserElections, setVisibleUserElections] = useState([]);
+
+  const handleChange = () => {
+    const newOnlyBefore = isOnlyBefore === 0 ? 1 : 0;
+    setIsOnlyBefore(newOnlyBefore);
+    resetEctions();
+    setVisibleElections([]);
+    const newPage = 1;
+    setPage(newPage);
+    fetch(newPage, newOnlyBefore);
+  };
 
   useEffect(() => {
     if (userElections?.length > 0) {
@@ -62,11 +75,7 @@ const VotesPage = () => {
   }, [elections]);
 
   useEffect(() => {
-    if (page > 1) {
-      fetch(page);
-    } else {
-      fetch();
-    }
+    fetch(page, isOnlyBefore);
   }, [isAuthenticated, update, page]);
 
   useEffect(() => {
@@ -96,7 +105,7 @@ const VotesPage = () => {
               />
             );
           })}
-          <VoteCalendar />
+          <VoteCalendar page={page} isOnlyBefore={isOnlyBefore} handleChange={handleChange} />
         </div>
       ) : (
         <div className={styles.sortDrop}>
@@ -114,7 +123,7 @@ const VotesPage = () => {
               />
             );
           })}
-          <VoteCalendar />
+          <VoteCalendar page={page} isOnlyBefore={isOnlyBefore} handleChange={handleChange} />
         </div>
       )}
       {isAuthenticated && <MyVotesCard props={visibleUserElections} />}
