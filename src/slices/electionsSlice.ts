@@ -60,6 +60,7 @@ export interface ElectionsSingleI {
   numberOfVotesElection?: numberOfVotesElectionI;
   regionElection?: {
     region?: RegionI;
+    type?: string
   };
   news?: any;
   winners?: any;

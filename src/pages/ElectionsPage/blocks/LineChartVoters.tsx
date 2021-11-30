@@ -41,7 +41,7 @@ export const LineChartVoters: FC<IProps> = ({ data }) => {
       data?.regionElection?.title?.[i18n.language] ||
       t('info.worldUser')
     }`;
-    console.log('title', data);
+    // console.log('title', data);
     return title;
   };
   return (
