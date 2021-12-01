@@ -36,14 +36,15 @@ interface SliceState {
     data?: HistoryNewsI;
     page: number;
   };
-  subscriptions?: SubscriptionsI,
+  subscriptions?: SubscriptionsI;
   routes: RoutesI;
   dossier: {
-    politicians: Array<PoliticianInfoI>,
-    graph: Array<object>,
-    isMorePages: boolean
-  },
+    politicians: Array<PoliticianInfoI>;
+    graph: Array<object>;
+    isMorePages: boolean;
+  };
   fetchUserDataStatus: APIStatus;
+  choices?: any;
 }
 
 const initialState: SliceState = {
@@ -66,9 +67,10 @@ const initialState: SliceState = {
   dossier: {
     politicians: [],
     graph: [],
-    isMorePages: false
+    isMorePages: false,
   },
   fetchUserDataStatus: 'Initial' as APIStatus,
+  choices: [],
 };
 
 export const userSlice = createSlice({
@@ -126,7 +128,10 @@ export const userSlice = createSlice({
     },
     setDossierPoliticianGraph(state: SliceState, action) {
       state.dossier.graph = action.payload;
-    }
+    },
+    setChoices(state: SliceState, action) {
+      state.choices = action.payload;
+    },
   },
 });
 
@@ -141,7 +146,8 @@ export const userSelectors = {
   getBrowsingHistory: () => (state: Store) => state.user.browsingHistory,
   getSubscriptions: () => (state: Store) => state.user.subscriptions,
   getDossier: () => (state: Store) => state.user.dossier,
-  getRoutes: () => (state: Store) => state.user.routes
+  getRoutes: () => (state: Store) => state.user.routes,
+  getChoices: () => (state: Store) => state.user.choices,
 };
 
 export const userActionCreators = () => {

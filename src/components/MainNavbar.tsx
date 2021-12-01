@@ -1,7 +1,18 @@
 import React, { FC, useEffect } from 'react';
 import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { AppBar, Box, Button, Link, Toolbar, Typography, Container, Select, MenuItem, FormControl } from '@material-ui/core';
+import {
+  AppBar,
+  Box,
+  Button,
+  Link,
+  Toolbar,
+  Typography,
+  Container,
+  Select,
+  MenuItem,
+  FormControl,
+} from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 // import Search from '../icons/Search';
@@ -31,6 +42,12 @@ const linksData = (t) => [
     mr: 4,
   },
   {
+    to: '/votes',
+    title: t('footer.menu.votes'),
+    mr: 4,
+  },
+
+  {
     to: '/about',
     title: t('tabs.about'),
     mr: 4,
@@ -43,61 +60,63 @@ const linksData = (t) => [
   },
 ];
 
-const linksToLink = (isAuth, pathname) => ({ title, mr, to, showIsAuth = false }, index) => {
-  const activeLink = pathname.split('/')[1] === to.split('/')[1];
-  if (showIsAuth) {
-    if (isAuth) {
-      return (
-        <Link
-          key={index.toString()}
-          to={to}
-          color="textSecondary"
-          component={RouterLink}
-          underline="none"
-          // variant="body1"
-          sx={{
-            whiteSpace: 'nowrap',
-            marginRight: mr,
-            fontFamily: 'HelveticaNeueCyr, sans-serif',
-            fontSize: 18,
-            sm: {
-              fontSize: 12,
-            },
-            color: activeLink ? '#363557' : '',
-            // fontWeight: activeLink ? 'bold' : 'normal',
-          }}
-        >
-          {title}
-        </Link>
-      );
+const linksToLink =
+  (isAuth, pathname) =>
+  ({ title, mr, to, showIsAuth = false }, index) => {
+    const activeLink = pathname.split('/')[1] === to.split('/')[1];
+    if (showIsAuth) {
+      if (isAuth) {
+        return (
+          <Link
+            key={index.toString()}
+            to={to}
+            color="textSecondary"
+            component={RouterLink}
+            underline="none"
+            // variant="body1"
+            sx={{
+              whiteSpace: 'nowrap',
+              marginRight: mr,
+              fontFamily: 'HelveticaNeueCyr, sans-serif',
+              fontSize: 18,
+              sm: {
+                fontSize: 12,
+              },
+              color: activeLink ? '#363557' : '',
+              // fontWeight: activeLink ? 'bold' : 'normal',
+            }}
+          >
+            {title}
+          </Link>
+        );
+      }
+      return null;
     }
-    return null;
-  }
 
-  return (
-    <Link
-      key={index.toString()}
-      to={to}
-      color="textSecondary"
-      component={RouterLink}
-      underline="none"
-      // variant="body1"
-      sx={{
-        whiteSpace: 'nowrap',
-        marginRight: mr,
-        fontFamily: 'HelveticaNeueCyr, sans-serif',
-        fontSize: 18,
-        sm: {
-          fontSize: 12,
-        },
-        color: activeLink ? '#363557' : '',
-        // fontWeight: activeLink ? 'bold' : 'normal',
-      }}
-    >
-      {title}
-    </Link>
-  );
-};
+    return (
+      <Link
+        key={index.toString()}
+        to={to}
+        color="textSecondary"
+        component={RouterLink}
+        underline="none"
+        // variant="body1"
+        sx={{
+          whiteSpace: 'nowrap',
+          marginRight: mr,
+          fontFamily: 'HelveticaNeueCyr, sans-serif',
+          fontSize: 18,
+          sm: {
+            fontSize: 12,
+          },
+          color: activeLink ? '#363557' : '',
+          // fontWeight: activeLink ? 'bold' : 'normal',
+        }}
+      >
+        {title}
+      </Link>
+    );
+  };
 
 const MainNavbar: FC = () => {
   const { t, i18n } = useTranslation();
@@ -145,10 +164,12 @@ const MainNavbar: FC = () => {
             alignItems: 'center',
             display: 'flex',
             position: 'relative',
-            padding: isMobile && '0!important'
+            padding: isMobile && '0!important',
           }}
         >
-          {isMobile ? <HeaderMobile /> : (
+          {isMobile ? (
+            <HeaderMobile />
+          ) : (
             <>
               <Box
                 sx={{
@@ -209,14 +230,10 @@ const MainNavbar: FC = () => {
               <Box
                 sx={{
                   display: 'flex',
-                  alignItems: 'center'
+                  alignItems: 'center',
                 }}
               >
-                {!isMobile && (
-                  <Box>
-                    {links.map(linksToLink(isAuthenticated, pathname))}
-                  </Box>
-                )}
+                {!isMobile && <Box>{links.map(linksToLink(isAuthenticated, pathname))}</Box>}
                 <Box
                   sx={{
                     backgroundColor: 'background.paper',
@@ -225,9 +242,7 @@ const MainNavbar: FC = () => {
                     mr: 3,
                   }}
                 >
-                  {
-                    !isAuthenticated
-                    &&
+                  {!isAuthenticated && (
                     <Button
                       className={classNames(['comeIn'])}
                       sx={{
@@ -244,7 +259,7 @@ const MainNavbar: FC = () => {
                     >
                       {t('buttons.signInButtons')}
                     </Button>
-                  }
+                  )}
                   <Button
                     className={
                       !isAuthenticated
