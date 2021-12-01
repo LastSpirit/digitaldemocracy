@@ -47,7 +47,11 @@ const ElectionsInfoPerson: FC<IProps> = ({
   const { fetch: addVoice } = useFetchVoiceAdd();
   const { fetch: deleteVoice } = useFetchVoiceDelete();
   const data = useSelector(electionsSelector.getData());
+  const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { t, i18n } = useTranslation();
+  const {
+    [ModalParams.Auth]: { setValue: setAuthValue },
+  } = useSearchParams(ModalParams.Auth);
 
   const getLevel = () => {
     switch (politician?.level) {
@@ -67,10 +71,15 @@ const ElectionsInfoPerson: FC<IProps> = ({
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
-    if (checked) {
-      deleteVoice(politician?.type, politician.id, data?.election.id);
-    } else if (!checked) {
-      addVoice(politician?.type, politician.id, data?.election.id);
+    if (!isAuthenticated) {
+      setChecked(false);
+      setAuthValue('/login');
+    } else if (isAuthenticated) {
+      if (checked) {
+        deleteVoice(politician?.type, politician.id, data?.election.id);
+      } else if (!checked) {
+        addVoice(politician?.type, politician.id, data?.election.id);
+      }
     }
   };
   useEffect((): any => {

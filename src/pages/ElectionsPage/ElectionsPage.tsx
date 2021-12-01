@@ -31,6 +31,7 @@ const ElectionsPage = () => {
   const [isBefore, setIsBefore] = useState(false);
   const [isNow, setisNow] = useState(false);
   const [canVotes, setCanVotes] = useState(null);
+  const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
 
   const getVotes = () => {
     switch (data?.regionElection.type) {
@@ -45,6 +46,9 @@ const ElectionsPage = () => {
         break;
       default:
         setCanVotes(false);
+    }
+    if (!isAuthenticated) {
+      setCanVotes(true);
     }
   };
 

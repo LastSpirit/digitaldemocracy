@@ -49,10 +49,15 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
-    if (checked) {
-      deleteVoice(party?.type, party.id, dataVoice.election.id);
-    } else if (!checked) {
-      addVoice(party?.type, party.id, dataVoice.election.id);
+    if (!isAuthenticated) {
+      setChecked(false);
+      setAuthValue('/login');
+    } else if (isAuthenticated) {
+      if (checked) {
+        deleteVoice(party?.type, party.id, dataVoice.election.id);
+      } else if (!checked) {
+        addVoice(party?.type, party.id, dataVoice.election.id);
+      }
     }
   };
 
