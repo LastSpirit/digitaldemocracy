@@ -13,11 +13,13 @@ import { useFetchListElections } from '../hooks/useFetchListElections';
 import { useFetchUserElections } from '../hooks/useFetchUserElections';
 import styles from './VoteCalendar.module.scss';
 
-export const VoteCalendar = ({ page, isOnlyBefore, handleChange }) => {
+export const VoteCalendar = ({ page, isOnlyBefore, handleChange, calendarValue, setCalendarValue }) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
-  const [value, setValue] = useState<Date | null>(new Date());
   const { fetch } = useFetchListElections();
   const { fetchElections } = useFetchUserElections();
+
+  const targetDate = new Date();
+  targetDate.setDate(targetDate.getDate() + 1);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -27,6 +29,20 @@ export const VoteCalendar = ({ page, isOnlyBefore, handleChange }) => {
       fetchElections(isOnlyBefore);
     }
   }, [isOnlyBefore]);
+  const handleChangeDate = (newValue) => {
+    const today = new Date(newValue);
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    const dateForVotes = `${yyyy}-${mm}-${dd}`;
+    fetch(page, isOnlyBefore, dateForVotes);
+    setCalendarValue(newValue);
+    if (!isAuthenticated) {
+      return;
+    }
+    fetchElections(isOnlyBefore, dateForVotes);
+    console.log('newValue', newValue);
+  };
 
   return (
     <div className={styles.DateContainer}>
@@ -47,12 +63,10 @@ export const VoteCalendar = ({ page, isOnlyBefore, handleChange }) => {
             </InputLabel>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
-                minDate={isOnlyBefore && new Date()}
+                minDate={isOnlyBefore && targetDate}
                 label="Custom input"
-                value={!isOnlyBefore ? value : new Date()}
-                onChange={(newValue) => {
-                  setValue(newValue);
-                }}
+                value={calendarValue}
+                onChange={handleChangeDate}
                 renderInput={({ inputRef, inputProps, InputProps }) => (
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <input className={styles.InputCalendar} ref={inputRef} {...inputProps} />

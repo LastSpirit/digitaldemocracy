@@ -9,14 +9,20 @@ interface userElectionsI{
   userElections?: any;
 }
 
+interface dataElelctionsI {
+  dataElelctions?: any;
+}
+
 const initialState: SliceState = {
   data: {} as ElectionsI,
   userElections: {} as userElectionsI,
+  dataElelctions: {} as dataElelctionsI,
 };
 
 interface SliceState {
   data: any,
   userElections:any,
+  dataElelctions:any,
 
 }
 
@@ -26,6 +32,9 @@ export const votesPageSlice = createSlice({
   reducers: {
     setVotes(state: SliceState, action) {
       state.data = action.payload;
+    },
+    setdataElelctions(state: SliceState, action) {
+      state.dataElelctions = action.payload;
     },
     setUserElections(state: SliceState, action) {
       state.userElections = action.payload;
@@ -41,6 +50,7 @@ interface Store {
 export const votesSelectors = {
   getVotes: () => (state: Store) => state.votes.data,
   getUserVotes: () => (state: Store) => state.votes.userElections,
+  getDataElections: () => (state: Store) => state.votes.dataElelctions,
 };
 
 export const electionsActionCreators = () => {

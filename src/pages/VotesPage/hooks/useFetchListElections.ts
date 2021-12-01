@@ -12,8 +12,13 @@ export const useFetchListElections = () => {
   const { fetchListElections } = votesAPI();
   const { setVotes } = electionsActionCreators();
   const token = getItem('token');
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const yyyy = today.getFullYear();
+  const dateForVotes = `${yyyy}-${mm}-${dd}`;
 
-  const fetch = useCallback((page = 1, is_onlyBefore = 0) => {
+  const fetch = useCallback((page = 1, is_onlyBefore = 0, date = dateForVotes) => {
     setStatus(APIStatus.Loading);
     fetchListElections({
       onSuccess: (response) => {
@@ -25,6 +30,7 @@ export const useFetchListElections = () => {
         token,
         is_onlyBefore,
         page,
+        date,
         // orderBy: sort_direction,
         // sortBy: sort_field,
         // country_politician_id: country_politician_idArray,

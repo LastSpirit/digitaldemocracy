@@ -31,7 +31,7 @@ const VotesPage = () => {
   const { resetEctions } = electionsActionCreators();
   const [isOnlyBefore, setIsOnlyBefore] = useState(0);
   const [page, setPage] = useState(1);
-
+  const [calendarValue, setCalendarValue] = useState<Date | null>(new Date());
   const [visibleElections, setVisibleElections] = useState([]);
   const [visibleUserElections, setVisibleUserElections] = useState([]);
 
@@ -43,6 +43,9 @@ const VotesPage = () => {
     const newPage = 1;
     setPage(newPage);
     fetch(newPage, newOnlyBefore);
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 1);
+    setCalendarValue(targetDate);
   };
 
   useEffect(() => {
@@ -105,7 +108,13 @@ const VotesPage = () => {
               />
             );
           })}
-          <VoteCalendar page={page} isOnlyBefore={isOnlyBefore} handleChange={handleChange} />
+          <VoteCalendar
+            page={page}
+            isOnlyBefore={isOnlyBefore}
+            handleChange={handleChange}
+            setCalendarValue={setCalendarValue}
+            calendarValue={calendarValue}
+          />
         </div>
       ) : (
         <div className={styles.sortDrop}>
@@ -123,7 +132,13 @@ const VotesPage = () => {
               />
             );
           })}
-          <VoteCalendar page={page} isOnlyBefore={isOnlyBefore} handleChange={handleChange} />
+          <VoteCalendar
+            page={page}
+            isOnlyBefore={isOnlyBefore}
+            handleChange={handleChange}
+            setCalendarValue={setCalendarValue}
+            calendarValue={calendarValue}
+          />
         </div>
       )}
       {isAuthenticated && <MyVotesCard props={visibleUserElections} />}
