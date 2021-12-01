@@ -12,8 +12,13 @@ export const useFetchUserElections = () => {
   const { fetchUserElections } = votesAPI();
   const { setUserElections } = electionsActionCreators();
   const token = getItem('token');
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const yyyy = today.getFullYear();
+  const dateForVotes = `${yyyy}-${mm}-${dd}`;
 
-  const fetchElections = useCallback((is_onlyBefore = 0) => {
+  const fetchElections = useCallback((is_onlyBefore = 0, date = dateForVotes) => {
     setStatusElections(APIStatus.Loading);
     fetchUserElections({
       onSuccess: (response) => {
@@ -24,6 +29,7 @@ export const useFetchUserElections = () => {
       payload: {
         token,
         is_onlyBefore,
+        date,
       },
     });
   }, [token]);
