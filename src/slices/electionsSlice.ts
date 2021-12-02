@@ -34,6 +34,7 @@ export interface CurrentElection {
   source_link: string;
   number_of_views: number;
   is_display: boolean;
+  is_silence?: boolean;
 }
 
 export interface PoliticiansI {
