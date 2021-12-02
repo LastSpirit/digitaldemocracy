@@ -1059,6 +1059,7 @@
       display: flex;
       flex-direction: column;
       text-align: end;
+      align-items: flex-end;      
 
       .сheckbox {
         color: #248232 !important;
@@ -1282,7 +1283,7 @@
   align-items: center;
 }
 .hishParty {
-  width: 70px;
+  width: 80px;
   height: 70px;
   background-color: #cfcfcf;
   border-radius: 50%;
@@ -1542,7 +1543,7 @@
   .mobCheckBlock__noVoice {
     font-size: 18px;
     font-weight: 900;
-    color: #EB4335;
+    color: #eb4335;
     margin-left: 20px;
   }
   .mobCheckBlock__box {

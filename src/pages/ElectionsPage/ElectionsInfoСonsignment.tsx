@@ -43,6 +43,7 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
   const { fetch: deleteVoice } = useFetchVoiceDelete();
   const dataVoice = useSelector(electionsSelector.getData());
   const data = useSelector(politicianSelectors.getPoliticianInfo());
+
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
@@ -110,7 +111,7 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                 </div>
                 <div className={styles.description__info_voice}>
                   <div>
-                    {isNow && !party.is_silence && (
+                    {isNow && !dataVoice.election.is_silence && (
                       <Checkbox
                         className={styles.сheckbox}
                         checked={checked}
@@ -131,7 +132,7 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                       <div>{t('elections.noVoite')}</div>
                     </div>
                   )}
-                  {checked && !party?.is_silence && isNow ? (
+                  {checked && !dataVoice.election.is_silence && isNow ? (
                     <div className={styles.voice}>
                       <div>{t('elections.yourVoteIsTaken')}</div>
                     </div>
@@ -140,7 +141,7 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                       <div> </div>
                     </div>
                   )}
-                  {(isNow || isAfter) && !party?.is_silence && (
+                  {(isNow || isAfter) && !dataVoice.election.is_silence && (
                     <div>
                       <div className={styles.percentOther_grey}>{t('elections.votedParty')}:</div>
                       <div className={styles.percentNumber}>
@@ -151,12 +152,12 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                       </div>
                     </div>
                   )}
+                  {dataVoice.election.is_silence && (
+                    <div className={styles.hishParty}>
+                      <img className={styles.imgSize} src={hish} alt="hish" />
+                    </div>
+                  )}
                 </div>
-                {party?.is_silence && (
-                  <div className={styles.hishParty}>
-                    <img className={styles.imgSize} src={hish} alt="hish" />
-                  </div>
-                )}
               </div>
             </div>
           </>
@@ -211,7 +212,7 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                   <div className={styles.noRiting__btnMob}>{t('info.withoutRating')}</div>
                 </div>
               )}
-              {(isNow || isAfter) && !party?.is_silence && (
+              {(isNow || isAfter) && !dataVoice.election.is_silence && (
                 <div className={styles.mobRightBlock}>
                   <div className={styles.percent_grey}>
                     {t('elections.voted')}: {party?.election_vote_statistics.count_voted_users_on_election}{' '}
@@ -227,7 +228,7 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
               )}
 
               <div className={styles.mobCheckBlock}>
-                {isNow && !party?.is_silence && (
+                {isNow && !dataVoice.election.is_silence && (
                   <Checkbox
                     className={styles.mobCheckBlock__box}
                     checked={checked}
@@ -247,13 +248,13 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                     <div>{t('elections.noVoite')}</div>
                   </div>
                 )}
-                {checked && !party?.is_silence && isNow && (
+                {checked && !dataVoice.election.is_silence && isNow && (
                   <div className={styles.mobCheckBlock__voice}>
                     <div>{t('elections.yourVoteIsTaken')}</div>
                   </div>
                 )}
               </div>
-              {party?.is_silence && (
+              {dataVoice.election.is_silence && (
                 <div className={styles.blockHish}>
                   <div className={styles.blockHish__img}>
                     <img className={styles.blockHish__imgSize} src={hish} alt="hish" />
