@@ -132,18 +132,22 @@ const ElectionsPage = () => {
                   <VotingResult key={item.id} outsideWinners={item} />
                 ))}
               </div>
-              <div className={!isMobile ? styles.statisticVotin : styles.statisticVotinMobile}>
-                <div className={styles.item}>
-                  <span className={styles.item_span}>
-                    {t('elections.electorate')}: {data?.numberOfVotesElection?.totalElectorate}
-                  </span>
+              {isAfter && (
+                <div className={!isMobile ? styles.statisticVotin : styles.statisticVotinMobile}>
+                  <div className={styles.item}>
+                    <span className={styles.item_span}>
+                      {t('elections.electorate')}: {data?.numberOfVotesElection?.totalElectorate}
+                    </span>
+                  </div>
+                  {data?.election?.turnout_count && (
+                    <div className={styles.item}>
+                      <span className={styles.item_span}>
+                        {t('elections.turnout')}: {data?.election?.turnout_count}
+                      </span>
+                    </div>
+                  )}
                 </div>
-                <div className={styles.item}>
-                  <span className={styles.item_span}>
-                    {t('elections.turnout')}: {data?.numberOfVotesElection?.numberOfVotedUsers}
-                  </span>
-                </div>
-              </div>
+              )}
             </div>
           )}
           <div className={styles.newsTop}>

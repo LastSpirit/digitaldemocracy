@@ -35,6 +35,7 @@ export interface CurrentElection {
   number_of_views: number;
   is_display: boolean;
   is_silence?: boolean;
+  turnout_count?: number;
 }
 
 export interface PoliticiansI {

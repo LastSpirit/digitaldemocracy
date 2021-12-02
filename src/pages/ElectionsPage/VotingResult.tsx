@@ -10,7 +10,7 @@ import styles from './VotingResult.module.scss';
 const VotingResult = ({ outsideWinners }) => {
   const [button, setButton] = useState(true);
   const { t, i18n } = useTranslation();
-  console.log(outsideWinners);
+
   return (
     <div className={styles.root}>
       <div className={styles.avatarBlock}>
