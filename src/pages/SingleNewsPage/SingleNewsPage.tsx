@@ -33,7 +33,7 @@ const SingleNews = (props) => {
             politicians={data?.politicians}
             bills={data?.bills}
           />
-          {data?.news && data?.news.length && <SingleNewsList news={data?.news} isMorePages={data?.isMorePages} />}
+          {data?.news && data?.news.length > 0 && <SingleNewsList news={data?.news} isMorePages={data?.isMorePages} />}
           {data?.elections && data?.elections.length && (
             <SingleNewsVotes elections={data?.elections} news={data?.news} isMorePages={data?.isMorePages} />
           )}
