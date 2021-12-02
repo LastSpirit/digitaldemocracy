@@ -19,10 +19,8 @@ const VoteCards: FC<ElectionsI> = ({ props }) => {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    if (props?.cards?.length > 0) {
-      setCards(props?.cards);
-    }
-  }, []);
+    setCards(props?.cards);
+  }, [props]);
 
   const handleClick = () => {
     setOpen(!open);
