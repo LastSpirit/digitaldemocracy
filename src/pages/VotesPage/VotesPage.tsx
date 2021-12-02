@@ -23,6 +23,7 @@ const VotesPage = () => {
   const { isMobile } = useWindowSize();
   const { elections, isMorePages } = useSelector((s: RootState) => s.votes?.data);
   const userElections = useSelector((s: RootState) => s.votes?.userElections);
+  const listElections = useSelector((s: RootState) => s.votes?.data);
   const { fetch, status } = useFetchListElections();
   const { fetchElections, statusElections } = useFetchUserElections();
   const [world, setWorld] = useState(true);
@@ -31,21 +32,36 @@ const VotesPage = () => {
   const { resetEctions } = electionsActionCreators();
   const [isOnlyBefore, setIsOnlyBefore] = useState(0);
   const [page, setPage] = useState(1);
-  const [calendarValue, setCalendarValue] = useState<Date | null>(new Date());
+  const [calendarValue, setCalendarValue] = useState<Date | null>(null);
   const [visibleElections, setVisibleElections] = useState([]);
   const [visibleUserElections, setVisibleUserElections] = useState([]);
 
-  const handleChange = () => {
-    const newOnlyBefore = isOnlyBefore === 0 ? 1 : 0;
-    setIsOnlyBefore(newOnlyBefore);
+  const resetElections = (onlyBefore) => {
     resetEctions();
     setVisibleElections([]);
+    setVisibleUserElections([]);
     const newPage = 1;
     setPage(newPage);
-    fetch(newPage, newOnlyBefore);
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 1);
-    setCalendarValue(targetDate);
+
+    fetch(page, onlyBefore, calendarValue);
+    if (!isAuthenticated) {
+      return;
+    }
+    fetchElections(onlyBefore, calendarValue);
+  };
+
+  const handleChange = () => {
+    const newOnlyBefore = isOnlyBefore === 0 ? 1 : 0;
+
+    setIsOnlyBefore(newOnlyBefore);
+    if (newOnlyBefore === 1) {
+      setCalendarValue(null);
+    }
+    // const targetDate = new Date();
+    // targetDate.setDate(targetDate.getDate() + 1);
+    // setCalendarValue(targetDate);
+
+    resetElections(newOnlyBefore);
   };
 
   useEffect(() => {
@@ -53,6 +69,12 @@ const VotesPage = () => {
       setVisibleUserElections(userElections);
     }
   }, [userElections]);
+
+  useEffect(() => {
+    if (listElections?.length > 0) {
+      setVisibleElections(listElections);
+    }
+  }, [listElections]);
 
   useEffect(() => {
     if (elections && Object.values(elections).length > 0) {
@@ -75,17 +97,23 @@ const VotesPage = () => {
       }
       setVisibleElections(visibleElectionsCopy);
     }
-  }, [elections]);
+  }, [elections, calendarValue]);
 
   useEffect(() => {
-    fetch(page, isOnlyBefore);
-  }, [isAuthenticated, update, page]);
+    fetch(page, isOnlyBefore, calendarValue);
+  }, [isAuthenticated, update, page, calendarValue]);
 
   useEffect(() => {
     if (isAuthenticated) {
-      fetchElections();
+      fetchElections(isOnlyBefore, calendarValue);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, update]);
+
+  const changeCalendarValue = (newValue) => {
+    setCalendarValue(newValue);
+
+    resetElections(isOnlyBefore);
+  };
 
   const handleShowMoreCountries = () => {
     setPage(page + 1);
@@ -112,7 +140,7 @@ const VotesPage = () => {
             page={page}
             isOnlyBefore={isOnlyBefore}
             handleChange={handleChange}
-            setCalendarValue={setCalendarValue}
+            changeCalendarValue={changeCalendarValue}
             calendarValue={calendarValue}
           />
         </div>
@@ -136,7 +164,7 @@ const VotesPage = () => {
             page={page}
             isOnlyBefore={isOnlyBefore}
             handleChange={handleChange}
-            setCalendarValue={setCalendarValue}
+            changeCalendarValue={changeCalendarValue}
             calendarValue={calendarValue}
           />
         </div>
