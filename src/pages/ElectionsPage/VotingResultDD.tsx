@@ -1,5 +1,6 @@
-import { Button, Link, Tooltip } from '@material-ui/core';
+import { Button, Tooltip } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Loading } from 'src/components/Loading/Loading';
@@ -22,7 +23,15 @@ const VotingResultDD = ({ winners }) => {
           )}
         </div>
       </div>
-      <div className={styles.name}>{winners.name}</div>
+      <Link
+        to={
+          winners?.type === 'politician'
+            ? `/politician/${winners?.short_link}/politician_news`
+            : `/party/${winners?.short_link}/`
+        }
+      >
+        <p className={styles.name}>{winners.name}</p>
+      </Link>
       <div className={styles.second}>
         <div
           className={styles.badge}

@@ -1,5 +1,6 @@
-import { Button, Link, Tooltip } from '@material-ui/core';
+import { Button, Tooltip } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Loading } from 'src/components/Loading/Loading';
@@ -37,8 +38,17 @@ const VotingResult = ({ outsideWinners }) => {
       </div>
 
       <div className={styles.positionText}>
-        <div className={styles.positionText_text}>{outsideWinners.name}</div>
+        <Link
+          to={
+            outsideWinners?.type === 'politician'
+              ? `/politician/${outsideWinners?.short_link}/politician_news`
+              : `/party/${outsideWinners?.short_link}/`
+          }
+        >
+          <p className={styles.positionText_text}>{outsideWinners.name}</p>
+        </Link>
       </div>
+
       <Button
         variant="outlined"
         onClick={button ? () => setButton(false) : () => setButton(true)}

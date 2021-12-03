@@ -117,7 +117,9 @@ const ElectionsInfoPerson: FC<IProps> = ({
               <div className={styles.personBlock}>
                 <div className={styles.fioBlock}>
                   <div className={styles.fio}>
-                    <p>{politician?.name}</p>
+                    <Link to={`/politician/${politician?.short_link}/politician_news`}>
+                      <p>{politician?.name}</p>
+                    </Link>
                     <div className={styles.description__info}>{politician?.english_name}</div>
                     {level && (
                       <div className={styles.description}>
@@ -244,7 +246,9 @@ const ElectionsInfoPerson: FC<IProps> = ({
                   </div>
                 </div>
                 <div className={styles.mobRightBlock}>
-                  <p>{politician?.name}</p>
+                  <Link to={`/politician/${politician?.short_link}/politician_news`}>
+                    <p>{politician?.name}</p>
+                  </Link>
                   <div className={styles.mobEnglishName}>{politician?.english_name}</div>
                 </div>
               </div>

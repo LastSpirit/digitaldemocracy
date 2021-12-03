@@ -6,6 +6,7 @@ import { avatarColorChanger } from 'src/utils/avatarColorChanger';
 import { PoliticianInfoI, politicianSelectors } from 'src/slices/politicianSlice';
 import classNames from 'classnames';
 import { Container, Checkbox } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import PersonIcon from '@material-ui/icons/Person';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -86,7 +87,9 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                 <div className={styles.fioBlock}>
                   <div className={styles.fio}>
                     <div className={styles.descriptionParty}>
-                      <p>{party?.name}</p>
+                      <Link to={`/party/${party?.short_link}`}>
+                        <p>{party?.name}</p>
+                      </Link>
                       <div className={styles.description__info}>
                         <div className={styles.description}>
                           {party?.politicians_count} {t('elections.partyMembers')}
@@ -170,7 +173,9 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                   : classNames(styles.mobileRoot__border, styles.mobileRoot__border_green)
               }
             >
-              <p className={styles.mobName}>{party?.name}</p>
+              <Link to={`/party/${party?.short_link}`}>
+                <p>{party?.name}</p>
+              </Link>
               <div className={styles.mobInfoBlock}>
                 <div
                   className={
