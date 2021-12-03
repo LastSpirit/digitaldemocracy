@@ -10,14 +10,15 @@ import styles from './VotingResult.module.scss';
 const VotingResult = ({ outsideWinners }) => {
   const [button, setButton] = useState(true);
   const { t, i18n } = useTranslation();
+
   return (
     <div className={styles.root}>
       <div className={styles.avatarBlock}>
         <div className={styles.avatar}>
-          {!outsideWinners.photo ? (
-            <PersonIcon className={styles.noAvatarIcon} />
+          {outsideWinners.photo || outsideWinners.logo ? (
+            <img src={outsideWinners.photo || outsideWinners.logo} alt="" />
           ) : (
-            <img src={outsideWinners.photo} alt="" />
+            <PersonIcon className={styles.noAvatarIcon} />
           )}
         </div>
       </div>
@@ -46,7 +47,6 @@ const VotingResult = ({ outsideWinners }) => {
           borderColor: button ? '#363557' : '#BE3B21',
           color: button ? '#fff' : '#BE3B21',
           width: '100%',
-          marginTop: '40px',
         }}
       >
         {button ? t('buttons.subscribe') : t('buttons.unsubscribe')}

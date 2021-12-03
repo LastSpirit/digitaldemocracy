@@ -13,35 +13,37 @@ import { useFetchListElections } from '../hooks/useFetchListElections';
 import { useFetchUserElections } from '../hooks/useFetchUserElections';
 import styles from './VoteCalendar.module.scss';
 
-export const VoteCalendar = ({ page, isOnlyBefore, handleChange, calendarValue, setCalendarValue }) => {
+export const VoteCalendar = ({ page, isOnlyBefore, handleChange, calendarValue, changeCalendarValue }) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { fetch } = useFetchListElections();
   const { fetchElections } = useFetchUserElections();
+  const { resetEctions } = electionsActionCreators();
 
   const targetDate = new Date();
   targetDate.setDate(targetDate.getDate() + 1);
 
   useEffect(() => {
     if (!isAuthenticated) {
-      fetch(page, isOnlyBefore);
+      fetch(page, isOnlyBefore, calendarValue);
     } else {
-      fetch(page, isOnlyBefore);
-      fetchElections(isOnlyBefore);
+      fetch(page, isOnlyBefore, calendarValue);
+      fetchElections(isOnlyBefore, calendarValue);
     }
-  }, [isOnlyBefore]);
+  }, [isOnlyBefore, calendarValue, isAuthenticated]);
   const handleChangeDate = (newValue) => {
     const today = new Date(newValue);
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const yyyy = today.getFullYear();
     const dateForVotes = `${yyyy}-${mm}-${dd}`;
+
+    changeCalendarValue(dateForVotes);
     fetch(page, isOnlyBefore, dateForVotes);
-    setCalendarValue(newValue);
+
     if (!isAuthenticated) {
       return;
     }
     fetchElections(isOnlyBefore, dateForVotes);
-    console.log('newValue', newValue);
   };
 
   return (
@@ -63,7 +65,7 @@ export const VoteCalendar = ({ page, isOnlyBefore, handleChange, calendarValue, 
             </InputLabel>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
-                minDate={isOnlyBefore && targetDate}
+                minDate={isOnlyBefore && new Date()}
                 label="Custom input"
                 value={calendarValue}
                 onChange={handleChangeDate}

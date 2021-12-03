@@ -17,9 +17,7 @@ const MyVoteCard = ({ props }) => {
   };
 
   useEffect(() => {
-    if (props?.length > 0) {
-      setCards(props);
-    }
+    setCards(props);
   }, [props]);
 
   return (
