@@ -23,6 +23,7 @@ const VotesPage = () => {
   const { t } = useTranslation();
   const { isMobile } = useWindowSize();
   const { elections, isMorePages } = useSelector((s: RootState) => s.votes?.data);
+  const userElections = useSelector((s: RootState) => s.votes?.userElections);
   const { fetch, status } = useFetchListElections();
   const { fetchElections, statusElections } = useFetchUserElections();
   const [world, setWorld] = useState(true);
@@ -31,17 +32,24 @@ const VotesPage = () => {
   const { resetEctions } = electionsActionCreators();
   const [isOnlyBefore, setIsOnlyBefore] = useState(0);
   const [page, setPage] = useState(1);
-  const [calendarValue, setCalendarValue] = useState<Date | null>(null);
+  // const [calendarValue, setCalendarValue] = useState<Date | null>(null);
   const [visibleElections, setVisibleElections] = useState([]);
   const [visibleUserElections, setVisibleUserElections] = useState([]);
 
   useEffect(() => {
-    fetch(page);
+    if (!isAuthenticated) {
+      fetch(page);
+    } else {
+      fetch(page);
+      fetchElections();
+    }
   }, [isAuthenticated, world, worldVotes, update, page]);
 
   const handleShowMoreCountries = () => {
     setPage(page + 1);
   };
+  console.log(elections, 'elections');
+  console.log(userElections, 'userElections');
   return (
     <Container maxWidth="lg" className={styles.VotesContainer}>
       {/* {console.log(elections)} */}
@@ -61,11 +69,7 @@ const VotesPage = () => {
               />
             );
           })}
-          <VoteCalendar
-            page={page}
-            update={update}
-            setUpdate={setUpdate}
-          />
+          <VoteCalendar page={page} update={update} setUpdate={setUpdate} />
         </div>
       ) : (
         <div className={styles.sortDrop}>
@@ -83,15 +87,11 @@ const VotesPage = () => {
               />
             );
           })}
-          <VoteCalendar
-            page={page}
-            update={update}
-            setUpdate={setUpdate}
-          />
+          <VoteCalendar page={page} update={update} setUpdate={setUpdate} />
         </div>
       )}
       <WrapperAsyncRequest status={status}>
-        {isAuthenticated && <MyVotesCard props={visibleUserElections} />}
+        {isAuthenticated && <MyVotesCard props={userElections} />}
         {elections?.map((election) => (
           <VotesCard key={election[0]?.id} props={election} />
         ))}

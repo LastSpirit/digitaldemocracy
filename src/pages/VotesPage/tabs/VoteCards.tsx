@@ -40,13 +40,15 @@ const VoteCards: FC<ElectionsI> = ({ props }) => {
       {open && (
         <>
           <div className={styles.VotingCards}>
-            {props?.map((card) => (
+            {props.slice(0, 4)?.map((card) => (
               <VoteCard key={card.id} props={card} />
             ))}
           </div>
 
           <div className={styles.VotingCards}>
-            {props?.length > 4 && isMoreLoaded && props?.map((card) => <VoteCard key={card.id} props={card} />)}
+            {props?.length > 4 &&
+              isMoreLoaded &&
+              props.slice(4)?.map((card) => <VoteCard key={card.id} props={card} />)}
           </div>
           {props?.length > 4 && !isMoreLoaded && (
             <button type="button" className={styles.ShowOtherSelections} onClick={handleIsMoreLoaded}>
