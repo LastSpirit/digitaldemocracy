@@ -92,7 +92,7 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                       </Link>
                       <div className={styles.description__info}>
                         <div className={styles.description}>
-                          {party?.politicians_count} {t('elections.partyMembers')}
+                          {party?.politicians_count} {t('elections.partyMembersDD')}
                         </div>
                       </div>
                       {party?.rating ? (
@@ -203,7 +203,7 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                 </div>
                 <div className={styles.mobRightBlock}>
                   <div className={styles.mobEnglishName}>
-                    {party?.politicians_count} {t('elections.partyMembers')}
+                    {party?.politicians_count} {t('elections.partyMembersDD')}
                   </div>
                   <div className={styles.percent_black_big}>{party?.rating && `${party?.rating}%`}</div>
                 </div>
