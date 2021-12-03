@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { useTranslation } from 'react-i18next';
+import { WrapperAsyncRequest } from 'src/components/Loading/WrapperAsyncRequest';
 import { userSelectors } from 'src/slices/userSlice';
 import { sortDropdownCountryVotes } from 'src/static/static';
 import { Box, Button, Container } from '@material-ui/core';
@@ -37,7 +38,6 @@ const VotesPage = () => {
   const [visibleUserElections, setVisibleUserElections] = useState([]);
 
   const resetElections = (onlyBefore) => {
-    resetEctions();
     setVisibleElections([]);
     setVisibleUserElections([]);
     const newPage = 1;
@@ -70,11 +70,11 @@ const VotesPage = () => {
     }
   }, [userElections]);
 
-  useEffect(() => {
-    if (listElections?.length > 0) {
-      setVisibleElections(listElections);
-    }
-  }, [listElections]);
+  // useEffect(() => {
+  //   if (listElections?.length > 0) {
+  //     setVisibleElections(listElections);
+  //   }
+  // }, [listElections]);
 
   useEffect(() => {
     if (elections && Object.values(elections).length > 0) {
@@ -99,15 +99,15 @@ const VotesPage = () => {
     }
   }, [elections, calendarValue]);
 
-  useEffect(() => {
-    fetch(page, isOnlyBefore, calendarValue);
-  }, [isAuthenticated, update, page, calendarValue]);
+  // useEffect(() => {
+  //   fetch(page, isOnlyBefore, calendarValue);
+  // }, [isAuthenticated, update, page, calendarValue]);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      fetchElections(isOnlyBefore, calendarValue);
-    }
-  }, [isAuthenticated, update]);
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     fetchElections(isOnlyBefore, calendarValue);
+  //   }
+  // }, [isAuthenticated, update]);
 
   const changeCalendarValue = (newValue) => {
     setCalendarValue(newValue);
@@ -169,10 +169,12 @@ const VotesPage = () => {
           />
         </div>
       )}
-      {isAuthenticated && <MyVotesCard props={visibleUserElections} />}
-      {visibleElections.map((election) => (
-        <VotesCard key={election?.id} props={election} />
-      ))}
+      <WrapperAsyncRequest status={status}>
+        {isAuthenticated && <MyVotesCard props={visibleUserElections} />}
+        {visibleElections.map((election) => (
+          <VotesCard key={election?.id} props={election} />
+        ))}
+      </WrapperAsyncRequest>
       {isMorePages && (
         <Box className={styles.boxShowBtn}>
           <Button

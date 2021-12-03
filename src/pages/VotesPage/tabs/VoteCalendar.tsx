@@ -29,7 +29,7 @@ export const VoteCalendar = ({ page, isOnlyBefore, handleChange, calendarValue, 
       fetch(page, isOnlyBefore, calendarValue);
       fetchElections(isOnlyBefore, calendarValue);
     }
-  }, [isOnlyBefore, calendarValue]);
+  }, [isOnlyBefore, calendarValue, isAuthenticated]);
   const handleChangeDate = (newValue) => {
     const today = new Date(newValue);
     const dd = String(today.getDate()).padStart(2, '0');
@@ -37,7 +37,7 @@ export const VoteCalendar = ({ page, isOnlyBefore, handleChange, calendarValue, 
     const yyyy = today.getFullYear();
     const dateForVotes = `${yyyy}-${mm}-${dd}`;
 
-    changeCalendarValue(newValue);
+    changeCalendarValue(dateForVotes);
     fetch(page, isOnlyBefore, dateForVotes);
 
     if (!isAuthenticated) {
