@@ -9,42 +9,27 @@ import DesktopDatePicker from '@material-ui/lab/DatePicker';
 import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 import { ru } from 'date-fns/locale';
-import { useFetchListElections } from '../hooks/useFetchListElections';
-import { useFetchUserElections } from '../hooks/useFetchUserElections';
 import styles from './VoteCalendar.module.scss';
 
-export const VoteCalendar = ({ page, isOnlyBefore, handleChange, calendarValue, changeCalendarValue }) => {
+export const VoteCalendar = ({ page, update, setUpdate }) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
-  const { fetch } = useFetchListElections();
-  const { fetchElections } = useFetchUserElections();
-  const { resetEctions } = electionsActionCreators();
+  const [date, setDate] = useState(null);
+  const [isOnlyBefore, setIsOnlyBefore] = useState(false);
+  const { setSortDate, setSortOnlyBefore } = electionsActionCreators();
 
   const targetDate = new Date();
   targetDate.setDate(targetDate.getDate() + 1);
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      fetch(page, isOnlyBefore, calendarValue);
-    } else {
-      fetch(page, isOnlyBefore, calendarValue);
-      fetchElections(isOnlyBefore, calendarValue);
-    }
-  }, [isOnlyBefore, calendarValue, isAuthenticated]);
-  const handleChangeDate = (newValue) => {
-    const today = new Date(newValue);
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    const dateForVotes = `${yyyy}-${mm}-${dd}`;
-
-    changeCalendarValue(dateForVotes);
-    fetch(page, isOnlyBefore, dateForVotes);
-
-    if (!isAuthenticated) {
-      return;
-    }
-    fetchElections(isOnlyBefore, dateForVotes);
+  const handleChangeOnlyBefore = () => {
+    setIsOnlyBefore(!isOnlyBefore);
+    setDate(null);
   };
+
+  useEffect(() => {
+    setSortDate(date);
+    setSortOnlyBefore(isOnlyBefore);
+    setUpdate(!update);
+  }, [date, isOnlyBefore]);
 
   return (
     <div className={styles.DateContainer}>
@@ -52,8 +37,8 @@ export const VoteCalendar = ({ page, isOnlyBefore, handleChange, calendarValue, 
         <>
           <div className={styles.futureCheckbox}>
             <Checkbox
-              checked={isOnlyBefore === 1}
-              onChange={handleChange}
+              checked={isOnlyBefore}
+              onChange={handleChangeOnlyBefore}
               icon={<CircleUnchecked style={{ color: 'black' }} />}
               checkedIcon={<RadioButtonCheckedIcon style={{ color: 'black' }} />}
             />
@@ -67,8 +52,8 @@ export const VoteCalendar = ({ page, isOnlyBefore, handleChange, calendarValue, 
               <DesktopDatePicker
                 minDate={isOnlyBefore && new Date()}
                 label="Custom input"
-                value={calendarValue}
-                onChange={handleChangeDate}
+                value={date}
+                onChange={setDate}
                 renderInput={({ inputRef, inputProps, InputProps }) => (
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <input className={styles.InputCalendar} ref={inputRef} {...inputProps} />

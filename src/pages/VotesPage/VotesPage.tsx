@@ -23,8 +23,6 @@ const VotesPage = () => {
   const { t } = useTranslation();
   const { isMobile } = useWindowSize();
   const { elections, isMorePages } = useSelector((s: RootState) => s.votes?.data);
-  const userElections = useSelector((s: RootState) => s.votes?.userElections);
-  const listElections = useSelector((s: RootState) => s.votes?.data);
   const { fetch, status } = useFetchListElections();
   const { fetchElections, statusElections } = useFetchUserElections();
   const [world, setWorld] = useState(true);
@@ -37,89 +35,16 @@ const VotesPage = () => {
   const [visibleElections, setVisibleElections] = useState([]);
   const [visibleUserElections, setVisibleUserElections] = useState([]);
 
-  const resetElections = (onlyBefore) => {
-    setVisibleElections([]);
-    setVisibleUserElections([]);
-    const newPage = 1;
-    setPage(newPage);
-
-    fetch(page, onlyBefore, calendarValue);
-    if (!isAuthenticated) {
-      return;
-    }
-    fetchElections(onlyBefore, calendarValue);
-  };
-
-  const handleChange = () => {
-    const newOnlyBefore = isOnlyBefore === 0 ? 1 : 0;
-
-    setIsOnlyBefore(newOnlyBefore);
-    if (newOnlyBefore === 1) {
-      setCalendarValue(null);
-    }
-    // const targetDate = new Date();
-    // targetDate.setDate(targetDate.getDate() + 1);
-    // setCalendarValue(targetDate);
-
-    resetElections(newOnlyBefore);
-  };
-
   useEffect(() => {
-    if (userElections?.length > 0) {
-      setVisibleUserElections(userElections);
-    }
-  }, [userElections]);
-
-  // useEffect(() => {
-  //   if (listElections?.length > 0) {
-  //     setVisibleElections(listElections);
-  //   }
-  // }, [listElections]);
-
-  useEffect(() => {
-    if (elections && Object.values(elections).length > 0) {
-      const visibleElectionsCopy = [...visibleElections];
-      /* eslint-disable-next-line */
-      for (const [key, value] of Object.entries(elections)) {
-        const cards = value as any;
-        if (cards.length > 0) {
-          const country = cards[0]?.country;
-          const index = visibleElectionsCopy.findIndex((e) => e.id === country.id);
-          if (index === -1) {
-            const election = {
-              id: country.id,
-              country,
-              cards,
-            };
-            visibleElectionsCopy.push(election);
-          }
-        }
-      }
-      setVisibleElections(visibleElectionsCopy);
-    }
-  }, [elections, calendarValue]);
-
-  // useEffect(() => {
-  //   fetch(page, isOnlyBefore, calendarValue);
-  // }, [isAuthenticated, update, page, calendarValue]);
-
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     fetchElections(isOnlyBefore, calendarValue);
-  //   }
-  // }, [isAuthenticated, update]);
-
-  const changeCalendarValue = (newValue) => {
-    setCalendarValue(newValue);
-
-    resetElections(isOnlyBefore);
-  };
+    fetch(page);
+  }, [isAuthenticated, world, worldVotes, update, page]);
 
   const handleShowMoreCountries = () => {
     setPage(page + 1);
   };
   return (
     <Container maxWidth="lg" className={styles.VotesContainer}>
+      {/* {console.log(elections)} */}
       {!isMobile ? (
         <div className={styles.sortDrop}>
           {sortDropdownCountryVotes(t).map(({ id, full_title, field }) => {
@@ -138,10 +63,8 @@ const VotesPage = () => {
           })}
           <VoteCalendar
             page={page}
-            isOnlyBefore={isOnlyBefore}
-            handleChange={handleChange}
-            changeCalendarValue={changeCalendarValue}
-            calendarValue={calendarValue}
+            update={update}
+            setUpdate={setUpdate}
           />
         </div>
       ) : (
@@ -162,17 +85,15 @@ const VotesPage = () => {
           })}
           <VoteCalendar
             page={page}
-            isOnlyBefore={isOnlyBefore}
-            handleChange={handleChange}
-            changeCalendarValue={changeCalendarValue}
-            calendarValue={calendarValue}
+            update={update}
+            setUpdate={setUpdate}
           />
         </div>
       )}
       <WrapperAsyncRequest status={status}>
         {isAuthenticated && <MyVotesCard props={visibleUserElections} />}
-        {visibleElections.map((election) => (
-          <VotesCard key={election?.id} props={election} />
+        {elections?.map((election) => (
+          <VotesCard key={election[0]?.id} props={election} />
         ))}
       </WrapperAsyncRequest>
       {isMorePages && (
