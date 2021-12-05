@@ -12,16 +12,12 @@ export const useFetchListElections = () => {
   const { fetchListElections } = votesAPI();
   const { setVotes } = electionsActionCreators();
   const token = getItem('token');
+  const { sort_geography, sort_date } = useSelector((s: RootState) => s.votes);
 
-  const fetch = useCallback((page = 1, is_onlyBefore = 0, strDate = null) => {
-    let date = null;
-    if (strDate) {
-      const convertedDate = new Date(strDate);
-      const dd = String(convertedDate.getDate()).padStart(2, '0');
-      const mm = String(convertedDate.getMonth() + 1).padStart(2, '0');
-      const yyyy = convertedDate.getFullYear();
-      date = `${yyyy}-${mm}-${dd}`;
-    }
+  const { country_idArray, region_idArray, city_idArray } = sort_geography;
+  const { date, isOnlyBefore } = sort_date;
+
+  const fetch = useCallback((page = 1) => {
     setStatus(APIStatus.Loading);
     fetchListElections({
       onSuccess: (response) => {
@@ -31,21 +27,14 @@ export const useFetchListElections = () => {
       onError: () => setStatus(APIStatus.Failure),
       payload: {
         token,
-        is_onlyBefore,
         page,
         date,
-        // orderBy: sort_direction,
-        // sortBy: sort_field,
-        // country_politician_id: country_politician_idArray,
-        // region_politician_id: region_politician_idArray,
-        // city_politician_id: city_politician_idArray,
-        // country_user_id: country_user_idArray,
-        // region_user_id: region_user_idArray,
-        // city_user_id: city_user_idArray,
-        // is_world_votes: worldVotes ? 1 : 0,
-        // is_world_politicians: world ? 1 : 0,
+        is_onlyBefore: isOnlyBefore,
+        country_id: country_idArray,
+        region_id: region_idArray,
+        city_id: city_idArray,
       },
     });
-  }, [token]);
+  }, [token, date, isOnlyBefore, country_idArray, region_idArray, city_idArray]);
   return { fetch, status };
 };

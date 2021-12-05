@@ -6,7 +6,7 @@ const fetchListElections = (args) => {
   return callAPI({
     url: 'getListElections',
     config: {
-      method: 'GET',
+      method: 'POST',
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${args.payload.token}`,
@@ -20,7 +20,7 @@ const fetchUserElections = (args) => {
   return callAPI({
     url: 'getUserElections',
     config: {
-      method: 'GET',
+      method: 'POST',
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${args.payload.token}`,

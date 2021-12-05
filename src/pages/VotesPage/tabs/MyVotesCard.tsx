@@ -6,7 +6,11 @@ import { votesSelectors } from 'src/slices/votesPageSlice';
 import { useTranslation } from 'react-i18next';
 import styles from './MyVoteCard.module.scss';
 
-const MyVoteCard = ({ props }) => {
+interface userElectionsI {
+  props?: any;
+}
+
+const MyVoteCard: FC<userElectionsI> = ({ props }) => {
   const { t, i18n } = useTranslation();
 
   const [isMoreLoaded, setIsMoreLoaded] = useState(false);
@@ -32,13 +36,9 @@ const MyVoteCard = ({ props }) => {
           <VoteCard key={card.id} props={card} />
         ))}
       </div>
-      {cards?.length > 4 &&
-        isMoreLoaded &&
-        cards.slice(4).map((card) => (
-          <div key={card.id} className={styles.VotingCards}>
-            <VoteCard props={card} />
-          </div>
-        ))}
+      <div className={styles.VotingCards}>
+        {cards?.length > 4 && isMoreLoaded && props.slice(4).map((card) => <VoteCard key={card.id} props={card} />)}
+      </div>
       {cards?.length > 4 && !isMoreLoaded && (
         <button type="button" className={styles.ShowOtherSelections} onClick={handleIsMoreLoaded}>
           Показать остальные выборы
