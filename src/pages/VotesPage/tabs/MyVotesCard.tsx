@@ -32,9 +32,10 @@ const MyVoteCard: FC<userElectionsI> = ({ props }) => {
         </Typography>
       </div>
       <div className={styles.VotingCards}>
-        {cards.slice(0, 4).map((card) => (
-          <VoteCard key={card.id} props={card} />
-        ))}
+        {cards &&
+          cards !== null &&
+          cards.length > 0 &&
+          cards?.slice(0, 4).map((card) => <VoteCard key={card.id} props={card} />)}
       </div>
       <div className={styles.VotingCards}>
         {cards?.length > 4 && isMoreLoaded && props.slice(4).map((card) => <VoteCard key={card.id} props={card} />)}
