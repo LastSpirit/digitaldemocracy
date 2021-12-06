@@ -37,6 +37,7 @@ import { setWkNews } from './slices/newsSlice1';
 import { useSelectorType } from './components/News/hooks/useSelecterType';
 import VotesPage from './pages/VotesPage/VotesPage';
 import ElectionsPage from './pages/ElectionsPage/ElectionsPage';
+import { useFetchUserData } from './pages/ProfilePage/hooks/useFetchUserData';
 
 const App: FC = () => {
   if (!firebase.apps.length) {
@@ -51,6 +52,7 @@ const App: FC = () => {
   const { wkNews } = useSelectorType((state) => state.newsPage);
   const [path, setPath] = useState(pathname);
   const [visibleCookie, setVisibleCookie] = useState(!JSON.parse(getItem('user_cookie_confirm')));
+  const { fetch: fetchUserData, status } = useFetchUserData();
 
   const intersect = (prev, next) => {
     return prev
@@ -75,6 +77,7 @@ const App: FC = () => {
       dispatch(setWkNews(null));
     }
   }, [dataRoutes]);
+
   const theme = createAppTheme({
     direction: settings.direction,
     responsiveFontSizes: settings.responsiveFontSizes,
@@ -86,6 +89,11 @@ const App: FC = () => {
     [ModalParams.YandexRegister]: { value: yandexRegisterValue, setValue: setYandexRegisterValue },
   } = useSearchParams(ModalParams.YandexRegister);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchUserData();
+    }
+  }, [location]);
   return useMemo(
     () =>
       isAuthenticated !== undefined ? (

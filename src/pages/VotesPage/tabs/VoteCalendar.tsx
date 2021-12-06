@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Autocomplete, Box, Checkbox, InputLabel, TextField } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { userSelectors } from 'src/slices/userSlice';
 import { electionsActionCreators } from 'src/slices/votesPageSlice';
@@ -16,6 +17,7 @@ export const VoteCalendar = ({ page, update, setUpdate }) => {
   const [date, setDate] = useState(null);
   const [isOnlyBefore, setIsOnlyBefore] = useState(false);
   const { setSortDate, setSortOnlyBefore } = electionsActionCreators();
+  const { t, i18n } = useTranslation();
 
   const targetDate = new Date();
   targetDate.setDate(targetDate.getDate() + 1);
@@ -42,11 +44,11 @@ export const VoteCalendar = ({ page, update, setUpdate }) => {
               icon={<CircleUnchecked style={{ color: 'black' }} />}
               checkedIcon={<RadioButtonCheckedIcon style={{ color: 'black' }} />}
             />
-            <p>Только будущие</p>
+            <p>{t('votes.onlyFuture')}</p>
           </div>
           <div className={styles.DatePicker}>
             <InputLabel htmlFor="country" className={styles.inputLabel}>
-              Выберите дату
+              {t('votes.date')}
             </InputLabel>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker

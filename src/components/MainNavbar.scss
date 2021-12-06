@@ -151,9 +151,17 @@
 }
 
 .icon-footer {
-  fill: #7A7A7A;
+  fill: #7a7a7a;
 }
 
 .active {
   fill: #248232;
+}
+.activeVotes {
+  display: inline;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #248232;
+  position: absolute;
 }
