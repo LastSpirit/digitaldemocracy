@@ -61,7 +61,7 @@ const linksData = (t) => [
 ];
 
 const linksToLink =
-  (isAuth, pathname) =>
+  (isAuth, pathname, isFuture) =>
   ({ title, mr, to, showIsAuth = false }, index) => {
     const activeLink = pathname.split('/')[1] === to.split('/')[1];
     if (showIsAuth) {
@@ -106,6 +106,7 @@ const linksToLink =
           marginRight: mr,
           fontFamily: 'HelveticaNeueCyr, sans-serif',
           fontSize: 18,
+          position: 'relative',
           sm: {
             fontSize: 12,
           },
@@ -114,6 +115,7 @@ const linksToLink =
         }}
       >
         {title}
+        {to === '/votes' && isFuture && <div className="activeVotes"> </div>}
       </Link>
     );
   };
@@ -128,6 +130,7 @@ const MainNavbar: FC = () => {
   const { isMobile } = useWindowSize();
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { setRout } = userActionCreators();
+  const isFuture = useSelector(userSelectors.getUser()).is_have_future_elections;
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
@@ -233,7 +236,7 @@ const MainNavbar: FC = () => {
                   alignItems: 'center',
                 }}
               >
-                {!isMobile && <Box>{links.map(linksToLink(isAuthenticated, pathname))}</Box>}
+                {!isMobile && <Box>{links.map(linksToLink(isAuthenticated, pathname, isFuture))}</Box>}
                 <Box
                   sx={{
                     backgroundColor: 'background.paper',

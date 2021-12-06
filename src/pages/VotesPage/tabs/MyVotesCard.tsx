@@ -28,7 +28,7 @@ const MyVoteCard: FC<userElectionsI> = ({ props }) => {
     <div className={styles.Container}>
       <div className={styles.CoutryContainer}>
         <Typography className={styles.CountryName}>
-          <p> Мои выборы</p>
+          <p>{t('votes.myVotes')}</p>
         </Typography>
       </div>
       <div className={styles.VotingCards}>
@@ -42,7 +42,7 @@ const MyVoteCard: FC<userElectionsI> = ({ props }) => {
       </div>
       {cards?.length > 4 && !isMoreLoaded && (
         <button type="button" className={styles.ShowOtherSelections} onClick={handleIsMoreLoaded}>
-          Показать остальные выборы
+          {t('votes.others')}
         </button>
       )}
     </div>

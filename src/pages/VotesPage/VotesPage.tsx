@@ -49,8 +49,6 @@ const VotesPage = () => {
   const handleShowMoreCountries = () => {
     setPage(page + 1);
   };
-  console.log(elections, 'elections');
-  console.log(userElections, 'userElections');
   return (
     <Container maxWidth="lg" className={styles.VotesContainer}>
       {/* {console.log(elections)} */}

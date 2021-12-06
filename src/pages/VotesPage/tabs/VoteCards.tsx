@@ -52,7 +52,7 @@ const VoteCards: FC<ElectionsI> = ({ props }) => {
           </div>
           {props?.length > 4 && !isMoreLoaded && (
             <button type="button" className={styles.ShowOtherSelections} onClick={handleIsMoreLoaded}>
-              Показать остальные выборы
+              {t('votes.others')}
             </button>
           )}
         </>
