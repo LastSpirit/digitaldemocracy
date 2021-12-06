@@ -24,6 +24,7 @@ const VotesPage = () => {
   const { isMobile } = useWindowSize();
   const { elections, isMorePages } = useSelector((s: RootState) => s.votes?.data);
   const userElections = useSelector((s: RootState) => s.votes?.userElections);
+  const listElections = useSelector((s: RootState) => s.votes?.data);
   const { fetch, status } = useFetchListElections();
   const { fetchElections, statusElections } = useFetchUserElections();
   const [world, setWorld] = useState(true);
