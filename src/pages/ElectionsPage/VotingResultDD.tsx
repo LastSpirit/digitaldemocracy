@@ -1,17 +1,44 @@
-import { Button, Tooltip } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import classNames from 'classnames';
-import React, { useState } from 'react';
-import { Loading } from 'src/components/Loading/Loading';
-import badgeColorChanger from 'src/utils/badgeColorChanger';
+import { useEffect, useState } from 'react';
 import PersonIcon from '@material-ui/icons/Person';
+import { useSelector } from 'react-redux';
+import { userSelectors } from 'src/slices/userSlice';
+import { ModalParams } from 'src/types/routing';
+import { useSearchParams } from 'src/hooks/useSearchParams';
+import { APIStatus } from 'src/lib/axiosAPI';
+import { useChangeSubscribePolitician } from './hooks/useChangeSubscribePolitician';
 import styles from './VotingResult.module.scss';
 
 const VotingResultDD = ({ winners }) => {
-  const [button, setButton] = useState(true);
+  const [button, setButton] = useState(!winners.is_subscribed);
+  const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
+  const { status, change } = useChangeSubscribePolitician(winners.id, !button);
   const { t, i18n } = useTranslation();
+  const {
+    [ModalParams.Auth]: { setValue: setAuthValue },
+  } = useSearchParams(ModalParams.Auth);
 
+  const handleClick = () => {
+    if (!isAuthenticated) {
+      setAuthValue('/login');
+    }
+  };
+
+  const subscribed = () => {
+    if (isAuthenticated) {
+      change();
+    } else {
+      handleClick();
+    }
+  };
+
+  useEffect(() => {
+    if (status === APIStatus.Success) {
+      setButton(!button);
+    }
+  }, [status]);
   return (
     <div className={styles.root}>
       <div className={styles.avatarBlock}>
@@ -36,7 +63,7 @@ const VotingResultDD = ({ winners }) => {
         <div
           className={styles.badge}
           style={{
-            backgroundColor: '#B0B0B0',
+            backgroundColor: '#248232',
           }}
         >
           <div className={styles.text}>
@@ -50,20 +77,23 @@ const VotingResultDD = ({ winners }) => {
           {t('elections.voted')}: {winners.election_vote_statistics.count_voted_users_on_election} {t('info.people')}
         </div>
       </div>
-      <div className={styles.button}>
-        <Button
-          variant="outlined"
-          onClick={button ? () => setButton(false) : () => setButton(true)}
-          style={{
-            backgroundColor: button ? '#363557' : '#fff',
-            borderColor: button ? '#363557' : '#BE3B21',
-            color: button ? '#fff' : '#BE3B21',
-            width: '100%',
-          }}
-        >
-          {button ? t('buttons.subscribe') : t('buttons.unsubscribe')}
-        </Button>
-      </div>
+      {winners.type === 'politician' && (
+        <div className={styles.button}>
+          <Button
+            variant="outlined"
+            disabled={status === APIStatus.Loading}
+            onClick={() => subscribed()}
+            style={{
+              backgroundColor: button ? '#363557' : '#fff',
+              borderColor: button ? '#363557' : '#BE3B21',
+              color: button ? '#fff' : '#BE3B21',
+              width: '100%',
+            }}
+          >
+            {button ? t('buttons.subscribe') : t('buttons.unsubscribe')}
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
