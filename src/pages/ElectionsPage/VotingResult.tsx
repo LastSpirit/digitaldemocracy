@@ -2,16 +2,47 @@ import { Button, Tooltip } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Loading } from 'src/components/Loading/Loading';
 import badgeColorChanger from 'src/utils/badgeColorChanger';
 import PersonIcon from '@material-ui/icons/Person';
+import { APIStatus } from 'src/lib/axiosAPI';
+import { ModalParams } from 'src/types/routing';
+import { useSearchParams } from 'src/hooks/useSearchParams';
+import { useSelector } from 'react-redux';
+import { userSelectors } from 'src/slices/userSlice';
+import { useChangeSubscribePolitician } from './hooks/useChangeSubscribePolitician';
 import styles from './VotingResult.module.scss';
 
 const VotingResult = ({ outsideWinners }) => {
-  const [button, setButton] = useState(true);
+  console.log(outsideWinners);
+  const [button, setButton] = useState(!outsideWinners.is_subscribed);
+  const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
+  const { status, change } = useChangeSubscribePolitician(outsideWinners.id, !button);
   const { t, i18n } = useTranslation();
+  const {
+    [ModalParams.Auth]: { setValue: setAuthValue },
+  } = useSearchParams(ModalParams.Auth);
 
+  const handleClick = () => {
+    if (!isAuthenticated) {
+      setAuthValue('/login');
+    }
+  };
+
+  const subscribed = () => {
+    if (isAuthenticated) {
+      change();
+    } else {
+      handleClick();
+    }
+  };
+
+  useEffect(() => {
+    if (status === APIStatus.Success) {
+      setButton(!button);
+    }
+  }, [status]);
   return (
     <div className={styles.root}>
       <div className={styles.avatarBlock}>
@@ -48,19 +79,21 @@ const VotingResult = ({ outsideWinners }) => {
           <p className={styles.positionText_text}>{outsideWinners.name}</p>
         </Link>
       </div>
-
-      <Button
-        variant="outlined"
-        onClick={button ? () => setButton(false) : () => setButton(true)}
-        style={{
-          backgroundColor: button ? '#363557' : '#fff',
-          borderColor: button ? '#363557' : '#BE3B21',
-          color: button ? '#fff' : '#BE3B21',
-          width: '100%',
-        }}
-      >
-        {button ? t('buttons.subscribe') : t('buttons.unsubscribe')}
-      </Button>
+      {outsideWinners.type === 'politician' && (
+        <Button
+          variant="outlined"
+          disabled={status === APIStatus.Loading}
+          onClick={() => subscribed()}
+          style={{
+            backgroundColor: button ? '#363557' : '#fff',
+            borderColor: button ? '#363557' : '#BE3B21',
+            color: button ? '#fff' : '#BE3B21',
+            width: '100%',
+          }}
+        >
+          {button ? t('buttons.subscribe') : t('buttons.unsubscribe')}
+        </Button>
+      )}
     </div>
   );
 };
