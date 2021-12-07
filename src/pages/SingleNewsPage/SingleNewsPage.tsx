@@ -34,7 +34,7 @@ const SingleNews = (props) => {
             bills={data?.bills}
           />
           {data?.news && data?.news.length > 0 && <SingleNewsList news={data?.news} isMorePages={data?.isMorePages} />}
-          {data?.elections && data?.elections.length && (
+          {data?.elections && data?.elections.length > 0 && (
             <SingleNewsVotes elections={data?.elections} news={data?.news} isMorePages={data?.isMorePages} />
           )}
         </WrapperAsyncRequest>
