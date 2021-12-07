@@ -11,7 +11,7 @@ import { APIStatus } from 'src/lib/axiosAPI';
 import { useChangeSubscribePolitician } from './hooks/useChangeSubscribePolitician';
 import styles from './VotingResult.module.scss';
 
-const VotingResultDD = ({ winners }) => {
+const VotingResultDD = ({ winners, updateData, value }) => {
   const [button, setButton] = useState(!winners.is_subscribed);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { status, change } = useChangeSubscribePolitician(winners.id, !button);
@@ -37,8 +37,14 @@ const VotingResultDD = ({ winners }) => {
   useEffect(() => {
     if (status === APIStatus.Success) {
       setButton(!button);
+      updateData({ id: winners.id, button: !button });
     }
   }, [status]);
+  useEffect(() => {
+    if (value?.id === winners.id) {
+      setButton(!button);
+    }
+  }, [value]);
   return (
     <div className={styles.root}>
       <div className={styles.avatarBlock}>

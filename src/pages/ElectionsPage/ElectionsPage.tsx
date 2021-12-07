@@ -30,8 +30,18 @@ const ElectionsPage = () => {
   const [isAfter, setIsAfter] = useState(false);
   const [isBefore, setIsBefore] = useState(false);
   const [isNow, setisNow] = useState(false);
+  const [button, setButton] = useState(null);
+  const [buttonDD, setButtonDD] = useState(null);
   const [canVotes, setCanVotes] = useState(null);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
+
+  const updateData = (value) => {
+    setButton(value);
+  };
+
+  const updateDataDD = (value) => {
+    setButtonDD(value);
+  };
 
   const getVotes = () => {
     switch (data?.regionElection.type) {
@@ -123,13 +133,13 @@ const ElectionsPage = () => {
               <h2 className={styles.h2}>{t('elections.resultDD')}</h2>
               <div className={styles.votingResult}>
                 {data?.winners?.map((item) => (
-                  <VotingResultDD key={item.id} winners={item} />
+                  <VotingResultDD key={item.id} winners={item} updateData={updateData} value={buttonDD} />
                 ))}
               </div>
               <h2 className={styles.h2}>{t('elections.electionResults')}</h2>
               <div className={styles.votingResult}>
                 {data?.outsideWinners?.map((item) => (
-                  <VotingResult key={item.id} outsideWinners={item} />
+                  <VotingResult key={item.id} outsideWinners={item} value={button} updateData={updateDataDD} />
                 ))}
               </div>
               {isAfter && (

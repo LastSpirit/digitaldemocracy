@@ -14,8 +14,7 @@ import { userSelectors } from 'src/slices/userSlice';
 import { useChangeSubscribePolitician } from './hooks/useChangeSubscribePolitician';
 import styles from './VotingResult.module.scss';
 
-const VotingResult = ({ outsideWinners }) => {
-  console.log(outsideWinners);
+const VotingResult = ({ outsideWinners, value, updateData }) => {
   const [button, setButton] = useState(!outsideWinners.is_subscribed);
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { status, change } = useChangeSubscribePolitician(outsideWinners.id, !button);
@@ -41,8 +40,14 @@ const VotingResult = ({ outsideWinners }) => {
   useEffect(() => {
     if (status === APIStatus.Success) {
       setButton(!button);
+      updateData({ id: outsideWinners.id, button: !button });
     }
   }, [status]);
+  useEffect(() => {
+    if (value?.id === outsideWinners.id) {
+      setButton(!button);
+    }
+  }, [value]);
   return (
     <div className={styles.root}>
       <div className={styles.avatarBlock}>
@@ -58,7 +63,7 @@ const VotingResult = ({ outsideWinners }) => {
         <div
           className={styles.badge}
           style={{
-            backgroundColor: '#B0B0B0',
+            backgroundColor: '#248232',
           }}
         >
           <div className={styles.text}>
