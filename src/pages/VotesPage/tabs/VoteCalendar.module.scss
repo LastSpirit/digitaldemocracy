@@ -39,17 +39,33 @@
     margin-bottom: 12px;
   }
 }
-.InputCalendar {
-  width: 290px;
+
+.InputBox {
+  width: 320px;
   height: 56px;
   color: #6b778c;
   display: flex;
+  align-items: center;
+  justify-content: space-evenly;
   border-radius: 16px;
   border: 1px solid #626975;
   text-align: center;
+  @media screen and (max-width: $mobileScreen) {
+    width: 290px;
+  }
+}
+.InputCalendar {
+  border: none;
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
   line-height: 25px;
+  outline: none;
+
+  color: #6b778c;
+}
+
+.Reset {
+  cursor: pointer;
 }
