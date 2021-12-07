@@ -5,7 +5,6 @@ import { useHistory, matchPath } from 'react-router';
 import { useSelector } from 'react-redux';
 import { votesSelectors } from 'src/slices/votesPageSlice';
 import { useTranslation } from 'react-i18next';
-
 import watched from '../../icons/pictures/watched.png';
 import logo from '../../icons/logo/2.svg';
 import { AuthorI, MediaI } from '../../slices/homeSlice';
@@ -59,11 +58,18 @@ const VoteCard: FC<ElectionsI> = ({ props, bool }) => {
   };
 
   return (
-    <Box className={bool ? classes.bigCardContainerCard : classes.bigCardContainer} style={{ background: getBackgroundColor(), border: getBorder() }}>
+    <Box
+      className={bool ? classes.bigCardContainerCard : classes.bigCardContainer}
+      style={{ background: getBackgroundColor(), border: getBorder() }}
+    >
       <Box className={classes.mainHeader}>
         <Box className={classes.date}>
-          <Typography className={classes.text}>{props?.start_date}</Typography>
-          <Typography className={classes.text}>{props?.end_date}</Typography>
+          {props?.start_date && (
+            <Typography className={classes.text}>{`${t('votes.startDate')} ${props?.start_date}`}</Typography>
+          )}
+          {props?.end_date && (
+            <Typography className={classes.text}>{`${t('votes.endDate')} ${props?.end_date}`}</Typography>
+          )}
         </Box>
         <Box className={classes.bigHeader}>
           {props?.is_silence ? (
@@ -72,13 +78,14 @@ const VoteCard: FC<ElectionsI> = ({ props, bool }) => {
             </div>
           ) : (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <img className={classes.imgSize} src={logo} alt="/" />
               <Typography
                 sx={{
                   marginLeft: '7px',
                 }}
                 className={classes.text}
               >
-                {props?.count_voted_users || ''}
+                {props?.count_voted_users || '0'}
               </Typography>
             </Box>
           )}
