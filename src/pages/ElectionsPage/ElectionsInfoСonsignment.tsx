@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { useSearchParams } from 'src/hooks/useSearchParams';
 import { electionsSelector } from 'src/slices/electionsSlice';
+import { endOfWords } from 'src/utils/endOfWords';
 import hish from '../../icons/pictures/hish.png';
 import styles from './ElectionsInfoBlock.module.scss';
 import { PercentsLinearGraphic } from '../PoliticianPage/tabs/ratingStatistics/components/infographic/PercentsLinearGraphic';
@@ -91,9 +92,15 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                         <p>{party?.name}</p>
                       </Link>
                       <div className={styles.description__info}>
-                        <div className={styles.description}>
-                          {party?.politicians_count} {t('elections.partyMembersDD')}
-                        </div>
+                        {party?.politicians_count !== 0 && (
+                          <div className={styles.description}>
+                            {`${party.politicians_count ?? 0} ${endOfWords(
+                              party?.politicians_count,
+                              { one: t('info.member'), many: t('info.members') },
+                              i18n.language
+                            )} ${t('elections.partyMembersDD')}`}
+                          </div>
+                        )}
                       </div>
                       {party?.rating ? (
                         <div>
@@ -202,9 +209,15 @@ const ElectionsInfoСonsignment: FC<IProps> = ({ party, isBefore, isAfter, isNow
                   </div>
                 </div>
                 <div className={styles.mobRightBlock}>
-                  <div className={styles.mobEnglishName}>
-                    {party?.politicians_count} {t('elections.partyMembersDD')}
-                  </div>
+                  {party?.politicians_count !== 0 && (
+                    <div className={styles.mobEnglishName}>
+                      {`${party.politicians_count ?? 0} ${endOfWords(
+                        party?.politicians_count,
+                        { one: t('info.member'), many: t('info.members') },
+                        i18n.language
+                      )} ${t('elections.partyMembersDD')}`}
+                    </div>
+                  )}
                   <div className={styles.percent_black_big}>{party?.rating && `${party?.rating}%`}</div>
                 </div>
               </div>

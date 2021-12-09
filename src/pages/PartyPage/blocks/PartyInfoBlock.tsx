@@ -43,10 +43,22 @@ const PartyInfoBlock: FC = () => {
       {!isMobile ? (
         <div className={styles.topItems}>
           <div
-            className={data?.rating && data?.place ? styles.avatarBlock : classNames(styles.avatarBlock, styles.avatarBlock__nonRaiting)}
-            style={data?.rating && data?.place ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' } : {}}
+            className={
+              data?.rating && data?.place
+                ? styles.avatarBlock
+                : classNames(styles.avatarBlock, styles.avatarBlock__nonRaiting)
+            }
+            style={
+              data?.rating && data?.place
+                ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }
+                : {}
+            }
           >
-            <div className={data?.rating && data?.place ? styles.avatar : classNames(styles.avatar, styles.avatar__nonRaiting)}>
+            <div
+              className={
+                data?.rating && data?.place ? styles.avatar : classNames(styles.avatar, styles.avatar__nonRaiting)
+              }
+            >
               {!data?.logo ? <PersonIcon className={styles.noAvatarIcon} /> : <img src={data?.logo} alt="" />}
             </div>
           </div>
@@ -59,9 +71,13 @@ const PartyInfoBlock: FC = () => {
               </div>
               <div className={styles.description}>
                 {/* <p>{data?.description ?? 'Описание отсутствует'}</p> */}
-                {data?.politicians_count && (
+                {data?.politicians_count !== 0 && (
                   <div className={styles.subscribersBadge}>
-                    {`${data.politicians_count ?? 0} ${endOfWords(data?.politicians_count, { one: t('info.member'), many: t('info.members') }, i18n.language)} ${t('info.partiesInfo')}`}
+                    {`${data.politicians_count ?? 0} ${endOfWords(
+                      data?.politicians_count,
+                      { one: t('info.member'), many: t('info.members') },
+                      i18n.language
+                    )} ${t('elections.partyMembersDD')}`}
                   </div>
                 )}
               </div>
@@ -90,15 +106,33 @@ const PartyInfoBlock: FC = () => {
           <p>{data?.name}</p>
           {data?.politicians_count && (
             <div className={styles.mobSubscribers}>
-              {`${data?.politicians_count} ${endOfWords(data?.politicians_count, { one: t('info.member'), many: t('info.members') }, i18n.language)} ${t('info.partiesInfo')}`}
+              {`${data?.politicians_count} ${endOfWords(
+                data?.politicians_count,
+                { one: t('info.member'), many: t('info.members') },
+                i18n.language
+              )} ${t('elections.partyMembersDD')}`}
             </div>
           )}
           <div className={styles.mobInfoBlock}>
             <div
-              className={data?.rating && data?.place ? styles.mobAvatarBlock : classNames(styles.mobAvatarBlock, styles.mobAvatarBlock__nonRaiting)}
-              style={data?.rating && data?.place ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' } : {}}
+              className={
+                data?.rating && data?.place
+                  ? styles.mobAvatarBlock
+                  : classNames(styles.mobAvatarBlock, styles.mobAvatarBlock__nonRaiting)
+              }
+              style={
+                data?.rating && data?.place
+                  ? { backgroundImage: `url(${avatarColorChanger(data?.rating)})`, backgroundSize: 'cover' }
+                  : {}
+              }
             >
-              <div className={data?.rating && data?.place ? styles.mobAvatar : classNames(styles.mobAvatar, styles.mobAvatar__nonRaiting)}>
+              <div
+                className={
+                  data?.rating && data?.place
+                    ? styles.mobAvatar
+                    : classNames(styles.mobAvatar, styles.mobAvatar__nonRaiting)
+                }
+              >
                 {!data?.logo ? <PersonIcon className={styles.mobNoAvatarIcon} /> : <img src={data?.logo} alt="" />}
               </div>
             </div>
