@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Container } from '@material-ui/core';
 import 'react-datepicker/dist/react-datepicker.css';
 import { getItem } from 'src/lib/localStorageManager';
+import MetaTags from 'react-meta-tags';
 import { useFetchProfileInfo } from './hooks/useFetchProfileInfo';
 import { WrapperAsyncRequest } from './blocks/Loading/WrapperAsyncRequest';
 import PoliticianInfoBlock from './blocks/PoliticianInfoBlock/PoliticianInfoBlock';
@@ -10,7 +11,6 @@ import { CustomDialog } from './blocks/CustomDialog/CustomDialog';
 import { politicianActionCreators } from '../../slices/politicianSlice';
 // import { useWindowSize } from 'src/hooks/useWindowSize';
 // import { BackButton } from '../../components/BackButton/BackButton';
-
 import './datePickerStyles.scss';
 import styles from './PoliticianPage.module.scss';
 
@@ -41,6 +41,14 @@ const PoliticianPage = () => {
   }, []);
   return (
     <Container maxWidth="lg" className={styles.cont}>
+      <MetaTags>
+        <meta name="description" content="Some description." />
+        <meta property="og:title" content="politican page" />
+        <meta
+          property="og:image"
+          content="https://dev-backoffice.digitaldemocracy.ru/storage/images/politician/f0b71bda-f9d0-4826-bd72-144b5a850454.jpg"
+        />
+      </MetaTags>
       <div className={styles.container}>
         <WrapperAsyncRequest status={status}>
           <div className={styles.containerContent}>
