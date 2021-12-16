@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Container } from '@material-ui/core';
 import 'react-datepicker/dist/react-datepicker.css';
 import { getItem } from 'src/lib/localStorageManager';
-import MetaTags from 'react-meta-tags';
+import { Helmet } from 'react-helmet-async';
 import { useFetchProfileInfo } from './hooks/useFetchProfileInfo';
 import { WrapperAsyncRequest } from './blocks/Loading/WrapperAsyncRequest';
 import PoliticianInfoBlock from './blocks/PoliticianInfoBlock/PoliticianInfoBlock';
@@ -41,14 +41,12 @@ const PoliticianPage = () => {
   }, []);
   return (
     <Container maxWidth="lg" className={styles.cont}>
-      <MetaTags>
-        <meta name="description" content="Some description." />
-        <meta property="og:title" content="politican page" />
+      <Helmet>
         <meta
           property="og:image"
-          content="https://dev-backoffice.digitaldemocracy.ru/storage/images/politician/f0b71bda-f9d0-4826-bd72-144b5a850454.jpg"
+          content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg"
         />
-      </MetaTags>
+      </Helmet>
       <div className={styles.container}>
         <WrapperAsyncRequest status={status}>
           <div className={styles.containerContent}>
