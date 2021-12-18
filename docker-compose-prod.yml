@@ -14,14 +14,21 @@ services:
     networks:
       - ddemo
     volumes:
-      - ./nginx/app.prod.conf:/etc/nginx/conf.d/default.conf
       - /opt/ddemo/storage/app/public:/usr/share/nginx/html/storage
       - /opt/letsencrypt:/var/www/_letsencrypt
       - /etc/letsencrypt/:/ssl/
+
+
+  nginx-ingress:
+    restart: always
+    image: nginx:alpine
+    container_name: front
+    networks:
+      - ddemo
+    volumes:
+      - ./nginx/app.prod.conf:/etc/nginx/conf.d/default.conf
     ports:
       - 80:80
       - 443:443
-
-
 networks:
   ddemo:
