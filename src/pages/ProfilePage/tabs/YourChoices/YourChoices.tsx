@@ -34,7 +34,14 @@ const columns = (isMobile, t): GridColumns => {
           role={'button'}
           className={styles.link}
           tabIndex={0}
-          to={row.type !== 'party' ? `/politician/${row.politic_link}/politician_news` : `/party/${row.politic_link}`}
+          to={
+            row.type !== 'party'
+              ? `/politician/${row.politic_link}/politician_news/?photo=${
+                  row.photo ||
+                  'https://ipbmafia.ru/uploads/monthly_2018_07/895242-200.png.e10304d04e80f56d3ebaa863b4ccdd41.png'
+                }&name=${row.name || 'name'}&position=${row.position || 'политик'}`
+              : `/party/${row.politic_link}`
+          }
         >
           {row.candidate || '-'}
         </Link>

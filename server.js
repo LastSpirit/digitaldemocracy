@@ -22,19 +22,21 @@ app.get('/', function (request, response) {
   });
 });
 
-app.get('/politician/:name/politician_news', function (request, response) {
-  console.log('politician page visited!');
+app.get('/politician/:short_link/politician_news/*', function (request, response) {
+  const { photo, name, position } = request.query;
+  if (!photo && !name && !position) {
+    console.log('error');
+    return;
+  }
+  console.log(photo, name, position);
   const filePath = path.resolve(__dirname, './build', 'index.html');
   fs.readFile(filePath, 'utf8', function (err, data) {
     if (err) {
       return console.log(err);
     }
-    data = data.replace(/\$OG_TITLE/g, 'Politician Page');
-    data = data.replace(/\$OG_DESCRIPTION/g, 'Politician page description');
-    result = data.replace(
-      /\$OG_IMAGE/g,
-      'https://dev-backoffice.digitaldemocracy.ru/storage/images/politician/c42f3988-32e6-4090-a486-7ff5ea65bbcc.jpg'
-    );
+    data = data.replace(/\$OG_TITLE/g, name);
+    data = data.replace(/\$OG_DESCRIPTION/g, position);
+    result = data.replace(/\$OG_IMAGE/g, photo);
     response.send(result);
   });
 });

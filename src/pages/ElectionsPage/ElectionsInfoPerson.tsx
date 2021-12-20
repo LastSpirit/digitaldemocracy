@@ -117,7 +117,12 @@ const ElectionsInfoPerson: FC<IProps> = ({
               <div className={styles.personBlock}>
                 <div className={styles.fioBlock}>
                   <div className={styles.fio}>
-                    <Link to={`/politician/${politician?.short_link}/politician_news`}>
+                    <Link
+                      to={`/politician/${politician?.short_link}/politician_news/?photo=${
+                        politician?.photo ||
+                        'https://ipbmafia.ru/uploads/monthly_2018_07/895242-200.png.e10304d04e80f56d3ebaa863b4ccdd41.png'
+                      }&name=${politician?.name || 'name'}&position=${politician?.position || 'политик'}`}
+                    >
                       <p>{politician?.name}</p>
                     </Link>
                     <div className={styles.description__info}>{politician?.english_name}</div>
@@ -246,7 +251,12 @@ const ElectionsInfoPerson: FC<IProps> = ({
                   </div>
                 </div>
                 <div className={styles.mobRightBlock}>
-                  <Link to={`/politician/${politician?.short_link}/politician_news`}>
+                  <Link
+                    to={`/politician/${politician?.short_link}/politician_news/${
+                      politician?.photo ||
+                      'https://ipbmafia.ru/uploads/monthly_2018_07/895242-200.png.e10304d04e80f56d3ebaa863b4ccdd41.png'
+                    }/${politician?.name || 'name'}/${politician?.position || 'политик'}`}
+                  >
                     <p>{politician?.name}</p>
                   </Link>
                   <div className={styles.mobEnglishName}>{politician?.english_name}</div>

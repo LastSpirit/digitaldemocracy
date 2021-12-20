@@ -77,7 +77,10 @@ const VotingResult = ({ outsideWinners, value, updateData }) => {
         <Link
           to={
             outsideWinners?.type === 'politician'
-              ? `/politician/${outsideWinners?.short_link}/politician_news`
+              ? `/politician/${outsideWinners?.short_link}/politician_news/?photo=${
+                  outsideWinners?.photo ||
+                  'https://ipbmafia.ru/uploads/monthly_2018_07/895242-200.png.e10304d04e80f56d3ebaa863b4ccdd41.png'
+                }&name=${outsideWinners?.name || 'name'}&position=${outsideWinners?.position || 'политик'}`
               : `/party/${outsideWinners?.short_link}/`
           }
         >

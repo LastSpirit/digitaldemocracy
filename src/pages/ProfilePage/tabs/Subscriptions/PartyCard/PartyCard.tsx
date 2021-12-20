@@ -50,7 +50,11 @@ const PartyCard: FC<IProps> = ({ photo, rating, name, is_subscribed, id, short_l
   return (
     <div className={styles.root}>
       <LightTooltip title={position ?? ''}>
-        <Link to={`/politician/${short_link}/politician_news`}>
+        <Link
+          to={`/politician/${short_link}/politician_news/?photo = ${
+            photo || 'https://ipbmafia.ru/uploads/monthly_2018_07/895242-200.png.e10304d04e80f56d3ebaa863b4ccdd41.png'
+          }&name=${name || 'name'}&position=${position || 'политик'}`}
+        >
           <div
             className={styles.avatarBlock}
             style={{ backgroundImage: `url(${avatarColorChanger(rating)})`, backgroundSize: 'cover' }}

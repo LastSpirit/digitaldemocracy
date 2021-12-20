@@ -39,7 +39,9 @@ const StatisticsBillCard: FC<StatisticsCardPropsI> = ({
         <div className={styles['card-mobile']}>
           <div className={styles.topItems}>
             <div className={styles.cardContent}>
-              <Link to={`/singleBills/${short_link}`} className={styles.title}>{name}</Link>
+              <Link to={`/singleBills/${short_link}`} className={styles.title}>
+                {name}
+              </Link>
             </div>
           </div>
           <div className={styles.bottomItems}>
@@ -57,7 +59,9 @@ const StatisticsBillCard: FC<StatisticsCardPropsI> = ({
         <div className={styles.card}>
           <Tooltip title={name}>
             <div className={styles.cardContent}>
-              <Link to={`/singleBills/${short_link}`} className={styles.title}>{name}</Link>
+              <Link to={`/singleBills/${short_link}`} className={styles.title}>
+                {name}
+              </Link>
               <div className={styles.bottomItem}>
                 <BillVotesGroup
                   id={id}
