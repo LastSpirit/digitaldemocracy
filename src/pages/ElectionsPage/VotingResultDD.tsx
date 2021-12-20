@@ -59,7 +59,10 @@ const VotingResultDD = ({ winners, updateData, value }) => {
       <Link
         to={
           winners?.type === 'politician'
-            ? `/politician/${winners?.short_link}/politician_news`
+            ? `/politician/${winners?.short_link}/politician_news/?photo = ${
+                winners?.photo ||
+                'https://ipbmafia.ru/uploads/monthly_2018_07/895242-200.png.e10304d04e80f56d3ebaa863b4ccdd41.png'
+              }&name=${winners?.name || 'name'}&position=${winners?.position || 'политик'}`
             : `/party/${winners?.short_link}/`
         }
       >

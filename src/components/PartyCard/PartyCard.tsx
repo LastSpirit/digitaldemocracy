@@ -52,7 +52,11 @@ const PartyCard: FC<IProps> = ({
 
   return (
     <div className={styles.root}>
-      <Link to={`/politician/${short_link}/politician_news`}>
+      <Link
+        to={`/politician/${short_link}/politician_news/?photo = ${
+          photo || 'https://ipbmafia.ru/uploads/monthly_2018_07/895242-200.png.e10304d04e80f56d3ebaa863b4ccdd41.png'
+        }&name=${name || 'name'}&position=${position || 'политик'}`}
+      >
         <div
           className={
             rating && place ? styles.avatarBlock : classNames(styles.avatarBlock, styles.avatarBlock__nonRaiting)
@@ -81,13 +85,14 @@ const PartyCard: FC<IProps> = ({
       <div className={styles.name}>{name}</div>
       <div className={styles.position}>
         <Tooltip title={position}>
-        <div className={styles.position_text}>{position && sliceTxt(position)}
-          {!!list_active_position.length && (
-            <Link to={`/politician/${short_link}/position_history`} className={styles.position_textLink}>
-              {position ? `${` ${t('info.more')} ${position_count}`}` : ''}
-            </Link>
-          )}
-        </div>
+          <div className={styles.position_text}>
+            {position && sliceTxt(position)}
+            {!!list_active_position.length && (
+              <Link to={`/politician/${short_link}/position_history`} className={styles.position_textLink}>
+                {position ? `${` ${t('info.more')} ${position_count}`}` : ''}
+              </Link>
+            )}
+          </div>
         </Tooltip>
       </div>
       <Button

@@ -59,6 +59,8 @@ const StatisticsCard: FC<StatisticsCardPropsI> = ({
   const percentIsPositive = percent?.includes('+') && !percent?.includes('-');
   const { isMobile } = useWindowSize();
   const getTip = () => position || '';
+  const isPolitician = field === '/politician';
+
   return (
     <>
       {isMobile ? (
@@ -118,7 +120,17 @@ const StatisticsCard: FC<StatisticsCardPropsI> = ({
             </Link>
           </LightTooltip>
           <div className={styles.cardContent}>
-            <Link to={`${field}/${short_link}`} className={styles.title}>
+            <Link
+              to={
+                isPolitician
+                  ? `/politician/${short_link}/politician_news/?photo=${
+                      photo ||
+                      'https://ipbmafia.ru/uploads/monthly_2018_07/895242-200.png.e10304d04e80f56d3ebaa863b4ccdd41.png'
+                    }&name=${name || 'name'}&position=${position || 'политик'}`
+                  : `${field}/${short_link}`
+              }
+              className={styles.title}
+            >
               {name}
             </Link>
             <div className={styles.bottomItem}>
