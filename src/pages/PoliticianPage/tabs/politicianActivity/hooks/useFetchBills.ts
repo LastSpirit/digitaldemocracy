@@ -11,7 +11,7 @@ export const useFetchBills = () => {
   const token = getItem('token');
   const { setBills, startLike, successLike, failLike, startDislike, successDislike, failDislike } =
     politicianActionCreators();
-  const { fetchBills, politicianLike, politicianDislike } = politicianAPI();
+  const { fetchBills, politicianBillLike, politicianBillDislike } = politicianAPI();
   const politicianId = useSelector((s: RootState) => s?.politician?.data?.id);
 
   const fetch = useCallback(() => {
@@ -32,7 +32,7 @@ export const useFetchBills = () => {
     const isItemLiked = isLiked;
     const isItemDisliked = isDisliked;
     startLike({ id, field: 'bills' });
-    politicianLike({
+    politicianBillLike({
       onSuccess: () => {
         if (isItemLiked) {
           successLike({ index, id, status: false, field: 'bills' });
@@ -62,7 +62,7 @@ export const useFetchBills = () => {
     const isItemLiked = isLiked;
     const isItemDisliked = isDisliked;
     startDislike({ id, field: 'bills' });
-    politicianDislike({
+    politicianBillDislike({
       onSuccess: () => {
         if (isItemDisliked) {
           successDislike({ index, id, status: false, field: 'bills' });
