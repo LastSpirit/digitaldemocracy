@@ -27,7 +27,17 @@ export const Promises = () => {
         {data?.length ? (
           data?.map(
             (
-              { text, link, id, promise_date, is_user_liked, is_user_disliked, number_of_likes, number_of_dislikes },
+              {
+                text,
+                link,
+                youtube,
+                id,
+                promise_date,
+                is_user_liked,
+                is_user_disliked,
+                number_of_likes,
+                number_of_dislikes,
+              },
               index
             ) => (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
@@ -38,12 +48,14 @@ export const Promises = () => {
                   <div className={styles.link}>
                     <p>{t('info.linkOnSource')}:</p>
                     <div className={styles.buttons}>
-                      <IconButton className={styles.arrowButton} onClick={() => window.open('https://google.com')}>
+                      <IconButton className={styles.arrowButton} onClick={() => window.open(link)}>
                         <CallMadeIcon className={styles.arrowLink} />
                       </IconButton>
-                      <IconButton className={styles.arrowButton} onClick={() => window.open('https://google.com')}>
-                        <YouTubeIcon className={styles.youtube} />
-                      </IconButton>
+                      {youtube && (
+                        <IconButton className={styles.arrowButton} onClick={() => window.open(youtube)}>
+                          <YouTubeIcon className={styles.youtube} />
+                        </IconButton>
+                      )}
                     </div>
                   </div>
                 </div>
