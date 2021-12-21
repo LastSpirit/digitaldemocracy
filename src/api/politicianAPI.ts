@@ -211,7 +211,7 @@ interface LikeVar {
 const politicianLike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
   const { isItemLiked, token } = args.variables;
   return callAPI({
-    url: isItemLiked ? 'deleteLikeFromPoliticianOnBill' : 'addLikeToPoliticianOnBill',
+    url: isItemLiked ? 'deleteLikeFromPolitician' : 'addLikeToPolitician',
     config: {
       method: 'POST',
       headers: {
@@ -224,6 +224,36 @@ const politicianLike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = 
 };
 
 const politicianDislike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
+  const { isItemDisliked, token } = args.variables;
+  return callAPI({
+    url: isItemDisliked ? 'deleteDislikeFromPolitician' : 'addDislikeToPolitician',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.variables.token}`,
+      },
+    },
+    ...args,
+  });
+};
+
+const politicianBillLike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
+  const { isItemLiked, token } = args.variables;
+  return callAPI({
+    url: isItemLiked ? 'deleteLikeFromPoliticianOnBill' : 'addLikeToPoliticianOnBill',
+    config: {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${args.variables.token}`,
+      },
+    },
+    ...args,
+  });
+};
+
+const politicianBillDislike: APIRequest<LikeRequest, LikeResponse, LikeErr, LikeVar> = (args) => {
   const { isItemDisliked, token } = args.variables;
   return callAPI({
     url: isItemDisliked ? 'deleteDislikeFromPoliticianOnBill' : 'addDislikeToPoliticianOnBill',
@@ -334,6 +364,8 @@ const APIs = {
   fetchStatistic,
   fetchPoliticianChanges,
   fetchBills,
+  politicianBillLike,
+  politicianBillDislike,
   politicianLike,
   politicianDislike,
   getGraphPoliticianRatingChange,
