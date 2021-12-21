@@ -77,6 +77,7 @@ export interface PromiseI {
   id?: number;
   text: string;
   link: string;
+  youtube?: string;
   promise_date: string;
   is_user_liked?: boolean;
   is_user_disliked?: boolean;
