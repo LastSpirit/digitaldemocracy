@@ -49,6 +49,7 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
       setAuthValue('/login');
     }
   };
+  console.log(data, 'data');
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
       {!isMobile ? (
