@@ -6,12 +6,12 @@ const FacebookShare = (props) => {
   return (
     <FacebookButton
       url={url}
-      appId="534181091070755"
+      appId="634901081285366"
       style={{
         padding: 0,
         border: 'none',
         outline: 'none',
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
       }}
     >
       {children}
