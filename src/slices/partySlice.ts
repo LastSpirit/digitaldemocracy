@@ -14,12 +14,7 @@ interface SliceState {
 }
 
 const initialState: SliceState = {
-  data: {
-    id: 1,
-    name: 'Единая Россия',
-    logo: 'https://pbs.twimg.com/media/CIkgW1FUsAAuETX.jpg',
-    percent: 86,
-  },
+  data: {},
   sort_direction: '',
   sort_field: '',
   politiciansPartyInfo: {
@@ -38,7 +33,6 @@ export const partySlice = createSlice({
     setPartyPoliticians(state: SliceState, action: PayloadAction<PoliticiansPartyInfoI>) {
       state.politiciansPartyInfo = {
         politicians: [
-          ...state.politiciansPartyInfo.politicians,
           ...action.payload.politicians
         ],
         isMorePages: action.payload.isMorePages,
@@ -53,9 +47,6 @@ export const partySlice = createSlice({
     setIsSubscribe(state: SliceState, action) {
       const { id, isSubscribe } = action.payload;
       state.politiciansPartyInfo.politicians.find((item) => item.id === id).is_subscribed = !isSubscribe;
-    },
-    clearPartyInfo() {
-      return initialState;
     },
   },
 });
