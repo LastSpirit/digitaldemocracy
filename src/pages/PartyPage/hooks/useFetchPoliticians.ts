@@ -10,15 +10,9 @@ import { getItem } from '../../../lib/localStorageManager';
 export const useFetchPartyPoliticians = () => {
   const [status, setStatus] = useState<APIStatus>(APIStatus.Initial);
   const { fetchPartyPoliticians } = partyAPI();
-  const { setPartyPoliticians, clearPartyInfo } = partyActionCreators();
+  const { setPartyPoliticians } = partyActionCreators();
   const { sort_direction, sort_field } = useSelector((s: RootState) => s.party);
   const token = getItem('token');
-
-  useEffect(() => {
-    return () => {
-      clearPartyInfo();
-    };
-  }, []);
 
   const fetch = useCallback(
     (party_id, page) => {
