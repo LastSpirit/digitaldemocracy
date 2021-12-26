@@ -50,6 +50,7 @@ app.get('/elections/*', function (request, response) {
     }
     data = data.replace(/\$OG_TITLE/g, 'Выборы');
     data = data.replace(/\$OG_DESCRIPTION/g, 'Узнайте все о выборах');
+    result = data.replace(/\$OG_IMAGE/g, 'https://digitaldemocracy.ru/static/media/no_photo.33133c8d.svg');
     response.send(result);
   });
 });
@@ -63,6 +64,7 @@ app.get('/author/*', function (request, response) {
     }
     data = data.replace(/\$OG_TITLE/g, 'Авторы новостей');
     data = data.replace(/\$OG_DESCRIPTION/g, 'Узнать новости автора');
+    result = data.replace(/\$OG_IMAGE/g, 'https://digitaldemocracy.ru/static/media/no_photo.33133c8d.svg');
     response.send(result);
   });
 });
@@ -76,11 +78,12 @@ app.get('/mass-media/*', function (request, response) {
     }
     data = data.replace(/\$OG_TITLE/g, 'Новости');
     data = data.replace(/\$OG_DESCRIPTION/g, 'Узнайте все о новостях');
+    result = data.replace(/\$OG_IMAGE/g, 'https://digitaldemocracy.ru/static/media/no_photo.33133c8d.svg');
     response.send(result);
   });
 });
 
-app.get('/party/*', function (request, response) {
+app.get('/party/:id', function (request, response) {
   console.log('Party page visited!');
   const filePath = path.resolve(__dirname, './build', 'index.html');
   fs.readFile(filePath, 'utf8', function (err, data) {
@@ -89,6 +92,7 @@ app.get('/party/*', function (request, response) {
     }
     data = data.replace(/\$OG_TITLE/g, 'Партии');
     data = data.replace(/\$OG_DESCRIPTION/g, 'Узнайте все о партиях');
+    result = data.replace(/\$OG_IMAGE/g, 'https://digitaldemocracy.ru/static/media/no_photo.33133c8d.svg');
     response.send(result);
   });
 });
@@ -102,6 +106,7 @@ app.get('/singleBills/*', function (request, response) {
     }
     data = data.replace(/\$OG_TITLE/g, 'Законопроекты');
     data = data.replace(/\$OG_DESCRIPTION/g, 'Узнайте все о законопроектах');
+    result = data.replace(/\$OG_IMAGE/g, 'https://digitaldemocracy.ru/static/media/no_photo.33133c8d.svg');
     response.send(result);
   });
 });
