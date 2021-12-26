@@ -41,58 +41,67 @@ app.get('/politician/:short_link/politician_news/*', function (request, response
   });
 });
 
-app.get('/elections', function (request, response) {
+app.get('/elections/*', function (request, response) {
   console.log('Elections page visited!');
   const filePath = path.resolve(__dirname, './build', 'index.html');
   fs.readFile(filePath, 'utf8', function (err, data) {
     if (err) {
       return console.log(err);
     }
-    data = data.replace(/\$OG_TITLE/g, 'Elections Page');
-    data = data.replace(/\$OG_DESCRIPTION/g, 'Elections page description');
-    result = data.replace(/\$OG_IMAGE/g, 'https://i.imgur.com/V7irMl8.png');
+    data = data.replace(/\$OG_TITLE/g, 'Выборы');
+    data = data.replace(/\$OG_DESCRIPTION/g, 'Узнайте все о выборах');
     response.send(result);
   });
 });
 
-app.get('/author', function (request, response) {
+app.get('/author/*', function (request, response) {
   console.log('Author page visited!');
   const filePath = path.resolve(__dirname, './build', 'index.html');
   fs.readFile(filePath, 'utf8', function (err, data) {
     if (err) {
       return console.log(err);
     }
-    data = data.replace(/\$OG_TITLE/g, 'Author Page');
-    data = data.replace(/\$OG_DESCRIPTION/g, 'Author page description');
-    result = data.replace(/\$OG_IMAGE/g, 'https://i.imgur.com/V7irMl8.png');
+    data = data.replace(/\$OG_TITLE/g, 'Авторы новостей');
+    data = data.replace(/\$OG_DESCRIPTION/g, 'Узнать новости автора');
     response.send(result);
   });
 });
 
-app.get('/mass-media', function (request, response) {
+app.get('/mass-media/*', function (request, response) {
   console.log('Mass-media page visited!');
   const filePath = path.resolve(__dirname, './build', 'index.html');
   fs.readFile(filePath, 'utf8', function (err, data) {
     if (err) {
       return console.log(err);
     }
-    data = data.replace(/\$OG_TITLE/g, 'Mass-media Page');
-    data = data.replace(/\$OG_DESCRIPTION/g, 'Mass-media page description');
-    result = data.replace(/\$OG_IMAGE/g, 'https://i.imgur.com/V7irMl8.png');
+    data = data.replace(/\$OG_TITLE/g, 'Новости');
+    data = data.replace(/\$OG_DESCRIPTION/g, 'Узнайте все о новостях');
     response.send(result);
   });
 });
 
-app.get('/party', function (request, response) {
+app.get('/party/*', function (request, response) {
   console.log('Party page visited!');
   const filePath = path.resolve(__dirname, './build', 'index.html');
   fs.readFile(filePath, 'utf8', function (err, data) {
     if (err) {
       return console.log(err);
     }
-    data = data.replace(/\$OG_TITLE/g, 'Party Page');
-    data = data.replace(/\$OG_DESCRIPTION/g, 'Party page description');
-    result = data.replace(/\$OG_IMAGE/g, 'https://i.imgur.com/V7irMl8.png');
+    data = data.replace(/\$OG_TITLE/g, 'Партии');
+    data = data.replace(/\$OG_DESCRIPTION/g, 'Узнайте все о партиях');
+    response.send(result);
+  });
+});
+
+app.get('/singleBills/*', function (request, response) {
+  console.log('Party page visited!');
+  const filePath = path.resolve(__dirname, './build', 'index.html');
+  fs.readFile(filePath, 'utf8', function (err, data) {
+    if (err) {
+      return console.log(err);
+    }
+    data = data.replace(/\$OG_TITLE/g, 'Законопроекты');
+    data = data.replace(/\$OG_DESCRIPTION/g, 'Узнайте все о законопроектах');
     response.send(result);
   });
 });
