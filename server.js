@@ -41,6 +41,20 @@ app.get('/politician/:short_link/politician_news/*', function (request, response
   });
 });
 
+app.get('/politician/:id/politician_news', function (request, response) {
+  console.log('Elections page visited!');
+  const filePath = path.resolve(__dirname, './build', 'index.html');
+  fs.readFile(filePath, 'utf8', function (err, data) {
+    if (err) {
+      return console.log(err);
+    }
+    data = data.replace(/\$OG_TITLE/g, 'Политик');
+    data = data.replace(/\$OG_DESCRIPTION/g, 'Узнайте новости политика');
+    result = data.replace(/\$OG_IMAGE/g, 'https://dev-backoffice.digitaldemocracy.ru/storage/images/logo.png');
+    response.send(result);
+  });
+});
+
 app.get('/elections/*', function (request, response) {
   console.log('Elections page visited!');
   const filePath = path.resolve(__dirname, './build', 'index.html');
