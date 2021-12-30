@@ -50,7 +50,7 @@ app.get('/elections/*', function (request, response) {
     }
     data = data.replace(/\$OG_TITLE/g, 'Выборы');
     data = data.replace(/\$OG_DESCRIPTION/g, 'Узнайте все о выборах');
-    result = data.replace(/\$OG_IMAGE/g, './bgImage.png');
+    result = data.replace(/\$OG_IMAGE/g, 'https://dev-backoffice.digitaldemocracy.ru/storage/images/logo.png');
     response.send(result);
   });
 });
@@ -64,7 +64,7 @@ app.get('/author/*', function (request, response) {
     }
     data = data.replace(/\$OG_TITLE/g, 'Авторы новостей');
     data = data.replace(/\$OG_DESCRIPTION/g, 'Узнать новости автора');
-    result = data.replace(/\$OG_IMAGE/g, './bgImage.png');
+    result = data.replace(/\$OG_IMAGE/g, 'https://dev-backoffice.digitaldemocracy.ru/storage/images/logo.png');
     response.send(result);
   });
 });
@@ -78,7 +78,7 @@ app.get('/mass-media/*', function (request, response) {
     }
     data = data.replace(/\$OG_TITLE/g, 'Новости');
     data = data.replace(/\$OG_DESCRIPTION/g, 'Узнайте все о новостях');
-    result = data.replace(/\$OG_IMAGE/g, './bgImage.png');
+    result = data.replace(/\$OG_IMAGE/g, 'https://dev-backoffice.digitaldemocracy.ru/storage/images/logo.png');
     response.send(result);
   });
 });
@@ -92,7 +92,7 @@ app.get('/party/:id', function (request, response) {
     }
     data = data.replace(/\$OG_TITLE/g, 'Партии');
     data = data.replace(/\$OG_DESCRIPTION/g, 'Узнайте все о партиях');
-    result = data.replace(/\$OG_IMAGE/g, './bgImage.png');
+    result = data.replace(/\$OG_IMAGE/g, 'https://dev-backoffice.digitaldemocracy.ru/storage/images/logo.png');
     response.send(result);
   });
 });
@@ -106,7 +106,7 @@ app.get('/singleBills/*', function (request, response) {
     }
     data = data.replace(/\$OG_TITLE/g, 'Законопроекты');
     data = data.replace(/\$OG_DESCRIPTION/g, 'Узнайте все о законопроектах');
-    result = data.replace(/\$OG_IMAGE/g, './bgImage.png');
+    result = data.replace(/\$OG_IMAGE/g, 'https://dev-backoffice.digitaldemocracy.ru/storage/images/logo.png');
     response.send(result);
   });
 });
@@ -120,7 +120,7 @@ app.get('/singleNews/*', function (request, response) {
     }
     data = data.replace(/\$OG_TITLE/g, 'Новости');
     data = data.replace(/\$OG_DESCRIPTION/g, 'Узнайте все важные новости');
-    result = data.replace(/\$OG_IMAGE/g, './bgImage.png');
+    result = data.replace(/\$OG_IMAGE/g, 'https://dev-backoffice.digitaldemocracy.ru/storage/images/logo.png');
     response.send(result);
   });
 });
