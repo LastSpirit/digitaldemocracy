@@ -3,6 +3,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 const path = require('path');
 const fs = require('fs');
+const axios = require('axios');
 
 app.get('/', function (request, response) {
   console.log('Home page visited!');
@@ -22,13 +23,15 @@ app.get('/', function (request, response) {
   });
 });
 
-app.get('/politician/:short_link/politician_news/*', function (request, response) {
-  const { photo, name, position } = request.query;
+app.get('/politician/:short_link/*', async function (request, response) {
+  const fetchPolitician = await axios.get(`https://backoffice.digitaldemocracy.ru/api/getPolitician/${request.params.short_link}`);
+  const { photo, name, position } = fetchPolitician.data.data;
   if (!photo && !name && !position) {
     console.log('error');
     return;
   }
-  console.log(photo, name, position);
+  // console.log(photo, name, position);
+
   const filePath = path.resolve(__dirname, './build', 'index.html');
   fs.readFile(filePath, 'utf8', function (err, data) {
     if (err) {

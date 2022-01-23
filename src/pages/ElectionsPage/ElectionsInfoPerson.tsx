@@ -118,10 +118,7 @@ const ElectionsInfoPerson: FC<IProps> = ({
                 <div className={styles.fioBlock}>
                   <div className={styles.fio}>
                     <Link
-                      to={`/politician/${politician?.short_link}/politician_news/?photo=${
-                        politician?.photo ||
-                        'https://ipbmafia.ru/uploads/monthly_2018_07/895242-200.png.e10304d04e80f56d3ebaa863b4ccdd41.png'
-                      }&name=${politician?.name || 'name'}&position=${politician?.position || 'политик'}`}
+                      to={`/politician/${politician?.short_link}`}
                     >
                       <p>{politician?.name}</p>
                     </Link>
@@ -252,10 +249,7 @@ const ElectionsInfoPerson: FC<IProps> = ({
                 </div>
                 <div className={styles.mobRightBlock}>
                   <Link
-                    to={`/politician/${politician?.short_link}/politician_news/?photo=${
-                      politician?.photo ||
-                      'https://ipbmafia.ru/uploads/monthly_2018_07/895242-200.png.e10304d04e80f56d3ebaa863b4ccdd41.png'
-                    }/${politician?.name || 'name'}/${politician?.position || 'политик'}`}
+                    to={`/politician/${politician?.short_link}`}
                   >
                     <p>{politician?.name}</p>
                   </Link>
