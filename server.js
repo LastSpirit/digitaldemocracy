@@ -24,24 +24,30 @@ app.get('/', function (request, response) {
 });
 
 app.get('/politician/:short_link/*', async function (request, response) {
-  const fetchPolitician = await axios.get(`https://backoffice.digitaldemocracy.ru/api/getPolitician/${request.params.short_link}`);
-  const { photo, name, position } = fetchPolitician.data.data;
-  if (!photo && !name && !position) {
-    console.log('error');
-    return;
-  }
-  // console.log(photo, name, position);
+  try {
+    const fetchPolitician = await axios.get(`https://backoffice.digitaldemocracy.ru/api/getPolitician/${request.params.short_link}`);
+    const { photo, name, position } = fetchPolitician.data.data;
 
-  const filePath = path.resolve(__dirname, './build', 'index.html');
-  fs.readFile(filePath, 'utf8', function (err, data) {
-    if (err) {
-      return console.log(err);
+    // console.log(photo, name, position);
+
+    if (!photo && !name && !position) {
+      console.log('error');
+      return;
     }
-    data = data.replace(/\$OG_TITLE/g, name);
-    data = data.replace(/\$OG_DESCRIPTION/g, position);
-    result = data.replace(/\$OG_IMAGE/g, photo);
-    response.send(result);
-  });
+
+    const filePath = path.resolve(__dirname, './build', 'index.html');
+    fs.readFile(filePath, 'utf8', function (err, data) {
+      if (err) {
+        return console.log(err);
+      }
+      data = data.replace(/\$OG_TITLE/g, name);
+      data = data.replace(/\$OG_DESCRIPTION/g, position);
+      result = data.replace(/\$OG_IMAGE/g, photo);
+      response.send(result);
+    });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.get('/politician/:id/politician_news', function (request, response) {
