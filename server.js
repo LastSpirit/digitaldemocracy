@@ -25,7 +25,7 @@ app.get('/', function (request, response) {
 
 app.get('/politician/:short_link/*', async function (request, response) {
   try {
-    const fetchPolitician = await axios.get(`https://dev-backoffice.digitaldemocracy.ru/api/getPolitician/${request.params.short_link}`);
+    const fetchPolitician = await axios.get(`${process.env.REACT_APP_BACKEND_API}getPolitician/${request.params.short_link}`);
     const { photo, name, position } = fetchPolitician.data.data;
 
     // console.log(photo, name, position);

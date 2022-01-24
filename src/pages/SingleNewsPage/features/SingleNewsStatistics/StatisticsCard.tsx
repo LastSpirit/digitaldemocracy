@@ -123,10 +123,7 @@ const StatisticsCard: FC<StatisticsCardPropsI> = ({
             <Link
               to={
                 isPolitician
-                  ? `/politician/${short_link}/politician_news/?photo=${
-                      photo ||
-                      'https://ipbmafia.ru/uploads/monthly_2018_07/895242-200.png.e10304d04e80f56d3ebaa863b4ccdd41.png'
-                    }&name=${name || 'name'}&position=${position || 'политик'}`
+                  ? `/politician/${short_link}/politician_news`
                   : `${field}/${short_link}`
               }
               className={styles.title}
