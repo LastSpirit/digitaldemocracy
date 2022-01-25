@@ -4,6 +4,23 @@ const port = process.env.PORT || 5000;
 const path = require('path');
 const fs = require('fs');
 const axios = require('axios');
+const dotenv = require('dotenv');
+
+function getBackendApi(host) {
+  host = 'dev.localhost:5000';
+  const dev = host.includes('dev.');
+  const stage = host.includes('stage.')
+
+  if (dev) {
+    dotenv.config({ path: '.env.development' });
+  } else if (stage) {
+    dotenv.config({ path: '.env.stage' });
+  } else {
+    dotenv.config({ path: '.env.production' });
+  }
+
+  return process.env.REACT_APP_BACKEND_API;
+}
 
 app.get('/', function (request, response) {
   console.log('Home page visited!');
@@ -25,7 +42,7 @@ app.get('/', function (request, response) {
 
 app.get('/politician/:short_link/*', async function (request, response) {
   try {
-    const fetchPolitician = await axios.get(`${process.env.REACT_APP_BACKEND_API}getPolitician/${request.params.short_link}`);
+    const fetchPolitician = await axios.get(`${getBackendApi(request.headers.host)}getPolitician/${request.params.short_link}`);
     const { photo, name, position } = fetchPolitician.data.data;
 
     // console.log(photo, name, position);
