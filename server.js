@@ -135,16 +135,18 @@ app.get('/singleBills/*', function (request, response) {
   });
 });
 
-app.get('/singleNews/*', function (request, response) {
-  console.log('Party page visited!');
+app.get('/singleNews/:link', async function (request, response) {
+  const fetchPolitician = await axios.get(`${process.env.REACT_APP_BACKEND_API}getNews/${request.params.link}`);
+  const { title, image } = fetchPolitician.data.data.currentNews;
+
   const filePath = path.resolve(__dirname, './build', 'index.html');
   fs.readFile(filePath, 'utf8', function (err, data) {
     if (err) {
       return console.log(err);
     }
-    data = data.replace(/\$OG_TITLE/g, 'Новости');
+    data = data.replace(/\$OG_TITLE/g, title);
     data = data.replace(/\$OG_DESCRIPTION/g, 'Узнайте все важные новости');
-    result = data.replace(/\$OG_IMAGE/g, 'https://dev-backoffice.digitaldemocracy.ru/storage/images/logo.png');
+    result = data.replace(/\$OG_IMAGE/g, image[0]);
     response.send(result);
   });
 });
