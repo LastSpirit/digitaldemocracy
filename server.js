@@ -93,16 +93,18 @@ app.get('/author/*', function (request, response) {
   });
 });
 
-app.get('/mass-media/*', function (request, response) {
-  console.log('Mass-media page visited!');
+app.get('/mass-media/:link/*', async function (request, response) {
+  const fetchMassMedia = await axios.get(`${process.env.REACT_APP_BACKEND_API}media/${request.params.link}`);
+  const { name, photo, description } = fetchMassMedia.data.data;
+
   const filePath = path.resolve(__dirname, './build', 'index.html');
   fs.readFile(filePath, 'utf8', function (err, data) {
     if (err) {
       return console.log(err);
     }
-    data = data.replace(/\$OG_TITLE/g, 'Новости');
-    data = data.replace(/\$OG_DESCRIPTION/g, 'Узнайте все о новостях');
-    result = data.replace(/\$OG_IMAGE/g, 'https://dev-backoffice.digitaldemocracy.ru/storage/images/logo.png');
+    data = data.replace(/\$OG_TITLE/g, name);
+    data = data.replace(/\$OG_DESCRIPTION/g, description);
+    result = data.replace(/\$OG_IMAGE/g, photo);
     response.send(result);
   });
 });
@@ -136,8 +138,8 @@ app.get('/singleBills/*', function (request, response) {
 });
 
 app.get('/singleNews/:link', async function (request, response) {
-  const fetchPolitician = await axios.get(`${process.env.REACT_APP_BACKEND_API}getNews/${request.params.link}`);
-  const { title, image } = fetchPolitician.data.data.currentNews;
+  const fetchNews = await axios.get(`${process.env.REACT_APP_BACKEND_API}getNews/${request.params.link}`);
+  const { title, image } = fetchNews.data.data.currentNews;
 
   const filePath = path.resolve(__dirname, './build', 'index.html');
   fs.readFile(filePath, 'utf8', function (err, data) {
