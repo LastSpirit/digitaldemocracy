@@ -9,7 +9,6 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import { CurrentNewsI } from 'src/slices/SingleNewsSlice';
 import FacebookShare from 'src/components/FacebookShare/FacebookShare';
 import styles from './SingleNewsHero.module.scss';
-import { linkShareFacebook } from '../../../../config';
 
 interface HeroPropsI {
   data?: CurrentNewsI;
@@ -19,6 +18,7 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
   const { t } = useTranslation();
   const [toggleIframe, setToggleIframe] = useState(data.is_display);
   const { isMobile } = useWindowSize();
+  const linkShareFacebook = process.env.REACT_APP_HOST + window.location.pathname;
   const handleToggleIframe = () => {
     setToggleIframe(!toggleIframe);
   };

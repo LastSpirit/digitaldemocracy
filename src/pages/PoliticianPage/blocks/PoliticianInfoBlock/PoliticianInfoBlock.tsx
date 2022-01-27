@@ -12,7 +12,6 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import { avatarColorChanger } from 'src/utils/avatarColorChanger';
 import { LineChartVoters } from './LineChartVoters';
-import { linkShareFacebook } from '../../../../config';
 
 import InputTextField from '../../../../components/widgets/inputs/InputTextField';
 import styles from '../../PoliticianPage.module.scss';
@@ -39,6 +38,7 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { isMobile } = useWindowSize();
   const { status, change } = useChangeSubscribe();
+  const linkShareFacebook = process.env.REACT_APP_HOST + window.location.pathname;
 
   const { push } = useHistory();
   const {

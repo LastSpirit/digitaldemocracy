@@ -8,11 +8,11 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import { SingleBillsI } from 'src/slices/SingleBillsSlice';
 import FacebookShare from 'src/components/FacebookShare/FacebookShare';
 import styles from './SingleBillsHero.module.scss';
-import { linkShareFacebook } from '../../../../config';
 
 const SingleBillsHero = ({ data }) => {
   const { t } = useTranslation();
   const [toggleIframe, setToggleIframe] = useState(true);
+  const linkShareFacebook = process.env.REACT_APP_HOST + window.location.pathname;
   const handleToggleIframe = () => {
     setToggleIframe(!toggleIframe);
   };

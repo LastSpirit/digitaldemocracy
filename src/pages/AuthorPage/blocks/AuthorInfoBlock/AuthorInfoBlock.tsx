@@ -10,7 +10,6 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import { useHistory } from 'react-router-dom';
 import { RootState } from 'src/store';
 import { avatarColorChanger } from 'src/utils/avatarColorChanger';
-import { linkShareFacebook } from '../../../../config';
 
 import styles from '../../AuthorPage.module.scss';
 import { authorSelectors } from '../../../../slices/authorSlice';
@@ -34,6 +33,7 @@ const AuthorInfoBlock: FC = () => {
   const { isMobile } = useWindowSize();
   const { setAuthorSubscribe } = useChangeSubscribe();
   const { goBack, length, push } = useHistory() as any;
+  const linkShareFacebook = process.env.REACT_APP_HOST + window.location.pathname;
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);

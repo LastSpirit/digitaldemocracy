@@ -22,7 +22,6 @@ import { PercentsLinearGraphic } from './PercentsLinearGraphic';
 import FacebookShare from '../../../components/FacebookShare/FacebookShare';
 import { useSearchParams } from '../../../hooks/useSearchParams';
 import { ModalParams } from '../../../types/routing';
-import { linkShareFacebook } from '../../../config';
 
 const PartyInfoBlock: FC = () => {
   const { t, i18n } = useTranslation();
@@ -30,6 +29,7 @@ const PartyInfoBlock: FC = () => {
   const isAuthenticated = useSelector(userSelectors.getIsAuthenticated());
   const { isMobile } = useWindowSize();
   const { goBack, length, push } = useHistory() as any;
+  const linkShareFacebook = process.env.REACT_APP_HOST + window.location.pathname;
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);

@@ -10,7 +10,6 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import { useHistory } from 'react-router-dom';
 import { RootState } from 'src/store';
 import { avatarColorChanger } from 'src/utils/avatarColorChanger';
-import { linkShareFacebook } from '../../../../config';
 
 import styles from '../../MassMediaPage.module.scss';
 import { massmediaSelectors } from '../../../../slices/massMediaSlice';
@@ -34,6 +33,7 @@ const MassMediaInfoBlock: FC = () => {
   const { isMobile } = useWindowSize();
   const { setMassMediaSubscribe } = useChangeSubscribe();
   const { goBack, length, push } = useHistory() as any;
+  const linkShareFacebook = process.env.REACT_APP_HOST + window.location.pathname;
   const {
     [ModalParams.Auth]: { setValue: setAuthValue },
   } = useSearchParams(ModalParams.Auth);
