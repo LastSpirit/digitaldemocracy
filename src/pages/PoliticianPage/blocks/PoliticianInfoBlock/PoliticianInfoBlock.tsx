@@ -12,6 +12,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import { avatarColorChanger } from 'src/utils/avatarColorChanger';
 import { LineChartVoters } from './LineChartVoters';
+import { linkShareFacebook } from '../../../../config';
 
 import InputTextField from '../../../../components/widgets/inputs/InputTextField';
 import styles from '../../PoliticianPage.module.scss';
@@ -49,7 +50,7 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
       setAuthValue('/login');
     }
   };
-  console.log(data, 'data');
+
   return (
     <div className={isMobile ? styles['profileInfoContainer-mobile'] : styles.profileInfoContainer}>
       {!isMobile ? (
@@ -157,11 +158,9 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
                       </Tooltip>
                     </Button>
 
-                    {data?.link && (
-                      <FacebookShare url={data?.link || 'facebook.com'}>
-                        <FacebookIcon fontSize={isMobile ? 'small' : 'large'} className={styles.facebook} />
-                      </FacebookShare>
-                    )}
+                    <FacebookShare url={linkShareFacebook}>
+                      <FacebookIcon fontSize={isMobile ? 'small' : 'large'} className={styles.facebook} />
+                    </FacebookShare>
                   </div>
                 </div>
                 <LineChartVoters />
@@ -269,11 +268,9 @@ const PoliticianInfoBlock: FC<IProps> = ({ handleClickOpen }) => {
               </Tooltip>
             </Button>
 
-            {data?.link && (
-              <FacebookShare url={data?.link || 'facebook.com'}>
-                <FacebookIcon fontSize={isMobile ? 'small' : 'large'} className={styles.facebook} />
-              </FacebookShare>
-            )}
+            <FacebookShare url={linkShareFacebook}>
+              <FacebookIcon fontSize={isMobile ? 'small' : 'large'} className={styles.facebook} />
+            </FacebookShare>
           </div>
         </div>
       )}

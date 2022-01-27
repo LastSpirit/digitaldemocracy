@@ -1,5 +1,7 @@
 export const isDev = process.env.NODE_ENV === 'development';
 
+export const linkShareFacebook = process.env.REACT_APP_HOST + window.location.pathname;
+
 export const apiSetting = {
   url_api: process.env.REACT_APP_BACKEND_API,
   // url_api: 'https://dev-backoffice.digitaldemocracy.ru/api/',

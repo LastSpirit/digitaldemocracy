@@ -9,6 +9,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import { CurrentNewsI } from 'src/slices/SingleNewsSlice';
 import FacebookShare from 'src/components/FacebookShare/FacebookShare';
 import styles from './SingleNewsHero.module.scss';
+import { linkShareFacebook } from '../../../../config';
 
 interface HeroPropsI {
   data?: CurrentNewsI;
@@ -68,8 +69,8 @@ const SingleNewsHero: FC<HeroPropsI> = ({ data }) => {
                 ) : (
                   getLink()
                 )}
-                <FacebookShare url={data?.source_link}>
-                  <FacebookIcon fontSize="large" className={styles.facebook} />
+                <FacebookShare url={linkShareFacebook}>
+                  <FacebookIcon fontSize={'large'} className={styles.facebook} />
                 </FacebookShare>
               </Box>
               <Box className={styles.hashtags}>

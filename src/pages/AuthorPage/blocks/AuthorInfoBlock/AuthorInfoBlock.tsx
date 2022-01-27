@@ -10,6 +10,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import { useHistory } from 'react-router-dom';
 import { RootState } from 'src/store';
 import { avatarColorChanger } from 'src/utils/avatarColorChanger';
+import { linkShareFacebook } from '../../../../config';
 
 import styles from '../../AuthorPage.module.scss';
 import { authorSelectors } from '../../../../slices/authorSlice';
@@ -102,11 +103,9 @@ const AuthorInfoBlock: FC = () => {
             <div className={styles.bottom}>
               <AuthorCards data={data} />
               <div className={styles.bottomRight}>
-                {data?.link && (
-                  <FacebookShare url={data?.link || 'facebook.com'}>
-                    <FacebookIcon fontSize={isMobile ? 'small' : 'large'} className={styles.facebook} />
-                  </FacebookShare>
-                )}
+                <FacebookShare url={linkShareFacebook}>
+                  <FacebookIcon fontSize={isMobile ? 'small' : 'large'} className={styles.facebook} />
+                </FacebookShare>
               </div>
             </div>
           </div>
@@ -151,11 +150,9 @@ const AuthorInfoBlock: FC = () => {
             </Tooltip>
           </Button>
           <div className={styles.MobBottom}>
-            {data?.link && (
-              <FacebookShare url={data?.link || 'facebook.com'}>
-                <FacebookIcon fontSize={isMobile ? 'small' : 'large'} className={styles.facebook} />
-              </FacebookShare>
-            )}
+            <FacebookShare url={linkShareFacebook}>
+              <FacebookIcon fontSize={isMobile ? 'small' : 'large'} className={styles.facebook} />
+            </FacebookShare>
           </div>
         </div>
       )}

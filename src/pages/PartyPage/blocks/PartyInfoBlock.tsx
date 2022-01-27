@@ -22,6 +22,7 @@ import { PercentsLinearGraphic } from './PercentsLinearGraphic';
 import FacebookShare from '../../../components/FacebookShare/FacebookShare';
 import { useSearchParams } from '../../../hooks/useSearchParams';
 import { ModalParams } from '../../../types/routing';
+import { linkShareFacebook } from '../../../config';
 
 const PartyInfoBlock: FC = () => {
   const { t, i18n } = useTranslation();
@@ -92,11 +93,9 @@ const PartyInfoBlock: FC = () => {
                     </IconButton>
                   </a>
                 )}
-                {data?.link && (
-                  <FacebookShare url={data?.link || 'facebook.com'}>
-                    <FacebookIcon fontSize={isMobile ? 'small' : 'large'} className={styles.facebook} />
-                  </FacebookShare>
-                )}
+                <FacebookShare url={linkShareFacebook}>
+                  <FacebookIcon fontSize={isMobile ? 'small' : 'large'} className={styles.facebook} />
+                </FacebookShare>
               </div>
             </div>
           </div>
@@ -147,11 +146,9 @@ const PartyInfoBlock: FC = () => {
                 </IconButton>
               </a>
             )}
-            {data?.link && (
-              <FacebookShare url={data?.link || 'facebook.com'}>
-                <FacebookIcon fontSize={isMobile ? 'small' : 'large'} className={styles.facebook} />
-              </FacebookShare>
-            )}
+            <FacebookShare url={linkShareFacebook}>
+              <FacebookIcon fontSize={isMobile ? 'small' : 'large'} className={styles.facebook} />
+            </FacebookShare>
           </div>
         </div>
       )}

@@ -8,6 +8,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import { SingleBillsI } from 'src/slices/SingleBillsSlice';
 import FacebookShare from 'src/components/FacebookShare/FacebookShare';
 import styles from './SingleBillsHero.module.scss';
+import { linkShareFacebook } from '../../../../config';
 
 const SingleBillsHero = ({ data }) => {
   const { t } = useTranslation();
@@ -27,8 +28,8 @@ const SingleBillsHero = ({ data }) => {
                 <IconButton className={styles.arrowButton} onClick={handleToggleIframe}>
                   <CallMadeIcon className={styles.arrowLink} />
                 </IconButton>
-                <FacebookShare url={data?.source_link}>
-                  <FacebookIcon fontSize="large" className={styles.facebook} />
+                <FacebookShare url={linkShareFacebook}>
+                  <FacebookIcon fontSize={'large'} className={styles.facebook} />
                 </FacebookShare>
               </Box>
               {/* <Box className={styles.hashtags}>
