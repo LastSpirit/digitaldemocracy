@@ -6,6 +6,8 @@ const fs = require('fs');
 const axios = require('axios');
 require('dotenv').config();
 
+app.use(require('prerender-node').set('prerenderToken', 'Tnw2GnvnO4RqlcGNwQ6L'));
+
 app.get('/', function (request, response) {
   const filePath = path.resolve(__dirname, './build', 'index.html');
 
