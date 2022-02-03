@@ -96,6 +96,18 @@ export const Highchart = memo(() => {
     legend: {
       enabled: false,
     },
+    plotOptions: {
+      line: {
+        marker: {
+          enabled: false
+        }
+      },
+      area: {
+        marker: {
+          enabled: false
+        }
+      }
+    },
     series: [
       {
         name: '%',
