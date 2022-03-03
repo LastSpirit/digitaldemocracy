@@ -6,7 +6,7 @@ const fs = require('fs');
 const axios = require('axios');
 require('dotenv').config();
 
-app.use(require('prerender-node').set('prerenderToken', 'Tnw2GnvnO4RqlcGNwQ6L'));
+// app.use(require('prerender-node').set('prerenderToken', 'Tnw2GnvnO4RqlcGNwQ6L'));
 
 app.get('/', function (request, response) {
   const filePath = path.resolve(__dirname, './build', 'index.html');
@@ -17,7 +17,10 @@ app.get('/', function (request, response) {
     }
 
     data = data.replace(/\$OG_TITLE/g, 'Digital Democracy');
-    data = data.replace(/\$OG_DESCRIPTION/g, 'Дорогой Друг! Развитие демократии невозможно без системы сдержек и противовесов, не позволяющей всей полноте власти концентрироваться в одних руках и равномерно распределенной между государственными ветвями власти. С развитием средств связи к этой системе добавились СМИ, которые могли влиять на общественное мнение, но без обратной связи от населения. Интернет привнес интерактив в диалог между властью и народом. Осталось лишь формализовать и структурировать эти отношения и общество будет готово вступить в следующий этап развития политического строя - "Цифровую демократию". Добро пожаловать!');
+    data = data.replace(
+      /\$OG_DESCRIPTION/g,
+      'Дорогой Друг! Развитие демократии невозможно без системы сдержек и противовесов, не позволяющей всей полноте власти концентрироваться в одних руках и равномерно распределенной между государственными ветвями власти. С развитием средств связи к этой системе добавились СМИ, которые могли влиять на общественное мнение, но без обратной связи от населения. Интернет привнес интерактив в диалог между властью и народом. Осталось лишь формализовать и структурировать эти отношения и общество будет готово вступить в следующий этап развития политического строя - "Цифровую демократию". Добро пожаловать!'
+    );
     result = data.replace(/\$OG_IMAGE/g, 'https://i.imgur.com/V7irMl8.png');
     response.send(result);
   });
@@ -25,7 +28,9 @@ app.get('/', function (request, response) {
 
 app.get('/politician/:short_link/*', async function (request, response) {
   try {
-    const fetchPolitician = await axios.get(`${process.env.REACT_APP_BACKEND_API}getPolitician/${request.params.short_link}`);
+    const fetchPolitician = await axios.get(
+      `${process.env.REACT_APP_BACKEND_API}getPolitician/${request.params.short_link}`
+    );
     const { photo, name, position } = fetchPolitician.data.data;
 
     if (!photo && !name && !position) {
